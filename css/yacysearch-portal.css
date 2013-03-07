@@ -1,0 +1,61 @@
+/*
+ * yacysearch-portal.css
+ * Style for the searchpage_template_yaml4 web-page template
+ * First published 6.3.2013 at https://gitorious.org/yacy/searchpage_template_yaml4
+ * (C) by Michael Peter Christen, licensed under a
+ * Creative Commons Attribution 2.0 Generic License (CC-BY 2.0) 
+ * If you enhance this, please clone the repository and give us a pull request!
+ */
+
+
+.yacyblue {
+    color: #2080C0;
+}
+
+.yacylightblue {
+    color: #E9F3F9;
+}
+
+.yacyorange {
+    color: #EA672E;
+}
+
+h1, h2, h3, h4 {
+    color: #2080C0;
+}
+
+a {
+    color: #EA672E;
+}
+.searchresults {
+    color: #2080C0;
+}
+
+header {
+    height: 6em;
+}
+
+h1 {
+    margin: -0.14em 0 0;
+    font-size: 320%;
+}
+
+.ym-wrapper {
+    max-width: 84em;
+}
+.ym-wbox {
+    padding: 12px;
+}
+
+.ym-hlist ul li a, .ym-hlist ul li strong {
+    text-shadow: none;
+    padding: 0 0.21em;
+}
+
+.ym-hlist  {
+    font-family: "Droid Sans",Arial,Helvetica,sans-serif;
+}
+
+.ym-hlist ul {
+    padding-right: 0.5em;
+}
