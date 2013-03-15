@@ -170,7 +170,7 @@ function resultList() {
   if (searchresult.length > 0) {
     document.getElementById("searchnavigation").innerHTML = "<p>found " + searchresult.length + " documents, preparing table...</p>";
     html += "<table class=\"narrow\">";
-    html += "<thead><tr><th>Count</td><th>Protocol</td><th>Host</td><th>Path</td><th>URL</td><th>Size</td><th>Date</td></tr></thead><tbody>";
+    html += "<thead><tr><th>Host</td><th>Path</td><th>File</td><th>Size</td><th>Date</td></tr></thead><tbody>";
     for (var i = 0; i < searchresult.length; i++) { html += resultLine("row", searchresult[i], i + 1); }
     html += "</tbody></table>";
   }
@@ -190,6 +190,7 @@ function resultLine(type, item, linenumber) {
   if (item.link == null) return "";
   protocol = "";
   host = "";
+  // extract the path
   path = item.link;
   file = "";
   p = item.link.indexOf("//");
@@ -204,7 +205,6 @@ function resultLine(type, item, linenumber) {
       path = "/";
     }
   }
-  title = item.title;
   q = path.lastIndexOf("/");
   if (q > 0) {
     file = path.substring(q + 1);
@@ -213,16 +213,19 @@ function resultLine(type, item, linenumber) {
     file = path;
     path = "/";
   }
+  title = item.title;
   path = unescape(path);
+  var origpath = path; // save this for later in the link, this may be shortened now
   if (path.length >= 40) path = path.substring(0, 18) + "..." + path.substring(path.length - 19);
   if (title == "") title = path;
   if (title.length >= 60) title = title.substring(0, 28) + "..." + title.substring(title.length - 29);
   pd = item.pubDate;
   if (pd == undefined) pd = "";
+  var comma = pd.indexOf(",");
+  if (comma > 0) pd = pd.substring(comma + 2);
   if (pd.substring(pd.length - 6) == " +0000") pd = pd.substring(0, pd.length - 6);
-  if (pd.substring(pd.length - 9) == " 00:00:00") pd = pd.substring(0, pd.length - 9);
-  if (pd.substring(pd.length - 5) == " 2010") pd = pd.substring(0, pd.length - 5);
-    
+  pd = pd.replace(" ","&nbsp;").replace(" ","&nbsp;").replace(" ","&nbsp;");
+
   // update navigation
   for (var key in filetypes) {
     if (query.indexOf("filetype:" + key) >= 0) delete filetypes[key];
@@ -235,12 +238,11 @@ function resultLine(type, item, linenumber) {
   var html = "";
   if (type == "row") {
     html += "<tr>";
-    html += "<td>" + linenumber + "</td>"; // Count
-    html += "<td>" + protocol + "</td>"; // Protocol
-    html += "<td><a class=\"searchresults\" href=\"" + protocol + "://" + host + "/" + "\">" + host + "</a></td>"; // Host
-    html += "<td><a class=\"searchresults\" href=\"" + protocol + "://" + host + path + "\">" + path + "</a></td>"; // Path 
-    html += "<td><a class=\"searchresults\" href=\"" + item.link + "\">" + item.link + "</a></td>"; // URL
-    if (item.sizename == "-1 bytes") html += "<td></td>"; else html += "<td align=\"right\">" + item.sizename + "</td>"; // Size
+    html += "<td><a class=\"searchresults\" href=\"" + protocol + "://" + host + "/" + "\">" + protocol + "://" + host + "</a></td>"; // Host
+    html += "<td><a class=\"searchresults\" href=\"" + protocol + "://" + host + origpath + "\">" + path + "</a></td>"; // Path
+    if (file.length == 0 || file == "/") file = "[index-file]";
+    html += "<td><a class=\"searchresults\" href=\"" + item.link + "\">" + file + "</a></td>"; // URL
+    if (item.sizename == "-1 byte") html += "<td></td>"; else html += "<td align=\"right\">" + item.sizename + "</td>"; // Size
     html += "<td align=\"right\">" + pd + "</td>"; // Date
     html += "</tr>";
   }
