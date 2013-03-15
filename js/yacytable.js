@@ -76,11 +76,13 @@ function preparepage(str) {
   }
 
   script = "";
-  if (query.length >= 13 && query.substring(query.length - 13, query.length - 3) == " filetype:") {
-    modifier = query.substring(query.length - 12);
+  for (var extl = 2; extl < 6; extl++) {
+    if (query.length >= 13 && query.substring(query.length - 10 - extl, query.length - extl) == " filetype:") {
+      modifier = query.substring(query.length - 9 - extl);
+      modifiertype = modifier.substring(modifier.length - extl);
+      break;
+    }
   }
-  if (modifier != "") modifiertype = modifier.substring(modifier.length - 3)
-
 
   if (modifiertype == "png" || modifiertype == "gif" || modifiertype == "jpg" || modifiertype == "PNG" || modifiertype == "GIF" || modifiertype == "JPG") {
     var tt = resultImages();
