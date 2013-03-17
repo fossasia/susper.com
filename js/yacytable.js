@@ -120,7 +120,7 @@ function resultNavigation() {
       if (maximumRecords != 100 && totalResults >= 100) html += "<dt><input type=\"checkbox\" onClick=\"window.location.href='yacytable.html?query=" + query + "&startRecord=" + startRecord + "&maximumRecords=" + 100 + "'\"></dt><dd>100 results</dd>";
       if (maximumRecords == 1000) html += "<dt><input type=\"checkbox\" checked=\"checked\"></dt><dd>1000 results</dd>";
       if (maximumRecords != 1000 && totalResults >= 1000) html += "<dt><input type=\"checkbox\" onClick=\"window.location.href='yacytable.html?query=" + query + "&startRecord=" + startRecord + "&maximumRecords=" + 1000 + "'\"></dt><dd>1000 results</dd>";
-      if (totalResults <= 10000 && maximumRecords < totalResults) html += "<dt><input type=\"checkbox\" onClick=\"window.location.href='yacytable.html?query=" + query + "&startRecord=" + startRecord + "&maximumRecords=" + Math.max(100,totalResults) + "'\"></dt><dd>all " + Math.max(100,totalResults) + " results</dd>";
+      if (totalResults <= 10000 && maximumRecords < totalResults && totalResults > 100) html += "<dt><input type=\"checkbox\" onClick=\"window.location.href='yacytable.html?query=" + query + "&startRecord=" + startRecord + "&maximumRecords=" + totalResults + "'\"></dt><dd>all " + totalResults + " results</dd>";
       html += "</dl></nav></div>";
   } else {
       if (query == "") {
