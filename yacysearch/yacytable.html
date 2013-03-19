@@ -10,6 +10,10 @@
 	<meta name="copyright" content="Michael Peter Christen (template author), usage and modification granted under (CC-BY 2.0)"/>
 	<title>YaCy - Search Portal</title>
 	<script src="navigation.js" type="text/javascript"></script>
+	<script src="../js/lib/json2.js"></script>
+	<script src="../js/lib/jquery.js"></script>
+	<script src="../js/lib/underscore-min.js"></script>
+	<script src="../js/lib/backbone-min.js"></script>
 	<script src="../js/server.js" type="text/javascript"></script>
 	<script src="../js/yacytable.js" type="text/javascript"></script>
 
@@ -55,17 +59,17 @@
 	  		</div>
 	  		<div class="ym-g75 ym-gr">
 				<div class="ym-gbox-right">
-					<form id="searchform" onsubmit="document.getElementById('searchnavigation').innerHTML = '<div>loading from local index...</div>';xmlhttpPost();return false;">
+					<form id="searchform">
 					<fieldset class="search-fieldset">
 						<input type="hidden" name="maximumRecords" id="maximumRecords" value="100" />
 						<input type="hidden" name="startRecord" id="startRecord" value="0" />
 						<input type="hidden" name="contentdom" id="contentdom" value="all" />
 						<div class="ym-grid">
 							<div class="ym-g80 ym-gl"><div class="ym-gbox">
-								<input id="query" class="search-textfield" placeholder="search..." name="query" type="text" value="" maxlength="130" onFocus="this.select()" />
+								<input id="query" class="search-textfield" placeholder="search..." name="query" type="text" value="" maxlength="130" autofocus="autofocus" onFocus="this.select()" />
   							</div></div>
 							<div class="ym-g20 ym-gr"><div class="ym-gbox">
-								<input id="Enter" class="search-button" type="submit" name="Enter" value="Find!" onsubmit="document.getElementById('searchnavigation').innerHTML = '<div>loading from local index...</div>';xmlhttpPost();"/>
+								<input id="Enter" class="search-button" type="submit" name="Enter" value="Find!" onsubmit="document.getElementById('searchnavigation').innerHTML = 'window.location.href='yacytable.html?query=' + document.getElementById('query') + '&amp;startRecord=0&amp;maximumRecords=100';"/>
 							</div></div>
 						</div>
 					</fieldset>

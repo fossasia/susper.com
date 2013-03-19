@@ -34,20 +34,13 @@ function search(search, count, offset) {
     return;
   }
   var self = this;
-  if (window.XMLHttpRequest) { // Mozilla/Safari
-    self.xmlHttpReq = new XMLHttpRequest(); 
-  } else if (window.ActiveXObject) { // IE
-    self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  //self.xmlHttpReq.open('GET', "yacysearch.json?verify=false&resource=local&nav=all&contentdom=all&maximumRecords=" + maximumRecords + "&startRecord=" + startRecord + "&query=" + query, true);
-  self.xmlHttpReq.open('GET', "http://" + server + "/solr/select?hl=false&wt=yjson&facet=true&facet.mincount=1&facet.field=url_file_ext_s&start=" + startRecord + "&rows=" + maximumRecords + "&query=" + query, true);
-  self.xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  self.xmlHttpReq.onreadystatechange = function() {
-    if (self.xmlHttpReq.readyState == 4) {
-      preparepage(self.xmlHttpReq.responseText);
+
+  var search = new SearchModel({query:search,start:offset,rows:count}); 
+  search.fetch({
+    success:function(search) {
+        preparepage(search.attributes);
     }
-  }
-  self.xmlHttpReq.send(null);
+  });
 }
 
 function navget(list, name) {
@@ -56,12 +49,8 @@ function navget(list, name) {
   }
 }
 
-function preparepage(str) {
+function preparepage(firstChannel) {
   document.getElementById("searchnavigation").innerHTML = "<p>parsing result...</p>";
-  var raw = document.getElementById("raw");
-  if (raw != null) raw.innerHTML = str;
-  var rsp = eval("(" + str + ")");
-  var firstChannel = rsp.channels[0];
   searchresult = firstChannel.items;
   totalResults = firstChannel.totalResults.replace(/[,.]/,"");
   topics = navget(firstChannel.navigation, "topics");
@@ -126,14 +115,14 @@ function resultNavigation() {
       if (query == "") {
         html += "<p>please enter some search words or use the following predefined search queries:</p>";
         html += "<div class=\"nav-wrapper\"><nav class=\"ym-vlist\"><h6 class=\"ym-vtitle\">Find Images</h6><dl>";
-        html += "<dt>&nbsp;</dt><dd><input type=\"button\" value=\"png\" onClick=\"window.location.href='yacytable.html?query=png+filetype:png&startRecord=" + startRecord + "&maximumRecords=" + 10 + "'\"/></dd>";
-        html += "<dt>&nbsp;</dt><dd><input type=\"button\" value=\"gif\" onClick=\"window.location.href='yacytable.html?query=gif+filetype:gif&startRecord=" + startRecord + "&maximumRecords=" + 10 + "'\"/></dd>";
-        html += "<dt>&nbsp;</dt><dd><input type=\"button\" value=\"jpg\" onClick=\"window.location.href='yacytable.html?query=jpg+filetype:jpg&startRecord=" + startRecord + "&maximumRecords=" + 10 + "'\"/></dd>";
+        html += "<dt>&nbsp;</dt><dd><input type=\"button\" value=\"png\" onClick=\"window.location.href='yacytable.html?query=png+filetype:png&startRecord=" + startRecord + "&maximumRecords=" + 100 + "'\"/></dd>";
+        html += "<dt>&nbsp;</dt><dd><input type=\"button\" value=\"gif\" onClick=\"window.location.href='yacytable.html?query=gif+filetype:gif&startRecord=" + startRecord + "&maximumRecords=" + 100 + "'\"/></dd>";
+        html += "<dt>&nbsp;</dt><dd><input type=\"button\" value=\"jpg\" onClick=\"window.location.href='yacytable.html?query=jpg+filetype:jpg&startRecord=" + startRecord + "&maximumRecords=" + 100 + "'\"/></dd>";
         html += "</dl></nav></div>";
         html += "<div class=\"nav-wrapper\"><nav class=\"ym-vlist\"><h6 class=\"ym-vtitle\">Find Document</h6><dl>";
-        html += "<dt>&nbsp;</dt><dd><input type=\"button\" value=\"pdf\" onClick=\"window.location.href='yacytable.html?query=pdf+filetype:pdf&startRecord=" + startRecord + "&maximumRecords=" + 10 + "'\"/></dd>";
-        html += "<dt>&nbsp;</dt><dd><input type=\"button\" value=\"xls\" onClick=\"window.location.href='yacytable.html?query=xls+filetype:xls&startRecord=" + startRecord + "&maximumRecords=" + 10 + "'\"/></dd>";
-        html += "<dt>&nbsp;</dt><dd><input type=\"button\" value=\"doc\" onClick=\"window.location.href='yacytable.html?query=doc+filetype:doc&startRecord=" + startRecord + "&maximumRecords=" + 10 + "'\"/></dd>";
+        html += "<dt>&nbsp;</dt><dd><input type=\"button\" value=\"pdf\" onClick=\"window.location.href='yacytable.html?query=pdf+filetype:pdf&startRecord=" + startRecord + "&maximumRecords=" + 100 + "'\"/></dd>";
+        html += "<dt>&nbsp;</dt><dd><input type=\"button\" value=\"xls\" onClick=\"window.location.href='yacytable.html?query=xls+filetype:xls&startRecord=" + startRecord + "&maximumRecords=" + 100 + "'\"/></dd>";
+        html += "<dt>&nbsp;</dt><dd><input type=\"button\" value=\"doc\" onClick=\"window.location.href='yacytable.html?query=doc+filetype:doc&startRecord=" + startRecord + "&maximumRecords=" + 100 + "'\"/></dd>";
         html += "</dl></nav></div>";
       } else {
          html += "no results";

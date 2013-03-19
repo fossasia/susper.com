@@ -9,33 +9,18 @@
 
 var server="localhost:8090";
 
-var query = new Object();
+var SearchModel = Backbone.Model.extend({
+    urlRoot:'http://' + server + '/solr/select?hl=false&wt=yjson&facet=true&facet.mincount=1&facet.field=url_file_ext_s&callback=?',
+    defaults:{query:'',start:'0',rows:'100'},
+    url:function(){
+        return this.urlRoot + '&query=' + this.attributes.query + '&start=' + this.attributes.start + '&rows=' + this.attributes.rows;
+    },
+    parse:function(resp){
+        return resp[0].channels[0];
+    }
+});
 
-function getQueryProps() {
-  var text = "";
-  for (property in query) {
-    text += property + " = " + query[property] + ";\n";
-  }
-  return text;
-}
-
-function getURLparameters() {
-  if (self.location.search.indexOf("=") == -1) {return;}
-  var parameterArray = unescape(self.location.search).substring(1).split("&");
-  for (var i=0;i<parameterArray.length;i++) {
-    parameterArray[i] = parameterArray[i].split("=");
-    eval("query." + parameterArray[i][0] + " = \"" + parameterArray[i][1] + "\"");
- }
-}
-
-function xmlhttpPost() {
-    var searchform = document.forms['searchform'];
-    //var rsslink = document.getElementById("rsslink");
-    //if (rsslink != null) rsslink.href="yacysearch.rss?query=" + searchform.query.value;
-    if (searchform) search(searchform.query.value, searchform.maximumRecords.value, searchform.startRecord.value);
-}
-
-function execGet(name) {
+function execGet() {
   var query = new RegExp("[\\?&]query=([^&#]*)").exec(window.location.href);
   if (query != null) {
     var startRecord = new RegExp("[\\?&]startRecord=([^&#]*)").exec(window.location.href);
