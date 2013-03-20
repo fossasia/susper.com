@@ -285,7 +285,7 @@ function execGet() {
     if (maximumRecords == null) maximumRecords = 10; else maximumRecords = maximumRecords[1];
     var layout = new RegExp("[\\?&]layout=([^&#]*)").exec(window.location.href);
     if (layout == null) layout = "paragraph"; else layout = layout[1];
-    document.getElementById("query").value=query[1].replace(/%20/g," ").replace(/\+/g," ").replace(/%3A/g,":").replace(/%2F/g,"/");
+    document.getElementById("query").value=query[1].replace(/%20/g," ").replace(/\+/g," ").replace(/%3A/g,":").replace(/%2F/g,"/").replace(/%22/g,"\"");
     document.getElementById("maximumRecords").value=maximumRecords;
     document.getElementById("startRecord").value=startRecord;
     document.getElementById("layout").value=layout;
