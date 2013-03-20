@@ -17,15 +17,17 @@
  * because the content is fetched using JSONP.
  */
 
-var server="localhost:8090";
+var server="141.52.175.63";
 
 
 var SearchModel = Backbone.Model.extend({
-    urlRoot:'http://' + server + '/solr/select?wt=yjson&facet=true&facet.mincount=1&facet.field=url_file_ext_s&facet.field=host_s&callback=?',
+    urlRoot:'http://' + server + '/yacysearch.json?callback=?',
+    //urlRoot:'http://' + server + '/solr/select?wt=yjson&facet=true&facet.mincount=1&facet.field=url_file_ext_s&facet.field=host_s&callback=?',
     defaults:{hl:'false',query:'',start:'0',rows:'100',layout:'paragraph',startTime:new Date(),servlet:"index.html"},
 
     url:function(){
-        return this.urlRoot + '&hl=' + this.attributes.hl + '&query=' + this.attributes.query + '&start=' + this.attributes.start + '&rows=' + this.attributes.rows;
+        return this.urlRoot + '&hl=' + this.attributes.hl + '&query=' + this.attributes.query + '&startRecord=' + this.attributes.start + '&maximumRecords=' + this.attributes.rows;
+        //return this.urlRoot + '&hl=' + this.attributes.hl + '&query=' + this.attributes.query + '&start=' + this.attributes.start + '&rows=' + this.attributes.rows;
     },
 
     parse:function(resp){

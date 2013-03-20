@@ -8,11 +8,20 @@
 	<meta name="keywords" content="YaCy YAML4 searchpage_template_yaml4"/>
 	<meta name="description" content="Search Portal, made with YaCy"/>
 	<meta name="copyright" content="Michael Peter Christen (template author), usage and modification granted under (CC-BY 2.0)"/>
-	<title>YaCy - Search Portal: Templates</title>
+	<title>YaCy - Search Portal</title>
 	<script src="navigation.js" type="text/javascript"></script>
+	<script src="../js/lib/json2.js"></script>
+	<script src="../js/lib/jquery.js"></script>
+	<script src="../js/lib/underscore-min.js"></script>
+	<script src="../js/lib/backbone-min.js"></script>
+	<script src="../js/server.js" type="text/javascript"></script>
+	<script src="../js/index.js" type="text/javascript"></script>
 
+    <!-- if you use this template, then remove the stylesheets yacysearch-yaml.css and yacysearch-portal.css to use
+         your own yaml style modification. Keep the yacysearch-result.css style to display the search results correctly -->
 	<link href="../css/yacysearch-yaml.css" rel="stylesheet" type="text/css"/>
 	<link href="../css/yacysearch-portal.css" rel="stylesheet" type="text/css"/>
+	<link href="../css/yacysearch-result.css" rel="stylesheet" type="text/css"/>
 	<!--[if lte IE 7]>
 	<link href="../yaml/core/iehacks.css" rel="stylesheet" type="text/css" />
 	<![endif]-->
@@ -42,52 +51,84 @@
 <div id="main" class="ym-clearfix" role="main">
 	<div class="ym-wrapper">
 		<div class="ym-wbox">
-		<h2 id="yaml-introduction" tabindex="-1">Search Page Templates for YaCy using YAML4 and backbone.js</h2>
-		<p>
-			This is a search web-page template for a <a href="http://yacy.net">YaCy</a> search portal based on the <a href="http://yaml.de">YAML4 CSS Framework</a>.
-			It contains a copy of yaml4 and web pages for a YaCy Search Portal together with special styles and a JavaScript environment to fetch search results from a YaCy server. 
-		</p>
 		<div class="ym-grid linearize-level-1">
-			<div class="ym-g20 ym-gl">
-				<div class="ym-gbox-left" style="text-align:right">
-					<h3>Usage</h3>
+			<div class="ym-g25 ym-gl">
+				<div class="ym-gbox-left">
+					<h3>Document Retrieval</h3><!--replace this, tell user what the search domain is or put an icon in here-->
 				</div>
 	  		</div>
-	  		<div class="ym-g80 ym-gr">
+	  		<div class="ym-g75 ym-gr">
 				<div class="ym-gbox-right">
-					<h4>Run YaCy</h4>
-					<p>First, you need a running YaCy Server and you must put in the documents to search.<br/><a href="http://yacy.net" class="ym-button ym-next">Download YaCy</a></p>
-					<h4>Modify the YaCy Server Address</h4>
-					<p>Open the file js/server.js and put in the server address of your YaCy. If you run YaCy with default settings on the same server with these files, then just leave everything as it is.</p>
-					<h4>Customize</h4>
-					<p>The templates are listed in the top menu. The links to the templates are in yacysearch/navigation.js.
-						You may recogize that it is possible to show search results in different ways! ('paragraph' lists, tables with files, download lists, image grids, ..). If you don't like some of these option, remove the call to the corresponding model in explorer.js.</p>
-					<p>To change the icon, edit the search template file (i.e. yacysearch/explorer.html). To change colors, edit the file css/yacysearch-portal.css</p>
-					<p>Change titles, the name of the search headline and colors as you like. Throw away the other search pages which you don't like and add your own web pages. Just edit the file navigation.js and put in the names of the web pages which shall appear in the top menu.</p>
+					<form id="searchform">
+					<fieldset class="search-fieldset">
+						<input type="hidden" name="maximumRecords" id="maximumRecords" value="10" />
+						<input type="hidden" name="startRecord" id="startRecord" value="0" />
+						<input type="hidden" name="contentdom" id="contentdom" value="all" />
+						<input type="hidden" name="layout" id="layout" value="paragraph" />
+						<div class="ym-grid">
+							<div class="ym-g80 ym-gl"><div class="ym-gbox">
+								<input id="query" class="search-textfield" placeholder="search..." name="query" type="text" value="" maxlength="130" autofocus="autofocus" onFocus="this.select()" />
+  							</div></div>
+							<div class="ym-g20 ym-gr"><div class="ym-gbox">
+								<input id="Enter" class="search-button" type="submit" name="Enter" value="Find!" onsubmit="document.getElementById('searchnavigation').innerHTML = 'window.location.href='index.html?query=' + document.getElementById('query') + '&amp;startRecord=0&amp;maximumRecords=10&amp;layout=paragraph';"/>
+							</div></div>
+						</div>
+					</fieldset>
+					<!--<pre>Raw JSON String: <div id="raw"></div></pre>-->
+					</form>
 				</div>
 	  		</div>
   		</div>
-
+  		</div>
+	</div>
+	<div class="ym-wrapper">
+		<div class="ym-wbox">
 		<div class="ym-grid linearize-level-1">
-			<div class="ym-g20 ym-gl">
-				<div class="ym-gbox-left" style="text-align:right">
-					<h3>License</h3>
+			<div class="ym-g25 ym-gl">
+				<div class="ym-gbox-left">
+					<div id="searchnavigation"><p>&nbsp;</p></div>
+					<div id="downloadbutton"><p>&nbsp;</p></div>
 				</div>
 	  		</div>
-	  		<div class="ym-g80 ym-gr">
+
+	  		<div class="ym-g75 ym-gr">
 				<div class="ym-gbox-right">
-					<h4>(CC-BY 2.0) and GPL2</h4>
-					<p>This template collection is licensed under Creative Commons Attribution 2.0 License (CC-BY 2.0). This work is based on the YAML4 CSS Framework which is also licensed under (CC-BY 2.0).</p>
-					<p>If you use this design, please attribute with a link to searchpage_template_yaml4 (<a href="https://gitorious.org/yacy/searchpage_template_yaml4">https://gitorious.org/yacy/searchpage_template_yaml4</a>),
-						the YAML4 CSS Framework (<a href="http://yaml.de">http://yaml.de</a>)
-						and YaCy (<a href="http://yacy.net">http://yacy.net</a>) as given in the example template.
-						You can of course modify the header, texts, icons, colours, styles and everything else as you like.</p>
+					<div id="downloadscript" style="clear:both;"></div>
+					<div id="searchresults" style="clear:both;"></div>
 				</div>
 	  		</div>
+  		</div>
   		</div>
 	</div>
 </div>
 
+<footer id="footer" role="contentinfo">
+	<div class="ym-wrapper">
+		<div class="ym-wbox">
+		<div class="ym-grid linearize-level-1">
+			<div class="ym-g25 ym-gl">
+				<div class="ym-gbox-left">
+					<div class="nav-wrapper">
+							<p style="font-size:x-small">
+								Made with <a href="https://gitorious.org/yacy/searchpage_template_yaml4">searchpage_template_yaml4</a>,
+								<a href="http://yacy.net">YaCy</a>, the <a href="http://yaml.de">YAML4 CSS Framework</a> and
+								<a href="http://backbonejs.org">backbone.js</a>.
+								Please <a href="https://gitorious.org/yacy/">clone our work</a> and join in!</p>
+					</div>
+				</div>
+	  		</div>
+
+	  		<div class="ym-g75 ym-gr">
+				<div class="ym-gbox-right">
+					<p>&nbsp;</p>
+				</div>
+	  		</div>
+  		</div>
+  		</div>
+	</div>
+</div>
+
+<script type="text/javascript">execGet();</script><!--read command line options if present-->
 
 <!-- full skip link functionality in webkit browsers -->
 <script src="../yaml/core/js/yaml-focusfix.js"></script>

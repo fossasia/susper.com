@@ -9,12 +9,9 @@
 
 
  var menulist = new Array(
-  "About:index.html",
-  //"Search Items Template:yacyitems.html",
-  //"Image Search Template:yacyimages.html",
-  //"Search Results on Map Template:yacymap.html",
-  "Search:explorer.html",
-  "Technical Details:engine.html"
+  "Usage:usage.html",
+  "Search:index.html",
+  "About:about.html"
 );
 
 String.prototype.endsWith = function(suffix) {

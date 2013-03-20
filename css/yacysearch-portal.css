@@ -7,7 +7,11 @@
  * If you enhance this, please clone the repository and give us a pull request!
  */
 
-.backgroundcolor, .search-fieldset, .ym-vlist dl, footer .ym-gl {
+.headerbackgroundcolor, header {
+    background-color:#444;
+}
+
+.boxbackgroundcolor, .search-fieldset, .ym-vlist dl, footer .ym-gl {
     background-color:#eee;
 }
 
@@ -17,6 +21,10 @@
 
 .headlineaccentcolor, .reversedcolor, .ym-vtitle, .search-button {
     color: #E9F3F9;
+}
+
+.navigationbackground, nav, .ym-hlist {
+    background: #222;
 }
 
 .linkcolor, a {

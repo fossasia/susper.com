@@ -1,6 +1,6 @@
 /*
- * explorer.js
- * Functions for the searchpage_template_yaml4 web-page template explorer.html
+ * index.js
+ * Functions for the searchpage_template_yaml4 web-page template index.html
  * First published 7.3.2013 at https://gitorious.org/yacy/searchpage_template_yaml4
  * (C) by Michael Peter Christen, licensed under a
  * Creative Commons Attribution 2.0 Generic License (CC-BY 2.0) 
@@ -24,7 +24,7 @@ function search(query, startRecord, maximumRecords, layout) {
   var ext = filetypeModel.attributes.value;
   var hl = (layout=="paragraph") ? 'true' : 'false';
 
-  searchResult = new SearchModel({hl:hl,query:query,start:startRecord,rows:maximumRecords,servlet:"explorer.html",layout:layout}); 
+  searchResult = new SearchModel({hl:hl,query:query,start:startRecord,rows:maximumRecords,servlet:"index.html",layout:layout}); 
   searchResult.fetch({
     success:function(searchResult) {
       navhtml.innerHTML = "<p>parsing result...</p>";
@@ -59,8 +59,8 @@ function search(query, startRecord, maximumRecords, layout) {
         navhtml.innerHTML = searchResult.fullPageNavigation("Result Table Size");
       }
       navhtml.innerHTML += searchResult.renderNavigation("Result Layout");
-      navhtml.innerHTML += filetypefacet.facetBox(searchResult.attributes.servlet, filetypeModel.attributes.key, filetypeModel.attributes.value, 8, searchResult);
-      navhtml.innerHTML += sitefacet.facetBox(searchResult.attributes.servlet, siteModel.attributes.key, siteModel.attributes.value, 16, searchResult);
+      if (filetypefacet) navhtml.innerHTML += filetypefacet.facetBox(searchResult.attributes.servlet, filetypeModel.attributes.key, filetypeModel.attributes.value, 8, searchResult);
+      if (sitefacet) navhtml.innerHTML += sitefacet.facetBox(searchResult.attributes.servlet, siteModel.attributes.key, siteModel.attributes.value, 16, searchResult);
     }
   });
 }
