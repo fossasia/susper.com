@@ -26,7 +26,7 @@
 <header>
 	<div class="ym-wrapper">
 		<div class="ym-wbox">
-			<h1><img src="../images/YaCyLogo2011_60.png" style="vertical-align:middle">&nbsp;&nbsp;<span class="yacylightblue">Search</span> <span class="yacyblue">Portal</span></h1>
+			<h1><img src="../images/YaCyLogo2011_60.png" style="vertical-align:middle">&nbsp;&nbsp;<span class="headlineaccentcolor">Search</span> <span class="headlinecolor">Portal</span></h1>
 		</div>
 	</div>
 </header>
@@ -59,8 +59,8 @@
 					<p>First, you need a running YaCy Server and you must put in the documents to search.<br/><a href="http://yacy.net" class="ym-button ym-next">Download YaCy</a></p>
 					<h4>Modify the YaCy Server Address</h4>
 					<p>Open the file js/server.js and put in the server address of your YaCy. If you run YaCy with default settings on the same server with these files, then just leave everything as it is.</p>
-					<h4>Select a Template</h4>
-					<p>The templates are listed in the top menu of this environment stencil. Just choose one. Yes, it is possible to present search results in different ways! ('standard' lists, tables with files, lists, image grids, ..)</p>
+					<h4>Modify a Template</h4>
+					<p>The templates are listed in the top menu. You may recogize that it is possible to preset present search results in different ways! ('paragraph' lists, tables with files, download lists, image grids, ..)</p>
 					<h4>Customize</h4>
 					<p>Change titles, the name of the search headline and colors as you like. Throw away the other search pages which you don't like and add your own web pages. Just edit the file navigation.js and put in the names of the web pages which shall appear in the top menu.</p>
 				</div>
@@ -111,11 +111,12 @@
 	  		</div>
 	  		<div class="ym-g80 ym-gr">
 				<div class="ym-gbox-right">
-					<h4>Solr, JSON and JavaScript - driven</h4>
-					<p>Search results are displayed using AJAX-technology from a Solr server which is embedded into YaCy. All search results must be provided by a YaCy search server which includes a Solr with a specialized JSON result writer.
+					<h4>Solr, JSON(P) and JavaScript / backbone.js - driven</h4>
+					<p>Search results are displayed using AJAX-technology from a Solr server which is embedded into <a href="http://yacy.net">YaCy</a>. All search results must be provided by a YaCy search server which includes a Solr with a specialized JSON result writer.
 						When a search request is made in one of the search templates, a http request is made to YaCy. The response is done in JSON because that can much better be parsed than XML in JavaScript.
 						To overcome the <a href="http://en.wikipedia.org/wiki/Same_origin_policy">same orgin policy</a> in JavaScript, the result is capsuled into a <a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a> response.
 						This enables you to run YaCy anywhere and to use the results from this server somewhere else, maybe in static web pages, even from a file system.
+						We implemented a proper model view of search results using the <a href="http://en.wikipedia.org/wiki/Model_View_ViewModel">MV*-Fra­me­work</a> <a href="http://backbonejs.org">backbone.js</a>.
 					</p>
 					<h4>Industry-Strength Search Efficiency</h4>
 					<p>Because the search results come right from a <a href="http://lucene.apache.org/solr/">Solr</a> instance using a specialized result writer, these templates can provide industry-strength search portals.

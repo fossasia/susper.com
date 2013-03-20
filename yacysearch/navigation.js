@@ -30,7 +30,8 @@ function menu() {
     var link;
     var name;
     if (pos >= 0) {link = entry.substring(pos + 1); name = entry.substring(0, pos);} else {link = entry + ".html"; name = entry;}
-    if (doc.endsWith(link)) {
+    var doccheck = (p = doc.indexOf('?')) >= 0 ? doc.substring(0, p) : doc;
+    if (doccheck.endsWith(link)) {
       document.writeln("<li class=\"active\"><a href=\"" + link + "\"><strong>" + name + "</strong></a></li>");
     } else {
       document.writeln("<li><a href=\"" + link + "\">" + name + "</a></li>");

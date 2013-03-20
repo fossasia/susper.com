@@ -35,7 +35,7 @@
 <header>
 	<div class="ym-wrapper">
 		<div class="ym-wbox">
-			<h1><img src="../images/YaCyLogo2011_60.png" style="vertical-align:middle">&nbsp;&nbsp;<span class="yacylightblue">Search</span> <span class="yacyblue">Portal</span></h1>
+			<h1><img src="../images/YaCyLogo2011_60.png" style="vertical-align:middle">&nbsp;&nbsp;<span class="headlineaccentcolor">Search</span> <span class="headlinecolor">Portal</span></h1>
 		</div>
 	</div>
 </header>
@@ -61,15 +61,16 @@
 				<div class="ym-gbox-right">
 					<form id="searchform">
 					<fieldset class="search-fieldset">
-						<input type="hidden" name="maximumRecords" id="maximumRecords" value="100" />
+						<input type="hidden" name="maximumRecords" id="maximumRecords" value="10" />
 						<input type="hidden" name="startRecord" id="startRecord" value="0" />
 						<input type="hidden" name="contentdom" id="contentdom" value="all" />
+						<input type="hidden" name="layout" id="layout" value="paragraph" />
 						<div class="ym-grid">
 							<div class="ym-g80 ym-gl"><div class="ym-gbox">
 								<input id="query" class="search-textfield" placeholder="search..." name="query" type="text" value="" maxlength="130" autofocus="autofocus" onFocus="this.select()" />
   							</div></div>
 							<div class="ym-g20 ym-gr"><div class="ym-gbox">
-								<input id="Enter" class="search-button" type="submit" name="Enter" value="Find!" onsubmit="document.getElementById('searchnavigation').innerHTML = 'window.location.href='yacytable.html?query=' + document.getElementById('query') + '&amp;startRecord=0&amp;maximumRecords=100';"/>
+								<input id="Enter" class="search-button" type="submit" name="Enter" value="Find!" onsubmit="document.getElementById('searchnavigation').innerHTML = 'window.location.href='yacytable.html?query=' + document.getElementById('query') + '&amp;startRecord=0&amp;maximumRecords=10&amp;layout=paragraph';"/>
 							</div></div>
 						</div>
 					</fieldset>
@@ -108,7 +109,11 @@
 			<div class="ym-g25 ym-gl">
 				<div class="ym-gbox-left">
 					<div class="nav-wrapper">
-							<p style="font-size:x-small">Made with <a href="https://gitorious.org/yacy/searchpage_template_yaml4">searchpage_template_yaml4</a>, <a href="http://yacy.net">YaCy</a> and the <a href="http://yaml.de">YAML4 CSS Framework</a>. Please <a href="https://gitorious.org/yacy/">clone our work</a> and join in!</p>
+							<p style="font-size:x-small">
+								Made with <a href="https://gitorious.org/yacy/searchpage_template_yaml4">searchpage_template_yaml4</a>,
+								<a href="http://yacy.net">YaCy</a>, the <a href="http://yaml.de">YAML4 CSS Framework</a> and
+								<a href="http://backbonejs.org">backbone.js</a>.
+								Please <a href="https://gitorious.org/yacy/">clone our work</a> and join in!</p>
 					</div>
 				</div>
 	  		</div>

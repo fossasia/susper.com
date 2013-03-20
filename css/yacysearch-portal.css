@@ -7,28 +7,28 @@
  * If you enhance this, please clone the repository and give us a pull request!
  */
 
+.backgroundcolor, .search-fieldset, .ym-vlist dl, footer .ym-gl {
+    background-color:#eee;
+}
 
-.yacyblue {
+.headlinecolor, h1, h2, h3, h4 {
     color: #2080C0;
 }
 
-.yacylightblue {
+.headlineaccentcolor, .reversedcolor, .ym-vtitle, .search-button {
     color: #E9F3F9;
 }
 
-.yacyorange {
+.linkcolor, a {
     color: #EA672E;
 }
 
-h1, h2, h3, h4 {
-    color: #2080C0;
+.reversedcolor, .ym-vtitle, .search-button {
+    background-color:#2080C0;
 }
 
-a {
-    color: #EA672E;
-}
-.searchresults {
-    color: #2080C0;
+.sans, .ym-hlist {
+    font-family: "Droid Sans",Arial,Helvetica,sans-serif;
 }
 
 header {
@@ -50,10 +50,6 @@ h1 {
 .ym-hlist ul li a, .ym-hlist ul li strong {
     text-shadow: none;
     padding: 0 0.21em;
-}
-
-.ym-hlist  {
-    font-family: "Droid Sans",Arial,Helvetica,sans-serif;
 }
 
 .ym-hlist ul {

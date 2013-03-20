@@ -7,65 +7,66 @@
  * If you enhance this, please clone the repository and give us a pull request!
  */
 
+// static globals
+var searchResult;   // the result of a search
+var rowCollection;  // the collection of search result rows
 
-function search(search, count, offset) {
+function search(query, startRecord, maximumRecords, layout) {
   var navhtml = document.getElementById("searchnavigation");
+  var resulthtml = document.getElementById("searchresults");
   if (navhtml != null) navhtml.innerHTML = "<p>loading...</p>";
-  query = search;
-  maximumRecords = count;
-  if (count == "") maximumRecords = 100;
-  startRecord = offset;
-  if (offset == "") startRecord = 0;
-  start = new Date();
-  if (query == null || query == "") {
-    return;
-  }
-  var self = this;
+  if (maximumRecords == "") maximumRecords = 10;
+  if (startRecord == "") startRecord = 0;
+  if (query == null) query == "";
 
-  var search = new SearchModel({query:search,start:offset,rows:count}); 
-  search.fetch({
-    success:function(search) {
-      document.getElementById("searchnavigation").innerHTML = "<p>parsing result...</p>";
-      var rowCollection = new RowCollection();
-      rowCollection.add(search.attributes.items);
-      var totalResults = search.attributes.totalResults.replace(/[,.]/,"");
-      var navigation = search.navigationCollection();
+  var siteModel = new ModifierModel({key:'site',query:query});
+  var filetypeModel = new ModifierModel({key:'filetype',query:query});
+  var ext = filetypeModel.attributes.value;
+  var hl = (layout=="paragraph") ? 'true' : 'false';
+
+  searchResult = new SearchModel({hl:hl,query:query,start:startRecord,rows:maximumRecords,servlet:"yacytable.html",layout:layout}); 
+  searchResult.fetch({
+    success:function(searchResult) {
+      navhtml.innerHTML = "<p>parsing result...</p>";
+      rowCollection = new RowCollection({servlet:searchResult.attributes.servlet});
+      rowCollection.add(searchResult.attributes.items);
+      var totalResults = searchResult.attributes.totalResults.replace(/[,.]/,"");
+      var navigation = searchResult.navigationCollection();
   
       // update navigation
-      //var topics = navigation.facet("topics");
+      var topics = navigation.facet("topics");
+      var sitefacet = navigation.facet("domains");
+      var site = sitefacet ? sitefacet.facetElements() : {};
+      for (var key in site) {if (query.indexOf("site:" + key) >= 0) delete site[key];}
       var filetypefacet = navigation.facet("filetypes");
-      var filetypes = {};
-      if (filetypefacet) {
-        filetypes = filetypefacet.facetElements();
-      }
-      for (var key in filetypes) {
-        if (query.indexOf("filetype:" + key) >= 0) delete filetypes[key];
-      }
+      var filetypes = filetypefacet ? filetypefacet.facetElements() : {};
+      for (var key in filetypes) {if (query.indexOf("filetype:" + key) >= 0) delete filetypes[key];}
 
-      script = ""; // this is a static global
-      var modifier = "";
-      var modifiertype = "";
-      for (var extl = 2; extl < 6; extl++) {
-        if (query.length >= 13 && query.substring(query.length - 10 - extl, query.length - extl) == " filetype:") {
-          modifier = query.substring(query.length - 9 - extl);
-          modifiertype = modifier.substring(modifier.length - extl);
-          break;
-        }
-      }
-
-      if (modifiertype == "png" || modifiertype == "gif" || modifiertype == "jpg" || modifiertype == "PNG" || modifiertype == "GIF" || modifiertype == "JPG") {
-        document.getElementById("searchresults").innerHTML = rowCollection.resultImages();
+      if (ext == "png" || ext == "gif" || ext == "jpg" || ext == "PNG" || ext == "GIF" || ext == "JPG") {
+        document.getElementById("searchnavigation").innerHTML = "<p>found " + this.length + " images, preparing...</p>";
+        resulthtml.innerHTML = rowCollection.resultImages();
+        hideDownloadScript();
+        navhtml.innerHTML = searchResult.fullPageNavigation("Image Matrix Size");
+      } else if (layout=="paragraph") {
+        document.getElementById("searchnavigation").innerHTML = "<p>found " + this.length + " images, preparing result list...</p>";
+        resulthtml.innerHTML = rowCollection.resultList();
+        hideScriptButton();
+        navhtml.innerHTML = searchResult.fullPageNavigation("Result List Size");
       } else {
-        document.getElementById("searchresults").innerHTML = rowCollection.resultTable();
+        document.getElementById("searchnavigation").innerHTML = "<p>found " + this.length + " documents, preparing table...</p>";
+        resulthtml.innerHTML = rowCollection.resultTable();
+        hideDownloadScript();
+        navhtml.innerHTML = searchResult.fullPageNavigation("Result Table Size");
       }
-      document.getElementById("searchnavigation").innerHTML = search.fullPageNavigation(maximumRecords) + filetypefacet.facetBox("Filetype", modifier, query, startRecord, maximumRecords)
-      hideDownloadScript();
+      navhtml.innerHTML += searchResult.renderNavigation("Result Layout");
+      navhtml.innerHTML += filetypefacet.facetBox(searchResult.attributes.servlet, filetypeModel.attributes.key, filetypeModel.attributes.value, 8, searchResult);
+      navhtml.innerHTML += sitefacet.facetBox(searchResult.attributes.servlet, siteModel.attributes.key, siteModel.attributes.value, 16, searchResult);
     }
   });
 }
 
 function makeDownloadScript() {
-  document.getElementById("downloadscript").innerHTML = "<div><pre>" + script + "</pre><br/></div>";
+  document.getElementById("downloadscript").innerHTML = "<div><pre>" + rowCollection.resultScript(); + "</pre><br/></div>";
   document.getElementById("downloadbutton").innerHTML = "<input id=\"downloadbutton\" type=\"button\" value=\"hide the download script\" onClick=\"hideDownloadScript();\"/>";
 }
 
@@ -73,4 +74,10 @@ function hideDownloadScript() {
   document.getElementById("downloadscript").innerHTML = "";
   var dlb = document.getElementById("downloadbutton");
   if (dlb) dlb.innerHTML = "<input type=\"button\" value=\"create a download script\" onClick=\"makeDownloadScript();\"/>";
+}
+
+function hideScriptButton() {
+  document.getElementById("downloadscript").innerHTML = "";
+  var dlb = document.getElementById("downloadbutton");
+  if (dlb) dlb.innerHTML = "";
 }
