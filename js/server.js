@@ -17,7 +17,8 @@
  * because the content is fetched using JSONP.
  */
 
-var server="141.52.175.63";
+var server="localhost:8090";
+//var server="141.52.175.63";
 
 
 var SearchModel = Backbone.Model.extend({
