@@ -1,6 +1,6 @@
 /*
- * yacytable.js
- * Functions for the searchpage_template_yaml4 web-page template yacytable.html
+ * explorer.js
+ * Functions for the searchpage_template_yaml4 web-page template explorer.html
  * First published 7.3.2013 at https://gitorious.org/yacy/searchpage_template_yaml4
  * (C) by Michael Peter Christen, licensed under a
  * Creative Commons Attribution 2.0 Generic License (CC-BY 2.0) 
@@ -24,7 +24,7 @@ function search(query, startRecord, maximumRecords, layout) {
   var ext = filetypeModel.attributes.value;
   var hl = (layout=="paragraph") ? 'true' : 'false';
 
-  searchResult = new SearchModel({hl:hl,query:query,start:startRecord,rows:maximumRecords,servlet:"yacytable.html",layout:layout}); 
+  searchResult = new SearchModel({hl:hl,query:query,start:startRecord,rows:maximumRecords,servlet:"explorer.html",layout:layout}); 
   searchResult.fetch({
     success:function(searchResult) {
       navhtml.innerHTML = "<p>parsing result...</p>";

@@ -8,14 +8,14 @@
 	<meta name="keywords" content="YaCy YAML4 searchpage_template_yaml4"/>
 	<meta name="description" content="Search Portal, made with YaCy"/>
 	<meta name="copyright" content="Michael Peter Christen (template author), usage and modification granted under (CC-BY 2.0)"/>
-	<title>YaCy - Search Portal</title>
+	<title>YaCy - Search Portal: Result Exploration</title>
 	<script src="navigation.js" type="text/javascript"></script>
 	<script src="../js/lib/json2.js"></script>
 	<script src="../js/lib/jquery.js"></script>
 	<script src="../js/lib/underscore-min.js"></script>
 	<script src="../js/lib/backbone-min.js"></script>
 	<script src="../js/server.js" type="text/javascript"></script>
-	<script src="../js/yacytable.js" type="text/javascript"></script>
+	<script src="../js/explorer.js" type="text/javascript"></script>
 
     <!-- if you use this template, then remove the stylesheets yacysearch-yaml.css and yacysearch-portal.css to use
          your own yaml style modification. Keep the yacysearch-result.css style to display the search results correctly -->
@@ -70,7 +70,7 @@
 								<input id="query" class="search-textfield" placeholder="search..." name="query" type="text" value="" maxlength="130" autofocus="autofocus" onFocus="this.select()" />
   							</div></div>
 							<div class="ym-g20 ym-gr"><div class="ym-gbox">
-								<input id="Enter" class="search-button" type="submit" name="Enter" value="Find!" onsubmit="document.getElementById('searchnavigation').innerHTML = 'window.location.href='yacytable.html?query=' + document.getElementById('query') + '&amp;startRecord=0&amp;maximumRecords=10&amp;layout=paragraph';"/>
+								<input id="Enter" class="search-button" type="submit" name="Enter" value="Find!" onsubmit="document.getElementById('searchnavigation').innerHTML = 'window.location.href='explorer.html?query=' + document.getElementById('query') + '&amp;startRecord=0&amp;maximumRecords=10&amp;layout=paragraph';"/>
 							</div></div>
 						</div>
 					</fieldset>
