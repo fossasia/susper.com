@@ -1,5 +1,5 @@
 /*
- * server.js
+ * model.js
  * Models, Collections and Views for the searchpage_template_yaml4 web-page templates
  * First published 7.3.2013 at https://gitorious.org/yacy/searchpage_template_yaml4
  * (C) by Michael Peter Christen, licensed under a
@@ -7,14 +7,6 @@
  *
  * This code makes heavy use of the backbone.js library. Please see http://backbonejs.org
  * If you enhance this code, please clone the repository and give us a pull request!
- *
- * GET THE SOURCE:
- * git clone git://gitorious.org/yacy/searchpage_template_yaml4.git searchpage_template_yaml4
- *
- * HOW TO USE:
- * Just change the server address to your own search server address!
- * The address may be different from the place where this wab pages application is hosted
- * because the content is fetched using JSONP.
  */
 
 var server="localhost:8090";

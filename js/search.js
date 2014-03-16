@@ -1,5 +1,5 @@
 /*
- * index.js
+ * search.js
  * Functions for the searchpage_template_yaml4 web-page template index.html
  * First published 7.3.2013 at https://gitorious.org/yacy/searchpage_template_yaml4
  * (C) by Michael Peter Christen, licensed under a
