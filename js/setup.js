@@ -15,3 +15,14 @@
 
 var server="localhost:8090";
 //var server="141.52.175.63";
+
+var homepage="http://yacy.net";
+var logo="../images/YaCyLogo2011_60.png";
+var greeting="<span class=\"headlineaccentcolor\">Search</span> <span class=\"headlinecolor\">Portal</span>";
+
+function fillHeader() {
+	/* set the values */
+	document.getElementById("greeting").innerHTML = greeting;
+	document.getElementById("homepage").setAttribute("href", homepage);
+	document.getElementById("logo").setAttribute("src", logo);
+}

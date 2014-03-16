@@ -10,6 +10,7 @@
 	<meta name="copyright" content="Michael Peter Christen (template author), usage and modification granted under (CC-BY 2.0)"/>
 	<title>YaCy - Search Portal: Usage of Search Templates</title>
 	<script src="navigation.js" type="text/javascript"></script>
+	<script src="../js/setup.js" type="text/javascript"></script> <!-- customization -->
 
 	<link href="../css/yacysearch-yaml.css" rel="stylesheet" type="text/css"/>
 	<link href="../css/yacysearch-portal.css" rel="stylesheet" type="text/css"/>
@@ -26,10 +27,11 @@
 <header>
 	<div class="ym-wrapper">
 		<div class="ym-wbox">
-			<h1><a href="http://yacy.net"><img src="../images/YaCyLogo2011_60.png" style="vertical-align:middle"></a>&nbsp;&nbsp;<span class="headlineaccentcolor">Search</span> <span class="headlinecolor">Portal</span></h1>
+			<h1 style="white-space:nowrap"><a id="homepage"><img id="logo" style="vertical-align:middle"></a>&nbsp;&nbsp;<div style="display:inline-block;" id="greeting"></div></h1>
 		</div>
 	</div>
 </header>
+<script type="text/javascript">fillHeader();</script>
 <nav id="nav">
 	<div class="ym-wrapper">
 		<div class="ym-hlist">
