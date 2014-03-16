@@ -6,49 +6,43 @@
  *
  * @note:           Many thanks to Alexander Hass (http://www.yaml-fuer-drupal.de/) for contribution
  *
- * @copyright       Copyright 2005-2012, Dirk Jesse
+ * @copyright       © 2005-2013, Dirk Jesse
  * @license         CC-BY 2.0 (http://creativecommons.org/licenses/by/2.0/),
  *                  YAML-CDL (http://www.yaml.de/license.html)
  * @link            http://www.yaml.de
  * @package         yaml
- * @version         v4.0.2
- * @revision        $Revision: 743 $
- * @lastmodified    $Date: 2012-10-23 23:01:14 +0200 (Di, 23 Okt 2012) $
+ * @version         4.1.2
  */
+@media all {
+  /**
+  * (en) Workaround disappearing list elements on hover
+  * (de) Workaround verhindert das Verschwinden der Listenelemente beim Hovern
+  *
+  * @workaround
+  * @affected   IE 5.x/Win, IE6, IE7
+  * @css-for    IE 5.x/Win, IE6, IE7
+  * @valid      yes
+  */
+  .ym-hlist * {
+    direction: ltr !important;
+  }
+  .ym-hlist a,
+  .ym-hlist strong {
+    direction: rtl !important;
+  }
+  .ym-hlist ul {
+    position: relative;
+    float: right;
+    margin-left: 0;
+  }
+  .ym-hlist ul li {
+    float: right;
+    text-align: right !important;
+  }
 
-@media all
-{
-	/**
-	* (en) Workaround disappearing list elements on hover
-	* (de) Workaround verhindert das Verschwinden der Listenelemente beim Hovern
-	*
-	* @workaround
-	* @affected   IE 5.x/Win, IE6, IE7
-	* @css-for    IE 5.x/Win, IE6, IE7
-	* @valid      yes
-	*/
-
-	.ym-hlist * { direction:ltr !important; }
-	.ym-hlist a,
-	.ym-hlist strong { direction:rtl !important; }
-
-  	.ym-hlist ul {
-		position:relative;
-		float:right;
-		/* (en) Left margin of the first button  */
-		/* (de) Abstand des ersten Buttons vom linken Rand  */
-		margin-left: 0; /* Reset LTR */
-	}
-
-	.ym-hlist ul li {
-		float: right;
-		text-align:right !important;
-	}
-
-	.ym-searchform {
-		float:left;
-		display: inline;
-		line-height: 2em;
-		padding: 0.5em 1.5em;
-	}
+  /* change back direction to RTL for child elements */
+  .ym-searchform {
+    direction: rtl !important;
+    float: left;
+  }
 }
