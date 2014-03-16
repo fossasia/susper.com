@@ -19,10 +19,18 @@ var server="localhost:8090";
 var homepage="http://yacy.net";
 var logo="../images/YaCyLogo2011_60.png";
 var greeting="<span class=\"headlineaccentcolor\">Search</span> <span class=\"headlinecolor\">Portal</span>";
+var footnote="Made with <a href=\"https://gitorious.org/yacy/searchpage_template_yaml4\">searchpage_template_yaml4</a>,"+
+			 "<a href=\"http://yacy.net\">YaCy</a>, the <a href=\"http://yaml.de\">YAML4 CSS Framework</a> and"+
+			 "<a href=\"http://backbonejs.org\">backbone.js</a>."+
+			 "Please <a href=\"https://gitorious.org/yacy/\">clone our work</a> and join in!";
 
 function fillHeader() {
 	/* set the values */
 	document.getElementById("greeting").innerHTML = greeting;
 	document.getElementById("homepage").setAttribute("href", homepage);
 	document.getElementById("logo").setAttribute("src", logo);
+}
+function fillFooter() {
+	/* set the values */
+	document.getElementById("footnote").innerHTML = footnote;
 }
