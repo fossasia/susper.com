@@ -171,13 +171,6 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
           </div>
         </p>
 
-        <p class="navbutton">
-          <div class="btn-group btn-group-justified">
-            <div class="btn-group btn-group-xs"><button type="button" class="btn btn-default active">Documents</button></div>
-            <div class="btn-group btn-group-xs"><button type="button" class="btn btn-default" onclick="document.getElementById('contentdom').value='image';document.searchform.submit();">Images</button></div>
-          </div>
-        </p>
-
         <div id="searchnavigation"></div>
         <div id="downloadbutton"></div>
         <!-- navigation end -->
@@ -228,6 +221,8 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
     if (maximumRecords == null) maximumRecords = 10; else maximumRecords = maximumRecords[1];
     var layout = new RegExp("[\\?&]layout=([^&#]*)").exec(window.location.href);
     if (layout == null) layout = "paragraph"; else layout = layout[1];
+    var contentdom = new RegExp("[\\?&]contentdom=([^&#]*)").exec(window.location.href);
+    if (contentdom == null) contentdom = "text"; else contentdom = contentdom[1];
     document.getElementById("query").value=query.replace(/%20/g," ").replace(/\+/g," ").replace(/%3A/g,":").replace(/%2F/g,"/").replace(/%22/g,"\"");
     document.getElementById("maximumRecords").value=maximumRecords;
     document.getElementById("startRecord").value=startRecord;
@@ -245,7 +240,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
     var ext = filetypeModel.attributes.value;
     var hl = (layout=="paragraph") ? 'true' : 'false';
 
-    var searchResult = new SearchModel({hl:hl,query:query,start:startRecord,rows:maximumRecords,servlet:"index.html",layout:layout});
+    var searchResult = new SearchModel({hl:hl,query:query,start:startRecord,rows:maximumRecords,servlet:"index.html",layout:layout,contentdom:contentdom});
     searchResult.fetch({
       success:function(searchResult) {
         document.getElementById("progressbar_text").innerHTML = "parsing result...";

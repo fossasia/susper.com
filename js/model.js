@@ -12,10 +12,10 @@
 var SearchModel = Backbone.Model.extend({
   urlRoot:'http://' + server + '/yacysearch.json?callback=?',
   //urlRoot:'http://' + server + '/solr/select?wt=yjson&facet=true&facet.mincount=1&facet.field=url_file_ext_s&facet.field=host_s&callback=?',
-  defaults:{hl:'false',query:'',start:'0',rows:'100',layout:'paragraph',startTime:new Date(),servlet:"index.html"},
+  defaults:{hl:'false',query:'',start:'0',rows:'100',layout:'paragraph',startTime:new Date(),servlet:"index.html",contentdom:"text"},
 
   url:function(){
-    return this.urlRoot + '&hl=' + this.attributes.hl + '&query=' + this.attributes.query + '&startRecord=' + this.attributes.start + '&maximumRecords=' + this.attributes.rows;
+    return this.urlRoot + '&hl=' + this.attributes.hl + '&query=' + this.attributes.query + '&startRecord=' + this.attributes.start + '&maximumRecords=' + this.attributes.rows + '&contentdom=' + this.attributes.contentdom;
   },
 
   parse:function(resp){
@@ -42,17 +42,35 @@ var SearchModel = Backbone.Model.extend({
 
   renderNavigation:function(title, layout) {
     var html = "";
+    // image navigation selection
+
     html += "<p class=\"navbutton\"><div class=\"btn-group btn-group-justified\">";
-    var u = this.attributes.servlet + "?query=" + this.attributes.query + "&startRecord=" + this.attributes.start + "&maximumRecords=" + this.attributes.rows;
-    if (this.attributes.layout == "paragraph") {
-      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Paragraph Layout</button></div>";
-      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&layout=table'\">Table Layout</button></div>";
+    var u = this.attributes.servlet + "?query=" + this.attributes.query + "&startRecord=" + this.attributes.start;
+    if (this.attributes.layout == "paragraph" || this.attributes.layout == "table") {
+      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Documents</button></div>";
+      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&maximumRecords=100&layout=images&contentdom=image'\">Images</button></div>";
     }
-    if (this.attributes.layout == "table") {
-      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&layout=paragraph'\">Paragraph Layout</button></div>";
-      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Table Layout</button></div>";
+    if (this.attributes.layout == "images") {
+      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&maximumRecords=10&layout=paragraph&contentdom=text'\">Documents</button></div>";
+      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Images</button></div>";
     }
-      html += "</div></p>";
+    html += "</div></p>";
+
+
+    // in case of document: document type navigation
+    if (this.attributes.layout == "paragraph" || this.attributes.layout == "table") {
+      var u = this.attributes.servlet + "?query=" + this.attributes.query + "&startRecord=" + this.attributes.start + "&maximumRecords=" + this.attributes.rows;
+      html += "<p class=\"navbutton\"><div class=\"btn-group btn-group-justified\">";
+      if (this.attributes.layout == "paragraph") {
+        html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Paragraph Layout</button></div>";
+        html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&layout=table&contentdom=all'\">Table Layout</button></div>";
+      }
+      if (this.attributes.layout == "table") {
+        html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&layout=paragraph&contentdom=text'\">Paragraph Layout</button></div>";
+        html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Table Layout</button></div>";
+      }
+        html += "</div></p>";
+    }
     return html;
   }
 
@@ -69,8 +87,9 @@ var RowModel = Backbone.Model.extend({
   },
 
   renderRow:function(style) {
-    if (this.attributes.link == null) return "";
     var link = this.attributes.link;
+    if (link == null || link == "") link = this.attributes.image;
+    if (link == null) return "";
     var protocol = "";
     var host = "";
     // extract the path
