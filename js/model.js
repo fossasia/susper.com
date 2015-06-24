@@ -10,12 +10,10 @@
  */
 
 var SearchModel = Backbone.Model.extend({
-  urlRoot:'http://' + server + '/yacysearch.json?callback=?',
-  //urlRoot:'http://' + server + '/solr/select?wt=yjson&facet=true&facet.mincount=1&facet.field=url_file_ext_s&facet.field=host_s&callback=?',
   defaults:{hl:'false',query:'',start:'0',rows:'100',layout:'paragraph',startTime:new Date(),servlet:"index.html",contentdom:"text"},
 
   url:function(){
-    return this.urlRoot + '&hl=' + this.attributes.hl + '&query=' + this.attributes.query + '&startRecord=' + this.attributes.start + '&maximumRecords=' + this.attributes.rows + '&contentdom=' + this.attributes.contentdom;
+    return urlRoot + '&hl=' + this.attributes.hl + '&query=' + this.attributes.query + '&startRecord=' + this.attributes.start + '&maximumRecords=' + this.attributes.rows + '&contentdom=' + this.attributes.contentdom;
   },
 
   parse:function(resp){

@@ -1,7 +1,6 @@
 /*
  * setup.js
- * customization values for the searchpage_template_yaml4 web-page templates
- * First published 16.3.2014 at https://gitorious.org/yacy/searchpage_template_yaml4
+ * customization values for the yacy_webclient_bootstrap templates
  * (C) by Michael Peter Christen, licensed under a
  * Creative Commons Attribution 2.0 Generic License (CC-BY 2.0)
  *
@@ -14,6 +13,7 @@
  */
 
 var server="localhost:8090";
+var urlRoot='http://' + server + '/yacysearch.json?callback=?';
 var homepage="http://yacy.net";
 var logo="../images/YaCyLogo2011_60.png";
 var greeting="Search Portal";
