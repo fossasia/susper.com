@@ -1,7 +1,7 @@
 /*
  * setup.js
  * customization values for the yacy_webclient_bootstrap templates
- * (C) by Michael Peter Christen, licensed under a
+ * (C) 2014, 2015 by Michael Peter Christen, licensed under a
  * Creative Commons Attribution 2.0 Generic License (CC-BY 2.0)
  *
  * HOW TO USE:

@@ -1,8 +1,7 @@
 /*
  * model.js
- * Models, Collections and Views for the searchpage_template_yaml4 web-page templates
- * First published 7.3.2013 at https://gitorious.org/yacy/searchpage_template_yaml4
- * (C) by Michael Peter Christen, licensed under a
+ * Models, Collections and Views for the yacy_webclient_bootstrap web-page templates
+ * (C) 2014, 2015 by Michael Peter Christen, licensed under a
  * Creative Commons Attribution 2.0 Generic License (CC-BY 2.0)
  *
  * This code makes heavy use of the backbone.js library. Please see http://backbonejs.org
@@ -134,10 +133,9 @@ var RowModel = Backbone.Model.extend({
     if (style == "paragraph") {
       html += "<div class=\"searchresults\">";
       html += "<h4 class=\"linktitle\">";
-      html += "<img width=\"16\" height=\"16\" src=\"ViewImage.png?width=16&amp;height=16&amp;code=TVjBS7vEpMVZ&amp;isStatic=true\" id=\"fx2z4OhvEpMVZ\" class=\"favicon\" style=\"width:16px; height:16px;\" alt=\"\" />";
       html += "<a href=\"" + link + "\" target=\"_self\">" + title + "</a></h4>";
-      html += "<p class=\"snippet\"><span class=\"snippetLoaded\" id=\"hx2z4OhvEpMVZ\">" + title + "</span></p>";
-      html += "<p class=\"url\"><a href=\"" + link + "\" id=\"urlx2z4OhvEpMVZ\" target=\"_self\">" + link + "</a></p>";
+      html += "<p class=\"snippet\"><span class=\"snippetLoaded\">" + title + "</span></p>";
+      html += "<p class=\"url\"><a href=\"" + link + "\" target=\"_self\">" + link + "</a></p>";
       html += "<p class=\"urlinfo\">" + pdnt + "</p>";
       html += "</div>";
     }
