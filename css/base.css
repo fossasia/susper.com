@@ -87,7 +87,7 @@ a:hover {
 
 /* mark external links */
 a[href^="http://"], a[href^="https://"]  {
-  background: url(/env/grafics/external.png) center right no-repeat;
+  background: url(../images/external.png) center right no-repeat;
   padding-right: 14px;
 }
 
