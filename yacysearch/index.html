@@ -277,7 +277,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
         if (sitefacet) searchnavigation.innerHTML += sitefacet.facetBox(searchResult.attributes.servlet, siteModel.attributes.key, siteModel.attributes.value, 16, searchResult);
 
         // update progress and navigation
-        statistics(startRecord, maximumRecords, totalResults, window.location.href.replace(/&startRecord=.*&?/g,"&")); //startRecord, maximumRecords, totalcount, navurlbase
+        statistics(startRecord, maximumRecords, totalResults, window.location.href.replace(/&startRecord=[^&#]*&/g,"&")); //startRecord, maximumRecords, totalcount, navurlbase
       }
 
     });
