@@ -16,5 +16,6 @@ var server="localhost:8090";
 var urlRoot='http://' + server + '/yacysearch.json?callback=?';
 var homepage="http://yacy.net";
 var logo="../images/YaCyLogo2011_60.png";
-var greeting="Search Portal";
+var headline="Search Portal";
+var greeting="Document Search";
 var queryplaceholder="Document Retrieval";

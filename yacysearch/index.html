@@ -5,7 +5,7 @@
   licensed under a Creative Commons Attribution 2.0 Generic License (CC-BY 2.0)
 -->
 <head>
-  <title id="title">YaCy Search Portal</title>
+  <title id="title"></title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <!--
 if you don't see the glyphicons in firefox and you opened this file from a local filesystem,
@@ -92,7 +92,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
         <a id="homepage" class="navbar-brand" href="http://yacy.net" style="position:absolute;top:-6px;display:inline;white-space:nowrap;">
           <img id="logo" class="yacylogo" src="../images/YaCyLogo2011_60.png" style="height:auto; width:auto; max-width:200px; max-height:32px;vertical-align:middle">
         </a>
-        <span id="greeting" style="position:absolute;top:12px;left:80px;display:inline;white-space:nowrap;font-size:2em;"></span>
+        <span id="topmenu" style="position:absolute;top:12px;left:80px;display:inline;white-space:nowrap;font-size:2em;"></span>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
@@ -201,8 +201,8 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
     if (dlb) dlb.innerHTML = "";
   }
 
-  document.getElementById("title").innerHTML = greeting;
-  document.getElementById("greeting").innerHTML = greeting;
+  document.getElementById("title").appendChild(document.createTextNode(headline));
+  document.getElementById("topmenu").appendChild(document.createTextNode(headline));
   document.getElementById("homepage").setAttribute("href", homepage);
   document.getElementById("logo").setAttribute("src", logo);
   document.getElementById("query").setAttribute("placeholder", queryplaceholder);
