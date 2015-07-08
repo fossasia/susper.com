@@ -7,6 +7,8 @@
 <head>
   <title id="title"></title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <!-- scary MS stuff ahead to prevent that IE runs in "IE=EmulateIE10" mode which cannot run our JS code for some reason -->
+  <meta http-equiv="X-UA-Compatible" content="IE=10"/>
 <!--
 if you don't see the glyphicons in firefox and you opened this file from a local filesystem,
 then a CORS security setting in firefox caused that.
@@ -242,6 +244,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
 
     var searchResult = new SearchModel({hl:hl,query:query,start:startRecord,rows:maximumRecords,servlet:"index.html",layout:layout,contentdom:contentdom});
     searchResult.fetch({
+      timeout:10000,
       success:function(searchResult) {
         document.getElementById("progressbar_text").innerHTML = "parsing result...";
         rowCollection = new RowCollection({servlet:searchResult.attributes.servlet});
@@ -259,15 +262,24 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
         for (var key in filetypes) {if (query.indexOf("filetype:" + key) >= 0) delete filetypes[key];}
 
         if (layout == "images") {
-          document.getElementById("progressbar_text").innerHTML = "found " + totalResults + " images, preparing...";
+          if (totalResults == 0)
+            document.getElementById("progressbar_text").innerHTML = "no images found";
+          else
+            document.getElementById("progressbar_text").innerHTML = "found " + totalResults + " images, preparing...";
           resulthtml.innerHTML = rowCollection.resultImages();
           hideDownloadScript();
         } else if (layout == "paragraph") {
-          document.getElementById("progressbar_text").innerHTML = "found " + totalResults + " documents, preparing result list...";
+          if (totalResults == 0)
+            document.getElementById("progressbar_text").innerHTML = "no documents found";
+          else
+            document.getElementById("progressbar_text").innerHTML = "found " + totalResults + " documents, preparing result list...";
           resulthtml.innerHTML = rowCollection.resultList();
           hideScriptButton();
         } else {
-          document.getElementById("progressbar_text").innerHTML = "found " + totalResults + " documents, preparing table...";
+          if (totalResults == 0)
+            document.getElementById("progressbar_text").innerHTML = "no documents found";
+          else
+            document.getElementById("progressbar_text").innerHTML = "found " + totalResults + " documents, preparing table...";
           resulthtml.innerHTML = rowCollection.resultTable();
           hideDownloadScript();
         }
@@ -278,8 +290,10 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
 
         // update progress and navigation
         statistics(startRecord, maximumRecords, totalResults, window.location.href.replace(/&startRecord=[^&#]*&/g,"&")); //startRecord, maximumRecords, totalcount, navurlbase
+      },
+      error:function(searchResult) {
+        document.getElementById("progressbar_text").innerHTML = "The search service is not available right now. Please try again.";
       }
-
     });
 
     // set buttons
