@@ -13,7 +13,8 @@
  */
 
 var server="localhost:8090";
-var urlRoot='http://' + server + '/yacysearch.json?callback=?';
+var searchURL='http://' + server + '/yacysearch.json?callback=?';
+var suggestUrl='http://' + server + '/suggest.json?callback=?';
 var homepage="http://yacy.net";
 var logo="../images/YaCyLogo2011_60.png";
 var headline="Search Portal";

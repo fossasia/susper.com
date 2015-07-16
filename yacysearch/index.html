@@ -78,6 +78,35 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
   }
   document.onkeydown = handleArrowKeys;
   </script>
+  <script type="text/javascript" src="../bootstrap/js/typeahead.jquery.min.js"></script>
+  <script type="text/javascript">
+     var suggestMatcher = function() {
+       return function opensearch(q, cb) {
+       	 $.getJSON(suggestUrl + "&q="+ q, function(data) {
+           	var parsed = [];
+            for (var i = 0; i < data[0][1].length; i++) {
+                var row = data[0][1][i];
+                if (row) {
+                    parsed[parsed.length] = {
+                        data: [row],
+                        value: row,
+                        result: row
+                    };
+                };
+            };
+            cb(parsed);
+          });
+        };
+      };
+    $(document).ready(function() {
+      $('#query').typeahead({hint:false,highlight:true,minLength:1}, {
+    	name: 'states',
+    	displayKey: 'value',
+    	source: suggestMatcher()
+      });
+    });
+  </script>
+  <style type="text/css">.twitter-typeahead {margin: 0px;padding: 0px;top:2px;}</style> <!-- fix for input window -->
 </head>
 <body id="yacysearch" onLoad="document.searchform.query.focus();">
 
@@ -127,7 +156,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
       <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main" id="main">
         <form class="search small" name="searchform" action="" method="get" accept-charset="UTF-8" style="position:fixed;top:8px;z-index:1052;max-width:500px;">
           <div class="input-group">
-            <input name="query" id="query" type="text" class="form-control searchinput" size="40" maxlength="200" placeholder="Document Retrieval" value="" autofocus="autofocus" onFocus="this.select()" onclick="document.getElementById('Enter').innerHTML = 'search'"/>
+            <input name="query" id="query" type="text" class="form-control searchinput typeahead" size="40" maxlength="200" placeholder="Document Retrieval" value="" autofocus="autofocus" onFocus="this.select()" onclick="document.getElementById('Enter').innerHTML = 'search'"/>
             <div class="input-group-btn">
               <button id="Enter" name="Enter" class="btn btn-default" type="submit">search</button>
             </div>
