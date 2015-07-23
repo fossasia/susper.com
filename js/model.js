@@ -241,7 +241,33 @@ var FacetModel = Backbone.Model.extend({
     }
 
     return html;
-  }
+  },
+
+  tagCloud:function(servlet, modifierKey, modifierValue, maxfacets, search) {
+	    var html = "";
+
+	    var elements = this.facetElements();
+	    var extnav = "";
+	    var ftc = 0;
+	    for (var key in elements) if (elements[key] > 0)  ftc++;
+	    var display = ftc < maxfacets ? "block" : "none";
+	    ftc = 0;
+	    var query = search.attributes.query.replace(/%20/g, " ");
+	    for (var key in elements) {
+	      if (elements[key] > 0)  {
+	        var nq = servlet + "?query=" + query + " " + key + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
+	        var newlink = "<a rel=\"" + elements[key] + "\" href=\"" + nq + "\" style=\"text-decoration:none;font-size:" + (7 + parseInt(elements[key])) + "px;\">" + key + "</a> ";
+	        extnav += newlink;
+	        ftc++;
+	      }
+	    }
+	    extnav = "<div id=\"tagcloud\" style=\"text-align:justify\">" + extnav + "</div>";
+	    if (ftc > 1) {
+	      html += extnav;
+	    }
+
+	    return html;
+	  }
 });
 
 var NavigationCollection = Backbone.Collection.extend({

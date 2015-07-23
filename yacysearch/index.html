@@ -204,6 +204,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
 
         <div id="searchnavigation"></div>
         <div id="downloadbutton"></div>
+
         <!-- navigation end -->
 
       </div> <!-- close sidebar -->
@@ -266,6 +267,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
     if (startRecord == "") startRecord = 0;
     if (query == null) query == "";
 
+    var topicsModel = new ModifierModel({key:'topics',query:query});
     var siteModel = new ModifierModel({key:'site',query:query});
     var filetypeModel = new ModifierModel({key:'filetype',query:query});
     var ext = filetypeModel.attributes.value;
@@ -283,9 +285,14 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
 
         // update navigation
         var topics = navigation.facet("topics");
+
+        var topicsfacet = navigation.facet("topics");
+        var topics = topicsfacet ? topicsfacet.facetElements() : {};
+        
         var sitefacet = navigation.facet("domains");
         var site = sitefacet ? sitefacet.facetElements() : {};
         for (var key in site) {if (query.indexOf("site:" + key) >= 0) delete site[key];}
+        
         var filetypefacet = navigation.facet("filetypes");
         var filetypes = filetypefacet ? filetypefacet.facetElements() : {};
         for (var key in filetypes) {if (query.indexOf("filetype:" + key) >= 0) delete filetypes[key];}
@@ -312,8 +319,10 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
           resulthtml.innerHTML = rowCollection.resultTable();
           hideDownloadScript();
         }
+       
         var searchnavigation = document.getElementById("searchnavigation");
         searchnavigation.innerHTML += searchResult.renderNavigation("Result Layout");
+        if (topicsfacet) searchnavigation.innerHTML += topicsfacet.tagCloud(searchResult.attributes.servlet, topicsModel.attributes.key, topicsModel.attributes.value, 8, searchResult);
         if (filetypefacet) searchnavigation.innerHTML += filetypefacet.facetBox(searchResult.attributes.servlet, filetypeModel.attributes.key, filetypeModel.attributes.value, 8, searchResult);
         if (sitefacet) searchnavigation.innerHTML += sitefacet.facetBox(searchResult.attributes.servlet, siteModel.attributes.key, siteModel.attributes.value, 16, searchResult);
 
