@@ -255,7 +255,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
     if (layout == null) layout = "paragraph"; else layout = layout[1];
     var contentdom = new RegExp("[\\?&]contentdom=([^&#]*)").exec(window.location.href);
     if (contentdom == null) contentdom = "text"; else contentdom = contentdom[1];
-    document.getElementById("query").value=query.replace(/%20/g," ").replace(/\+/g," ").replace(/%3A/g,":").replace(/%2F/g,"/").replace(/%22/g,"\"");
+    document.getElementById("query").value=decodeURI(query);
     document.getElementById("maximumRecords").value=maximumRecords;
     document.getElementById("startRecord").value=startRecord;
     document.getElementById("layout").value=layout;
@@ -269,6 +269,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
 
     var topicsModel = new ModifierModel({key:'topics',query:query});
     var siteModel = new ModifierModel({key:'site',query:query});
+    var authorModel = new ModifierModel({key:'author',query:query});
     var filetypeModel = new ModifierModel({key:'filetype',query:query});
     var ext = filetypeModel.attributes.value;
     var hl = (layout=="paragraph") ? 'true' : 'false';
@@ -288,6 +289,10 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
 
         var topicsfacet = navigation.facet("topics");
         var topics = topicsfacet ? topicsfacet.facetElements() : {};
+        
+        var authorfacet = navigation.facet("authors");
+        var author = authorfacet ? authorfacet.facetElements() : {};
+        for (var key in author) {if (query.indexOf("author:\"" + key + "\"") >= 0) delete author[key];}
         
         var sitefacet = navigation.facet("domains");
         var site = sitefacet ? sitefacet.facetElements() : {};
@@ -325,6 +330,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
         if (topicsfacet) searchnavigation.innerHTML += topicsfacet.tagCloud(searchResult.attributes.servlet, topicsModel.attributes.key, topicsModel.attributes.value, 8, searchResult);
         if (filetypefacet) searchnavigation.innerHTML += filetypefacet.facetBox(searchResult.attributes.servlet, filetypeModel.attributes.key, filetypeModel.attributes.value, 8, searchResult);
         if (sitefacet) searchnavigation.innerHTML += sitefacet.facetBox(searchResult.attributes.servlet, siteModel.attributes.key, siteModel.attributes.value, 16, searchResult);
+        if (authorfacet) searchnavigation.innerHTML += authorfacet.facetBox(searchResult.attributes.servlet, authorModel.attributes.key, authorModel.attributes.value, 16, searchResult);
 
         // update progress and navigation
         statistics(startRecord, maximumRecords, totalResults, window.location.href.replace(/&startRecord=[^&#]*&/g,"&")); //startRecord, maximumRecords, totalcount, navurlbase

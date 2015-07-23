@@ -220,7 +220,8 @@ var FacetModel = Backbone.Model.extend({
     var query = search.attributes.query.replace(/%20/g, " ");
     for (var key in elements) {
       if (elements[key] > 0)  {
-        var nq = servlet + "?query=" + query + " " + modifierKey + ":" + key + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
+        var keyquote = (key.indexOf(' ') > 0) ? "(" + key.replace(/ /g, " ") + ")" : key
+        var nq = servlet + "?query=" + query + " " + modifierKey + ":" + keyquote + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
         extnav += "<li style=\"display:" + display + "\" id=\"" + this.attributes.displayname + "_" + ftc + "\">";
         extnav += "<a href=\"" + nq + "\" class=\"MenuItemLink\"><input type=\"checkbox\" onchange=\"window.location.href='" + nq + "'\"/> " + key + " (" + elements[key] + ")</a></li>";
         ftc++;
@@ -289,11 +290,19 @@ var ModifierModel = Backbone.Model.extend({
     this.attributes.value = "";
     var matcher = " " + this.attributes.key + ":";
     var query = this.attributes.query.replace(/%20/g, " ");
-    for (var extl = 2; extl < 30; extl++) {
-      if (query.length >= matcher.length + 3 && query.substring(query.length - matcher.length - extl, query.length - extl) == matcher) {
-        this.attributes.value = query.substring(query.length - extl);
-        if ((p = this.attributes.value.indexOf(' ')) >= 0) this.attributes.value = this.attributes.value.substring(0, p);
-        break;
+    if (query.length >= matcher.length) {
+      for (var extl = 2; extl < 30; extl++) {
+    	var subquery = query.substring(query.length - matcher.length - extl, query.length - extl);
+        if (subquery == matcher) {
+          this.attributes.value = query.substring(query.length - extl);
+          if (this.attributes.value.startsWith('(')) {
+        	p = this.attributes.value.indexOf(')');
+        	this.attributes.value = this.attributes.value.substring(0, p + 1);
+          } else if ((p = this.attributes.value.indexOf(' ')) >= 0) {
+        	this.attributes.value = this.attributes.value.substring(0, p);
+          }
+          break;
+        }
       }
     }
   }
