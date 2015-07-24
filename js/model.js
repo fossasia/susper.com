@@ -113,6 +113,7 @@ var RowModel = Backbone.Model.extend({
       path = "/";
     }
     var title = this.get("title");
+    var description = this.get("description");
     path = unescape(path);
     var origpath = path; // save this for later in the link, this may be shortened now
     if (path.length >= 40) path = path.substring(0, 18) + "..." + path.substring(path.length - 19);
@@ -134,7 +135,7 @@ var RowModel = Backbone.Model.extend({
       html += "<div class=\"searchresults\">";
       html += "<h4 class=\"linktitle\">";
       html += "<a href=\"" + link + "\" target=\"_self\">" + title + "</a></h4>";
-      html += "<p class=\"snippet\"><span class=\"snippetLoaded\">" + title + "</span></p>";
+      if (title != description) html += "<p class=\"snippet\"><span class=\"snippetLoaded\">" + description + "</span></p>";
       html += "<p class=\"url\"><a href=\"" + link + "\" target=\"_self\">" + link + "</a></p>";
       html += "<p class=\"urlinfo\">" + pdnt + "</p>";
       html += "</div>";
