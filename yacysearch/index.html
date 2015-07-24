@@ -292,7 +292,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
         
         var authorfacet = navigation.facet("authors");
         var author = authorfacet ? authorfacet.facetElements() : {};
-        for (var key in author) {if (query.indexOf("author:\"" + key + "\"") >= 0) delete author[key];}
+        for (var key in author) {if (query.indexOf("author:(" + key + ")") >= 0) delete author[key];}
         
         var sitefacet = navigation.facet("domains");
         var site = sitefacet ? sitefacet.facetElements() : {};
@@ -301,7 +301,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
         var filetypefacet = navigation.facet("filetypes");
         var filetypes = filetypefacet ? filetypefacet.facetElements() : {};
         for (var key in filetypes) {if (query.indexOf("filetype:" + key) >= 0) delete filetypes[key];}
-
+        
         if (layout == "images") {
           if (totalResults == 0)
             document.getElementById("progressbar_text").innerHTML = "no images found";
@@ -332,6 +332,17 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
         if (sitefacet) searchnavigation.innerHTML += sitefacet.facetBox(searchResult.attributes.servlet, siteModel.attributes.key, siteModel.attributes.value, 16, searchResult);
         if (authorfacet) searchnavigation.innerHTML += authorfacet.facetBox(searchResult.attributes.servlet, authorModel.attributes.key, authorModel.attributes.value, 16, searchResult);
 
+        // generic facets
+        var genericfacets = navigation.genericfacets();
+        for (var i = 0; i < genericfacets.length; i++) {
+        	var genericfacet = genericfacets[i];
+            var gModel = new ModifierModel({key:genericfacet,query:query});
+        	var gfacet = navigation.facet(genericfacet);
+            var g = gfacet ? gfacet.facetElements() : {};
+            for (var key in gfacet) {if (query.indexOf("/vocabulary/" + genericfacet + "/" + key) >= 0) delete gfacet[key];}
+            searchnavigation.innerHTML += gfacet.facetBox(searchResult.attributes.servlet, "/vocabulary/" + gModel.attributes.key, gModel.attributes.value, 16, searchResult);
+        }
+        
         // update progress and navigation
         statistics(startRecord, maximumRecords, totalResults, window.location.href.replace(/&startRecord=[^&#]*&/g,"&")); //startRecord, maximumRecords, totalcount, navurlbase
       },

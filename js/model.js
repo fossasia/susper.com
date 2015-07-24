@@ -219,10 +219,11 @@ var FacetModel = Backbone.Model.extend({
     var display = ftc < maxfacets ? "block" : "none";
     ftc = 0;
     var query = search.attributes.query.replace(/%20/g, " ");
+    var separator = modifierKey.startsWith("/") ? "/" : ":";
     for (var key in elements) {
       if (elements[key] > 0)  {
         var keyquote = (key.indexOf(' ') > 0) ? "(" + key.replace(/ /g, " ") + ")" : key
-        var nq = servlet + "?query=" + query + " " + modifierKey + ":" + keyquote + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
+        var nq = servlet + "?query=" + query + " " + modifierKey + separator + keyquote + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
         extnav += "<li style=\"display:" + display + "\" id=\"" + this.attributes.displayname + "_" + ftc + "\">";
         extnav += "<a href=\"" + nq + "\" class=\"MenuItemLink\"><input type=\"checkbox\" onchange=\"window.location.href='" + nq + "'\"/> " + key + " (" + elements[key] + ")</a></li>";
         ftc++;
@@ -275,6 +276,19 @@ var FacetModel = Backbone.Model.extend({
 var NavigationCollection = Backbone.Collection.extend({
   model:FacetModel,
 
+  genericfacets:function() {
+    var elts = [];
+    var fc = 0;
+    for (i = 0; i < this.length; i++) {
+      var facet = this.at(i);
+      var elements = facet.attributes.elements;
+      var modifier = elements[0].modifier;
+      if (modifier === undefined) continue;
+      if (modifier.startsWith("%2Fvocabulary")) elts[fc++] = facet.attributes.facetname;
+    }
+    return elts;
+  },
+  
   facet:function(name){
     for (i = 0; i < this.length; i++) {
       var facet = this.at(i);
