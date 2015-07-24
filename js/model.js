@@ -12,7 +12,7 @@ var SearchModel = Backbone.Model.extend({
   defaults:{hl:'false',query:'',start:'0',rows:'100',layout:'paragraph',startTime:new Date(),servlet:"index.html",contentdom:"text"},
 
   url:function(){
-    return searchURL + '&hl=' + this.attributes.hl + '&query=' + this.attributes.query + '&startRecord=' + this.attributes.start + '&maximumRecords=' + this.attributes.rows + '&contentdom=' + this.attributes.contentdom;
+    return searchURL + '&hl=' + this.attributes.hl + '&query=' + this.attributes.query + '&startRecord=' + this.attributes.start + '&maximumRecords=' + this.attributes.rows + '&contentdom=' + (this.attributes.layout == "images" ? "image" : this.attributes.contentdom);
   },
 
   parse:function(resp){
@@ -87,6 +87,7 @@ var RowModel = Backbone.Model.extend({
     var link = this.attributes.link;
     if (link == null || link == "") link = this.attributes.image;
     if (link == null) return "";
+    var image = this.attributes.image;
     var protocol = "";
     var host = "";
     // extract the path
@@ -155,7 +156,7 @@ var RowModel = Backbone.Model.extend({
     if (style == "imageCell") {
       if (file.length == 0 || file == "/") file = "[image]";
       html += "<a href=\"" + link + "\" name=\"" + file + "\">";
-      html += "<img src=\"" + link + "\" width=\"96\" height=\"96\" />";
+      html += "<img src=\"" + image + "\" width=\"96\" height=\"96\" />";
       html += "</a>";
     }
 
