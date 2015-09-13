@@ -119,7 +119,7 @@ var RowModel = Backbone.Model.extend({
     var origpath = path; // save this for later in the link, this may be shortened now
     if (path.length >= 40) path = path.substring(0, 18) + "..." + path.substring(path.length - 19);
     if (title == "") title = path;
-    if (title.length >= 60) title = title.substring(0, 28) + "..." + title.substring(title.length - 29);
+    if (title.length >= 130) title = title.substring(0, 65) + "..." + title.substring(title.length - 65);
     var pd = this.get("pubDate");
     if (pd == undefined) pd = "";
     var comma = pd.indexOf(",");
