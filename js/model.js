@@ -220,7 +220,7 @@ var FacetModel = Backbone.Model.extend({
     var display = ftc < maxfacets ? "block" : "none";
     ftc = 0;
     var query = search.attributes.query.replace(/%20/g, " ");
-    var separator = modifierKey.startsWith("/") ? "/" : ":";
+    var separator = modifierKey.charAt(0) == '/' ? "/" : ":";
     for (var key in elements) {
       if (elements[key] > 0)  {
         var keyquote = (key.indexOf(' ') > 0) ? "(" + key.replace(/ /g, " ") + ")" : key
@@ -285,7 +285,7 @@ var NavigationCollection = Backbone.Collection.extend({
       var elements = facet.attributes.elements;
       var modifier = elements[0].modifier;
       if (modifier === undefined) continue;
-      if (modifier.startsWith("%2Fvocabulary")) elts[fc++] = facet.attributes.facetname;
+      if (modifier.indexOf("%2Fvocabulary", 0) == 0) elts[fc++] = facet.attributes.facetname;
     }
     return elts;
   },
@@ -311,7 +311,7 @@ var ModifierModel = Backbone.Model.extend({
     	var subquery = query.substring(query.length - matcher.length - extl, query.length - extl);
         if (subquery == matcher) {
           this.attributes.value = query.substring(query.length - extl);
-          if (this.attributes.value.startsWith('(')) {
+          if (this.attributes.value.charAt(0) == '(') {
         	p = this.attributes.value.indexOf(')');
         	this.attributes.value = this.attributes.value.substring(0, p + 1);
           } else if ((p = this.attributes.value.indexOf(' ')) >= 0) {
