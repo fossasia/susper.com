@@ -218,7 +218,6 @@ var FacetModel = Backbone.Model.extend({
     var ftc = 0;
     for (var key in elements) if (elements[key] > 0)  ftc++;
     var display = ftc < maxfacets ? "block" : "none";
-    ftc = 0;
     var query = search.attributes.query.replace(/%20/g, " ");
     var separator = modifierKey.charAt(0) == '/' ? "/" : ":";
     for (var key in elements) {
@@ -227,11 +226,10 @@ var FacetModel = Backbone.Model.extend({
         var nq = servlet + "?query=" + query + " " + modifierKey + separator + keyquote + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
         extnav += "<li style=\"display:" + display + "\" id=\"" + this.attributes.displayname + "_" + ftc + "\">";
         extnav += "<a href=\"" + nq + "\" class=\"MenuItemLink\"><input type=\"checkbox\" onchange=\"window.location.href='" + nq + "'\"/> " + key + " (" + elements[key] + ")</a></li>";
-        ftc++;
       }
     }
     extnav = "<ul class=\"nav nav-sidebar menugroup\"><li style=\"cursor: pointer; cursor: hand;\"><h3 onclick=\"toggleVisibility('" + this.attributes.displayname + "', " + ftc + ");\">" + this.attributes.displayname + " [" + ftc + "] <span style=\"float:right\" id=\"chevron-" + this.attributes.displayname + "\" class=\"glyphicon glyphicon-chevron-down\" title=\"click to expand facet\"></span></h3></li>" + extnav + "</ul>";
-    if (ftc > 1) {
+    if (ftc >= 1) {
       html += extnav;
     } else {
       // check if there is an active constraint and offer a removal
