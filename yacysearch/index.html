@@ -28,12 +28,10 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../bootstrap/js/docs.min.js"></script>
 
-    <script src="navigation.js" type="text/javascript"></script>
-    <script src="../js/lib/json2.js"></script>
-    <script src="../js/lib/jquery.js"></script>
-    <script src="../js/lib/underscore-min.js"></script>
-    <script src="../js/lib/backbone-min.js"></script>
-    <script src="../js/setup.js" type="text/javascript"></script> <!-- customization -->
+  <script src="navigation.js" type="text/javascript"></script>
+  <script src="../js/lib/underscore-min.js"></script>
+  <script src="../js/lib/backbone-min.js"></script>
+  <script src="../js/setup.js" type="text/javascript"></script> <!-- customization -->
   <script src="../js/yacysearch.js" type="text/javascript"></script>
 
   <!-- Custom styles for this template, i.e. navigation (move this to base.css) -->
@@ -245,7 +243,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
     document.getElementById("sidebar").innerHTML = "";
     document.getElementById("progress").remove();
   } else {
-    query = query[1];
+    query = decodeURIComponent(query[1].replace(/\+/g, '%20'));
     var startRecord = new RegExp("[\\?&]startRecord=([^&#]*)").exec(window.location.href);
     if (startRecord == null) startRecord = 0; else startRecord = startRecord[1];
     var maximumRecords = new RegExp("[\\?&]maximumRecords=([^&#]*)").exec(window.location.href);
@@ -254,7 +252,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
     if (layout == null) layout = "paragraph"; else layout = layout[1];
     var contentdom = new RegExp("[\\?&]contentdom=([^&#]*)").exec(window.location.href);
     if (contentdom == null) contentdom = "text"; else contentdom = contentdom[1];
-    document.getElementById("query").value=decodeURI(query);
+    document.getElementById("query").value=query;
     document.getElementById("maximumRecords").value=maximumRecords;
     document.getElementById("startRecord").value=startRecord;
     document.getElementById("layout").value=layout;
