@@ -218,58 +218,54 @@ var FacetModel = Backbone.Model.extend({
     var ftc = 0;
     for (var key in elements) if (elements[key] > 0)  ftc++;
     var display = ftc < maxfacets ? "block" : "none";
-    var query = search.attributes.query.replace(/%20/g, " ");
-    var separator = modifierKey.charAt(0) == '/' ? "/" : ":";
+    var query = decodeURIComponent(search.attributes.query);
     for (var key in elements) {
       if (elements[key] > 0)  {
-        var keyquote = (key.indexOf(' ') > 0) ? "(" + key.replace(/ /g, " ") + ")" : key
-        var nq = servlet + "?query=" + query + " " + modifierKey + separator + keyquote + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
-        extnav += "<li style=\"display:" + display + "\" id=\"" + this.attributes.displayname + "_" + ftc + "\">";
-        extnav += "<a href=\"" + nq + "\" class=\"MenuItemLink\"><input type=\"checkbox\" onchange=\"window.location.href='" + nq + "'\"/> " + key + " (" + elements[key] + ")</a></li>";
+        var keyquote = (key.indexOf(' ') > 0) ? "(" + key.replace(/ /g, " ") + ")" : key;
+        if (keyquote == modifierValue) {
+          var nq = servlet + "?query=" + query.substring(0, query.length - modifierKey.length - modifierValue.length - 1) + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
+          extnav += "<li style=\"display:" + display + "\" id=\"" + this.attributes.displayname + "\">";
+          extnav += "<a href=\"" + nq + "\" class=\"MenuItemLink\"><input type=\"checkbox\" checked=\"checked\" onchange=\"window.location.href='" + nq + "'\"/> " + key + " (" + elements[key] + ")</a></li>";
+        } else {
+          var nq = servlet + "?query=" + query + " " + modifierKey + keyquote + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
+          extnav += "<li style=\"display:" + display + "\" id=\"" + this.attributes.displayname + "_" + ftc + "\">";
+          extnav += "<a href=\"" + nq + "\" class=\"MenuItemLink\"><input type=\"checkbox\" onchange=\"window.location.href='" + nq + "'\"/> " + key + " (" + elements[key] + ")</a></li>";
+        }
       }
     }
     extnav = "<ul class=\"nav nav-sidebar menugroup\"><li style=\"cursor: pointer; cursor: hand;\"><h3 onclick=\"toggleVisibility('" + this.attributes.displayname + "', " + ftc + ");\">" + this.attributes.displayname + " [" + ftc + "] <span style=\"float:right\" id=\"chevron-" + this.attributes.displayname + "\" class=\"glyphicon glyphicon-chevron-down\" title=\"click to expand facet\"></span></h3></li>" + extnav + "</ul>";
     if (ftc >= 1) {
       html += extnav;
-    } else {
-      // check if there is an active constraint and offer a removal
-      if (modifierValue != "") {
-        var nq = servlet + "?query=" + query.substring(0, query.length - modifierKey.length - modifierValue.length - 2) + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
-        html = "<ul class=\"nav nav-sidebar menugroup\"><li style=\"cursor: pointer; cursor: hand;\"><h3>" + this.attributes.displayname + "</h3></li>";
-        html += "<li style=\"display:block\" id=\"" + this.attributes.displayname + "\">";
-        html += "<a href=\"" + nq + "\" class=\"MenuItemLink\"><input type=\"checkbox\" checked=\"checked\" onchange=\"window.location.href='" + nq + "'\"/> " + key + " (" + elements[key] + ")</a></li>";
-        html += "</ul>";
-      }
     }
 
     return html;
   },
 
   tagCloud:function(servlet, modifierKey, modifierValue, maxfacets, search) {
-	    var html = "";
+      var html = "";
 
-	    var elements = this.facetElements();
-	    var extnav = "";
-	    var ftc = 0;
-	    for (var key in elements) if (elements[key] > 0)  ftc++;
-	    var display = ftc < maxfacets ? "block" : "none";
-	    ftc = 0;
-	    var query = search.attributes.query.replace(/%20/g, " ");
-	    for (var key in elements) {
-	      if (elements[key] > 0)  {
-	        var nq = servlet + "?query=" + query + " " + key + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
-	        var newlink = "<a rel=\"" + elements[key] + "\" href=\"" + nq + "\" style=\"text-decoration:none;font-size:" + (7 + parseInt(elements[key])) + "px;\">" + key + "</a> ";
-	        extnav += newlink;
-	        ftc++;
-	      }
-	    }
-	    extnav = "<div id=\"tagcloud\" style=\"text-align:justify\">" + extnav + "</div>";
-	    if (ftc > 1) {
-	      html += extnav;
-	    }
+      var elements = this.facetElements();
+      var extnav = "";
+      var ftc = 0;
+      for (var key in elements) if (elements[key] > 0)  ftc++;
+      var display = ftc < maxfacets ? "block" : "none";
+      ftc = 0;
+      var query = decodeURIComponent(search.attributes.query);
+      for (var key in elements) {
+        if (elements[key] > 0)  {
+          var nq = servlet + "?query=" + query + " " + key + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
+          var newlink = "<a rel=\"" + elements[key] + "\" href=\"" + nq + "\" style=\"text-decoration:none;font-size:" + (7 + parseInt(elements[key])) + "px;\">" + key + "</a> ";
+          extnav += newlink;
+          ftc++;
+        }
+      }
+      extnav = "<div id=\"tagcloud\" style=\"text-align:justify\">" + extnav + "</div>";
+      if (ftc > 1) {
+        html += extnav;
+      }
 
-	    return html;
-	  }
+      return html;
+    }
 });
 
 var NavigationCollection = Backbone.Collection.extend({
@@ -281,9 +277,10 @@ var NavigationCollection = Backbone.Collection.extend({
     for (i = 0; i < this.length; i++) {
       var facet = this.at(i);
       var elements = facet.attributes.elements;
-      var modifier = elements[0].modifier;
-      if (modifier === undefined) continue;
-      if (modifier.indexOf("%2Fvocabulary", 0) == 0) elts[fc++] = facet.attributes.facetname;
+      if (elements[0].modifier === undefined) continue;
+      var modifier = decodeURIComponent(elements[0].modifier);
+      var mix = modifier.indexOf("/vocabulary", 0);
+      if (mix == 0 || mix == 1) elts[fc++] = facet.attributes.facetname;
     }
     return elts;
   },
@@ -302,18 +299,18 @@ var ModifierModel = Backbone.Model.extend({
   defaults:{key:'',value:'',query:''},
   initialize: function() {
     this.attributes.value = "";
-    var matcher = " " + this.attributes.key + ":";
-    var query = this.attributes.query.replace(/%20/g, " ");
-    if (query.length >= matcher.length) {
+    var matcher = " " + this.attributes.key;
+    var query = decodeURIComponent(this.attributes.query);
+    if (query.length > matcher.length) {
       for (var extl = 2; extl < 30; extl++) {
-    	var subquery = query.substring(query.length - matcher.length - extl, query.length - extl);
+        var subquery = query.substring(query.length - matcher.length - extl, query.length - extl);
         if (subquery == matcher) {
           this.attributes.value = query.substring(query.length - extl);
           if (this.attributes.value.charAt(0) == '(') {
-        	p = this.attributes.value.indexOf(')');
-        	this.attributes.value = this.attributes.value.substring(0, p + 1);
+            p = this.attributes.value.indexOf(')');
+            this.attributes.value = this.attributes.value.substring(0, p + 1);
           } else if ((p = this.attributes.value.indexOf(' ')) >= 0) {
-        	this.attributes.value = this.attributes.value.substring(0, p);
+            this.attributes.value = this.attributes.value.substring(0, p);
           }
           break;
         }

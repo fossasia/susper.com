@@ -28,13 +28,13 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../bootstrap/js/docs.min.js"></script>
 
-	<script src="navigation.js" type="text/javascript"></script>
-	<script src="../js/lib/json2.js"></script>
-	<script src="../js/lib/jquery.js"></script>
-	<script src="../js/lib/underscore-min.js"></script>
-	<script src="../js/lib/backbone-min.js"></script>
-	<script src="../js/setup.js" type="text/javascript"></script> <!-- customization -->
-	<script src="../js/model.js" type="text/javascript"></script> <!-- back-end data model -->
+    <script src="navigation.js" type="text/javascript"></script>
+    <script src="../js/lib/json2.js"></script>
+    <script src="../js/lib/jquery.js"></script>
+    <script src="../js/lib/underscore-min.js"></script>
+    <script src="../js/lib/backbone-min.js"></script>
+    <script src="../js/setup.js" type="text/javascript"></script> <!-- customization -->
+    <script src="../js/model.js" type="text/javascript"></script> <!-- back-end data model -->
   <script src="../js/yacysearch.js" type="text/javascript"></script>
 
   <!-- Custom styles for this template, i.e. navigation (move this to base.css) -->
@@ -82,8 +82,8 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
   <script type="text/javascript">
      var suggestMatcher = function() {
        return function opensearch(q, cb) {
-       	 $.getJSON(suggestUrl + "&q="+ q, function(data) {
-           	var parsed = [];
+            $.getJSON(suggestUrl + "&q="+ q, function(data) {
+               var parsed = [];
             for (var i = 0; i < data[0][1].length; i++) {
                 var row = data[0][1][i];
                 if (row) {
@@ -100,9 +100,9 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
       };
     $(document).ready(function() {
       $('#query').typeahead({hint:false,highlight:true,minLength:1}, {
-    	name: 'states',
-    	displayKey: 'value',
-    	source: suggestMatcher()
+        name: 'states',
+        displayKey: 'value',
+        source: suggestMatcher()
       });
     });
   </script>
@@ -267,10 +267,10 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
     if (startRecord == "") startRecord = 0;
     if (query == null) query == "";
 
-    var topicsModel = new ModifierModel({key:'topics',query:query});
-    var siteModel = new ModifierModel({key:'site',query:query});
-    var authorModel = new ModifierModel({key:'author',query:query});
-    var filetypeModel = new ModifierModel({key:'filetype',query:query});
+    var topicsModel = new ModifierModel({key:'topics:',query:query});
+    var siteModel = new ModifierModel({key:'site:',query:query});
+    var authorModel = new ModifierModel({key:'author:',query:query});
+    var filetypeModel = new ModifierModel({key:'filetype:',query:query});
     var ext = filetypeModel.attributes.value;
     var hl = (layout=="paragraph") ? 'true' : 'false';
 
@@ -335,12 +335,14 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
         // generic facets
         var genericfacets = navigation.genericfacets();
         for (var i = 0; i < genericfacets.length; i++) {
-        	var genericfacet = genericfacets[i];
-            var gModel = new ModifierModel({key:genericfacet,query:query});
-        	var gfacet = navigation.facet(genericfacet);
+            var genericfacet = genericfacets[i];
+            var gModel = new ModifierModel({key:"/vocabulary/" + genericfacet + "/", query:query});
+            var gfacet = navigation.facet(genericfacet);
             var g = gfacet ? gfacet.facetElements() : {};
-            for (var key in gfacet) {if (query.indexOf("/vocabulary/" + genericfacet + "/" + key) >= 0) delete gfacet[key];}
-            searchnavigation.innerHTML += gfacet.facetBox(searchResult.attributes.servlet, "/vocabulary/" + gModel.attributes.key, gModel.attributes.value, 16, searchResult);
+            for (var key in gfacet) {
+            	if (query.indexOf("/vocabulary/" + genericfacet + "/" + key) >= 0) delete gfacet[key];
+            }
+            searchnavigation.innerHTML += gfacet.facetBox(searchResult.attributes.servlet, gModel.attributes.key, gModel.attributes.value, 16, searchResult);
         }
         
         // update progress and navigation
