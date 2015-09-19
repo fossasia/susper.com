@@ -217,19 +217,21 @@ var FacetModel = Backbone.Model.extend({
     var ftc = 0;
     for (var key in elements) if (elements[key] > 0)  ftc++;
     var display = ftc < maxfacets ? "block" : "none";
+    ftc = 0;
     var query = decodeURIComponent(search.attributes.query);
     for (var key in elements) {
       if (elements[key] > 0)  {
         var keyquote = (key.indexOf(' ') > 0) ? "(" + key.replace(/ /g, " ") + ")" : key;
         if (keyquote == modifierValue) {
           var nq = servlet + "?query=" + query.substring(0, query.length - modifierKey.length - modifierValue.length - 1) + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
-          extnav += "<li style=\"display:" + display + "\" id=\"" + this.attributes.displayname + "\">";
+          extnav += "<li style=\"display:" + display + "\" id=\"" + this.attributes.displayname + "_" + ftc + "\">";
           extnav += "<a href=\"" + nq + "\" class=\"MenuItemLink\"><input type=\"checkbox\" checked=\"checked\" onchange=\"window.location.href='" + nq + "'\"/> " + key + " (" + elements[key] + ")</a></li>";
         } else {
           var nq = servlet + "?query=" + query + " " + modifierKey + keyquote + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
           extnav += "<li style=\"display:" + display + "\" id=\"" + this.attributes.displayname + "_" + ftc + "\">";
           extnav += "<a href=\"" + nq + "\" class=\"MenuItemLink\"><input type=\"checkbox\" onchange=\"window.location.href='" + nq + "'\"/> " + key + " (" + elements[key] + ")</a></li>";
         }
+        ftc++;
       }
     }
     extnav = "<ul class=\"nav nav-sidebar menugroup\"><li style=\"cursor: pointer; cursor: hand;\"><h3 onclick=\"toggleVisibility('" + this.attributes.displayname + "', " + ftc + ");\">" + this.attributes.displayname + " [" + ftc + "] <span style=\"float:right\" id=\"chevron-" + this.attributes.displayname + "\" class=\"glyphicon glyphicon-chevron-down\" title=\"click to expand facet\"></span></h3></li>" + extnav + "</ul>";
