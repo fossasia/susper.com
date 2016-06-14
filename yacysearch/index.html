@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <!--
   (C) by Michael Peter Christen, mc (at) yacy.net
   licensed under a Creative Commons Attribution 2.0 Generic License (CC-BY 2.0)
@@ -8,7 +8,7 @@
   <title id="title"></title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <!-- scary MS stuff ahead to prevent that IE runs in "IE=EmulateIE10" mode which cannot run our JS code for some reason -->
-  <meta http-equiv="X-UA-Compatible" content="IE=10"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <!--
 if you don't see the glyphicons in firefox and you opened this file from a local filesystem,
 then a CORS security setting in firefox caused that.
@@ -118,7 +118,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
           <span class="icon-bar"></span>
         </button>
         <a id="homepage" class="navbar-brand" href="http://yacy.net" style="position:absolute;top:-6px;display:inline;white-space:nowrap;">
-          <img id="logo" class="yacylogo" src="../images/YaCyLogo2011_60.png" style="height:auto; width:auto; max-width:200px; max-height:32px;vertical-align:middle">
+          <img id="logo" class="yacylogo" src="../images/YaCyLogo2011_60.png" alt="YaCy" style="height:auto; width:auto; max-width:200px; max-height:32px;vertical-align:middle">
         </a>
         <span id="topmenu" style="position:absolute;top:12px;left:80px;display:inline;white-space:nowrap;font-size:2em;"></span>
       </div>
@@ -127,16 +127,16 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
           <li id="header_help" class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-question-sign"></span></a>
             <ul class="dropdown-menu">
-              <li id="header_profile"><a href="index.html?">Search Page</a></li>
+              <li id="header_search"><a href="index.html?">Search Page</a></li>
               <li id="header_profile"><a href="about.html?">About This Page</a></li>
-              <li id="header_profile"><a href="usage.html?">Usage of this page templates</a></li>
+              <li id="header_usage"><a href="usage.html?">Usage of this page templates</a></li>
               <li id="header_tutorial"><a href="http://yacy.net/tutorials/">YaCy Tutorials</a></li>
               <li class="divider"></li>
-              <li id="header_tutorial"><a href="http://yacy.net" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Download YaCy</a></li>
-              <li id="header_tutorial"><a href="http://forum.yacy.de" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Community (Web Forums)</a></li>
-              <li id="header_tutorial"><a href="http://wiki.yacy.de" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Project Wiki</a></li>
-              <li id="header_tutorial"><a href="https://github.com/yacy/yacy_search_server/commits/master" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Git Repository</a></li>
-              <li id="header_tutorial"><a href="http://bugs.yacy.net" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Bugtracker</a></li>
+              <li id="header_download"><a href="http://yacy.net" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Download YaCy</a></li>
+              <li id="header_community"><a href="http://forum.yacy.de" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Community (Web Forums)</a></li>
+              <li id="header_wiki"><a href="http://wiki.yacy.de" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Project Wiki</a></li>
+              <li id="header_git"><a href="https://github.com/yacy/yacy_search_server/commits/master" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Git Repository</a></li>
+              <li id="header_bugs"><a href="http://bugs.yacy.net" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Bugtracker</a></li>
             </ul>
           </li>
         </ul>
@@ -151,7 +151,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
 
     <div class="row">
       <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main" id="main">
-        <form class="search small" name="searchform" action="" method="get" accept-charset="UTF-8" style="position:fixed;top:8px;z-index:1052;max-width:500px;">
+        <form class="search small" name="searchform" action="#" method="get" accept-charset="UTF-8" style="position:fixed;top:8px;z-index:1052;max-width:500px;">
           <div class="input-group">
             <input name="query" id="query" type="text" class="form-control searchinput typeahead" size="40" maxlength="200" placeholder="Document Retrieval" value="" autofocus="autofocus" onFocus="this.select()" onclick="document.getElementById('Enter').innerHTML = 'search'"/>
             <div class="input-group-btn">
@@ -163,7 +163,8 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
           <input type="hidden" name="startRecord" id="startRecord" value="0" />
           <input type="hidden" name="layout" id="layout" value="paragraph" />
           <input type="hidden" name="contentdom" id="contentdom" value="text" />
-          <input id="timezoneOffset" type="hidden" name="timezoneOffset" value=""><script>document.getElementById("timezoneOffset").value = new Date().getTimezoneOffset();</script>
+          <input id="timezoneOffset" type="hidden" name="timezoneOffset" value="">
+          <script>document.getElementById("timezoneOffset").value = new Date().getTimezoneOffset();</script>
         </form>
 
         <!-- type the number of results and navigation bar -->
@@ -190,14 +191,13 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
         <span id="resNav" class="col-sm-12  col-md-12" style="display: inline;"></span>
       </div> <!-- close main -->
 
-      <div class="col-sm-4 col-md-3 sidebar" id="sidebar" id="sidebar">
+      <div class="col-sm-4 col-md-3 sidebar" id="sidebar">
         <!-- navigation begin -->
-        <p class="navbutton">
-          <div class="btn-group btn-group-justified">
-            <div class="btn-group btn-group-xs"><button type="button" id="sort_button_context" class="btn btn-default" onclick="document.getElementById('query').value=document.getElementById('query').value.replace(' /date','');document.searchform.submit();">Context Ranking</button></div>
-            <div class="btn-group btn-group-xs"><button type="button" id="sort_button_date" class="btn btn-default" onclick="document.getElementById('query').value=document.getElementById('query').value + ' /date';document.searchform.submit();">Sort by Date</button></div>
-          </div>
-        </p>
+        <p class="navbutton"></p>
+        <div class="btn-group btn-group-justified">
+          <div class="btn-group btn-group-xs"><button type="button" id="sort_button_context" class="btn btn-default" onclick="document.getElementById('query').value=document.getElementById('query').value.replace(' /date','');document.searchform.submit();">Context Ranking</button></div>
+          <div class="btn-group btn-group-xs"><button type="button" id="sort_button_date" class="btn btn-default" onclick="document.getElementById('query').value=document.getElementById('query').value + ' /date';document.searchform.submit();">Sort by Date</button></div>
+        </div>
 
         <div id="searchnavigation"></div>
         <div id="downloadbutton"></div>

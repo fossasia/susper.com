@@ -40,7 +40,7 @@ var SearchModel = Backbone.Model.extend({
     var html = "";
     // image navigation selection
 
-    html += "<p class=\"navbutton\"><div class=\"btn-group btn-group-justified\">";
+    html += "<p class=\"navbutton\"></p><div class=\"btn-group btn-group-justified\">";
     var u = this.attributes.servlet + "?query=" + this.attributes.query + "&startRecord=" + this.attributes.start;
     if (this.attributes.layout == "paragraph" || this.attributes.layout == "table") {
       html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Documents</button></div>";
@@ -50,13 +50,13 @@ var SearchModel = Backbone.Model.extend({
       html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&maximumRecords=10&layout=paragraph&contentdom=text'\">Documents</button></div>";
       html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Images</button></div>";
     }
-    html += "</div></p>";
+    html += "</div>";
 
 
     // in case of document: document type navigation
     if (this.attributes.layout == "paragraph" || this.attributes.layout == "table") {
       var u = this.attributes.servlet + "?query=" + this.attributes.query + "&startRecord=" + this.attributes.start + "&maximumRecords=" + this.attributes.rows;
-      html += "<p class=\"navbutton\"><div class=\"btn-group btn-group-justified\">";
+      html += "<p class=\"navbutton\"></p><div class=\"btn-group btn-group-justified\">";
       if (this.attributes.layout == "paragraph") {
         html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Paragraph Layout</button></div>";
         html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&layout=table&contentdom=all'\">Table Layout</button></div>";
@@ -65,7 +65,7 @@ var SearchModel = Backbone.Model.extend({
         html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&layout=paragraph&contentdom=text'\">Paragraph Layout</button></div>";
         html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Table Layout</button></div>";
       }
-        html += "</div></p>";
+        html += "</div>";
     }
     return html;
   }
