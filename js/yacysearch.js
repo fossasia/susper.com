@@ -11,7 +11,7 @@ var SearchModel = Backbone.Model.extend({
   defaults:{hl:'false',query:'',start:'0',rows:'100',layout:'paragraph',startTime:new Date(),servlet:"index.html",contentdom:"text"},
 
   url:function(){
-    return searchURL + '&hl=' + this.attributes.hl + '&query=' + this.attributes.query + '&startRecord=' + this.attributes.start + '&maximumRecords=' + this.attributes.rows + '&contentdom=' + (this.attributes.layout == "images" ? "image" : this.attributes.contentdom);
+    return searchURL + '&resource=local&hl=' + this.attributes.hl + '&query=' + this.attributes.query + '&startRecord=' + this.attributes.start + '&maximumRecords=' + this.attributes.rows + '&contentdom=' + (this.attributes.layout == "images" ? "image" : this.attributes.contentdom);
   },
 
   parse:function(resp){
