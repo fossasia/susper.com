@@ -49,7 +49,7 @@ Please read how to deploy to [Heroku here](/docs/INSTALLATION_HEROKU.md)
 
 ## Contributions, Bug Reports, Feature Requests
 
-This is an Open Source project and we would be happy to see contributors who report bugs and file feature requests submitting pull requests as well. Please report issues here https://github.com/fossasia/open-event-webapp/issues
+This is an Open Source project and we would be happy to see contributors who report bugs and file feature requests submitting pull requests as well. Please report issues here https://github.com/fossasia/susper.com/issues
 
 
 ## Issue and Branch Policy
@@ -60,7 +60,7 @@ We have the following branches
  * **development**   
 	 All development goes on in this branch. If you're making a contribution,
 	 you are supposed to make a pull request to _development_.
-	 PRs to master must pass a build check and a unit-test (_app/src/test_) check on Travis
+	 PRs must pass a build check and unit-tests check on Travis
  * **gh-pages**   
    This contains shipped code. After significant features/bugfixes are accumulated on development, we make a version update, and make a release.
 
