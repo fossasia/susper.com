@@ -14,7 +14,7 @@ Our chat channel is on gitter here: https://gitter.im/fossasia/susper.com
 
 ## Components and Technology
 
-1. The webapp generator uses Backbone.js
+1. The app uses Backbone.js
 
 2. Templates
 
