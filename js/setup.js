@@ -19,8 +19,8 @@
 var server="search.yacy.net";
 var searchURL='http://' + server + '/solr/select?callback=?';
 var suggestUrl='http://' + server + '/suggest.json?callback=?';
-var homepage="http://yacy.net";
+var homepage="http://susper.com";
 var logo="../images/YaCyLogo2011_60.png";
-var headline="Search Portal";
-var greeting="Document Search";
-var queryplaceholder="Document Retrieval";
+var headline="";
+var greeting="";
+var queryplaceholder="";
