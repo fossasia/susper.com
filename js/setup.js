@@ -17,7 +17,7 @@
  */
 
 var server="search.yacy.net";
-var searchURL='http://' + server + '/yacysearch.json?callback=?';
+var searchURL='http://' + server + '/solr/select?callback=?';
 var suggestUrl='http://' + server + '/suggest.json?callback=?';
 var homepage="http://yacy.net";
 var logo="../images/YaCyLogo2011_60.png";
