@@ -14,11 +14,23 @@ Our chat channel is on gitter here: https://gitter.im/fossasia/susper.com
 
 ## Components and Technology
 
-1. The app uses Backbone.js
+This is a search front-end for YaCy. Retrieval of search results using YaCys search API and display using AJAX technology.
 
-2. Templates
+* Solr, JSON(P) and JavaScript / backbone.js - driven
 
- The HTML pages of the generated website are created using templates. You can find all the templates ...
+Search results are displayed using AJAX-technology from a Solr server which is embedded into YaCy. All search results must be provided by a YaCy search server which includes a Solr with a specialized JSON result writer. When a search request is made in one of the search templates, a http request is made to YaCy. The response is done in JSON because that can much better be parsed than XML in JavaScript. To overcome the same orgin policy in JavaScript, the result is capsuled into a JSONP response. This enables you to run YaCy anywhere and to use the results from this server somewhere else, maybe in static web pages, even from a file system. We implemented a proper model view of search results using the MV*-Fra­me­work backbone.js.
+
+* Industry-Strength Search Efficiency
+
+Because the search results come right from a Solr instance using a specialized result writer, these templates can provide industry-strength search portals. This is an unique combination of Solr, JSON(P), flexible JavaScript presentation the beautiful YAML4 CSS Framework and the easiness of web index creation with YaCy.
+
+* Standard Compliance
+
+There are standards for search request queries (i.e. SRU) and search request responses (i.e. opensearch). YaCy provides both! Actually these search templates send SRU requests to YaCy and the jsonp result writer in Solr (inside YaCy) returns a into-JSON transformed version of openseach. If you like, then you can also get search results from the same query url by replacing the "wt=yjson"-parameter by "wt=opensearch".
+
+* Beautiful CSS Framework
+
+These pages are made with the YAML4 CSS Framework and it will serve you very well for the creation of own search portals. Just use the template as provided in the git repository (see below: 'Clone This!') and create your own search portal.
 
 ## Installation
 
@@ -67,8 +79,11 @@ We have the following branches
 
 ## LICENSE
 
+The repository is licensed under Creative Commons Attribution 2.0 License (CC-BY 2.0).
+
 ## Maintainers
+
 The project is maintained by
-- Michael Christen ([@Orbiter](https://github.com/Orbiter))
-- Mario Behling ([@mariobehling](http://github.com/mariobehling))
+* Michael Christen ([@Orbiter](https://github.com/Orbiter))
+* Mario Behling ([@mariobehling](http://github.com/mariobehling))
 
