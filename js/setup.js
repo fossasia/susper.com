@@ -20,7 +20,7 @@ var server="search.yacy.net";
 var searchURL='http://' + server + '/solr/select?callback=?';
 var suggestUrl='http://' + server + '/suggest.json?callback=?';
 var homepage="http://susper.com";
-var logo="../images/YaCyLogo2011_60.png";
+var logo="../images/susper.svg";
 var headline="";
 var greeting="";
 var queryplaceholder="";
