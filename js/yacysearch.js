@@ -44,28 +44,27 @@ var SearchModel = Backbone.Model.extend({
 
     html += "<p class=\"navbutton\"></p><div class=\"btn-group btn-group-justified\">";
     var u = this.attributes.servlet + "?query=" + this.attributes.query + "&startRecord=" + this.attributes.start;
-    if (this.attributes.layout == "paragraph" || this.attributes.layout == "table") {
+    if (this.attributes.layout == "paragraph") {
       html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Documents</button></div>";
       html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&maximumRecords=100&layout=images&contentdom=image'\">Images</button></div>";
     }
-    if (this.attributes.layout == "images") {
-      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&maximumRecords=10&layout=paragraph&contentdom=text'\">Documents</button></div>";
-      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Images</button></div>";
-    }
+
+    //  If image results needed
+
+    // if (this.attributes.layout == "images") {
+    //   html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&maximumRecords=10&layout=paragraph&contentdom=text'\">Documents</button></div>";
+    //   html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Images</button></div>";
+    // }
     html += "</div>";
 
 
     // in case of document: document type navigation
-    if (this.attributes.layout == "paragraph" || this.attributes.layout == "table") {
+    if (this.attributes.layout == "paragraph") {
       var u = this.attributes.servlet + "?query=" + this.attributes.query + "&startRecord=" + this.attributes.start + "&maximumRecords=" + this.attributes.rows;
       html += "<p class=\"navbutton\"></p><div class=\"btn-group btn-group-justified\">";
       if (this.attributes.layout == "paragraph") {
         html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Paragraph Layout</button></div>";
         html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&layout=table&contentdom=all'\">Table Layout</button></div>";
-      }
-      if (this.attributes.layout == "table") {
-        html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&layout=paragraph&contentdom=text'\">Paragraph Layout</button></div>";
-        html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Table Layout</button></div>";
       }
         html += "</div>";
     }
@@ -142,7 +141,7 @@ var RowModel = Backbone.Model.extend({
       html += "<p class=\"urlinfo\">" + pdnt + "</p>";
       html += "</div>";
     }
-
+/*
     if (style == "tableRow") {
       html += "<tr>";
       html += "<td><a class=\"sans headlinecolor\" style=\"text-decoration:none\" href=\"" + protocol + "://" + host + "/" + "\">" + protocol + "://" + host + "</a></td>"; // Host
@@ -160,7 +159,7 @@ var RowModel = Backbone.Model.extend({
       html += "<img src=\"" + image + "\" width=\"96\" height=\"96\" />";
       html += "</a>";
     }
-
+*/
     // return entry
     return html;
   }
@@ -183,7 +182,7 @@ var RowCollection = Backbone.Collection.extend({
     return html;
   },
 
-  resultTable:function() {
+  /*resultTable:function() {
     var html = "";
     if (this.length > 0) {
       html += "<table class=\"table table-condensed table-striped\">";
@@ -192,7 +191,7 @@ var RowCollection = Backbone.Collection.extend({
       html += "</tbody></table>";
     }
     return html;
-  },
+  },*/
 
   resultImages:function() {
     var html = "";
@@ -287,7 +286,7 @@ var NavigationCollection = Backbone.Collection.extend({
     }
     return elts;
   },
-  
+
   facet:function(name){
     for (i = 0; i < this.length; i++) {
       var facet = this.at(i);
