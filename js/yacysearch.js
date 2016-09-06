@@ -89,7 +89,7 @@ var RowModel = Backbone.Model.extend({
     var link = this.attributes.link;
     if (link == null || link == "") link = this.attributes.image;
     if (link == null) return "";
-    var image = this.attributes.image;
+    var image = this.attributes.image ? this.attributes.image : link;
     var protocol = "";
     var host = "";
     // extract the path
