@@ -13,7 +13,6 @@ var SearchModel = Backbone.Model.extend({
   url:function(){
     u = searchURL + '&hl=false&wt=yjson&facet=true&facet.mincount=1&facet.field=host_s&facet.field=url_file_ext_s&facet.field=url_protocol_s&facet.field=author_sxt&facet.field=collection_sxt&start=' + this.attributes.start + '&rows=' + this.attributes.rows + '&query=' + this.attributes.query;
     if (this.attributes.layout == "images") u += "&fq=url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)";
-    u = encodeURI(u);
     return u;
   },
 
@@ -60,15 +59,15 @@ var SearchModel = Backbone.Model.extend({
     if (this.attributes.layout == "paragraph" || this.attributes.layout == "table") {
       var u = this.attributes.servlet + "?query=" + this.attributes.query + "&startRecord=" + this.attributes.start + "&maximumRecords=" + this.attributes.rows;
       html += "<p class=\"navbutton\"></p><div class=\"btn-group btn-group-justified\">";
-      if (this.attributes.layout == "paragraph") {
-        html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Paragraph Layout</button></div>";
-        html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&layout=table&contentdom=all'\">Table Layout</button></div>";
-      }
-      if (this.attributes.layout == "table") {
-        html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&layout=paragraph&contentdom=text'\">Paragraph Layout</button></div>";
-        html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Table Layout</button></div>";
-      }
-        html += "</div>";
+      /*  if (this.attributes.layout == "paragraph") {
+       html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Paragraph Layout</button></div>";
+       html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&layout=table&contentdom=all'\">Table Layout</button></div>";
+       }
+       if (this.attributes.layout == "table") {
+       html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&layout=paragraph&contentdom=text'\">Paragraph Layout</button></div>";
+       html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Table Layout</button></div>";
+       } */
+      html += "</div>";
     }
     return html;
   }
@@ -80,9 +79,9 @@ var RowModel = Backbone.Model.extend({
   scriptline:function(type) {
     if (this.attributes.link == null) return "";
     if (this.attributes.link.indexOf("smb://") >= 0)
-        return "smbget -n -a -r \"" + this.attributes.link + "\"";
+      return "smbget -n -a -r \"" + this.attributes.link + "\"";
     else
-        return "curl -OL \"" + this.attributes.link + "\"";
+      return "curl -OL \"" + this.attributes.link + "\"";
   },
 
   renderRow:function(style) {
@@ -134,7 +133,7 @@ var RowModel = Backbone.Model.extend({
     // make table row
     var html = "";
 
-    if (style == "paragraph") {
+    if (style == "paragraph" || style == "paragraph") {
       html += "<div class=\"searchresults\">";
       html += "<h4 class=\"linktitle\">";
       html += "<a href=\"" + link + "\" target=\"_self\">" + title + "</a></h4>";
@@ -142,17 +141,6 @@ var RowModel = Backbone.Model.extend({
       html += "<p class=\"url\"><a href=\"" + link + "\" target=\"_self\">" + link + "</a></p>";
       html += "<p class=\"urlinfo\">" + pdnt + "</p>";
       html += "</div>";
-    }
-
-    if (style == "tableRow") {
-      html += "<tr>";
-      html += "<td><a class=\"sans headlinecolor\" style=\"text-decoration:none\" href=\"" + protocol + "://" + host + "/" + "\">" + protocol + "://" + host + "</a></td>"; // Host
-      html += "<td><a class=\"sans headlinecolor\" style=\"text-decoration:none\" href=\"" + protocol + "://" + host + origpath + "\">" + path + "</a></td>"; // Path
-      if (file.length == 0 || file == "/") file = "[index-file]";
-      html += "<td><a class=\"sans linkcolor\" style=\"text-decoration:none\" href=\"" + link + "\">" + file + "</a></td>"; // URL
-      if (this.get("sizename") == "-1 byte") html += "<td></td>"; else html += "<td align=\"right\">" + this.get("sizename").replace(" ","&nbsp;").replace("byte","b") + "</td>"; // Size
-      html += "<td align=\"right\">" + pd + "</td>"; // Date
-      html += "</tr>";
     }
 
     if (style == "imageCell") {
@@ -187,10 +175,7 @@ var RowCollection = Backbone.Collection.extend({
   resultTable:function() {
     var html = "";
     if (this.length > 0) {
-      html += "<table class=\"table table-condensed table-striped\">";
-      html += "<thead><tr><th>Host</td><th>Path</td><th>File</td><th>Size</td><th>Date</td></tr></thead><tbody>";
-      for (var i = 0; i < this.length; i++) { html += this.at(i).renderRow("tableRow"); }
-      html += "</tbody></table>";
+      for (var i = 0; i < this.length; i++) { html += this.at(i).renderRow("paragraph"); }
     }
     return html;
   },
@@ -246,30 +231,30 @@ var FacetModel = Backbone.Model.extend({
   },
 
   tagCloud:function(servlet, modifierKey, modifierValue, maxfacets, search) {
-      var html = "";
+    var html = "";
 
-      var elements = this.facetElements();
-      var extnav = "";
-      var ftc = 0;
-      for (var key in elements) if (elements[key] > 0)  ftc++;
-      var display = ftc < maxfacets ? "block" : "none";
-      ftc = 0;
-      var query = decodeURIComponent(search.attributes.query);
-      for (var key in elements) {
-        if (elements[key] > 0)  {
-          var nq = servlet + "?query=" + query + " " + key + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
-          var newlink = "<a rel=\"" + elements[key] + "\" href=\"" + nq + "\" style=\"text-decoration:none;font-size:" + (7 + parseInt(elements[key])) + "px;\">" + key + "</a> ";
-          extnav += newlink;
-          ftc++;
-        }
+    var elements = this.facetElements();
+    var extnav = "";
+    var ftc = 0;
+    for (var key in elements) if (elements[key] > 0)  ftc++;
+    var display = ftc < maxfacets ? "block" : "none";
+    ftc = 0;
+    var query = decodeURIComponent(search.attributes.query);
+    for (var key in elements) {
+      if (elements[key] > 0)  {
+        var nq = servlet + "?query=" + query + " " + key + "&startRecord=" + search.attributes.start + "&maximumRecords=" + search.attributes.rows + "&layout=" + search.attributes.layout
+        var newlink = "<a rel=\"" + elements[key] + "\" href=\"" + nq + "\" style=\"text-decoration:none;font-size:" + (7 + parseInt(elements[key])) + "px;\">" + key + "</a> ";
+        extnav += newlink;
+        ftc++;
       }
-      extnav = "<div id=\"tagcloud\" style=\"text-align:justify\">" + extnav + "</div>";
-      if (ftc > 1) {
-        html += extnav;
-      }
-
-      return html;
     }
+    extnav = "<div id=\"tagcloud\" style=\"text-align:justify\">" + extnav + "</div>";
+    if (ftc > 1) {
+      html += extnav;
+    }
+
+    return html;
+  }
 });
 
 var NavigationCollection = Backbone.Collection.extend({
@@ -288,7 +273,7 @@ var NavigationCollection = Backbone.Collection.extend({
     }
     return elts;
   },
-  
+
   facet:function(name){
     for (i = 0; i < this.length; i++) {
       var facet = this.at(i);
@@ -307,7 +292,7 @@ var ModifierModel = Backbone.Model.extend({
     var query = decodeURIComponent(this.attributes.query);
     if (query.length > matcher.length) {
       for (var extl = 2; extl < 120; extl++) {
-    	if (query.length - matcher.length - extl < 0) break;
+        if (query.length - matcher.length - extl < 0) break;
         var subquery = query.substring(query.length - matcher.length - extl, query.length - extl);
         if (subquery == matcher) {
           this.attributes.value = query.substring(query.length - extl);
@@ -344,7 +329,7 @@ function addHover() {
 }
 
 function fadeOutBar() {
-	if (document.getElementById("progressbar")) document.getElementById("progressbar").setAttribute('style',"transition:transform 0s;-webkit-transition:-webkit-transform 0s;backgroundColor:transparent;");
+  if (document.getElementById("progressbar")) document.getElementById("progressbar").setAttribute('style',"transition:transform 0s;-webkit-transition:-webkit-transform 0s;backgroundColor:transparent;");
 }
 
 function statistics(startRecord, maximumRecords, totalcount, navurlbase) {
@@ -369,7 +354,7 @@ function statistics(startRecord, maximumRecords, totalcount, navurlbase) {
 
     numberofpages = Math.floor(Math.min(10, 1 + ((totalcount - 1) / maximumRecords)));
     if (!numberofpages) numberofpages = 10;
-	  for (i = 0; i < numberofpages; i++) {
+    for (i = 0; i < numberofpages; i++) {
       if (i == thispage) {
         resnav += "<li class=\"active\"><a href=\"#\">";
         resnav += (i + 1);
@@ -393,11 +378,11 @@ function statistics(startRecord, maximumRecords, totalcount, navurlbase) {
 }
 
 function toggleVisibility(name, count) {
-	if (document.getElementById(name + "_0").style.display == "none") {
-		for (i = 0; i < count; i++) document.getElementById(name + "_" + i).style.display="block";
-		document.getElementById("chevron-" + name).className = "glyphicon glyphicon-chevron-up";
-	} else {
-		for (i = 0; i < count; i++) document.getElementById(name + "_" + i).style.display="none";
-		document.getElementById("chevron-" + name).className = "glyphicon glyphicon-chevron-down";
-	}
+  if (document.getElementById(name + "_0").style.display == "none") {
+    for (i = 0; i < count; i++) document.getElementById(name + "_" + i).style.display="block";
+    document.getElementById("chevron-" + name).className = "glyphicon glyphicon-chevron-up";
+  } else {
+    for (i = 0; i < count; i++) document.getElementById(name + "_" + i).style.display="none";
+    document.getElementById("chevron-" + name).className = "glyphicon glyphicon-chevron-down";
+  }
 }
