@@ -16,7 +16,7 @@
  * After each update, you must change this again or save the address before doing an update.
  */
 
-var server="search.yacy.net";
+var server="yacy.searchlab.eu";
 var searchURL='http://' + server + '/solr/select?callback=?';
 var suggestUrl='http://' + server + '/suggest.json?callback=?';
 var homepage="http://susper.com";
