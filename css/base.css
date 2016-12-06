@@ -310,6 +310,7 @@ div.ProgressBarFill {
 
 #results {
 clear:both;
+margin-top: 10px;
 }
 
 #resCounter {
