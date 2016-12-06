@@ -10,6 +10,7 @@
 white-space: nowrap;
 left: 200px;
 top: 70px;}
+
 .input-group-btn>.btn{position:relative}.input-group-btn>.btn+.btn{margin-left:-1px;background-color:#0FAAD9;}.input-group-btn>.btn:active,.input-group-btn>.btn:focus,.input-group-btn>.btn:hover{z-index:2}.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group{margin-right:-1px}.input-group-btn:last-child>.btn,
 .input-group-btn:last-child>.btn-group{margin-left: -1px;
 background-color: #f8f8f8;
@@ -18,10 +19,10 @@ color: grey;
 border-color: white;
 font-family: arial,sans-serif;
 border-radius: 0px;
+right:16px;
 font-weight: bold;input-group-btn:last-child}.nav{padding-left:0;margin-bottom:0;list-style:none}
-
 .input-group-btn:last-child>.btn:hover,.input-group-btn:last-child>.btn-group:hover {margin-left: -1px;
-background-color: #f8f8f8;
+background-color: #f2f2f2;
 input-group-btn: last-child;
 color: black;
 border-color: #D3D3D3;
