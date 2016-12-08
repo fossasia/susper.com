@@ -178,6 +178,7 @@ fieldset.maininput, fieldset.yacys {
   -khtml-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  background-color: white;
 }
 
 form.search.small h2 {
