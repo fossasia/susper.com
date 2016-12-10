@@ -42,17 +42,15 @@ var SearchModel = Backbone.Model.extend({
     var html = "";
     // image navigation selection
 
-    html += "<p class=\"navbutton\"></p><div class=\"btn-group btn-group-justified\">";
     var u = this.attributes.servlet + "?query=" + this.attributes.query + "&startRecord=" + this.attributes.start;
     if (this.attributes.layout == "paragraph" || this.attributes.layout == "table") {
-      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Documents</button></div>";
-      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&maximumRecords=100&layout=images&contentdom=image'\">Images</button></div>";
+      html += "<button type=\"button\" class=\"btn btn-default active\">All</button>";
+      html += "<button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&maximumRecords=100&layout=images&contentdom=image'\">Images</button>";
     }
     if (this.attributes.layout == "images") {
-      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&maximumRecords=10&layout=paragraph&contentdom=text'\">Documents</button></div>";
-      html += "<div class=\"btn-group btn-group-xs\"><button type=\"button\" class=\"btn btn-default active\">Images</button></div>";
+      html += "<button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='" + u + "&maximumRecords=10&layout=paragraph&contentdom=text'\">All</button>";
+      html += "<button type=\"button\" class=\"btn btn-default active\">Images</button>";
     }
-    html += "</div>";
 
 
     // in case of document: document type navigation
