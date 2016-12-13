@@ -171,25 +171,44 @@
       
       <!--The toolbar of navigation begins-->
       <div id="searchnavigation" class="btn-group" role="group">
-        <div class="btn-group" role="group">
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Search tools
-          <span class="caret"></span></button>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Search Tools <span class="caret"></span>
+            </button>
           <ul class="dropdown-menu">
-            <li><a id="sort_button_context" onclick="document.getElementById('query').value=document.getElementById('query').value.replace(' /date','');document.searchform.submit();">Context Ranking</a></li>
-            <li><a id="sort_button_date" onclick="document.getElementById('query').value=document.getElementById('query').value + ' /date';filterByDate();">Sort by Date</a></li>
+            <li class="active"><a id="sort_button_context" onclick="document.getElementById('query').value=document.getElementById('query').value.replace(' /date','');;activeBtn('#sort_button_context', '#sort_button_date');document.searchform.submit();">Context Ranking</a></li>
+            <li><a id="sort_button_date" onclick="filterByDate();activeBtn('#sort_button_date', '#sort_button_context');">Sort by Date</a></li>
           </ul>
         </div>
       </div>
       <script>
 
         var btnDate = document.getElementById("sort_button_date");
+        
+    
+        function activeBtn(activate, deactivate){
+          $(activate).parent().addClass("active");
+          $(deactivate).parent().removeClass("active");
+        }
+
         function filterByDate(){
+          var queryVal = document.getElementById('query');
+          if(queryVal.value.includes(' /date')){
+          queryVal.value = queryVal.value.replace(' /date','');
+          queryVal.value = queryVal.value + ' /date';
+         }else{
+          queryVal.value = queryVal.value + ' /date';
+         } 
+          
           function sortDescending(a, b) {
               var dateA = new Date($(a).find(".urlinfo").text()), dateB = new Date($(b).find(".urlinfo").text());
               return dateA < dateB;
           };
           $("#searchresults .searchresults").sort(sortDescending).appendTo("#searchresults");
         }
+
+       
+        
       </script>
       <!--The toolbar of navigation ends-->
 
@@ -353,14 +372,7 @@
         document.getElementById("progressbar_text").innerHTML = "The search service is not available right now. Please try again.";
       }
     });
-    // set buttons
-    if (document.getElementById('query').value.indexOf(" /date") == -1) {
-      document.getElementById("sort_button_context").setAttribute("class","btn btn-default active");
-      document.getElementById("sort_button_context").setAttribute("onclick","");
-    } else {
-      document.getElementById("sort_button_date").setAttribute("class","btn btn-default active");
-      document.getElementById("sort_button_date").setAttribute("onclick","");
-    }
+
   }
 </script>
 
