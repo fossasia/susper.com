@@ -46,6 +46,7 @@ dl {
 
 body, table, textarea {
   font-size: 12px;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4 {
