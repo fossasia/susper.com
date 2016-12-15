@@ -100,6 +100,10 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
     </div> 
     <script> 
       $(document).ready(function(){ 
+        var isFirefox = typeof InstallTrigger !== 'undefined';
+        if(isFirefox === false){
+          $("#set-susper-default").remove(); 
+        }
         $("#set-susper-default").hide(); 
         if(window.external && window.external.IsSearchProviderInstalled){ 
           var isInstalled = window.external.IsSearchProviderInstalled("http://susper.com"); 
