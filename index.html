@@ -89,18 +89,32 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
 </head>
   <body id="index" onload="document.getElementById('search').focus()">
 
-    <!--<div id="set-susper-default">
-      <h3>Set Susper as your default search engine</h3>
-      <p><b>1. </b>Install susper</p>
-      <p><b>2. </b>Mark the checkbox to set Susper as your default search engine</p>
-      <p><b>3. </b>Start searching!</p>
-    </div>
-
-    <script>
-      $(document).ready(function(){
-
-      });
-    </script>-->
+    <div id="set-susper-default"> 
+      <h3>Set Susper as your default search engine on Mozilla!</h3> 
+      <ol> 
+        <li><button id="install-susper">Install susper</button></li> 
+        <li>Mark the checkbox to set Susper as your default search engine</li> 
+        <li>Start searching!</li> 
+      </ol> 
+      <button id="cancel-installation">Cancel</button> 
+    </div> 
+    <script> 
+      $(document).ready(function(){ 
+        $("#set-susper-default").hide(); 
+        if(window.external && window.external.IsSearchProviderInstalled){ 
+          var isInstalled = window.external.IsSearchProviderInstalled("http://susper.com"); 
+          if(!isInstalled){ 
+            $("#set-susper-default").show(); 
+          }
+        } 
+        $("#install-susper").on("click", function(){ 
+          window.external.AddSearchProvider("http://susper.com/susper.xml"); 
+        }); 
+          $("#cancel-installation").on("click", function(){ 
+            $("#set-susper-default").remove(); 
+          }); 
+      }); 
+    </script>
 
       <!-- top navigation -->
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
