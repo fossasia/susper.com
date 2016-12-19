@@ -1,5 +1,5 @@
-<?xml version="1.1" encoding="UTF-8"?>
-<OpenSearchDescription>
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
 	<ShortName>susper</ShortName>
 	<LongName>susper.com the open search provider</LongName>
 	<Image type="image/gif">http://search.yacy.net/env/grafics/yacy.png</Image>
@@ -18,4 +18,5 @@
 	<Contact>See http://search.yacy.net/ViewProfile.html?hash=localhash</Contact>
 	<Attribution>http://susper.com</Attribution>
 	<SyndicationRight>open</SyndicationRight>
+	<moz:SearchForm>http://www.susper.com/</moz:SearchForm>
 </OpenSearchDescription>
