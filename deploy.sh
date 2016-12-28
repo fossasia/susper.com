@@ -19,7 +19,7 @@ ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
 ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
 ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
 ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
-openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in id_rsa.enc -out id_rsa -d
+openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in deploy_key.enc -out deploy_key -d
 
 chmod 600 deploy_key
 eval `ssh-agent -s`
@@ -55,16 +55,5 @@ mv dist/* .
 git add .
 git commit --amend --no-edit --allow-empty
 
-# Deploying only if the build has changed
-if [ -z `git diff --name-only HEAD HEAD~1` ]; then
-
-  echo "No Changes in the Build; exiting"
-  exit 0
-
-else
-  # There are changes in the Build; push the changes to gh-pages
-  echo "There are changes in the Build; pushing the changes to gh-pages"
-
-  # Actual push to gh-pages branch via Travis
-  git push --force $SSH_REPO $TARGET_BRANCH
-fi
+# Actual push to gh-pages branch via Travis
+git push --force $SSH_REPO $TARGET_BRANCH
