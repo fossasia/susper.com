@@ -4,8 +4,7 @@ language: node_js
 node_js:
 - 6
 before_install:
-- openssl aes-256-cbc -K $encrypted_0ceed2deec9a_key -iv $encrypted_0ceed2deec9a_iv
-  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
+- openssl aes-256-cbc -K $encrypted_0ceed2deec9a_key -iv $encrypted_0ceed2deec9a_iv -in id_rsa.enc -out ~\/.ssh/id_rsa -d
 - export CHROME_BIN=chromium-browser
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
