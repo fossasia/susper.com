@@ -1,5 +1,11 @@
-language: node_js
-node_js:
-  - 0.10
+language: ruby
+rvm:
+  - 2.3.3
+install:
+  - bundle install
 script:
-  - npm test
+  - bundle exec jekyll build
+  - bundle exec htmlproofer ./_site
+branches:
+  only:
+    - gh-pages

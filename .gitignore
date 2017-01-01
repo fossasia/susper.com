@@ -1,2 +1,4 @@
 .idea/
 .settings/
+_site/
+Gemfile.lock
