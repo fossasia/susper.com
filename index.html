@@ -112,7 +112,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
           }
         } 
         $("#install-susper").on("click", function(){ 
-          window.external.AddSearchProvider("http://susper.com/susper.xml"); 
+          window.external.AddSearchProvider("/susper.com/susper.xml"); 
         }); 
           $("#cancel-installation").on("click", function(){ 
             $("#set-susper-default").remove(); 
