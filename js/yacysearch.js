@@ -1,4 +1,3 @@
-"use strict"
 /*
  * yacysearch.js
  * Models, Collections and Views for the yacy_webclient_bootstrap web-page templates
