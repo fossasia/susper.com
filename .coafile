@@ -1,0 +1,14 @@
+[html]
+bears = HTMLLintBear
+files = **.html
+htmllint_ignore = indentation, optional_tag, concerns_separation, capitalization
+
+[js]
+bears = JSHintBear
+files = **.js
+ignore = **.min.js, **/lib/**, bootstrap/**, _site/**
+
+[css]
+bears = PHPCodeSnifferBear
+files = **.css
+ignore = **.min.css, bootstrap/**, _site/**

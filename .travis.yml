@@ -1,11 +1,16 @@
 language: ruby
 rvm:
   - 2.3.3
+services: docker
 install:
   - bundle install
 script:
   - bundle exec jekyll build
   - bundle exec htmlproofer ./_site
+  - touch .gitignore
+  - >
+    docker run --volume=$(pwd):/app --workdir=/app coala/base:0.9 /bin/bash -c
+    "coala --non-interactive"
 branches:
   only:
     - gh-pages

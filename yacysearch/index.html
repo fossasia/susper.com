@@ -6,20 +6,20 @@
 -->
 <head>
   <title id="title"></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
   <!-- scary MS stuff ahead to prevent that IE runs in "IE=EmulateIE10" mode which cannot run our JS code for some reason -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!--
   if you don't see the glyphicons in firefox and you opened this file from a local filesystem,
   then a CORS security setting in firefox caused that.
   No other browser is that strict and there is no work around. To see the glyphicons in firefox,
   open about:config and set security.fileuri.strict_origin_policy to ‘false.’
   -->
-  <link rel="shortcut icon" type="image/x-icon" href="/susper.ico" />
-  <meta name="Content-Language" content="English, Englisch" />
-  <meta name="keywords" content="YaCy HTTP search engine spider indexer java network open free download Mac Windows Linux Software development" />
-  <meta name="description" content="Software HTTP Freeware Home Page" />
-  <meta name="copyright" content="Michael Christen et al." />
+  <link rel="shortcut icon" type="image/x-icon" href="/susper.ico" >
+  <meta name="Content-Language" content="English, Englisch" >
+  <meta name="keywords" content="YaCy HTTP search engine spider indexer java network open free download Mac Windows Linux Software development" >
+  <meta name="description" content="Software HTTP Freeware Home Page" >
+  <meta name="copyright" content="Michael Christen et al." >
 
   <!-- Ensure proper rendering and touch zooming on mobile devices -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,16 +47,16 @@
   <![endif]-->
 
   <!-- old css styles -->
-  <link rel="stylesheet" type="text/css" media="all" href="../css/base.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="../css/style.css" />
+  <link rel="stylesheet" type="text/css" media="all" href="../css/base.css" >
+  <link rel="stylesheet" type="text/css" media="screen" href="../css/style.css" >
   <!--[if lt IE 6]>
-  <link rel="stylesheet" type="text/css" media="screen" href="../css/oldie.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="../css/oldie.css" >
   <![endif]-->
   <!--[if lte IE 6.0]>
-  <link rel="stylesheet" type="text/css" media="screen" href="../css/ie6.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="../css/ie6.css" >
   <![endif]-->
   <!--[if lte IE 7.0]>
-  <link rel="stylesheet" type="text/css" media="screen" href="../css/ie7.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="../css/ie7.css" >
   <![endif]-->
 
 
@@ -155,16 +155,16 @@
     <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main" id="main">
       <form class="search small" name="searchform" action="#" method="get" accept-charset="UTF-8" style="position:fixed;top:6px;z-index:1052;max-width:500px;">
         <div class="input-group">
-          <input name="query" id="query" type="text" class="form-control searchinput typeahead" size="40" maxlength="200" placeholder="Document Retrieval" value="" autofocus="autofocus" onFocus="this.select()" onclick="document.getElementById('Enter').innerHTML = 'search'"/>
+          <input name="query" id="query" type="text" class="form-control searchinput typeahead" size="40" maxlength="200" placeholder="Document Retrieval" value="" autofocus="autofocus" onFocus="this.select()" onclick="document.getElementById('Enter').innerHTML = 'search'">
           <div class="input-group-btn">
             <button id="Enter" name="Enter" class="btn btn-default" type="submit">search</button>
           </div>
         </div>
-        <input type="hidden" name="nav" value="filetype,protocol,hosts,language,authors,namespace,topics" />
-        <input type="hidden" name="maximumRecords" id="maximumRecords" value="10" />
-        <input type="hidden" name="startRecord" id="startRecord" value="0" />
-        <input type="hidden" name="layout" id="layout" value="paragraph" />
-        <input type="hidden" name="contentdom" id="contentdom" value="text" />
+        <input type="hidden" name="nav" value="filetype,protocol,hosts,language,authors,namespace,topics" >
+        <input type="hidden" name="maximumRecords" id="maximumRecords" value="10" >
+        <input type="hidden" name="startRecord" id="startRecord" value="0" >
+        <input type="hidden" name="layout" id="layout" value="paragraph" >
+        <input type="hidden" name="contentdom" id="contentdom" value="text" >
         <input id="timezoneOffset" type="hidden" name="timezoneOffset" value="">
         <script>document.getElementById("timezoneOffset").value = new Date().getTimezoneOffset();</script>
       </form>
@@ -252,13 +252,13 @@
 <script type="text/javascript">
   var rowCollection;
   function makeDownloadScript() {
-    document.getElementById("downloadscript").innerHTML = "<div><pre>" + rowCollection.resultScript(); + "</pre><br/></div>";
-    document.getElementById("downloadbutton").innerHTML = "<input id=\"downloadbutton\" type=\"button\" value=\"hide the download script\" onClick=\"hideDownloadScript();\"/>";
+    document.getElementById("downloadscript").innerHTML = "<div><pre>" + rowCollection.resultScript(); + "</pre><br></div>";
+    document.getElementById("downloadbutton").innerHTML = "<input id=\"downloadbutton\" type=\"button\" value=\"hide the download script\" onClick=\"hideDownloadScript();\">";
   }
   function hideDownloadScript() {
     document.getElementById("downloadscript").innerHTML = "";
     var dlb = document.getElementById("downloadbutton");
-    if (dlb) dlb.innerHTML = "<input type=\"button\" value=\"create a download script\" onClick=\"makeDownloadScript();\"/>";
+    if (dlb) dlb.innerHTML = "<input type=\"button\" value=\"create a download script\" onClick=\"makeDownloadScript();\">";
   }
   function hideScriptButton() {
     document.getElementById("downloadscript").innerHTML = "";

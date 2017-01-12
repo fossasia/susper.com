@@ -6,26 +6,26 @@
 -->
 <head>
   <title id="title"></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
   <!-- scary MS stuff ahead to prevent that IE runs in "IE=EmulateIE10" mode which cannot run our JS code for some reason -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!--
 if you don't see the glyphicons in firefox and you opened this file from a local filesystem,
 then a CORS security setting in firefox caused that.
 No other browser is that strict and there is no work around. To see the glyphicons in firefox,
 open about:config and set security.fileuri.strict_origin_policy to ‘false.’
 -->
-  <link rel="shortcut icon" type="image/x-icon" href="/susper.ico" />
-  <meta name="Content-Language" content="English, Englisch" />
-  <meta name="keywords" content="YaCy HTTP search engine spider indexer java network open free download Mac Windows Linux Software development" />
-  <meta name="description" content="Software HTTP Freeware Home Page" />
-  <meta name="copyright" content="Michael Christen et al." />
+  <link rel="shortcut icon" type="image/x-icon" href="/susper.ico" >
+  <meta name="Content-Language" content="English, Englisch" >
+  <meta name="keywords" content="YaCy HTTP search engine spider indexer java network open free download Mac Windows Linux Software development" >
+  <meta name="description" content="Software HTTP Freeware Home Page" >
+  <meta name="copyright" content="Michael Christen et al." >
   
   <!-- Ensure proper rendering and touch zooming on mobile devices -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap core CSS -->
-  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <script src="bootstrap/js/jquery.min.js" type="text/javascript" ></script>
   <script src="bootstrap/js/bootstrap.min.js" type="text/javascript" ></script>
@@ -34,7 +34,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
   <script src="js/setup.js" type="text/javascript"></script> <!-- customization -->
 
   <!-- Custom styles for this template, i.e. navigation (move this to base.css) -->
-  <link href="css/bootstrap-base.css" rel="stylesheet"/>
+  <link href="css/bootstrap-base.css" rel="stylesheet">
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -43,16 +43,16 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
   <![endif]-->
 
   <!-- old css styles -->
-  <link rel="stylesheet" type="text/css" media="all" href="css/base.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" media="all" href="css/base.css" >
+  <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" >
   <!--[if lt IE 6]>
-   <link rel="stylesheet" type="text/css" media="screen" href="css/oldie.css" />
+   <link rel="stylesheet" type="text/css" media="screen" href="css/oldie.css" >
   <![endif]-->
   <!--[if lte IE 6.0]>
-   <link rel="stylesheet" type="text/css" media="screen" href="css/ie6.css" />
+   <link rel="stylesheet" type="text/css" media="screen" href="css/ie6.css" >
   <![endif]-->
   <!--[if lte IE 7.0]>
-   <link rel="stylesheet" type="text/css" media="screen" href="css/ie7.css" />
+   <link rel="stylesheet" type="text/css" media="screen" href="css/ie7.css" >
   <![endif]-->
   <script type="text/javascript" src="./bootstrap/js/typeahead.jquery.min.js"></script>
   <script type="text/javascript">
@@ -84,7 +84,7 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
     });
   //-->
   </script>
-  <link rel="search" type="application/opensearchdescription+xml" title="susper.com'" href="http://susper.com/susper.xml" />  
+  <link rel="search" type="application/opensearchdescription+xml" title="susper.com'" href="http://susper.com/susper.xml" >  
   <style type="text/css">.twitter-typeahead {margin: 0px;padding: 0px;top:2px;}</style> <!-- fix for input window -->
 </head>
   <body id="index" onload="document.getElementById('search').focus()">
@@ -158,28 +158,28 @@ open about:config and set security.fileuri.strict_origin_policy to ‘false.’
 <div class="container-fluid">
   <div class="starter-template">
 
-	<h2 class="yacy"><a href="http://yacy.net" class="yacylogo" id="homepage"><img src="images/susper.svg" alt="YaCy" id="biglogo" style="margin: auto;"/></a></h2>
+	<h2 class="yacy"><a href="http://yacy.net" class="yacylogo" id="homepage"><img src="images/susper.svg" alt="YaCy" id="biglogo" style="margin: auto;"></a></h2>
     <h2 class="yacy" id="greeting"></h2>
 
     <form class="search form-inline" action="yacysearch/index.html" method="get" id="searchform" accept-charset="UTF-8">
       <fieldset class="maininput">
         <div class="input-group">
-          <input name="query" id="search" type="text" size="40" maxlength="80" value="" autofocus="autofocus" onFocus="this.select()" class="form-control searchinput typeahead" />
+          <input name="query" id="search" type="text" size="40" maxlength="80" value="" autofocus="autofocus" onFocus="this.select()" class="form-control searchinput typeahead" >
           <div class="input-group-btn">
             <button id="Enter" name="Enter" class="btn btn-primary" type="submit">Search</button>
           </div>
         </div>
-        <input type="hidden" name="verify" value="false" />
+        <input type="hidden" name="verify" value="false" >
 
-        <input type="hidden" name="nav" value="filetype,protocol,hosts,authors,collections,namespace,topics,date" />
-        <input type="hidden" name="startRecord" id="startRecord" value="0" />
-        <input type="hidden" name="indexof" value="off" />
-        <input type="hidden" name="meanCount" value="5" />
+        <input type="hidden" name="nav" value="filetype,protocol,hosts,authors,collections,namespace,topics,date" >
+        <input type="hidden" name="startRecord" id="startRecord" value="0" >
+        <input type="hidden" name="indexof" value="off" >
+        <input type="hidden" name="meanCount" value="5" >
 
-        <input type="hidden" name="resource" value="global" />
-        <input type="hidden" name="prefermaskfilter" value="" />
-        <input type="hidden" name="maximumRecords" value="10" />
-        <input id="timezoneOffset" type="hidden" name="timezoneOffset" value="" />
+        <input type="hidden" name="resource" value="global" >
+        <input type="hidden" name="prefermaskfilter" value="" >
+        <input type="hidden" name="maximumRecords" value="10" >
+        <input id="timezoneOffset" type="hidden" name="timezoneOffset" value="" >
       </fieldset>
 	  <script >document.getElementById("timezoneOffset").value = new Date().getTimezoneOffset();</script>
     </form>
