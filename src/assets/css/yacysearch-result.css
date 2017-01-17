@@ -1,0 +1,78 @@
+/*
+ * yacysearch-result.css
+ * Style for the searchpage_template_yaml4 web-page template
+ * First published 6.3.2013 at https://gitorious.org/yacy/searchpage_template_yaml4
+ * (C) by Michael Peter Christen, licensed under a
+ * Creative Commons Attribution 2.0 Generic License (CC-BY 2.0) 
+ * If you enhance this, please clone the repository and give us a pull request!
+ */
+
+
+.ym-col1 { float: left; width: 250px; } /* sidebar */
+.ym-col3 { margin: 0 0 0 250px; } /* content */
+.ym-vtitle {
+    border-top:none;
+    border-bottom:none;
+}
+
+.ym-vlist dl {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    width:100%;
+    overflow:hidden;
+}
+.ym-vlist dt {
+    clear:both;
+    padding-left:9%;
+    width:11%;
+    float:left;
+}
+.ym-vlist dd {
+    margin:0;
+    padding:0;
+    width:80%;
+    float:left;
+}
+
+.search-fieldset {
+    padding-top:10px;
+    padding-bottom:10px;
+    border:0;
+    margin-top:4px;
+}
+
+.search-textfield {
+    width:100%;
+    border:1px solid #ddd;
+    font-size:x-large;
+}
+
+.search-button {
+    height:32px;
+    width:108px;
+    border:1px solid #ddd;
+    font-size:x-large;
+}
+
+footer {
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    background-color:transparent;
+}
+footer .ym-wbox {
+    padding-left:0.9em;
+    padding-right:6.9em;
+    padding-top:0;
+    padding-bottom:0;
+}
+
+footer .ym-gl {
+    height: 5em;
+}
+
+footer .ym-gl p {
+    padding: 1em;
+}
+
