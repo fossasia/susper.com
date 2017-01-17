@@ -56,7 +56,7 @@ To install the system on Digital Ocean please refer to the [Digital Ocean instal
 
 #### How do I deploy Web App Generator with Heroku
 
-Please read how to deploy to [Heroku here](/docs/INSTALLATION_HEROKU.md)  
+Please read how to deploy to [Heroku here](/docs/INSTALLATION_HEROKU.md)
 
 
 ## Contributions, Bug Reports, Feature Requests
@@ -68,12 +68,12 @@ This is an Open Source project and we would be happy to see contributors who rep
 
 Before making a pull request, please file an issue. So, other developers have the chance to give feedback or discuss details. Match every pull request with an issue please and add the issue number in description e.g. like "Fixes #123".
 
-We have the following branches   
- * **development**   
+We have the following branches
+ * **development**
 	 All development goes on in this branch. If you're making a contribution,
 	 you are supposed to make a pull request to _development_.
 	 PRs must pass a build check and unit-tests check on Travis
- * **gh-pages**   
+ * **gh-pages**
    This contains shipped code. After significant features/bugfixes are accumulated on development, we make a version update, and make a release.
 
 
@@ -87,3 +87,32 @@ The project is maintained by
 * Michael Christen ([@Orbiter](https://github.com/Orbiter))
 * Mario Behling ([@mariobehling](http://github.com/mariobehling))
 
+This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.22-1.
+
+## Development server
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before running the tests make sure you are serving the app via `ng serve`.
+
+## Deploying to Github Pages
+
+Run `ng github-pages:deploy` to deploy to Github Pages.
+
+## Further help
+
+To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
