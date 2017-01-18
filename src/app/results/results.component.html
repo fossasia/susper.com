@@ -1,0 +1,12 @@
+  <div *ngFor='let item of items' class='result'>
+    <div class='title'>
+    <a href='{{item.path}}'>{{item.title}}</a>
+    </div>
+    <div class='link'>
+    <a href='{{item.link}}'>{{item.link}}</a>
+    </div>
+    <div>
+      {{item.pubDate|date:'fullDate'}}
+    </div>
+
+  </div>
