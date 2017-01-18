@@ -14,7 +14,7 @@ export class IndexComponent implements OnInit {
     indexof: 'off',
     meanCount: '5',
     resource: 'global',
-    prefermaskfilter: '""',
+    prefermaskfilter: '',
     maximumRecords: 10,
     timezoneOffset: 0
   };
