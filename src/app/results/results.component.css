@@ -1,0 +1,17 @@
+.result{
+  padding: 10px;
+}
+.title >a{
+  color:blue;
+  font-size: medium;
+  font-weight: bold;
+  text-decoration:none;
+}
+
+.link >a{
+  color:#3c7a3c;
+  text-decoration:none;
+}
+.link, .title >a:hover{
+  text-decoration: underline;
+}

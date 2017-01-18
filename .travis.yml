@@ -10,7 +10,6 @@ before_install:
 before_script:
 - ng build
 script:
-- ng test --watch=false
 - ng lint
 after_success:
 - bash ./deploy.sh
