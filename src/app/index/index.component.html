@@ -3,28 +3,15 @@
 
     <h2 class="yacy"><a href="http://yacy.net" class="yacylogo" id="homepage"><img src="../../assets/images/susper.svg" alt="YaCy" id="biglogo" style="margin: auto;"/></a></h2>
     <h2 class="yacy" id="greeting"></h2>
-
-    <form class="search form-inline" action="yacysearch/index.html" method="get" id="searchform" accept-charset="UTF-8">
+    <form class="search form-inline"  id="searchform" >
       <fieldset class="maininput">
         <div class="input-group">
-          <input name="query" id="search" type="text" size="40" maxlength="80" value="" autofocus="autofocus" onFocus="this.select()" class="form-control searchinput typeahead" />
+          <input name="query" id="search" type="text" size="40" maxlength="80" value="" autofocus="autofocus" onFocus="this.select()" class="form-control searchinput typeahead" [(ngModel)]="searchdata.query"/>
           <div class="input-group-btn">
-            <button id="Enter" name="Enter" class="btn btn-primary" type="submit">Search</button>
+            <button id="Enter" name="Enter" (click)="submit()" class="btn btn-primary" type="submit">Search</button>
           </div>
         </div>
-        <input type="hidden" name="verify" value="false" />
-
-        <input type="hidden" name="nav" value="filetype,protocol,hosts,authors,collections,namespace,topics,date" />
-        <input type="hidden" name="startRecord" id="startRecord" value="0" />
-        <input type="hidden" name="indexof" value="off" />
-        <input type="hidden" name="meanCount" value="5" />
-
-        <input type="hidden" name="resource" value="global" />
-        <input type="hidden" name="prefermaskfilter" value="" />
-        <input type="hidden" name="maximumRecords" value="10" />
-        <input id="timezoneOffset" type="hidden" name="timezoneOffset" value="" />
       </fieldset>
-      <script >document.getElementById("timezoneOffset").value = new Date().getTimezoneOffset();</script>
-    </form>
+      </form>
   </div>
 </div>
