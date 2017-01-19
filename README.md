@@ -32,36 +32,49 @@ There are standards for search request queries (i.e. SRU) and search request res
 
 These pages are made with the YAML4 CSS Framework and it will serve you very well for the creation of own search portals. Just use the template as provided in the git repository (see below: 'Clone This!') and create your own search portal.
 
+## Technology Stack
+##### Components
+* HTML - Structure of the web page generated.
+* CSS - Styling options and details ofthe web page.
+* Javascript(JSON) - Used to store information for deploying the application such as dependencies.
+* Angular2 - Structure for deployment of the web page.
+
+## Services and Dependencies
+* Bower - The goal is to use [Bower](http://bower.io) to manage front-end dependencies in future.
+
+## Requirements
+* [Angular-cli](https://github.com/angular/angular-cli#installation)
+* node --version >= 6
+* npm --version >= 3
+
 ## Installation
+First we will need to install angular-cli by using the following command:
+```sh
+$ npm install -g angular-cli
+```
+After installing anular-cli we need to install our required node modules, so we will do that by using the following command:
+```sh 
+$ npm install
+```
+## How to deploy?
+##### Running on localhost:
+* **Step 1:** Fork susper repository and clone it to your desktop
+* **Step 2:** Then cd into that cloned folder
+* **Step 3:** Then checkout to your master branch `$ git checkout angular`
+* **Step 4:** Deploy locally by running this :```$ ng serve```
 
-### How do I install on a Server
-
-Please check out [the documentation here](/docs/INSTALLATION.md).
-
-### How do I install on my local machine
-
-Please check out [the documentation here](/docs/INSTALLATION_LOCAL.md).
-
-### How do I install on Google Cloud
-
-To install the system on Google Cloud please refer to the [Google Cloud installation readme](/docs/INSTALLATION_GOOGLE.md).
-
-#### How do I install on AWS
-
-To install the system on AWS please refer to the [AWS installation readme](/docs/INSTALLATION_AWS.md).
-
-#### How do I install on Digital Ocean
-
-To install the system on Digital Ocean please refer to the [Digital Ocean installation readme](/docs/INSTALLATION_DIGITALOCEAN.md).
-
-#### How do I deploy Web App Generator with Heroku
-
-Please read how to deploy to [Heroku here](/docs/INSTALLATION_HEROKU.md)
-
+#### For deploying with [Github Pages](https://pages.github.com/):
+With these very simple steps you can have susper deployed:
+* **Step 1:** Fork susper repository and clone it to your desktop
+* **Step 2:** Then checkout to your master branch `$ git checkout angular`
+* **Step 3:** Deploy running this : ```$ ng github-pages:deploy --message "Optional commit message" --base-href="/susper/"```
+* **Step 4:** Visit `https://yourusername.github.io/susper` and you should see the search running
+* **Step 5:** As you search you might see that that it cant find anything, to resolve this, on search you will see there is a red shield on search bar, click on it and allow to load scripts
+* **Step 6:** Reload and you will have a function susper search page deployed with github pages.
 
 ## Contributions, Bug Reports, Feature Requests
 
-This is an Open Source project and we would be happy to see contributors who report bugs and file feature requests submitting pull requests as well. Please report issues here https://github.com/fossasia/susper.com/issues
+This is an Open Source project and we would be happy to see contributors who report bugs and file feature requests submitting pull requests as well. Please report issues here https://github.com/fossasia/susper.com/issues .Presently active work is being done on moving susper to angular2 framework , on a separate branch 'angular' .
 
 
 ## Issue and Branch Policy
@@ -75,6 +88,10 @@ We have the following branches
 	 PRs must pass a build check and unit-tests check on Travis
  * **gh-pages**
    This contains shipped code. After significant features/bugfixes are accumulated on development, we make a version update, and make a release.
+ * **angular** 
+ This contains the code that is related to angular2 version of susper, where all the development of converting susper to angular2 framework is being done.If you're making a contribution related to angular issues,
+	you are supposed to make a pull request to _angular_.
+	PRs must pass a build check and unit-tests check on Travis
 
 
 ## LICENSE
