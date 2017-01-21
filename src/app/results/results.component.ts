@@ -50,15 +50,13 @@ export class ResultsComponent implements OnInit {
 
     this.activatedroute.params.subscribe(query => {
       this.presentPage = Math.max(1, (query['startRecord'] / 10));
-      console.log("PP"+this.presentPage);
       this.searchdata.query = query['query'];
       this.start = Number(query['startRecord']) + 1;
-      console.log("PP"+this.start);
       searchservice.getsearchresults(query).subscribe(res => {
         this.items = res.json()[0].channels[0].items;
         this.totalResults = Number(res.json()[0].channels[0].totalResults);
 
-        this.end = Math.min(this.totalResults, this.start+ 9);
+        this.end = Math.min(this.totalResults, this.start + 9);
         this.message = 'showing results ' + this.start + ' to ' + this.end + ' of ' + this.totalResults;
         this.noOfPages = Math.ceil(this.totalResults / 10);
         this.maxPage =  Math.min(10, this.noOfPages);
@@ -67,7 +65,7 @@ export class ResultsComponent implements OnInit {
     });
     this.message = 'loading...';
     this.presentPage = 1;
-    this.startRecord = (this.presentPage-1) * 10;
+    this.startRecord = (this.presentPage - 1) * 10;
 
   }
 
