@@ -15,3 +15,7 @@
 .link, .title >a:hover{
   text-decoration: underline;
 }
+.page-link{
+  cursor: pointer;
+}
+
