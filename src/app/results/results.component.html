@@ -1,4 +1,21 @@
-  <div *ngFor='let item of items' class='result'>
+<div class="container">
+<div class="row">
+  <div class="col-md-1">
+    <p>SIDEBAR</p>
+  </div>
+  <div class="col-md-11">
+    <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      Search Tools <span class="caret"></span></button>
+    <ul class="dropdown-menu" role="menu">
+      <li> <span class="page-link" (click)="filterByContext()"> Context Ranking</span></li>
+      <li> <span class="page-link" (click)="filterByDate()"> Sort by Date</span></li>
+    </ul>
+    </div>
+    <div class="container-fluid" id="progressBar">
+      {{message}}
+    </div>
+<div *ngFor='let item of items' class='result'>
     <div class='title'>
     <a href='{{item.path}}'>{{item.title}}</a>
     </div>
@@ -8,9 +25,7 @@
     <div>
       {{item.pubDate|date:'fullDate'}}
     </div>
-
   </div>
-
     <nav aria-label="Page navigation">
       <ul class="pagination">
         <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
@@ -22,4 +37,3 @@
   </div>
 </div>
 </div>
-

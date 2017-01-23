@@ -29,16 +29,24 @@ export class ResultsComponent implements OnInit {
     prefermaskfilter: '',
     maximumRecords: 10,
     timezoneOffset: 0,
+    sort: '',
   };
   getNumber(N) {
     return Array.apply(null, {length: N}).map(Number.call, Number);
   };
   getPresentPage(N) {
     this.presentPage = N;
-    console.log(this.presentPage);
     this.searchdata.startRecord = (this.presentPage - 1)  * 10;
     this.route.navigate(['/search', this.searchdata]);
 
+  }
+  filterByDate() {
+    this.searchdata.sort = 'last_modified desc';
+    this.route.navigate(['/search', this.searchdata]);
+  }
+  filterByContext() {
+    this.searchdata.sort = '';
+    this.route.navigate(['/search', this.searchdata]);
   }
   incPresentPage() {
     this.presentPage = Math.min(this.noOfPages, this.presentPage + 1);
@@ -51,6 +59,7 @@ export class ResultsComponent implements OnInit {
     this.activatedroute.params.subscribe(query => {
       this.presentPage = Math.max(1, (query['startRecord'] / 10));
       this.searchdata.query = query['query'];
+      this.searchdata.sort = query['sort'];
       this.start = Number(query['startRecord']) + 1;
       searchservice.getsearchresults(query).subscribe(res => {
         this.items = res.json()[0].channels[0].items;

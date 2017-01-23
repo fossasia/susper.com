@@ -19,3 +19,21 @@
   cursor: pointer;
 }
 
+#progressBar{
+  background-color: #f5f5f5;
+}
+
+.dropdown-menu > li {
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.dropdown-menu > li :hover{
+  background-color: #f5f5f5;
+}
+.dropdown-menu > li :active{
+  background-color: #1c65ba;
+  color: white;
+}
+
