@@ -8,6 +8,7 @@ import { IndexComponent } from './index/index.component';
 import { ResultsComponent } from './results/results.component';
 import {Routes, RouterModule} from '@angular/router';
 import {SearchService} from './search.service';
+import {CommonModule} from '@angular/common';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -18,10 +19,11 @@ const appRoutes: Routes = [
     AppComponent,
     NavbarComponent,
     IndexComponent,
-    ResultsComponent
+    ResultsComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
     HttpModule,
     JsonpModule,

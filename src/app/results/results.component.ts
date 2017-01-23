@@ -18,6 +18,7 @@ end: number;
 start: number;
 message: string;
 query: any;
+navigation: any;
   searchdata = {
     query : '',
     verify: false,
@@ -54,6 +55,7 @@ constructor(private searchservice: SearchService, private route: Router, private
       searchservice.getsearchresults(query).subscribe(res => {
         this.items = res.json()[0].channels[0].items;
         this.totalResults = Number(res.json()[0].channels[0].totalResults);
+        this.navigation = res.json()[0].channels[0].navigation;
 
         this.end = Math.min(this.totalResults, this.start + 9);
         this.message = 'showing results ' + this.start + ' to ' + this.end + ' of ' + this.totalResults;
