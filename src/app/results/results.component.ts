@@ -36,6 +36,7 @@ export class ResultsComponent implements OnInit {
   };
   getPresentPage(N) {
     this.presentPage = N;
+    this.searchdata.sort = '';
     this.searchdata.startRecord = (this.presentPage - 1)  * 10;
     this.route.navigate(['/search', this.searchdata]);
 
@@ -53,6 +54,9 @@ export class ResultsComponent implements OnInit {
   }
   decPresentPage() {
     this.presentPage = Math.max(1, this.presentPage - 1);
+  }
+  getStyle(i) {
+     return ((this.presentPage + 1) === i);
   }
   constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute) {
 
