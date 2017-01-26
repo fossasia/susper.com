@@ -31,9 +31,16 @@ navigation: any;
     maximumRecords: 10,
     timezoneOffset: 0,
   };
+  querylook = {};
 getNumber(N) {
     return Array.apply(null, {length: N}).map(Number.call, Number);
   };
+changeurl(modifier) {
+  console.log(modifier);
+  this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
+  console.log(this.querylook);
+  this.route.navigate(['/search'], {queryParams: this.querylook});
+}
 getPresentPage(N) {
   this.presentPage = N;
   this.searchdata.startRecord = this.presentPage  * 10;
@@ -48,9 +55,10 @@ decPresentPage() {
 }
 constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute) {
 
-    this.activatedroute.params.subscribe(query => {
+    this.activatedroute.queryParams.subscribe(query => {
       this.presentPage = Math.max(1, (query['startRecord'] / 10));
       this.searchdata.query = query['query'];
+      this.querylook = Object.assign({}, query);
       this.start = (this.presentPage - 1) * 10 + 1;
       searchservice.getsearchresults(query).subscribe(res => {
         this.items = res.json()[0].channels[0].items;

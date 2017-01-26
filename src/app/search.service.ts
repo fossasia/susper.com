@@ -3,6 +3,7 @@ import {Http, URLSearchParams, Jsonp, Response} from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+
 @Injectable()
 export class SearchService {
   server = 'yacy.searchlab.eu';
@@ -18,9 +19,12 @@ export class SearchService {
   }
     getsearchresults(searchquery) {
      let params = new URLSearchParams();
-     params.set('query', searchquery.query);
-     params.set('rows', searchquery.maximumRecords);
-      params.set('start', searchquery.startRecord);
+     for (let key in searchquery) {
+       if (searchquery.hasOwnProperty(key)) {
+         params.set(key, searchquery[key]);
+       }
+
+     }
      return this.jsonp
      .get('http://yacy.searchlab.eu/yacysearch.json?callback=JSONP_CALLBACK', {search: params}).map(res => {
        console.log(res.json()[0].channels[0].items);

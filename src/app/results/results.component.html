@@ -5,8 +5,8 @@
   <ul class="nav nav-sidebar menugroup" >
     <li style="cursor:pointer;cursor: hand;" data-toggle="collapse" [attr.data-target]="'#'+nav.facetname"><h3>{{nav.displayname}}</h3></li>
    <li style="display: block" *ngFor="let element of nav.elements">
-      <a href="element.url" class="MenuItemLink">
-        <input type="checkbox">{{element.name}}
+      <a (click)="changeurl(element.modifier)" class="MenuItemLink">
+        <input type="checkbox">{{element.name}}  {{element.count}}
       </a>
     </li>
   </ul>
