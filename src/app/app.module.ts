@@ -8,6 +8,8 @@ import { IndexComponent } from './index/index.component';
 import { ResultsComponent } from './results/results.component';
 import {Routes, RouterModule} from '@angular/router';
 import {SearchService} from './search.service';
+
+import {CommonModule} from '@angular/common';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const appRoutes: Routes = [
@@ -26,6 +28,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
     HttpModule,
     JsonpModule,

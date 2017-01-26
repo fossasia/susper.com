@@ -18,6 +18,7 @@ export class ResultsComponent implements OnInit {
   start: number;
   message: string;
   query: any;
+  navigation: any;
   searchdata = {
     query : '',
     verify: false,
@@ -31,9 +32,16 @@ export class ResultsComponent implements OnInit {
     timezoneOffset: 0,
     sort: '',
   };
+  querylook = {};
   getNumber(N) {
-    return Array.apply(null, {length: N}).map(Number.call, Number);
-  };
+      return Array.apply(null, {length: N}).map(Number.call, Number);
+    };
+  changeurl(modifier) {
+    console.log(modifier);
+    this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
+    console.log(this.querylook);
+    this.route.navigate(['/search'], {queryParams: this.querylook});
+  }
   getPresentPage(N) {
     this.presentPage = N;
     this.searchdata.sort = '';
@@ -60,14 +68,16 @@ export class ResultsComponent implements OnInit {
   }
   constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute) {
 
-    this.activatedroute.params.subscribe(query => {
+    this.activatedroute.queryParams.subscribe(query => {
       this.presentPage = Math.max(1, (query['startRecord'] / 10));
       this.searchdata.query = query['query'];
+      this.querylook = Object.assign({}, query);
       this.searchdata.sort = query['sort'];
       this.start = Number(query['startRecord']) + 1;
       searchservice.getsearchresults(query).subscribe(res => {
         this.items = res.json()[0].channels[0].items;
         this.totalResults = Number(res.json()[0].channels[0].totalResults);
+        this.navigation = res.json()[0].channels[0].navigation;
 
         this.end = Math.min(this.totalResults, this.start + 9);
         this.message = 'showing results ' + this.start + ' to ' + this.end + ' of ' + this.totalResults;
