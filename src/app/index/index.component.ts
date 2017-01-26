@@ -16,7 +16,7 @@ export class IndexComponent implements OnInit {
     resource: 'global',
     prefermaskfilter: '',
     maximumRecords: 10,
-    timezoneOffset: 0,
+    timezoneOffset: 0
   };
   constructor(private route: ActivatedRoute,
               private router: Router ) { }

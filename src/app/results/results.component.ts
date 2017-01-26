@@ -8,17 +8,17 @@ import {Router, ActivatedRoute} from '@angular/router';
   styleUrls: ['./results.component.css']
 })
 export class ResultsComponent implements OnInit {
-items = [];
-totalResults: number;
-noOfPages: number;
-presentPage: number;
-maxPage: number;
-startRecord: number;
-end: number;
-start: number;
-message: string;
-query: any;
-navigation: any;
+  items = [];
+  totalResults: number;
+  noOfPages: number;
+  presentPage: number;
+  maxPage: number;
+  startRecord: number;
+  end: number;
+  start: number;
+  message: string;
+  query: any;
+  navigation: any;
   searchdata = {
     query : '',
     verify: false,
@@ -30,36 +30,50 @@ navigation: any;
     prefermaskfilter: '',
     maximumRecords: 10,
     timezoneOffset: 0,
+    sort: '',
   };
   querylook = {};
-getNumber(N) {
-    return Array.apply(null, {length: N}).map(Number.call, Number);
-  };
-changeurl(modifier) {
-  console.log(modifier);
-  this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
-  console.log(this.querylook);
-  this.route.navigate(['/search'], {queryParams: this.querylook});
-}
-getPresentPage(N) {
-  this.presentPage = N;
-  this.searchdata.startRecord = this.presentPage  * 10;
-  this.route.navigate(['/search', this.searchdata]);
+  getNumber(N) {
+      return Array.apply(null, {length: N}).map(Number.call, Number);
+    };
+  changeurl(modifier) {
+    console.log(modifier);
+    this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
+    console.log(this.querylook);
+    this.route.navigate(['/search'], {queryParams: this.querylook});
+  }
+  getPresentPage(N) {
+    this.presentPage = N;
+    this.searchdata.sort = '';
+    this.searchdata.startRecord = (this.presentPage - 1)  * 10;
+    this.route.navigate(['/search', this.searchdata]);
 
-}
-incPresentPage() {
-  this.presentPage = Math.min(this.noOfPages, this.presentPage + 1);
-}
-decPresentPage() {
+  }
+  filterByDate() {
+    this.searchdata.sort = 'last_modified desc';
+    this.route.navigate(['/search', this.searchdata]);
+  }
+  filterByContext() {
+    this.searchdata.sort = '';
+    this.route.navigate(['/search', this.searchdata]);
+  }
+  incPresentPage() {
+    this.presentPage = Math.min(this.noOfPages, this.presentPage + 1);
+  }
+  decPresentPage() {
     this.presentPage = Math.max(1, this.presentPage - 1);
-}
-constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute) {
+  }
+  getStyle(i) {
+     return ((this.presentPage + 1) === i);
+  }
+  constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute) {
 
     this.activatedroute.queryParams.subscribe(query => {
       this.presentPage = Math.max(1, (query['startRecord'] / 10));
       this.searchdata.query = query['query'];
       this.querylook = Object.assign({}, query);
-      this.start = (this.presentPage - 1) * 10 + 1;
+      this.searchdata.sort = query['sort'];
+      this.start = Number(query['startRecord']) + 1;
       searchservice.getsearchresults(query).subscribe(res => {
         this.items = res.json()[0].channels[0].items;
         this.totalResults = Number(res.json()[0].channels[0].totalResults);
@@ -72,9 +86,9 @@ constructor(private searchservice: SearchService, private route: Router, private
       });
 
     });
-  this.message = 'loading...';
-  this.presentPage = 1;
-  this.startRecord = this.presentPage;
+    this.message = 'loading...';
+    this.presentPage = 1;
+    this.startRecord = (this.presentPage - 1) * 10;
 
   }
 

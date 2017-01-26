@@ -25,8 +25,10 @@ export class SearchService {
        }
 
      }
+     params.set('wt', 'yjson');
+     params.set('callback', 'JSONP_CALLBACK');
      return this.jsonp
-     .get('http://yacy.searchlab.eu/yacysearch.json?callback=JSONP_CALLBACK', {search: params}).map(res => {
+     .get('http://yacy.searchlab.eu/solr/select', {search: params}).map(res => {
        console.log(res.json()[0].channels[0].items);
        return res;
        });
