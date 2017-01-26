@@ -15,7 +15,7 @@ const appRoutes: Routes = [
   {path: '', component: IndexComponent},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'},
- ];
+];
 @NgModule({
   declarations: [
     AppComponent,
