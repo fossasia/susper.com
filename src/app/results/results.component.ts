@@ -56,7 +56,7 @@ export class ResultsComponent implements OnInit {
     this.presentPage = Math.max(1, this.presentPage - 1);
   }
   getStyle(i) {
-     return ((this.presentPage + 1) === i);
+    return ((this.presentPage + 1) === i);
   }
   constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute) {
 
