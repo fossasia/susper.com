@@ -1,0 +1,33 @@
+{
+  "name": "jasmine-spec-reporter",
+  "version": "1.1.2",
+  "description": "Spec reporter for jasmine behavior-driven development framework",
+  "main": "src/jasmine-spec-reporter.js",
+  "scripts": {
+    "test": "node node_modules/jasmine-node/bin/jasmine-node --coffee --noStack spec",
+    "example": "node node_modules/jasmine-node/bin/jasmine-node --coffee example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bcaudan/jasmine-spec-reporter"
+  },
+  "keywords": [
+    "jasmine",
+    "reporter",
+    "bdd",
+    "spec",
+    "protractor"
+  ],
+  "author": "Bastien Caudan",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bcaudan/jasmine-spec-reporter/issues"
+  },
+  "homepage": "https://github.com/bcaudan/jasmine-spec-reporter",
+  "dependencies": {
+    "colors": "~0.6.2"
+  },
+  "devDependencies": {
+    "jasmine-node": "~1.14.3"
+  }
+}

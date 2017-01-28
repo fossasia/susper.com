@@ -1,0 +1,5 @@
+var spawn = require('child_process').spawn;
+
+var child = spawn('node', ['color.js'], { stdio: 'pipe' });
+
+child.stdout.pipe(process.stdout)
