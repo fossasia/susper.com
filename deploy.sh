@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE_BRANCH="travisdeploy"
+SOURCE_BRANCH="angular"
 TARGET_BRANCH="gh-pages"
 
 # Pull requests and commits to other branches shouldn't try to deploy.
