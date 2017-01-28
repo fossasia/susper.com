@@ -1,31 +1,39 @@
 <div class="container">
-<div class="row">
-  <div class="col-md-1">
-    <p>SIDEBAR</p>
+  <div class="row">
+    <div class="col-md-1">
+      <p>SIDEBAR</p>
+    </div>
+    <div class="col-md-11">
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Search Tools <span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu">
+          <li> <span class="page-link" (click)="filterByContext()"> Context Ranking</span></li>
+          <li> <span class="page-link" (click)="filterByDate()"> Sort by Date</span></li>
+        </ul>
+      </div>
+      <div class="container-fluid" id="progressBar">
+        {{message}}
+      </div>
+      <div *ngFor='let item of items' class='result'>
+        <div class='title'>
+          <a href='{{item.path}}'>{{item.title}}</a>
+        </div>
+        <div class='link'>
+          <a href='{{item.link}}'>{{item.link}}</a>
+        </div>
+        <div>
+          {{item.pubDate|date:'fullDate'}}
+        </div>
+      </div>
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
+          <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link" *ngIf="presentPage>=4 && num<=noOfPages" [class.active_page]="getStyle(presentPage-3+num)" (click)="getPresentPage(presentPage-3+num)" href="#">{{presentPage-3+num}}</span>
+            <span class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="getStyle(num+1)" (click)="getPresentPage(num+1)" href="#">{{num+1}}</span></li>
+          <li class="page-item"><span class="page-link" (click)="incPresentPage()">Next</span></li>
+        </ul>
+      </nav>
+    </div>
   </div>
-  <div class="col-md-11">
-    <div class="container-fluid" id="progressBar">
-      {{message}}
-    </div>
-<div *ngFor='let item of items' class='result'>
-    <div class='title'>
-    <a href='{{item.path}}'>{{item.title}}</a>
-    </div>
-    <div class='link'>
-    <a href='{{item.link}}'>{{item.link}}</a>
-    </div>
-    <div>
-      {{item.pubDate|date:'fullDate'}}
-    </div>
-  </div>
-    <nav aria-label="Page navigation">
-      <ul class="pagination">
-        <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
-        <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link" *ngIf="presentPage>=3 && num<=noOfPages" (click)="getPresentPage(presentPage-3+num)" href="#">{{presentPage-3+num}}</span>
-          <span class="page-link" *ngIf="presentPage<3 && num<=noOfPages" (click)="getPresentPage(num+1)" href="#">{{num+1}}</span></li>
-        <li class="page-item"><span class="page-link" (click)="incPresentPage()">Next</span></li>
-      </ul>
-    </nav>
-  </div>
-</div>
 </div>

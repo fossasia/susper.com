@@ -16,7 +16,7 @@ export class IndexComponent implements OnInit {
     resource: 'global',
     prefermaskfilter: '',
     maximumRecords: 10,
-    timezoneOffset: 0,
+    timezoneOffset: 0
   };
   constructor(private route: ActivatedRoute,
               private router: Router ) { }
@@ -25,6 +25,6 @@ export class IndexComponent implements OnInit {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
   }
   submit() {
-    this.router.navigate(['/search', this.searchdata]);
+    this.router.navigate(['/search'], {queryParams: this.searchdata});
   }
 }

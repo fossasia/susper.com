@@ -16,18 +16,21 @@ export class SearchService {
   queryplaceholder: string;
   constructor(private http: Http, private jsonp: Jsonp) {
   }
-    getsearchresults(searchquery) {
-     let params = new URLSearchParams();
-     params.set('query', searchquery.query);
-     params.set('rows', searchquery.maximumRecords);
-      params.set('start', searchquery.startRecord);
-     return this.jsonp
-     .get('http://yacy.searchlab.eu/yacysearch.json?callback=JSONP_CALLBACK', {search: params}).map(res => {
-       console.log(res.json()[0].channels[0].items);
-       return res;
-       });
+  getsearchresults(searchquery) {
+    let params = new URLSearchParams();
+    params.set('query', searchquery.query);
+    params.set('rows', searchquery.maximumRecords);
+    params.set('start', searchquery.startRecord);
+    params.set('sort', searchquery.sort);
+    params.set('wt', 'yjson');
+    params.set('callback', 'JSONP_CALLBACK');
+    return this.jsonp
+      .get('http://yacy.searchlab.eu/solr/select', {search: params}).map(res => {
+        console.log(res.json()[0].channels[0].items);
+        return res;
+      });
 
-     }
+  }
 
 
 }
