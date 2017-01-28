@@ -60,7 +60,7 @@ export class ResultsComponent implements OnInit {
   }
   constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute) {
 
-    this.activatedroute.params.subscribe(query => {
+    this.activatedroute.queryParams.subscribe(query => {
       this.presentPage = Math.max(1, (query['startRecord'] / 10));
       this.searchdata.query = query['query'];
       this.searchdata.sort = query['sort'];

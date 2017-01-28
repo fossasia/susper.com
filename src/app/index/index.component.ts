@@ -25,6 +25,6 @@ export class IndexComponent implements OnInit {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
   }
   submit() {
-    this.router.navigate(['/search', this.searchdata]);
+    this.router.navigate(['/search'], {queryParams: this.searchdata});
   }
 }
