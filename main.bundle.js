@@ -145,6 +145,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_router__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__search_service__ = __webpack_require__(329);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__not_found_not_found_component__ = __webpack_require__(502);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_common__ = __webpack_require__(83);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -155,6 +156,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -186,6 +188,7 @@ var AppModule = (function () {
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["b" /* BrowserModule */],
+                __WEBPACK_IMPORTED_MODULE_11__angular_common__["b" /* CommonModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["d" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["e" /* JsonpModule */],
@@ -255,7 +258,7 @@ var IndexComponent = (function () {
         this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
     };
     IndexComponent.prototype.submit = function () {
-        this.router.navigate(['/search', this.searchdata]);
+        this.router.navigate(['/search'], { queryParams: this.searchdata });
     };
     IndexComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
@@ -403,7 +406,7 @@ var ResultsComponent = (function () {
             timezoneOffset: 0,
             sort: '',
         };
-        this.activatedroute.params.subscribe(function (query) {
+        this.activatedroute.queryParams.subscribe(function (query) {
             _this.presentPage = Math.max(1, (query['startRecord'] / 10));
             _this.searchdata.query = query['query'];
             _this.searchdata.sort = query['sort'];
@@ -583,14 +586,14 @@ module.exports = "<app-navbar></app-navbar>\n<router-outlet></router-outlet>\n"
 /***/ 664:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"starter-template\">\n\n    <h2 class=\"yacy\"><a href=\"http://yacy.net\" class=\"yacylogo\" id=\"homepage\"><img src=\"../../assets/images/susper.svg\" alt=\"YaCy\" id=\"biglogo\" style=\"margin: auto;\"/></a></h2>\n    <h2 class=\"yacy\" id=\"greeting\"></h2>\n    <form class=\"search form-inline\"  id=\"searchform\" >\n      <fieldset class=\"maininput\">\n        <div class=\"input-group\">\n          <input name=\"query\" id=\"search\" type=\"text\" size=\"40\" maxlength=\"80\" value=\"\" autofocus=\"autofocus\" onFocus=\"this.select()\" placeholder=\"Search susper\" class=\"form-control searchinput typeahead\" [(ngModel)]=\"searchdata.query\"/>\n          <div class=\"input-group-btn\">\n            <button id=\"Enter\" name=\"Enter\" (click)=\"submit()\" class=\"btn btn-primary\" type=\"submit\">Search</button>\n          </div>\n        </div>\n      </fieldset>\n    </form>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"starter-template\">\n\n    <h2 class=\"yacy\"><a href=\"http://yacy.net\" class=\"yacylogo\" id=\"homepage\"><img src=\"assets/images/susper.svg\" alt=\"YaCy\" id=\"biglogo\" style=\"margin: auto;\"/></a></h2>\n    <h2 class=\"yacy\" id=\"greeting\"></h2>\n    <form class=\"search form-inline\"  id=\"searchform\" >\n      <fieldset class=\"maininput\">\n        <div class=\"input-group\">\n          <input name=\"query\" id=\"search\" type=\"text\" size=\"40\" maxlength=\"80\" value=\"\" autofocus=\"autofocus\" onFocus=\"this.select()\" placeholder=\"Search susper\" class=\"form-control searchinput typeahead\" [(ngModel)]=\"searchdata.query\"/>\n          <div class=\"input-group-btn\">\n            <button id=\"Enter\" name=\"Enter\" (click)=\"submit()\" class=\"btn btn-primary\" type=\"submit\">Search</button>\n          </div>\n        </div>\n      </fieldset>\n    </form>\n  </div>\n</div>\n"
 
 /***/ },
 
 /***/ 665:
 /***/ function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <img class=\"navbar-brand\" src=\"../../assets/images/susper.svg\">\n\n    </div>\n\n    <div class=\"navbar-collapse collapse\">\n      <form class=\"navbar-form navbar-left\">\n        <div class=\"input-group\">\n          <input type=\"text\" name=\"query\" class=\"form-control\" placeholder=\"Search\" [(ngModel)]=\"searchdata.query\">\n          <div class=\"input-group-btn\">\n            <button class=\"btn btn-default\" type=\"submit\" (click)=\"submit()\">\n              <i class=\"glyphicon glyphicon-search\"></i>\n            </button>\n          </div>\n        </div>\n      </form>\n\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li id=\"header_help\" class=\"dropdown\">\n          <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\"><span class=\"glyphicon glyphicon-question-sign\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li id=\"header_profile\"><a href=\"yacysearch/about.html\">About This Page</a></li>\n            <li id=\"header_tutorial\"><a href=\"http://yacy.net/tutorials/\">YaCy Tutorials</a></li>\n            <li class=\"divider\"></li>\n            <li id=\"header_download\"><a href=\"http://yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Download YaCy</a></li>\n            <li id=\"header_community\"><a href=\"http://forum.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Community (Web Forums)</a></li>\n            <li id=\"header_wiki\"><a href=\"http://wiki.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Project Wiki</a></li>\n            <li id=\"header_git\"><a href=\"https://github.com/yacy/yacy_search_server/commits/master\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Git Repository</a></li>\n            <li id=\"header_bugs\"><a href=\"http://bugs.yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Bugtracker</a></li>\n          </ul>\n        </li>\n      </ul>\n    </div>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-fixed-top navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <img class=\"navbar-brand\" src=\"assets/images/susper.svg\">\n\n    </div>\n\n    <div class=\"navbar-collapse collapse\">\n      <form class=\"navbar-form navbar-left\">\n        <div class=\"input-group\">\n          <input type=\"text\" name=\"query\" class=\"form-control\" placeholder=\"Search\" [(ngModel)]=\"searchdata.query\">\n          <div class=\"input-group-btn\">\n            <button class=\"btn btn-default\" type=\"submit\" (click)=\"submit()\">\n              <i class=\"glyphicon glyphicon-search\"></i>\n            </button>\n          </div>\n        </div>\n      </form>\n\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li id=\"header_help\" class=\"dropdown\">\n          <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\"><span class=\"glyphicon glyphicon-question-sign\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li id=\"header_profile\"><a href=\"yacysearch/about.html\">About This Page</a></li>\n            <li id=\"header_tutorial\"><a href=\"http://yacy.net/tutorials/\">YaCy Tutorials</a></li>\n            <li class=\"divider\"></li>\n            <li id=\"header_download\"><a href=\"http://yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Download YaCy</a></li>\n            <li id=\"header_community\"><a href=\"http://forum.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Community (Web Forums)</a></li>\n            <li id=\"header_wiki\"><a href=\"http://wiki.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Project Wiki</a></li>\n            <li id=\"header_git\"><a href=\"https://github.com/yacy/yacy_search_server/commits/master\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Git Repository</a></li>\n            <li id=\"header_bugs\"><a href=\"http://bugs.yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Bugtracker</a></li>\n          </ul>\n        </li>\n      </ul>\n    </div>\n  </div>\n</nav>\n"
 
 /***/ },
 
