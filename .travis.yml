@@ -13,11 +13,8 @@ script:
 - ng lint
 after_success:
 - bash ./deploy.sh
-cache: 
+cache:
 directories: node_modules
-branches: 
+branches:
 only:
 - master
-env:
-  global:
-    secure: FCeA/a01xmPNtYdtcVebU+LqvBZe5dVG7gNEh6N5dYxppTP0d6glK9+EiLzUDYSMhBZCC7P4emkZYaa6zOP4RzX1k1/3JWuLJum0eYPKtx9nun9lD+nwNgmLKwPOrkhcIWgXSlYONz7dPoVdWlqPGYea1ypllyL/61nKZteqvxop4s9sXB3nozWBy7IXtuA+jPScjdaGEJmG3QvxCEikRqfV2gWn/Ffrm4Je9zk6KBfzqKRZeARhJG5UB45q7aA8+GuXLBigK416pveJSGWG1DIcVaiMrUpDhPkB6a8OtRo1hmgCPbNAqcOI3sBZTGf6GMW42S8v4mDtI0E91TCnM28NgXGEncHUM30j1JLfRNqIWrjNVYmauZ87+viH4VxLgIJ5t/Drk1bkmt3elZbkR5iSXB8vWdCNRopIoZlYk2VwhiqlLnpImy+ceTdeuOeqgtEVw/56u8Khpddrjw16pPYNwO837x7aV4FmsUK28/pTJpBQMGmAB6B1NeHRbFlM5q8QYbznrsZgcN9g90K0dJK2rvK0Qin/xDzJ2Q8gGAiQ4IIOGzu6Cco/kruKYKAhidx2dufBlr2ef9JksXMJp5jHsiv2pJIox7CwrLu+rvD6v1IZ4FiLOPMsjQmKPLuG6sFM2vNnrKhXNVZVnQrH8SH2/18wIJFPAQq811GH138=
