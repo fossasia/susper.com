@@ -56,11 +56,11 @@ export class ResultsComponent implements OnInit {
     this.presentPage = Math.max(1, this.presentPage - 1);
   }
   getStyle(i) {
-     return ((this.presentPage + 1) === i);
+    return ((this.presentPage + 1) === i);
   }
   constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute) {
 
-    this.activatedroute.params.subscribe(query => {
+    this.activatedroute.queryParams.subscribe(query => {
       this.presentPage = Math.max(1, (query['startRecord'] / 10));
       this.searchdata.query = query['query'];
       this.searchdata.sort = query['sort'];

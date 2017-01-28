@@ -9,13 +9,14 @@ import { ResultsComponent } from './results/results.component';
 import {Routes, RouterModule} from '@angular/router';
 import {SearchService} from './search.service';
 import { NotFoundComponent } from './not-found/not-found.component';
+import {CommonModule} from '@angular/common';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
   {path: '', component: IndexComponent},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'},
- ];
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
     HttpModule,
     JsonpModule,
