@@ -1,0 +1,15 @@
+.not-found-banner{
+    text-align: center;
+    margin: 0 auto;
+    background: url(../../assets/images/not-found.jpg);
+    background-size: cover;
+    height: 300px;
+    width: 100%;
+}
+.not-found-banner h1{
+    font-size: 72px;
+}
+.not-found-banner h2{
+    font-size: 22px;
+    letter-spacing: 10px;
+}

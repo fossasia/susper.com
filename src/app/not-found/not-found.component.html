@@ -1,3 +1,20 @@
-<p>
-  not-found works!
-</p>
+
+
+    <!-- Full Width Image Header with Logo -->
+    <!-- Image backgrounds are set within the full-width-pics.css file. -->
+<div class="container-fluid not-found-banner">
+    <h2 class="yacy"><a href="http://yacy.net" class="yacylogo" id="homepage"><img src="../../assets/images/susper.svg" alt="YaCy" id="biglogo" style="margin: auto;"/></a></h2>
+    <h1>404</h1>
+    <h2>Page not found</h2>
+</div>
+
+    <form class="search form-inline"  id="searchform" >
+      <fieldset class="maininput">
+        <div class="input-group">
+          <input name="query" id="search" type="text" size="40" maxlength="80" value="" autofocus="autofocus" onFocus="this.select()" class="form-control searchinput typeahead" [(ngModel)]="searchdata.query"/>
+          <div class="input-group-btn">
+            <button id="Enter" name="Enter" (click)="submit()" class="btn btn-primary" type="submit">Search</button>
+          </div>
+        </div>
+      </fieldset>
+      </form>
