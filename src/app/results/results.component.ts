@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SearchService} from '../search.service';
 import {Router, ActivatedRoute} from '@angular/router';
+declare var $:any;
 
 @Component({
   selector: 'app-results',
@@ -36,6 +37,12 @@ export class ResultsComponent implements OnInit {
   getNumber(N) {
     return Array.apply(null, {length: N}).map(Number.call, Number);
   };
+  listclick(event){
+    console.log(event)
+    var target = event.target || event.srcElement || event.currentTarget;
+    $(target.parentElement.parentElement).children().toggle();
+    $(target.parentElement).toggle();
+  }
   changeurl(modifier) {
     console.log(modifier);
     this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);

@@ -3,8 +3,8 @@
     <div id="sidebar" class="col-md-3">
       <div id="filtersearch" *ngFor="let nav of navigation">
         <ul class="nav nav-sidebar menugroup" >
-          <li style="cursor:pointer;cursor: hand;" data-toggle="collapse" [attr.data-target]="'#'+nav.facetname"><h3>{{nav.displayname}}</h3></li>
-          <li style="display: block" *ngFor="let element of nav.elements">
+          <li style="cursor:pointer;cursor: hand;" class="list" (click)="listclick($event)" data-toggle="collapse" [attr.data-target]="'#'+nav.facetname"><h3>{{nav.displayname}}</h3></li>
+          <li style="display: none" *ngFor="let element of nav.elements">
             <a (click)="changeurl(element.modifier)" class="MenuItemLink">
               <input type="checkbox">{{element.name}}  {{element.count}}
             </a>
