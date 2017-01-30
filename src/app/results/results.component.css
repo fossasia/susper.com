@@ -21,6 +21,7 @@
 
 #progressBar{
   background-color: #f5f5f5;
+  margin-top: 1%;
 }
 
 .dropdown-menu > li {
@@ -44,5 +45,6 @@
 img.resImg{
   width: 250px;
   height: 300px;
+  padding: 0.2%;
   float: left;
 }

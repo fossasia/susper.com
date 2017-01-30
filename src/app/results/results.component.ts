@@ -36,7 +36,7 @@ export class ResultsComponent implements OnInit {
   };
   getPresentPage(N) {
     this.presentPage = N;
-    this.searchdata.start = (this.presentPage - 1)  * this.searchdata.rows;
+    this.searchdata.start = (this.presentPage)  * this.searchdata.rows;
     this.route.navigate(['/search'], {queryParams: this.searchdata});
 
   }
@@ -66,20 +66,19 @@ export class ResultsComponent implements OnInit {
   decPresentPage() {
     this.presentPage = Math.max(1, this.presentPage - 1);
   }
-  getStyle(i) {
-    return ((this.presentPage + 1) === i);
+  getStyle(page) {
+    return ((this.presentPage) === page);
   }
   constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute) {
 
     this.activatedroute.queryParams.subscribe(query => {
-      this.presentPage = Math.max(1, (query['start'] / this.searchdata.rows));
+      this.presentPage = query['start'] / this.searchdata.rows;
       this.searchdata.query = query['query'];
       this.searchdata.sort = query['sort'];
       this.begin = Number(query['start']) + 1;
       searchservice.getsearchresults(query).subscribe(res => {
         this.items = res.json()[0].channels[0].items;
         this.totalResults = Number(res.json()[0].channels[0].totalResults);
-
         this.end = Math.min(this.totalResults, this.begin + this.searchdata.rows - 1);
         this.message = 'showing results ' + this.begin + ' to ' + this.end + ' of ' + this.totalResults;
         this.noOfPages = Math.ceil(this.totalResults / this.searchdata.rows);
@@ -88,13 +87,13 @@ export class ResultsComponent implements OnInit {
 
     });
     this.message = 'loading...';
-    this.presentPage = 1;
-    this.start = (this.presentPage - 1) * this.searchdata.rows;
+    this.presentPage = 0;
+    this.start = (this.presentPage) * this.searchdata.rows;
 
   }
 
   ngOnInit() {
-    this.presentPage = 1;
+    this.presentPage = 0;
 
   }
 
