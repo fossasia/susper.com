@@ -134,7 +134,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(148);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(460);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(304);
@@ -142,7 +142,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__navbar_navbar_component__ = __webpack_require__(501);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__index_index_component__ = __webpack_require__(500);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__results_results_component__ = __webpack_require__(503);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_router__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_router__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__search_service__ = __webpack_require__(329);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__not_found_not_found_component__ = __webpack_require__(502);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_common__ = __webpack_require__(83);
@@ -224,7 +224,7 @@ var AppModule = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(104);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return IndexComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -280,7 +280,7 @@ var IndexComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(104);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NavbarComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -336,6 +336,7 @@ var NavbarComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(104);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NotFoundComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -347,10 +348,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var NotFoundComponent = (function () {
-    function NotFoundComponent() {
+    function NotFoundComponent(route, router) {
+        this.route = route;
+        this.router = router;
+        this.searchdata = {
+            query: '',
+            verify: false,
+            nav: 'filetype,protocol,hosts,authors,collections,namespace,topics,date',
+            startRecord: 0,
+            indexof: 'off',
+            meanCount: '5',
+            resource: 'global',
+            prefermaskfilter: '',
+            maximumRecords: 10,
+            timezoneOffset: 0,
+        };
     }
     NotFoundComponent.prototype.ngOnInit = function () {
+        this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
+    };
+    NotFoundComponent.prototype.submit = function () {
+        this.router.navigate(['/search', this.searchdata]);
     };
     NotFoundComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
@@ -358,9 +378,10 @@ var NotFoundComponent = (function () {
             template: __webpack_require__(666),
             styles: [__webpack_require__(661)]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === 'function' && _b) || Object])
     ], NotFoundComponent);
     return NotFoundComponent;
+    var _a, _b;
 }());
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/not-found.component.js.map
 
@@ -372,7 +393,7 @@ var NotFoundComponent = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_service__ = __webpack_require__(329);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(104);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ResultsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -565,7 +586,7 @@ module.exports = ""
 /***/ 661:
 /***/ function(module, exports) {
 
-module.exports = ""
+module.exports = ".not-found-banner{\n    text-align: center;\n    margin: 0 auto;\n    background: url(../../assets/images/not-found-bg.jpg);\n    background-size: cover;\n    height: 300px;\n    width: 100%;\n}\n.not-found-banner h1{\n    font-size: 72px;\n}\n.not-found-banner h2{\n    font-size: 22px;\n    letter-spacing: 10px;\n}\n"
 
 /***/ },
 
@@ -600,7 +621,7 @@ module.exports = "<nav class=\"navbar navbar-fixed-top navbar-default\">\n  <div
 /***/ 666:
 /***/ function(module, exports) {
 
-module.exports = "<p>\n  not-found works!\n</p>\n"
+module.exports = "\n<div class=\"container-fluid not-found-banner\">\n    <h2 class=\"yacy\"><a href=\"http://yacy.net\" class=\"yacylogo\" id=\"homepage\"><img src=\"../../assets/images/susper.svg\" alt=\"YaCy\" id=\"biglogo\" style=\"margin: auto;\"/></a></h2>\n    <h1>404</h1>\n    <h2>Page not found</h2>\n</div>\n\n    <form class=\"search form-inline\"  id=\"searchform\" >\n      <fieldset class=\"maininput\">\n        <div class=\"input-group\">\n          <input name=\"query\" id=\"search\" type=\"text\" size=\"40\" maxlength=\"80\" value=\"\" autofocus=\"autofocus\" onFocus=\"this.select()\" class=\"form-control searchinput typeahead\" [(ngModel)]=\"searchdata.query\"/>\n          <div class=\"input-group-btn\">\n            <button id=\"Enter\" name=\"Enter\" (click)=\"submit()\" class=\"btn btn-primary\" type=\"submit\">Search</button>\n          </div>\n        </div>\n      </fieldset>\n      </form>\n"
 
 /***/ },
 
