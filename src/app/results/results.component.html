@@ -1,9 +1,18 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-1">
-      <p>SIDEBAR</p>
+    <div id="sidebar" class="col-md-3">
+      <div id="filtersearch" *ngFor="let nav of navigation">
+        <ul class="nav nav-sidebar menugroup" >
+          <li style="cursor:pointer;cursor: hand;" data-toggle="collapse" [attr.data-target]="'#'+nav.facetname"><h3>{{nav.displayname}}</h3></li>
+          <li style="display: block" *ngFor="let element of nav.elements">
+            <a (click)="changeurl(element.modifier)" class="MenuItemLink">
+              <input type="checkbox">{{element.name}}  {{element.count}}
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="col-md-11">
+    <div class="col-md-9">
       <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
           Search Tools <span class="caret"></span></button>
