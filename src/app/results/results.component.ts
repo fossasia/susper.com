@@ -62,9 +62,12 @@ export class ResultsComponent implements OnInit {
   }
   incPresentPage() {
     this.presentPage = Math.min(this.noOfPages, this.presentPage + 1);
+    this.getPresentPage(this.presentPage);
+
   }
   decPresentPage() {
     this.presentPage = Math.max(1, this.presentPage - 1);
+    this.getPresentPage(this.presentPage);
   }
   getStyle(page) {
     return ((this.presentPage) === page);
@@ -89,6 +92,8 @@ export class ResultsComponent implements OnInit {
     this.message = 'loading...';
     this.presentPage = 0;
     this.start = (this.presentPage) * this.searchdata.rows;
+    this.begin = this.start + 1;
+    this.end =  Math.min(this.totalResults, this.begin + this.searchdata.rows - 1);
 
   }
 
