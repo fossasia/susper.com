@@ -40,3 +40,9 @@
 .active_page{
   background-color: #bdcdd4;
 }
+
+img.resImg{
+  width: 250px;
+  height: 300px;
+  float: left;
+}
