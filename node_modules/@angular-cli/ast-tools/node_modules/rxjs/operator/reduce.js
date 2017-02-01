@@ -42,7 +42,7 @@ var Subscriber_1 = require('../Subscriber');
  * @see {@link mergeScan}
  * @see {@link scan}
  *
- * @param {function(acc: R, value: T): R} accumulator The accumulator function
+ * @param {function(acc: R, value: T, index: number): R} accumulator The accumulator function
  * called on each source value.
  * @param {R} [seed] The initial accumulation value.
  * @return {Observable<R>} An observable of the accumulated values.
@@ -88,8 +88,12 @@ var ReduceSubscriber = (function (_super) {
         _super.call(this, destination);
         this.accumulator = accumulator;
         this.hasSeed = hasSeed;
+        this.index = 0;
         this.hasValue = false;
         this.acc = seed;
+        if (!this.hasSeed) {
+            this.index++;
+        }
     }
     ReduceSubscriber.prototype._next = function (value) {
         if (this.hasValue || (this.hasValue = this.hasSeed)) {
@@ -103,7 +107,7 @@ var ReduceSubscriber = (function (_super) {
     ReduceSubscriber.prototype._tryReduce = function (value) {
         var result;
         try {
-            result = this.accumulator(this.acc, value);
+            result = this.accumulator(this.acc, value, this.index++);
         }
         catch (err) {
             this.destination.error(err);

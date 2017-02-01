@@ -10,7 +10,7 @@ var isFunction_1 = require('../util/isFunction');
 var errorObject_1 = require('../util/errorObject');
 var Subscription_1 = require('../Subscription');
 var toString = Object.prototype.toString;
-function isNodeStyleEventEmmitter(sourceObj) {
+function isNodeStyleEventEmitter(sourceObj) {
     return !!sourceObj && typeof sourceObj.addListener === 'function' && typeof sourceObj.removeListener === 'function';
 }
 function isJQueryStyleEventEmitter(sourceObj) {
@@ -104,7 +104,7 @@ var FromEventObservable = (function (_super) {
             sourceObj.on(eventName, handler);
             unsubscribe = function () { return source_2.off(eventName, handler); };
         }
-        else if (isNodeStyleEventEmmitter(sourceObj)) {
+        else if (isNodeStyleEventEmitter(sourceObj)) {
             var source_3 = sourceObj;
             sourceObj.addListener(eventName, handler);
             unsubscribe = function () { return source_3.removeListener(eventName, handler); };

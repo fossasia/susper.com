@@ -87,16 +87,15 @@ var WindowTimeSubscriber = (function (_super) {
         this.windowCreationInterval = windowCreationInterval;
         this.scheduler = scheduler;
         this.windows = [];
+        var window = this.openWindow();
         if (windowCreationInterval !== null && windowCreationInterval >= 0) {
-            var window_1 = this.openWindow();
-            var closeState = { subscriber: this, window: window_1, context: null };
+            var closeState = { subscriber: this, window: window, context: null };
             var creationState = { windowTimeSpan: windowTimeSpan, windowCreationInterval: windowCreationInterval, subscriber: this, scheduler: scheduler };
             this.add(scheduler.schedule(dispatchWindowClose, windowTimeSpan, closeState));
             this.add(scheduler.schedule(dispatchWindowCreation, windowCreationInterval, creationState));
         }
         else {
-            var window_2 = this.openWindow();
-            var timeSpanOnlyState = { subscriber: this, window: window_2, windowTimeSpan: windowTimeSpan };
+            var timeSpanOnlyState = { subscriber: this, window: window, windowTimeSpan: windowTimeSpan };
             this.add(scheduler.schedule(dispatchWindowTimeSpanOnly, windowTimeSpan, timeSpanOnlyState));
         }
     }
@@ -104,9 +103,9 @@ var WindowTimeSubscriber = (function (_super) {
         var windows = this.windows;
         var len = windows.length;
         for (var i = 0; i < len; i++) {
-            var window_3 = windows[i];
-            if (!window_3.closed) {
-                window_3.next(value);
+            var window_1 = windows[i];
+            if (!window_1.closed) {
+                window_1.next(value);
             }
         }
     };
@@ -120,9 +119,9 @@ var WindowTimeSubscriber = (function (_super) {
     WindowTimeSubscriber.prototype._complete = function () {
         var windows = this.windows;
         while (windows.length > 0) {
-            var window_4 = windows.shift();
-            if (!window_4.closed) {
-                window_4.complete();
+            var window_2 = windows.shift();
+            if (!window_2.closed) {
+                window_2.complete();
             }
         }
         this.destination.complete();
@@ -144,7 +143,7 @@ var WindowTimeSubscriber = (function (_super) {
 function dispatchWindowTimeSpanOnly(state) {
     var subscriber = state.subscriber, windowTimeSpan = state.windowTimeSpan, window = state.window;
     if (window) {
-        window.complete();
+        subscriber.closeWindow(window);
     }
     state.window = subscriber.openWindow();
     this.schedule(state, windowTimeSpan);
@@ -159,8 +158,8 @@ function dispatchWindowCreation(state) {
     action.add(context.subscription);
     action.schedule(state, windowCreationInterval);
 }
-function dispatchWindowClose(arg) {
-    var subscriber = arg.subscriber, window = arg.window, context = arg.context;
+function dispatchWindowClose(state) {
+    var subscriber = state.subscriber, window = state.window, context = state.context;
     if (context && context.action && context.subscription) {
         context.action.remove(context.subscription);
     }

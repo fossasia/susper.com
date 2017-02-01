@@ -18,13 +18,13 @@ var AsyncSubject = (function (_super) {
         this.hasCompleted = false;
     }
     AsyncSubject.prototype._subscribe = function (subscriber) {
-        if (this.hasCompleted && this.hasNext) {
-            subscriber.next(this.value);
-            subscriber.complete();
+        if (this.hasError) {
+            subscriber.error(this.thrownError);
             return Subscription_1.Subscription.EMPTY;
         }
-        else if (this.hasError) {
-            subscriber.error(this.thrownError);
+        else if (this.hasCompleted && this.hasNext) {
+            subscriber.next(this.value);
+            subscriber.complete();
             return Subscription_1.Subscription.EMPTY;
         }
         return _super.prototype._subscribe.call(this, subscriber);
@@ -33,6 +33,11 @@ var AsyncSubject = (function (_super) {
         if (!this.hasCompleted) {
             this.value = value;
             this.hasNext = true;
+        }
+    };
+    AsyncSubject.prototype.error = function (error) {
+        if (!this.hasCompleted) {
+            _super.prototype.error.call(this, error);
         }
     };
     AsyncSubject.prototype.complete = function () {

@@ -8,7 +8,7 @@ export declare class ReduceOperator<T, R> implements Operator<T, R> {
     private accumulator;
     private seed;
     private hasSeed;
-    constructor(accumulator: (acc: R, value: T) => R, seed?: R, hasSeed?: boolean);
+    constructor(accumulator: (acc: R, value: T, index?: number) => R, seed?: R, hasSeed?: boolean);
     call(subscriber: Subscriber<R>, source: any): any;
 }
 /**
@@ -19,9 +19,10 @@ export declare class ReduceOperator<T, R> implements Operator<T, R> {
 export declare class ReduceSubscriber<T, R> extends Subscriber<T> {
     private accumulator;
     private hasSeed;
-    acc: T | R;
-    hasValue: boolean;
-    constructor(destination: Subscriber<R>, accumulator: (acc: R, value: T) => R, seed: R, hasSeed: boolean);
+    private index;
+    private acc;
+    private hasValue;
+    constructor(destination: Subscriber<R>, accumulator: (acc: R, value: T, index?: number) => R, seed: R, hasSeed: boolean);
     protected _next(value: T): void;
     private _tryReduce(value);
     protected _complete(): void;

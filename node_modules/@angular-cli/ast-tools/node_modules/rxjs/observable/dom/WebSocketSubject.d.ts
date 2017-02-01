@@ -33,7 +33,36 @@ export declare class WebSocketSubject<T> extends AnonymousSubject<T> {
     private _output;
     resultSelector(e: MessageEvent): any;
     /**
-     * @param urlConfigOrSource
+     * Wrapper around the w3c-compatible WebSocket object provided by the browser.
+     *
+     * @example <caption>Wraps browser WebSocket</caption>
+     *
+     * let subject = Observable.webSocket('ws://localhost:8081');
+     * subject.subscribe(
+     *    (msg) => console.log('message received: ' + msg),
+     *    (err) => console.log(err),
+     *    () => console.log('complete')
+     *  );
+     * subject.next(JSON.stringify({ op: 'hello' }));
+     *
+     * @example <caption>Wraps WebSocket from nodejs-websocket (using node.js)</caption>
+     *
+     * import { w3cwebsocket } from 'websocket';
+     *
+     * let socket = new WebSocketSubject({
+     *   url: 'ws://localhost:8081',
+     *   WebSocketCtor: w3cwebsocket
+     * });
+     *
+     * let subject = Observable.webSocket('ws://localhost:8081');
+     * subject.subscribe(
+     *    (msg) => console.log('message received: ' + msg),
+     *    (err) => console.log(err),
+     *    () => console.log('complete')
+     *  );
+     * subject.next(JSON.stringify({ op: 'hello' }));
+     *
+     * @param {string | WebSocketSubjectConfig} urlConfigOrSource the source of the websocket as an url or a structure defining the websocket object
      * @return {WebSocketSubject}
      * @static true
      * @name webSocket
@@ -43,7 +72,7 @@ export declare class WebSocketSubject<T> extends AnonymousSubject<T> {
     constructor(urlConfigOrSource: string | WebSocketSubjectConfig | Observable<T>, destination?: Observer<T>);
     lift<R>(operator: Operator<T, R>): WebSocketSubject<R>;
     private _resetState();
-    multiplex(subMsg: () => any, unsubMsg: () => any, messageFilter: (value: T) => boolean): Observable<{}>;
+    multiplex(subMsg: () => any, unsubMsg: () => any, messageFilter: (value: T) => boolean): Observable<any>;
     private _connectSocket();
     protected _subscribe(subscriber: Subscriber<T>): Subscription;
     unsubscribe(): void;

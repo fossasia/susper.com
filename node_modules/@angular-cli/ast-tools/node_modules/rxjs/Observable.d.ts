@@ -26,7 +26,7 @@ export declare class Observable<T> implements Subscribable<T> {
      * can be `next`ed, or an `error` method can be called to raise an error, or
      * `complete` can be called to notify of a successful completion.
      */
-    constructor(subscribe?: <R>(this: Observable<T>, subscriber: Subscriber<R>) => TeardownLogic);
+    constructor(subscribe?: (this: Observable<T>, subscriber: Subscriber<T>) => TeardownLogic);
     /**
      * Creates a new cold Observable by calling the Observable constructor
      * @static true
@@ -58,6 +58,7 @@ export declare class Observable<T> implements Subscribable<T> {
     subscribe(): Subscription;
     subscribe(observer: PartialObserver<T>): Subscription;
     subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): Subscription;
+    protected _trySubscribe(sink: Subscriber<T>): TeardownLogic;
     /**
      * @method forEach
      * @param {Function} next a handler for each value emitted by the observable

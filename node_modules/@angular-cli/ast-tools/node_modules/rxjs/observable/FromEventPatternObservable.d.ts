@@ -45,9 +45,10 @@ export declare class FromEventPatternObservable<T> extends Observable<T> {
      * @param {function(handler: Function): any} addHandler A function that takes
      * a `handler` function as argument and attaches it somehow to the actual
      * source of events.
-     * @param {function(handler: Function): void} removeHandler A function that
+     * @param {function(handler: Function, signal?: any): void} [removeHandler] An optional function that
      * takes a `handler` function as argument and removes it in case it was
-     * previously attached using `addHandler`.
+     * previously attached using `addHandler`. if addHandler returns signal to teardown when remove,
+     * removeHandler function will forward it.
      * @param {function(...args: any): T} [selector] An optional function to
      * post-process results. It takes the arguments from the event handler and
      * should return a single value.
@@ -56,8 +57,8 @@ export declare class FromEventPatternObservable<T> extends Observable<T> {
      * @name fromEventPattern
      * @owner Observable
      */
-    static create<T>(addHandler: (handler: Function) => any, removeHandler: (handler: Function) => void, selector?: (...args: Array<any>) => T): FromEventPatternObservable<T>;
-    constructor(addHandler: (handler: Function) => any, removeHandler: (handler: Function) => void, selector?: (...args: Array<any>) => T);
+    static create<T>(addHandler: (handler: Function) => any, removeHandler?: (handler: Function, signal?: any) => void, selector?: (...args: Array<any>) => T): FromEventPatternObservable<T>;
+    constructor(addHandler: (handler: Function) => any, removeHandler?: (handler: Function, signal?: any) => void, selector?: (...args: Array<any>) => T);
     protected _subscribe(subscriber: Subscriber<T>): void;
     private _callSelector(subscriber, args);
     private _callAddHandler(handler, errorSubscriber);

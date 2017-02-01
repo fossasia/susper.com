@@ -89,6 +89,14 @@ var Subject = (function (_super) {
         this.closed = true;
         this.observers = null;
     };
+    Subject.prototype._trySubscribe = function (subscriber) {
+        if (this.closed) {
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+        }
+        else {
+            return _super.prototype._trySubscribe.call(this, subscriber);
+        }
+    };
     Subject.prototype._subscribe = function (subscriber) {
         if (this.closed) {
             throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();

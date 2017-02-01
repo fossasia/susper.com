@@ -70,12 +70,19 @@ var SearchService = (function () {
     }
     SearchService.prototype.getsearchresults = function (searchquery) {
         var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* URLSearchParams */]();
-        params.set('query', searchquery.query);
-        params.set('rows', searchquery.maximumRecords);
-        params.set('start', searchquery.startRecord);
-        params.set('sort', searchquery.sort);
+        for (var key in searchquery) {
+            if (searchquery.hasOwnProperty(key)) {
+                params.set(key, searchquery[key]);
+            }
+        }
         params.set('wt', 'yjson');
         params.set('callback', 'JSONP_CALLBACK');
+        params.set('facet', 'true');
+        params.set('facet.mincount', '1');
+        params.append('facet.field', 'host_s');
+        params.append('facet.field', 'url_protocol_s');
+        params.append('facet.field', 'author_sxt');
+        params.append('facet.field', 'collection_sxt');
         return this.jsonp
             .get('http://yacy.searchlab.eu/solr/select', { search: params }).map(function (res) {
             console.log(res.json()[0].channels[0].items);
@@ -418,32 +425,33 @@ var ResultsComponent = (function () {
             query: '',
             verify: false,
             nav: 'filetype,protocol,hosts,authors,collections,namespace,topics,date',
-            startRecord: 0,
+            start: 0,
             indexof: 'off',
             meanCount: '5',
             resource: 'global',
             prefermaskfilter: '',
-            maximumRecords: 10,
+            rows: 10,
             timezoneOffset: 0,
-            sort: '',
         };
         this.activatedroute.queryParams.subscribe(function (query) {
-            _this.presentPage = Math.max(1, (query['startRecord'] / 10));
+            _this.presentPage = query['start'] / _this.searchdata.rows;
             _this.searchdata.query = query['query'];
             _this.searchdata.sort = query['sort'];
-            _this.start = Number(query['startRecord']) + 1;
+            _this.begin = Number(query['start']) + 1;
             searchservice.getsearchresults(query).subscribe(function (res) {
                 _this.items = res.json()[0].channels[0].items;
                 _this.totalResults = Number(res.json()[0].channels[0].totalResults);
-                _this.end = Math.min(_this.totalResults, _this.start + 9);
-                _this.message = 'showing results ' + _this.start + ' to ' + _this.end + ' of ' + _this.totalResults;
-                _this.noOfPages = Math.ceil(_this.totalResults / 10);
-                _this.maxPage = Math.min(10, _this.noOfPages);
+                _this.end = Math.min(_this.totalResults, _this.begin + _this.searchdata.rows - 1);
+                _this.message = 'showing results ' + _this.begin + ' to ' + _this.end + ' of ' + _this.totalResults;
+                _this.noOfPages = Math.ceil(_this.totalResults / _this.searchdata.rows);
+                _this.maxPage = Math.min(_this.searchdata.rows, _this.noOfPages);
             });
         });
         this.message = 'loading...';
-        this.presentPage = 1;
-        this.startRecord = (this.presentPage - 1) * 10;
+        this.presentPage = 0;
+        this.start = (this.presentPage) * this.searchdata.rows;
+        this.begin = this.start + 1;
+        this.end = Math.min(this.totalResults, this.begin + this.searchdata.rows - 1);
     }
     ResultsComponent.prototype.getNumber = function (N) {
         return Array.apply(null, { length: N }).map(Number.call, Number);
@@ -451,29 +459,42 @@ var ResultsComponent = (function () {
     ;
     ResultsComponent.prototype.getPresentPage = function (N) {
         this.presentPage = N;
-        this.searchdata.sort = '';
-        this.searchdata.startRecord = (this.presentPage - 1) * 10;
-        this.route.navigate(['/search', this.searchdata]);
+        this.searchdata.start = (this.presentPage) * this.searchdata.rows;
+        this.route.navigate(['/search'], { queryParams: this.searchdata });
     };
     ResultsComponent.prototype.filterByDate = function () {
         this.searchdata.sort = 'last_modified desc';
-        this.route.navigate(['/search', this.searchdata]);
+        this.route.navigate(['/search'], { queryParams: this.searchdata });
     };
     ResultsComponent.prototype.filterByContext = function () {
-        this.searchdata.sort = '';
-        this.route.navigate(['/search', this.searchdata]);
+        delete this.searchdata.sort;
+        this.route.navigate(['/search'], { queryParams: this.searchdata });
+    };
+    ResultsComponent.prototype.imageClick = function () {
+        this.imageDisplay = true;
+        this.searchdata.rows = 100;
+        this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
+        this.route.navigate(['/search'], { queryParams: this.searchdata });
+    };
+    ResultsComponent.prototype.docClick = function () {
+        this.imageDisplay = false;
+        delete this.searchdata.fq;
+        this.searchdata.rows = 10;
+        this.route.navigate(['/search'], { queryParams: this.searchdata });
     };
     ResultsComponent.prototype.incPresentPage = function () {
         this.presentPage = Math.min(this.noOfPages, this.presentPage + 1);
+        this.getPresentPage(this.presentPage);
     };
     ResultsComponent.prototype.decPresentPage = function () {
         this.presentPage = Math.max(1, this.presentPage - 1);
+        this.getPresentPage(this.presentPage);
     };
-    ResultsComponent.prototype.getStyle = function (i) {
-        return ((this.presentPage + 1) === i);
+    ResultsComponent.prototype.getStyle = function (page) {
+        return ((this.presentPage) === page);
     };
     ResultsComponent.prototype.ngOnInit = function () {
-        this.presentPage = 1;
+        this.presentPage = 0;
     };
     ResultsComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
@@ -593,7 +614,7 @@ module.exports = ".not-found-banner{\n    text-align: center;\n    margin: 0 aut
 /***/ 662:
 /***/ function(module, exports) {
 
-module.exports = ".result{\n  padding: 10px;\n}\n.title >a{\n  color:blue;\n  font-size: medium;\n  font-weight: bold;\n  text-decoration:none;\n}\n\n.link >a{\n  color:#3c7a3c;\n  text-decoration:none;\n}\n.link, .title >a:hover{\n  text-decoration: underline;\n}\n.page-link{\n  cursor: pointer;\n}\n\n#progressBar{\n  background-color: #f5f5f5;\n}\n\n.dropdown-menu > li {\n  padding: 5px;\n  text-align: center;\n  text-decoration: none;\n}\n\n.dropdown-menu > li :hover{\n  background-color: #f5f5f5;\n}\n.dropdown-menu > li :active{\n  background-color: #1c65ba;\n  color: white;\n}\n\n.active_page{\n  background-color: #bdcdd4;\n}\n"
+module.exports = ".result{\n  padding: 10px;\n}\n.title >a{\n  color:blue;\n  font-size: medium;\n  font-weight: bold;\n  text-decoration:none;\n}\n\n.link >a{\n  color:#3c7a3c;\n  text-decoration:none;\n}\n.link, .title >a:hover{\n  text-decoration: underline;\n}\n.page-link{\n  cursor: pointer;\n}\n\n#progressBar{\n  background-color: #f5f5f5;\n  margin-top: 1%;\n}\n\n.dropdown-menu > li {\n  padding: 5px;\n  text-align: center;\n  text-decoration: none;\n}\n\n.dropdown-menu > li :hover{\n  background-color: #f5f5f5;\n}\n.dropdown-menu > li :active{\n  background-color: #1c65ba;\n  color: white;\n}\n\n.active_page{\n  background-color: #bdcdd4;\n}\n\nimg.resImg{\n  width: 250px;\n  height: 300px;\n  padding: 0.2%;\n  float: left;\n}\n"
 
 /***/ },
 
@@ -607,14 +628,14 @@ module.exports = "<app-navbar></app-navbar>\n<router-outlet></router-outlet>\n"
 /***/ 664:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"starter-template\">\n\n    <h2 class=\"yacy\"><a href=\"http://yacy.net\" class=\"yacylogo\" id=\"homepage\"><img src=\"assets/images/susper.svg\" alt=\"YaCy\" id=\"biglogo\" style=\"margin: auto;\"/></a></h2>\n    <h2 class=\"yacy\" id=\"greeting\"></h2>\n    <form class=\"search form-inline\"  id=\"searchform\" >\n      <fieldset class=\"maininput\">\n        <div class=\"input-group\">\n          <input name=\"query\" id=\"search\" type=\"text\" size=\"40\" maxlength=\"80\" value=\"\" autofocus=\"autofocus\" onFocus=\"this.select()\" placeholder=\"Search susper\" class=\"form-control searchinput typeahead\" [(ngModel)]=\"searchdata.query\"/>\n          <div class=\"input-group-btn\">\n            <button id=\"Enter\" name=\"Enter\" (click)=\"submit()\" class=\"btn btn-primary\" type=\"submit\">Search</button>\n          </div>\n        </div>\n      </fieldset>\n    </form>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"starter-template\">\n\n    <h2 class=\"yacy\"><a href=\"http://yacy.net\" class=\"yacylogo\" id=\"homepage\"><img src=\"assets/images/susper.svg\"\n                                                                                   alt=\"YaCy\" id=\"biglogo\"\n                                                                                   style=\"margin: auto;\"/></a></h2>\n    <h2 class=\"yacy\" id=\"greeting\"></h2>\n    <form class=\"search form-inline\" id=\"searchform\">\n      <fieldset class=\"maininput\">\n        <div class=\"input-group\">\n          <input name=\"query\" id=\"search\" type=\"text\" size=\"40\" maxlength=\"80\" value=\"\" autofocus=\"autofocus\"\n                 onFocus=\"this.select()\" placeholder=\"Search susper\" class=\"form-control searchinput typeahead\"\n                 [(ngModel)]=\"searchdata.query\"/>\n          <div class=\"input-group-btn\">\n            <button id=\"Enter\" name=\"Enter\" (click)=\"submit()\" class=\"btn btn-primary\" type=\"submit\">Search</button>\n          </div>\n        </div>\n      </fieldset>\n    </form>\n  </div>\n</div>\n"
 
 /***/ },
 
 /***/ 665:
 /***/ function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <img class=\"navbar-brand\" src=\"assets/images/susper.svg\">\n\n    </div>\n\n    <div class=\"navbar-collapse collapse\">\n      <form class=\"navbar-form navbar-left\">\n        <div class=\"input-group\">\n          <input type=\"text\" name=\"query\" class=\"form-control\" placeholder=\"Search\" [(ngModel)]=\"searchdata.query\">\n          <div class=\"input-group-btn\">\n            <button class=\"btn btn-default\" type=\"submit\" (click)=\"submit()\">\n              <i class=\"glyphicon glyphicon-search\"></i>\n            </button>\n          </div>\n        </div>\n      </form>\n\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li id=\"header_help\" class=\"dropdown\">\n          <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\"><span class=\"glyphicon glyphicon-question-sign\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li id=\"header_profile\"><a href=\"yacysearch/about.html\">About This Page</a></li>\n            <li id=\"header_tutorial\"><a href=\"http://yacy.net/tutorials/\">YaCy Tutorials</a></li>\n            <li class=\"divider\"></li>\n            <li id=\"header_download\"><a href=\"http://yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Download YaCy</a></li>\n            <li id=\"header_community\"><a href=\"http://forum.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Community (Web Forums)</a></li>\n            <li id=\"header_wiki\"><a href=\"http://wiki.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Project Wiki</a></li>\n            <li id=\"header_git\"><a href=\"https://github.com/yacy/yacy_search_server/commits/master\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Git Repository</a></li>\n            <li id=\"header_bugs\"><a href=\"http://bugs.yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Bugtracker</a></li>\n          </ul>\n        </li>\n      </ul>\n    </div>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-fixed-top navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <img class=\"navbar-brand\" src=\"assets/images/susper.svg\">\n\n    </div>\n\n    <div class=\"navbar-collapse collapse\">\n      <form class=\"navbar-form navbar-left\">\n        <div class=\"input-group\">\n          <input type=\"text\" name=\"query\" class=\"form-control\" placeholder=\"Search\" [(ngModel)]=\"searchdata.query\">\n          <div class=\"input-group-btn\">\n            <button class=\"btn btn-default\" type=\"submit\" (click)=\"submit()\">\n              <i class=\"glyphicon glyphicon-search\"></i>\n            </button>\n          </div>\n        </div>\n      </form>\n\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li id=\"header_help\" class=\"dropdown\">\n          <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\"><span\n            class=\"glyphicon glyphicon-question-sign\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li id=\"header_profile\"><a href=\"yacysearch/about.html\">About This Page</a></li>\n            <li id=\"header_tutorial\"><a href=\"http://yacy.net/tutorials/\">YaCy Tutorials</a></li>\n            <li class=\"divider\"></li>\n            <li id=\"header_download\"><a href=\"http://yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Download\n              YaCy</a></li>\n            <li id=\"header_community\"><a href=\"http://forum.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Community\n              (Web Forums)</a></li>\n            <li id=\"header_wiki\"><a href=\"http://wiki.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Project\n              Wiki</a></li>\n            <li id=\"header_git\"><a href=\"https://github.com/yacy/yacy_search_server/commits/master\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Git\n              Repository</a></li>\n            <li id=\"header_bugs\"><a href=\"http://bugs.yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Bugtracker</a>\n            </li>\n          </ul>\n        </li>\n      </ul>\n    </div>\n  </div>\n</nav>\n"
 
 /***/ },
 
@@ -628,7 +649,7 @@ module.exports = "\n<div class=\"container-fluid not-found-banner\">\n    <h2 cl
 /***/ 667:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-md-1\">\n      <p>SIDEBAR</p>\n    </div>\n    <div class=\"col-md-11\">\n      <div class=\"btn-group\">\n        <button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\">\n          Search Tools <span class=\"caret\"></span></button>\n        <ul class=\"dropdown-menu\" role=\"menu\">\n          <li> <span class=\"page-link\" (click)=\"filterByContext()\"> Context Ranking</span></li>\n          <li> <span class=\"page-link\" (click)=\"filterByDate()\"> Sort by Date</span></li>\n        </ul>\n      </div>\n      <div class=\"container-fluid\" id=\"progressBar\">\n        {{message}}\n      </div>\n      <div *ngFor='let item of items' class='result'>\n        <div class='title'>\n          <a href='{{item.path}}'>{{item.title}}</a>\n        </div>\n        <div class='link'>\n          <a href='{{item.link}}'>{{item.link}}</a>\n        </div>\n        <div>\n          {{item.pubDate|date:'fullDate'}}\n        </div>\n      </div>\n      <nav aria-label=\"Page navigation\">\n        <ul class=\"pagination\">\n          <li class=\"page-item\"><span class=\"page-link\" href=\"#\" (click)=\"decPresentPage()\">Previous</span></li>\n          <li class=\"page-item\" *ngFor=\"let num of getNumber(maxPage)\"><span class=\"page-link\" *ngIf=\"presentPage>=4 && num<=noOfPages\" [class.active_page]=\"getStyle(presentPage-3+num)\" (click)=\"getPresentPage(presentPage-3+num)\" href=\"#\">{{presentPage-3+num}}</span>\n            <span class=\"page-link\" *ngIf=\"presentPage<4 && num<=noOfPages\" [class.active_page]=\"getStyle(num+1)\" (click)=\"getPresentPage(num+1)\" href=\"#\">{{num+1}}</span></li>\n          <li class=\"page-item\"><span class=\"page-link\" (click)=\"incPresentPage()\">Next</span></li>\n        </ul>\n      </nav>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-md-1\">\n      <p>SIDEBAR</p>\n    </div>\n    <div class=\"col-md-11\">\n      <div class=\"btn-group\">\n        <button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\">\n          Search Tools <span class=\"caret\"></span></button>\n        <ul class=\"dropdown-menu\" role=\"menu\">\n          <li><span class=\"page-link\" (click)=\"filterByContext()\"> Context Ranking</span></li>\n          <li><span class=\"page-link\" (click)=\"filterByDate()\"> Sort by Date</span></li>\n        </ul>\n      </div>\n      <div class=\"btn-group\">\n        <button type=\"button\" class=\"btn btn-default\" [class.active_page]=\"!imageDisplay\" (click)=\"docClick()\">\n          Documents\n        </button>\n        <button type=\"button\" class=\"btn btn-default\" [class.active_page]=\"imageDisplay\" (click)=\"imageClick()\">Images\n        </button>\n      </div>\n      <div class=\"container-fluid\" id=\"progressBar\">\n        {{message}}\n      </div>\n      <div class=\"text-result\" *ngIf=\"!imageDisplay\">\n        <div *ngFor='let item of items' class='result'>\n          <div class='title'>\n            <a href='{{item.path}}'>{{item.title}}</a>\n          </div>\n          <div class='link'>\n            <a href='{{item.link}}'>{{item.link}}</a>\n          </div>\n          <div>\n            {{item.pubDate|date:'fullDate'}}\n          </div>\n        </div>\n      </div>\n      <div class=\"image-result\" *ngIf=\"imageDisplay\">\n        <div *ngFor='let item of items'>\n          <img class=\"resImg\" src=\"{{item.link}}\">\n        </div>\n      </div>\n      <br/>\n      <nav aria-label=\"Page navigation\">\n        <ul class=\"pagination\">\n          <li class=\"page-item\"><span class=\"page-link\" href=\"#\" (click)=\"decPresentPage()\">Previous</span></li>\n          <li class=\"page-item\" *ngFor=\"let num of getNumber(maxPage)\"><span class=\"page-link\"\n                                                                             *ngIf=\"presentPage>=4 && num<=noOfPages\"\n                                                                             [class.active_page]=\"getStyle(presentPage-3+num)\"\n                                                                             (click)=\"getPresentPage(presentPage-3+num)\"\n                                                                             href=\"#\">{{presentPage-3+num}}</span>\n            <span class=\"page-link\" *ngIf=\"presentPage<4 && num<=noOfPages\" [class.active_page]=\"getStyle(num)\"\n                  (click)=\"getPresentPage(num)\" href=\"#\">{{num+1}}</span></li>\n          <li class=\"page-item\"><span class=\"page-link\" (click)=\"incPresentPage()\">Next</span></li>\n        </ul>\n      </nav>\n    </div>\n  </div>\n</div>\n\n\n"
 
 /***/ },
 
