@@ -31,7 +31,7 @@ a:hover {
   -moz-border-radius-topright: 5px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
- 
+
   background-color: #84B3DE;
   color:white;
 }
@@ -85,8 +85,8 @@ table {
   background-color: #F2DEDE;
 }
 
-.TableCellActive {       
-  background-color: #ffbbaa;     
+.TableCellActive {
+  background-color: #ffbbaa;
 }
 
 /* Blog and Wiki*/
@@ -172,7 +172,7 @@ div.ProgressBarFill {
 
 /* Searchresults */
 
-fieldset.maininput, fieldset.yacys { 
+fieldset.maininput, fieldset.yacys {
   background-color:#eeeeee;
   -webkit-border-radius: 5px;
   -khtml-border-radius: 5px;
@@ -191,12 +191,12 @@ form.search.small h2 {
 .searchresults h4 a {
   font-size:1.2em;
   font-weight:bold;
-  text-decoration:none; 
+  text-decoration:none;
   color:#1c65ba;
 }
 .searchresults h4 a:hover {
   font-weight:bold;
-  text-decoration:underline; 
+  text-decoration:underline;
   color:#1c65ba;
 }
 
@@ -205,11 +205,11 @@ form.search.small h2 {
 }
 
 .searchresults .url a {
-  text-decoration:none; 
+  text-decoration:none;
   color:#3c7a3c;
 }
 .searchresults .url a:hover {
-  text-decoration:underline; 
+  text-decoration:underline;
   color:#3c7a3c;
 }
 

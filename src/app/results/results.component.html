@@ -1,28 +1,31 @@
+<app-navbar></app-navbar>
 <div class="container">
   <div class="row">
     <div class="col-md-1">
-      <p>SIDEBAR</p>
     </div>
     <div class="col-md-11">
-      <div class="btn-group">
+      <div class="btn-group" id="search-options">
+        <button type="button" class="btn btn-default" [class.active_view]="Display('all')" (click)="docClick()">
+          All
+        </button>
+        <button type="button" class="btn btn-default" [class.active_view]="Display('images')" (click)="imageClick()">Images
+        </button>
+        <button type="button" class="btn btn-default" [class.active_view]="Display('videos')" (click)="videoClick()">Videos
+        </button>
+        <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
           Search Tools <span class="caret"></span></button>
         <ul class="dropdown-menu" role="menu">
           <li><span class="page-link" (click)="filterByContext()"> Context Ranking</span></li>
           <li><span class="page-link" (click)="filterByDate()"> Sort by Date</span></li>
         </ul>
+        </div>
       </div>
-      <div class="btn-group">
-        <button type="button" class="btn btn-default" [class.active_page]="!imageDisplay" (click)="docClick()">
-          Documents
-        </button>
-        <button type="button" class="btn btn-default" [class.active_page]="imageDisplay" (click)="imageClick()">Images
-        </button>
-      </div>
+      <hr>
       <div class="container-fluid" id="progressBar">
         {{message}}
       </div>
-      <div class="text-result" *ngIf="!imageDisplay">
+      <div class="text-result" *ngIf="Display('all')">
         <div *ngFor='let item of items' class='result'>
           <div class='title'>
             <a href='{{item.path}}'>{{item.title}}</a>
@@ -35,9 +38,19 @@
           </div>
         </div>
       </div>
-      <div class="image-result" *ngIf="imageDisplay">
+      <div class="image-result" *ngIf="Display('images')">
         <div *ngFor='let item of items'>
           <img class="resImg" src="{{item.link}}">
+        </div>
+      </div>
+      <div class="video-result" *ngIf="Display('videos')">
+        <div *ngFor='let item of items' class="result">
+          <div class='title'>
+            <a href='{{item.path}}'>{{item.title}}</a>
+          </div>
+          <div class='link'>
+            <a href='{{item.link}}'>{{item.link}}</a>
+          </div>
         </div>
       </div>
       <br/>
