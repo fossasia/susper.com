@@ -10,7 +10,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 export class ResultsComponent implements OnInit {
   items = [];
   totalResults: number;
-  imageDisplay: boolean;
+  resultDisplay: string;
   noOfPages: number;
   presentPage: number;
   maxPage: number;
@@ -48,14 +48,23 @@ export class ResultsComponent implements OnInit {
     delete this.searchdata.sort;
     this.route.navigate(['/search'], {queryParams: this.searchdata});
   }
+  Display(S) {
+    return (this.resultDisplay === S);
+  }
+  videoClick() {
+    this.resultDisplay = 'videos';
+    this.searchdata.rows = 10;
+    this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+gif)';
+    this.route.navigate(['/search'], {queryParams: this.searchdata});
+  }
   imageClick() {
-    this.imageDisplay = true;
+    this.resultDisplay = 'images';
     this.searchdata.rows = 100;
     this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
     this.route.navigate(['/search'], {queryParams: this.searchdata});
   }
   docClick() {
-    this.imageDisplay = false;
+    this.resultDisplay = 'all';
     delete this.searchdata.fq;
     this.searchdata.rows = 10;
     this.route.navigate(['/search'], {queryParams: this.searchdata});
@@ -94,6 +103,7 @@ export class ResultsComponent implements OnInit {
     this.start = (this.presentPage) * this.searchdata.rows;
     this.begin = this.start + 1;
     this.end =  Math.min(this.totalResults, this.begin + this.searchdata.rows - 1);
+    this.resultDisplay = 'all';
 
   }
 

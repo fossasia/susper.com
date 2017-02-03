@@ -7,10 +7,10 @@
 
     <div class="navbar-collapse collapse">
       <form class="navbar-form navbar-left">
-        <div class="input-group">
-          <input type="text" name="query" class="form-control" placeholder="Search" [(ngModel)]="searchdata.query">
+        <div class="input-group" id="nav-group">
+          <input type="text" name="query" class="form-control" id="nav-input" placeholder="Search" [(ngModel)]="searchdata.query">
           <div class="input-group-btn">
-            <button class="btn btn-default" type="submit" (click)="submit()">
+            <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()">
               <i class="glyphicon glyphicon-search"></i>
             </button>
           </div>
