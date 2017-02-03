@@ -1,5 +1,4 @@
 var Mexp=require('./math_function.js');
-var indexOf = require('lodash.indexof');
 	function inc(arr,val){
 		for(var i=0;i<arr.length;i++)
 			arr[i]+=val;
@@ -72,7 +71,7 @@ var indexOf = require('lodash.indexof');
 								//if not checked it will break in next line as undefined index
 				for(y=0;y<newAr[x].length;y++){
 					if (tokens[i].token===newAr[x][y]){
-						temp=indexOf(token,newAr[x][y]);
+						temp=token.indexOf(newAr[x][y]);
 						break;
 					}
 				}
@@ -125,7 +124,7 @@ var indexOf = require('lodash.indexof');
 			if(key===''){
 				throw(new Mexp.exception("Can't understand after "+inpStr.slice(i)));
 			}
-			var index=indexOf(token,key);
+			var index=token.indexOf(key);
 			var cToken=key;
 			var cType=type[index];
 			var cEv=eva[index];
@@ -134,7 +133,7 @@ var indexOf = require('lodash.indexof');
 			var pre=str[str.length-1];
 			for(j=ptc.length;j--;){	//loop over ptc
 				if(ptc[j]===0){
-					if(indexOf([0,2,3,5,9,11,12,13], cType)!==-1){
+					if([0,2,3,5,9,11,12,13].indexOf(cType)!==-1){
 						if(allowed[cType]!==true){
 							throw(new Mexp.exception(key+" is not allowed after "+prevKey));
 						}
@@ -247,8 +246,8 @@ var indexOf = require('lodash.indexof');
 						inc(ptc,1);
 					}
 				}
-				else if(pre.type!==5&&pre.type!==7&&pre.type!==1&&pre.type!==3&&pre.type!==13){//changesign only when negative is found 
-					if(cToken==='-'){//do nothing for + token 
+				else if(pre.type!==5&&pre.type!==7&&pre.type!==1&&pre.type!==3&&pre.type!==13){//changesign only when negative is found
+					if(cToken==='-'){//do nothing for + token
 									//don't add with the above if statement as that will run the else statement of parent if on Ctoken +
 						allowed=type0;
 						asterick=empty;

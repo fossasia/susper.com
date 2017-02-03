@@ -452,6 +452,7 @@ var ResultsComponent = (function () {
         this.start = (this.presentPage) * this.searchdata.rows;
         this.begin = this.start + 1;
         this.end = Math.min(this.totalResults, this.begin + this.searchdata.rows - 1);
+        this.resultDisplay = 'all';
     }
     ResultsComponent.prototype.getNumber = function (N) {
         return Array.apply(null, { length: N }).map(Number.call, Number);
@@ -470,14 +471,23 @@ var ResultsComponent = (function () {
         delete this.searchdata.sort;
         this.route.navigate(['/search'], { queryParams: this.searchdata });
     };
+    ResultsComponent.prototype.Display = function (S) {
+        return (this.resultDisplay === S);
+    };
+    ResultsComponent.prototype.videoClick = function () {
+        this.resultDisplay = 'videos';
+        this.searchdata.rows = 10;
+        this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+gif)';
+        this.route.navigate(['/search'], { queryParams: this.searchdata });
+    };
     ResultsComponent.prototype.imageClick = function () {
-        this.imageDisplay = true;
+        this.resultDisplay = 'images';
         this.searchdata.rows = 100;
         this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
         this.route.navigate(['/search'], { queryParams: this.searchdata });
     };
     ResultsComponent.prototype.docClick = function () {
-        this.imageDisplay = false;
+        this.resultDisplay = 'all';
         delete this.searchdata.fq;
         this.searchdata.rows = 10;
         this.route.navigate(['/search'], { queryParams: this.searchdata });
@@ -593,14 +603,14 @@ module.exports = ""
 /***/ 659:
 /***/ function(module, exports) {
 
-module.exports = ""
+module.exports = ".starter-template{\n  margin-top: 10%;\n}\n\n\n"
 
 /***/ },
 
 /***/ 660:
 /***/ function(module, exports) {
 
-module.exports = ""
+module.exports = "#nav-input{\n  width: 550px;\n  height: 40px;\n  border-radius: 0px;\n}\n#nav-button{\n  border-radius: 0px;\n  height: 40px;\n  background-color: #0066ff;\n  color: white;\n}\n"
 
 /***/ },
 
@@ -614,28 +624,28 @@ module.exports = ".not-found-banner{\n    text-align: center;\n    margin: 0 aut
 /***/ 662:
 /***/ function(module, exports) {
 
-module.exports = ".result{\n  padding: 10px;\n}\n.title >a{\n  color:blue;\n  font-size: medium;\n  font-weight: bold;\n  text-decoration:none;\n}\n\n.link >a{\n  color:#3c7a3c;\n  text-decoration:none;\n}\n.link, .title >a:hover{\n  text-decoration: underline;\n}\n.page-link{\n  cursor: pointer;\n}\n\n#progressBar{\n  background-color: #f5f5f5;\n  margin-top: 1%;\n}\n\n.dropdown-menu > li {\n  padding: 5px;\n  text-align: center;\n  text-decoration: none;\n}\n\n.dropdown-menu > li :hover{\n  background-color: #f5f5f5;\n}\n.dropdown-menu > li :active{\n  background-color: #1c65ba;\n  color: white;\n}\n\n.active_page{\n  background-color: #bdcdd4;\n}\n\nimg.resImg{\n  width: 250px;\n  height: 300px;\n  padding: 0.2%;\n  float: left;\n}\n"
+module.exports = ".result{\n  padding: 10px;\n}\n.title >a{\n  color:blue;\n  font-size: medium;\n  font-weight: bold;\n  text-decoration:none;\n}\n\n.link >a{\n  color:#3c7a3c;\n  text-decoration:none;\n}\n.link, .title >a:hover{\n  text-decoration: underline;\n}\n.page-link{\n  cursor: pointer;\n}\n\n#progressBar{\n  margin-top: 1%;\n  font-size: small;\n  color: #88aaaa;\n}\n\n.dropdown-menu > li {\n  font-size: small;\n  padding: 5px;\n  text-align: center;\n  text-decoration: none;\n}\n\n.dropdown-menu > li :hover{\n  padding: 10px;\n  padding-right: 20px;\n  padding-left: 20px;\n  background-color: #f5f5f5;\n}\n.dropdown-menu > li :active{\n  padding: 5px;\n  padding-right: 20px;\n  padding-left: 20px;\n  background-color: #1c65ba;\n  color: white;\n}\n\n.active_page{\n  background-color: #bdcdd4;\n}\n.active_view{\n  color: #50a1ff;\n}\n\nimg.resImg{\n  width: 250px;\n  height: 300px;\n  padding: 0.2%;\n  float: left;\n}\n#search-options{\n  margin-top: 1.75%;\n  margin-bottom: 0%;\n}\n#search-options .btn{\n  border: none;\n  background: none;\n  font-size: small;\n}\n"
 
 /***/ },
 
 /***/ 663:
 /***/ function(module, exports) {
 
-module.exports = "<app-navbar></app-navbar>\n<router-outlet></router-outlet>\n"
+module.exports = "<router-outlet></router-outlet>\n"
 
 /***/ },
 
 /***/ 664:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"starter-template\">\n\n    <h2 class=\"yacy\"><a href=\"http://yacy.net\" class=\"yacylogo\" id=\"homepage\"><img src=\"assets/images/susper.svg\"\n                                                                                   alt=\"YaCy\" id=\"biglogo\"\n                                                                                   style=\"margin: auto;\"/></a></h2>\n    <h2 class=\"yacy\" id=\"greeting\"></h2>\n    <form class=\"search form-inline\" id=\"searchform\">\n      <fieldset class=\"maininput\">\n        <div class=\"input-group\">\n          <input name=\"query\" id=\"search\" type=\"text\" size=\"40\" maxlength=\"80\" value=\"\" autofocus=\"autofocus\"\n                 onFocus=\"this.select()\" placeholder=\"Search susper\" class=\"form-control searchinput typeahead\"\n                 [(ngModel)]=\"searchdata.query\"/>\n          <div class=\"input-group-btn\">\n            <button id=\"Enter\" name=\"Enter\" (click)=\"submit()\" class=\"btn btn-primary\" type=\"submit\">Search</button>\n          </div>\n        </div>\n      </fieldset>\n    </form>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"starter-template\">\n\n    <h2 class=\"yacy\"><a href=\"http://yacy.net\" class=\"yacylogo\" id=\"homepage\"><img src=\"assets/images/susper.svg\"\n                                                                                   alt=\"YaCy\" id=\"biglogo\"\n                                                                                   style=\"margin: auto;\"/></a></h2>\n    <h2 class=\"yacy\" id=\"greeting\"></h2>\n    <form class=\"search form-inline\" id=\"searchform\">\n      <fieldset class=\"maininput\">\n        <div class=\"input-group\">\n          <input name=\"query\" id=\"search\" type=\"text\" size=\"40\" maxlength=\"80\" value=\"\" autofocus=\"autofocus\"\n                 onFocus=\"this.select()\" placeholder=\"Search susper\" class=\"form-control searchinput typeahead\"\n                 [(ngModel)]=\"searchdata.query\"/>\n          <div class=\"input-group-btn\">\n            <button id=\"Enter\" name=\"Enter\" (click)=\"submit()\" class=\"btn btn-primary\" type=\"submit\"><span class=\"glyphicon glyphicon-search\"></span></button>\n          </div>\n        </div>\n      </fieldset>\n    </form>\n  </div>\n</div>\n"
 
 /***/ },
 
 /***/ 665:
 /***/ function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <img class=\"navbar-brand\" src=\"assets/images/susper.svg\">\n\n    </div>\n\n    <div class=\"navbar-collapse collapse\">\n      <form class=\"navbar-form navbar-left\">\n        <div class=\"input-group\">\n          <input type=\"text\" name=\"query\" class=\"form-control\" placeholder=\"Search\" [(ngModel)]=\"searchdata.query\">\n          <div class=\"input-group-btn\">\n            <button class=\"btn btn-default\" type=\"submit\" (click)=\"submit()\">\n              <i class=\"glyphicon glyphicon-search\"></i>\n            </button>\n          </div>\n        </div>\n      </form>\n\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li id=\"header_help\" class=\"dropdown\">\n          <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\"><span\n            class=\"glyphicon glyphicon-question-sign\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li id=\"header_profile\"><a href=\"yacysearch/about.html\">About This Page</a></li>\n            <li id=\"header_tutorial\"><a href=\"http://yacy.net/tutorials/\">YaCy Tutorials</a></li>\n            <li class=\"divider\"></li>\n            <li id=\"header_download\"><a href=\"http://yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Download\n              YaCy</a></li>\n            <li id=\"header_community\"><a href=\"http://forum.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Community\n              (Web Forums)</a></li>\n            <li id=\"header_wiki\"><a href=\"http://wiki.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Project\n              Wiki</a></li>\n            <li id=\"header_git\"><a href=\"https://github.com/yacy/yacy_search_server/commits/master\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Git\n              Repository</a></li>\n            <li id=\"header_bugs\"><a href=\"http://bugs.yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Bugtracker</a>\n            </li>\n          </ul>\n        </li>\n      </ul>\n    </div>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-fixed-top navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <img class=\"navbar-brand\" src=\"assets/images/susper.svg\">\n\n    </div>\n\n    <div class=\"navbar-collapse collapse\">\n      <form class=\"navbar-form navbar-left\">\n        <div class=\"input-group\" id=\"nav-group\">\n          <input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" placeholder=\"Search\" [(ngModel)]=\"searchdata.query\">\n          <div class=\"input-group-btn\">\n            <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n              <i class=\"glyphicon glyphicon-search\"></i>\n            </button>\n          </div>\n        </div>\n      </form>\n\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li id=\"header_help\" class=\"dropdown\">\n          <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\"><span\n            class=\"glyphicon glyphicon-question-sign\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li id=\"header_profile\"><a href=\"yacysearch/about.html\">About This Page</a></li>\n            <li id=\"header_tutorial\"><a href=\"http://yacy.net/tutorials/\">YaCy Tutorials</a></li>\n            <li class=\"divider\"></li>\n            <li id=\"header_download\"><a href=\"http://yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Download\n              YaCy</a></li>\n            <li id=\"header_community\"><a href=\"http://forum.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Community\n              (Web Forums)</a></li>\n            <li id=\"header_wiki\"><a href=\"http://wiki.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Project\n              Wiki</a></li>\n            <li id=\"header_git\"><a href=\"https://github.com/yacy/yacy_search_server/commits/master\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Git\n              Repository</a></li>\n            <li id=\"header_bugs\"><a href=\"http://bugs.yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Bugtracker</a>\n            </li>\n          </ul>\n        </li>\n      </ul>\n    </div>\n  </div>\n</nav>\n"
 
 /***/ },
 
@@ -649,7 +659,7 @@ module.exports = "\n<div class=\"container-fluid not-found-banner\">\n    <h2 cl
 /***/ 667:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-md-1\">\n      <p>SIDEBAR</p>\n    </div>\n    <div class=\"col-md-11\">\n      <div class=\"btn-group\">\n        <button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\">\n          Search Tools <span class=\"caret\"></span></button>\n        <ul class=\"dropdown-menu\" role=\"menu\">\n          <li><span class=\"page-link\" (click)=\"filterByContext()\"> Context Ranking</span></li>\n          <li><span class=\"page-link\" (click)=\"filterByDate()\"> Sort by Date</span></li>\n        </ul>\n      </div>\n      <div class=\"btn-group\">\n        <button type=\"button\" class=\"btn btn-default\" [class.active_page]=\"!imageDisplay\" (click)=\"docClick()\">\n          Documents\n        </button>\n        <button type=\"button\" class=\"btn btn-default\" [class.active_page]=\"imageDisplay\" (click)=\"imageClick()\">Images\n        </button>\n      </div>\n      <div class=\"container-fluid\" id=\"progressBar\">\n        {{message}}\n      </div>\n      <div class=\"text-result\" *ngIf=\"!imageDisplay\">\n        <div *ngFor='let item of items' class='result'>\n          <div class='title'>\n            <a href='{{item.path}}'>{{item.title}}</a>\n          </div>\n          <div class='link'>\n            <a href='{{item.link}}'>{{item.link}}</a>\n          </div>\n          <div>\n            {{item.pubDate|date:'fullDate'}}\n          </div>\n        </div>\n      </div>\n      <div class=\"image-result\" *ngIf=\"imageDisplay\">\n        <div *ngFor='let item of items'>\n          <img class=\"resImg\" src=\"{{item.link}}\">\n        </div>\n      </div>\n      <br/>\n      <nav aria-label=\"Page navigation\">\n        <ul class=\"pagination\">\n          <li class=\"page-item\"><span class=\"page-link\" href=\"#\" (click)=\"decPresentPage()\">Previous</span></li>\n          <li class=\"page-item\" *ngFor=\"let num of getNumber(maxPage)\"><span class=\"page-link\"\n                                                                             *ngIf=\"presentPage>=4 && num<=noOfPages\"\n                                                                             [class.active_page]=\"getStyle(presentPage-3+num)\"\n                                                                             (click)=\"getPresentPage(presentPage-3+num)\"\n                                                                             href=\"#\">{{presentPage-3+num}}</span>\n            <span class=\"page-link\" *ngIf=\"presentPage<4 && num<=noOfPages\" [class.active_page]=\"getStyle(num)\"\n                  (click)=\"getPresentPage(num)\" href=\"#\">{{num+1}}</span></li>\n          <li class=\"page-item\"><span class=\"page-link\" (click)=\"incPresentPage()\">Next</span></li>\n        </ul>\n      </nav>\n    </div>\n  </div>\n</div>\n\n\n"
+module.exports = "<app-navbar></app-navbar>\n<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-md-1\">\n    </div>\n    <div class=\"col-md-11\">\n      <div class=\"btn-group\" id=\"search-options\">\n        <button type=\"button\" class=\"btn btn-default\" [class.active_view]=\"Display('all')\" (click)=\"docClick()\">\n          All\n        </button>\n        <button type=\"button\" class=\"btn btn-default\" [class.active_view]=\"Display('images')\" (click)=\"imageClick()\">Images\n        </button>\n        <button type=\"button\" class=\"btn btn-default\" [class.active_view]=\"Display('videos')\" (click)=\"videoClick()\">Videos\n        </button>\n        <div class=\"btn-group\">\n        <button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\">\n          Search Tools <span class=\"caret\"></span></button>\n        <ul class=\"dropdown-menu\" role=\"menu\">\n          <li><span class=\"page-link\" (click)=\"filterByContext()\"> Context Ranking</span></li>\n          <li><span class=\"page-link\" (click)=\"filterByDate()\"> Sort by Date</span></li>\n        </ul>\n        </div>\n      </div>\n      <hr>\n      <div class=\"container-fluid\" id=\"progressBar\">\n        {{message}}\n      </div>\n      <div class=\"text-result\" *ngIf=\"Display('all')\">\n        <div *ngFor='let item of items' class='result'>\n          <div class='title'>\n            <a href='{{item.path}}'>{{item.title}}</a>\n          </div>\n          <div class='link'>\n            <a href='{{item.link}}'>{{item.link}}</a>\n          </div>\n          <div>\n            {{item.pubDate|date:'fullDate'}}\n          </div>\n        </div>\n      </div>\n      <div class=\"image-result\" *ngIf=\"Display('images')\">\n        <div *ngFor='let item of items'>\n          <img class=\"resImg\" src=\"{{item.link}}\">\n        </div>\n      </div>\n      <div class=\"video-result\" *ngIf=\"Display('videos')\">\n        <div *ngFor='let item of items' class=\"result\">\n          <div class='title'>\n            <a href='{{item.path}}'>{{item.title}}</a>\n          </div>\n          <div class='link'>\n            <a href='{{item.link}}'>{{item.link}}</a>\n          </div>\n        </div>\n      </div>\n      <br/>\n      <nav aria-label=\"Page navigation\">\n        <ul class=\"pagination\">\n          <li class=\"page-item\"><span class=\"page-link\" href=\"#\" (click)=\"decPresentPage()\">Previous</span></li>\n          <li class=\"page-item\" *ngFor=\"let num of getNumber(maxPage)\"><span class=\"page-link\"\n                                                                             *ngIf=\"presentPage>=4 && num<=noOfPages\"\n                                                                             [class.active_page]=\"getStyle(presentPage-3+num)\"\n                                                                             (click)=\"getPresentPage(presentPage-3+num)\"\n                                                                             href=\"#\">{{presentPage-3+num}}</span>\n            <span class=\"page-link\" *ngIf=\"presentPage<4 && num<=noOfPages\" [class.active_page]=\"getStyle(num)\"\n                  (click)=\"getPresentPage(num)\" href=\"#\">{{num+1}}</span></li>\n          <li class=\"page-item\"><span class=\"page-link\" (click)=\"incPresentPage()\">Next</span></li>\n        </ul>\n      </nav>\n    </div>\n  </div>\n</div>\n\n\n"
 
 /***/ },
 

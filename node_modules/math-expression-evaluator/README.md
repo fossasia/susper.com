@@ -82,3 +82,7 @@ If a expression is readable by human then it is readable by this evaluator. Ther
 For eg. sin90 will work totally fine instead of sin(90)
 
 
+##Changelog
+
+### Removed lodash.indexof and used native Array.prototype.indexOf hence dropping suppports for IE8 and below. 
+This will reflect in next release named v1.2.16
