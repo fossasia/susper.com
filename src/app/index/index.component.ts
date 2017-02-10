@@ -10,7 +10,7 @@ export class IndexComponent implements OnInit {
     query : '',
     verify: false,
     nav: 'filetype,protocol,hosts,authors,collections,namespace,topics,date',
-    startRecord: 0,
+    start: 0,
     indexof: 'off',
     meanCount: '5',
     resource: 'global',

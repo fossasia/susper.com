@@ -92,7 +92,7 @@ export class ResultsComponent implements OnInit {
         this.items = res.json()[0].channels[0].items;
         this.totalResults = Number(res.json()[0].channels[0].totalResults);
         this.end = Math.min(this.totalResults, this.begin + this.searchdata.rows - 1);
-        this.message = 'showing results ' + this.begin + ' to ' + this.end + ' of ' + this.totalResults;
+        this.message = 'Showing ' + this.begin + ' to ' + this.end + ' of ' + this.totalResults + ' results';
         this.noOfPages = Math.ceil(this.totalResults / this.searchdata.rows);
         this.maxPage =  Math.min(this.searchdata.rows, this.noOfPages);
       });
