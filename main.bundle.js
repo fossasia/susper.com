@@ -1,6 +1,109 @@
 webpackJsonp([0,3],{
 
-/***/ 328:
+/***/ 222:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_reselect__ = __webpack_require__(706);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_reselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_reselect__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__environments_environment__ = __webpack_require__(348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_core_compose__ = __webpack_require__(520);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_core_compose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__ngrx_core_compose__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ngrx_store_freeze__ = __webpack_require__(692);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ngrx_store_freeze___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ngrx_store_freeze__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_store__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__search__ = __webpack_require__(536);
+/* harmony export (immutable) */ exports["d"] = reducer;
+/* unused harmony export getSearchState */
+/* unused harmony export getSearchResults */
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return getItems; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return getTotalResults; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return getNavigation; });
+
+
+
+
+
+
+/**
+ * Because metareducers take a reducer function and return a new reducer,
+ * we can use our compose helper to chain them together. Here we are
+ * using combineReducers to make our top level reducer, and then
+ * wrapping that in storeLogger. Remember that compose applies
+ * the result from right to left.
+ */
+var reducers = {
+    search: __WEBPACK_IMPORTED_MODULE_5__search__["a" /* reducer */],
+};
+var developmentReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__ngrx_core_compose__["compose"])(__WEBPACK_IMPORTED_MODULE_3_ngrx_store_freeze__["storeFreeze"], __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* combineReducers */])(reducers);
+var productionReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* combineReducers */])(reducers);
+function reducer(state, action) {
+    if (__WEBPACK_IMPORTED_MODULE_1__environments_environment__["a" /* environment */].production) {
+        return productionReducer(state, action);
+    }
+    else {
+        return developmentReducer(state, action);
+    }
+}
+var getSearchState = function (state) { return state.search; };
+var getSearchResults = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getSearchState, __WEBPACK_IMPORTED_MODULE_5__search__["b" /* getsearchresults */]);
+var getItems = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getSearchState, __WEBPACK_IMPORTED_MODULE_5__search__["c" /* getItems */]);
+var getTotalResults = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getSearchState, __WEBPACK_IMPORTED_MODULE_5__search__["d" /* getTotalResults */]);
+var getNavigation = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getSearchState, __WEBPACK_IMPORTED_MODULE_5__search__["e" /* getNavigation */]);
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/index.js.map
+
+/***/ },
+
+/***/ 345:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(538);
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return ActionTypes; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return SearchAction; });
+/* unused harmony export ItemsAction */
+/* unused harmony export TotalResultsAction */
+/* unused harmony export NavigationAction */
+
+var ActionTypes = {
+    CHANGE: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* type */])('[Search] Change'),
+    ITEMS: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* type */])('[Search] Items'),
+    TOTALRESULTS: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* type */])('[Search] Totalresults'),
+    NAVIGATION: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* type */])('[Search] Navigation'),
+};
+var SearchAction = (function () {
+    function SearchAction(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.CHANGE;
+    }
+    return SearchAction;
+}());
+var ItemsAction = (function () {
+    function ItemsAction(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.ITEMS;
+    }
+    return ItemsAction;
+}());
+var TotalResultsAction = (function () {
+    function TotalResultsAction(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.TOTALRESULTS;
+    }
+    return TotalResultsAction;
+}());
+var NavigationAction = (function () {
+    function NavigationAction(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.NAVIGATION;
+    }
+    return NavigationAction;
+}());
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/search.js.map
+
+/***/ },
+
+/***/ 346:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23,8 +126,8 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-root',
-            template: __webpack_require__(663),
-            styles: [__webpack_require__(658)]
+            template: __webpack_require__(701),
+            styles: [__webpack_require__(695)]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
@@ -34,16 +137,18 @@ var AppComponent = (function () {
 
 /***/ },
 
-/***/ 329:
+/***/ 347:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(304);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(672);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(313);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(713);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(673);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(714);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_store__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_search__ = __webpack_require__(345);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return SearchService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -58,10 +163,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var SearchService = (function () {
-    function SearchService(http, jsonp) {
+    function SearchService(http, jsonp, store) {
         this.http = http;
         this.jsonp = jsonp;
+        this.store = store;
         this.server = 'yacy.searchlab.eu';
         this.searchURL = 'http://' + this.server + '/solr/select?callback=?';
         this.suggestUrl = 'http://' + this.server + '/suggest.json?callback=?';
@@ -69,6 +177,7 @@ var SearchService = (function () {
         this.logo = '../images/susper.svg';
     }
     SearchService.prototype.getsearchresults = function (searchquery) {
+        var _this = this;
         var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* URLSearchParams */]();
         for (var key in searchquery) {
             if (searchquery.hasOwnProperty(key)) {
@@ -84,23 +193,38 @@ var SearchService = (function () {
         params.append('facet.field', 'author_sxt');
         params.append('facet.field', 'collection_sxt');
         return this.jsonp
-            .get('http://yacy.searchlab.eu/solr/select', { search: params }).map(function (res) {
-            console.log(res.json()[0].channels[0].items);
-            return res;
+            .get('http://yacy.searchlab.eu/solr/select', { search: params }).subscribe(function (res) {
+            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_5__actions_search__["a" /* SearchAction */](res.json()[0]));
         });
     };
     SearchService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */])(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Jsonp */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Jsonp */]) === 'function' && _b) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Jsonp */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Jsonp */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["a" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["a" /* Store */]) === 'function' && _c) || Object])
     ], SearchService);
     return SearchService;
-    var _a, _b;
+    var _a, _b, _c;
 }());
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/search.service.js.map
 
 /***/ },
 
-/***/ 381:
+/***/ 348:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return environment; });
+// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `angular-cli.json`.
+var environment = {
+    production: false
+};
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/environment.js.map
+
+/***/ },
+
+/***/ 403:
 /***/ function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -109,21 +233,21 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 381;
+webpackEmptyContext.id = 403;
 
 
 /***/ },
 
-/***/ 382:
+/***/ 404:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(505);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(539);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__polyfills_ts__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(469);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(491);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(504);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app___ = __webpack_require__(499);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app___ = __webpack_require__(532);
 
 
 
@@ -137,22 +261,83 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 
 /***/ },
 
-/***/ 498:
+/***/ 530:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__(222);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AdvancedsearchComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var AdvancedsearchComponent = (function () {
+    function AdvancedsearchComponent(route, activatedroute, store) {
+        var _this = this;
+        this.route = route;
+        this.activatedroute = activatedroute;
+        this.store = store;
+        this.querylook = {};
+        this.activatedroute.queryParams.subscribe(function (query) {
+            _this.querylook = Object.assign({}, query);
+            _this.navigation$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getNavigation */]);
+        });
+    }
+    AdvancedsearchComponent.prototype.changeurl = function (modifier) {
+        console.log(modifier);
+        this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
+        console.log(this.querylook);
+        this.route.navigate(['/search'], { queryParams: this.querylook });
+    };
+    AdvancedsearchComponent.prototype.ngOnInit = function () {
+    };
+    AdvancedsearchComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
+            selector: 'app-advancedsearch',
+            template: __webpack_require__(700),
+            styles: [__webpack_require__(694)]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["a" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["a" /* Store */]) === 'function' && _c) || Object])
+    ], AdvancedsearchComponent);
+    return AdvancedsearchComponent;
+    var _a, _b, _c;
+}());
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/advancedsearch.component.js.map
+
+/***/ },
+
+/***/ 531:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(460);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(304);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(328);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__navbar_navbar_component__ = __webpack_require__(501);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__index_index_component__ = __webpack_require__(500);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__results_results_component__ = __webpack_require__(503);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_router__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__search_service__ = __webpack_require__(329);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__not_found_not_found_component__ = __webpack_require__(502);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_common__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(482);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(313);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__navbar_navbar_component__ = __webpack_require__(534);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__index_index_component__ = __webpack_require__(533);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__results_results_component__ = __webpack_require__(537);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_router__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__search_service__ = __webpack_require__(347);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__not_found_not_found_component__ = __webpack_require__(535);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_common__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__advancedsearch_advancedsearch_component__ = __webpack_require__(530);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ngrx_store_devtools__ = __webpack_require__(526);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ngrx_store__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__reducers_index__ = __webpack_require__(222);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -163,6 +348,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
+
+
 
 
 
@@ -191,7 +380,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_5__navbar_navbar_component__["a" /* NavbarComponent */],
                 __WEBPACK_IMPORTED_MODULE_6__index_index_component__["a" /* IndexComponent */],
                 __WEBPACK_IMPORTED_MODULE_7__results_results_component__["a" /* ResultsComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__not_found_not_found_component__["a" /* NotFoundComponent */]
+                __WEBPACK_IMPORTED_MODULE_10__not_found_not_found_component__["a" /* NotFoundComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__advancedsearch_advancedsearch_component__["a" /* AdvancedsearchComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["b" /* BrowserModule */],
@@ -199,7 +389,9 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["d" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["e" /* JsonpModule */],
-                __WEBPACK_IMPORTED_MODULE_8__angular_router__["c" /* RouterModule */].forRoot(appRoutes)
+                __WEBPACK_IMPORTED_MODULE_8__angular_router__["c" /* RouterModule */].forRoot(appRoutes),
+                __WEBPACK_IMPORTED_MODULE_14__ngrx_store__["h" /* StoreModule */].provideStore(__WEBPACK_IMPORTED_MODULE_15__reducers_index__["d" /* reducer */]),
+                __WEBPACK_IMPORTED_MODULE_13__ngrx_store_devtools__["a" /* StoreDevtoolsModule */].instrumentOnlyWithExtension(),
             ],
             providers: [__WEBPACK_IMPORTED_MODULE_9__search_service__["a" /* SearchService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
@@ -212,12 +404,12 @@ var AppModule = (function () {
 
 /***/ },
 
-/***/ 499:
+/***/ 532:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_component__ = __webpack_require__(328);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(498);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_component__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(531);
 /* unused harmony namespace reexport */
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__app_module__["a"]; });
 
@@ -226,12 +418,12 @@ var AppModule = (function () {
 
 /***/ },
 
-/***/ 500:
+/***/ 533:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(79);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return IndexComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -270,8 +462,8 @@ var IndexComponent = (function () {
     IndexComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-index',
-            template: __webpack_require__(664),
-            styles: [__webpack_require__(659)]
+            template: __webpack_require__(702),
+            styles: [__webpack_require__(696)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === 'function' && _b) || Object])
     ], IndexComponent);
@@ -282,12 +474,12 @@ var IndexComponent = (function () {
 
 /***/ },
 
-/***/ 501:
+/***/ 534:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(79);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NavbarComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -326,8 +518,8 @@ var NavbarComponent = (function () {
     NavbarComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-navbar',
-            template: __webpack_require__(665),
-            styles: [__webpack_require__(660)]
+            template: __webpack_require__(703),
+            styles: [__webpack_require__(697)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === 'function' && _b) || Object])
     ], NavbarComponent);
@@ -338,12 +530,12 @@ var NavbarComponent = (function () {
 
 /***/ },
 
-/***/ 502:
+/***/ 535:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(79);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NotFoundComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -382,8 +574,8 @@ var NotFoundComponent = (function () {
     NotFoundComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-not-found',
-            template: __webpack_require__(666),
-            styles: [__webpack_require__(661)]
+            template: __webpack_require__(704),
+            styles: [__webpack_require__(698)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === 'function' && _b) || Object])
     ], NotFoundComponent);
@@ -394,13 +586,65 @@ var NotFoundComponent = (function () {
 
 /***/ },
 
-/***/ 503:
+/***/ 536:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_search__ = __webpack_require__(345);
+/* unused harmony export CHANGE */
+/* harmony export (immutable) */ exports["a"] = reducer;
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return getsearchresults; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return getItems; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return getTotalResults; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "e", function() { return getNavigation; });
+
+var CHANGE = 'CHANGE';
+/**
+ * There is always a need of initial state to be passed onto the store.
+ *
+ * @prop: query: ''
+ * @prop: loading: false
+ */
+var initialState = {
+    searchresults: {},
+    items: [],
+    totalResults: 0,
+    navigation: []
+};
+function reducer(state, action) {
+    if (state === void 0) { state = initialState; }
+    switch (action.type) {
+        case __WEBPACK_IMPORTED_MODULE_0__actions_search__["b" /* ActionTypes */].CHANGE: {
+            var search_1 = action.payload;
+            return Object.assign({}, state, {
+                searchresults: search_1,
+                items: search_1.channels[0].items,
+                totalResults: Number(search_1.channels[0].totalResults),
+                navigation: search_1.channels[0].navigation,
+            });
+        }
+        default: {
+            return state;
+        }
+    }
+}
+var getsearchresults = function (state) { return state.searchresults; };
+var getItems = function (state) { return state.items; };
+var getTotalResults = function (state) { return state.totalResults; };
+var getNavigation = function (state) { return state.navigation; };
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/search.js.map
+
+/***/ },
+
+/***/ 537:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_service__ = __webpack_require__(329);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_service__ = __webpack_require__(347);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_store__ = __webpack_require__(58);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ResultsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -414,13 +658,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var ResultsComponent = (function () {
-    function ResultsComponent(searchservice, route, activatedroute) {
+    function ResultsComponent(searchservice, route, activatedroute, store) {
         var _this = this;
         this.searchservice = searchservice;
         this.route = route;
         this.activatedroute = activatedroute;
-        this.items = [];
+        this.store = store;
         this.searchdata = {
             query: '',
             verify: false,
@@ -433,31 +679,34 @@ var ResultsComponent = (function () {
             rows: 10,
             timezoneOffset: 0,
         };
+        this.querylook = {};
         this.activatedroute.queryParams.subscribe(function (query) {
             _this.presentPage = query['start'] / _this.searchdata.rows;
             _this.searchdata.query = query['query'];
+            _this.querylook = Object.assign({}, query);
             _this.searchdata.sort = query['sort'];
-            _this.begin = Number(query['start']) + 1;
-            searchservice.getsearchresults(query).subscribe(function (res) {
-                _this.items = res.json()[0].channels[0].items;
-                _this.totalResults = Number(res.json()[0].channels[0].totalResults);
-                _this.end = Math.min(_this.totalResults, _this.begin + _this.searchdata.rows - 1);
-                _this.message = 'showing results ' + _this.begin + ' to ' + _this.end + ' of ' + _this.totalResults;
-                _this.noOfPages = Math.ceil(_this.totalResults / _this.searchdata.rows);
+            _this.message = 'loading...';
+            _this.start = (_this.presentPage) * _this.searchdata.rows;
+            _this.begin = _this.start + 1;
+            _this.resultDisplay = 'all';
+            searchservice.getsearchresults(query);
+            _this.items$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["a" /* getItems */]);
+            _this.totalResults$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["b" /* getTotalResults */]);
+            _this.totalResults$.subscribe(function (totalResults) {
+                _this.end = Math.min(totalResults, _this.begin + _this.searchdata.rows - 1);
+                _this.message = 'showing results ' + _this.begin + ' to ' + _this.end + ' of ' + totalResults;
+                _this.noOfPages = Math.ceil(totalResults / _this.searchdata.rows);
                 _this.maxPage = Math.min(_this.searchdata.rows, _this.noOfPages);
             });
         });
-        this.message = 'loading...';
         this.presentPage = 0;
-        this.start = (this.presentPage) * this.searchdata.rows;
-        this.begin = this.start + 1;
-        this.end = Math.min(this.totalResults, this.begin + this.searchdata.rows - 1);
-        this.resultDisplay = 'all';
     }
     ResultsComponent.prototype.getNumber = function (N) {
         return Array.apply(null, { length: N }).map(Number.call, Number);
     };
     ;
+    ResultsComponent.prototype.advancedsearch = function () {
+    };
     ResultsComponent.prototype.getPresentPage = function (N) {
         this.presentPage = N;
         this.searchdata.start = (this.presentPage) * this.searchdata.rows;
@@ -503,75 +752,86 @@ var ResultsComponent = (function () {
     ResultsComponent.prototype.getStyle = function (page) {
         return ((this.presentPage) === page);
     };
+    ;
     ResultsComponent.prototype.ngOnInit = function () {
         this.presentPage = 0;
     };
     ResultsComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-results',
-            template: __webpack_require__(667),
-            styles: [__webpack_require__(662)]
+            template: __webpack_require__(705),
+            styles: [__webpack_require__(699)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__search_service__["a" /* SearchService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__search_service__["a" /* SearchService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */]) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__search_service__["a" /* SearchService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__search_service__["a" /* SearchService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["a" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["a" /* Store */]) === 'function' && _d) || Object])
     ], ResultsComponent);
     return ResultsComponent;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
 }());
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/results.component.js.map
 
 /***/ },
 
-/***/ 504:
+/***/ 538:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return environment; });
-// The file contents for the current environment will overwrite these during build.
-// The build system defaults to the dev environment which uses `environment.ts`, but if you do
-// `ng build --env=prod` then `environment.prod.ts` will be used instead.
-// The list of which env maps to which file can be found in `angular-cli.json`.
-var environment = {
-    production: false
-};
-//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/environment.js.map
+/* harmony export (immutable) */ exports["a"] = type;
+/**
+ * This function coerces a string into a string literal type.
+ * Using tagged union types in TypeScript 2.0, this enables
+ * powerful typechecking of our reducers.
+ *
+ * Since every action label passes through this function it
+ * is a good place to ensure all of our action labels
+ * are unique.
+ */
+var typeCache = {};
+function type(label) {
+    if (typeCache[label]) {
+        throw new Error("Action type \"" + label + "\" is not unique\"");
+    }
+    typeCache[label] = true;
+    return label;
+}
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/utils.js.map
 
 /***/ },
 
-/***/ 505:
+/***/ 539:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(519);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(553);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(512);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(546);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(508);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(542);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(514);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(548);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(513);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(547);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(511);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(545);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(510);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(544);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(518);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(552);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(507);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(541);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(506);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(540);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(516);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(550);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(509);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(543);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(517);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(551);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(515);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(549);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(520);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(554);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(686);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(738);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 
 
@@ -593,83 +853,97 @@ var environment = {
 
 /***/ },
 
-/***/ 658:
+/***/ 694:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 659:
+/***/ 695:
+/***/ function(module, exports) {
+
+module.exports = ""
+
+/***/ },
+
+/***/ 696:
 /***/ function(module, exports) {
 
 module.exports = ".starter-template{\n  margin-top: 10%;\n}\n\n\n"
 
 /***/ },
 
-/***/ 660:
+/***/ 697:
 /***/ function(module, exports) {
 
 module.exports = "#nav-input{\n  width: 550px;\n  height: 40px;\n  border-radius: 0px;\n}\n#nav-button{\n  border-radius: 0px;\n  height: 40px;\n  background-color: #0066ff;\n  color: white;\n}\n"
 
 /***/ },
 
-/***/ 661:
+/***/ 698:
 /***/ function(module, exports) {
 
 module.exports = ".not-found-banner{\n    text-align: center;\n    margin: 0 auto;\n    background: url(../../assets/images/not-found-bg.jpg);\n    background-size: cover;\n    height: 300px;\n    width: 100%;\n    position: relative;\n    top:-57px;\n}\n.not-found-banner h1{\n    font-size: 72px;\n}\n.not-found-banner h2{\n    font-size: 22px;\n    letter-spacing: 10px;\n}\n"
 
 /***/ },
 
-/***/ 662:
+/***/ 699:
 /***/ function(module, exports) {
 
 module.exports = ".result{\n  padding: 10px;\n}\n.title >a{\n  color:blue;\n  font-size: medium;\n  font-weight: bold;\n  text-decoration:none;\n}\n\n.link >a{\n  color:#3c7a3c;\n  text-decoration:none;\n}\n.link, .title >a:hover{\n  text-decoration: underline;\n}\n.page-link{\n  cursor: pointer;\n}\n\n#progressBar{\n  margin-top: 1%;\n  font-size: small;\n  color: #88aaaa;\n}\n\n.dropdown-menu > li {\n  font-size: small;\n  padding: 5px;\n  text-align: center;\n  text-decoration: none;\n}\n\n.dropdown-menu > li :hover{\n  padding: 10px;\n  padding-right: 20px;\n  padding-left: 20px;\n  background-color: #f5f5f5;\n}\n.dropdown-menu > li :active{\n  padding: 5px;\n  padding-right: 20px;\n  padding-left: 20px;\n  background-color: #1c65ba;\n  color: white;\n}\n\n.active_page{\n  background-color: #bdcdd4;\n}\n.active_view{\n  color: #50a1ff;\n}\n\nimg.resImg{\n  width: 250px;\n  height: 300px;\n  padding: 0.2%;\n  float: left;\n}\n#search-options{\n  margin-top: 1.75%;\n  margin-bottom: 0%;\n}\n#search-options .btn{\n  border: none;\n  background: none;\n  font-size: small;\n}\n"
 
 /***/ },
 
-/***/ 663:
+/***/ 700:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"modal-dialog\" role=\"document\">\n  <div class=\"modal-content\">\n    <div class=\"modal-header\">\n      <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n      <h4 class=\"modal-title\" id=\"myModalLabel\">Advanced Search</h4>\n    </div>\n    <div class=\"modal-body\">\n      <div id=\"filtersearch\" *ngFor=\"let nav of navigation$|async\">\n        <ul class=\"nav nav-sidebar menugroup\" >\n          <li style=\"cursor:pointer;cursor: hand;\" data-toggle=\"collapse\" [attr.data-target]=\"'#'+nav.facetname\"><h3>{{nav.displayname}}</h3></li>\n          <li style=\"display: block\" *ngFor=\"let element of nav.elements\">\n            <a (click)=\"changeurl(element.modifier)\" class=\"MenuItemLink\">\n              <input type=\"checkbox\">{{element.name}}  {{element.count}}\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n      <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Search</button>\n    </div>\n  </div>\n</div>\n\n\n<div id=\"sidebar\" class=\"col-md-3\">\n</div>\n"
+
+/***/ },
+
+/***/ 701:
 /***/ function(module, exports) {
 
 module.exports = "<router-outlet></router-outlet>\n"
 
 /***/ },
 
-/***/ 664:
+/***/ 702:
 /***/ function(module, exports) {
 
 module.exports = "<div class=\"container-fluid\">\n  <div class=\"starter-template\">\n\n    <h2 class=\"yacy\"><a href=\"/\" class=\"susperlogo\" id=\"homepage\"><img src=\"assets/images/susper.svg\"\n                                                                                   alt=\"YaCy\" id=\"biglogo\"\n                                                                                   style=\"margin: auto;\"/></a></h2>\n    <h2 class=\"yacy\" id=\"greeting\"></h2>\n    <form class=\"search form-inline\" id=\"searchform\">\n      <fieldset class=\"maininput\">\n        <div class=\"input-group\">\n          <input name=\"query\" id=\"search\" type=\"text\" size=\"40\" maxlength=\"80\" value=\"\" autofocus=\"autofocus\"\n                 onFocus=\"this.select()\" placeholder=\"Search susper\" class=\"form-control searchinput typeahead\"\n                 [(ngModel)]=\"searchdata.query\"/>\n          <div class=\"input-group-btn\">\n            <button id=\"Enter\" name=\"Enter\" (click)=\"submit()\" class=\"btn btn-primary\" type=\"submit\"><span class=\"glyphicon glyphicon-search\"></span></button>\n          </div>\n        </div>\n      </fieldset>\n    </form>\n  </div>\n</div>\n"
 
 /***/ },
 
-/***/ 665:
+/***/ 703:
 /***/ function(module, exports) {
 
 module.exports = "<nav class=\"navbar navbar-fixed-top navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <a href=\"/\">\n        <img class=\"navbar-brand\" src=\"assets/images/susper.svg\">\n      </a>\n    </div>\n\n    <div class=\"navbar-collapse collapse\">\n      <form class=\"navbar-form navbar-left\">\n        <div class=\"input-group\" id=\"nav-group\">\n          <input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" placeholder=\"Search\" [(ngModel)]=\"searchdata.query\">\n          <div class=\"input-group-btn\">\n            <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n              <i class=\"glyphicon glyphicon-search\"></i>\n            </button>\n          </div>\n        </div>\n      </form>\n\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li id=\"header_help\" class=\"dropdown\">\n          <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\"><span\n            class=\"glyphicon glyphicon-question-sign\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li id=\"header_profile\"><a href=\"yacysearch/about.html\">About This Page</a></li>\n            <li id=\"header_tutorial\"><a href=\"http://yacy.net/tutorials/\">YaCy Tutorials</a></li>\n            <li class=\"divider\"></li>\n            <li id=\"header_download\"><a href=\"http://yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Download\n              YaCy</a></li>\n            <li id=\"header_community\"><a href=\"http://forum.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Community\n              (Web Forums)</a></li>\n            <li id=\"header_wiki\"><a href=\"http://wiki.yacy.de\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Project\n              Wiki</a></li>\n            <li id=\"header_git\"><a href=\"https://github.com/yacy/yacy_search_server/commits/master\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Git\n              Repository</a></li>\n            <li id=\"header_bugs\"><a href=\"http://bugs.yacy.net\" target=\"_blank\"><i>external</i>&nbsp;&nbsp;&nbsp;Bugtracker</a>\n            </li>\n          </ul>\n        </li>\n      </ul>\n    </div>\n  </div>\n</nav>\n"
 
 /***/ },
 
-/***/ 666:
+/***/ 704:
 /***/ function(module, exports) {
 
 module.exports = "\n<div class=\"container-fluid not-found-banner\">\n    <h2 class=\"yacy\"><a href=\"/\" class=\"susperlogo\" id=\"homepage\"><img src=\"../../assets/images/susper.svg\" alt=\"YaCy\" id=\"biglogo\" style=\"margin: auto;\"/></a></h2>\n    <h1>404</h1>\n    <h2>Page not found</h2>\n</div>\n\n    <form class=\"search form-inline\"  id=\"searchform\" >\n      <fieldset class=\"maininput\">\n        <div class=\"input-group\">\n          <input name=\"query\" id=\"search\" type=\"text\" size=\"40\" maxlength=\"80\" value=\"\" autofocus=\"autofocus\" onFocus=\"this.select()\" class=\"form-control searchinput typeahead\" [(ngModel)]=\"searchdata.query\"/>\n          <div class=\"input-group-btn\">\n            <button id=\"Enter\" name=\"Enter\" (click)=\"submit()\" class=\"btn btn-primary\" type=\"submit\">Search</button>\n          </div>\n        </div>\n      </fieldset>\n      </form>\n"
 
 /***/ },
 
-/***/ 667:
+/***/ 705:
 /***/ function(module, exports) {
 
-module.exports = "<app-navbar></app-navbar>\n<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-md-1\">\n    </div>\n    <div class=\"col-md-11\">\n      <div class=\"btn-group\" id=\"search-options\">\n        <button type=\"button\" class=\"btn btn-default\" [class.active_view]=\"Display('all')\" (click)=\"docClick()\">\n          All\n        </button>\n        <button type=\"button\" class=\"btn btn-default\" [class.active_view]=\"Display('images')\" (click)=\"imageClick()\">Images\n        </button>\n        <button type=\"button\" class=\"btn btn-default\" [class.active_view]=\"Display('videos')\" (click)=\"videoClick()\">Videos\n        </button>\n        <div class=\"btn-group\">\n        <button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\">\n          Search Tools <span class=\"caret\"></span></button>\n        <ul class=\"dropdown-menu\" role=\"menu\">\n          <li><span class=\"page-link\" (click)=\"filterByContext()\"> Context Ranking</span></li>\n          <li><span class=\"page-link\" (click)=\"filterByDate()\"> Sort by Date</span></li>\n        </ul>\n        </div>\n      </div>\n      <hr>\n      <div class=\"container-fluid\" id=\"progressBar\">\n        {{message}}\n      </div>\n      <div class=\"text-result\" *ngIf=\"Display('all')\">\n        <div *ngFor='let item of items' class='result'>\n          <div class='title'>\n            <a href='{{item.path}}'>{{item.title}}</a>\n          </div>\n          <div class='link'>\n            <a href='{{item.link}}'>{{item.link}}</a>\n          </div>\n          <div>\n            {{item.pubDate|date:'fullDate'}}\n          </div>\n        </div>\n      </div>\n      <div class=\"image-result\" *ngIf=\"Display('images')\">\n        <div *ngFor='let item of items'>\n          <img class=\"resImg\" src=\"{{item.link}}\">\n        </div>\n      </div>\n      <div class=\"video-result\" *ngIf=\"Display('videos')\">\n        <div *ngFor='let item of items' class=\"result\">\n          <div class='title'>\n            <a href='{{item.path}}'>{{item.title}}</a>\n          </div>\n          <div class='link'>\n            <a href='{{item.link}}'>{{item.link}}</a>\n          </div>\n        </div>\n      </div>\n      <br/>\n      <nav aria-label=\"Page navigation\">\n        <ul class=\"pagination\">\n          <li class=\"page-item\"><span class=\"page-link\" href=\"#\" (click)=\"decPresentPage()\">Previous</span></li>\n          <li class=\"page-item\" *ngFor=\"let num of getNumber(maxPage)\"><span class=\"page-link\"\n                                                                             *ngIf=\"presentPage>=4 && num<=noOfPages\"\n                                                                             [class.active_page]=\"getStyle(presentPage-3+num)\"\n                                                                             (click)=\"getPresentPage(presentPage-3+num)\"\n                                                                             href=\"#\">{{presentPage-3+num}}</span>\n            <span class=\"page-link\" *ngIf=\"presentPage<4 && num<=noOfPages\" [class.active_page]=\"getStyle(num)\"\n                  (click)=\"getPresentPage(num)\" href=\"#\">{{num+1}}</span></li>\n          <li class=\"page-item\"><span class=\"page-link\" (click)=\"incPresentPage()\">Next</span></li>\n        </ul>\n      </nav>\n    </div>\n  </div>\n</div>\n\n\n"
+module.exports = "<app-navbar></app-navbar>\n<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-md-1\">\n    </div>\n    <div class=\"col-md-11\">\n      <div class=\"btn-group\" id=\"search-options\">\n        <button type=\"button\" class=\"btn btn-default\" [class.active_view]=\"Display('all')\" (click)=\"docClick()\">\n          All\n        </button>\n        <button type=\"button\" class=\"btn btn-default\" [class.active_view]=\"Display('images')\" (click)=\"imageClick()\">Images\n        </button>\n        <button type=\"button\" class=\"btn btn-default\" [class.active_view]=\"Display('videos')\" (click)=\"videoClick()\">Videos\n        </button>\n        <div class=\"btn-group\">\n          <button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\">\n            Search Tools <span class=\"caret\"></span></button>\n          <ul class=\"dropdown-menu\" role=\"menu\">\n            <li><span class=\"page-link\" (click)=\"filterByContext()\"> Context Ranking</span></li>\n            <li><span class=\"page-link\" (click)=\"filterByDate()\"> Sort by Date</span></li>\n            <li><span class=\"page-link\" data-toggle=\"modal\" data-target=\"#myModal\" (click)=\"advancedsearch()\"> Advanced Search</span></li>\n          </ul>\n        </div>\n      </div>\n      <hr>\n      <div class=\"container-fluid\" id=\"progressBar\">\n        {{message}}\n      </div>\n      <div class=\"text-result\" *ngIf=\"Display('all')\">\n        <div *ngFor='let item of items$|async' class='result'>\n          <div class='title'>\n            <a href='{{item.path}}'>{{item.title}}</a>\n          </div>\n          <div class='link'>\n            <a href='{{item.link}}'>{{item.link}}</a>\n          </div>\n          <div>\n            {{item.pubDate|date:'fullDate'}}\n          </div>\n        </div>\n      </div>\n      <div class=\"image-result\" *ngIf=\"Display('images')\">\n        <div *ngFor='let item of items$'>\n          <img class=\"resImg\" src=\"{{item.link}}\">\n        </div>\n      </div>\n      <div class=\"video-result\" *ngIf=\"Display('videos')\">\n        <div *ngFor='let item of items' class=\"result\">\n          <div class='title'>\n            <a href='{{item.path}}'>{{item.title}}</a>\n          </div>\n          <div class='link'>\n            <a href='{{item.link}}'>{{item.link}}</a>\n          </div>\n        </div>\n      </div>\n      <br/>\n      <nav aria-label=\"Page navigation\">\n        <ul class=\"pagination\">\n          <li class=\"page-item\"><span class=\"page-link\" href=\"#\" (click)=\"decPresentPage()\">Previous</span></li>\n          <li class=\"page-item\" *ngFor=\"let num of getNumber(maxPage)\"><span class=\"page-link\"\n                                                                             *ngIf=\"presentPage>=4 && num<=noOfPages\"\n                                                                             [class.active_page]=\"getStyle(presentPage-3+num)\"\n                                                                             (click)=\"getPresentPage(presentPage-3+num)\"\n                                                                             href=\"#\">{{presentPage-3+num}}</span>\n            <span class=\"page-link\" *ngIf=\"presentPage<4 && num<=noOfPages\" [class.active_page]=\"getStyle(num)\"\n                  (click)=\"getPresentPage(num)\" href=\"#\">{{num+1}}</span></li>\n          <li class=\"page-item\"><span class=\"page-link\" (click)=\"incPresentPage()\">Next</span></li>\n        </ul>\n      </nav>\n    </div>\n  </div>\n</div>\n<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n\n  <app-advancedsearch></app-advancedsearch>\n</div>\n\n\n\n"
 
 /***/ },
 
-/***/ 687:
+/***/ 739:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(382);
+module.exports = __webpack_require__(404);
 
 
 /***/ }
 
-},[687]);
+},[739]);
 //# sourceMappingURL=main.bundle.map

@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":1,"metadata":{"Effect":{"__symbolic":"function","parameters":["dispatch"],"value":{"__symbolic":"error","message":"Function call not supported","line":13,"character":9},"defaults":[{"dispatch":true}]}}}

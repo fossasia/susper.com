@@ -1,0 +1,1 @@
+{"version":3,"file":"util.js","sourceRoot":"","sources":["../../src/util.ts"],"names":[],"mappings":"AAGA,0BAA0B,MAAc;IACtC,MAAM,CAAC,MAAM,CAAC,OAAO,CAAC;AACxB,CAAC","sourcesContent":["import { Action } from '@ngrx/store';\n\n\nexport function toPayload(action: Action) {\n  return action.payload;\n}\n\ninterface DecoratorInvocation {\n  type: Function;\n  args?: any[];\n}\n"]}

@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":1,"metadata":{},"exports":[{"from":"./src/effects","export":["Effect","mergeEffects"]},{"from":"./src/actions","export":["Actions"]},{"from":"./src/effects.module","export":["EffectsModule"]},{"from":"./src/effects-subscription","export":["EffectsSubscription"]},{"from":"./src/util","export":["toPayload"]}]}
