@@ -96,10 +96,9 @@ export class ResultsComponent implements OnInit {
       this.searchdata.query = query['query'];
       this.querylook = Object.assign({}, query);
       this.searchdata.sort = query['sort'];
-      this.begin = Number(query['start']) + 1;
       this.message = 'loading...';
-      this.presentPage = 0;
       this.start = (this.presentPage) * this.searchdata.rows;
+      this.begin = this.start + 1;
       this.resultDisplay = 'all';
       searchservice.getsearchresults(query);
       this.items$ =  store.select(fromRoot.getItems);
@@ -111,8 +110,8 @@ export class ResultsComponent implements OnInit {
         this.maxPage =  Math.min(this.searchdata.rows, this.noOfPages);
       });
 
-
     });
+    this.presentPage = 0;
 
   };
 
