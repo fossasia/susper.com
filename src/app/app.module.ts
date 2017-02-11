@@ -10,6 +10,10 @@ import {Routes, RouterModule} from '@angular/router';
 import {SearchService} from './search.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import {CommonModule} from '@angular/common';
+import { AdvancedsearchComponent } from './advancedsearch/advancedsearch.component';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {StoreModule} from '@ngrx/store';
+import {reducer} from './reducers/index';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -23,7 +27,8 @@ const appRoutes: Routes = [
     NavbarComponent,
     IndexComponent,
     ResultsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AdvancedsearchComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,10 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     JsonpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    StoreModule.provideStore(reducer),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+
   ],
   providers: [SearchService],
   bootstrap: [AppComponent]
