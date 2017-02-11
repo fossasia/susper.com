@@ -2,7 +2,6 @@
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
 */
-var assign = require("object-assign");
 var concord = require("./concord");
 var DescriptionFileUtils = require("./DescriptionFileUtils");
 var forEachBail = require("./forEachBail");
@@ -24,7 +23,7 @@ ConcordExtensionsPlugin.prototype.apply = function(resolver) {
 		if(!extensions) return callback();
 		var topLevelCallback = callback;
 		forEachBail(extensions, function(appending, callback) {
-			var obj = assign({}, request, {
+			var obj = Object.assign({}, request, {
 				path: request.path + appending,
 				relativePath: request.relativePath && (request.relativePath + appending)
 			});

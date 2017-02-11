@@ -2,9 +2,24 @@
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
 */
-var assign = require("object-assign");
 var createInnerCallback = require("./createInnerCallback");
-var getInnerRequest = require("./getInnerRequest");
+
+function startsWith(string, searchString) {
+	var stringLength = string.length;
+	var searchLength = searchString.length;
+
+	// early out if the search length is greater than the search string
+	if(searchLength > stringLength) {
+		return false;
+	}
+	var index = -1;
+	while(++index < searchLength) {
+		if(string.charCodeAt(index) !== searchString.charCodeAt(index)) {
+			return false;
+		}
+	}
+	return true;
+}
 
 function AliasPlugin(source, options, target) {
 	this.source = source;
@@ -21,12 +36,12 @@ AliasPlugin.prototype.apply = function(resolver) {
 	var alias = this.alias;
 	var onlyModule = this.onlyModule;
 	resolver.plugin(this.source, function(request, callback) {
-		var innerRequest = getInnerRequest(resolver, request);
+		var innerRequest = request.request;
 		if(!innerRequest) return callback();
-		if((!onlyModule && innerRequest.indexOf(name + "/") === 0) || innerRequest === name) {
-			if(innerRequest.indexOf(alias + "/") !== 0 && innerRequest != alias) {
+		if(innerRequest === name || (!onlyModule && startsWith(innerRequest, name + "/"))) {
+			if(innerRequest !== alias && !startsWith(innerRequest, alias + "/")) {
 				var newRequestStr = alias + innerRequest.substr(name.length);
-				var obj = assign({}, request, {
+				var obj = Object.assign({}, request, {
 					request: newRequestStr
 				});
 				return resolver.doResolve(target, obj, "aliased with mapping '" + name + "': '" + alias + "' to '" + newRequestStr + "'", createInnerCallback(function(err, result) {

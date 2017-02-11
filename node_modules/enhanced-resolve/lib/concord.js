@@ -85,11 +85,11 @@ function isConditionMatched(context, condition) {
 			// match environment
 			return isEnvironment(context, item);
 		}
-	})
+	});
 }
 
 function isKeyMatched(context, key) {
-	while(true) {
+	while(true) { //eslint-disable-line
 		var match = /^\[([^\]]+)\]\s*/.exec(key);
 		if(!match) return key;
 		key = key.substr(match[0].length);

@@ -2,8 +2,6 @@
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
 */
-var assign = require("object-assign");
-
 function TryNextPlugin(source, message, target) {
 	this.source = source;
 	this.message = message;

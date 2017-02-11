@@ -2,9 +2,6 @@
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
 */
-var createInnerCallback = require("./createInnerCallback");
-var assign = require("object-assign");
-
 function DirectoryExistsPlugin(source, target) {
 	this.source = source;
 	this.target = target;

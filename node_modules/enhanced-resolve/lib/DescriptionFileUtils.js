@@ -2,7 +2,6 @@
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
 */
-var assign = require("object-assign");
 var forEachBail = require("./forEachBail");
 
 function loadDescriptionFile(resolver, directory, filenames, callback) {
@@ -46,7 +45,7 @@ function loadDescriptionFile(resolver, directory, filenames, callback) {
 		}, function(err, result) {
 			if(err) return callback(err);
 			if(result) {
-				return callback(null, result)
+				return callback(null, result);
 			} else {
 				directory = cdUp(directory);
 				if(!directory) {

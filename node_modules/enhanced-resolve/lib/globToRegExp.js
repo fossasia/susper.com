@@ -30,17 +30,17 @@ var SIMPLE_TOKENS = {
 	"?(": "zero-one",
 	"+(": "one-many",
 	"*(": "zero-many",
-	"|": "seqment-sep",
-	"/**/": "any-path-seqments",
+	"|": "segment-sep",
+	"/**/": "any-path-segments",
 	"**": "any-path",
-	"*": "any-path-seqment",
+	"*": "any-path-segment",
 	"?": "any-char",
 	"{": "or",
 	"/": "path-sep",
 	",": "comma",
-	")": "closing-seqment",
+	")": "closing-segment",
 	"}": "closing-or"
-}
+};
 
 function tokenize(glob) {
 	return glob.split(/([@?+*]\(|\/\*\*\/|\*\*|[?*]|\[[\!\^]?(?:[^\]\\]|\\.)+\]|\{|,|\/|[|)}])/g).map(function(item) {
@@ -85,7 +85,7 @@ function createRoot() {
 				return "(";
 			case "comma":
 				if(inOr.length) {
-					initial = inOr[inOr.length - 1]
+					initial = inOr[inOr.length - 1];
 					return "|";
 				} else {
 					return process({
@@ -121,7 +121,7 @@ function createSeqment() {
 			case "zero-one":
 				inSeqment.push(token.type);
 				return "(";
-			case "seqment-sep":
+			case "segment-sep":
 				if(inSeqment.length) {
 					return "|";
 				} else {
@@ -130,9 +130,9 @@ function createSeqment() {
 						value: "|"
 					}, initial);
 				}
-			case "closing-seqment":
-				var seqment = inSeqment.pop();
-				switch(seqment) {
+			case "closing-segment":
+				var segment = inSeqment.pop();
+				switch(segment) {
 					case "one":
 						return ")";
 					case "one-many":
@@ -142,6 +142,7 @@ function createSeqment() {
 					case "zero-one":
 						return ")?";
 				}
+				throw new Error("Unexcepted segment " + segment);
 			case "end":
 				if(inSeqment.length > 0) {
 					throw new Error("Unmatched segment, missing ')'");
@@ -158,11 +159,11 @@ function createSimple() {
 		switch(token.type) {
 			case "path-sep":
 				return "[\\\\/]+";
-			case "any-path-seqments":
+			case "any-path-segments":
 				return "[\\\\/]+(?:(.+)[\\\\/]+)?";
 			case "any-path":
 				return "(.*)";
-			case "any-path-seqment":
+			case "any-path-segment":
 				if(initial) {
 					return "\\.[\\\\/]+(?:.*[\\\\/]+)?([^\\\\/]+)";
 				} else {
@@ -181,7 +182,7 @@ function createSimple() {
 			default:
 				throw new Error("Unsupported token '" + token.type + "'");
 		}
-	}
+	};
 }
 
 exports.globToRegExp = globToRegExp;

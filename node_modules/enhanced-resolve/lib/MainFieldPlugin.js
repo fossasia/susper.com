@@ -3,7 +3,6 @@
 	Author Tobias Koppers @sokra
 */
 var path = require("path");
-var assign = require("object-assign");
 
 function MainFieldPlugin(source, options, target) {
 	this.source = source;
@@ -41,7 +40,7 @@ MainFieldPlugin.prototype.apply = function(resolver) {
 		if(!mainModule) return callback();
 		if(options.forceRelative && !/^\.\.?\//.test(mainModule))
 			mainModule = "./" + mainModule;
-		var obj = assign({}, request, {
+		var obj = Object.assign({}, request, {
 			request: mainModule
 		});
 		return resolver.doResolve(target, obj, "use " + mainModule + " from " + options.name + " in " + filename, callback);

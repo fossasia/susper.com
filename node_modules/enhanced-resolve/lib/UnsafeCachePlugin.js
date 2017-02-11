@@ -3,7 +3,6 @@
 	Author Tobias Koppers @sokra
 */
 var createInnerCallback = require("./createInnerCallback");
-var assign = require("object-assign");
 
 function UnsafeCachePlugin(source, filterPredicate, cache, target) {
 	this.source = source;

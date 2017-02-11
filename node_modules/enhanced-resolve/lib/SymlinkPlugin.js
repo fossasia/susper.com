@@ -4,7 +4,6 @@
 */
 var getPaths = require("./getPaths");
 var forEachBail = require("./forEachBail");
-var assign = require("object-assign");
 
 function SymlinkPlugin(source, target) {
 	this.source = source;
@@ -41,7 +40,7 @@ SymlinkPlugin.prototype.apply = function(resolver) {
 			var result = resultSeqments.reverse().reduce(function(a, b) {
 				return _this.join(a, b);
 			});
-			var obj = assign({}, request, {
+			var obj = Object.assign({}, request, {
 				path: result
 			});
 			resolver.doResolve(target, obj, "resolved symlink to " + result, callback);

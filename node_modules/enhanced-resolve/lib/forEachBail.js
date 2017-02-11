@@ -3,14 +3,14 @@
 	Author Tobias Koppers @sokra
 */
 module.exports = function forEachBail(array, iterator, callback) {
-	if(array.length == 0) return callback();
+	if(array.length === 0) return callback();
 	var currentPos = array.length;
 	var currentResult;
 	var done = [];
 	for(var i = 0; i < array.length; i++) {
 		var itCb = createIteratorCallback(i);
 		iterator(array[i], itCb);
-		if(currentPos == 0) break;
+		if(currentPos === 0) break;
 	}
 
 	function createIteratorCallback(i) {
@@ -25,7 +25,7 @@ module.exports = function forEachBail(array, iterator, callback) {
 				});
 				currentResult = args;
 			}
-			if(done.length == currentPos) {
+			if(done.length === currentPos) {
 				callback.apply(null, currentResult);
 				currentPos = 0;
 			}

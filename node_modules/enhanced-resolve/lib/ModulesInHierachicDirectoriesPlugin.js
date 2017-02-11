@@ -5,7 +5,6 @@
 var createInnerCallback = require("./createInnerCallback");
 var forEachBail = require("./forEachBail");
 var getPaths = require("./getPaths");
-var assign = require("object-assign");
 
 function ModulesInHierachicDirectoriesPlugin(source, directories, target) {
 	this.source = source;
@@ -31,7 +30,7 @@ ModulesInHierachicDirectoriesPlugin.prototype.apply = function(resolver) {
 		forEachBail(addrs, function(addr, callback) {
 			fs.stat(addr, function(err, stat) {
 				if(!err && stat && stat.isDirectory()) {
-					var obj = assign({}, request, {
+					var obj = Object.assign({}, request, {
 						path: addr,
 						request: "./" + request.request
 					});

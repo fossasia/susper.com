@@ -149,7 +149,7 @@ Resolver.prototype.parse = function parse(identifier) {
 		file: false
 	};
 	var idxQuery = identifier.indexOf("?");
-	if(idxQuery == 0) {
+	if(idxQuery === 0) {
 		part.query = identifier;
 	} else if(idxQuery > 0) {
 		part.request = identifier.slice(0, idxQuery);
@@ -159,7 +159,8 @@ Resolver.prototype.parse = function parse(identifier) {
 	}
 	if(part.request) {
 		part.module = this.isModule(part.request);
-		if(part.directory = this.isDirectory(part.request)) {
+		part.directory = this.isDirectory(part.request);
+		if(part.directory) {
 			part.request = part.request.substr(0, part.request.length - 1);
 		}
 	}
@@ -179,7 +180,7 @@ Resolver.prototype.isDirectory = function isDirectory(path) {
 var memoryFsJoin = require("memory-fs/lib/join");
 var memoizedJoin = {};
 Resolver.prototype.join = function(path, request) {
-	var memoizeKey = path + '|$' + request;
+	var memoizeKey = path + "|$" + request;
 	if(!memoizedJoin[memoizeKey]) {
 		memoizedJoin[memoizeKey] = memoryFsJoin(path, request);
 	}

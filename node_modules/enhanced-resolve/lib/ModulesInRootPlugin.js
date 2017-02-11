@@ -2,9 +2,6 @@
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
 */
-var createInnerCallback = require("./createInnerCallback");
-var assign = require("object-assign");
-
 function ModulesInRootPlugin(source, path, target) {
 	this.source = source;
 	this.path = path;
@@ -16,7 +13,7 @@ ModulesInRootPlugin.prototype.apply = function(resolver) {
 	var target = this.target;
 	var path = this.path;
 	resolver.plugin(this.source, function(request, callback) {
-		var obj = assign({}, request, {
+		var obj = Object.assign({}, request, {
 			path: path,
 			request: "./" + request.request
 		});

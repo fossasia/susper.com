@@ -8,7 +8,7 @@ module.exports = function createInnerCallback(callback, options, message, messag
 		if(options.stack !== callback.stack) {
 			var callbackWrapper = function callbackWrapper() {
 				return callback.apply(this, arguments);
-			}
+			};
 			callbackWrapper.stack = options.stack;
 			callbackWrapper.missing = options.missing;
 			return callbackWrapper;
@@ -38,4 +38,4 @@ module.exports = function createInnerCallback(callback, options, message, messag
 	loggingCallbackWrapper.stack = options.stack;
 	loggingCallbackWrapper.missing = options.missing;
 	return loggingCallbackWrapper;
-}
+};

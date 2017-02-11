@@ -41,7 +41,7 @@ function transform(decl, opts) {
         reduceWhitespaces(decl);
         return;
     }
-    if (/^(font|filter)/.test(decl.prop)) {
+    if (/^(composes|font|filter)/i.test(decl.prop)) {
         return;
     }
     var ast = (0, _postcssValueParser2.default)(decl.value);
@@ -67,7 +67,7 @@ function transform(decl, opts) {
 }
 
 exports.default = _postcss2.default.plugin('postcss-colormin', function () {
-    var opts = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     return function (css) {
         return css.walkDecls(function (node) {

@@ -2,7 +2,6 @@
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
 */
-var assign = require("object-assign");
 var concord = require("./concord");
 var DescriptionFileUtils = require("./DescriptionFileUtils");
 var createInnerCallback = require("./createInnerCallback");
@@ -17,7 +16,6 @@ module.exports = ConcordModulesPlugin;
 
 ConcordModulesPlugin.prototype.apply = function(resolver) {
 	var target = this.target;
-	var options = this.options;
 	resolver.plugin(this.source, function(request, callback) {
 		var innerRequest = getInnerRequest(resolver, request);
 		if(!innerRequest) return callback();
@@ -27,12 +25,12 @@ ConcordModulesPlugin.prototype.apply = function(resolver) {
 		if(data === innerRequest) return callback();
 		if(data === undefined) return callback();
 		if(data === false) {
-			var ignoreObj = assign({}, request, {
+			var ignoreObj = Object.assign({}, request, {
 				path: false
 			});
 			return callback(null, ignoreObj);
 		}
-		var obj = assign({}, request, {
+		var obj = Object.assign({}, request, {
 			path: request.descriptionFileRoot,
 			request: data
 		});

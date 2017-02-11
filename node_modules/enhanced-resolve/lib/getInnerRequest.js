@@ -3,6 +3,10 @@
 	Author Tobias Koppers @sokra
 */
 module.exports = function getInnerRequest(resolver, request) {
+	if(typeof request.__innerRequest === "string" &&
+		request.__innerRequest_request === request.request &&
+		request.__innerRequest_relativePath === request.relativePath)
+		return request.__innerRequest;
 	var innerRequest;
 	if(request.request) {
 		innerRequest = request.request;
@@ -12,5 +16,7 @@ module.exports = function getInnerRequest(resolver, request) {
 	} else {
 		innerRequest = request.relativePath;
 	}
-	return innerRequest;
+	request.__innerRequest_request = request.request;
+	request.__innerRequest_relativePath = request.relativePath;
+	return request.__innerRequest = innerRequest;
 };

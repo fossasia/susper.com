@@ -16,13 +16,15 @@ var _convert2 = _interopRequireDefault(_convert);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var LENGTH_UNITS = ['em', 'ex', 'ch', 'rem', 'vw', 'vh', 'vmin', 'vmax', 'cm', 'mm', 'q', 'in', 'pt', 'pc', 'px'];
+
 function parseWord(node, opts, keepZeroUnit) {
     var pair = (0, _postcssValueParser.unit)(node.value);
     if (pair) {
         var num = Number(pair.number);
         var u = pair.unit.toLowerCase();
         if (num === 0) {
-            node.value = keepZeroUnit || u === 'ms' || u === 's' || u === 'deg' || u === 'rad' || u === 'grad' || u === 'turn' ? 0 + u : 0;
+            node.value = keepZeroUnit || !~LENGTH_UNITS.indexOf(u) && u !== '%' ? 0 + u : 0;
         } else {
             node.value = (0, _convert2.default)(num, u, opts);
 

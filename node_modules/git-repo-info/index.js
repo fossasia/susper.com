@@ -25,8 +25,9 @@ function findRepoHandleLinkedWorktree(gitPath) {
     // whether it's a linked worktree git dir, or a submodule dir
 
     var linkedGitDir = fs.readFileSync(gitPath).toString();
+    var absolutePath=path.resolve(path.dirname(gitPath));
     var worktreeGitDirUnresolved = /gitdir: (.*)/.exec(linkedGitDir)[1];
-    var worktreeGitDir = path.resolve(worktreeGitDirUnresolved);
+    var worktreeGitDir = path.resolve(absolutePath,worktreeGitDirUnresolved);
     var commonDirPath = path.join(worktreeGitDir, 'commondir');
     if (fs.existsSync(commonDirPath)) {
       // this directory contains a `commondir` file; we're within a linked
