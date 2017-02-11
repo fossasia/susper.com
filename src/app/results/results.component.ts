@@ -19,6 +19,7 @@ export class ResultsComponent implements OnInit {
   begin: number;
   message: string;
   query: any;
+  navigation: any;
   searchdata: any = {
     query : '',
     verify: false,
@@ -31,9 +32,16 @@ export class ResultsComponent implements OnInit {
     rows: 10,
     timezoneOffset: 0,
   };
+  querylook = {};
   getNumber(N) {
     return Array.apply(null, {length: N}).map(Number.call, Number);
   };
+  changeurl(modifier) {
+    console.log(modifier);
+    this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
+    console.log(this.querylook);
+    this.route.navigate(['/search'], {queryParams: this.querylook});
+  }
   getPresentPage(N) {
     this.presentPage = N;
     this.searchdata.start = (this.presentPage)  * this.searchdata.rows;
@@ -86,11 +94,13 @@ export class ResultsComponent implements OnInit {
     this.activatedroute.queryParams.subscribe(query => {
       this.presentPage = query['start'] / this.searchdata.rows;
       this.searchdata.query = query['query'];
+      this.querylook = Object.assign({}, query);
       this.searchdata.sort = query['sort'];
       this.begin = Number(query['start']) + 1;
       searchservice.getsearchresults(query).subscribe(res => {
         this.items = res.json()[0].channels[0].items;
         this.totalResults = Number(res.json()[0].channels[0].totalResults);
+        this.navigation = res.json()[0].channels[0].navigation;
         this.end = Math.min(this.totalResults, this.begin + this.searchdata.rows - 1);
         this.message = 'showing results ' + this.begin + ' to ' + this.end + ' of ' + this.totalResults;
         this.noOfPages = Math.ceil(this.totalResults / this.searchdata.rows);
