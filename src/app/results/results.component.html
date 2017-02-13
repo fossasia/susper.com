@@ -13,6 +13,7 @@
         <button type="button" class="btn btn-default" [class.active_view]="Display('videos')" (click)="videoClick()">Videos
         </button>
         <div class="btn-group">
+
         <button type="button" class="btn btn-default" id="tools" data-toggle="collapse" data-target="#search-tools">
           Tools <span class="caret"></span></button>
         </div>
@@ -20,13 +21,14 @@
       <div class="collapse" id="search-tools">
         <button class="btn btn-default" (click)="filterByContext()"> Context Ranking</button>
         <button class="btn btn-default" (click)="filterByDate()"> Sort by Date</button>
+        <button class="btn btn-default" data-toggle="modal" data-target="#myModal" (click)="advancedsearch()"> Advanced Search</button>
       </div>
       <hr>
       <div class="container-fluid" id="progressBar">
         {{message}}
       </div>
       <div class="text-result" *ngIf="Display('all')">
-        <div *ngFor='let item of items' class='result'>
+        <div *ngFor='let item of items$|async' class='result'>
           <div class='title'>
             <a href='{{item.path}}'>{{item.title}}</a>
           </div>
@@ -39,7 +41,7 @@
         </div>
       </div>
       <div class="image-result" *ngIf="Display('images')">
-        <div *ngFor='let item of items'>
+        <div *ngFor='let item of items$'>
           <img class="resImg" src="{{item.link}}">
         </div>
       </div>
@@ -70,5 +72,10 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+  <app-advancedsearch></app-advancedsearch>
+</div>
+
 
 

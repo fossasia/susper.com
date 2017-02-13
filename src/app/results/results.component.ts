@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {SearchService} from '../search.service';
 import {Router, ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import * as fromRoot from '../reducers';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-results',
@@ -8,8 +11,8 @@ import {Router, ActivatedRoute} from '@angular/router';
   styleUrls: ['./results.component.css']
 })
 export class ResultsComponent implements OnInit {
-  items = [];
-  totalResults: number;
+  items$: Observable<any>;
+  totalResults$: Observable<number>;
   resultDisplay: string;
   noOfPages: number;
   presentPage: number;
@@ -31,9 +34,13 @@ export class ResultsComponent implements OnInit {
     rows: 10,
     timezoneOffset: 0,
   };
+  querylook = {};
   getNumber(N) {
     return Array.apply(null, {length: N}).map(Number.call, Number);
   };
+  advancedsearch() {
+
+  }
   getPresentPage(N) {
     this.presentPage = N;
     this.searchdata.start = (this.presentPage)  * this.searchdata.rows;
@@ -81,31 +88,33 @@ export class ResultsComponent implements OnInit {
   getStyle(page) {
     return ((this.presentPage) === page);
   }
-  constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute) {
+  constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
+              private store: Store<fromRoot.State>) {
 
     this.activatedroute.queryParams.subscribe(query => {
       this.presentPage = query['start'] / this.searchdata.rows;
       this.searchdata.query = query['query'];
+      this.querylook = Object.assign({}, query);
       this.searchdata.sort = query['sort'];
       this.begin = Number(query['start']) + 1;
-      searchservice.getsearchresults(query).subscribe(res => {
-        this.items = res.json()[0].channels[0].items;
-        this.totalResults = Number(res.json()[0].channels[0].totalResults);
-        this.end = Math.min(this.totalResults, this.begin + this.searchdata.rows - 1);
-        this.message = 'Showing ' + this.begin + ' to ' + this.end + ' of ' + this.totalResults + ' results';
-        this.noOfPages = Math.ceil(this.totalResults / this.searchdata.rows);
+      this.message = 'loading...';
+      this.start = (this.presentPage) * this.searchdata.rows;
+      this.begin = this.start + 1;
+      this.resultDisplay = 'all';
+      searchservice.getsearchresults(query);
+      this.items$ =  store.select(fromRoot.getItems);
+      this.totalResults$ = store.select(fromRoot.getTotalResults);
+      this.totalResults$.subscribe(totalResults => {
+        this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
+        this.message = 'showing results ' + this.begin + ' to ' + this.end + ' of ' + totalResults;
+        this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
         this.maxPage =  Math.min(this.searchdata.rows, this.noOfPages);
       });
 
     });
-    this.message = 'loading...';
     this.presentPage = 0;
-    this.start = (this.presentPage) * this.searchdata.rows;
-    this.begin = this.start + 1;
-    this.end =  Math.min(this.totalResults, this.begin + this.searchdata.rows - 1);
-    this.resultDisplay = 'all';
 
-  }
+  };
 
   ngOnInit() {
     this.presentPage = 0;
