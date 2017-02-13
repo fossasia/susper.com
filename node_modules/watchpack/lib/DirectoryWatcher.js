@@ -82,8 +82,6 @@ DirectoryWatcher.prototype.setFileTime = function setFileTime(filePath, mtime, i
 
 	this.files[filePath] = [initial ? Math.min(now, mtime) : now, mtime];
 
-	ensureFsAccuracy(mtime);
-
 	// we add the fs accurency to reach the maximum possible mtime
 	if(mtime)
 		mtime = mtime + FS_ACCURACY;
