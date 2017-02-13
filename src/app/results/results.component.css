@@ -2,17 +2,16 @@
   padding: 10px;
 }
 .title >a{
-  color:blue;
-  font-size: medium;
-  font-weight: bold;
+  color:darkblue;
+  font-size: large;
   text-decoration:none;
 }
 
-.link >a{
-  color:#3c7a3c;
+.link > p{
+  color:#006621;
   text-decoration:none;
 }
-.link, .title >a:hover{
+.title >a:hover{
   text-decoration: underline;
 }
 .page-link{
@@ -68,3 +67,9 @@ img.resImg{
   background: none;
   font-size: small;
 }
+#search-tools .btn{
+  border: none;
+  background: none;
+  font-size: small;
+}
+
