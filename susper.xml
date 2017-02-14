@@ -9,8 +9,8 @@
   <InputEncoding>UTF-8</InputEncoding>
   <AdultContent>false</AdultContent>
   <Description>susper open search provider</Description>
-  <Url type="text/html" template="http://susper.com/yacysearch/index.html?query={searchTerms}&amp;Enter=&amp;verify=false&amp;nav=filetype%2Cprotocol%2Chosts%2Cauthors%2Ccollections%2Cnamespace%2Ctopics%2Cdate&amp;startRecord=0&amp;indexof=off&amp;meanCount=5&amp;resource=global&amp;prefermaskfilter=&amp;maximumRecords=10&amp;timezoneOffset=-120"/>
-  <Url type="text/html" method="GET" template="http://susper.com/yacysearch/index.html?query={searchTerms}&amp;startRecord={startIndex?}&amp;maximumRecords={count?}&amp;nav=all&amp;resource=global"/>
+  <Url type="text/html" template="http://susper.com/search?query={searchTerms}"/>
+  <Url type="text/html" method="GET" template="http://susper.com/search?query={searchTerms}"/>
   <!-- syntax according to http://www.loc.gov/standards/sru/. Set verify=true to get snippets in the search results -->
   <Developer>See https://github.com/fossasia/susper.com</Developer>
   <Query role="example" searchTerms="susper"/>
