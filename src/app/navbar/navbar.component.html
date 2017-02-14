@@ -7,16 +7,36 @@
     </div>
 
     <div class="navbar-collapse collapse">
-      <form class="navbar-form navbar-left">
-        <div class="input-group" id="nav-group">
-          <input type="text" name="query" class="form-control" id="nav-input" placeholder="Search" (keyup.enter)="submit()" [(ngModel)]="searchdata.query">
-          <div class="input-group-btn">
-            <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()">
-              <i class="glyphicon glyphicon-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
+      <app-search-bar></app-search-bar>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+
+          <a href="#" data-toggle="dropdown" class="dropdown-toggle" data-proofer-ignore><img
+            src="../../assets/images/show-apps-button.png"></a>
+          <ul class="dropdown-menu">
+            <li id="header_profile"><a href="yacysearch/about.html">About This Page</a></li>
+
+            <li class="divider"></li>
+            <li><span id="header_download"><a href="http://yacy.net" target="_blank"><img class="menu-image"
+                                                                                          src="../../assets/images/download-button.png"></a></span>
+              &nbsp;&nbsp;<span id="header_community"><a href="http://forum.yacy.de" target="_blank"><img
+                class="menu-image" src="../../assets/images/chat.png"></a></span>
+            </li>
+             <li><span id="header_wiki"><a href="http://wiki.yacy.de" target="_blank"><img class="menu-image"
+                                                                                        src="../../assets/images/wikipedia.png"></a></span>
+
+               &nbsp;&nbsp;<span id="header_git"><a href="https://github.com/yacy/yacy_search_server/commits/master"
+                                         target="_blank"><img class="menu-image"
+                                                              src="../../assets/images/github-character.png"></a></span>
+             </li>
+            <li><span id="header_bugs"><a href="http://bugs.yacy.net" target="_blank"><img class="menu-image"
+                                                                                         src="../../assets/images/bug.png"></a></span>
+              &nbsp;&nbsp; <span><a href="http://yacy.net/tutorials/"><img class="menu-image"
+                                                              src="../../assets/images/educational-video.png"></a></span>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
