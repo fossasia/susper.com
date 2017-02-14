@@ -11,7 +11,7 @@ import './events';
 import './fs';
 
 import {patchTimer} from '../common/timers';
-import {patchMethod} from '../common/utils';
+import {patchMacroTask, patchMethod, patchMicroTask} from '../common/utils';
 
 const set = 'set';
 const clear = 'clear';
@@ -31,7 +31,8 @@ if (shouldPatchGlobalTimers) {
   patchTimer(_global, set, clear, 'Immediate');
 }
 
-patchNextTick();
+// patch process related methods
+patchProcess();
 
 // Crypto
 let crypto;
@@ -40,73 +41,30 @@ try {
 } catch (err) {
 }
 
-// TODO(gdi2290): implement a better way to patch these methods
+// use the generic patchMacroTask to patch crypto
 if (crypto) {
-  let nativeRandomBytes = crypto.randomBytes;
-  crypto.randomBytes = function randomBytesZone(size: number, callback?: Function) {
-    if (!callback) {
-      return nativeRandomBytes(size);
-    } else {
-      let zone = Zone.current;
-      const source = crypto.constructor.name + '.randomBytes';
-      return nativeRandomBytes(size, zone.wrap(callback, source));
-    }
-  }.bind(crypto);
-
-  let nativePbkdf2 = crypto.pbkdf2;
-  crypto.pbkdf2 = function pbkdf2Zone(...args: any[]) {
-    let fn = args[args.length - 1];
-    if (typeof fn === 'function') {
-      let zone = Zone.current;
-      const source = crypto.constructor.name + '.pbkdf2';
-      args[args.length - 1] = zone.wrap(fn, source);
-      return nativePbkdf2(...args);
-    } else {
-      return nativePbkdf2(...args);
-    }
-  }.bind(crypto);
+  const methodNames = ['randomBytes', 'pbkdf2'];
+  methodNames.forEach(name => {
+    patchMacroTask(crypto, name, (self: any, args: any[]) => {
+      return {
+        name: 'crypto.' + name,
+        args: args,
+        callbackIndex:
+            (args.length > 0 && typeof args[args.length - 1] === 'function') ? args.length - 1 : -1,
+        target: crypto
+      };
+    });
+  });
 }
 
-// HTTP Client
-let httpClient;
-try {
-  httpClient = require('_http_client');
-} catch (err) {
-}
-
-if (httpClient && httpClient.ClientRequest) {
-  let ClientRequest = httpClient.ClientRequest.bind(httpClient);
-  httpClient.ClientRequest = function(options: any, callback?: Function) {
-    if (!callback) {
-      return new ClientRequest(options);
-    } else {
-      let zone = Zone.current;
-      return new ClientRequest(options, zone.wrap(callback, 'http.ClientRequest'));
-    }
-  };
-}
-
-function patchNextTick() {
-  let setNative = null;
-
-  function scheduleTask(task: Task) {
-    const args = task.data;
-    args[0] = function() {
-      task.invoke.apply(this, arguments);
+function patchProcess() {
+  // patch nextTick as microTask
+  patchMicroTask(process, 'nextTick', (self: any, args: any[]) => {
+    return {
+      name: 'process.nextTick',
+      args: args,
+      callbackIndex: (args.length > 0 && typeof args[0] === 'function') ? 0 : -1,
+      target: process
     };
-    setNative.apply(process, args);
-    return task;
-  }
-
-  setNative =
-      patchMethod(process, 'nextTick', (delegate: Function) => function(self: any, args: any[]) {
-        if (typeof args[0] === 'function') {
-          const zone = Zone.current;
-          const task = zone.scheduleMicroTask('nextTick', args[0], args, scheduleTask);
-          return task;
-        } else {
-          // cause an error by calling it directly.
-          return delegate.apply(process, args);
-        }
-      });
+  });
 }

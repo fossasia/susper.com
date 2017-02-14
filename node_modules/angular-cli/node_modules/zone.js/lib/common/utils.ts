@@ -50,6 +50,10 @@ export const isNode: boolean =
 export const isBrowser: boolean =
     !isNode && !isWebWorker && !!(typeof window !== 'undefined' && window['HTMLElement']);
 
+// we are in electron of nw, so we are both browser and nodejs
+export const isMix: boolean = typeof process !== 'undefined' &&
+    {}.toString.call(process) === '[object process]' && !isWebWorker &&
+    !!(typeof window !== 'undefined' && window['HTMLElement']);
 
 export function patchProperty(obj, prop) {
   const desc = Object.getOwnPropertyDescriptor(obj, prop) || {enumerable: true, configurable: true};
@@ -277,7 +281,7 @@ export function makeZoneAwareAddListener(
       // accessing the handler object here will cause an exception to be thrown which
       // will fail tests prematurely.
       validZoneHandler = data.handler && data.handler.toString() === '[object FunctionWrapper]';
-    } catch (e) {
+    } catch (error) {
       // Returning nothing here is fine, because objects in a cross-site context are unusable
       return;
     }
@@ -454,7 +458,7 @@ export function patchClass(className) {
 export function createNamedFn(name: string, delegate: (self: any, args: any[]) => any): Function {
   try {
     return (Function('f', `return function ${name}(){return f(this, arguments)}`))(delegate);
-  } catch (e) {
+  } catch (error) {
     // if we fail, we must be CSP, just return delegate.
     return function() {
       return delegate(this, <any>arguments);
@@ -490,7 +494,7 @@ export interface MacroTaskMeta extends TaskData {
   args: any[];
 }
 
-// TODO: support cancel task later if necessary
+// TODO: @JiaLiPassion, support cancel task later if necessary
 export function patchMacroTask(
     obj: any, funcName: string, metaCreator: (self: any, args: any[]) => MacroTaskMeta) {
   let setNative = null;
@@ -509,6 +513,38 @@ export function patchMacroTask(
     if (meta.callbackIndex >= 0 && typeof args[meta.callbackIndex] === 'function') {
       const task = Zone.current.scheduleMacroTask(
           meta.name, args[meta.callbackIndex], meta, scheduleTask, null);
+      return task;
+    } else {
+      // cause an error by calling it directly.
+      return delegate.apply(self, args);
+    }
+  });
+}
+
+export interface MicroTaskMeta extends TaskData {
+  name: string;
+  target: any;
+  callbackIndex: number;
+  args: any[];
+}
+export function patchMicroTask(
+    obj: any, funcName: string, metaCreator: (self: any, args: any[]) => MicroTaskMeta) {
+  let setNative = null;
+
+  function scheduleTask(task: Task) {
+    const data = <MacroTaskMeta>task.data;
+    data.args[data.callbackIndex] = function() {
+      task.invoke.apply(this, arguments);
+    };
+    setNative.apply(data.target, data.args);
+    return task;
+  }
+
+  setNative = patchMethod(obj, funcName, (delegate: Function) => function(self: any, args: any[]) {
+    const meta = metaCreator(self, args);
+    if (meta.callbackIndex >= 0 && typeof args[meta.callbackIndex] === 'function') {
+      const task =
+          Zone.current.scheduleMicroTask(meta.name, args[meta.callbackIndex], meta, scheduleTask);
       return task;
     } else {
       // cause an error by calling it directly.

@@ -220,15 +220,54 @@ interface Zone {
    * @returns {*}
    */
   runTask(task: Task, applyThis?: any, applyArgs?: any): any;
+
+  /**
+   * Schedule a MicroTask.
+   *
+   * @param source
+   * @param callback
+   * @param data
+   * @param customSchedule
+   */
   scheduleMicroTask(
       source: string, callback: Function, data?: TaskData,
       customSchedule?: (task: Task) => void): MicroTask;
+
+  /**
+   * Schedule a MacroTask.
+   *
+   * @param source
+   * @param callback
+   * @param data
+   * @param customSchedule
+   * @param customCancel
+   */
   scheduleMacroTask(
       source: string, callback: Function, data: TaskData, customSchedule: (task: Task) => void,
       customCancel: (task: Task) => void): MacroTask;
+
+  /**
+   * Schedule an EventTask.
+   *
+   * @param source
+   * @param callback
+   * @param data
+   * @param customSchedule
+   * @param customCancel
+   */
   scheduleEventTask(
       source: string, callback: Function, data: TaskData, customSchedule: (task: Task) => void,
       customCancel: (task: Task) => void): EventTask;
+
+  /**
+   * Schedule an existing Task.
+   *
+   * Useful for rescheduling a task which was already canceled.
+   *
+   * @param task
+   */
+  scheduleTask<T extends Task>(task: T): T;
+
   /**
    * Allows the zone to intercept canceling of scheduled Task.
    *
@@ -257,6 +296,11 @@ interface ZoneType {
    * Verify that Zone has been correctly patched. Specifically that Promise is zone aware.
    */
   assertZonePatched();
+
+  /**
+   *  Return the root zone.
+   */
+  root: Zone;
 }
 
 /**
@@ -420,7 +464,13 @@ type HasTaskState = {
  * Task type: `microTask`, `macroTask`, `eventTask`.
  */
 type TaskType = string; /* TS v1.8 => "microTask" | "macroTask" | "eventTask" */
-;
+
+/**
+ * Task type: `notScheduled`, `scheduling`, `scheduled`, `running`, `canceling`.
+ */
+type TaskState =
+    string; /* TS v1.8 => "notScheduled", "scheduling", "scheduled", "running", "canceling" */
+
 
 /**
  */
@@ -463,6 +513,11 @@ interface Task {
    * Task type: `microTask`, `macroTask`, `eventTask`.
    */
   type: TaskType;
+
+  /**
+   * Task state: `notScheduled`, `scheduling`, `scheduled`, `running`, `canceling`.
+   */
+  state: TaskState;
 
   /**
    * Debug string representing the API which requested the scheduling of the task.
@@ -511,6 +566,13 @@ interface Task {
    * Number of times the task has been executed, or -1 if canceled.
    */
   runCount: number;
+
+  /**
+   * Cancel the scheduling request. This method can be called from `ZoneSpec.onScheduleTask` to
+   * cancel the current scheduling interception. Once canceled the task can be discarted or
+   * rescheduled using `Zone.scheduleTask` on a different zone.
+   */
+  cancelScheduleRequest(): void;
 }
 
 interface MicroTask extends Task {
@@ -550,6 +612,11 @@ const Zone: ZoneType = (function(global: any) {
     throw new Error('Zone already loaded.');
   }
 
+  const NO_ZONE = {name: 'NO ZONE'};
+  const notScheduled = 'notScheduled', scheduling = 'scheduling', scheduled = 'scheduled',
+        running = 'running', canceling = 'canceling';
+  const microTask = 'microTask', macroTask = 'macroTask', eventTask = 'eventTask';
+
   class Zone implements AmbientZone {
     static __symbol__: (name: string) => string = __symbol__;
 
@@ -564,6 +631,13 @@ const Zone: ZoneType = (function(global: any) {
       }
     }
 
+    static get root(): AmbientZone {
+      let zone = Zone.current;
+      while (zone.parent) {
+        zone = zone.parent;
+      }
+      return zone;
+    }
 
     static get current(): AmbientZone {
       return _currentZoneFrame.zone;
@@ -627,7 +701,7 @@ const Zone: ZoneType = (function(global: any) {
 
     public run(callback: Function, applyThis?: any, applyArgs?: any[], source?: string): any;
     public run<T>(
-        callback: (...args: any[]) => T, applyThis: any = null, applyArgs: any[] = null,
+        callback: (...args: any[]) => T, applyThis: any = undefined, applyArgs: any[] = null,
         source: string = null): T {
       _currentZoneFrame = new ZoneFrame(_currentZoneFrame, this);
       try {
@@ -657,16 +731,18 @@ const Zone: ZoneType = (function(global: any) {
 
 
     runTask(task: Task, applyThis?: any, applyArgs?: any): any {
-      task.runCount++;
       if (task.zone != this)
         throw new Error(
-            'A task can only be run in the zone which created it! (Creation: ' + task.zone.name +
-            '; Execution: ' + this.name + ')');
+            'A task can only be run in the zone of creation! (Creation: ' +
+            (task.zone || NO_ZONE).name + '; Execution: ' + this.name + ')');
+      const reEntryGuard = task.state != running;
+      reEntryGuard && (task as ZoneTask)._transitionTo(running, scheduled);
+      task.runCount++;
       const previousTask = _currentTask;
       _currentTask = task;
       _currentZoneFrame = new ZoneFrame(_currentZoneFrame, this);
       try {
-        if (task.type == 'macroTask' && task.data && !task.data.isPeriodic) {
+        if (task.type == macroTask && task.data && !task.data.isPeriodic) {
           task.cancelFn = null;
         }
         try {
@@ -677,41 +753,85 @@ const Zone: ZoneType = (function(global: any) {
           }
         }
       } finally {
+        if (task.type == eventTask || (task.data && task.data.isPeriodic)) {
+          reEntryGuard && (task as ZoneTask)._transitionTo(scheduled, running, notScheduled);
+        } else {
+          task.runCount = 0;
+          this._updateTaskCount(task as ZoneTask, -1);
+          reEntryGuard && (task as ZoneTask)._transitionTo(notScheduled, running, notScheduled);
+        }
         _currentZoneFrame = _currentZoneFrame.parent;
         _currentTask = previousTask;
       }
     }
 
+    scheduleTask<T extends Task>(task: T): T {
+      (task as any as ZoneTask)._transitionTo(scheduling, notScheduled);
+      const zoneDelegates: ZoneDelegate[] = [];
+      (task as any as ZoneTask)._zoneDelegates = zoneDelegates;
+      task.zone = this;
+      task = this._zoneDelegate.scheduleTask(this, task) as T;
+      if ((task as any as ZoneTask)._zoneDelegates === zoneDelegates) {
+        // we have to check because internally the delegate can reschedule the task.
+        this._updateTaskCount(task as any as ZoneTask, 1);
+      }
+      if ((task as any as ZoneTask).state == scheduling) {
+        (task as any as ZoneTask)._transitionTo(scheduled, scheduling);
+      }
+      return task;
+    }
 
     scheduleMicroTask(
         source: string, callback: Function, data?: TaskData,
         customSchedule?: (task: Task) => void): MicroTask {
-      return <MicroTask>this._zoneDelegate.scheduleTask(
-          this, new ZoneTask('microTask', this, source, callback, data, customSchedule, null));
+      return this.scheduleTask(
+          new ZoneTask(microTask, source, callback, data, customSchedule, null));
     }
 
     scheduleMacroTask(
         source: string, callback: Function, data: TaskData, customSchedule: (task: Task) => void,
         customCancel: (task: Task) => void): MacroTask {
-      return <MacroTask>this._zoneDelegate.scheduleTask(
-          this,
-          new ZoneTask('macroTask', this, source, callback, data, customSchedule, customCancel));
+      return this.scheduleTask(
+          new ZoneTask(macroTask, source, callback, data, customSchedule, customCancel));
     }
 
     scheduleEventTask(
         source: string, callback: Function, data: TaskData, customSchedule: (task: Task) => void,
         customCancel: (task: Task) => void): EventTask {
-      return <EventTask>this._zoneDelegate.scheduleTask(
-          this,
-          new ZoneTask('eventTask', this, source, callback, data, customSchedule, customCancel));
+      return this.scheduleTask(
+          new ZoneTask(eventTask, source, callback, data, customSchedule, customCancel));
     }
 
     cancelTask(task: Task): any {
-      const value = this._zoneDelegate.cancelTask(this, task);
-      task.runCount = -1;
-      task.cancelFn = null;
-      return value;
+      (task as ZoneTask)._transitionTo(canceling, scheduled, running);
+      this._zoneDelegate.cancelTask(this, task);
+      this._updateTaskCount(task as ZoneTask, -1);
+      (task as ZoneTask)._transitionTo(notScheduled, canceling);
+      task.runCount = 0;
+      return task;
     }
+
+    private _updateTaskCount(task: ZoneTask, count: number) {
+      const zoneDelegates = task._zoneDelegates;
+      if (count == -1) {
+        task._zoneDelegates = null;
+      }
+      for (let i = 0; i < zoneDelegates.length; i++) {
+        zoneDelegates[i]._updateTaskCount(task.type, count);
+      }
+    }
+  }
+
+  const DELEGATE_ZS: ZoneSpec = {
+    name: '',
+    onHasTask: (delegate: ZoneDelegate, _: Zone, target: Zone, hasTaskState: HasTaskState): void =>
+                   delegate.hasTask(target, hasTaskState),
+    onScheduleTask: (delegate: ZoneDelegate, _: Zone, target: Zone, task: Task): Task =>
+                        delegate.scheduleTask(target, task),
+    onInvokeTask: (delegate: ZoneDelegate, _: Zone, target: Zone, task: Task, applyThis: any,
+                   applyArgs: any): any => delegate.invokeTask(target, task, applyThis, applyArgs),
+    onCancelTask: (delegate: ZoneDelegate, _: Zone, target: Zone, task: Task): any =>
+                      delegate.cancelTask(target, task)
   };
 
   class ZoneDelegate implements AmbientZoneDelegate {
@@ -752,6 +872,7 @@ const Zone: ZoneType = (function(global: any) {
     private _cancelTaskCurrZone: Zone;
 
     private _hasTaskDlgt: ZoneDelegate;
+    private _hasTaskDlgtOwner: ZoneDelegate;
     private _hasTaskZS: ZoneSpec;
     private _hasTaskCurrZone: Zone;
 
@@ -803,10 +924,36 @@ const Zone: ZoneType = (function(global: any) {
       this._cancelTaskCurrZone =
           zoneSpec && (zoneSpec.onCancelTask ? this.zone : parentDelegate.zone);
 
-      this._hasTaskZS = zoneSpec && (zoneSpec.onHasTask ? zoneSpec : parentDelegate._hasTaskZS);
-      this._hasTaskDlgt =
-          zoneSpec && (zoneSpec.onHasTask ? parentDelegate : parentDelegate._hasTaskDlgt);
-      this._hasTaskCurrZone = zoneSpec && (zoneSpec.onHasTask ? this.zone : parentDelegate.zone);
+      this._hasTaskZS = null;
+      this._hasTaskDlgt = null;
+      this._hasTaskDlgtOwner = null;
+      this._hasTaskCurrZone = null;
+
+      const zoneSpecHasTask = zoneSpec && zoneSpec.onHasTask;
+      const parentHasTask = parentDelegate && parentDelegate._hasTaskZS;
+      if (zoneSpecHasTask || parentHasTask) {
+        // If we need to report hasTask, than this ZS needs to do ref counting on tasks. In such
+        // a case all task related interceptors must go through this ZD. We can't short circuit it.
+        this._hasTaskZS = zoneSpecHasTask ? zoneSpec : DELEGATE_ZS;
+        this._hasTaskDlgt = parentDelegate;
+        this._hasTaskDlgtOwner = this;
+        this._hasTaskCurrZone = zone;
+        if (!zoneSpec.onScheduleTask) {
+          this._scheduleTaskZS = DELEGATE_ZS;
+          this._scheduleTaskDlgt = parentDelegate;
+          this._scheduleTaskCurrZone = this.zone;
+        }
+        if (!zoneSpec.onInvokeTask) {
+          this._invokeTaskZS = DELEGATE_ZS;
+          this._invokeTaskDlgt = parentDelegate;
+          this._invokeTaskCurrZone = this.zone;
+        }
+        if (!zoneSpec.onCancelTask) {
+          this._cancelTaskZS = DELEGATE_ZS;
+          this._cancelTaskDlgt = parentDelegate;
+          this._cancelTaskCurrZone = this.zone;
+        }
+      }
     }
 
     fork(targetZone: Zone, zoneSpec: ZoneSpec): AmbientZone {
@@ -838,38 +985,32 @@ const Zone: ZoneType = (function(global: any) {
     }
 
     scheduleTask(targetZone: Zone, task: Task): Task {
-      try {
-        if (this._scheduleTaskZS) {
-          return this._scheduleTaskZS.onScheduleTask(
-              this._scheduleTaskDlgt, this._scheduleTaskCurrZone, targetZone, task);
-        } else if (task.scheduleFn) {
+      let returnTask: ZoneTask = task as ZoneTask;
+      if (this._scheduleTaskZS) {
+        if (this._hasTaskZS) {
+          returnTask._zoneDelegates.push(this._hasTaskDlgtOwner);
+        }
+        returnTask = this._scheduleTaskZS.onScheduleTask(
+            this._scheduleTaskDlgt, this._scheduleTaskCurrZone, targetZone, task) as ZoneTask;
+        if (!returnTask) returnTask = task as ZoneTask;
+      } else {
+        if (task.scheduleFn) {
           task.scheduleFn(task);
-        } else if (task.type == 'microTask') {
+        } else if (task.type == microTask) {
           scheduleMicroTask(<MicroTask>task);
         } else {
           throw new Error('Task is missing scheduleFn.');
         }
-        return task;
-      } finally {
-        if (targetZone == this.zone) {
-          this._updateTaskCount(task.type, 1);
-        }
       }
+      return returnTask;
     }
 
     invokeTask(targetZone: Zone, task: Task, applyThis: any, applyArgs: any): any {
-      try {
-        return this._invokeTaskZS ?
-            this._invokeTaskZS.onInvokeTask(
-                this._invokeTaskDlgt, this._invokeTaskCurrZone, targetZone, task, applyThis,
-                applyArgs) :
-            task.callback.apply(applyThis, applyArgs);
-      } finally {
-        if (targetZone == this.zone && (task.type != 'eventTask') &&
-            !(task.data && task.data.isPeriodic)) {
-          this._updateTaskCount(task.type, -1);
-        }
-      }
+      return this._invokeTaskZS ?
+          this._invokeTaskZS.onInvokeTask(
+              this._invokeTaskDlgt, this._invokeTaskCurrZone, targetZone, task, applyThis,
+              applyArgs) :
+          task.callback.apply(applyThis, applyArgs);
     }
 
     cancelTask(targetZone: Zone, task: Task): any {
@@ -877,14 +1018,8 @@ const Zone: ZoneType = (function(global: any) {
       if (this._cancelTaskZS) {
         value = this._cancelTaskZS.onCancelTask(
             this._cancelTaskDlgt, this._cancelTaskCurrZone, targetZone, task);
-      } else if (!task.cancelFn) {
-        throw new Error('Task does not support cancellation, or is already canceled.');
       } else {
         value = task.cancelFn(task);
-      }
-      if (targetZone == this.zone) {
-        // this should not be in the finally block, because exceptions assume not canceled.
-        this._updateTaskCount(task.type, -1);
       }
       return value;
     }
@@ -894,7 +1029,7 @@ const Zone: ZoneType = (function(global: any) {
           this._hasTaskZS.onHasTask(this._hasTaskDlgt, this._hasTaskCurrZone, targetZone, isEmpty);
     }
 
-    private _updateTaskCount(type: TaskType, count: number) {
+    _updateTaskCount(type: TaskType, count: number) {
       const counts = this._taskCounts;
       const prev = counts[type];
       const next = counts[type] = prev + count;
@@ -908,13 +1043,8 @@ const Zone: ZoneType = (function(global: any) {
           eventTask: counts.eventTask > 0,
           change: type
         };
-        try {
-          this.hasTask(this.zone, isEmpty);
-        } finally {
-          if (this._parentDelegate) {
-            this._parentDelegate._updateTaskCount(type, count);
-          }
-        }
+        // TODO(misko): what should happen if it throws?
+        this.hasTask(this.zone, isEmpty);
       }
     }
   }
@@ -928,14 +1058,15 @@ const Zone: ZoneType = (function(global: any) {
     public data: TaskData;
     public scheduleFn: (task: Task) => void;
     public cancelFn: (task: Task) => void;
-    public zone: Zone;
+    public zone: Zone = null;
     public runCount: number = 0;
+    _zoneDelegates: ZoneDelegate[] = null;
+    _state: TaskState = 'notScheduled';
 
     constructor(
-        type: TaskType, zone: Zone, source: string, callback: Function, options: TaskData,
+        type: TaskType, source: string, callback: Function, options: TaskData,
         scheduleFn: (task: Task) => void, cancelFn: (task: Task) => void) {
       this.type = type;
-      this.zone = zone;
       this.source = source;
       this.data = options;
       this.scheduleFn = scheduleFn;
@@ -945,7 +1076,8 @@ const Zone: ZoneType = (function(global: any) {
       this.invoke = function() {
         _numberOfNestedTaskFrames++;
         try {
-          return zone.runTask(self, this, <any>arguments);
+          self.runCount++;
+          return self.zone.runTask(self, this, <any>arguments);
         } finally {
           if (_numberOfNestedTaskFrames == 1) {
             drainMicroTaskQueue();
@@ -953,6 +1085,31 @@ const Zone: ZoneType = (function(global: any) {
           _numberOfNestedTaskFrames--;
         }
       };
+    }
+
+    get state(): TaskState {
+      return this._state;
+    }
+
+    public cancelScheduleRequest() {
+      this._transitionTo(notScheduled, scheduling);
+    }
+
+    _transitionTo(toState: TaskState, fromState1: TaskState, fromState2?: TaskState) {
+      if (this._state === fromState1 || this._state === fromState2) {
+        this._state = toState;
+        if (toState == notScheduled) {
+          this._zoneDelegates = null;
+        }
+      } else {
+        debugger;
+        throw new Error(
+            `${this.type} '${this.source}': can not transition to '${toState
+                                        }', expecting state '${fromState1}'${fromState2 ?
+                ' or \'' + fromState2 + '\'' :
+                ''
+                }, was '${this._state}'.`);
+      }
     }
 
     public toString() {
@@ -968,6 +1125,7 @@ const Zone: ZoneType = (function(global: any) {
     public toJSON() {
       return {
         type: this.type,
+        state: this.state,
         source: this.source,
         data: this.data,
         zone: this.zone.name,
@@ -1050,8 +1208,8 @@ const Zone: ZoneType = (function(global: any) {
           const task = queue[i];
           try {
             task.zone.runTask(task, null, null);
-          } catch (e) {
-            consoleError(e);
+          } catch (error) {
+            consoleError(error);
           }
         }
       }
@@ -1062,15 +1220,14 @@ const Zone: ZoneType = (function(global: any) {
             uncaughtPromiseError.zone.runGuarded(() => {
               throw uncaughtPromiseError;
             });
-          } catch (e) {
-            consoleError(e);
+          } catch (error) {
+            consoleError(error);
           }
         }
       }
       _isDrainingMicrotaskQueue = false;
     }
   }
-
 
   function isThenable(value: any): boolean {
     return value && value.then;
@@ -1094,20 +1251,65 @@ const Zone: ZoneType = (function(global: any) {
 
   function makeResolver(promise: ZoneAwarePromise<any>, state: boolean): (value: any) => void {
     return (v) => {
-      resolvePromise(promise, state, v);
+      try {
+        resolvePromise(promise, state, v);
+      } catch (err) {
+        resolvePromise(promise, false, err);
+      }
       // Do not return value or you will break the Promise spec.
     };
   }
 
+  const once = function() {
+    let wasCalled = false;
+
+    return function wrapper(wrappedFunction) {
+      return function() {
+        if (wasCalled) {
+          return;
+        }
+        wasCalled = true;
+        wrappedFunction.apply(null, arguments);
+      };
+    };
+  };
+
+  // Promise Resolution
   function resolvePromise(
       promise: ZoneAwarePromise<any>, state: boolean, value: any): ZoneAwarePromise<any> {
+    const onceWrapper = once();
+    if (promise === value) {
+      throw new TypeError('Promise resolved with itself');
+    }
     if (promise[symbolState] === UNRESOLVED) {
-      if (value instanceof ZoneAwarePromise && value.hasOwnProperty(symbolState) &&
-          value.hasOwnProperty(symbolValue) && value[symbolState] !== UNRESOLVED) {
+      // should only get value.then once based on promise spec.
+      let then = null;
+      try {
+        if (typeof value === 'object' || typeof value === 'function') {
+          then = value && value.then;
+        }
+      } catch (err) {
+        onceWrapper(() => {
+          resolvePromise(promise, false, err);
+        })();
+        return promise;
+      }
+      // if (value instanceof ZoneAwarePromise) {
+      if (state !== REJECTED && value instanceof ZoneAwarePromise &&
+          value.hasOwnProperty(symbolState) && value.hasOwnProperty(symbolValue) &&
+          value[symbolState] !== UNRESOLVED) {
         clearRejectedNoCatch(<Promise<any>>value);
         resolvePromise(promise, value[symbolState], value[symbolValue]);
-      } else if (isThenable(value)) {
-        value.then(makeResolver(promise, state), makeResolver(promise, false));
+      } else if (state !== REJECTED && typeof then === 'function') {
+        try {
+          then.apply(value, [
+            onceWrapper(makeResolver(promise, state)), onceWrapper(makeResolver(promise, false))
+          ]);
+        } catch (err) {
+          onceWrapper(() => {
+            resolvePromise(promise, false, err);
+          })();
+        }
       } else {
         promise[symbolState] = state;
         const queue = promise[symbolValue];
@@ -1122,8 +1324,8 @@ const Zone: ZoneType = (function(global: any) {
             throw new Error(
                 'Uncaught (in promise): ' + value +
                 (value && value.stack ? '\n' + value.stack : ''));
-          } catch (e) {
-            const error: UncaughtPromiseError = e;
+          } catch (err) {
+            const error: UncaughtPromiseError = err;
             error.rejection = value;
             error.promise = promise;
             error.zone = Zone.current;
@@ -1150,16 +1352,16 @@ const Zone: ZoneType = (function(global: any) {
     }
   }
 
-
   function scheduleResolveOrReject<R, U>(
       promise: ZoneAwarePromise<any>, zone: AmbientZone, chainPromise: ZoneAwarePromise<any>,
       onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): void {
     clearRejectedNoCatch(promise);
-    const delegate =
-        promise[symbolState] ? onFulfilled || forwardResolution : onRejected || forwardRejection;
+    const delegate = promise[symbolState] ?
+        (typeof onFulfilled === 'function') ? onFulfilled : forwardResolution :
+        (typeof onRejected === 'function') ? onRejected : forwardRejection;
     zone.scheduleMicroTask(source, () => {
       try {
-        resolvePromise(chainPromise, true, zone.run(delegate, null, [promise[symbolValue]]));
+        resolvePromise(chainPromise, true, zone.run(delegate, undefined, [promise[symbolValue]]));
       } catch (error) {
         resolvePromise(chainPromise, false, error);
       }
@@ -1240,8 +1442,8 @@ const Zone: ZoneType = (function(global: any) {
       promise[symbolValue] = [];  // queue;
       try {
         executor && executor(makeResolver(promise, RESOLVED), makeResolver(promise, REJECTED));
-      } catch (e) {
-        resolvePromise(promise, false, e);
+      } catch (error) {
+        resolvePromise(promise, false, error);
       }
     }
 
@@ -1269,38 +1471,46 @@ const Zone: ZoneType = (function(global: any) {
   ZoneAwarePromise['race'] = ZoneAwarePromise.race;
   ZoneAwarePromise['all'] = ZoneAwarePromise.all;
 
-  const NativePromise = global[__symbol__('Promise')] = global['Promise'];
+  const NativePromise = global[symbolPromise] = global['Promise'];
   global['Promise'] = ZoneAwarePromise;
-  function patchThen(NativePromise) {
-    const NativePromiseProtototype = NativePromise.prototype;
-    const NativePromiseThen = NativePromiseProtototype[__symbol__('then')] =
-        NativePromiseProtototype.then;
-    NativePromiseProtototype.then = function(onResolve, onReject) {
-      const nativePromise = this;
-      return new ZoneAwarePromise((resolve, reject) => {
-               NativePromiseThen.call(nativePromise, resolve, reject);
-             })
-          .then(onResolve, onReject);
+
+  const symbolThenPatched = __symbol__('thenPatched');
+
+  function patchThen(Ctor) {
+    const proto = Ctor.prototype;
+    const originalThen = proto.then;
+    // Keep a reference to the original method.
+    proto[symbolThen] = originalThen;
+
+    Ctor.prototype.then = function(onResolve, onReject) {
+      const wrapped = new ZoneAwarePromise((resolve, reject) => {
+        originalThen.call(this, resolve, reject);
+      });
+      return wrapped.then(onResolve, onReject);
+    };
+    Ctor[symbolThenPatched] = true;
+  }
+
+  function zoneify(fn) {
+    return function() {
+      let resultPromise = fn.apply(this, arguments);
+      if (resultPromise instanceof ZoneAwarePromise) {
+        return resultPromise;
+      }
+      let Ctor = resultPromise.constructor;
+      if (!Ctor[symbolThenPatched]) {
+        patchThen(Ctor);
+      }
+      return resultPromise;
     };
   }
 
   if (NativePromise) {
     patchThen(NativePromise);
-    if (typeof global['fetch'] !== 'undefined') {
-      let fetchPromise: Promise<any>;
-      try {
-        // In MS Edge this throws
-        fetchPromise = global['fetch']();
-      } catch (e) {
-        // In Chrome this throws instead.
-        fetchPromise = global['fetch']('about:blank');
-      }
-      // ignore output to prevent error;
-      fetchPromise.then(() => null, () => null);
-      if (fetchPromise.constructor != NativePromise &&
-          fetchPromise.constructor != ZoneAwarePromise) {
-        patchThen(fetchPromise.constructor);
-      }
+
+    let fetch = global['fetch'];
+    if (typeof fetch == 'function') {
+      global['fetch'] = zoneify(fetch);
     }
   }
 
