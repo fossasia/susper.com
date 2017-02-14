@@ -14,6 +14,7 @@ import { AdvancedsearchComponent } from './advancedsearch/advancedsearch.compone
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {StoreModule} from '@ngrx/store';
 import {reducer} from './reducers/index';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
     IndexComponent,
     ResultsComponent,
     NotFoundComponent,
-    AdvancedsearchComponent
+    AdvancedsearchComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
