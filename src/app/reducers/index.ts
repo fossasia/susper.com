@@ -37,7 +37,7 @@ import { combineReducers } from '@ngrx/store';
  * notation packages up all of the exports into a single object.
  */
 import * as fromSearch from './search';
-
+import * as fromQuery from './query';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -45,6 +45,7 @@ import * as fromSearch from './search';
  */
 export interface State {
   search: fromSearch.State;
+  query: fromQuery.State;
 }
 
 
@@ -57,6 +58,7 @@ export interface State {
  */
 const reducers = {
   search: fromSearch.reducer,
+  query: fromQuery.reducer,
 
 };
 
@@ -71,7 +73,9 @@ export function reducer(state: any, action: any) {
   }
 }
 export const getSearchState = (state: State) => state.search;
+export const getQueryState = (state: State) => state.query;
 export const getSearchResults = createSelector(getSearchState, fromSearch.getsearchresults);
 export const getItems = createSelector(getSearchState, fromSearch.getItems);
 export const getTotalResults = createSelector(getSearchState, fromSearch.getTotalResults);
 export const getNavigation = createSelector(getSearchState, fromSearch.getNavigation);
+export const getquery = createSelector(getQueryState, fromQuery.getpresentquery);
