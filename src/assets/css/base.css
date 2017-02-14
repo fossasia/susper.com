@@ -1062,3 +1062,39 @@ div#tagcloud {
   border: 1px dashed black;
   z-index: 100;
  }
+
+#set-susper-default{
+  width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: absolute;
+  right: 10px;
+  bottom: 20px;
+}
+
+#set-susper-default h3{
+  margin-top: 0;
+  padding: 8px;
+  text-align: center;
+  background-color: #26547c;
+  color: white;
+}
+
+#set-susper-default ol{
+  font-size: 15px;
+}
+
+#set-susper-default button{
+  background-color: #26547c;
+  border: none;
+  color: white;
+  font-size: 15px;
+  padding: 3px;
+}
+
+#set-susper-default #cancel-installation{
+  width: 100%;
+}
+
+#set-susper-default #install-susper{
+  padding: 5px;
+}
