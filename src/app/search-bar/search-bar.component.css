@@ -1,0 +1,15 @@
+#nav-group{
+  left:10%;
+}
+#nav-input{
+  width: 550px;
+  height: 40px;
+  border-radius: 0px;
+}
+#nav-button{
+  border-left: none;
+  border-radius: 0px;
+  height: 40px;
+  background-color: white;
+  color: #0066ff;
+}

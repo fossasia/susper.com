@@ -7,6 +7,7 @@
     </div>
 
     <div class="navbar-collapse collapse">
+      <app-search-bar></app-search-bar>
       <form class="navbar-form navbar-left">
         <div class="input-group" id="nav-group">
           <input type="text" name="query" class="form-control" id="nav-input" placeholder="Search" (keyup.enter)="submit()" [(ngModel)]="searchdata.query">

@@ -15,3 +15,8 @@
     font-size: 22px;
     letter-spacing: 10px;
 }
+
+#search-bar{
+  position: absolute;
+  left: 300px;
+}

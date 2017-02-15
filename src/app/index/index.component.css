@@ -2,4 +2,7 @@
   margin-top: 10%;
 }
 
-
+#search-bar{
+  position: absolute;
+  left: 300px;
+}
