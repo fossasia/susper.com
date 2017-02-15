@@ -18,9 +18,8 @@ navbar-brand{
 }
 .menu-image{
 
-  width: 50px;
+  width: 60px;
   height: 50px;
-  padding: 5%;
 }
 .menu-drop-image{
   width: 25px;
@@ -29,10 +28,16 @@ navbar-brand{
 .header{
   display:inline-table;
   width: 60px;
-  padding: 1%;
-  text-align: justify;
+  padding: 4%;
+  padding-left: 8%;
+  padding-right: 8%;
+  text-align: center;
 }
 .header-text{
   font-size: small;
   width: inherit;
+  text-align: center;
+}
+.dropdown-menu{
+  width: 230px;
 }
