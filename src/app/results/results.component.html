@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container">
   <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-offset-1">
     </div>
     <div class="col-md-11">
       <div class="btn-group" id="search-options">
@@ -19,20 +19,20 @@
         </div>
       </div>
       <div class="collapse" id="search-tools">
-        <button class="btn btn-default" (click)="filterByContext()"> Context Ranking</button>
-        <button class="btn btn-default" (click)="filterByDate()"> Sort by Date</button>
-        <button class="btn btn-default" data-toggle="modal" data-target="#myModal" (click)="advancedsearch()"> Advanced Search</button>
+        <button class="btn btn-default" (click)="filterByContext()" type="submit"> Context Ranking</button>
+        <button class="btn btn-default" (click)="filterByDate()" type="submit"> Sort by Date</button>
+        <button class="btn btn-default" data-toggle="modal" data-target="#myModal" (click)="advancedsearch()" type="submit"> Advanced Search</button>
       </div>
       <hr>
-      <div class="container-fluid" id="progressBar">
+      <div class="container-fluid" id="progress-bar">
         {{message}}
       </div>
       <div class="text-result" *ngIf="Display('all')">
-        <div *ngFor='let item of items$|async' class='result'>
-          <div class='title'>
-            <a href='{{item.path}}'>{{item.title}}</a>
+        <div *ngFor="let item of items$|async" class="result">
+          <div class="title">
+            <a href="{{item.path}}">{{item.title}}</a>
           </div>
-          <div class='link'>
+          <div class="link">
             <p>{{item.link}}</p>
           </div>
           <div>
@@ -41,30 +41,31 @@
         </div>
       </div>
       <div class="image-result" *ngIf="Display('images')">
+<<<<<<< HEAD
+        <div *ngFor="let item of items$">
+          <img class="res-img" src="{{item.link}}">
+=======
         <div *ngFor='let item of items$|async'>
           <img class="resImg" src="{{item.link}}">
+>>>>>>> e5a3216189c77598cc4c75b523abc8f5977feb71
         </div>
       </div>
       <div class="video-result" *ngIf="Display('videos')">
-        <div *ngFor='let item of items' class="result">
-          <div class='title'>
-            <a href='{{item.path}}'>{{item.title}}</a>
+        <div *ngFor="let item of items" class="result">
+          <div class="title">
+            <a href="{{item.path}}">{{item.title}}</a>
           </div>
-          <div class='link'>
+          <div class="link">
             <p>{{item.link}}</p>
           </div>
         </div>
       </div>
-      <br/>
+      <br>
       <nav aria-label="Page navigation">
         <ul class="pagination">
           <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
-          <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link"
-                                                                             *ngIf="presentPage>=4 && num<=noOfPages"
-                                                                             [class.active_page]="getStyle(presentPage-3+num)"
-                                                                             (click)="getPresentPage(presentPage-3+num)"
-                                                                             href="#">{{presentPage-3+num}}</span>
-            <span class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="getStyle(num)"
+          <li class="page-item" *ngFor="let num of getNumber(maxPage)">
+          <span class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="getStyle(num)"
                   (click)="getPresentPage(num)" href="#">{{num+1}}</span></li>
           <li class="page-item"><span class="page-link" (click)="incPresentPage()">Next</span></li>
         </ul>
@@ -72,10 +73,9 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
   <app-advancedsearch></app-advancedsearch>
 </div>
-
 
 
