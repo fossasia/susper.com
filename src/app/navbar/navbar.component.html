@@ -8,16 +8,6 @@
 
     <div class="navbar-collapse collapse">
       <app-search-bar></app-search-bar>
-      <form class="navbar-form navbar-left">
-        <div class="input-group" id="nav-group">
-          <input type="text" name="query" class="form-control" id="nav-input" placeholder="Search" (keyup.enter)="submit()" [(ngModel)]="searchdata.query">
-          <div class="input-group-btn">
-            <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()">
-              <i class="glyphicon glyphicon-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
 
