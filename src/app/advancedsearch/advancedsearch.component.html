@@ -2,14 +2,15 @@
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <h4 class="modal-title" id="myModalLabel">Advanced Search</h4>
+      <h4 class="modal-title" id="my-modal-label">Advanced Search</h4>
     </div>
     <div class="modal-body">
       <div id="filtersearch" *ngFor="let nav of navigation$|async">
-        <ul class="nav nav-sidebar menugroup" >
-          <li style="cursor:pointer;cursor: hand;" data-toggle="collapse" [attr.data-target]="'#'+nav.facetname"><h3>{{nav.displayname}}</h3></li>
+        <ul class="nav nav-sidebar menugroup">
+          <li style="cursor:pointer;cursor: hand;" data-toggle="collapse" [attr.data-target]="'#'+nav.facetname">
+              <h3>{{nav.displayname}}</h3></li>
           <li style="display: block" *ngFor="let element of nav.elements">
-            <a (click)="changeurl(element.modifier)" class="MenuItemLink">
+            <a (click)="changeurl(element.modifier)" class="menu-item-link">
               <input type="checkbox">{{element.name}}  {{element.count}}
             </a>
           </li>

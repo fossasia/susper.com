@@ -11,10 +11,19 @@ before_script:
 - ng build
 script:
 - ng lint
+- >
+  docker run --volume=$(pwd)/.coala-cache:/root/.local/share/coala --volume=$(pwd):/app --workdir=/app coala/base:0.9 /bin/bash -c
+    "coala --apply-patches --no-orig;
+    coala --non-interactive"
+- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./scripts/coala_patch.sh; fi'
 after_success:
 - bash ./deploy.sh
 cache:
-directories: node_modules
+    bundler: true
+    directories: 
+    - node_modules
+    - .coala-cache    
+services: docker
 branches:
-only:
-- master
+   only:
+   - master
