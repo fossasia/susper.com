@@ -22,3 +22,17 @@ navbar-brand{
   height: 50px;
   padding: 5%;
 }
+.menu-drop-image{
+  width: 25px;
+  height: auto;
+}
+.header{
+  display:inline-table;
+  width: 60px;
+  padding: 1%;
+  text-align: justify;
+}
+.header-text{
+  font-size: small;
+  width: inherit;
+}
