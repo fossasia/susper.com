@@ -1,4 +1,44 @@
 
-img{
+#nav-group{
+  left:10%;
+}
+#nav-input{
+  width: 550px;
+  height: 40px;
+  border-radius: 0px;
+}
+#nav-button{
+  border-left: none;
+  border-radius: 0px;
+  height: 40px;
+  background-color: white;
+  color: #0066ff;
+}
+navbar-brand{
   width: 170%;
+}
+.menu-image{
+
+  width: 60px;
+  height: 50px;
+}
+.menu-drop-image{
+  width: 25px;
+  height: auto;
+}
+.header{
+  display:inline-table;
+  width: 60px;
+  padding: 4%;
+  padding-left: 8%;
+  padding-right: 8%;
+  text-align: center;
+}
+.header-text{
+  font-size: small;
+  width: inherit;
+  text-align: center;
+}
+.dropdown-menu{
+  width: 230px;
 }
