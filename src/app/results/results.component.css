@@ -18,7 +18,7 @@
   cursor: pointer;
 }
 
-#progressBar{
+#progress-bar{
   margin-top: 1%;
   font-size: small;
   color: #88aaaa;
@@ -52,7 +52,7 @@
   color: #50a1ff;
 }
 
-img.resImg{
+img.res-img{
   width: 250px;
   height: 300px;
   padding: 0.2%;
