@@ -9,21 +9,7 @@ bears = HTMLLintBear, BootLintBear
 files = **.html
 htmllint_ignore = indentation, optional_tag, concerns_separation, capitalization
 
-[yaml]
-bears = YAMLLintBear
-files = **.yml
-yamllint_config = .yamllint
-
 [css]
 bears = PHPCodeSnifferBear
 files = **.css
 
-[js]
-bears = JSHintBear
-files = **.js
-environment_jquery = True
-javascript_strictness = implied
-
-[md]
-bears = MarkdownBear
-files = **.md
