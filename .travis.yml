@@ -25,4 +25,4 @@ cache:
 services: docker
 branches:
    only:
-   - master
+   - angular
