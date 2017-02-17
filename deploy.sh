@@ -45,6 +45,7 @@ git checkout $SOURCE_BRANCH
 # Actual building and setup of current push or PR.
 npm install
 ng build
+mv 404.html dist/
 git checkout $TARGET_BRANCH
 mv dist/* .
 
