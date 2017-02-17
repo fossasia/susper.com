@@ -87381,14 +87381,7 @@ function storeFreeze(reducer) {
         if (action.payload) {
             deepFreeze(action.payload);
         }
-        var nextState;
-        try {
-            nextState = reducer(state, action);
-        }
-        catch (error) {
-            console.error('State mutation is prohibited inside of reducers.');
-            throw error;
-        }
+        var nextState = reducer(state, action);
         deepFreeze(nextState);
         return nextState;
     };

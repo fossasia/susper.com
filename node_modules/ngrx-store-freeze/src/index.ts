@@ -15,14 +15,7 @@ export function storeFreeze(reducer): ActionReducer<any> {
             deepFreeze(action.payload);
         }
 
-        let nextState;
-
-        try {
-            nextState = reducer(state, action);
-        } catch (error) {
-            console.error('State mutation is prohibited inside of reducers.');
-            throw error;
-        }
+        const nextState = reducer(state, action);
 
         deepFreeze(nextState);
 
