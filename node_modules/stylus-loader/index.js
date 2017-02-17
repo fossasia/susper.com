@@ -34,6 +34,7 @@ module.exports = function(source) {
   options.include = options.include || stylusOptions.include || [];
   options.set = options.set || stylusOptions.set || {};
   options.define = options.define || stylusOptions.define || {};
+  options.paths = options.paths || stylusOptions.paths;
 
   if (options.sourceMap != null) {
     options.sourcemap = options.sourceMap;
