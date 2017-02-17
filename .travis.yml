@@ -17,9 +17,9 @@ after_success:
 - bash ./deploy.sh
 cache:
     bundler: true
-    directories: 
+    directories:
     - node_modules
-    - .coala-cache    
+    - .coala-cache
 services: docker
 branches:
    only:

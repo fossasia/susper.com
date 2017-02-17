@@ -1,7 +1,9 @@
 <app-navbar></app-navbar>
 <div class="container">
+  <!-- Start ignoring BootLintBear -->
   <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-offset-1">
+  <!-- Stop ignoring BootLintBear -->
     </div>
     <div class="col-md-11">
       <div class="btn-group" id="search-options">
@@ -19,20 +21,20 @@
         </div>
       </div>
       <div class="collapse" id="search-tools">
-        <button class="btn btn-default" (click)="filterByContext()"> Context Ranking</button>
-        <button class="btn btn-default" (click)="filterByDate()"> Sort by Date</button>
-        <button class="btn btn-default" data-toggle="modal" data-target="#myModal" (click)="advancedsearch()"> Advanced Search</button>
+        <button class="btn btn-default" (click)="filterByContext()" type="button"> Context Ranking</button>
+        <button class="btn btn-default" (click)="filterByDate()" type="button"> Sort by Date</button>
+        <button class="btn btn-default" data-toggle="modal" data-target="#myModal" (click)="advancedsearch()" type="button"> Advanced Search</button>
       </div>
       <hr>
-      <div class="container-fluid" id="progressBar">
+      <div class="container-fluid" id="progress-bar">
         {{message}}
       </div>
       <div class="text-result" *ngIf="Display('all')">
-        <div *ngFor='let item of items$|async' class='result'>
-          <div class='title'>
-            <a href='{{item.path}}'>{{item.title}}</a>
+        <div *ngFor="let item of items$|async" class="result">
+          <div class="title">
+            <a href="{{item.path}}">{{item.title}}</a>
           </div>
-          <div class='link'>
+          <div class="link">
             <p>{{item.link}}</p>
           </div>
           <div>
@@ -41,21 +43,21 @@
         </div>
       </div>
       <div class="image-result" *ngIf="Display('images')">
-        <div *ngFor='let item of items$|async'>
-          <img class="resImg" src="{{item.link}}">
+        <div *ngFor="let item of items$|async">
+          <img class="res-img" src="{{item.link}}">
         </div>
       </div>
       <div class="video-result" *ngIf="Display('videos')">
-        <div *ngFor='let item of items' class="result">
-          <div class='title'>
-            <a href='{{item.path}}'>{{item.title}}</a>
+        <div *ngFor="let item of items" class="result">
+          <div class="title">
+            <a href="{{item.path}}">{{item.title}}</a>
           </div>
-          <div class='link'>
+          <div class="link">
             <p>{{item.link}}</p>
           </div>
         </div>
       </div>
-      <br/>
+      <br>
       <nav aria-label="Page navigation">
         <ul class="pagination">
           <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
@@ -72,7 +74,7 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
   <app-advancedsearch></app-advancedsearch>
 </div>
