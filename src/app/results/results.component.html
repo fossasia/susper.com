@@ -30,7 +30,7 @@
       <div class="text-result" *ngIf="Display('all')">
         <div *ngFor='let item of items$|async' class='result'>
           <div class='title'>
-            <a href='{{item.path}}'>{{item.title}}</a>
+            <a href='{{item.link}}'>{{item.title}}</a>
           </div>
           <div class='link'>
             <p>{{item.link}}</p>
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="image-result" *ngIf="Display('images')">
-        <div *ngFor='let item of items$'>
+        <div *ngFor='let item of items$|async'>
           <img class="resImg" src="{{item.link}}">
         </div>
       </div>

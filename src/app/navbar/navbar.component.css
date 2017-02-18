@@ -12,7 +12,7 @@
   border-radius: 0px;
   height: 40px;
   background-color: white;
-  color: #0066ff;
+  color: #5C5254;
 }
 navbar-brand{
   width: 170%;
@@ -41,4 +41,16 @@ navbar-brand{
 }
 .dropdown-menu{
   width: 230px;
+}
+
+#tutorial-icon {
+    padding-left: 15px;
+}
+
+#github-icon {
+    padding-left: 5px;
+}
+
+#bug-icon {
+    padding-left: 10px;
 }

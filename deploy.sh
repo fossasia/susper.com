@@ -46,6 +46,8 @@ git checkout $SOURCE_BRANCH
 npm install
 ng build
 mv susper.xml dist/
+mv 404.html dist/
+
 git checkout $TARGET_BRANCH
 mv dist/* .
 
