@@ -1,8 +1,8 @@
 /* base.css - Layout and general style */
 /*
-	$LastChangedDate$
-	$LastChangedRevision$
-	$LastChangedBy$
+    $LastChangedDate$
+    $LastChangedRevision$
+    $LastChangedBy$
 */
 
 /*
@@ -295,17 +295,17 @@ div.TagList {
 }
 
 div.ProgressBarCaption {
-	float:left;
+    float:left;
 }
 div.ProgressBar {
-	float:left;
-	width:100px;
-	height:10px;
+    float:left;
+    width:100px;
+    height:10px;
 }
 div.ProgressBarFill {
-	margin:0px;
-	padding:0px;
-	height:100%; /*not valid value for Netscape 8*/
+    margin:0px;
+    padding:0px;
+    height:100%; /*not valid value for Netscape 8*/
 }
 
 #results {
@@ -313,35 +313,35 @@ clear:both;
 }
 
 #resCounter {
-	/* left part of the progress bar */
-	float:left;
+    /* left part of the progress bar */
+    float:left;
 }
 
 #resProgBar {
-	height: 1.5em;
-	/* margin: 1em auto; */
-	position: relative; /* for "relative" absolute pos of children */
-	text-align: left;
-	width: 100%;
-	float: none;
+    height: 1.5em;
+    /* margin: 1em auto; */
+    position: relative; /* for "relative" absolute pos of children */
+    text-align: left;
+    width: 100%;
+    float: none;
 }
 
 #resNav {
-	/* right part of the progress bar */
-	float:left;
+    /* right part of the progress bar */
+    float:left;
 }
 
 #resProgFill {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	z-index: -10;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -10;
 }
 
 div.bookmarkList {
-	margin-top:3em;
-	margin-right:1em;
-	padding-right:13em;
+    margin-top:3em;
+    margin-right:1em;
+    padding-right:13em;
 }
 
 div.bookmark {
@@ -437,7 +437,7 @@ form.search.small div.yacylogo { /* The logo in yacysearch.html */
 }
 
 div.yacylogo {
-	float:left;
+    float:left;
 }
 
 /*----------
@@ -486,8 +486,8 @@ form.search.small h2 {
 }
 
 li.menugroup h3 {
-	font-size: 1em; font-weight: bold;
-	margin: 0; padding: 1px 10px;
+    font-size: 1em; font-weight: bold;
+    margin: 0; padding: 1px 10px;
 }
 
 div.SubMenugroup h3 {
@@ -553,7 +553,7 @@ a:hover.MenuItemLink {
 }
 
 li.menugroup a {
-	white-space:normal;
+    white-space:normal;
 }
 
 div.urlactions a {
@@ -612,7 +612,7 @@ ul.SubMenu em {
   font-size:0.9em;
 }
 
-/*	<ul>, <li>	*/
+/*  <ul>, <li>  */
 
 ul.tagList {
   list-style:none;
@@ -672,38 +672,38 @@ form dt, dl.pairs dt {
 }
 
 dt.hintIcon {
-	float:left;
+    float:left;
     clear:both;
 }
 
 dd.hint {
-	padding-top: 10px;
-	padding-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 dl.bplike
 {
-	float: left;
-	margin: 0 0;
-	width: 194px;
-	padding: 0;
+    float: left;
+    margin: 0 0;
+    width: 194px;
+    padding: 0;
 }
 
 .bplike dt
 {
-	clear: left;
-	float: left;
-	width: 20px;
-	margin: 0;
-	padding: 0px;
+    clear: left;
+    float: left;
+    width: 20px;
+    margin: 0;
+    padding: 0px;
 }
 
 .bplike dd
 {
-	float: left;
-	width: 155px;
-	margin: 0px;
-	padding: 0px;
+    float: left;
+    width: 155px;
+    margin: 0px;
+    padding: 0px;
 }
 
 /*----------
@@ -732,8 +732,8 @@ table.networkTable{
   font-size:90%;
 }
 table.StatusTable {
-	border-width:0px;
-	border-spacing:1px;
+    border-width:0px;
+    border-spacing:1px;
 }
 
 form.search table {
@@ -756,16 +756,16 @@ fieldset.yacysearch {
 }
 
 form.PeerControl fieldset { /* on Status.html */
-	text-align:right;
+    text-align:right;
 }
 
 form.search fieldset {
-	display:inline;
-	white-space:nowrap;
+    display:inline;
+    white-space:nowrap;
 }
 
 form.search.small fieldset {
-	margin:0px;
+    margin:0px;
 }
 
 form.search.small fieldset * {
@@ -866,7 +866,7 @@ body#QuickCrawlLink p, body#QuickCrawlLink h4 {
 }
 
 body#Wiki form fieldset p.help{
-	clear:both;
+    clear:both;
 }
 /* Crawler_p.html */
 body#watchCrawler table.watchCrawler {float:left; margin: 0px 5px 5px 0px;}
@@ -904,39 +904,39 @@ ul#menu a.MenuItemLink {
 }
 /* Bookmark Folder---------------------------*/
 ul.folder {
-	list-style-type: none;
-	margin-left: -3em;
-	white-space:nowrap;
-	overflow:hidden;
+    list-style-type: none;
+    margin-left: -3em;
+    white-space:nowrap;
+    overflow:hidden;
 }
 ul.folder > li a {
-	list-style-type: none;
-	padding-left: 20px;
- 	background: url(/env/grafics/doc2.gif) no-repeat;
+    list-style-type: none;
+    padding-left: 20px;
+    background: url(/env/grafics/doc2.gif) no-repeat;
 }
 ul.folder li.treeMenu_opened a {
-	list-style-type: none;
-	padding-left: 20px;
- 	background: url(/env/grafics/doc2.gif) no-repeat;
+    list-style-type: none;
+    padding-left: 20px;
+    background: url(/env/grafics/doc2.gif) no-repeat;
 }
 ul.folder li.treeMenu_closed {
-	list-style-type: none;
-	padding-left: 20px;
- 	background: url(/env/grafics/closed.gif) no-repeat;
+    list-style-type: none;
+    padding-left: 20px;
+    background: url(/env/grafics/closed.gif) no-repeat;
 }
 ul.folder li.treeMenu_opened {
-	list-style-type: none;
-	padding-left: 20px;
- 	background: url(/env/grafics/opened.gif) no-repeat;
+    list-style-type: none;
+    padding-left: 20px;
+    background: url(/env/grafics/opened.gif) no-repeat;
 }
 /*
 ul.folder li.treeMenu_opened ul {
- 	list-style-type: none;
- 	margin-left: -2em;
+    list-style-type: none;
+    margin-left: -2em;
 }
 */
 ul.folder li.treeMenu_closed ul {
- 	display: none;
+    display: none;
 }
 
 div#kiosk {
@@ -1041,7 +1041,7 @@ div#info:hover span {
  }
 
 div#tagcloud {
-	line-height:16px;
+    line-height:16px;
     margin: 10px 0;
 }
 
