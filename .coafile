@@ -1,0 +1,15 @@
+[default]
+bears = SpaceConsistencyBear, LineLengthBear
+files = **.html, **.yml, **.css, **.js, **.md
+max_line_length = 1000
+use_spaces = True
+
+[html]
+bears = HTMLLintBear, BootLintBear
+files = **.html
+htmllint_ignore = indentation, optional_tag, concerns_separation, capitalization
+
+[css]
+bears = PHPCodeSnifferBear
+files = **.css
+

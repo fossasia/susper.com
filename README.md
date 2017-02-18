@@ -53,7 +53,7 @@ First we will need to install angular-cli by using the following command:
 $ npm install -g angular-cli
 ```
 After installing anular-cli we need to install our required node modules, so we will do that by using the following command:
-```sh 
+```sh
 $ npm install
 ```
 ## How to deploy?
@@ -83,15 +83,15 @@ Before making a pull request, please file an issue. So, other developers have th
 
 We have the following branches
  * **development**
-	 All development goes on in this branch. If you're making a contribution,
-	 you are supposed to make a pull request to _development_.
-	 PRs must pass a build check and unit-tests check on Travis
+     All development goes on in this branch. If you're making a contribution,
+     you are supposed to make a pull request to _development_.
+     PRs must pass a build check and unit-tests check on Travis
  * **gh-pages**
    This contains shipped code. After significant features/bugfixes are accumulated on development, we make a version update, and make a release.
- * **angular** 
+ * **angular**
  This contains the code that is related to angular2 version of susper, where all the development of converting susper to angular2 framework is being done.If you're making a contribution related to angular issues,
-	you are supposed to make a pull request to _angular_.
-	PRs must pass a build check and unit-tests check on Travis
+    you are supposed to make a pull request to _angular_.
+    PRs must pass a build check and unit-tests check on Travis
 
 
 ## LICENSE

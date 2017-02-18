@@ -11,10 +11,16 @@ before_script:
 - ng build
 script:
 - ng lint
+- >
+  docker run -ti -v $(pwd):/app --workdir=/app coala/base coala --version
 after_success:
 - bash ./deploy.sh
 cache:
-directories: node_modules
+    bundler: true
+    directories:
+    - node_modules
+    - .coala-cache
+services: docker
 branches:
-only:
-- master
+   only:
+   - angular
