@@ -1101,7 +1101,7 @@ module.exports = "<app-navbar></app-navbar>\n<div class=\"container\">\n  <!-- S
 /***/ 710:
 /***/ function(module, exports) {
 
-module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n    <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" placeholder=\"Search\" (keyup)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\">\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n</form>\n</nav>\n"
+module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n    <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" placeholder=\"Search\" (keyup)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\">\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n</form>\n"
 
 /***/ },
 
