@@ -1073,7 +1073,7 @@ module.exports = "<router-outlet></router-outlet>\n"
 /***/ 706:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"starter-template\">\n\n    <h2 class=\"yacy\">\n        <a href=\"/\" class=\"susperlogo\" id=\"homepage\">\n            <img src=\"assets/images/susper.svg\" alt=\"YaCy\" id=\"biglogo\" style=\"margin: auto;\"></a></h2>\n    <h2 class=\"yacy\" id=\"greeting\"></h2>\n    <div id=\"search-bar\">\n      <app-search-bar></app-search-bar>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"starter-template\">\n\n    <h2 class=\"yacy\">\n        <img src=\"assets/images/susper.svg\" alt=\"YaCy\" id=\"biglogo\" style=\"margin: auto;\"></h2>\n    <h2 class=\"yacy\" id=\"greeting\"></h2>\n    <div id=\"search-bar\">\n      <app-search-bar></app-search-bar>\n    </div>\n  </div>\n</div>\n"
 
 /***/ },
 

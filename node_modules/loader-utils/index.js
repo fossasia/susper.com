@@ -1,10 +1,15 @@
 var JSON5 = require("json5");
 var path = require("path");
+var util = require("util");
+var os = require("os");
 var assign = require("object-assign");
 var emojiRegex = /[\uD800-\uDFFF]./;
 var emojiList = require("emojis-list").filter(function(emoji) {
 	return emojiRegex.test(emoji)
 });
+var matchAbsolutePath = /^\/|^[A-Z]:[/\\]|^\\\\/i; // node 0.10 does not support path.isAbsolute()
+var matchAbsoluteWin32Path = /^[A-Z]:[/\\]|^\\\\/i;
+var matchRelativePath = /^\.\.?[/\\]/;
 
 var baseEncodeTables = {
 	26: "abcdefghijklmnopqrstuvwxyz",
@@ -17,6 +22,11 @@ var baseEncodeTables = {
 	64: "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_"
 };
 var emojiCache = {};
+var parseQueryDeprecationWarning = util.deprecate(function() {},
+	"loaderUtils.parseQuery() received a non-string value which can be problematic, " +
+	"see https://github.com/webpack/loader-utils/issues/56" + os.EOL +
+	"parseQuery() will be replaced with getOptions() in the next major version of loader-utils."
+);
 
 function encodeStringToEmoji(content, length) {
 	if (emojiCache[content]) return emojiCache[content];
@@ -64,8 +74,10 @@ exports.parseQuery = function parseQuery(query) {
 		'false': false
 	};
 	if(!query) return {};
-	if(typeof query !== "string")
+	if(typeof query !== "string") {
+		parseQueryDeprecationWarning();
 		return query;
+	}
 	if(query.substr(0, 1) !== "?")
 		throw new Error("a valid query string passed to parseQuery should begin with '?'");
 	query = query.substr(1);
@@ -121,15 +133,24 @@ exports.stringifyRequest = function(loaderContext, request) {
 	var splitted = request.split("!");
 	var context = loaderContext.context || (loaderContext.options && loaderContext.options.context);
 	return JSON.stringify(splitted.map(function(part) {
-		if(/^\/|^[A-Z]:/i.test(part) && context) {
-			part = path.relative(context, part);
-			if(/^[A-Z]:/i.test(part)) {
-				return part;
-			} else {
-				return "./" + part.replace(/\\/g, "/");
+		// First, separate singlePath from query, because the query might contain paths again
+		var splittedPart = part.match(/^(.*?)(\?.*)/);
+		var singlePath = splittedPart ? splittedPart[1] : part;
+		var query = splittedPart ? splittedPart[2] : "";
+		if(matchAbsolutePath.test(singlePath) && context) {
+			singlePath = path.relative(context, singlePath);
+			if(matchAbsolutePath.test(singlePath)) {
+				// If singlePath still matches an absolute path, singlePath was on a different drive than context.
+				// In this case, we leave the path platform-specific without replacing any separators.
+				// @see https://github.com/webpack/loader-utils/pull/14
+				return singlePath + query;
+			}
+			if(matchRelativePath.test(singlePath) === false) {
+				// Ensure that the relative path starts at least with ./ otherwise it would be a request into the modules directory (like node_modules).
+				singlePath = "./" + singlePath;
 			}
 		}
-		return part;
+		return singlePath.replace(/\\/g, "/") + query;
 	}).join("!"));
 };
 
@@ -166,7 +187,7 @@ exports.urlToRequest = function(url, root) {
 	var moduleRequestRegex = /^[^?]*~/;
 	var request;
 
-	if(/^[a-zA-Z]:\\|^\\\\/.test(url)) {
+	if(matchAbsoluteWin32Path.test(url)) {
 		// absolute windows path, keep it
 		request = url;
 	} else if(root !== undefined && root !== false && /^\//.test(url)) {
@@ -235,7 +256,12 @@ exports.getHashDigest = function getHashDigest(buffer, hashType, digestType, max
 };
 
 exports.interpolateName = function interpolateName(loaderContext, name, options) {
-	var filename = name || "[hash].[ext]";
+	var filename;
+	if (typeof name === "function") {
+		filename = name(loaderContext.resourcePath);
+	} else {
+		filename = name || "[hash].[ext]";
+	}
 	var context = options.context;
 	var content = options.content;
 	var regExp = options.regExp;
