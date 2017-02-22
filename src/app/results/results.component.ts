@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {SearchService} from '../search.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
@@ -89,9 +89,21 @@ export class ResultsComponent implements OnInit {
     return ((this.presentPage) === page);
   }
   constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
-              private store: Store<fromRoot.State>) {
+              private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
 
     this.activatedroute.queryParams.subscribe(query => {
+      if (query['fq']) {
+        if (query['fq'].includes('png')) {
+          this.resultDisplay = 'images';
+        } else if (query['fq'].includes('avi')) {
+          this.resultDisplay = 'videos';
+        }else {
+          this.resultDisplay = 'all';
+        }
+      }else {
+        this.resultDisplay = 'all';
+      }
+
       this.presentPage = query['start'] / this.searchdata.rows;
       this.searchdata.query = query['query'];
       this.querylook = Object.assign({}, query);
@@ -100,7 +112,7 @@ export class ResultsComponent implements OnInit {
       this.message = 'loading...';
       this.start = (this.presentPage) * this.searchdata.rows;
       this.begin = this.start + 1;
-      this.resultDisplay = 'all';
+
       searchservice.getsearchresults(query);
       this.items$ =  store.select(fromRoot.getItems);
       this.totalResults$ = store.select(fromRoot.getTotalResults);
