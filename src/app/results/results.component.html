@@ -59,8 +59,9 @@
         </div>
       </div>
       <br>
+      <div class="pagination-property">
       <nav aria-label="Page navigation">
-        <ul class="pagination">
+        <ul class="pagination" id="pag-bar">
           <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
           <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link"
                                                                              *ngIf="presentPage>=4 && num<=noOfPages"
@@ -72,6 +73,7 @@
           <li class="page-item"><span class="page-link" (click)="incPresentPage()">Next</span></li>
         </ul>
       </nav>
+    </div>
     </div>
   </div>
 </div>
