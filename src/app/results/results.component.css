@@ -55,9 +55,10 @@
 }
 
 img.res-img{
-  width: 250px;
-  height: 300px;
-  padding: 0.2%;
+  max-width: 350px;
+  max-height: 300px;
+  padding-top: 20px;
+  padding: 0.6%;
   float: left;
 }
 #search-options{
@@ -81,3 +82,10 @@ img.res-img{
     padding-top: 20px;
 }
 
+.pagination-property {
+    max-width: 300px;
+}
+
+.image-result {
+    padding-left: 80px;
+}
