@@ -1,5 +1,3 @@
-Proposal to add Decorators to ES7, along with a prototype for an ES7 Reflection API for Decorator Metadata
-
 # Metadata Reflection API
 
 * [Detailed proposal][Metadata-Spec]
@@ -177,4 +175,4 @@ function ParamTypes(...types) {
   * This is mitigated if the mutating decorator returns a class expression that extends from the target, or returns a proxy for the decorator. @rbuckton
 * Metadata for a method is attached to the class (or prototype) via the property key. It would not then be available if trying to read metadata on the function of the method (e.g. "tearing-off" the method from the class). @rbuckton
 
-[Metadata-Spec]: https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md
+[Metadata-Spec]: https://rbuckton.github.io/reflect-metadata

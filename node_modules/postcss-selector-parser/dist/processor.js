@@ -21,7 +21,7 @@ var Processor = function () {
     }
 
     Processor.prototype.process = function process(selectors) {
-        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
         var input = new _parser2.default({
             css: selectors,

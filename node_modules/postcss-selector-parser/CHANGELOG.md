@@ -1,3 +1,8 @@
+# 2.2.3
+
+* Resolves an issue where the parser would not reduce multiple spaces between an
+  ampersand and another simple selector in lossy mode (thanks to @adam-26).
+
 # 2.2.2
 
 * No longer hangs on an unescaped semicolon; instead the parser will throw

@@ -2,7 +2,7 @@
 
 exports.__esModule = true;
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -38,7 +38,7 @@ var cloneNode = function cloneNode(obj, parent) {
 
 var _class = function () {
     function _class() {
-        var opts = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
         _classCallCheck(this, _class);
 
@@ -47,10 +47,10 @@ var _class = function () {
         }
         var _opts$spaces = opts.spaces;
         _opts$spaces = _opts$spaces === undefined ? {} : _opts$spaces;
-        var _opts$spaces$before = _opts$spaces.before;
-        var before = _opts$spaces$before === undefined ? '' : _opts$spaces$before;
-        var _opts$spaces$after = _opts$spaces.after;
-        var after = _opts$spaces$after === undefined ? '' : _opts$spaces$after;
+        var _opts$spaces$before = _opts$spaces.before,
+            before = _opts$spaces$before === undefined ? '' : _opts$spaces$before,
+            _opts$spaces$after = _opts$spaces.after,
+            after = _opts$spaces$after === undefined ? '' : _opts$spaces$after;
 
         this.spaces = { before: before, after: after };
     }
@@ -82,7 +82,7 @@ var _class = function () {
     };
 
     _class.prototype.clone = function clone() {
-        var overrides = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+        var overrides = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
         var cloned = cloneNode(this);
         for (var name in overrides) {

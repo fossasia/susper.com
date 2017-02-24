@@ -621,4 +621,4 @@ Arguments:
 
 Options:
 
-* `loseless (boolean)`: false to normalize the selector whitespace, defaults to true
+* `lossless (boolean)`: false to normalize the selector whitespace, defaults to true

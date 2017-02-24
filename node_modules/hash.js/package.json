@@ -34,7 +34,8 @@
     "type": "range"
   },
   "_requiredBy": [
-    "/elliptic"
+    "/elliptic",
+    "/hmac-drbg"
   ],
   "_resolved": "https://registry.npmjs.org/hash.js/-/hash.js-1.0.3.tgz",
   "_shasum": "1332ff00156c0a0ffdd8236013d07b77a0451573",

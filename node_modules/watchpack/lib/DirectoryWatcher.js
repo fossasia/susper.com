@@ -44,8 +44,8 @@ function DirectoryWatcher(directoryPath, options) {
 	EventEmitter.call(this);
 	this.options = options;
 	this.path = directoryPath;
-	this.files = {};
-	this.directories = {};
+	this.files = Object.create(null);
+	this.directories = Object.create(null);
 	this.watcher = chokidar.watch(directoryPath, {
 		ignoreInitial: true,
 		persistent: true,
@@ -68,7 +68,7 @@ function DirectoryWatcher(directoryPath, options) {
 	this.nestedWatching = false;
 	this.initialScanRemoved = [];
 	this.doInitialScan();
-	this.watchers = {};
+	this.watchers = Object.create(null);
 	this.refs = 0;
 }
 module.exports = DirectoryWatcher;
@@ -103,7 +103,6 @@ DirectoryWatcher.prototype.setFileTime = function setFileTime(filePath, mtime, i
 			});
 		}
 	} else if(!initial && !mtime) {
-		delete this.files[filePath];
 		if(this.watchers[withoutCase(filePath)]) {
 			this.watchers[withoutCase(filePath)].forEach(function(w) {
 				w.emit("remove", type);
@@ -287,16 +286,19 @@ DirectoryWatcher.prototype.doInitialScan = function doInitialScan() {
 };
 
 DirectoryWatcher.prototype.getTimes = function() {
-	var obj = {};
+	var obj = Object.create(null);
 	var selfTime = 0;
 	Object.keys(this.files).forEach(function(file) {
 		var data = this.files[file];
+		var time;
 		if(data[1]) {
-			var time = Math.max(data[0], data[1] + FS_ACCURACY);
-			obj[file] = time;
-			if(time > selfTime)
-				selfTime = time;
+			time = Math.max(data[0], data[1] + FS_ACCURACY);
+		} else {
+			time = data[0];
 		}
+		obj[file] = time;
+		if(time > selfTime)
+			selfTime = time;
 	}, this);
 	if(this.nestedWatching) {
 		Object.keys(this.directories).forEach(function(dir) {

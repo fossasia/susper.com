@@ -16,7 +16,7 @@ function Watchpack(options) {
 	};
 	this.fileWatchers = [];
 	this.dirWatchers = [];
-	this.mtimes = {};
+	this.mtimes = Object.create(null);
 	this.paused = false;
 	this.aggregatedChanges = [];
 	this.aggregatedRemovals = [];
@@ -82,7 +82,7 @@ function addWatchersToArray(watchers, array) {
 Watchpack.prototype.getTimes = function() {
 	var directoryWatchers = [];
 	addWatchersToArray(this.fileWatchers.concat(this.dirWatchers), directoryWatchers);
-	var obj = {};
+	var obj = Object.create(null);
 	directoryWatchers.forEach(function(w) {
 		var times = w.getTimes();
 		Object.keys(times).forEach(function(file) {
