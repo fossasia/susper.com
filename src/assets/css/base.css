@@ -1065,13 +1065,15 @@ div#tagcloud {
 #set-susper-default{
   width: 250px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  position: absolute;
+  position: fixed;
   right: 10px;
   bottom: 20px;
+  background-clip: padding-box;
+  display:block;
 }
 
 #set-susper-default h3{
-  margin-top: 0;
+  margin: 0;
   padding: 8px;
   text-align: center;
   background-color: #26547c;
@@ -1080,6 +1082,10 @@ div#tagcloud {
 
 #set-susper-default ol{
   font-size: 15px;
+  background-color: white;
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 #set-susper-default button{

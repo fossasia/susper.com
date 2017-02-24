@@ -1,5 +1,6 @@
 .result{
-  padding: 10px;
+  padding-left: 100px;
+  padding-top: 30px;
 }
 .title >a{
   color:darkblue;
@@ -22,6 +23,7 @@
   margin-top: 1%;
   font-size: small;
   color: #88aaaa;
+  padding-left: 100px;
 }
 
 .dropdown-menu > li {
@@ -61,6 +63,7 @@ img.res-img{
 #search-options{
   margin-top: 1.75%;
   margin-bottom: 0%;
+  padding-left: 70px;
 }
 #search-options .btn{
   border: none;
@@ -71,5 +74,10 @@ img.res-img{
   border: none;
   background: none;
   font-size: small;
+}
+
+#pag-bar{
+    padding-left: 100px;
+    padding-top: 20px;
 }
 
