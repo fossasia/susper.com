@@ -22,7 +22,20 @@ describe('ResultsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create an instance', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have an app-navbar element', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('app-navbar')).toBeTruthy();
+  });
+
+  it('should have an app-advancedsearch element', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('app-advancedsearch')).toBeTruthy();
+  });
+
 });
