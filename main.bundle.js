@@ -757,12 +757,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var ResultsComponent = (function () {
-    function ResultsComponent(searchservice, route, activatedroute, store) {
+    function ResultsComponent(searchservice, route, activatedroute, store, ref) {
         var _this = this;
         this.searchservice = searchservice;
         this.route = route;
         this.activatedroute = activatedroute;
         this.store = store;
+        this.ref = ref;
         this.searchdata = {
             query: '',
             verify: false,
@@ -777,6 +778,20 @@ var ResultsComponent = (function () {
         };
         this.querylook = {};
         this.activatedroute.queryParams.subscribe(function (query) {
+            if (query['fq']) {
+                if (query['fq'].includes('png')) {
+                    _this.resultDisplay = 'images';
+                }
+                else if (query['fq'].includes('avi')) {
+                    _this.resultDisplay = 'videos';
+                }
+                else {
+                    _this.resultDisplay = 'all';
+                }
+            }
+            else {
+                _this.resultDisplay = 'all';
+            }
             _this.presentPage = query['start'] / _this.searchdata.rows;
             _this.searchdata.query = query['query'];
             _this.querylook = Object.assign({}, query);
@@ -785,7 +800,6 @@ var ResultsComponent = (function () {
             _this.message = 'loading...';
             _this.start = (_this.presentPage) * _this.searchdata.rows;
             _this.begin = _this.start + 1;
-            _this.resultDisplay = 'all';
             searchservice.getsearchresults(query);
             _this.items$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["a" /* getItems */]);
             _this.totalResults$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["b" /* getTotalResults */]);
@@ -859,10 +873,10 @@ var ResultsComponent = (function () {
             template: __webpack_require__(709),
             styles: [__webpack_require__(702)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__search_service__["a" /* SearchService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__search_service__["a" /* SearchService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["a" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["a" /* Store */]) === 'function' && _d) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__search_service__["a" /* SearchService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__search_service__["a" /* SearchService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["a" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["a" /* Store */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["i" /* ChangeDetectorRef */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["i" /* ChangeDetectorRef */]) === 'function' && _e) || Object])
     ], ResultsComponent);
     return ResultsComponent;
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e;
 }());
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/results.component.js.map
 
