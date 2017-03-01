@@ -1038,7 +1038,7 @@ module.exports = ""
 /***/ 699:
 /***/ function(module, exports) {
 
-module.exports = ".starter-template{\n  margin-top: 10%;\n}\n\n#search-bar{\n  position: absolute;\n}\n\n#set-susper-default{\n  display:none;\n}\n\n@media screen and (max-width: 480px) {\n  #set-susper-default h3{\n    font-size: 14px;\n  }\n  #set-susper-default ol{\n    font-size: 12px;\n  }\n  #install-susper{\n    font-size: 12px;\n  }\n  #cancel-installation{\n    font-size: 12px;\n  }\n}\n"
+module.exports = ".starter-template{\n  margin-top: 10%;\n}\n\n#search-bar{\n  position: absolute;\n}\n\n#set-susper-default{\n  display:none;\n}\n\n@media screen and (max-width: 480px) {\n  #set-susper-default h3{\n    font-size: 14px;\n  }\n  #set-susper-default ol{\n    font-size: 12px;\n  }\n  #install-susper{\n    font-size: 12px;\n  }\n  #cancel-installation{\n    font-size: 12px;\n  }\n}\n\n#set-susper-default{\n  display:none;\n}\n"
 
 /***/ },
 
