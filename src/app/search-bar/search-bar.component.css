@@ -1,15 +1,59 @@
-#nav-group{
-  left:10%;
-}
 #nav-input{
-  width: 550px;
+  width: 40vw;
   height: 40px;
   border-radius: 0px;
 }
+
 #nav-button{
   border-left: none;
   border-radius: 0px;
   height: 40px;
   background-color: white;
   color: #0066ff;
+}
+
+#nav-group{
+  left: 60%;
+}
+
+@media screen and (min-width: 1920px) {
+  #nav-group{
+    left: 65%;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  #nav-group{
+    left: 35%;
+  }
+  #nav-input{
+    width: 50vw;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #nav-group{
+    left: 4%;
+  }
+  #nav-input{
+    width: 80vw;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  #nav-group{
+    left: 2%;
+  }
+  #nav-input{
+    width: 80vw;
+  }
+}
+
+@media screen and (max-width: 359px) {
+  #nav-group{
+    left: 0%;
+  }
+  #nav-input{
+    width: 80vw;
+  }
 }
