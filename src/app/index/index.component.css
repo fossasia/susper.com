@@ -4,7 +4,25 @@
 
 #search-bar{
   position: absolute;
-  left: 300px;
+}
+
+#set-susper-default{
+  display:none;
+}
+
+@media screen and (max-width: 480px) {
+  #set-susper-default h3{
+    font-size: 14px;
+  }
+  #set-susper-default ol{
+    font-size: 12px;
+  }
+  #install-susper{
+    font-size: 12px;
+  }
+  #cancel-installation{
+    font-size: 12px;
+  }
 }
 
 #set-susper-default{
