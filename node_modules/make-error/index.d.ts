@@ -15,7 +15,7 @@ declare function makeError<T extends Error>(name: string | Function, super_: { n
 
 declare module makeError {
   /**
-   * Use with ES6 inheritance.
+   * Use with ES2015+ inheritance.
    */
   export class BaseError implements Error {
     message: string;

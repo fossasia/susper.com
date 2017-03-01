@@ -1,4 +1,4 @@
-var current = process.versions.node.split('.');
+var current = process.versions && process.versions.node && process.versions.node.split('.') || [];
 
 function versionIncluded(version) {
     if (version === '*') return true;

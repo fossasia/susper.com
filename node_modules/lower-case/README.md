@@ -24,7 +24,7 @@ lowerCase(null)           //=> ""
 lowerCase('STRING')       //=> "string"
 lowerCase('STRING', 'tr') //=> "strıng"
 
-upperCase({ toString: function () { return 'TEST' } }) //=> "test"
+lowerCase({ toString: function () { return 'TEST' } }) //=> "test"
 ```
 
 ## Typings

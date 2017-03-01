@@ -7,7 +7,7 @@ var loaderUtils = require("loader-utils"),
 module.exports = function() {};
 module.exports.pitch = function(remainingRequest) {
 	if(this.cacheable) this.cacheable();
-	var query = loaderUtils.parseQuery(this.query);
+	var query = loaderUtils.getOptions(this) || {};
 	return [
 		"var refs = 0;",
 		"var dispose;",

@@ -1038,7 +1038,7 @@ module.exports = ""
 /***/ 699:
 /***/ function(module, exports) {
 
-module.exports = ".starter-template{\n  margin-top: 10%;\n}\n\n#search-bar{\n  position: absolute;\n  left: 300px;\n}\n"
+module.exports = ".starter-template{\n  margin-top: 10%;\n}\n\n#search-bar{\n  position: absolute;\n}\n\n#set-susper-default{\n  display:none;\n}\n\n@media screen and (max-width: 480px) {\n  #set-susper-default h3{\n    font-size: 14px;\n  }\n  #set-susper-default ol{\n    font-size: 12px;\n  }\n  #install-susper{\n    font-size: 12px;\n  }\n  #cancel-installation{\n    font-size: 12px;\n  }\n}\n"
 
 /***/ },
 
@@ -1066,7 +1066,7 @@ module.exports = ".result{\n  padding-left: 100px;\n  padding-top: 30px;\n}\n.ti
 /***/ 703:
 /***/ function(module, exports) {
 
-module.exports = "#nav-group{\n  left:10%;\n}\n#nav-input{\n  width: 550px;\n  height: 40px;\n  border-radius: 0px;\n}\n#nav-button{\n  border-left: none;\n  border-radius: 0px;\n  height: 40px;\n  background-color: white;\n  color: #0066ff;\n}\n"
+module.exports = "#nav-input{\n  width: 40vw;\n  height: 40px;\n  border-radius: 0px;\n}\n\n#nav-button{\n  border-left: none;\n  border-radius: 0px;\n  height: 40px;\n  background-color: white;\n  color: #0066ff;\n}\n\n#nav-group{\n  left: 60%;\n}\n\n@media screen and (min-width: 1920px) {\n  #nav-group{\n    left: 65%;\n  }\n}\n\n@media screen and (max-width: 991px) {\n  #nav-group{\n    left: 35%;\n  }\n  #nav-input{\n    width: 50vw;\n  }\n}\n\n@media screen and (max-width: 767px) {\n  #nav-group{\n    left: 4%;\n  }\n  #nav-input{\n    width: 80vw;\n  }\n}\n\n@media screen and (max-width: 479px) {\n  #nav-group{\n    left: 2%;\n  }\n  #nav-input{\n    width: 80vw;\n  }\n}\n\n@media screen and (max-width: 359px) {\n  #nav-group{\n    left: 0%;\n  }\n  #nav-input{\n    width: 80vw;\n  }\n}\n"
 
 /***/ },
 
