@@ -56,4 +56,19 @@
   #nav-input{
     width: 80vw;
   }
+  .align-search-btn{
+    left: -9%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .align-search-btn{
+    left: -6%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .align-search-btn{
+    left: -5%;
+  }
 }
