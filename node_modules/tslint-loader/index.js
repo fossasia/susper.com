@@ -22,7 +22,7 @@ function resolveFile(configPath) {
 
 function resolveOptions(webpackInstance) {
   var tslintOptions = webpackInstance.options.tslint ? webpackInstance.options.tslint : {};
-  var query = loaderUtils.parseQuery(webpackInstance.query);
+  var query = loaderUtils.getOptions(webpackInstance);
 
   var options = objectAssign({}, tslintOptions, query);
 

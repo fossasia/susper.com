@@ -1,5 +1,9 @@
 # Changelog
 
+### 3.4.2
+
+Docs and tests upgrade to Webpack 2
+
 ### 3.4.1
 
 - Add explicit version check for Tslint

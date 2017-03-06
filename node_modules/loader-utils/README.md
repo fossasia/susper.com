@@ -2,57 +2,56 @@
 
 ## Methods
 
-### `getLoaderConfig`
+### `getOptions`
 
-Recommended way to retrieve the loader config:
+Recommended way to retrieve the options of a loader invocation:
 
 ```javascript
 // inside your loader
-config = loaderUtils.getLoaderConfig(this, "myLoader");
+const options = loaderUtils.getOptions(this);
 ```
 
-Tries to read the loader config from the `webpack.config.js` under the given property name (`"myLoader"` in this case) and merges the result with the loader query. For example, if your `webpack.config.js` had this property...
+1. If `this.query` is a string:
+	- Tries to parse the query string and returns a new object
+	- Throws if it's not a valid query string
+2. If `this.query` is object-like, it just returns `this.query`
+3. In any other case, it just returns `null`
+
+**Please note:** The returned `options` object is *read-only*. It may be re-used across multiple invocations.
+If you pass it on to another library, make sure to make a *deep copy* of it:
 
 ```javascript
-cheesecakeLoader: {
-	type: "delicious",
-	slices: 4
-}
+const options = Object.assign(
+	{},
+	loaderUtils.getOptions(this), // it is safe to pass null to Object.assign()
+	defaultOptions
+);
+// don't forget nested objects or arrays
+options.obj = Object.assign({}, options.obj); 
+options.arr = options.arr.slice();
+someLibrary(options);
 ```
 
-...and your loader was called with `?slices=8`, `getLoaderConfig(this, "cheesecakeLoader")` would return
+[clone-deep](https://www.npmjs.com/package/clone-deep) is a good library to make a deep copy of the options.
 
-```javascript
-{
-	type: "delicious",
-	slices: 8
-}
-```
+#### Options as query strings
 
-It is recommended that you use the camelCased loader name as your default config property name.
-
-### `parseQuery`
-
-``` javascript
-var query = loaderUtils.parseQuery(this.query);
-assert(typeof query == "object");
-if(query.flag)
-	// ...
-```
+If the loader options have been passed as loader query string (`loader?some&params`), the string is parsed like this:
 
 ``` text
-null                   -> {}
-?                      -> {}
-?flag                  -> { flag: true }
-?+flag                 -> { flag: true }
-?-flag                 -> { flag: false }
-?xyz=test              -> { xyz: "test" }
-?xyz[]=a               -> { xyz: ["a"] }
-?flag1&flag2           -> { flag1: true, flag2: true }
-?+flag1,-flag2         -> { flag1: true, flag2: false }
-?xyz[]=a,xyz[]=b       -> { xyz: ["a", "b"] }
-?a%2C%26b=c%2C%26d     -> { "a,&b": "c,&d" }
-?{json:5,data:{a:1}}   -> { json: 5, data: { a: 1 } }
+                             -> null
+?                            -> {}
+?flag                        -> { flag: true }
+?+flag                       -> { flag: true }
+?-flag                       -> { flag: false }
+?xyz=test                    -> { xyz: "test" }
+?xyz=1                       -> { xyz: "1" } // numbers are NOT parsed
+?xyz[]=a                     -> { xyz: ["a"] }
+?flag1&flag2                 -> { flag1: true, flag2: true }
+?+flag1,-flag2               -> { flag1: true, flag2: false }
+?xyz[]=a,xyz[]=b             -> { xyz: ["a", "b"] }
+?a%2C%26b=c%2C%26d           -> { "a,&b": "c,&d" }
+?{data:{a:1},isJSON5:true}   -> { data: { a: 1 }, isJSON5: true }
 ```
 
 ### `stringifyRequest`
