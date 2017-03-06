@@ -18,5 +18,35 @@
 
 #search-bar{
   position: absolute;
-  left: 300px;
+  left: 27%;
+}
+
+@media screen and (min-width: 1920px) {
+  #search-bar{
+    left: 28%;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  #search-bar{
+    left: 20%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #search-bar{
+    left: 6%;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  #search-bar{
+    left: 5%;
+  }
+}
+
+@media screen and (max-width: 359px) {
+  #search-bar{
+    left: 4%;
+  }
 }
