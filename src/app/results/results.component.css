@@ -1,5 +1,6 @@
 .result{
-  padding: 10px;
+  padding-left: 100px;
+  padding-top: 30px;
 }
 .title >a{
   color:darkblue;
@@ -22,6 +23,7 @@
   margin-top: 1%;
   font-size: small;
   color: #88aaaa;
+  padding-left: 100px;
 }
 
 .dropdown-menu > li {
@@ -53,14 +55,16 @@
 }
 
 img.res-img{
-  width: 250px;
-  height: 300px;
-  padding: 0.2%;
+  max-width: 350px;
+  max-height: 300px;
+  padding-top: 20px;
+  padding: 0.6%;
   float: left;
 }
 #search-options{
   margin-top: 1.75%;
   margin-bottom: 0%;
+  padding-left: 70px;
 }
 #search-options .btn{
   border: none;
@@ -73,3 +77,15 @@ img.res-img{
   font-size: small;
 }
 
+#pag-bar{
+    padding-left: 100px;
+    padding-top: 20px;
+}
+
+.pagination-property {
+    max-width: 300px;
+}
+
+.image-result {
+    padding-left: 80px;
+}

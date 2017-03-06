@@ -14,7 +14,7 @@
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="susper.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
 <!--<div id="set-susper-default">
@@ -32,8 +32,8 @@
     var isFirefox = typeof InstallTrigger !== 'undefined';
     if(isFirefox === false){
       $("#set-susper-default").remove();
+      $(".input-group-btn").addClass("align-search-btn");
     }
-    $("#set-susper-default").hide();
     if(window.external && window.external.IsSearchProviderInstalled){
       var isInstalled = window.external.IsSearchProviderInstalled("http://susper.com");
       if(!isInstalled){
@@ -58,15 +58,5 @@
   })();
 </script>
 <app-root></app-root>
-
-<div id="set-susper-default">
-  <h3>Set Susper as your default search engine on Mozilla!</h3>
-  <ol>
-    <li><button id="install-susper">Install susper</button></li>
-    <li>Mark the checkbox to set Susper as your default search engine</li>
-    <li>Start searching!</li>
-  </ol>
-  <button id="cancel-installation">Cancel</button>
-</div>
 </body>
 </html>

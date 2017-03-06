@@ -1,15 +1,40 @@
-#nav-group{
-  left:10%;
-}
 #nav-input{
-  width: 550px;
+  width: 40vw;
   height: 40px;
   border-radius: 0px;
 }
+
 #nav-button{
   border-left: none;
   border-radius: 0px;
   height: 40px;
   background-color: white;
   color: #0066ff;
+}
+
+@media screen and (max-width: 991px) {
+  #nav-input{
+    width: 50vw;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #nav-input{
+    width: 80vw;
+  }
+  .align-search-btn{
+    left: -9%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .align-search-btn{
+    left: -6%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .align-search-btn{
+    left: -5%;
+  }
 }

@@ -1,24 +1,4 @@
-
-#nav-group{
-  left:10%;
-}
-#nav-input{
-  width: 550px;
-  height: 40px;
-  border-radius: 0px;
-}
-#nav-button{
-  border-left: none;
-  border-radius: 0px;
-  height: 40px;
-  background-color: white;
-  color: #5C5254;
-}
-navbar-brand{
-  width: 170%;
-}
 .menu-image{
-
   width: 60px;
   height: 50px;
 }
@@ -40,7 +20,7 @@ navbar-brand{
   text-align: center;
 }
 .dropdown-menu{
-  width: 230px;
+  width: 400px;
 }
 
 #tutorial-icon {
