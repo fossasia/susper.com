@@ -1,5 +1,5 @@
 .result{
-  padding-left: 100px;
+  padding-left: 60px;
   padding-top: 30px;
 }
 .title >a{
@@ -23,7 +23,7 @@
   margin-top: 1%;
   font-size: small;
   color: #88aaaa;
-  padding-left: 100px;
+  padding-left: 60px;
 }
 
 .dropdown-menu > li {
@@ -64,12 +64,16 @@ img.res-img{
 #search-options{
   margin-top: 1.75%;
   margin-bottom: 0%;
-  padding-left: 70px;
+  padding-left: 50px;
+  margin-bottom: -8px;
 }
 #search-options .btn{
   border: none;
   background: none;
   font-size: small;
+}
+#search-tools{
+  padding-left: 60px;
 }
 #search-tools .btn{
   border: none;
@@ -78,7 +82,7 @@ img.res-img{
 }
 
 #pag-bar{
-    padding-left: 100px;
+    padding-left: 60px;
     padding-top: 20px;
 }
 
@@ -88,4 +92,45 @@ img.res-img{
 
 .image-result {
     padding-left: 80px;
+}
+
+@media screen and (max-width:767px){
+  .result{
+    padding-left: 50px;
+    padding-right: 30px;
+  }
+  #progress-bar{
+    padding-left: 50px;
+    margin-bottom: -10px;
+  }
+  #search-options{
+    padding-left: 40px;
+    margin-top: 75px;
+    margin-bottom: -13px;
+  }
+  #pag-bar{
+      padding-left: 50px;
+  }
+  #search-tools{
+    padding-left: 50px;
+  }
+}
+
+@media screen and (max-width:479px){
+  .result{
+    padding-left: 30px;
+    padding-right: 20px;
+  }
+  #progress-bar{
+    padding-left: 30px;
+  }
+  #search-options{
+    padding-left: 25px;
+  }
+  #pag-bar{
+      padding-left: 30px;
+  }
+  #search-tools{
+    padding-left: 30px;
+  }
 }

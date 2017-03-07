@@ -12,6 +12,14 @@
   color: #0066ff;
 }
 
+#nav-group{
+  top:3px;
+}
+
+.navbar-form{
+  border-color: transparent !important;
+}
+
 @media screen and (max-width: 991px) {
   #nav-input{
     width: 50vw;
