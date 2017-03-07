@@ -34,3 +34,18 @@
 #bug-icon {
     padding-left: 10px;
 }
+.search-header{
+  position: relative;
+  top:8px;
+}
+.navbar-logo{
+    height: 44px;
+    padding-left: 13px;
+    padding-right: 0px;
+    padding-top: 1px;
+    position: relative;
+    top: 12px;
+}
+.navbar-custom{
+  padding-bottom: 10px;
+}
