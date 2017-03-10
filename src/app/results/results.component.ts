@@ -36,7 +36,11 @@ export class ResultsComponent implements OnInit {
   };
   querylook = {};
   getNumber(N) {
-    return Array.apply(null, {length: N}).map(Number.call, Number);
+    var result =Array.apply(null, {length: N}).map(Number.call, Number);
+    if(result.length>10){
+      result=[0,1,2,3,4,5,6,7,8,9];
+    }
+    return result;
   };
   advancedsearch() {
 
