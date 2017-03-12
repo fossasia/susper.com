@@ -51,7 +51,8 @@
   background-color: #bdcdd4;
 }
 .active_view{
-  color: #50a1ff;
+  color: #4285f4 !important;
+  border-bottom: 3px solid #4285f4;
 }
 
 img.res-img{
@@ -61,20 +62,65 @@ img.res-img{
   padding: 0.6%;
   float: left;
 }
+<<<<<<< HEAD
 #search-options{
   margin-top: 1.75%;
   margin-bottom: 0%;
   padding-left: 70px;
+=======
+
+#search-options-field{
+  background-color: #f8f8f8;
+  padding-bottom: 6px;
+>>>>>>> 5ab8d8d... improvements in menu
 }
-#search-options .btn{
-  border: none;
-  background: none;
-  font-size: small;
+#search-options{
+  margin-top: 2.2%;
+  margin-left: 9%;
 }
+<<<<<<< HEAD
+=======
+#search-tools{
+  margin-left: 11.5%;
+}
+>>>>>>> 5ab8d8d... improvements in menu
 #search-tools .btn{
   border: none;
   background: none;
   font-size: small;
+}
+
+#search-options li {
+  display: inline;
+  cursor: pointer;
+  padding: 28px 20px 12px;
+  color: #777;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+#search-options li:hover {
+  color: #222;
+}
+
+#tools{
+  text-decoration: none;
+  color: #777;
+  margin-left: 23%;
+}
+
+#tools:hover {
+  color: #222;
+}
+
+.dropdown-menu {
+  min-width: 140px;
+}
+
+#tool-dropdown li{
+  text-align: left;
+  display: block;
+  padding: 4px 12px;
 }
 
 #pag-bar{
@@ -89,3 +135,112 @@ img.res-img{
 .image-result {
     padding-left: 80px;
 }
+<<<<<<< HEAD
+=======
+
+@media screen and (min-width:1920px){
+
+  #tools{
+    margin-left: 27%;
+  }
+}
+
+@media screen and (max-width:1365px){
+  #tools{
+    margin-left: 21.5%;
+  }
+}
+
+@media screen and (max-width:1279px){
+  #search-options{
+    margin-left: 11%;
+  }
+  #tools{
+    margin-left: 17%;
+  }
+}
+
+@media screen and (max-width:991px){
+  #tools{
+    margin-left: 26%;
+  }
+}
+
+@media screen and (max-width:979px){
+  #search-options{
+    margin-left: 12.5%;
+  }
+  #tools{
+    margin-left: 18%;
+  }
+}
+
+@media screen and (max-width:767px){
+  .result{
+    padding-left: 50px;
+    padding-right: 30px;
+  }
+  #progress-bar{
+    padding-left: 50px;
+    margin-bottom: -10px;
+  }
+  #search-options{
+    padding-left: 0px;
+    margin-top: 75px;
+    margin-left: 8%;
+  }
+  #pag-bar{
+      padding-left: 50px;
+  }
+  #search-tools{
+    padding-left: 50px;
+  }
+  #search-options li {
+    padding: 0px 8.3% 12px;
+  }
+  #tools{
+    margin-left: 0%;
+  }
+
+}
+
+@media screen and (max-width:639px){
+  #search-options li {
+    padding: 0px 7.5% 12px;
+  }
+}
+
+@media screen and (max-width:479px){
+  .result{
+    padding-left: 30px;
+    padding-right: 20px;
+  }
+  #progress-bar{
+    padding-left: 30px;
+  }
+  #pag-bar{
+      padding-left: 30px;
+  }
+  #search-tools{
+    padding-left: 30px;
+  }
+  #search-options{
+    margin-left: 5.5%;
+  }
+  #search-options li {
+    padding: 0px 7% 12px;
+  }
+}
+
+@media screen and (max-width:379px){
+  #search-options li {
+    padding: 0px 6.2% 12px;
+  }
+}
+
+@media screen and (max-width:320px){
+  #search-options li {
+    padding: 0px 5.6% 12px;
+  }
+}
+>>>>>>> 5ab8d8d... improvements in menu

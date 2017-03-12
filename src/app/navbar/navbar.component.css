@@ -23,6 +23,31 @@
   width: 400px;
 }
 
+<<<<<<< HEAD
+=======
+#navcontainer ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+@media screen and (min-width:1920px) {
+  .navbar-brand{
+      width: 170px;
+      height: auto;
+  }
+}
+
+@media screen and (min-width:768px) {
+  #navcontainer ul li {
+    display: inline;
+  }
+  #navcontainer, #side-menu {
+    margin-top: 8px;
+  }
+}
+
+>>>>>>> 5ab8d8d... improvements in menu
 #tutorial-icon {
     padding-left: 15px;
 }
