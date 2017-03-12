@@ -35,7 +35,6 @@ describe('SearchBarComponent', () => {
   it('should focus the input search element on initialization', () => {
     let compiled = fixture.debugElement.nativeElement;
     let inputElement: HTMLInputElement = compiled.querySelector('div.input-group input#nav-input');
-    
     expect(document.activeElement).toBe(inputElement);
   });
 
@@ -63,7 +62,6 @@ describe('SearchBarComponent', () => {
   it('should have searchdata having the control of input field', () => {
     let compiled = fixture.debugElement.nativeElement;
     let inputElement: HTMLInputElement = compiled.querySelector('div.input-group input#nav-input');
-    
     expect(component.searchData.value).toBeFalsy();
     expect(inputElement.value).toBeFalsy();
 
@@ -76,5 +74,4 @@ describe('SearchBarComponent', () => {
     fixture.detectChanges();
     expect(component.searchdata.value).toBe('a');
   });
-
 });

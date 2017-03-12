@@ -29,7 +29,6 @@ describe('IndexComponent', () => {
   it('should have logo with correct alt text property', () => {
     let compiled = fixture.debugElement.nativeElement;
     let image: HTMLImageElement = compiled.querySelector('div.yacy img');
-    
     expect(image).toBeTruthy();
     expect(image.alt).toBe('YaCy');
   });
@@ -40,4 +39,8 @@ describe('IndexComponent', () => {
     expect(compiled.querySelector('app-search-bar')).toBeTruthy();
   });
 
+  it('should have set-susper-default option', () => {
+    let compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('div #set-susper-default')).toBeTruthy();
+  });
 });

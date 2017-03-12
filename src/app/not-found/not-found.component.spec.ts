@@ -26,11 +26,9 @@ describe('NotFoundComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('it should have logo with correct alt text property'. () => {
+  it('it should have logo with correct alt text property', () => {
     let compiled = fixture.debugElement.nativeElement;
-
     let image: HTMLInputElement = compiled.querySelector('div.not-found-banner img');
-
     expect(image).toBeTruthy();
     expect(image.alt).toBe('susperlogo');
   });

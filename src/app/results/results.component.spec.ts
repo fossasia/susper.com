@@ -38,4 +38,31 @@ describe('ResultsComponent', () => {
     expect(compiled.querySelector('app-advancedsearch')).toBeTruthy();
   });
 
+  it('should display all the search results', () => {
+    let compiled = fixture.debugElement.nativeElement;
+    let textResult = compiled.querySelector('div.text-result');
+
+    expect(textResult).toBeTruthy();
+  });
+
+  it('should display all the image results', () => {
+    let compiled = fixture.debugElement.nativeElement;
+    let imageResult = compiled.querySelector('div.image-result');
+
+    expect(imageResult).toBeTruthy();
+  });
+
+  it('should display all the video results', () => {
+    let compiled = fixture.debugElement.nativeElement;
+    let videoResult = compiled.querySelector('div.video-result');
+
+    expect(videoResult).toBeTruthy();
+  });
+
+  it('should have pagination property', () => {
+    let compiled = fixture.debugElement.nativeElement;
+    let pagination = compiled.querySelector('div.pagination-property');
+
+    expect(pagination).toBeTruthy();
+  });
 });

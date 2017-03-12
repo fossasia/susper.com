@@ -32,4 +32,16 @@ describe('NavbarComponent', () => {
     expect(compiled.querySelector('app-search-bar')).toBeTruthy();
   });
 
+  it('should have a dropdown menu', () => {
+    let compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('div.dropdown')).toBeTruthy();
+  });
+
+  it('should have susper logo', () => {
+    let compiled = fixture.debugElement.nativeElement;
+    let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
+
+    expect(image).toBeTruthy();
+  });
+
 });
