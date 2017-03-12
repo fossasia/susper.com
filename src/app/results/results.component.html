@@ -1,30 +1,9 @@
 <app-navbar></app-navbar>
-    <div class="container">
+    <!-- <div class="container"> -->
         <!-- Start ignoring BootLintBear -->
         <div class="row">
-            <div class="col-md-offset-1">
+            <!-- <div class="col-md-offset-1"> -->
                 <!-- Stop ignoring BootLintBear -->
-<<<<<<< HEAD
-            </div>
-            <div class="col-md-11">
-                <div class="btn-group" id="search-options">
-                    <button type="button" class="btn btn-default" [class.active_view]="Display('all')" (click)="docClick()">
-                        All
-                    </button>
-                    <button type="button" class="btn btn-default" [class.active_view]="Display('images')" (click)="imageClick()">Images</button>
-                    <button type="button" class="btn btn-default" [class.active_view]="Display('videos')" (click)="videoClick()">Videos</button>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" id="tools" data-toggle="collapse" data-target="#search-tools">
-                            Tools <span class="caret"></span></button>
-                    </div>
-                </div>
-                <div class="collapse" id="search-tools">
-                    <button class="btn btn-default" (click)="filterByContext()" type="button"> Context Ranking</button>
-                    <button class="btn btn-default" (click)="filterByDate()" type="button"> Sort by Date</button>
-                    <button class="btn btn-default" data-toggle="modal" data-target="#myModal" (click)="advancedsearch()" type="button"> Advanced Search</button>
-                </div>
-                <hr>
-=======
             <!-- </div> -->
             <div class="container-fluid" id="search-options-field">
               <ul type="none" id="search-options">
@@ -49,7 +28,6 @@
               </div> -->
             </div>
             <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
->>>>>>> 5ab8d8d... improvements in menu
                 <div class="container-fluid" id="progress-bar">
                     {{message}}
                 </div>
@@ -99,10 +77,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <app-advancedsearch></app-advancedsearch>
     </div>
-
-
-

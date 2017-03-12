@@ -12,8 +12,6 @@
   color: #0066ff;
 }
 
-<<<<<<< HEAD
-=======
 #nav-group{
   top:3px;
 }
@@ -34,7 +32,6 @@
    }
 }
 
->>>>>>> 5ab8d8d... improvements in menu
 @media screen and (max-width: 991px) {
   #nav-input{
     width: 50vw;

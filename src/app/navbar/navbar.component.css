@@ -1,11 +1,18 @@
+.navbar-brand{
+    width: 140px;
+    height: auto;
+}
+
 .menu-image{
   width: 60px;
   height: 50px;
 }
+
 .menu-drop-image{
   width: 25px;
   height: auto;
 }
+
 .header{
   display:inline-table;
   width: 60px;
@@ -14,17 +21,17 @@
   padding-right: 8%;
   text-align: center;
 }
+
 .header-text{
   font-size: small;
   width: inherit;
   text-align: center;
 }
+
 .dropdown-menu{
   width: 400px;
 }
 
-<<<<<<< HEAD
-=======
 #navcontainer ul {
   margin: 0;
   padding: 0;
@@ -47,7 +54,6 @@
   }
 }
 
->>>>>>> 5ab8d8d... improvements in menu
 #tutorial-icon {
     padding-left: 15px;
 }
@@ -58,4 +64,50 @@
 
 #bug-icon {
     padding-left: 10px;
+}
+
+@media screen and (max-width:1079px) {
+  .navbar-brand{
+      margin-top: 2px;
+      width: 130px;
+  }
+}
+
+@media screen and (max-width:767px) {
+  .navbar-brand{
+      margin-left: 38%;
+      height: auto;
+  }
+  #navbar-search {
+    margin-left: 7%;
+    margin-right: 8%;
+  }
+  .align-navsearch-btn {
+    margin-right: 1% !important;
+  }
+}
+
+@media screen and (max-width:639px) {
+  .align-navsearch-btn {
+    margin-right: 2% !important;
+  }
+}
+
+@media screen and (max-width:479px) {
+  .navbar-brand{
+      margin-left: 33%;
+  }
+  #navbar-search {
+    margin-left: 5%;
+    margin-right: 9%;
+  }
+  .align-navsearch-btn {
+    margin-right: 3% !important;
+  }
+}
+
+@media screen and (max-width:359px) {
+  .navbar-brand{
+      margin-left: 30%;
+  }
 }

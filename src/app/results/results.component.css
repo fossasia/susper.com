@@ -1,5 +1,5 @@
 .result{
-  padding-left: 100px;
+  padding-left: 60px;
   padding-top: 30px;
 }
 .title >a{
@@ -23,7 +23,7 @@
   margin-top: 1%;
   font-size: small;
   color: #88aaaa;
-  padding-left: 100px;
+  padding-left: 60px;
 }
 
 .dropdown-menu > li {
@@ -62,28 +62,18 @@ img.res-img{
   padding: 0.6%;
   float: left;
 }
-<<<<<<< HEAD
-#search-options{
-  margin-top: 1.75%;
-  margin-bottom: 0%;
-  padding-left: 70px;
-=======
 
 #search-options-field{
   background-color: #f8f8f8;
   padding-bottom: 6px;
->>>>>>> 5ab8d8d... improvements in menu
 }
 #search-options{
   margin-top: 2.2%;
   margin-left: 9%;
 }
-<<<<<<< HEAD
-=======
 #search-tools{
   margin-left: 11.5%;
 }
->>>>>>> 5ab8d8d... improvements in menu
 #search-tools .btn{
   border: none;
   background: none;
@@ -124,7 +114,7 @@ img.res-img{
 }
 
 #pag-bar{
-    padding-left: 100px;
+    padding-left: 60px;
     padding-top: 20px;
 }
 
@@ -135,8 +125,6 @@ img.res-img{
 .image-result {
     padding-left: 80px;
 }
-<<<<<<< HEAD
-=======
 
 @media screen and (min-width:1920px){
 
@@ -243,4 +231,3 @@ img.res-img{
     padding: 0px 5.6% 12px;
   }
 }
->>>>>>> 5ab8d8d... improvements in menu
