@@ -12,6 +12,26 @@
   color: #0066ff;
 }
 
+#nav-group{
+  top:3px;
+}
+
+.navbar-form{
+  border-color: transparent !important;
+}
+
+@media screen and (min-width:1920px) {
+  #nav-group{
+    top:6px;
+  }
+}
+
+@media screen and (max-width: 979px) and (min-width: 768px) {
+  .navbar-form{
+    padding-left: 5px;
+   }
+}
+
 @media screen and (max-width: 991px) {
   #nav-input{
     width: 50vw;
