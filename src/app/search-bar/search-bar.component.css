@@ -2,6 +2,11 @@
   width: 40vw;
   height: 40px;
   border-radius: 0px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0 ,0, 0, 0.08);
 }
 
 #nav-button{
@@ -10,6 +15,9 @@
   height: 40px;
   background-color: white;
   color: #0066ff;
+  border-bottom: none;
+  border-top: none;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
 @media screen and (max-width: 991px) {
