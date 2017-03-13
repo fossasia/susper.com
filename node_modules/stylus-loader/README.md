@@ -196,6 +196,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 * Please see https://github.com/shama/stylus-loader/releases
+* 2.5.1 - Fix paths mutation in options (@vio)
 * 2.5.0 - Define paths in global stylusOptions, in addtion to query params (@JounQin)
 * 2.4.0 - Add OptionsPlugin to help support webpack 2 (@mzgoddard)
 * 2.3.1 - Fix typo in README (@stevewillard)

@@ -4,6 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var when = require('when');
 var whenNodefn = require('when/node/function');
+var cloneDeep = require('lodash.clonedeep');
 
 var CachedPathEvaluator = require('./lib/evaluator');
 var PathCache = require('./lib/pathcache');
@@ -14,7 +15,7 @@ module.exports = function(source) {
   var self = this;
   this.cacheable && this.cacheable();
   var done = this.async();
-  var options = loaderUtils.parseQuery(this.query);
+  var options = cloneDeep(loaderUtils.parseQuery(this.query));
   options.dest = options.dest || '';
   options.filename = options.filename || this.resourcePath;
   options.Evaluator = CachedPathEvaluator;

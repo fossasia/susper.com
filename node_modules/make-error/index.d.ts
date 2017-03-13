@@ -22,11 +22,11 @@ declare module makeError {
     name: string;
     stack: string;
 
-    constructor(message: string);
+    constructor(message?: string);
   }
 
   export interface Constructor <T> {
-    new (message: string): T
+    new (message?: string): T
     super_: any
     prototype: T
   }

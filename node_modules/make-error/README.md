@@ -31,7 +31,7 @@ var makeError = require('make-error');
 You can directly use the build provided at [unpkg.com](https://unpkg.com):
 
 ```html
-<script src="https://unpkg.com/make-error@1.2.1/dist/make-error.js"></script>
+<script src="https://unpkg.com/make-error@1/dist/make-error.js"></script>
 ```
 
 ## Usage

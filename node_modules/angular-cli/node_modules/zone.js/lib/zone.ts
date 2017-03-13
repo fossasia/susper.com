@@ -754,7 +754,11 @@ const Zone: ZoneType = (function(global: any) {
         }
       } finally {
         if (task.type == eventTask || (task.data && task.data.isPeriodic)) {
-          reEntryGuard && (task as ZoneTask)._transitionTo(scheduled, running, notScheduled);
+          // if the task's state is notScheduled, then it has already been cancelled
+          // we should not reset the state to scheduled
+          if (task.state !== notScheduled) {
+            reEntryGuard && (task as ZoneTask)._transitionTo(scheduled, running);
+          }
         } else {
           task.runCount = 0;
           this._updateTaskCount(task as ZoneTask, -1);
@@ -1102,7 +1106,6 @@ const Zone: ZoneType = (function(global: any) {
           this._zoneDelegates = null;
         }
       } else {
-        debugger;
         throw new Error(
             `${this.type} '${this.source}': can not transition to '${toState
                                         }', expecting state '${fromState1}'${fromState2 ?
@@ -1187,6 +1190,9 @@ const Zone: ZoneType = (function(global: any) {
   }
 
   function consoleError(e: any) {
+    if (Zone[__symbol__('ignoreConsoleErrorUncaughtError')]) {
+      return;
+    }
     const rejection = e && e.rejection;
     if (rejection) {
       console.error(
@@ -1196,6 +1202,17 @@ const Zone: ZoneType = (function(global: any) {
           rejection instanceof Error ? rejection.stack : undefined);
     }
     console.error(e);
+  }
+
+  function handleUnhandledRejection(e: any) {
+    consoleError(e);
+    try {
+      const handler = Zone[__symbol__('unhandledPromiseRejectionHandler')];
+      if (handler && typeof handler === 'function') {
+        handler.apply(this, [e]);
+      }
+    } catch (err) {
+    }
   }
 
   function drainMicroTaskQueue() {
@@ -1221,7 +1238,7 @@ const Zone: ZoneType = (function(global: any) {
               throw uncaughtPromiseError;
             });
           } catch (error) {
-            consoleError(error);
+            handleUnhandledRejection(error);
           }
         }
       }
@@ -1315,6 +1332,12 @@ const Zone: ZoneType = (function(global: any) {
         const queue = promise[symbolValue];
         promise[symbolValue] = value;
 
+        // record task information in value when error occurs, so we can
+        // do some additional work such as render longStackTrace
+        if (state === REJECTED && value instanceof Error) {
+          value[__symbol__('currentTask')] = Zone.currentTask;
+        }
+
         for (let i = 0; i < queue.length;) {
           scheduleResolveOrReject(promise, queue[i++], queue[i++], queue[i++], queue[i++]);
         }
@@ -1342,11 +1365,22 @@ const Zone: ZoneType = (function(global: any) {
 
   function clearRejectedNoCatch(promise: ZoneAwarePromise<any>): void {
     if (promise[symbolState] === REJECTED_NO_CATCH) {
+      // if the promise is rejected no catch status
+      // and queue.length > 0, means there is a error handler
+      // here to handle the rejected promise, we should trigger
+      // windows.rejectionhandled eventHandler or nodejs rejectionHandled
+      // eventHandler
+      try {
+        const handler = Zone[__symbol__('rejectionHandledHandler')];
+        if (handler && typeof handler === 'function') {
+          handler.apply(this, [{rejection: promise[symbolValue], promise: promise}]);
+        }
+      } catch (err) {
+      }
       promise[symbolState] = REJECTED;
       for (let i = 0; i < _uncaughtPromiseErrors.length; i++) {
         if (promise === _uncaughtPromiseErrors[i].promise) {
           _uncaughtPromiseErrors.splice(i, 1);
-          break;
         }
       }
     }
@@ -1715,6 +1749,25 @@ const Zone: ZoneType = (function(global: any) {
   ZoneAwareError.prototype = NativeError.prototype;
   ZoneAwareError[Zone.__symbol__('blacklistedStackFrames')] = blackListedStackFrames;
   ZoneAwareError[stackRewrite] = false;
+
+  // those properties need special handling
+  const specialPropertyNames = ['stackTraceLimit', 'captureStackTrace', 'prepareStackTrace'];
+  // those properties of NativeError should be set to ZoneAwareError
+  const nativeErrorProperties = Object.keys(NativeError);
+  if (nativeErrorProperties) {
+    nativeErrorProperties.forEach(prop => {
+      if (specialPropertyNames.filter(sp => sp === prop).length === 0) {
+        Object.defineProperty(ZoneAwareError, prop, {
+          get: function() {
+            return NativeError[prop];
+          },
+          set: function(value) {
+            NativeError[prop] = value;
+          }
+        });
+      }
+    });
+  }
 
   if (NativeError.hasOwnProperty('stackTraceLimit')) {
     // Extend default stack limit as we will be removing few frames.

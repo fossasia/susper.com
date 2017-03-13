@@ -3,7 +3,7 @@
  * @copyright Copyright (c) 2016 Yehuda Katz, Tom Dale, Stefan Penner and contributors
  * @license   Licensed under MIT license
  *            See https://raw.githubusercontent.com/tildeio/rsvp.js/master/LICENSE
- * @version   3.3.3
+ * @version   3.4.0
  */
 
 (function (global, factory) {
@@ -428,6 +428,7 @@ function handleMaybeThenable(promise, maybeThenable, then$$) {
   } else {
     if (then$$ === GET_THEN_ERROR) {
       reject(promise, GET_THEN_ERROR.error);
+      GET_THEN_ERROR.error = null;
     } else if (then$$ === undefined) {
       fulfill(promise, maybeThenable);
     } else if (isFunction(then$$)) {
@@ -555,10 +556,10 @@ function invokeCallback(settled, promise, callback, detail) {
     if (value === TRY_CATCH_ERROR) {
       failed = true;
       error = value.error;
-      value = null;
+      value.error = null; // release
     } else {
-      succeeded = true;
-    }
+        succeeded = true;
+      }
 
     if (promise === value) {
       reject(promise, withOwnPromise());
@@ -1342,7 +1343,7 @@ Promise.prototype = {
     try {
       return findAuthor(); // succeed or fail
     } catch(error) {
-      return findOtherAuther();
+      return findOtherAuthor();
     } finally {
       // always runs
       // doesn't affect the return value
@@ -1353,7 +1354,7 @@ Promise.prototype = {
   
     ```js
     findAuthor().catch(function(reason){
-      return findOtherAuther();
+      return findOtherAuthor();
     }).finally(function(){
       // author was either found, or not
     });

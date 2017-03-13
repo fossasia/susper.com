@@ -8,7 +8,7 @@
 /**
  * Suppress closure compiler errors about unknown 'Zone' variable
  * @fileoverview
- * @suppress {undefinedVars}
+ * @suppress {undefinedVars,globalThis}
  */
 
 // Hack since TypeScript isn't compiling this for a worker.
@@ -74,7 +74,7 @@ export function patchProperty(obj, prop) {
 
   // substr(2) cuz 'onclick' -> 'click', etc
   const eventName = prop.substr(2);
-  const _prop = '_' + prop;
+  const _prop = zoneSymbol('_' + prop);
 
   desc.set = function(fn) {
     if (this[_prop]) {
@@ -527,6 +527,7 @@ export interface MicroTaskMeta extends TaskData {
   callbackIndex: number;
   args: any[];
 }
+
 export function patchMicroTask(
     obj: any, funcName: string, metaCreator: (self: any, args: any[]) => MicroTaskMeta) {
   let setNative = null;
@@ -552,3 +553,22 @@ export function patchMicroTask(
     }
   });
 }
+
+export function findEventTask(target: any, evtName: string): Task[] {
+  const eventTasks: Task[] = target[zoneSymbol('eventTasks')];
+  const result: Task[] = [];
+  if (eventTasks) {
+    for (let i = 0; i < eventTasks.length; i++) {
+      const eventTask = eventTasks[i];
+      const data = eventTask.data;
+      const eventName = data && (<any>data).eventName;
+      if (eventName === evtName) {
+        result.push(eventTask);
+      }
+    }
+  }
+  return result;
+}
+
+Zone[zoneSymbol('patchEventTargetMethods')] = patchEventTargetMethods;
+Zone[zoneSymbol('patchOnProperties')] = patchOnProperties;
