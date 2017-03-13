@@ -2,10 +2,7 @@
   width: 40vw;
   height: 40px;
   border-radius: 0px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
+  border: none;
   box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0 ,0, 0, 0.08);
 }
 
