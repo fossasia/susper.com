@@ -38,9 +38,20 @@
   list-style-type: none;
 }
 
+@media screen and (min-width:1920px) {
+  .navbar-brand{
+      width: 170px;
+      height: auto;
+  }
+}
+
 @media screen and (min-width:768px) {
   #navcontainer ul li {
     display: inline;
+  }
+
+  #navcontainer, #side-menu {
+    margin-top: 8px;
   }
 }
 
