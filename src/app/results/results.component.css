@@ -74,6 +74,9 @@ img.res-img{
 #search-tools{
   margin-left: 11.5%;
 }
+#search-tools{
+  padding-left: 60px;
+}
 #search-tools .btn{
   border: none;
   background: none;
@@ -183,6 +186,7 @@ img.res-img{
   #search-tools{
     padding-left: 50px;
   }
+
   #search-options li {
     padding: 0px 8.3% 12px;
   }
@@ -212,6 +216,7 @@ img.res-img{
   #search-tools{
     padding-left: 30px;
   }
+
   #search-options{
     margin-left: 5.5%;
   }
