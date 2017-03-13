@@ -41,7 +41,7 @@
                 </div>
                 <div class="image-result" *ngIf="Display('images')">
                     <div *ngFor="let item of items$|async">
-                        <img class="res-img" src="{{item.link}}">
+                        <img class="res-img" src="{{item.link}}" onerror="this.style.display='none'">
                     </div>
                 </div>
                 <div class="video-result" *ngIf="Display('videos')">
