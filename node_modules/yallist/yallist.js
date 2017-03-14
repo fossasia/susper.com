@@ -124,6 +124,8 @@ Yallist.prototype.pop = function () {
   this.tail = this.tail.prev
   if (this.tail) {
     this.tail.next = null
+  } else {
+    this.head = null
   }
   this.length--
   return res
@@ -138,6 +140,8 @@ Yallist.prototype.shift = function () {
   this.head = this.head.next
   if (this.head) {
     this.head.prev = null
+  } else {
+    this.tail = null
   }
   this.length--
   return res
