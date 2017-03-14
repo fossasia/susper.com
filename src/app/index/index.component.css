@@ -55,3 +55,20 @@
     font-size: 12px;
   }
 }
+
+.navbar-fixed-bottom{
+  z-index: -1;
+}
+
+.navbar-brand
+{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin:0 auto;
+}
+
+.navbar-toggle {
+    z-index:3;
+}
