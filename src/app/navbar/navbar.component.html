@@ -1,26 +1,17 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <nav class="navbar navbar-fixed-top navbar-default">
         <div class="container-fluid">
-            <div class="navbar-header" id="navcontainer">
-              <ul>
-                <li>
-                  <a href="/">
+            <div class="navbar-header">
+                <a href="/">
                     <img class="navbar-brand" src="assets/images/susper.svg">
-                  </a>
-                </li>
-                <li id="navbar-search">
-                    <app-search-bar></app-search-bar>
-                </li>
-              </ul>
+                </a>
             </div>
-
-            <div class="navbar-collapse collapse" style="display:none" id="side-menu">
+            <div class="navbar-collapse collapse">
+                <app-search-bar></app-search-bar>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle" data-proofer-ignore><i class="fa fa-bars" aria-hidden="true" style="font-size: 2em"></i></a>
                         <ul class="dropdown-menu">
-                            <li id="header-profile"><a href="yacysearch/about.html">About This Page</a></li>
-                            <li class="divider"></li>
                             <li>
                                 <div class="header" id="header-download">
                                     <a href="//yacy.net" target="_blank">
@@ -67,7 +58,6 @@
             </div>
         </div>
     </nav>
-
     <script>
       $(document).ready(function(){
         var isFirefox = typeof InstallTrigger !== 'undefined';

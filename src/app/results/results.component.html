@@ -1,33 +1,28 @@
 <app-navbar></app-navbar>
-    <!-- <div class="container"> -->
+    <div class="container">
         <!-- Start ignoring BootLintBear -->
         <div class="row">
-            <!-- <div class="col-md-offset-1"> -->
+            <div class="col-md-offset-1">
                 <!-- Stop ignoring BootLintBear -->
-            <!-- </div> -->
-            <div class="container-fluid" id="search-options-field">
-              <ul type="none" id="search-options">
-                  <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
-                  <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
-                  <li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li>
-                  <li class="dropdown">
-                    <a href="#" id="tools" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Tools
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="tools" id="tool-dropdown">
-                      <li (click)="filterByContext()">Context Ranking</li>
-                      <li (click)="filterByDate()">Sort by Date</li>
-                      <li data-toggle="modal" data-target="#myModal" (click)="advancedsearch()">Advanced Search</li>
-                    </ul>
-                  </li>
-              </ul>
-              <!-- <div class="collapse" id="search-tools">
-                  <button class="btn btn-default" (click)="filterByContext()" type="button"> Context Ranking</button>
-                  <button class="btn btn-default" (click)="filterByDate()" type="button"> Sort by Date</button>
-                  <button class="btn btn-default" data-toggle="modal" data-target="#myModal" (click)="advancedsearch()" type="button"> Advanced Search</button>
-              </div> -->
             </div>
-            <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+            <div class="col-md-11">
+                <div class="btn-group" id="search-options">
+                    <button type="button" class="btn btn-default" [class.active_view]="Display('all')" (click)="docClick()">
+                        All
+                    </button>
+                    <button type="button" class="btn btn-default" [class.active_view]="Display('images')" (click)="imageClick()">Images</button>
+                    <button type="button" class="btn btn-default" [class.active_view]="Display('videos')" (click)="videoClick()">Videos</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" id="tools" data-toggle="collapse" data-target="#search-tools">
+                            Tools <span class="caret"></span></button>
+                    </div>
+                </div>
+                <div class="collapse" id="search-tools">
+                    <button class="btn btn-default" (click)="filterByContext()" type="button"> Context Ranking</button>
+                    <button class="btn btn-default" (click)="filterByDate()" type="button"> Sort by Date</button>
+                    <button class="btn btn-default" data-toggle="modal" data-target="#myModal" (click)="advancedsearch()" type="button"> Advanced Search</button>
+                </div>
+                <hr>
                 <div class="container-fluid" id="progress-bar">
                     {{message}}
                 </div>
@@ -50,8 +45,8 @@
                     </div>
                 </div>
                 <div class="video-result" *ngIf="Display('videos')">
-                    <div *ngFor="let item of items" class="result">
-                        <div class="title">
+                    <div *ngFor="let item of items$|async" class="result">
+                       <div class="title">
                             <a href="{{item.path}}">{{item.title}}</a>
                         </div>
                         <div class="link">
@@ -78,7 +73,10 @@
                 </div>
             </div>
         </div>
-    <!-- </div> -->
+    </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <app-advancedsearch></app-advancedsearch>
     </div>
+
+
+
