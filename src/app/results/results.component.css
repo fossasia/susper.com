@@ -122,11 +122,15 @@ img.res-img{
 }
 
 .pagination-property {
-    max-width: 300px;
+    max-width: 100%;
 }
 
 .image-result {
     padding-left: 80px;
+}
+
+.clean{
+  clear: both;
 }
 
 @media screen and (min-width:1920px){
@@ -235,4 +239,5 @@ img.res-img{
   #search-options li {
     padding: 0px 5.6% 12px;
   }
+
 }
