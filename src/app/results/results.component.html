@@ -41,12 +41,12 @@
                 </div>
                 <div class="image-result" *ngIf="Display('images')">
                     <div *ngFor="let item of items$|async">
-                        <img class="res-img" src="{{item.link}}">
+                        <img class="res-img" src="{{item.link}}" onerror="this.style.display='none'">
                     </div>
                 </div>
                 <div class="video-result" *ngIf="Display('videos')">
-                    <div *ngFor="let item of items" class="result">
-                        <div class="title">
+                    <div *ngFor="let item of items$|async" class="result">
+                       <div class="title">
                             <a href="{{item.path}}">{{item.title}}</a>
                         </div>
                         <div class="link">
@@ -55,6 +55,7 @@
                     </div>
                 </div>
                 <br>
+                <div class="clean"></div>
                 <div class="pagination-property">
                     <nav aria-label="Page navigation">
                         <ul class="pagination" id="pag-bar">
