@@ -1,13 +1,20 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <nav class="navbar navbar-fixed-top navbar-default">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="/">
+            <div class="navbar-header" id="navcontainer">
+              <ul>
+                <li>
+                  <a href="/">
                     <img class="navbar-brand" src="assets/images/susper.svg">
-                </a>
+                  </a>
+                </li>
+                <li id="navbar-search">
+                    <app-search-bar></app-search-bar>
+                </li>
+              </ul>
             </div>
-            <div class="navbar-collapse collapse">
-                <app-search-bar></app-search-bar>
+
+            <div class="navbar-collapse collapse" style="display:none" id="side-menu">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle" data-proofer-ignore><i class="fa fa-bars" aria-hidden="true" style="font-size: 2em"></i></a>
@@ -60,3 +67,12 @@
             </div>
         </div>
     </nav>
+
+    <script>
+      $(document).ready(function(){
+        var isFirefox = typeof InstallTrigger !== 'undefined';
+        if(isFirefox === false){
+          $("#navbar-search").addClass("align-navsearch-btn");
+        }
+      }
+    </script>
