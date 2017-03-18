@@ -1,15 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
-    selector: 'app-about',
-    templateUrl: './about.component.html',
-    styleUrls: ['./about.component.css']
+  selector: 'app-about',
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.css']
 })
+export class AboutComponent implements OnInit {
 
-export class AboutComponent implements OnInit { 
-    constructor(private route: ActivatedRoute,
-                private router: Router) { }
-    
-    ngOnInit() { }
+  constructor() { }
+  
+  ngOnInit() {
+  }
+
 }
