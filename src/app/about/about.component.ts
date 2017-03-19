@@ -9,7 +9,6 @@ import { RouterModule, Router } from '@angular/router';
 export class AboutComponent implements OnInit {
 
   constructor() { }
-  
   ngOnInit() {
   }
 
