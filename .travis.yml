@@ -16,7 +16,7 @@ script:
   docker run -ti -v $(pwd):/app --workdir=/app coala/base coala --version
 after_success:
 - bash ./deploy.sh
-- codecov
+- bash <(curl -s https://codecov.io/bash) 
 cache:
     bundler: true
     directories:
