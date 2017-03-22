@@ -1,5 +1,9 @@
 # Change Log
 
+## v1.4.0
+**Features:**
+* Add `contentLength` property to the result of `getLineRanges`
+
 ## v1.3.0
 **Bugfixes:**
 * canHaveLeadingTrivia:
