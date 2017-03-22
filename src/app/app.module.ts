@@ -15,10 +15,12 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {StoreModule} from '@ngrx/store';
 import {reducer} from './reducers/index';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { AboutComponent } from './about/about.component';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
   {path: '', component: IndexComponent},
+  {path: 'about', component: AboutComponent},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'},
 ];
@@ -30,7 +32,8 @@ const appRoutes: Routes = [
     ResultsComponent,
     NotFoundComponent,
     AdvancedsearchComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

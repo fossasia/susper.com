@@ -32,3 +32,17 @@
 .bold {
     font-weight: 700;
 }
+
+@media screen and (max-width:990px){
+    .image-banner{
+        height: 190px;
+    }
+
+    .banner{
+        top:0;
+    }
+}
+
+.navbar {
+    margin-bottom: 0px !important;
+}
