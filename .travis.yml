@@ -12,6 +12,7 @@ before_script:
 - ng build
 script:
 - ng lint
+- istanbul cover _mocha
 - >
   docker run -ti -v $(pwd):/app --workdir=/app coala/base coala --version
 after_success:
