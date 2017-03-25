@@ -134,7 +134,6 @@ export class ResultsComponent implements OnInit {
 
     });
     this.presentPage = 0;
-
   };
 
   ngOnInit() {
