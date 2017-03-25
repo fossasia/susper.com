@@ -10,6 +10,7 @@ before_install:
 before_script:
 - ng build
 script:
+- ng test --watch=false
 - ng lint
 - >
   docker run -ti -v $(pwd):/app --workdir=/app coala/base coala --version
