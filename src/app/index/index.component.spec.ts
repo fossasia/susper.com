@@ -22,7 +22,25 @@ describe('IndexComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create an instance', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have logo with correct alt text property', () => {
+    let compiled = fixture.debugElement.nativeElement;
+    let image: HTMLImageElement = compiled.querySelector('div.yacy img');
+    expect(image).toBeTruthy();
+    expect(image.alt).toBe('YaCy');
+  });
+
+  it('should have an element app-search-bar', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('app-search-bar')).toBeTruthy();
+  });
+
+  it('should have set-susper-default option', () => {
+    let compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('div #set-susper-default')).toBeTruthy();
   });
 });

@@ -22,7 +22,21 @@ describe('NotFoundComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create an instance', () => {
     expect(component).toBeTruthy();
   });
+
+  it('it should have logo with correct alt text property', () => {
+    let compiled = fixture.debugElement.nativeElement;
+    let image: HTMLInputElement = compiled.querySelector('div.not-found-banner img');
+    expect(image).toBeTruthy();
+    expect(image.alt).toBe('susperlogo');
+  });
+
+  it('should have an app-search-bar element', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('app-search-bar')).toBeTruthy();
+  });
+
 });
