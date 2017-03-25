@@ -1,25 +1,32 @@
-.result{
+.result {
   padding-left: 60px;
   padding-top: 30px;
 }
-.title >a{
-  color:darkblue;
+
+.title >a {
+  color: darkblue;
   font-size: large;
-  text-decoration:none;
+  text-decoration: none;
 }
 
-.link > p{
-  color:#006621;
-  text-decoration:none;
+.link > p {
+  color: #006621;
+  text-decoration: none;
 }
-.title >a:hover{
+
+.title >a:hover {
   text-decoration: underline;
 }
-.page-link{
+
+.description {
+  text-align: justify;
+}
+
+.page-link {
   cursor: pointer;
 }
 
-#progress-bar{
+#progress-bar {
   margin-top: 1%;
   font-size: small;
   color: #88aaaa;
@@ -33,13 +40,14 @@
   text-decoration: none;
 }
 
-.dropdown-menu > li :hover{
+.dropdown-menu > li:hover {
   padding: 10px;
   padding-right: 20px;
   padding-left: 20px;
   background-color: #f5f5f5;
 }
-.dropdown-menu > li :active{
+
+.dropdown-menu > li:active {
   padding: 5px;
   padding-right: 20px;
   padding-left: 20px;
@@ -47,15 +55,16 @@
   color: white;
 }
 
-.active_page{
+.active_page {
   background-color: #bdcdd4;
 }
-.active_view{
+
+.active_view {
   color: #4285f4 !important;
   border-bottom: 3px solid #4285f4;
 }
 
-img.res-img{
+img.res-img {
   max-width: 350px;
   max-height: 300px;
   padding-top: 20px;
@@ -63,21 +72,25 @@ img.res-img{
   float: left;
 }
 
-#search-options-field{
+#search-options-field {
   background-color: #f8f8f8;
   padding-bottom: 6px;
 }
-#search-options{
+
+#search-options {
   margin-top: 2.2%;
   margin-left: 9%;
 }
-#search-tools{
+
+#search-tools {
   margin-left: 11.5%;
 }
-#search-tools{
+
+#search-tools {
   padding-left: 60px;
 }
-#search-tools .btn{
+
+#search-tools .btn {
   border: none;
   background: none;
   font-size: small;
@@ -96,7 +109,7 @@ img.res-img{
   color: #222;
 }
 
-#tools{
+#tools {
   text-decoration: none;
   color: #777;
   margin-left: 23%;
@@ -110,118 +123,114 @@ img.res-img{
   min-width: 140px;
 }
 
-#tool-dropdown li{
+#tool-dropdown li {
   text-align: left;
   display: block;
   padding: 4px 12px;
 }
 
-#pag-bar{
-    padding-left: 60px;
-    padding-top: 20px;
+#pag-bar {
+  padding-left: 60px;
+  padding-top: 20px;
 }
 
 .pagination-property {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .image-result {
-    padding-left: 80px;
+  padding-left: 80px;
 }
 
-.clean{
+.clean {
   clear: both;
 }
 
-@media screen and (min-width:1920px){
-
-  #tools{
+@media screen and (min-width:1920px) {
+  #tools {
     margin-left: 27%;
   }
 }
 
-@media screen and (max-width:1365px){
-  #tools{
+@media screen and (max-width:1365px) {
+  #tools {
     margin-left: 21.5%;
   }
 }
 
-@media screen and (max-width:1279px){
-  #search-options{
+@media screen and (max-width:1279px) {
+  #search-options {
     margin-left: 11%;
   }
-  #tools{
+  #tools {
     margin-left: 17%;
   }
 }
 
-@media screen and (max-width:991px){
-  #tools{
+@media screen and (max-width:991px) {
+  #tools {
     margin-left: 26%;
   }
 }
 
-@media screen and (max-width:979px){
-  #search-options{
+@media screen and (max-width:979px) {
+  #search-options {
     margin-left: 12.5%;
   }
-  #tools{
+  #tools {
     margin-left: 18%;
   }
 }
 
-@media screen and (max-width:767px){
-  .result{
+@media screen and (max-width:767px) {
+  .result {
     padding-left: 50px;
     padding-right: 30px;
   }
-  #progress-bar{
+  #progress-bar {
     padding-left: 50px;
     margin-bottom: -10px;
   }
-  #search-options{
+  #search-options {
     padding-left: 0px;
     margin-top: 75px;
     margin-left: 8%;
   }
-  #pag-bar{
-      padding-left: 50px;
-  }
-  #search-tools{
+  #pag-bar {
     padding-left: 50px;
   }
-
+  #search-tools {
+    padding-left: 50px;
+  }
   #search-options li {
     padding: 0px 8.3% 12px;
   }
-  #tools{
+  #tools {
     margin-left: 0%;
   }
-
 }
 
-@media screen and (max-width:639px){
+@media screen and (max-width:639px) {
   #search-options li {
     padding: 0px 7.5% 12px;
   }
 }
 
-@media screen and (max-width:479px){
-  .result{
+@media screen and (max-width:479px) {
+  .result {
     padding-left: 30px;
     padding-right: 20px;
   }
-  #progress-bar{
+  #progress-bar {
     padding-left: 30px;
   }
-  #pag-bar{
-      padding-left: 30px;
-  }
-  #search-tools{
+  #pag-bar {
     padding-left: 30px;
   }
-
-  #search-options{
+  #search-tools {
+    padding-left: 30px;
+  }
+  #search-options {
     margin-left: 5.5%;
   }
   #search-options li {
@@ -229,15 +238,14 @@ img.res-img{
   }
 }
 
-@media screen and (max-width:379px){
+@media screen and (max-width:379px) {
   #search-options li {
     padding: 0px 6.2% 12px;
   }
 }
 
-@media screen and (max-width:320px){
+@media screen and (max-width:320px) {
   #search-options li {
     padding: 0px 5.6% 12px;
   }
-
 }
