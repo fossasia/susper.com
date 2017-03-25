@@ -1,81 +1,81 @@
 <app-navbar></app-navbar>
-    <div class="row">
-        <div class="container-fluid" id="search-options-field">
-          <ul type="none" id="search-options">
-              <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
-              <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
-              <li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li>
-              <li class="dropdown">
+<div class="row">
+    <div class="container-fluid" id="search-options-field">
+        <ul type="none" id="search-options">
+            <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
+            <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
+            <li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li>
+            <li class="dropdown">
                 <a href="#" id="tools" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     Tools
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="tools" id="tool-dropdown">
-                  <li (click)="filterByContext()">Context Ranking</li>
-                  <li (click)="filterByDate()">Sort by Date</li>
-                  <li data-toggle="modal" data-target="#myModal" (click)="advancedsearch()">Advanced Search</li>
+                    <li (click)="filterByContext()">Context Ranking</li>
+                    <li (click)="filterByDate()">Sort by Date</li>
+                    <li data-toggle="modal" data-target="#myModal" (click)="advancedsearch()">Advanced Search</li>
                 </ul>
-              </li>
-          </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+        <div class="container-fluid" id="progress-bar">
+            {{message}}
         </div>
-        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-            <div class="container-fluid" id="progress-bar">
-                {{message}}
-            </div>
-            <div class="text-result" *ngIf="Display('all')">
-                <div *ngFor="let item of items$|async" class="result">
-                    <div class="title">
-                        <a href="{{item.link}}">{{item.title}}</a>
-                    </div>
-                    <div class="link">
-                        <p>{{item.link}}</p>
-                    </div>
-                    <div>
-                        {{item.pubDate|date:'fullDate'}}
-                    </div>
+        <div class="text-result" *ngIf="Display('all')">
+            <div *ngFor="let item of items$|async" class="result">
+                <div class="title">
+                    <a href="{{item.link}}">{{item.title}}</a>
                 </div>
-                <div class="video-result" *ngIf="Display('videos')">
-                    <div *ngFor="let item of items$|async" class="result">
-                        <video id="fetch-videos" width="320" height="240" controls>
-                            <source id="video-mp4" src="{{item.link}}" type="video/mp4">
-                            <source id"video-avi" src="{{item.link}}" type="video/avi">
-                            {{item.path}}
-                        </video>
-                        <script>
-                            function videoResult() {
-                                document.getElementById('video-mp4').src = "{{item.link}}";
-                                document.getElementById('video-avi').src = "{{item.link}}";
-                                document.getElementById('fetch-videos').load();
-                            }
-                        </script>
-                        <div class="link">
-                            <p>{{item.link}}</p>
-                        </div>
-                    </div>
+                <div class="link">
+                    <p>{{item.link}}</p>
                 </div>
-                <br>
-            <div class="image-result" *ngIf="Display('images')">
-                <div *ngFor="let item of items$|async">
-                    <img class="res-img" src="{{item.link}}" onerror="this.style.display='none'">
+                <div class="description">
+                    <p>{{item.description}}</p>
                 </div>
-            </div>
-            <br>
-            <div class="pagination-property">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination" id="pag-bar">
-                        <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
-                        <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link"
-                                                                         *ngIf="presentPage>=4 && num<=noOfPages"
-                                                                         [class.active_page]="getStyle(presentPage-3+num)"
-                                                                         (click)="getPresentPage(presentPage-3+num)"
-                                                                         href="#">{{presentPage-3+num}}</span>
-                            <span class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="getStyle(num)"
-                                  (click)="getPresentPage(num)" href="#">{{num+1}}</span></li>
-                        <li class="page-item"><span class="page-link" (click)="incPresentPage()">Next</span></li>
-                    </ul>
-                </nav>
+                <div>
+                    {{item.pubDate|date:'fullDate'}}
+                </div>
             </div>
         </div>
+        <div class="image-result" *ngIf="Display('images')">
+            <div *ngFor="let item of items$|async">
+                <img class="res-img" src="{{item.link}}" onerror="this.style.display='none'">
+            </div>
+        </div>
+        <div class="video-result" *ngIf="Display('videos')">
+            <div *ngFor="let item of items$|async" class="result">
+                <img id="fetch-videos" width="320" height="240">
+                    <source id="video-mp4" src="{{item.link}}" type="video/mp4">
+                    <source id"video-avi" src="{{item.link}}" type="video/avi">
+                    {{item.path}}
+                <script>
+                    function videoResult() {
+                        document.getElementById('video-mp4').src = "{{item.link}}";
+                        document.getElementById('video-avi').src = "{{item.link}}";
+                        document.getElementById('fetch-videos').load();
+                    }
+                </script>
+                <div class="link">
+                    <p>{{item.link}}</p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="pagination-property">
+            <nav aria-label="Page navigation">
+                <ul class="pagination" id="pag-bar">
+                    <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
+                    <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link" *ngIf="presentPage>=4 && num<=noOfPages" [class.active_page]="getStyle(presentPage-3+num)"
+                            (click)="getPresentPage(presentPage-3+num)" href="#">{{presentPage-3+num}}</span>
+                        <span class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="getStyle(num)" (click)="getPresentPage(num)"
+                            href="#">{{num+1}}</span></li>
+                    <li class="page-item"><span class="page-link" (click)="incPresentPage()">Next</span></li>
+                </ul>
+            </nav>
+        </div>
     </div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <app-advancedsearch></app-advancedsearch>
-    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <app-advancedsearch></app-advancedsearch>
+</div>
+
