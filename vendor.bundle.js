@@ -64103,11 +64103,16 @@ var INITIAL_OPTIONS = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* Opa
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__config__ = __webpack_require__(337);
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return DevtoolsDispatcher; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return StoreDevtools; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 
 
 
@@ -64126,15 +64131,16 @@ var __extends = (this && this.__extends) || function (d, b) {
 var DevtoolsDispatcher = (function (_super) {
     __extends(DevtoolsDispatcher, _super);
     function DevtoolsDispatcher() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    DevtoolsDispatcher.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */] },
-    ];
-    /** @nocollapse */
-    DevtoolsDispatcher.ctorParameters = [];
     return DevtoolsDispatcher;
 }(__WEBPACK_IMPORTED_MODULE_1__ngrx_store__["c" /* Dispatcher */]));
+
+DevtoolsDispatcher.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */] },
+];
+/** @nocollapse */
+DevtoolsDispatcher.ctorParameters = function () { return []; };
 var StoreDevtools = (function () {
     function StoreDevtools(dispatcher, actions$, reducers$, extension, initialState, config) {
         var liftedInitialState = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12__reducer__["a" /* liftInitialState */])(initialState, config.monitor);
@@ -64198,20 +64204,21 @@ var StoreDevtools = (function () {
     StoreDevtools.prototype.importState = function (nextLiftedState) {
         this.dispatch(__WEBPACK_IMPORTED_MODULE_13__actions__["a" /* StoreDevtoolActions */].importState(nextLiftedState));
     };
-    StoreDevtools.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */] },
-    ];
-    /** @nocollapse */
-    StoreDevtools.ctorParameters = [
-        { type: DevtoolsDispatcher, },
-        { type: __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["c" /* Dispatcher */], },
-        { type: __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["d" /* Reducer */], },
-        { type: __WEBPACK_IMPORTED_MODULE_10__extension__["a" /* DevtoolsExtension */], },
-        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["y" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_1__ngrx_store__["e" /* INITIAL_STATE */],] },] },
-        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["y" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_14__config__["a" /* STORE_DEVTOOLS_CONFIG */],] },] },
-    ];
     return StoreDevtools;
 }());
+
+StoreDevtools.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */] },
+];
+/** @nocollapse */
+StoreDevtools.ctorParameters = function () { return [
+    { type: DevtoolsDispatcher, },
+    { type: __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["c" /* Dispatcher */], },
+    { type: __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["d" /* Reducer */], },
+    { type: __WEBPACK_IMPORTED_MODULE_10__extension__["a" /* DevtoolsExtension */], },
+    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["y" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_1__ngrx_store__["e" /* INITIAL_STATE */],] },] },
+    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["y" /* Inject */], args: [__WEBPACK_IMPORTED_MODULE_14__config__["a" /* STORE_DEVTOOLS_CONFIG */],] },] },
+]; };
 //# sourceMappingURL=devtools.js.map
 
 /***/ },
@@ -64304,15 +64311,16 @@ var DevtoolsExtension = (function () {
     DevtoolsExtension.prototype.unwrapAction = function (action) {
         return typeof action === 'string' ? eval("(" + action + ")") : action;
     };
-    DevtoolsExtension.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */] },
-    ];
-    /** @nocollapse */
-    DevtoolsExtension.ctorParameters = [
-        { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["y" /* Inject */], args: [REDUX_DEVTOOLS_EXTENSION,] },] },
-    ];
     return DevtoolsExtension;
 }());
+
+DevtoolsExtension.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */] },
+];
+/** @nocollapse */
+DevtoolsExtension.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["y" /* Inject */], args: [REDUX_DEVTOOLS_EXTENSION,] },] },
+]; };
 //# sourceMappingURL=extension.js.map
 
 /***/ },
@@ -84057,27 +84065,24 @@ function _createState(devtools) {
 function _createReducer(dispatcher, reducer) {
     return new __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["d" /* Reducer */](dispatcher, reducer);
 }
-function _createStateIfExtension(extension, injector) {
+function _createStateIfExtension(extension, injector, initialState) {
     if (!!extension) {
         var devtools = injector.get(__WEBPACK_IMPORTED_MODULE_2__devtools__["a" /* StoreDevtools */]);
         return _createState(devtools);
     }
     else {
-        var initialState = injector.get(__WEBPACK_IMPORTED_MODULE_1__ngrx_store__["e" /* INITIAL_STATE */]);
         var dispatcher = injector.get(__WEBPACK_IMPORTED_MODULE_1__ngrx_store__["c" /* Dispatcher */]);
         var reducer = injector.get(__WEBPACK_IMPORTED_MODULE_1__ngrx_store__["d" /* Reducer */]);
         return new __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["f" /* State */](initialState, dispatcher, reducer);
     }
 }
-function _createReducerIfExtension(extension, injector) {
+function _createReducerIfExtension(extension, injector, reducer) {
     if (!!extension) {
         var devtoolsDispatcher = injector.get(__WEBPACK_IMPORTED_MODULE_2__devtools__["b" /* DevtoolsDispatcher */]);
-        var reducer = injector.get(__WEBPACK_IMPORTED_MODULE_1__ngrx_store__["g" /* INITIAL_REDUCER */]);
         return _createReducer(devtoolsDispatcher, reducer);
     }
     else {
         var dispatcher = injector.get(__WEBPACK_IMPORTED_MODULE_1__ngrx_store__["c" /* Dispatcher */]);
-        var reducer = injector.get(__WEBPACK_IMPORTED_MODULE_1__ngrx_store__["g" /* INITIAL_REDUCER */]);
         return new __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["d" /* Reducer */](dispatcher, reducer);
     }
 }
@@ -84130,12 +84135,12 @@ var StoreDevtoolsModule = (function () {
             providers: [
                 {
                     provide: __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["f" /* State */],
-                    deps: [__WEBPACK_IMPORTED_MODULE_4__extension__["b" /* REDUX_DEVTOOLS_EXTENSION */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["q" /* Injector */]],
+                    deps: [__WEBPACK_IMPORTED_MODULE_4__extension__["b" /* REDUX_DEVTOOLS_EXTENSION */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["q" /* Injector */], __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["e" /* INITIAL_STATE */]],
                     useFactory: _createStateIfExtension
                 },
                 {
                     provide: __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["d" /* Reducer */],
-                    deps: [__WEBPACK_IMPORTED_MODULE_4__extension__["b" /* REDUX_DEVTOOLS_EXTENSION */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["q" /* Injector */]],
+                    deps: [__WEBPACK_IMPORTED_MODULE_4__extension__["b" /* REDUX_DEVTOOLS_EXTENSION */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["q" /* Injector */], __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["g" /* INITIAL_REDUCER */]],
                     useFactory: _createReducerIfExtension
                 },
                 {
@@ -84150,26 +84155,27 @@ var StoreDevtoolsModule = (function () {
             ]
         };
     };
-    StoreDevtoolsModule.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */], args: [{
-                    imports: [
-                        __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["h" /* StoreModule */]
-                    ],
-                    providers: [
-                        __WEBPACK_IMPORTED_MODULE_4__extension__["a" /* DevtoolsExtension */],
-                        __WEBPACK_IMPORTED_MODULE_2__devtools__["b" /* DevtoolsDispatcher */],
-                        __WEBPACK_IMPORTED_MODULE_2__devtools__["a" /* StoreDevtools */],
-                        {
-                            provide: __WEBPACK_IMPORTED_MODULE_4__extension__["b" /* REDUX_DEVTOOLS_EXTENSION */],
-                            useFactory: _createReduxDevtoolsExtension
-                        }
-                    ]
-                },] },
-    ];
-    /** @nocollapse */
-    StoreDevtoolsModule.ctorParameters = [];
     return StoreDevtoolsModule;
 }());
+
+StoreDevtoolsModule.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */], args: [{
+                imports: [
+                    __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["h" /* StoreModule */]
+                ],
+                providers: [
+                    __WEBPACK_IMPORTED_MODULE_4__extension__["a" /* DevtoolsExtension */],
+                    __WEBPACK_IMPORTED_MODULE_2__devtools__["b" /* DevtoolsDispatcher */],
+                    __WEBPACK_IMPORTED_MODULE_2__devtools__["a" /* StoreDevtools */],
+                    {
+                        provide: __WEBPACK_IMPORTED_MODULE_4__extension__["b" /* REDUX_DEVTOOLS_EXTENSION */],
+                        useFactory: _createReduxDevtoolsExtension
+                    }
+                ]
+            },] },
+];
+/** @nocollapse */
+StoreDevtoolsModule.ctorParameters = function () { return []; };
 //# sourceMappingURL=instrument.js.map
 
 /***/ },
@@ -84390,7 +84396,7 @@ function liftReducerWith(initialCommittedState, initialLiftedState, monitorReduc
             }
             case __WEBPACK_IMPORTED_MODULE_2__actions__["b" /* ActionTypes */].IMPORT_STATE: {
                 // Completely replace everything.
-                (_b = liftedAction.nextLiftedState, monitorState = _b.monitorState, actionsById = _b.actionsById, nextActionId = _b.nextActionId, stagedActionIds = _b.stagedActionIds, skippedActionIds = _b.skippedActionIds, committedState = _b.committedState, currentStateIndex = _b.currentStateIndex, computedStates = _b.computedStates, _b);
+                (_b = liftedAction.nextLiftedState, monitorState = _b.monitorState, actionsById = _b.actionsById, nextActionId = _b.nextActionId, stagedActionIds = _b.stagedActionIds, skippedActionIds = _b.skippedActionIds, committedState = _b.committedState, currentStateIndex = _b.currentStateIndex, computedStates = _b.computedStates);
                 break;
             }
             case __WEBPACK_IMPORTED_MODULE_0__ngrx_store__["d" /* Reducer */].REPLACE:

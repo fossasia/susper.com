@@ -1,5 +1,9 @@
 # master
 
+# 0.2.4
+
+* don't include tests in published package
+
 # 0.2.3
 
 * Fixed publish of v0.2.2
@@ -7,8 +11,6 @@
 # 0.2.2
 
 * Add API `heimdall.hasMonitor` (#37) (thanks @zachthehuman)
-
-DO NOT USE THIS VERSION.  publishing error.
 
 # 0.2.1
 
