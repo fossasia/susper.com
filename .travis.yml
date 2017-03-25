@@ -14,8 +14,6 @@ script:
 - ng lint
 - >
   docker run -ti -v $(pwd):/app --workdir=/app coala/base coala --version
-- ci_env='bash <(curl -s https://codecov.io/env)'
-- docker run $ci_env ...
 after_success:
 - bash ./deploy.sh
 - bash <(curl -s https://codecov.io/bash) 
