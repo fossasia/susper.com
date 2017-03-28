@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';
 import { Store } from '@ngrx/store';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-results',
@@ -22,6 +23,9 @@ export class ResultsComponent implements OnInit {
   begin: number;
   message: string;
   query: any;
+  hoverBox: boolean = false;
+  myUrl: any;
+  myUrlList: Array<any> = [];
   searchdata: any = {
     query: '',
     verify: false,
@@ -43,8 +47,22 @@ export class ResultsComponent implements OnInit {
     return result;
   };
   advancedsearch() {
-
   }
+  // display content on hover
+  // --------------------------------
+  overTitle(){
+    if(this.hoverBox == true){
+      this.hoverBox = false;
+    }
+    else {
+      this.hoverBox = true;
+    }
+  }
+  trackHero(index, item){
+    console.log("item", item);
+    return item ? item.id : undefined;
+  }
+  // ---------------------------------
   getPresentPage(N) {
     this.presentPage = N;
     this.searchdata.start = (this.presentPage) * this.searchdata.rows;
@@ -95,7 +113,7 @@ export class ResultsComponent implements OnInit {
   getStyle(page) {
     return ((this.presentPage) === page);
   }
-  constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
+  constructor(private domsanitizer: DomSanitizer, private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
     private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
 
     this.activatedroute.queryParams.subscribe(query => {
@@ -131,6 +149,15 @@ export class ResultsComponent implements OnInit {
         this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
         this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
       });
+
+      this.items$.subscribe(m => {
+
+        for(var i=0; i < m.length; i++){
+          this.myUrlList[i] = this.domsanitizer.bypassSecurityTrustResourceUrl(m[i].link);
+          console.log(this.myUrlList);
+        }
+        
+      })
 
     });
     this.presentPage = 0;
