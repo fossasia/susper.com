@@ -17,7 +17,7 @@ var e2c = require('electron-to-chromium');
 The Electron-to-Chromium object has 4 properties to use:
 
 #### versions
-An object with all _major_ Electron versions as keys and their respective major Chromium version as string value.
+An object of key-value pairs with a _major_ Electron version as the key, and the respective major Chromium version as the value.
 
 ```js
 var versions = e2c.versions;
@@ -26,12 +26,30 @@ console.log(versions['1.4']);
 ```
 
 #### fullVersions
-An object with all Electron versions as keys and their respective Chromium version as value.
+An object of key-value pairs with a Electron version as the key, and the respective full Chromium version as the value.
 
 ```js
 var versions = e2c.fullVersions;
 console.log(versions['1.4.11']);
 // returns "53.0.2785.143"
+```
+
+#### chromiumVersions
+An object of key-value pairs with a _major_ Chromium version as the key, and the respective major Electron version as the value.
+
+```js
+var versions = e2c.chromiumVersions;
+console.log(versions['54']);
+// returns "1.4"
+```
+
+#### fullChromiumVersions
+An object of key-value pairs with a Chromium version as the key, and an array of the respective major Electron versions as the value.
+
+```js
+var versions = e2c.fullChromiumVersions;
+console.log(versions['54.0.2840.101']);
+// returns ["1.5.1", "1.5.0"]
 ```
 
 #### electronToChromium(query)
@@ -61,6 +79,34 @@ var chromeVersion = e2c.electronToChromium('9000');
 // chromeVersion is undefined
 ```
 
+#### chromiumToElectron(query)
+Arguments:
+* Query: string or number, required. A major or full chromium version.
+
+Returns a string with the corresponding Electron version for a given Chromium query.
+
+If you provide it with a major Chromium version, it will return a major Electron version:
+
+```js
+var electronVersion = e2c.chromiumToElectron('54');
+// electronVersion is "1.4"
+```
+
+If you provide it with a full Chrome version, it will return an array of full Electron versions.
+
+```js
+var electronVersions = e2c.chromiumToElectron('56.0.2924.87');
+// electronVersions is ["1.6.3", "1.6.2", "1.6.1", "1.6.0"]
+```
+
+
+If a query does not match an Electron version, it will return `undefined`.
+
+```js
+var electronVersion = e2c.chromiumToElectron('10');
+// chromeVersion is undefined
+```
+
 #### electronToBrowserList(query) **DEPRECATED**
 Arguments:
 * Query: string or number, required. A major Electron version.
@@ -83,8 +129,8 @@ var query = e2c.electronToBrowserList('9000');
 // query is undefined
 ```
 
-### importing just versions or fullVersions
-Both the versions and the fullVersions list can be imported on their own, if file-size is a concern.
+### importing just versions, fullVersions, chromiumVersions and fullChromiumVersions
+all list can be imported on their own, if file-size is a concern.
 
 ### versions
 
@@ -97,7 +143,17 @@ var versions = require('electron-to-chromium/versions');
 ```js
 var fullVersions = require('electron-to-chromium/full-versions');
 ```
+### chromiumVersions
 
+```js
+var chromiumVersions = require('electron-to-chromium/chromium-versions');
+```
+
+### fullChromiumVersions
+
+```js
+var fullChromiumVersions = require('electron-to-chromium/full-chromium-versions');
+```
 
 ## Updating
 This package will be updated with each new Electron release.

@@ -75,9 +75,16 @@ SymbolDef.prototype = {
         }
         else if (!this.mangled_name && !this.unmangleable(options)) {
             var s = this.scope;
-            if (!options.screw_ie8 && this.orig[0] instanceof AST_SymbolLambda)
+            var sym = this.orig[0];
+            if (!options.screw_ie8 && sym instanceof AST_SymbolLambda)
                 s = s.parent_scope;
-            this.mangled_name = s.next_mangled(options, this);
+            var def;
+            if (options.screw_ie8
+                && sym instanceof AST_SymbolCatch
+                && (def = s.parent_scope.find_variable(sym))) {
+                this.mangled_name = def.mangled_name || def.name;
+            } else
+                this.mangled_name = s.next_mangled(options, this);
             if (this.global && cache) {
                 cache.set(this.name, this.mangled_name);
             }
@@ -100,15 +107,14 @@ AST_Toplevel.DEFMETHOD("figure_out_scope", function(options){
         if (node instanceof AST_Catch) {
             var save_scope = scope;
             scope = new AST_Scope(node);
-            scope.init_scope_vars();
-            scope.parent_scope = save_scope;
+            scope.init_scope_vars(save_scope);
             descend();
             scope = save_scope;
             return true;
         }
         if (node instanceof AST_Scope) {
-            node.init_scope_vars();
-            var save_scope = node.parent_scope = scope;
+            node.init_scope_vars(scope);
+            var save_scope = scope;
             var save_defun = defun;
             var save_labels = labels;
             defun = scope = node;
@@ -153,8 +159,16 @@ AST_Toplevel.DEFMETHOD("figure_out_scope", function(options){
             (node.scope = defun.parent_scope).def_function(node);
         }
         else if (node instanceof AST_SymbolVar
-                 || node instanceof AST_SymbolConst) {
+            || node instanceof AST_SymbolConst) {
             defun.def_variable(node);
+            if (defun !== scope) {
+                node.mark_enclosed(options);
+                var def = scope.find_variable(node);
+                if (node.thedef !== def) {
+                    node.thedef = def;
+                    node.reference(options);
+                }
+            }
         }
         else if (node instanceof AST_SymbolCatch) {
             scope.def_variable(node);
@@ -243,28 +257,28 @@ AST_Toplevel.DEFMETHOD("def_global", function(node){
     }
 });
 
-AST_Scope.DEFMETHOD("init_scope_vars", function(){
-    this.variables = new Dictionary(); // map name to AST_SymbolVar (variables defined in this scope; includes functions)
-    this.functions = new Dictionary(); // map name to AST_SymbolDefun (functions defined in this scope)
-    this.uses_with = false;   // will be set to true if this or some nested scope uses the `with` statement
-    this.uses_eval = false;   // will be set to true if this or nested scope uses the global `eval`
-    this.parent_scope = null; // the parent scope
-    this.enclosed = [];       // a list of variables from this or outer scope(s) that are referenced from this or inner scopes
-    this.cname = -1;          // the current index for mangling functions/variables
+AST_Scope.DEFMETHOD("init_scope_vars", function(parent_scope){
+    this.variables = new Dictionary();  // map name to AST_SymbolVar (variables defined in this scope; includes functions)
+    this.functions = new Dictionary();  // map name to AST_SymbolDefun (functions defined in this scope)
+    this.uses_with = false;             // will be set to true if this or some nested scope uses the `with` statement
+    this.uses_eval = false;             // will be set to true if this or nested scope uses the global `eval`
+    this.parent_scope = parent_scope;   // the parent scope
+    this.enclosed = [];                 // a list of variables from this or outer scope(s) that are referenced from this or inner scopes
+    this.cname = -1;                    // the current index for mangling functions/variables
 });
 
 AST_Lambda.DEFMETHOD("init_scope_vars", function(){
     AST_Scope.prototype.init_scope_vars.apply(this, arguments);
     this.uses_arguments = false;
-
-    var symbol = new AST_VarDef({ name: "arguments", start: this.start, end: this.end });
-    var def = new SymbolDef(this, this.variables.size(), symbol);
-    this.variables.set(symbol.name, def);
+    this.def_variable(new AST_SymbolVar({
+        name: "arguments",
+        start: this.start,
+        end: this.end
+    }));
 });
 
-AST_SymbolRef.DEFMETHOD("reference", function(options) {
+AST_Symbol.DEFMETHOD("mark_enclosed", function(options) {
     var def = this.definition();
-    def.references.push(this);
     var s = this.scope;
     while (s) {
         push_uniq(s.enclosed, def);
@@ -276,6 +290,11 @@ AST_SymbolRef.DEFMETHOD("reference", function(options) {
         if (s === def.scope) break;
         s = s.parent_scope;
     }
+});
+
+AST_Symbol.DEFMETHOD("reference", function(options) {
+    this.definition().references.push(this);
+    this.mark_enclosed(options);
 });
 
 AST_Scope.DEFMETHOD("find_variable", function(name){
