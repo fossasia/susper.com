@@ -8,7 +8,7 @@ Susper is a decentral Search Engine that uses the peer to peer system yacy and A
 [![codecov](https://codecov.io/gh/fossasia/susper.com/branch/gh-pages/graph/badge.svg)](https://codecov.io/gh/fossasia/gh-pages)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fossasia/susper.com?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-##Communication
+## Communication
 
 Our chat channel is on gitter here: https://gitter.im/fossasia/susper.com
 
@@ -52,7 +52,7 @@ First we will need to install angular-cli by using the following command:
 ```sh
 $ npm install -g angular-cli
 ```
-After installing anular-cli we need to install our required node modules, so we will do that by using the following command:
+After installing angular-cli we need to install our required node modules, so we will do that by using the following command:
 ```sh
 $ npm install
 ```
