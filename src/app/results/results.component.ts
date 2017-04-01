@@ -50,16 +50,15 @@ export class ResultsComponent implements OnInit {
   }
   // display content on hover
   // --------------------------------
-  overTitle(){
-    if(this.hoverBox == true){
+  overTitle() {
+    if (this.hoverBox === true) {
       this.hoverBox = false;
-    }
-    else {
+    } else {
       this.hoverBox = true;
     }
   }
-  trackHero(index, item){
-    console.log("item", item);
+  trachHero(index, item) {
+    console.log('item', item);
     return item ? item.id : undefined;
   }
   // ---------------------------------
@@ -113,8 +112,9 @@ export class ResultsComponent implements OnInit {
   getStyle(page) {
     return ((this.presentPage) === page);
   }
-  constructor(private domsanitizer: DomSanitizer, private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
-    private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
+  constructor(private domsanitizer: DomSanitizer, private searchservice: SearchService, private route: Router, 
+              private activatedroute: ActivatedRoute,
+              private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
 
     this.activatedroute.queryParams.subscribe(query => {
       console.log(query);
@@ -152,12 +152,11 @@ export class ResultsComponent implements OnInit {
 
       this.items$.subscribe(m => {
 
-        for(var i=0; i < m.length; i++){
+      for(let i = 0; i < m.length; i++) {
           this.myUrlList[i] = this.domsanitizer.bypassSecurityTrustResourceUrl(m[i].link);
           console.log(this.myUrlList);
         }
-        
-      })
+      });
 
     });
     this.presentPage = 0;

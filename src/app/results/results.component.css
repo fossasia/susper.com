@@ -253,6 +253,7 @@ img.res-img {
 .box {
   display: none;
   width: 100%;
+  text-align: right;
 }
 
 a:hover + .box, .box:hover{

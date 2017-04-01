@@ -22,7 +22,7 @@
             {{message}}
         </div>
         <div class="text-result" *ngIf="Display('all')">
-            <div *ngFor="let item of items$|async let i = index; trackBy: trackHero" class="result">
+            <div *ngFor="let item of items$|async let i = index; trackBy: trachHero" class="result">
                 <div class="title" (mouseover)="overTitle()" (mouseleave)="overTitle()">
                     <a href="{{item.link}}">{{item.title}}</a>
                     <div class="box">
