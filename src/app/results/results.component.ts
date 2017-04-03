@@ -112,10 +112,9 @@ export class ResultsComponent implements OnInit {
   getStyle(page) {
     return ((this.presentPage) === page);
   }
-  constructor(private domsanitizer: DomSanitizer, private searchservice: SearchService, private route: Router, 
-              private activatedroute: ActivatedRoute,
-              private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
-
+  constructor(private domsanitizer: DomSanitizer, private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute, 
+    private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
+    
     this.activatedroute.queryParams.subscribe(query => {
       console.log(query);
       if (query['fq']) {
@@ -152,7 +151,7 @@ export class ResultsComponent implements OnInit {
 
       this.items$.subscribe(m => {
 
-      for(let i = 0; i < m.length; i++) {
+      for (let i = 0; i < m.length; i++) {
           this.myUrlList[i] = this.domsanitizer.bypassSecurityTrustResourceUrl(m[i].link);
           console.log(this.myUrlList);
         }
