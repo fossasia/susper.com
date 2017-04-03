@@ -261,3 +261,7 @@ a:hover + .box, .box:hover{
   position: absolute;
   z-index:100;
 }
+
+iframe {
+  overflow-x: hidden;
+}
