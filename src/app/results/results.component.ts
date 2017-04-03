@@ -112,9 +112,9 @@ export class ResultsComponent implements OnInit {
   getStyle(page) {
     return ((this.presentPage) === page);
   }
-  constructor(private domsanitizer: DomSanitizer, private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute, 
+  constructor(private domsanitizer: DomSanitizer, private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
     private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
-    
+
     this.activatedroute.queryParams.subscribe(query => {
       console.log(query);
       if (query['fq']) {
