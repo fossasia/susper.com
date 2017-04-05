@@ -29,7 +29,7 @@
 }
 
 .dropdown-menu{
-  width: 400px;
+  width: 200px;
 }
 
 #navcontainer ul {
@@ -53,18 +53,6 @@
   #navcontainer, #side-menu {
     margin-top: 8px;
   }
-}
-
-#tutorial-icon {
-    padding-left: 15px;
-}
-
-#github-icon {
-    padding-left: 5px;
-}
-
-#bug-icon {
-    padding-left: 10px;
 }
 
 @media screen and (max-width:1079px) {
@@ -111,4 +99,8 @@
   .navbar-brand{
       margin-left: 30%;
   }
+}
+
+.fa {
+  color: #808080;
 }
