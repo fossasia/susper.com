@@ -7,6 +7,7 @@ before_install:
 - export CHROME_BIN=chromium-browser
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
+- docker run -v "$PWD/shared:/shared" ...
 before_script:
 - ng build
 script:
@@ -16,6 +17,8 @@ script:
   docker run -ti -v $(pwd):/app --workdir=/app coala/base coala --version
 after_success:
 - bash ./deploy.sh
+- bash <(curl -s https://codecov.io/bash)
+- mv -r coverage/ shared
 cache:
     bundler: true
     directories:
