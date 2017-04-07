@@ -178,6 +178,17 @@ describe('auth-token', function () {
       })
     })
 
+    it('"nerf darts" registry urls', function (done, undef) {
+      fs.writeFile(npmRcPath, '//contoso.pkgs.visualstudio.com/_packaging/MyFeed/npm/:_authToken=heider', function (err) {
+        var getAuthToken = requireUncached('../index')
+        assert(!err, err)
+        assert.deepEqual(
+          getAuthToken('https://contoso.pkgs.visualstudio.com/_packaging/MyFeed/npm/registry'),
+          {token: 'heider', type: 'Bearer'}
+        )
+        done()
+      })
+    })
   })
 
   describe('basic token', function () {

@@ -11,22 +11,23 @@ var browserName = browser.name
 var browserVersion = browser.major
 
 var skipTimeout = ((browserName === 'Opera' && browserVersion <= 12) ||
-    (browserName === 'Safari' && browserVersion <= 5))
+	(browserName === 'Safari' && browserVersion <= 5))
 
 
 test('emits timeout events', function (t) {
-    if (skipTimeout) {
-        return t.skip('Browser does not support setting timeouts')
-    }
+	if (skipTimeout) {
+		return t.skip('Browser does not support setting timeouts')
+	}
 
-    var req = http.request({
-        path: '/basic.txt',
-        timeout: 1
-    })
+	var req = http.request({
+		path: '/basic.txt',
+		timeout: 1
+	})
 
-    req.on('timeout', function () {
-        t.end() // the test will timeout if this does not happen
-    })
+	req.on('timeout', function () {
+		t.pass('timeout caught')
+		t.end() // the test will timeout if this does not happen
+	})
 
-    req.end()
+	req.end()
 })

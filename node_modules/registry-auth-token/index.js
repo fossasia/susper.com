@@ -11,7 +11,8 @@ var passwordKey = ':_password'
 module.exports = function getRegistryAuthInfo(registryUrl, opts) {
   var options = opts || {}
   var npmrc = require('rc')('npm', {registry: 'https://registry.npmjs.org/'})
-  var parsed = url.parse(registryUrl || npmrc.registry, false, true)
+  var checkUrl = registryUrl || npmrc.registry
+  var parsed = url.parse(checkUrl, false, true)
   var pathname
 
   while (pathname !== '/') {
@@ -25,7 +26,9 @@ module.exports = function getRegistryAuthInfo(registryUrl, opts) {
 
     // break if not recursive
     if (!options.recursive) {
-      return undefined
+      return /\/$/.test(checkUrl)
+        ? undefined
+        : getRegistryAuthInfo(url.resolve(checkUrl, '.'), options)
     }
 
     parsed.pathname = url.resolve(normalizePath(pathname), '..') || '/'

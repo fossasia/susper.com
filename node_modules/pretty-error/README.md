@@ -1,9 +1,7 @@
 # pretty-error
 
 [![Dependency status](https://david-dm.org/AriaMinaei/pretty-error.svg)](https://david-dm.org/AriaMinaei/pretty-error)
-[![Build Status](https://secure.travis-ci.org/AriaMinaei/pretty-error.svg?branch=master)](https://travis-ci.org/AriaMinaei/pretty-error)
-
-[![NPM](https://nodei.co/npm/pretty-error.svg)](https://npmjs.org/package/pretty-error)
+[![Build Status](https://secure.travis-ci.org/AriaMinaei/pretty-error.svg?branch=master)](https://travis-ci.org/AriaMinaei/pretty-error) [![npm](https://img.shields.io/npm/dm/pretty-error.svg)](https://npmjs.org/package/pretty-error)
 
 A small tool to see node.js errors with less clutter:
 
@@ -55,6 +53,12 @@ var PrettyError = require('pretty-error');
 // instantiate PrettyError, which can then be used to render error objects
 var pe = new PrettyError();
 pe.start();
+```
+
+You can also preload pretty-error into your code using node's [`--require`](https://nodejs.org/api/cli.html#cli_r_require_module) argument:
+
+```
+$ node --require pretty-error/start your-module.js
 ```
 
 ## How it Works

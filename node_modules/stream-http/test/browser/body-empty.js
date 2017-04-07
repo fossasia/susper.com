@@ -6,10 +6,10 @@ var http = require('../..')
 
 var reference = fs.readFileSync(__dirname + '/../server/static/basic.txt')
 
-test('delete empty', function (t) {
+test('get body empty', function (t) {
 	var req = http.request({
 		path: '/verifyEmpty',
-		method: 'DELETE'
+		method: 'GET'
 	}, function (res) {
 		var buffers = []
 

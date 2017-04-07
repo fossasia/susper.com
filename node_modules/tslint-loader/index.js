@@ -64,7 +64,9 @@ function lint(webpackInstance, input, options) {
 
 function report(result, emitter, failOnHint, fileOutputOpts, filename, bailEnabled) {
   if (result.failureCount === 0) return;
-  emitter(result.output);
+  var err = new Error(result.output);
+  delete err.stack;
+  emitter(err);
 
   if (fileOutputOpts && fileOutputOpts.dir) {
     writeToFile(fileOutputOpts, result);
@@ -117,7 +119,7 @@ module.exports = function(input, map) {
   this.cacheable && this.cacheable();
   var callback = this.async();
 
-  if (!semver.satisfies(Lint.Linter.VERSION, '^4.0.0')) {
+  if (!semver.satisfies(Lint.Linter.VERSION, '>=4.0.0')) {
     throw new Error('Tslint should be of version 4+');
   }
 
