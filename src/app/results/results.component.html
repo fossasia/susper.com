@@ -22,9 +22,12 @@
             {{message}}
         </div>
         <div class="text-result" *ngIf="Display('all')">
-            <div *ngFor="let item of items$|async" class="result">
-                <div class="title">
+            <div *ngFor="let item of items$|async let i = index; trackBy: trachHero" class="result">
+                <div class="title" (mouseover)="overTitle()" (mouseleave)="overTitle()">
                     <a href="{{item.link}}">{{item.title}}</a>
+                    <div class="box">
+                        <iframe width="400px" height="400px" [src]="myUrlList[i]" scrolling="no"></iframe>
+                    </div>
                 </div>
                 <div class="link">
                     <p>{{item.link}}</p>
