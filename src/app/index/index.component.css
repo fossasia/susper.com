@@ -72,3 +72,9 @@
 .navbar-toggle {
     z-index:3;
 }
+footer{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width:100%;
+}

@@ -138,6 +138,17 @@ img.res-img {
   max-width: 100%;
 }
 
+.pagination li span
+{
+      background-color: white;
+      border: 0px ;
+      font-size: 16px;
+}
+
+ .active_page{  
+      color: black; 
+}
+
 .image-result {
   padding-left: 80px;
 }
@@ -248,4 +259,20 @@ img.res-img {
   #search-options li {
     padding: 0px 5.6% 12px;
   }
+}
+
+.box {
+  display: none;
+  width: 100%;
+  text-align: right;
+}
+
+a:hover + .box, .box:hover{
+  display:block;
+  position: absolute;
+  z-index:100;
+}
+
+iframe {
+  overflow-x: hidden;
 }

@@ -33,16 +33,72 @@
     font-weight: 700;
 }
 
-@media screen and (max-width:990px){
-    .image-banner{
+@media screen and (max-width:990px) {
+    .image-banner {
         height: 190px;
     }
-
-    .banner{
-        top:0;
+    .banner {
+        top: 0;
     }
+}
+
+.about-navbar {
+    position: relative;
+    top: -5px;
 }
 
 .navbar {
     margin-bottom: 0px !important;
+}
+
+.nav-about {
+    clear: both;
+    margin: -57px 0 0 0
+}
+
+.sub-details {
+    font-family: Roboto, sans-serif;
+    line-height: 1.4;
+    font-size: 14px;
+}
+
+.sub-details h5 {
+    font-family: Roboto, sans-serif;
+    line-height: 1.4;
+    font-size: 14px;
+    margin: 20px 0 20px 0;
+}
+
+.sub-details p {
+    font-family: Roboto, sans-serif;
+    line-height: 1.4;
+    font-size: 14px;
+    text-align: justify;
+}
+
+.about-sub-details {
+    padding: 20px 0 20px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.about-sub-details .row h2 {
+    font-family: "Quicksand", sans-serif;
+    padding: 5px 10px;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.contact-sub-details {
+    margin-bottom: 40px;
+}
+
+.contact-sub-details .row h2 {
+    font-family: "Quicksand", sans-serif;
+    padding: 5px 10px;
+    font-weight: 500;
+    font-size: 24px;
+}
+.navbar-fixed-bottom, .navbar-fixed-top{
+    position: relative !important;
 }
