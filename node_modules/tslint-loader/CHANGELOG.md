@@ -1,5 +1,9 @@
 # Changelog
 
+### 3.5.1
+
+Enable Tslint versions greater than 4
+
 ### 3.4.2
 
 Docs and tests upgrade to Webpack 2

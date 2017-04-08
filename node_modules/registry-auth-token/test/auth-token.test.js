@@ -147,6 +147,7 @@ describe('auth-token', function () {
         assert.deepEqual(getAuthToken('https://registry.blah.org/foo/bar/baz', opts), {token: 'recurseExactlyOneLevel', type: 'Bearer'})
         assert.deepEqual(getAuthToken('https://registry.blah.com/foo/bar/baz', opts), {token: 'whatev', type: 'Bearer'})
         assert.deepEqual(getAuthToken('http://registry.blah.eu/what/ever', opts), {token: 'yep', type: 'Bearer'})
+        assert.deepEqual(getAuthToken('http://registry.blah.eu//what/ever', opts), undefined, 'does not hang')
         assert.equal(getAuthToken('//some.registry', opts), undef)
         done()
       })

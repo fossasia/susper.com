@@ -15,7 +15,7 @@ module.exports = function getRegistryAuthInfo(registryUrl, opts) {
   var parsed = url.parse(checkUrl, false, true)
   var pathname
 
-  while (pathname !== '/') {
+  while (pathname !== '/' && parsed.pathname !== pathname) {
     pathname = parsed.pathname || '/'
 
     var regUrl = '//' + parsed.host + pathname.replace(/\/$/, '')

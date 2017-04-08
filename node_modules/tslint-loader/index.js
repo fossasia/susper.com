@@ -64,6 +64,7 @@ function lint(webpackInstance, input, options) {
 
 function report(result, emitter, failOnHint, fileOutputOpts, filename, bailEnabled) {
   if (result.failureCount === 0) return;
+  if (result.failures && result.failures.length === 0) return;
   var err = new Error(result.output);
   delete err.stack;
   emitter(err);
