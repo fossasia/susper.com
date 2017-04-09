@@ -1,11 +1,9 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-footer-navbar',
   templateUrl: './footer-navbar.component.html',
-  styleUrls: ['./footer-navbar.component.css'],
-  encapsulation: ViewEncapsulation.null,
-  changeDetection: ChangeDetectionStrategy.null
+  styleUrls: ['./footer-navbar.component.css']
 })
 export class FooterNavbarComponent implements OnInit {
 
