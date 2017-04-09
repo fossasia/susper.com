@@ -99,3 +99,6 @@
     font-weight: 500;
     font-size: 24px;
 }
+.navbar-fixed-bottom, .navbar-fixed-top{
+    position: relative !important;
+}
