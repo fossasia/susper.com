@@ -8,11 +8,7 @@ before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - docker build -t ci-build .
-before_script:
-- ng build
 script:
-- ng test --watch=false
-- ng lint
 - >
   docker run --rm -v $(pwd):/proj ci-build
 - >
@@ -20,7 +16,6 @@ script:
 after_success:
 - bash ./deploy.sh
 - bash <(curl -s https://codecov.io/bash)
-- mv -r coverage/ shared
 cache:
     bundler: true
     directories:
