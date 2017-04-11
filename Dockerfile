@@ -1,5 +1,5 @@
 FROM node:6-alpine
-WORKDIR /usr/src/app
+WORKDIR /proj
 CMD npm install && \
     ng build && \
     ng test --watch=false && \
