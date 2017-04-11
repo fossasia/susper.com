@@ -7,12 +7,14 @@ before_install:
 - export CHROME_BIN=chromium-browser
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
-- docker run -v "$PWD/shared:/shared"
+- docker build -t ci-build .
 before_script:
 - ng build
 script:
 - ng test --watch=false
 - ng lint
+- >
+  docker run --rm -v $(pwd):/proj ci-build
 - >
   docker run -ti -v $(pwd):/app --workdir=/app coala/base coala --version
 after_success:
