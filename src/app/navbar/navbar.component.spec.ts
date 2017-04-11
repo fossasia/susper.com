@@ -1,22 +1,24 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {By, BrowserModule} from '@angular/platform-browser';
+import { By, BrowserModule } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { NavbarComponent } from './navbar.component';
-import {RouterTestingModule} from '@angular/router/testing';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {HttpModule, JsonpModule} from '@angular/http';
-import {StoreModule} from '@ngrx/store';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {AppComponent} from '../app.component';
-import {IndexComponent} from '../index/index.component';
-import {ResultsComponent} from '../results/results.component';
-import {NotFoundComponent} from '../not-found/not-found.component';
-import {AdvancedsearchComponent} from '../advancedsearch/advancedsearch.component';
-import {SearchBarComponent} from '../search-bar/search-bar.component';
-import {reducer} from '../reducers/index';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpModule, JsonpModule } from '@angular/http';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AppComponent } from '../app.component';
+import { IndexComponent } from '../index/index.component';
+import { ResultsComponent } from '../results/results.component';
+import { NotFoundComponent } from '../not-found/not-found.component';
+import { AdvancedsearchComponent } from '../advancedsearch/advancedsearch.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { reducer } from '../reducers/index';
+import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
+import { AboutComponent } from '../about/about.component';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -24,7 +26,8 @@ describe('NavbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule,
+      imports: [
+        RouterTestingModule,
         BrowserModule,
         CommonModule,
         FormsModule,
@@ -40,10 +43,12 @@ describe('NavbarComponent', () => {
         ResultsComponent,
         NotFoundComponent,
         AdvancedsearchComponent,
-        SearchBarComponent
+        SearchBarComponent,
+        FooterNavbarComponent,
+        AboutComponent
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
