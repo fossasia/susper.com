@@ -1,22 +1,24 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {By, BrowserModule} from '@angular/platform-browser';
+import { By, BrowserModule } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { NotFoundComponent } from './not-found.component';
-import {RouterTestingModule} from '@angular/router/testing';
-import {CommonModule} from '@angular/common';
-import {HttpModule, JsonpModule} from '@angular/http';
-import {StoreModule} from '@ngrx/store';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {reducer} from '../reducers/index';
-import {AppComponent} from '../app.component';
-import {NavbarComponent} from '../navbar/navbar.component';
-import {IndexComponent} from '../index/index.component';
-import {ResultsComponent} from '../results/results.component';
-import {AdvancedsearchComponent} from '../advancedsearch/advancedsearch.component';
-import {SearchBarComponent} from '../search-bar/search-bar.component';
-import {FormsModule} from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CommonModule } from '@angular/common';
+import { HttpModule, JsonpModule } from '@angular/http';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducer } from '../reducers/index';
+import { AppComponent } from '../app.component';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { IndexComponent } from '../index/index.component';
+import { ResultsComponent } from '../results/results.component';
+import { AdvancedsearchComponent } from '../advancedsearch/advancedsearch.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { FormsModule } from '@angular/forms';
+import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
+import { AboutComponent } from '../about/about.component';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -24,7 +26,8 @@ describe('NotFoundComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule,
+      imports: [
+        RouterTestingModule,
         BrowserModule,
         CommonModule,
         FormsModule,
@@ -40,10 +43,12 @@ describe('NotFoundComponent', () => {
         ResultsComponent,
         NotFoundComponent,
         AdvancedsearchComponent,
-        SearchBarComponent
+        SearchBarComponent,
+        FooterNavbarComponent,
+        AboutComponent
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

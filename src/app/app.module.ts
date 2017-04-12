@@ -16,6 +16,7 @@ import {StoreModule} from '@ngrx/store';
 import {reducer} from './reducers/index';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { AboutComponent } from './about/about.component';
+import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -33,7 +34,8 @@ const appRoutes: Routes = [
     NotFoundComponent,
     AdvancedsearchComponent,
     SearchBarComponent,
-    AboutComponent
+    AboutComponent,
+    FooterNavbarComponent
   ],
   imports: [
     BrowserModule,
