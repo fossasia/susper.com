@@ -1,4 +1,5 @@
-# Electron-to-Chromium
+# Electron-to-Chromium [![npm](https://img.shields.io/npm/v/electron-to-chromium.svg)](https://www.npmjs.com/package/electron-to-chromium) [![travis](https://img.shields.io/travis/Kilian/electron-to-chromium/master.svg)](https://travis-ci.org/Kilian/electron-to-chromium) [![npm-downloads](https://img.shields.io/npm/dm/electron-to-chromium.svg)](https://www.npmjs.com/package/electron-to-chromium)
+
 This repository provides a mapping of Electron versions to the Chromium version that it uses.
 
 This package is used in [Browserslist](https://github.com/ai/browserslist), so you can use e.g. `electron >= 1.4` in [Autoprefixer](https://github.com/postcss/autoprefixer), [Stylelint](https://github.com/stylelint/stylelint), [babel-present-env](https://github.com/babel/babel-preset-env) and [eslint-plugin-compat](https://github.com/amilajack/eslint-plugin-compat).
@@ -159,3 +160,5 @@ var fullChromiumVersions = require('electron-to-chromium/full-chromium-versions'
 This package will be updated with each new Electron release.
 
 To update the list, run `npm run build.js`. Requires internet access as it downloads from the canonical list of Electron versions.
+
+to verify correct behaviour, run `npm test`;
