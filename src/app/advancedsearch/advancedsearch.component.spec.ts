@@ -17,6 +17,8 @@ import {IndexComponent} from '../index/index.component';
 import {ResultsComponent} from '../results/results.component';
 import {NotFoundComponent} from '../not-found/not-found.component';
 import {SearchBarComponent} from '../search-bar/search-bar.component';
+import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
+import { AboutComponent } from '../about/about.component';
 
 describe('AdvancedsearchComponent', () => {
   let component: AdvancedsearchComponent;
@@ -24,7 +26,8 @@ describe('AdvancedsearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule,
+      imports: [
+        RouterTestingModule,
         BrowserModule,
         CommonModule,
         FormsModule,
@@ -40,7 +43,9 @@ describe('AdvancedsearchComponent', () => {
         ResultsComponent,
         NotFoundComponent,
         AdvancedsearchComponent,
-        SearchBarComponent
+        SearchBarComponent,
+        FooterNavbarComponent,
+        AboutComponent
       ]
     })
       .compileComponents();
