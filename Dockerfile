@@ -5,4 +5,4 @@ CMD npm install && \
     node_modules/.bin/ng test --watch=false && \
     node_modules/.bin/ng lint && \
     mkdir -p shared && \
-    mv coverage.txt shared
+    mv shared/coverage.txt shared
