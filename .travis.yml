@@ -10,7 +10,7 @@ before_install:
 - docker build -t ci-build .
 script:
 - >
-  docker run --rm -v $(pwd):/proj ci-build
+  docker run --rm -v $(pwd):/usr/src/app ci-build
 - >
   docker run -ti -v $(pwd):/app --workdir=/app coala/base coala --version
 after_success:
