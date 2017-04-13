@@ -7,23 +7,18 @@ var integerToChar = {};
 });
 
 export function decode ( string ) {
-	var result = [],
-		len = string.length,
-		i,
-		hasContinuationBit,
-		shift = 0,
-		value = 0,
-		integer,
-		shouldNegate;
+	var result = [];
+	var shift = 0;
+	var value = 0;
 
-	for ( i = 0; i < len; i += 1 ) {
-		integer = charToInteger[ string[i] ];
+	for ( var i = 0; i < string.length; i += 1 ) {
+		var integer = charToInteger[ string[i] ];
 
 		if ( integer === undefined ) {
 			throw new Error( 'Invalid character (' + string[i] + ')' );
 		}
 
-		hasContinuationBit = integer & 32;
+		var hasContinuationBit = integer & 32;
 
 		integer &= 31;
 		value += integer << shift;
@@ -31,7 +26,7 @@ export function decode ( string ) {
 		if ( hasContinuationBit ) {
 			shift += 5;
 		} else {
-			shouldNegate = value & 1;
+			var shouldNegate = value & 1;
 			value >>= 1;
 
 			result.push( shouldNegate ? -value : value );
@@ -45,13 +40,13 @@ export function decode ( string ) {
 }
 
 export function encode ( value ) {
-	var result, i;
+	var result;
 
 	if ( typeof value === 'number' ) {
 		result = encodeInteger( value );
 	} else {
 		result = '';
-		for ( i = 0; i < value.length; i += 1 ) {
+		for ( var i = 0; i < value.length; i += 1 ) {
 			result += encodeInteger( value[i] );
 		}
 	}
@@ -60,7 +55,7 @@ export function encode ( value ) {
 }
 
 function encodeInteger ( num ) {
-	var result = '', clamped;
+	var result = '';
 
 	if ( num < 0 ) {
 		num = ( -num << 1 ) | 1;
@@ -69,7 +64,7 @@ function encodeInteger ( num ) {
 	}
 
 	do {
-		clamped = num & 31;
+		var clamped = num & 31;
 		num >>= 5;
 
 		if ( num > 0 ) {

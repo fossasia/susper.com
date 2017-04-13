@@ -1,5 +1,9 @@
 # changelog
 
+## 0.2.2
+
+* Expose `pkg.module`, not `jsnext:main`
+
 ## 0.2.1
 
 * Performance boost - vlq no longer checks that you've passed a number or an array into `vlq.encode()`, making it significantly faster
