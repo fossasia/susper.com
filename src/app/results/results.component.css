@@ -138,6 +138,17 @@ img.res-img {
   max-width: 100%;
 }
 
+.pagination li span
+{
+      background-color: white;
+      border: 0px ;
+      font-size: 16px;
+}
+
+ .active_page{  
+      color: black; 
+}
+
 .image-result {
   padding-left: 80px;
 }
