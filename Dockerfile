@@ -4,4 +4,4 @@ WORKDIR /usr/src/app
 CMD npm install && \
     node_modules/.bin/ng build && \
     node_modules/.bin/ng test --watch=false && \
-    node_modules/.bin/ng lint && \
+    node_modules/.bin/ng lint
