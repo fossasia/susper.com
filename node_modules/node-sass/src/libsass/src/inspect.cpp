@@ -21,7 +21,7 @@ namespace Sass {
   Inspect::~Inspect() { }
 
   // statements
-  void Inspect::operator()(Block* block)
+  void Inspect::operator()(Block_Ptr block)
   {
     if (!block->is_root()) {
       add_open_mapping(block);
@@ -39,26 +39,23 @@ namespace Sass {
 
   }
 
-  void Inspect::operator()(Ruleset* ruleset)
+  void Inspect::operator()(Ruleset_Ptr ruleset)
   {
-    ruleset->selector()->perform(this);
-    ruleset->block()->perform(this);
+    if (ruleset->selector()) {
+      ruleset->selector()->perform(this);
+    }
+    if (ruleset->block()) {
+      ruleset->block()->perform(this);
+    }
   }
 
-  void Inspect::operator()(Keyframe_Rule* rule)
+  void Inspect::operator()(Keyframe_Rule_Ptr rule)
   {
-    if (rule->selector()) rule->selector()->perform(this);
+    if (rule->name()) rule->name()->perform(this);
     if (rule->block()) rule->block()->perform(this);
   }
 
-  void Inspect::operator()(Propset* propset)
-  {
-    propset->property_fragment()->perform(this);
-    append_colon_separator();
-    propset->block()->perform(this);
-  }
-
-  void Inspect::operator()(Bubble* bubble)
+  void Inspect::operator()(Bubble_Ptr bubble)
   {
     append_indentation();
     append_token("::BUBBLE", bubble);
@@ -67,7 +64,7 @@ namespace Sass {
     append_scope_closer();
   }
 
-  void Inspect::operator()(Media_Block* media_block)
+  void Inspect::operator()(Media_Block_Ptr media_block)
   {
     append_indentation();
     append_token("@media", media_block);
@@ -78,7 +75,7 @@ namespace Sass {
     media_block->block()->perform(this);
   }
 
-  void Inspect::operator()(Supports_Block* feature_block)
+  void Inspect::operator()(Supports_Block_Ptr feature_block)
   {
     append_indentation();
     append_token("@supports", feature_block);
@@ -87,7 +84,7 @@ namespace Sass {
     feature_block->block()->perform(this);
   }
 
-  void Inspect::operator()(At_Root_Block* at_root_block)
+  void Inspect::operator()(At_Root_Block_Ptr at_root_block)
   {
     append_indentation();
     append_token("@at-root ", at_root_block);
@@ -96,7 +93,7 @@ namespace Sass {
     at_root_block->block()->perform(this);
   }
 
-  void Inspect::operator()(Directive* at_rule)
+  void Inspect::operator()(Directive_Ptr at_rule)
   {
     append_indentation();
     append_token(at_rule->keyword(), at_rule);
@@ -119,7 +116,7 @@ namespace Sass {
     }
   }
 
-  void Inspect::operator()(Declaration* dec)
+  void Inspect::operator()(Declaration_Ptr dec)
   {
     if (dec->value()->concrete_type() == Expression::NULL_VAL) return;
     bool was_decl = in_declaration;
@@ -127,13 +124,14 @@ namespace Sass {
     if (output_style() == NESTED)
       indentation += dec->tabs();
     append_indentation();
-    dec->property()->perform(this);
+    if (dec->property())
+      dec->property()->perform(this);
     append_colon_separator();
 
     if (dec->value()->concrete_type() == Expression::SELECTOR) {
-      Memory_Manager mem;
-      Listize listize(mem);
-      dec->value()->perform(&listize)->perform(this);
+      Listize listize;
+      Expression_Obj ls = dec->value()->perform(&listize);
+      ls->perform(this);
     } else {
       dec->value()->perform(this);
     }
@@ -148,7 +146,7 @@ namespace Sass {
     in_declaration = was_decl;
   }
 
-  void Inspect::operator()(Assignment* assn)
+  void Inspect::operator()(Assignment_Ptr assn)
   {
     append_token(assn->variable(), assn);
     append_colon_separator();
@@ -160,21 +158,17 @@ namespace Sass {
     append_delimiter();
   }
 
-  void Inspect::operator()(Import* import)
+  void Inspect::operator()(Import_Ptr import)
   {
     if (!import->urls().empty()) {
       append_token("@import", import);
       append_mandatory_space();
 
-      if (String_Quoted* strq = dynamic_cast<String_Quoted*>(import->urls().front())) {
-        strq->is_delayed(false);
-      }
-
       import->urls().front()->perform(this);
       if (import->urls().size() == 1) {
-        if (import->media_queries()) {
+        if (import->import_queries()) {
           append_mandatory_space();
-          import->media_queries()->perform(this);
+          import->import_queries()->perform(this);
         }
       }
       append_delimiter();
@@ -183,15 +177,11 @@ namespace Sass {
         append_token("@import", import);
         append_mandatory_space();
 
-        if (String_Quoted* strq = dynamic_cast<String_Quoted*>(import->urls()[i])) {
-          strq->is_delayed(false);
-        }
-
         import->urls()[i]->perform(this);
         if (import->urls().size() - 1 == i) {
-          if (import->media_queries()) {
+          if (import->import_queries()) {
             append_mandatory_space();
-            import->media_queries()->perform(this);
+            import->import_queries()->perform(this);
           }
         }
         append_delimiter();
@@ -199,7 +189,7 @@ namespace Sass {
     }
   }
 
-  void Inspect::operator()(Import_Stub* import)
+  void Inspect::operator()(Import_Stub_Ptr import)
   {
     append_indentation();
     append_token("@import", import);
@@ -208,7 +198,7 @@ namespace Sass {
     append_delimiter();
   }
 
-  void Inspect::operator()(Warning* warning)
+  void Inspect::operator()(Warning_Ptr warning)
   {
     append_indentation();
     append_token("@warn", warning);
@@ -217,7 +207,7 @@ namespace Sass {
     append_delimiter();
   }
 
-  void Inspect::operator()(Error* error)
+  void Inspect::operator()(Error_Ptr error)
   {
     append_indentation();
     append_token("@error", error);
@@ -226,7 +216,7 @@ namespace Sass {
     append_delimiter();
   }
 
-  void Inspect::operator()(Debug* debug)
+  void Inspect::operator()(Debug_Ptr debug)
   {
     append_indentation();
     append_token("@debug", debug);
@@ -235,14 +225,14 @@ namespace Sass {
     append_delimiter();
   }
 
-  void Inspect::operator()(Comment* comment)
+  void Inspect::operator()(Comment_Ptr comment)
   {
     in_comment = true;
     comment->text()->perform(this);
     in_comment = false;
   }
 
-  void Inspect::operator()(If* cond)
+  void Inspect::operator()(If_Ptr cond)
   {
     append_indentation();
     append_token("@if", cond);
@@ -257,7 +247,7 @@ namespace Sass {
     }
   }
 
-  void Inspect::operator()(For* loop)
+  void Inspect::operator()(For_Ptr loop)
   {
     append_indentation();
     append_token("@for", loop);
@@ -270,7 +260,7 @@ namespace Sass {
     loop->block()->perform(this);
   }
 
-  void Inspect::operator()(Each* loop)
+  void Inspect::operator()(Each_Ptr loop)
   {
     append_indentation();
     append_token("@each", loop);
@@ -285,7 +275,7 @@ namespace Sass {
     loop->block()->perform(this);
   }
 
-  void Inspect::operator()(While* loop)
+  void Inspect::operator()(While_Ptr loop)
   {
     append_indentation();
     append_token("@while", loop);
@@ -294,7 +284,7 @@ namespace Sass {
     loop->block()->perform(this);
   }
 
-  void Inspect::operator()(Return* ret)
+  void Inspect::operator()(Return_Ptr ret)
   {
     append_indentation();
     append_token("@return", ret);
@@ -303,7 +293,7 @@ namespace Sass {
     append_delimiter();
   }
 
-  void Inspect::operator()(Extension* extend)
+  void Inspect::operator()(Extension_Ptr extend)
   {
     append_indentation();
     append_token("@extend", extend);
@@ -312,7 +302,7 @@ namespace Sass {
     append_delimiter();
   }
 
-  void Inspect::operator()(Definition* def)
+  void Inspect::operator()(Definition_Ptr def)
   {
     append_indentation();
     if (def->type() == Definition::MIXIN) {
@@ -327,7 +317,7 @@ namespace Sass {
     def->block()->perform(this);
   }
 
-  void Inspect::operator()(Mixin_Call* call)
+  void Inspect::operator()(Mixin_Call_Ptr call)
   {
     append_indentation();
     append_token("@include", call);
@@ -343,14 +333,14 @@ namespace Sass {
     if (!call->block()) append_delimiter();
   }
 
-  void Inspect::operator()(Content* content)
+  void Inspect::operator()(Content_Ptr content)
   {
     append_indentation();
     append_token("@content", content);
     append_delimiter();
   }
 
-  void Inspect::operator()(Map* map)
+  void Inspect::operator()(Map_Ptr map)
   {
     if (output_style() == TO_SASS && map->empty()) {
       append_string("()");
@@ -370,10 +360,19 @@ namespace Sass {
     append_string(")");
   }
 
-  void Inspect::operator()(List* list)
+  std::string Inspect::lbracket(List_Ptr list) {
+    return list->is_bracketed() ? "[" : "(";
+  }
+
+  std::string Inspect::rbracket(List_Ptr list) {
+    return list->is_bracketed() ? "]" : ")";
+  }
+
+  void Inspect::operator()(List_Ptr list)
   {
-    if (output_style() == TO_SASS && list->empty()) {
-      append_string("()");
+    if (list->empty() && (output_style() == TO_SASS || list->is_bracketed())) {
+      append_string(lbracket(list));
+      append_string(rbracket(list));
       return;
     }
     std::string sep(list->separator() == SASS_SPACE ? " " : ",");
@@ -384,20 +383,24 @@ namespace Sass {
 
     bool was_space_array = in_space_array;
     bool was_comma_array = in_comma_array;
+    // if the list is bracketed, always include the left bracket
+    if (list->is_bracketed()) {
+      append_string(lbracket(list));
+    }
     // probably ruby sass eqivalent of element_needs_parens
-    if (output_style() == TO_SASS &&
+    else if (output_style() == TO_SASS &&
         list->length() == 1 &&
         !list->from_selector() &&
-        !dynamic_cast<List*>((*list)[0]) &&
-        !dynamic_cast<List*>((*list)[0]) &&
-        !dynamic_cast<Selector_List*>((*list)[0])) {
-      append_string("(");
+        !Cast<List>(list->at(0)) &&
+        !Cast<Selector_List>(list->at(0))
+    ) {
+      append_string(lbracket(list));
     }
     else if (!in_declaration && (list->separator() == SASS_HASH ||
         (list->separator() == SASS_SPACE && in_space_array) ||
         (list->separator() == SASS_COMMA && in_comma_array)
     )) {
-      append_string("(");
+      append_string(lbracket(list));
     }
 
     if (list->separator() == SASS_SPACE) in_space_array = true;
@@ -406,11 +409,11 @@ namespace Sass {
     for (size_t i = 0, L = list->size(); i < L; ++i) {
       if (list->separator() == SASS_HASH)
       { sep[0] = i % 2 ? ':' : ','; }
-      Expression* list_item = (*list)[i];
+      Expression_Obj list_item = list->at(i);
       if (output_style() != TO_SASS) {
         if (list_item->is_invisible()) {
           // this fixes an issue with "" in a list
-          if (!dynamic_cast<String_Constant*>(list_item)) {
+          if (!Cast<String_Constant>(list_item)) {
             continue;
           }
         }
@@ -426,38 +429,45 @@ namespace Sass {
 
     in_comma_array = was_comma_array;
     in_space_array = was_space_array;
+
+    // if the list is bracketed, always include the right bracket
+    if (list->is_bracketed()) {
+      if (list->separator() == SASS_COMMA && list->size() == 1) {
+        append_string(",");
+      }
+      append_string(rbracket(list));
+    }
     // probably ruby sass eqivalent of element_needs_parens
-    if (output_style() == TO_SASS &&
+    else if (output_style() == TO_SASS &&
         list->length() == 1 &&
         !list->from_selector() &&
-        !dynamic_cast<List*>((*list)[0]) &&
-        !dynamic_cast<List*>((*list)[0]) &&
-        !dynamic_cast<Selector_List*>((*list)[0])) {
-      append_string(",)");
+        !Cast<List>(list->at(0)) &&
+        !Cast<Selector_List>(list->at(0))
+    ) {
+      append_string(",");
+      append_string(rbracket(list));
     }
     else if (!in_declaration && (list->separator() == SASS_HASH ||
         (list->separator() == SASS_SPACE && in_space_array) ||
         (list->separator() == SASS_COMMA && in_comma_array)
     )) {
-      append_string(")");
+      append_string(rbracket(list));
     }
 
   }
 
-  void Inspect::operator()(Binary_Expression* expr)
+  void Inspect::operator()(Binary_Expression_Ptr expr)
   {
     expr->left()->perform(this);
     if ( in_media_block ||
          (output_style() == INSPECT) || (
           expr->op().ws_before
           && (!expr->is_interpolant())
-          && (!expr->is_delayed() ||
-          expr->is_left_interpolant() ||
-          expr->is_right_interpolant()
-          )
+          && (expr->is_left_interpolant() ||
+              expr->is_right_interpolant())
 
     )) append_string(" ");
-    switch (expr->type()) {
+    switch (expr->optype()) {
       case Sass_OP::AND: append_string("&&"); break;
       case Sass_OP::OR:  append_string("||");  break;
       case Sass_OP::EQ:  append_string("==");  break;
@@ -477,44 +487,42 @@ namespace Sass {
          (output_style() == INSPECT) || (
           expr->op().ws_after
           && (!expr->is_interpolant())
-          && (!expr->is_delayed()
-              || expr->is_left_interpolant()
-              || expr->is_right_interpolant()
-          )
+          && (expr->is_left_interpolant() ||
+              expr->is_right_interpolant())
     )) append_string(" ");
     expr->right()->perform(this);
   }
 
-  void Inspect::operator()(Unary_Expression* expr)
+  void Inspect::operator()(Unary_Expression_Ptr expr)
   {
-    if (expr->type() == Unary_Expression::PLUS) append_string("+");
-    else                                        append_string("-");
+    if (expr->optype() == Unary_Expression::PLUS) append_string("+");
+    else                                          append_string("-");
     expr->operand()->perform(this);
   }
 
-  void Inspect::operator()(Function_Call* call)
+  void Inspect::operator()(Function_Call_Ptr call)
   {
     append_token(call->name(), call);
     call->arguments()->perform(this);
   }
 
-  void Inspect::operator()(Function_Call_Schema* call)
+  void Inspect::operator()(Function_Call_Schema_Ptr call)
   {
     call->name()->perform(this);
     call->arguments()->perform(this);
   }
 
-  void Inspect::operator()(Variable* var)
+  void Inspect::operator()(Variable_Ptr var)
   {
     append_token(var->name(), var);
   }
 
-  void Inspect::operator()(Textual* txt)
+  void Inspect::operator()(Textual_Ptr txt)
   {
     append_token(txt->value(), txt);
   }
 
-  void Inspect::operator()(Number* n)
+  void Inspect::operator()(Number_Ptr n)
   {
 
     std::string res;
@@ -607,7 +615,7 @@ namespace Sass {
     else                return c;
   }
 
-  void Inspect::operator()(Color* c)
+  void Inspect::operator()(Color_Ptr c)
   {
     // output the final token
     std::stringstream ss;
@@ -626,7 +634,7 @@ namespace Sass {
 
     // get color from given name (if one was given at all)
     if (name != "" && name_to_color(name)) {
-      const Color* n = name_to_color(name);
+      Color_Ptr_Const n = name_to_color(name);
       r = Sass::round(cap_channel<0xff>(n->r()), opt.precision);
       g = Sass::round(cap_channel<0xff>(n->g()), opt.precision);
       b = Sass::round(cap_channel<0xff>(n->b()), opt.precision);
@@ -693,13 +701,13 @@ namespace Sass {
 
   }
 
-  void Inspect::operator()(Boolean* b)
+  void Inspect::operator()(Boolean_Ptr b)
   {
     // output the final token
     append_token(b->value() ? "true" : "false", b);
   }
 
-  void Inspect::operator()(String_Schema* ss)
+  void Inspect::operator()(String_Schema_Ptr ss)
   {
     // Evaluation should turn these into String_Constants,
     // so this method is only for inspection purposes.
@@ -710,12 +718,12 @@ namespace Sass {
     }
   }
 
-  void Inspect::operator()(String_Constant* s)
+  void Inspect::operator()(String_Constant_Ptr s)
   {
     append_token(s->value(), s);
   }
 
-  void Inspect::operator()(String_Quoted* s)
+  void Inspect::operator()(String_Quoted_Ptr s)
   {
     if (const char q = s->quote_mark()) {
       append_token(quote(s->value(), q), s);
@@ -724,17 +732,17 @@ namespace Sass {
     }
   }
 
-  void Inspect::operator()(Custom_Error* e)
+  void Inspect::operator()(Custom_Error_Ptr e)
   {
     append_token(e->message(), e);
   }
 
-  void Inspect::operator()(Custom_Warning* w)
+  void Inspect::operator()(Custom_Warning_Ptr w)
   {
     append_token(w->message(), w);
   }
 
-  void Inspect::operator()(Supports_Operator* so)
+  void Inspect::operator()(Supports_Operator_Ptr so)
   {
 
     if (so->needs_parens(so->left())) append_string("(");
@@ -756,7 +764,7 @@ namespace Sass {
     if (so->needs_parens(so->right())) append_string(")");
   }
 
-  void Inspect::operator()(Supports_Negation* sn)
+  void Inspect::operator()(Supports_Negation_Ptr sn)
   {
     append_token("not", sn);
     append_mandatory_space();
@@ -765,7 +773,7 @@ namespace Sass {
     if (sn->needs_parens(sn->condition())) append_string(")");
   }
 
-  void Inspect::operator()(Supports_Declaration* sd)
+  void Inspect::operator()(Supports_Declaration_Ptr sd)
   {
     append_string("(");
     sd->feature()->perform(this);
@@ -774,12 +782,12 @@ namespace Sass {
     append_string(")");
   }
 
-  void Inspect::operator()(Supports_Interpolation* sd)
+  void Inspect::operator()(Supports_Interpolation_Ptr sd)
   {
     sd->value()->perform(this);
   }
 
-  void Inspect::operator()(Media_Query* mq)
+  void Inspect::operator()(Media_Query_Ptr mq)
   {
     size_t i = 0;
     if (mq->media_type()) {
@@ -796,7 +804,7 @@ namespace Sass {
     }
   }
 
-  void Inspect::operator()(Media_Query_Expression* mqe)
+  void Inspect::operator()(Media_Query_Expression_Ptr mqe)
   {
     if (mqe->is_interpolated()) {
       mqe->feature()->perform(this);
@@ -812,7 +820,7 @@ namespace Sass {
     }
   }
 
-  void Inspect::operator()(At_Root_Query* ae)
+  void Inspect::operator()(At_Root_Query_Ptr ae)
   {
     append_string("(");
     ae->feature()->perform(this);
@@ -823,14 +831,14 @@ namespace Sass {
     append_string(")");
   }
 
-  void Inspect::operator()(Null* n)
+  void Inspect::operator()(Null_Ptr n)
   {
     // output the final token
     append_token("null", n);
   }
 
   // parameters and arguments
-  void Inspect::operator()(Parameter* p)
+  void Inspect::operator()(Parameter_Ptr p)
   {
     append_token(p->name(), p);
     if (p->default_value()) {
@@ -842,7 +850,7 @@ namespace Sass {
     }
   }
 
-  void Inspect::operator()(Parameters* p)
+  void Inspect::operator()(Parameters_Ptr p)
   {
     append_string("(");
     if (!p->empty()) {
@@ -855,26 +863,29 @@ namespace Sass {
     append_string(")");
   }
 
-  void Inspect::operator()(Argument* a)
+  void Inspect::operator()(Argument_Ptr a)
   {
     if (!a->name().empty()) {
       append_token(a->name(), a);
       append_colon_separator();
     }
+    if (!a->value()) return;
     // Special case: argument nulls can be ignored
     if (a->value()->concrete_type() == Expression::NULL_VAL) {
       return;
     }
     if (a->value()->concrete_type() == Expression::STRING) {
-      String_Constant* s = static_cast<String_Constant*>(a->value());
-      s->perform(this);
-    } else a->value()->perform(this);
+      String_Constant_Ptr s = Cast<String_Constant>(a->value());
+      if (s) s->perform(this);
+    } else {
+      a->value()->perform(this);
+    }
     if (a->is_rest_argument()) {
       append_string("...");
     }
   }
 
-  void Inspect::operator()(Arguments* a)
+  void Inspect::operator()(Arguments_Ptr a)
   {
     append_string("(");
     if (!a->empty()) {
@@ -888,17 +899,17 @@ namespace Sass {
     append_string(")");
   }
 
-  void Inspect::operator()(Selector_Schema* s)
+  void Inspect::operator()(Selector_Schema_Ptr s)
   {
     s->contents()->perform(this);
   }
 
-  void Inspect::operator()(Parent_Selector* p)
+  void Inspect::operator()(Parent_Selector_Ptr p)
   {
-    append_string("&");
+    if (p->is_real_parent_ref()) append_string("&");
   }
 
-  void Inspect::operator()(Selector_Placeholder* s)
+  void Inspect::operator()(Placeholder_Selector_Ptr s)
   {
     append_token(s->name(), s);
     if (s->has_line_break()) append_optional_linefeed();
@@ -906,26 +917,33 @@ namespace Sass {
 
   }
 
-  void Inspect::operator()(Type_Selector* s)
+  void Inspect::operator()(Element_Selector_Ptr s)
   {
     append_token(s->ns_name(), s);
   }
 
-  void Inspect::operator()(Selector_Qualifier* s)
+  void Inspect::operator()(Class_Selector_Ptr s)
   {
     append_token(s->ns_name(), s);
     if (s->has_line_break()) append_optional_linefeed();
     if (s->has_line_break()) append_indentation();
   }
 
-  void Inspect::operator()(Attribute_Selector* s)
+  void Inspect::operator()(Id_Selector_Ptr s)
+  {
+    append_token(s->ns_name(), s);
+    if (s->has_line_break()) append_optional_linefeed();
+    if (s->has_line_break()) append_indentation();
+  }
+
+  void Inspect::operator()(Attribute_Selector_Ptr s)
   {
     append_string("[");
     add_open_mapping(s);
     append_token(s->ns_name(), s);
     if (!s->matcher().empty()) {
       append_string(s->matcher());
-      if (s->value()) {
+      if (s->value() && *s->value()) {
         s->value()->perform(this);
       }
     }
@@ -933,7 +951,7 @@ namespace Sass {
     append_string("]");
   }
 
-  void Inspect::operator()(Pseudo_Selector* s)
+  void Inspect::operator()(Pseudo_Selector_Ptr s)
   {
     append_token(s->ns_name(), s);
     if (s->expression()) {
@@ -943,7 +961,7 @@ namespace Sass {
     }
   }
 
-  void Inspect::operator()(Wrapped_Selector* s)
+  void Inspect::operator()(Wrapped_Selector_Ptr s)
   {
     bool was = in_wrapped;
     in_wrapped = true;
@@ -957,7 +975,7 @@ namespace Sass {
     in_wrapped = was;
   }
 
-  void Inspect::operator()(Compound_Selector* s)
+  void Inspect::operator()(Compound_Selector_Ptr s)
   {
     for (size_t i = 0, L = s->length(); i < L; ++i) {
       (*s)[i]->perform(this);
@@ -969,10 +987,10 @@ namespace Sass {
     }
   }
 
-  void Inspect::operator()(Complex_Selector* c)
+  void Inspect::operator()(Complex_Selector_Ptr c)
   {
-    Compound_Selector*           head = c->head();
-    Complex_Selector*            tail = c->tail();
+    Compound_Selector_Obj      head = c->head();
+    Complex_Selector_Obj            tail = c->tail();
     Complex_Selector::Combinator comb = c->combinator();
 
     if (comb == Complex_Selector::ANCESTOR_OF && (!head || head->empty())) {
@@ -1032,7 +1050,7 @@ namespace Sass {
     }
   }
 
-  void Inspect::operator()(Selector_List* g)
+  void Inspect::operator()(Selector_List_Ptr g)
   {
 
     if (g->empty()) {
@@ -1046,8 +1064,8 @@ namespace Sass {
     bool was_comma_array = in_comma_array;
     // probably ruby sass eqivalent of element_needs_parens
     if (output_style() == TO_SASS && g->length() == 1 &&
-      (!dynamic_cast<List*>((*g)[0]) &&
-       !dynamic_cast<Selector_List*>((*g)[0]))) {
+      (!Cast<List>((*g)[0]) &&
+       !Cast<Selector_List>((*g)[0]))) {
       append_string("(");
     }
     else if (!in_declaration && in_comma_array) {
@@ -1059,7 +1077,7 @@ namespace Sass {
     for (size_t i = 0, L = g->length(); i < L; ++i) {
       if (!in_wrapped && i == 0) append_indentation();
       if ((*g)[i] == 0) continue;
-      schedule_mapping((*g)[i]->last());
+      schedule_mapping(g->at(i)->last());
       // add_open_mapping((*g)[i]->last());
       (*g)[i]->perform(this);
       // add_close_mapping((*g)[i]->last());
@@ -1072,8 +1090,8 @@ namespace Sass {
     in_comma_array = was_comma_array;
     // probably ruby sass eqivalent of element_needs_parens
     if (output_style() == TO_SASS && g->length() == 1 &&
-      (!dynamic_cast<List*>((*g)[0]) &&
-       !dynamic_cast<Selector_List*>((*g)[0]))) {
+      (!Cast<List>((*g)[0]) &&
+       !Cast<Selector_List>((*g)[0]))) {
       append_string(",)");
     }
     else if (!in_declaration && in_comma_array) {
@@ -1082,7 +1100,7 @@ namespace Sass {
 
   }
 
-  void Inspect::fallback_impl(AST_Node* n)
+  void Inspect::fallback_impl(AST_Node_Ptr n)
   {
   }
 

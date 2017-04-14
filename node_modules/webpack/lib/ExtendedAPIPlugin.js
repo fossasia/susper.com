@@ -2,8 +2,9 @@
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
 */
+"use strict";
 var ConstDependency = require("./dependencies/ConstDependency");
-var BasicEvaluatedExpression = require("./BasicEvaluatedExpression");
+const ParserHelpers = require("./ParserHelpers");
 
 var NullFactory = require("./NullFactory");
 
@@ -33,15 +34,8 @@ ExtendedAPIPlugin.prototype.apply = function(compiler) {
 
 		params.normalModuleFactory.plugin("parser", function(parser, parserOptions) {
 			Object.keys(REPLACEMENTS).forEach(function(key) {
-				parser.plugin("expression " + key, function(expr) {
-					var dep = new ConstDependency(REPLACEMENTS[key], expr.range);
-					dep.loc = expr.loc;
-					this.state.current.addDependency(dep);
-					return true;
-				});
-				parser.plugin("evaluate typeof " + key, function(expr) {
-					return new BasicEvaluatedExpression().setString(REPLACEMENT_TYPES[key]).setRange(expr.range);
-				});
+				parser.plugin("expression " + key, ParserHelpers.toConstantDependency(REPLACEMENTS[key]));
+				parser.plugin("evaluate typeof " + key, ParserHelpers.evaluateToString(REPLACEMENT_TYPES[key]));
 			});
 		});
 	});

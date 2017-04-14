@@ -13,7 +13,7 @@ const Configstore = require('configstore');
 const pkg = require('./package.json');
 
 // create a Configstore instance with an unique ID e.g.
-// package name and optionally some default values
+// Package name and optionally some default values
 const conf = new Configstore(pkg.name, {foo: 'bar'});
 
 console.log(conf.get('foo'));
@@ -23,7 +23,7 @@ conf.set('awesome', true);
 console.log(conf.get('awesome'));
 //=> true
 
-// use dot-notation to access nested properties
+// Use dot-notation to access nested properties
 conf.set('bar.baz', true);
 console.log(conf.get('bar'));
 //=> {baz: true}

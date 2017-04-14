@@ -38,11 +38,21 @@ namespace Sass {
 
     class InvalidParent : public Base {
       protected:
-        Selector* parent;
-        Selector* selector;
+        Selector_Ptr parent;
+        Selector_Ptr selector;
       public:
-        InvalidParent(Selector* parent, Selector* selector);
+        InvalidParent(Selector_Ptr parent, Selector_Ptr selector);
         virtual ~InvalidParent() throw() {};
+    };
+
+    class MissingArgument : public Base {
+      protected:
+        std::string fn;
+        std::string arg;
+        std::string fntype;
+      public:
+        MissingArgument(ParserState pstate, std::string fn, std::string arg, std::string fntype);
+        virtual ~MissingArgument() throw() {};
     };
 
     class InvalidArgumentType : public Base {
@@ -50,9 +60,9 @@ namespace Sass {
         std::string fn;
         std::string arg;
         std::string type;
-        const Value* value;
+        const Value_Ptr value;
       public:
-        InvalidArgumentType(ParserState pstate, std::string fn, std::string arg, std::string type, const Value* value = 0);
+        InvalidArgumentType(ParserState pstate, std::string fn, std::string arg, std::string type, const Value_Ptr value = 0);
         virtual ~InvalidArgumentType() throw() {};
     };
 
@@ -115,6 +125,15 @@ namespace Sass {
         virtual ~InvalidValue() throw() {};
     };
 
+    class StackError : public Base {
+      protected:
+        const AST_Node& node;
+      public:
+        StackError(const AST_Node& node);
+        virtual const char* errtype() const { return "SystemStackError"; }
+        virtual ~StackError() throw() {};
+    };
+
     class IncompatibleUnits : public OperationError {
       protected:
         const Number& lhs;
@@ -126,28 +145,28 @@ namespace Sass {
 
     class UndefinedOperation : public OperationError {
       protected:
-        const Expression* lhs;
-        const Expression* rhs;
+        Expression_Ptr_Const lhs;
+        Expression_Ptr_Const rhs;
         const std::string op;
       public:
-        UndefinedOperation(const Expression* lhs, const Expression* rhs, const std::string& op);
+        UndefinedOperation(Expression_Ptr_Const lhs, Expression_Ptr_Const rhs, const std::string& op);
         // virtual const char* errtype() const { return "Error"; }
         virtual ~UndefinedOperation() throw() {};
     };
 
     class InvalidNullOperation : public UndefinedOperation {
       public:
-        InvalidNullOperation(const Expression* lhs, const Expression* rhs, const std::string& op);
+        InvalidNullOperation(Expression_Ptr_Const lhs, Expression_Ptr_Const rhs, const std::string& op);
         virtual ~InvalidNullOperation() throw() {};
     };
 
     class AlphaChannelsNotEqual : public OperationError {
       protected:
-        const Expression* lhs;
-        const Expression* rhs;
+        Expression_Ptr_Const lhs;
+        Expression_Ptr_Const rhs;
         const std::string op;
       public:
-        AlphaChannelsNotEqual(const Expression* lhs, const Expression* rhs, const std::string& op);
+        AlphaChannelsNotEqual(Expression_Ptr_Const lhs, Expression_Ptr_Const rhs, const std::string& op);
         // virtual const char* errtype() const { return "Error"; }
         virtual ~AlphaChannelsNotEqual() throw() {};
     };

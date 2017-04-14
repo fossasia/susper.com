@@ -10,6 +10,7 @@ var Emitter = require('events').EventEmitter,
   glob = require('glob'),
   sass = require('../lib'),
   render = require('../lib/render'),
+  stdout = require('stdout-stream'),
   stdin = require('get-stdin'),
   fs = require('fs');
 
@@ -160,15 +161,7 @@ function getEmitter() {
     }
   });
 
-  emitter.on('log', function(data) {
-    console.log(data);
-  });
-
-  emitter.on('done', function() {
-    if (!options.watch && !options.directory) {
-      process.exit();
-    }
-  });
+  emitter.on('log', stdout.write.bind(stdout));
 
   return emitter;
 }
@@ -275,7 +268,10 @@ function watch(options, emitter) {
 
     // Add children to watcher
     graph.visitDescendents(file, function(child) {
-      gaze.add(child);
+      if (watch.indexOf(child) === -1) {
+        watch.push(child);
+        gaze.add(child);
+      }
     });
     files.forEach(function(file) {
       if (path.basename(file)[0] !== '_') {

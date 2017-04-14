@@ -2,7 +2,7 @@
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
 */
-var ModuleParserHelpers = require("./ModuleParserHelpers");
+var ParserHelpers = require("./ParserHelpers");
 var ConstDependency = require("./dependencies/ConstDependency");
 
 var NullFactory = require("./NullFactory");
@@ -18,30 +18,31 @@ ProvidePlugin.prototype.apply = function(compiler) {
 		compilation.dependencyTemplates.set(ConstDependency, new ConstDependency.Template());
 		params.normalModuleFactory.plugin("parser", function(parser, parserOptions) {
 			Object.keys(definitions).forEach(function(name) {
-				var request = definitions[name];
+				var request = [].concat(definitions[name]);
 				var splittedName = name.split(".");
 				if(splittedName.length > 0) {
 					splittedName.slice(1).forEach(function(_, i) {
 						var name = splittedName.slice(0, i + 1).join(".");
-						parser.plugin("can-rename " + name, function() {
-							return true;
-						});
+						parser.plugin("can-rename " + name, ParserHelpers.approve);
 					});
 				}
 				parser.plugin("expression " + name, function(expr) {
 					var nameIdentifier = name;
 					var scopedName = name.indexOf(".") >= 0;
+					var expression = "require(" + JSON.stringify(request[0]) + ")";
 					if(scopedName) {
 						nameIdentifier = "__webpack_provided_" + name.replace(/\./g, "_dot_");
 					}
-					if(!ModuleParserHelpers.addParsedVariable(this, nameIdentifier, "require(" + JSON.stringify(request) + ")")) {
+					if(request.length > 1) {
+						expression += request.slice(1).map(function(r) {
+							return "[" + JSON.stringify(r) + "]";
+						}).join("");
+					}
+					if(!ParserHelpers.addParsedVariableToModule(this, nameIdentifier, expression)) {
 						return false;
 					}
 					if(scopedName) {
-						nameIdentifier = "__webpack_provided_" + name.replace(/\./g, "_dot_");
-						var dep = new ConstDependency(nameIdentifier, expr.range);
-						dep.loc = expr.loc;
-						this.state.current.addDependency(dep);
+						ParserHelpers.toConstantDependency(nameIdentifier).bind(this)(expr);
 					}
 					return true;
 				});

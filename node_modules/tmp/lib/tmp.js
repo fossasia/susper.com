@@ -12,12 +12,9 @@
 var
   fs     = require('fs'),
   path   = require('path'),
-  os     = require('os'),
   crypto = require('crypto'),
-  exists = fs.exists || path.exists,
-  existsSync = fs.existsSync || path.existsSync,
   tmpDir = require('os-tmpdir'),
-  _c     = require('constants');
+  _c     = process.binding('constants');
 
 
 /**
@@ -34,7 +31,10 @@ var
 
   DEFAULT_TRIES = 3,
 
-  CREATE_FLAGS = _c.O_CREAT | _c.O_EXCL | _c.O_RDWR,
+  CREATE_FLAGS = (_c.O_CREAT || _c.fs.O_CREAT) | (_c.O_EXCL || _c.fs.O_EXCL) | (_c.O_RDWR || _c.fs.O_RDWR),
+
+  EBADF = _c.EBADF || _c.os.errno.EBADF,
+  ENOENT = _c.ENOENT || _c.os.errno.ENOENT,
 
   DIR_MODE = 448 /* 0700 */,
   FILE_MODE = 384 /* 0600 */,
@@ -95,8 +95,8 @@ function _isUndefined(obj) {
 function _parseArguments(options, callback) {
   if (typeof options == 'function') {
     var
-      tmp = options;
-      options = callback || {};
+      tmp = options,
+      options = callback || {},
       callback = tmp;
   } else if (typeof options == 'undefined') {
     options = {};
@@ -157,8 +157,8 @@ function _getTmpName(options, callback) {
     var name = _generateTmpName(opts);
 
     // check whether the path exists then retry if needed
-    exists(name, function _pathExists(pathExists) {
-      if (pathExists) {
+    fs.stat(name, function (err) {
+      if (!err) {
         if (tries-- > 0) return _getUniqueName();
 
         return cb(new Error('Could not get a unique tmp filename, max tries reached ' + name));
@@ -190,7 +190,9 @@ function _getTmpNameSync(options) {
 
   do {
     var name = _generateTmpName(opts);
-    if (!existsSync(name)) {
+    try {
+      fs.statSync(name);
+    } catch (e) {
       return name;
     }
   } while (tries-- > 0);
@@ -211,7 +213,7 @@ function _createTmpFile(options, callback) {
     opts = args[0],
     cb = args[1];
 
-    opts.postfix = (_isUndefined(opts.postfix)) ? '.tmp' : opts.postfix;
+  opts.postfix = (_isUndefined(opts.postfix)) ? '.tmp' : opts.postfix;
 
   // gets a temporary filename
   _getTmpName(opts, function _tmpNameCreated(err, name) {
@@ -221,6 +223,26 @@ function _createTmpFile(options, callback) {
     fs.open(name, CREATE_FLAGS, opts.mode || FILE_MODE, function _fileCreated(err, fd) {
       if (err) return cb(err);
 
+      if (opts.discardDescriptor) {
+        return fs.close(fd, function _discardCallback(err) {
+          if (err) {
+            // Low probability, and the file exists, so this could be
+            // ignored.  If it isn't we certainly need to unlink the
+            // file, and if that fails too its error is more
+            // important.
+            try {
+              fs.unlinkSync(name);
+            } catch (e) {
+              err = e;
+            }
+            return cb(err);
+          }
+          cb(null, name, undefined, _prepareTmpFileRemoveCallback(name, -1, opts));
+        });
+      }
+      if (opts.detachDescriptor) {
+        return cb(null, name, fd, _prepareTmpFileRemoveCallback(name, -1, opts));
+      }
       cb(null, name, fd, _prepareTmpFileRemoveCallback(name, fd, opts));
     });
   });
@@ -238,7 +260,7 @@ function _createTmpFileSync(options) {
     args = _parseArguments(options),
     opts = args[0];
 
-    opts.postfix = opts.postfix || '.tmp';
+  opts.postfix = opts.postfix || '.tmp';
 
   var name = _getTmpNameSync(opts);
   var fd = fs.openSync(name, CREATE_FLAGS, opts.mode || FILE_MODE);
@@ -274,7 +296,7 @@ function _rmdirRecursiveSync(root) {
         if (!deferred) {
           deferred = true;
           dirs.push(dir);
-        }  
+        }
         dirs.push(file);
       } else {
         fs.unlinkSync(file);
@@ -346,13 +368,15 @@ function _createTmpDirSync(options) {
 function _prepareTmpFileRemoveCallback(name, fd, opts) {
   var removeCallback = _prepareRemoveCallback(function _removeCallback(fdPath) {
     try {
-      fs.closeSync(fdPath[0]);
+      if (0 <= fdPath[0]) {
+        fs.closeSync(fdPath[0]);
+      }
     }
     catch (e) {
-      // under some node/windows related circumstances, a temporary file 
+      // under some node/windows related circumstances, a temporary file
       // may have not be created as expected or the file was already closed
       // by the user, in which case we will simply ignore the error
-      if (e.errno != -_c.EBADF && e.errno != -c.ENOENT) {
+      if (e.errno != -EBADF && e.errno != -ENOENT) {
         // reraise any unanticipated error
         throw e;
       }
@@ -397,16 +421,17 @@ function _prepareTmpDirRemoveCallback(name, opts) {
 function _prepareRemoveCallback(removeFunction, arg) {
   var called = false;
 
-  return function _cleanupCallback() {
-    if (called) return;
+  return function _cleanupCallback(next) {
+    if (!called) {
+        var index = _removeObjects.indexOf(_cleanupCallback);
+        if (index >= 0) {
+          _removeObjects.splice(index, 1);
+        }
 
-    var index = _removeObjects.indexOf(removeFunction);
-    if (index >= 0) {
-      _removeObjects.splice(index, 1);
+        called = true;
+        removeFunction(arg);
     }
-
-    called = true;
-    removeFunction(arg);
+    if (next) next(null);
   };
 }
 
@@ -420,9 +445,11 @@ function _garbageCollector() {
     return;
   }
 
-  for (var i = 0, length = _removeObjects.length; i < length; i++) {
+  // the function being called removes itself from _removeObjects,
+  // loop until _removeObjects is empty
+  while (_removeObjects.length) {
     try {
-      _removeObjects[i].call(null);
+      _removeObjects[0].call(null);
     } catch (e) {
       // already removed?
     }

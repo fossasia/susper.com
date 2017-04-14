@@ -12,12 +12,14 @@
   <ItemGroup Label="LibSass Headers">
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\ast.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\ast_def_macros.hpp" />
+    <ClInclude Include="$(LIBSASS_HEADERS_DIR)\memory\SharedPtr.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\ast_factory.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\ast_fwd_decl.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\backtrace.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\base64vlq.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\bind.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\b64\cencode.h" />
+    <ClInclude Include="$(LIBSASS_HEADERS_DIR)\check_nesting.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\color_maps.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\constants.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\context.hpp" />
@@ -37,7 +39,6 @@
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\lexer.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\listize.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\mapping.hpp" />
-    <ClInclude Include="$(LIBSASS_HEADERS_DIR)\memory_manager.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\node.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\operation.hpp" />
     <ClInclude Include="$(LIBSASS_HEADERS_DIR)\output.hpp" />
@@ -67,10 +68,13 @@
   </ItemGroup>
   <ItemGroup Label="LibSass Sources">
     <ClCompile Include="$(LIBSASS_SRC_DIR)\ast.cpp" />
+    <ClCompile Include="$(LIBSASS_SRC_DIR)\memory\SharedPtr.cpp" />
+    <ClCompile Include="$(LIBSASS_SRC_DIR)\ast_fwd_decl.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\base64vlq.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\bind.cpp" />
     <ClCompile Condition="$(VisualStudioVersion) &lt; 14.0" Include="$(LIBSASS_SRC_DIR)\c99func.c" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\cencode.c" />
+    <ClCompile Include="$(LIBSASS_SRC_DIR)\check_nesting.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\color_maps.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\constants.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\context.cpp" />
@@ -87,7 +91,6 @@
     <ClCompile Include="$(LIBSASS_SRC_DIR)\json.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\lexer.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\listize.cpp" />
-    <ClCompile Include="$(LIBSASS_SRC_DIR)\memory_manager.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\node.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\output.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\parser.cpp" />
@@ -102,6 +105,7 @@
     <ClCompile Include="$(LIBSASS_SRC_DIR)\sass_values.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\sass2scss.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\source_map.cpp" />
+    <ClCompile Include="$(LIBSASS_SRC_DIR)\subset_map.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\to_c.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\to_value.cpp" />
     <ClCompile Include="$(LIBSASS_SRC_DIR)\units.cpp" />

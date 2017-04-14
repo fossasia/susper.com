@@ -1,7 +1,7 @@
 ## Istanbul - a JS code coverage tool written in JS
 
-[![Build Status](https://secure.travis-ci.org/gotwarlost/istanbul.png)](http://travis-ci.org/gotwarlost/istanbul)
-[![Dependency Status](https://gemnasium.com/gotwarlost/istanbul.png)](https://gemnasium.com/gotwarlost/istanbul)
+[![Build Status](https://secure.travis-ci.org/gotwarlost/istanbul.svg?branch=master)](http://travis-ci.org/gotwarlost/istanbul)
+[![Dependency Status](https://gemnasium.com/gotwarlost/istanbul.svg)](https://gemnasium.com/gotwarlost/istanbul)
 [![Coverage Status](https://img.shields.io/coveralls/gotwarlost/istanbul.svg)](https://coveralls.io/r/gotwarlost/istanbul?branch=master)
 [![bitHound Score](https://www.bithound.io/github/gotwarlost/istanbul/badges/score.svg)](https://www.bithound.io/github/gotwarlost/istanbul)
 
@@ -259,7 +259,7 @@ The following third-party libraries are used by this module:
 * async: https://github.com/caolan/async - for parallel instrumentation of files
 * escodegen: https://github.com/Constellation/escodegen - for JS code generation
 * esprima: https://github.com/ariya/esprima - for JS parsing
-* fileset: https://github.com/mklabs/node-fileset - for loading and matching path expressions
+* glob: https://github.com/isaacs/node-glob - for loading and matching path expressions
 * handlebars: https://github.com/wycats/handlebars.js/ - for report template expansion
 * js-yaml: https://github.com/nodeca/js-yaml - for YAML config file load
 * mkdirp: https://github.com/substack/node-mkdirp - to create output directories

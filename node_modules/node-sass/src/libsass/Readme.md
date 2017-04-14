@@ -3,7 +3,7 @@ LibSass
 
 by Aaron Leung ([@akhleung]), Hampton Catlin ([@hcatlin]), Marcel Greter ([@mgreter]) and Michael Mifsud ([@xzyfer])
 
-[![Linux CI](https://travis-ci.org/sass/libsass.svg?branch=master)](https://travis-ci.org/sass/libsass)
+[![Unix CI](https://travis-ci.org/sass/libsass.svg?branch=master)](https://travis-ci.org/sass/libsass)
 [![Windows CI](https://ci.appveyor.com/api/projects/status/github/sass/libsass?svg=true)](https://ci.appveyor.com/project/sass/libsass/branch/master)
 [![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=283068)](https://www.bountysource.com/trackers/283068-libsass?utm_source=283068&utm_medium=shield&utm_campaign=TRACKER_BADGE)
 [![Coverage Status](https://img.shields.io/coveralls/sass/libsass.svg)](https://coveralls.io/r/sass/libsass?branch=feature%2Ftest-travis-ci-3)
@@ -34,9 +34,9 @@ As you may have noticed, the LibSass repo itself has
 no executables and no tests. Oh noes! How can you develop???
 
 Well, luckily, [SassC](http://github.com/sass/sassc) is the official binary wrapper for
-LibSass and is *always* kept in sync. SassC uses a git submodule
-to include LibSass. When developing LibSass, its best to actually
-check out SassC and develop in that directory with the SassC spec
+LibSass and is *always* kept in sync. SassC is used by continous integration systems in
+LibSass repository. When developing LibSass, it is best to actually
+checkout SassC and develop in that directory with the SassC spec
 and tests there.
 
 We even run Travis tests for SassC!
@@ -47,6 +47,12 @@ Tests
 Since LibSass is a pure library, tests are run through the [SassSpec](https://github.com/sass/sass-spec) project using the [SassC](http://github.com/sass/sassc) driver.
 
 To run tests against LibSass while developing, you can run `./script/spec`. This will clone SassC and Sass-Spec under the project folder and then run the Sass-Spec test suite. You may want to update the clones to ensure you have the latest version.
+
+### DEBUG builds
+
+Set the environment variable `DEBUG` to `1` to enable debug builds that can be debugged
+with `gdb`, `lldb` and others. E.g.: use `$ DEBUG=1 ./script/spec` to run the tests with
+a debug build.
 
 Library Usage
 -------------
@@ -81,12 +87,13 @@ Licensing
 
 Our MIT license is designed to be as simple, and liberal as possible.
 
+sass2scss was originally written by [Marcel Greter][@mgreter]
+and he happily agreed to have it merged into the project.
+
+
 [@hcatlin]: https://github.com/hcatlin
 [@akhleung]: https://github.com/akhleung
 [@chriseppstein]: https://github.com/chriseppstein
 [@nex3]: https://github.com/nex3
 [@mgreter]: https://github.com/mgreter
 [@xzyfer]: https://github.com/xzyfer
-
-sass2scss was originally written by [Marcel Greter](@mgreter)
-and he happily agreed to have it merged into the project.

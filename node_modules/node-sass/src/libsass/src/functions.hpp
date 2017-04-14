@@ -4,23 +4,19 @@
 #include "listize.hpp"
 #include "position.hpp"
 #include "environment.hpp"
+#include "ast_fwd_decl.hpp"
 #include "sass/functions.h"
 
-#define BUILT_IN(name) Expression*\
-name(Env& env, Env& d_env, Context& ctx, Signature sig, ParserState pstate, Backtrace* backtrace)
+#define BUILT_IN(name) Expression_Ptr \
+name(Env& env, Env& d_env, Context& ctx, Signature sig, ParserState pstate, Backtrace* backtrace, std::vector<Selector_List_Obj> selector_stack)
 
 namespace Sass {
-  class Context;
   struct Backtrace;
-  class AST_Node;
-  class Expression;
-  class Definition;
-  typedef Environment<AST_Node*> Env;
   typedef const char* Signature;
-  typedef Expression* (*Native_Function)(Env&, Env&, Context&, Signature, ParserState, Backtrace*);
+  typedef Expression_Ptr (*Native_Function)(Env&, Env&, Context&, Signature, ParserState, Backtrace*, std::vector<Selector_List_Obj>);
 
-  Definition* make_native_function(Signature, Native_Function, Context& ctx);
-  Definition* make_c_function(Sass_Function_Entry c_func, Context& ctx);
+  Definition_Ptr make_native_function(Signature, Native_Function, Context& ctx);
+  Definition_Ptr make_c_function(Sass_Function_Entry c_func, Context& ctx);
 
   std::string function_name(Signature);
 
@@ -92,7 +88,6 @@ namespace Sass {
     extern Signature call_sig;
     extern Signature not_sig;
     extern Signature if_sig;
-    extern Signature image_url_sig;
     extern Signature map_get_sig;
     extern Signature map_merge_sig;
     extern Signature map_remove_sig;
@@ -110,6 +105,7 @@ namespace Sass {
     extern Signature is_superselector_sig;
     extern Signature simple_selectors_sig;
     extern Signature selector_parse_sig;
+    extern Signature is_bracketed_sig;
 
     BUILT_IN(rgb);
     BUILT_IN(rgba_4);
@@ -174,7 +170,6 @@ namespace Sass {
     BUILT_IN(call);
     BUILT_IN(sass_not);
     BUILT_IN(sass_if);
-    BUILT_IN(image_url);
     BUILT_IN(map_get);
     BUILT_IN(map_merge);
     BUILT_IN(map_remove);
@@ -192,6 +187,7 @@ namespace Sass {
     BUILT_IN(is_superselector);
     BUILT_IN(simple_selectors);
     BUILT_IN(selector_parse);
+    BUILT_IN(is_bracketed);
   }
 }
 

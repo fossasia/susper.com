@@ -1,0 +1,46 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const webpack = require("webpack");
+const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const package_chunk_sort_1 = require("../../utilities/package-chunk-sort");
+const base_href_webpack_1 = require("../../lib/base-href-webpack");
+const utils_1 = require("./utils");
+function getBrowserConfig(wco) {
+    const { projectRoot, buildOptions, appConfig } = wco;
+    const appRoot = path.resolve(projectRoot, appConfig.root);
+    const nodeModules = path.resolve(projectRoot, 'node_modules');
+    let extraPlugins = [];
+    // figure out which are the lazy loaded entry points
+    const lazyChunks = utils_1.lazyChunksFilter([
+        ...utils_1.extraEntryParser(appConfig.scripts, appRoot, 'scripts'),
+        ...utils_1.extraEntryParser(appConfig.styles, appRoot, 'styles')
+    ]);
+    if (buildOptions.vendorChunk) {
+        extraPlugins.push(new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            chunks: ['main'],
+            minChunks: (module) => module.resource && module.resource.startsWith(nodeModules)
+        }));
+    }
+    return {
+        plugins: [
+            new HtmlWebpackPlugin({
+                template: path.resolve(appRoot, appConfig.index),
+                filename: path.resolve(buildOptions.outputPath, appConfig.index),
+                chunksSortMode: package_chunk_sort_1.packageChunkSort(appConfig),
+                excludeChunks: lazyChunks,
+                xhtml: true
+            }),
+            new base_href_webpack_1.BaseHrefWebpackPlugin({
+                baseHref: buildOptions.baseHref
+            }),
+            new webpack.optimize.CommonsChunkPlugin({
+                minChunks: Infinity,
+                name: 'inline'
+            })
+        ].concat(extraPlugins)
+    };
+}
+exports.getBrowserConfig = getBrowserConfig;
+//# sourceMappingURL=/users/hansl/sources/angular-cli/models/webpack-configs/browser.js.map

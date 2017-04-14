@@ -3,7 +3,6 @@
 	Author Tobias Koppers @sokra
 */
 var ConcatSource = require("webpack-sources").ConcatSource;
-var PrefixSource = require("webpack-sources").PrefixSource;
 
 function FunctionModuleTemplatePlugin() {}
 module.exports = FunctionModuleTemplatePlugin;
@@ -11,14 +10,14 @@ module.exports = FunctionModuleTemplatePlugin;
 FunctionModuleTemplatePlugin.prototype.apply = function(moduleTemplate) {
 	moduleTemplate.plugin("render", function(moduleSource, module) {
 		var source = new ConcatSource();
-		var defaultArguments = ["module", "exports"];
-		if((module.arguments && module.arguments.length !== 0) || module.hasDependencies()) {
+		var defaultArguments = [module.moduleArgument || "module", module.exportsArgument || "exports"];
+		if((module.arguments && module.arguments.length !== 0) || module.hasDependencies(d => d.requireWebpackRequire !== false)) {
 			defaultArguments.push("__webpack_require__");
 		}
-		source.add("/***/ function(" + defaultArguments.concat(module.arguments || []).join(", ") + ") {\n\n");
+		source.add("/***/ (function(" + defaultArguments.concat(module.arguments || []).join(", ") + ") {\n\n");
 		if(module.strict) source.add("\"use strict\";\n");
 		source.add(moduleSource);
-		source.add("\n\n/***/ }");
+		source.add("\n\n/***/ })");
 		return source;
 	});
 	moduleTemplate.plugin("package", function(moduleSource, module) {

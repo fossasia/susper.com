@@ -16,18 +16,19 @@ function ncp (source, dest, options, callback) {
 
   var filter = options.filter
   var transform = options.transform
-  var clobber = options.clobber !== false
+  var overwrite = options.overwrite
+  // If overwrite is undefined, use clobber, otherwise default to true:
+  if (overwrite === undefined) overwrite = options.clobber
+  if (overwrite === undefined) overwrite = true
+  var errorOnExist = options.errorOnExist
   var dereference = options.dereference
   var preserveTimestamps = options.preserveTimestamps === true
-
-  var errs = null
 
   var started = 0
   var finished = 0
   var running = 0
-  // this is pretty useless now that we're using graceful-fs
-  // consider removing
-  var limit = options.limit || 512
+
+  var errored = false
 
   startCopy(currentPath)
 
@@ -35,11 +36,12 @@ function ncp (source, dest, options, callback) {
     started++
     if (filter) {
       if (filter instanceof RegExp) {
+        console.warn('Warning: fs-extra: Passing a RegExp filter is deprecated, use a function')
         if (!filter.test(source)) {
           return doneOne(true)
         }
       } else if (typeof filter === 'function') {
-        if (!filter(source)) {
+        if (!filter(source, dest)) {
           return doneOne(true)
         }
       }
@@ -49,11 +51,6 @@ function ncp (source, dest, options, callback) {
 
   function getStats (source) {
     var stat = dereference ? fs.stat : fs.lstat
-    if (running >= limit) {
-      return setImmediate(function () {
-        getStats(source)
-      })
-    }
     running++
     stat(source, function (err, stats) {
       if (err) return onError(err)
@@ -79,15 +76,17 @@ function ncp (source, dest, options, callback) {
   }
 
   function onFile (file) {
-    var target = file.name.replace(currentPath, targetPath)
+    var target = file.name.replace(currentPath, targetPath.replace('$', '$$$$')) // escapes '$' with '$$'
     isWritable(target, function (writable) {
       if (writable) {
         copyFile(file, target)
       } else {
-        if (clobber) {
+        if (overwrite) {
           rmFile(target, function () {
             copyFile(file, target)
           })
+        } else if (errorOnExist) {
+          onError(new Error(target + ' already exists'))
         } else {
           doneOne()
         }
@@ -110,7 +109,7 @@ function ncp (source, dest, options, callback) {
       })
     }
 
-    writeStream.once('finish', function () {
+    writeStream.once('close', function () {
       fs.chmod(target, file.mode, function (err) {
         if (err) return onError(err)
         if (preserveTimestamps) {
@@ -133,7 +132,7 @@ function ncp (source, dest, options, callback) {
   }
 
   function onDir (dir) {
-    var target = dir.name.replace(currentPath, targetPath)
+    var target = dir.name.replace(currentPath, targetPath.replace('$', '$$$$')) // escapes '$' with '$$'
     isWritable(target, function (writable) {
       if (writable) {
         return mkDir(dir, target)
@@ -214,19 +213,11 @@ function ncp (source, dest, options, callback) {
   }
 
   function onError (err) {
-    if (options.stopOnError) {
+    // ensure callback is defined & called only once:
+    if (!errored && callback !== undefined) {
+      errored = true
       return callback(err)
-    } else if (!errs && options.errs) {
-      errs = fs.createWriteStream(options.errs)
-    } else if (!errs) {
-      errs = []
     }
-    if (typeof errs.write === 'undefined') {
-      errs.push(err)
-    } else {
-      errs.write(err.stack + '\n\n')
-    }
-    return doneOne()
   }
 
   function doneOne (skipped) {
@@ -234,7 +225,7 @@ function ncp (source, dest, options, callback) {
     finished++
     if ((started === finished) && (running === 0)) {
       if (callback !== undefined) {
-        return errs ? callback(errs) : callback(null)
+        return callback(null)
       }
     }
   }

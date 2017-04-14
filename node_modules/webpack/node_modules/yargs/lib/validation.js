@@ -10,20 +10,33 @@ module.exports = function (yargs, usage, y18n) {
   // validate appropriate # of non-option
   // arguments were provided, i.e., '_'.
   self.nonOptionCount = function (argv) {
-    const demanded = yargs.getDemanded()
-    const _s = argv._.length
+    const demandedCommands = yargs.getDemandedCommands()
+    // don't count currently executing commands
+    const _s = argv._.length - yargs.getContext().commands.length
 
-    if (demanded._ && (_s < demanded._.count || _s > demanded._.max)) {
-      if (demanded._.msg !== undefined) {
-        usage.fail(demanded._.msg)
-      } else if (_s < demanded._.count) {
-        usage.fail(
-          __('Not enough non-option arguments: got %s, need at least %s', argv._.length, demanded._.count)
-        )
-      } else {
-        usage.fail(
-          __('Too many non-option arguments: got %s, maximum of %s', argv._.length, demanded._.max)
-        )
+    if (demandedCommands._ && (_s < demandedCommands._.min || _s > demandedCommands._.max)) {
+      if (_s < demandedCommands._.min) {
+        if (demandedCommands._.minMsg !== undefined) {
+          usage.fail(
+            // replace $0 with observed, $1 with expected.
+            demandedCommands._.minMsg ? demandedCommands._.minMsg.replace(/\$0/g, _s).replace(/\$1/, demandedCommands._.min) : null
+          )
+        } else {
+          usage.fail(
+            __('Not enough non-option arguments: got %s, need at least %s', _s, demandedCommands._.min)
+          )
+        }
+      } else if (_s > demandedCommands._.max) {
+        if (demandedCommands._.maxMsg !== undefined) {
+          usage.fail(
+            // replace $0 with observed, $1 with expected.
+            demandedCommands._.maxMsg ? demandedCommands._.maxMsg.replace(/\$0/g, _s).replace(/\$1/, demandedCommands._.max) : null
+          )
+        } else {
+          usage.fail(
+          __('Too many non-option arguments: got %s, maximum of %s', _s, demandedCommands._.max)
+          )
+        }
       }
     }
   }
@@ -72,13 +85,13 @@ module.exports = function (yargs, usage, y18n) {
 
   // make sure all the required arguments are present.
   self.requiredArguments = function (argv) {
-    const demanded = yargs.getDemanded()
+    const demandedOptions = yargs.getDemandedOptions()
     var missing = null
 
-    Object.keys(demanded).forEach(function (key) {
+    Object.keys(demandedOptions).forEach(function (key) {
       if (!argv.hasOwnProperty(key)) {
         missing = missing || {}
-        missing[key] = demanded[key]
+        missing[key] = demandedOptions[key]
       }
     })
 
@@ -106,7 +119,7 @@ module.exports = function (yargs, usage, y18n) {
   self.unknownArguments = function (argv, aliases) {
     const aliasLookup = {}
     const descriptions = usage.getDescriptions()
-    const demanded = yargs.getDemanded()
+    const demandedOptions = yargs.getDemandedOptions()
     const commandKeys = yargs.getCommandInstance().getCommands()
     const unknown = []
     const currentContext = yargs.getContext()
@@ -120,7 +133,7 @@ module.exports = function (yargs, usage, y18n) {
     Object.keys(argv).forEach(function (key) {
       if (key !== '$0' && key !== '_' &&
         !descriptions.hasOwnProperty(key) &&
-        !demanded.hasOwnProperty(key) &&
+        !demandedOptions.hasOwnProperty(key) &&
         !aliasLookup.hasOwnProperty(key)) {
         unknown.push(key)
       }
@@ -186,18 +199,21 @@ module.exports = function (yargs, usage, y18n) {
   }
 
   self.customChecks = function (argv, aliases) {
-    checks.forEach(function (f) {
+    for (var i = 0, f; (f = checks[i]) !== undefined; i++) {
+      var result = null
       try {
-        const result = f(argv, aliases)
-        if (!result) {
-          usage.fail(__('Argument check failed: %s', f.toString()))
-        } else if (typeof result === 'string') {
-          usage.fail(result)
-        }
+        result = f(argv, aliases)
       } catch (err) {
         usage.fail(err.message ? err.message : err, err)
+        continue
       }
-    })
+
+      if (!result) {
+        usage.fail(__('Argument check failed: %s', f.toString()))
+      } else if (typeof result === 'string' || result instanceof Error) {
+        usage.fail(result.toString(), result)
+      }
+    }
   }
 
   // check implications, argument foo implies => argument bar.
@@ -219,12 +235,6 @@ module.exports = function (yargs, usage, y18n) {
     const implyFail = []
 
     Object.keys(implied).forEach(function (key) {
-      var booleanNegation
-      if (yargs.getOptions().configuration['boolean-negation'] === false) {
-        booleanNegation = false
-      } else {
-        booleanNegation = true
-      }
       var num
       const origKey = key
       var value = implied[key]
@@ -236,7 +246,7 @@ module.exports = function (yargs, usage, y18n) {
       if (typeof key === 'number') {
         // check length of argv._
         key = argv._.length >= key
-      } else if (key.match(/^--no-.+/) && booleanNegation) {
+      } else if (key.match(/^--no-.+/)) {
         // check if key doesn't exist
         key = key.match(/^--no-(.+)/)[1]
         key = !argv[key]
@@ -250,7 +260,7 @@ module.exports = function (yargs, usage, y18n) {
 
       if (typeof value === 'number') {
         value = argv._.length >= value
-      } else if (value.match(/^--no-.+/) && booleanNegation) {
+      } else if (value.match(/^--no-.+/)) {
         value = value.match(/^--no-(.+)/)[1]
         value = !argv[value]
       } else {
@@ -273,12 +283,68 @@ module.exports = function (yargs, usage, y18n) {
     }
   }
 
+  var conflicting = {}
+  self.conflicts = function (key, value) {
+    if (typeof key === 'object') {
+      Object.keys(key).forEach(function (k) {
+        self.conflicts(k, key[k])
+      })
+    } else {
+      conflicting[key] = value
+    }
+  }
+  self.getConflicting = function () {
+    return conflicting
+  }
+
+  self.conflicting = function (argv) {
+    var args = Object.getOwnPropertyNames(argv)
+
+    args.forEach(function (arg) {
+      if (conflicting[arg] && args.indexOf(conflicting[arg]) !== -1) {
+        usage.fail(__('Arguments %s and %s are mutually exclusive', arg, conflicting[arg]))
+      }
+    })
+  }
+
+  self.recommendCommands = function (cmd, potentialCommands) {
+    const distance = require('./levenshtein')
+    const threshold = 3 // if it takes more than three edits, let's move on.
+    potentialCommands = potentialCommands.sort(function (a, b) { return b.length - a.length })
+
+    var recommended = null
+    var bestDistance = Infinity
+    for (var i = 0, candidate; (candidate = potentialCommands[i]) !== undefined; i++) {
+      var d = distance(cmd, candidate)
+      if (d <= threshold && d < bestDistance) {
+        bestDistance = d
+        recommended = candidate
+      }
+    }
+    if (recommended) usage.fail(__('Did you mean %s?', recommended))
+  }
+
   self.reset = function (globalLookup) {
     implied = objFilter(implied, function (k, v) {
       return globalLookup[k]
     })
     checks = []
+    conflicting = {}
     return self
+  }
+
+  var frozen
+  self.freeze = function () {
+    frozen = {}
+    frozen.implied = implied
+    frozen.checks = checks
+    frozen.conflicting = conflicting
+  }
+  self.unfreeze = function () {
+    implied = frozen.implied
+    checks = frozen.checks
+    conflicting = frozen.conflicting
+    frozen = undefined
   }
 
   return self

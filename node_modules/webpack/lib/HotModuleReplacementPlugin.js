@@ -2,13 +2,14 @@
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
 */
+"use strict";
 var Template = require("./Template");
-var BasicEvaluatedExpression = require("./BasicEvaluatedExpression");
 var ModuleHotAcceptDependency = require("./dependencies/ModuleHotAcceptDependency");
 var ModuleHotDeclineDependency = require("./dependencies/ModuleHotDeclineDependency");
 var RawSource = require("webpack-sources").RawSource;
 var ConstDependency = require("./dependencies/ConstDependency");
 var NullFactory = require("./NullFactory");
+const ParserHelpers = require("./ParserHelpers");
 
 function HotModuleReplacementPlugin(options) {
 	options = options || {};
@@ -195,19 +196,10 @@ HotModuleReplacementPlugin.prototype.apply = function(compiler) {
 		});
 
 		params.normalModuleFactory.plugin("parser", function(parser, parserOptions) {
-			parser.plugin("expression __webpack_hash__", function(expr) {
-				var dep = new ConstDependency("__webpack_require__.h()", expr.range);
-				dep.loc = expr.loc;
-				this.state.current.addDependency(dep);
-				return true;
-			});
-			parser.plugin("evaluate typeof __webpack_hash__", function(expr) {
-				return new BasicEvaluatedExpression().setString("string").setRange(expr.range);
-			});
+			parser.plugin("expression __webpack_hash__", ParserHelpers.toConstantDependency("__webpack_require__.h()"));
+			parser.plugin("evaluate typeof __webpack_hash__", ParserHelpers.evaluateToString("string"));
 			parser.plugin("evaluate Identifier module.hot", function(expr) {
-				return new BasicEvaluatedExpression()
-					.setBoolean(!!this.state.compilation.hotUpdateChunkTemplate)
-					.setRange(expr.range);
+				return ParserHelpers.evaluateToBoolean(!!this.state.compilation.hotUpdateChunkTemplate)(expr);
 			});
 			parser.plugin("call module.hot.accept", function(expr) {
 				if(!this.state.compilation.hotUpdateChunkTemplate) return false;
@@ -260,9 +252,7 @@ HotModuleReplacementPlugin.prototype.apply = function(compiler) {
 					}.bind(this));
 				}
 			});
-			parser.plugin("expression module.hot", function() {
-				return true;
-			});
+			parser.plugin("expression module.hot", ParserHelpers.skipTraversal);
 		});
 	});
 

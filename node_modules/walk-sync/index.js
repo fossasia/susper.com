@@ -45,20 +45,30 @@ function _walkSync(baseDir, options, _relativePath) {
   // https://github.com/joyent/node/pull/6929
   var relativePath = handleRelativePath(_relativePath);
   var globs = options.globs;
-  var m;
+  var ignorePatterns = options.ignore;
+  var globMatcher, ignoreMatcher;
+  var results = [];
 
-  if (globs) {
-    m = new MatcherCollection(globs);
+  if (ignorePatterns) {
+    ignoreMatcher = new MatcherCollection(ignorePatterns);
   }
 
-  var results = [];
-  if (m && !m.mayContain(relativePath)) {
+  if (globs) {
+    globMatcher = new MatcherCollection(globs);
+  }
+
+  if (globMatcher && !globMatcher.mayContain(relativePath)) {
     return results;
   }
 
   var names = fs.readdirSync(baseDir + '/' + relativePath);
   var entries = names.map(function (name) {
     var entryRelativePath = relativePath + name;
+
+    if (ignoreMatcher && ignoreMatcher.match(entryRelativePath)) {
+      return;
+    }
+
     var fullPath = baseDir + '/' + entryRelativePath;
     var stats = getStat(fullPath);
 
@@ -86,12 +96,12 @@ function _walkSync(baseDir, options, _relativePath) {
     var entry = sortedEntries[i];
 
     if (entry.isDirectory()) {
-      if (options.directories !== false && (!m || m.match(entry.relativePath))) {
+      if (options.directories !== false && (!globMatcher || globMatcher.match(entry.relativePath))) {
         results.push(entry);
       }
       results = results.concat(_walkSync(baseDir, options, entry.relativePath));
     } else {
-      if (!m || m.match(entry.relativePath)) {
+      if (!globMatcher || globMatcher.match(entry.relativePath)) {
         results.push(entry);
       }
     }

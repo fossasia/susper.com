@@ -228,21 +228,21 @@ namespace Sass {
 
       KeyType key = keyFunc(e);
 
-      if (grouped.find(key.hash()) == grouped.end()) {
+      if (grouped.find(key->hash()) == grouped.end()) {
         order.insert(std::make_pair((unsigned int)order.size(), key));
 
         std::vector<EnumType> newCollection;
         newCollection.push_back(e);
-        grouped.insert(std::make_pair(key.hash(), newCollection));
+        grouped.insert(std::make_pair(key->hash(), newCollection));
       } else {
-        std::vector<EnumType>& collection = grouped.at(key.hash());
+        std::vector<EnumType>& collection = grouped.at(key->hash());
         collection.push_back(e);
       }
     }
 
     for (unsigned int index = 0; index < order.size(); index++) {
       KeyType& key = order.at(index);
-      std::vector<EnumType>& values = grouped.at(key.hash());
+      std::vector<EnumType>& values = grouped.at(key->hash());
 
       std::pair<KeyType, std::vector<EnumType> > grouping = std::make_pair(key, values);
 

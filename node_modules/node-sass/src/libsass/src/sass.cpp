@@ -7,6 +7,23 @@
 #include "sass.h"
 #include "file.hpp"
 #include "util.hpp"
+#include "sass_context.hpp"
+#include "sass_functions.hpp"
+
+namespace Sass {
+
+  // helper to convert string list to vector
+  std::vector<std::string> list2vec(struct string_list* cur)
+  {
+    std::vector<std::string> list;
+    while (cur) {
+      list.push_back(cur->string);
+      cur = cur->next;
+    }
+    return list;
+  }
+
+}
 
 extern "C" {
   using namespace Sass;
@@ -49,11 +66,50 @@ extern "C" {
     return sass_copy_c_string(unquoted.c_str());
   }
 
+  char* ADDCALL sass_compiler_find_include (const char* file, struct Sass_Compiler* compiler)
+  {
+    // get the last import entry to get current base directory
+    Sass_Import_Entry import = sass_compiler_get_last_import(compiler);
+    const std::vector<std::string>& incs = compiler->cpp_ctx->include_paths;
+    // create the vector with paths to lookup
+    std::vector<std::string> paths(1 + incs.size());
+    paths.push_back(File::dir_name(import->abs_path));
+    paths.insert( paths.end(), incs.begin(), incs.end() );
+    // now resolve the file path relative to lookup paths
+    std::string resolved(File::find_include(file, paths));
+    return sass_copy_c_string(resolved.c_str());
+  }
+
+  char* ADDCALL sass_compiler_find_file (const char* file, struct Sass_Compiler* compiler)
+  {
+    // get the last import entry to get current base directory
+    Sass_Import_Entry import = sass_compiler_get_last_import(compiler);
+    const std::vector<std::string>& incs = compiler->cpp_ctx->include_paths;
+    // create the vector with paths to lookup
+    std::vector<std::string> paths(1 + incs.size());
+    paths.push_back(File::dir_name(import->abs_path));
+    paths.insert( paths.end(), incs.begin(), incs.end() );
+    // now resolve the file path relative to lookup paths
+    std::string resolved(File::find_file(file, paths));
+    return sass_copy_c_string(resolved.c_str());
+  }
+
   // Make sure to free the returned value!
   // Incs array has to be null terminated!
-  char* ADDCALL sass_resolve_file (const char* file, const char* paths[])
+  // this has the original resolve logic for sass include
+  char* ADDCALL sass_find_include (const char* file, struct Sass_Options* opt)
   {
-    std::string resolved(File::find_file(file, paths));
+    std::vector<std::string> vec(list2vec(opt->include_paths));
+    std::string resolved(File::find_include(file, vec));
+    return sass_copy_c_string(resolved.c_str());
+  }
+
+  // Make sure to free the returned value!
+  // Incs array has to be null terminated!
+  char* ADDCALL sass_find_file (const char* file, struct Sass_Options* opt)
+  {
+    std::vector<std::string> vec(list2vec(opt->include_paths));
+    std::string resolved(File::find_file(file, vec));
     return sass_copy_c_string(resolved.c_str());
   }
 
@@ -67,6 +123,27 @@ extern "C" {
   const char* ADDCALL libsass_language_version(void)
   {
     return LIBSASS_LANGUAGE_VERSION;
+  }
+
+}
+
+namespace Sass {
+
+  // helper to aid dreaded MSVC debug mode
+  char* sass_copy_string(std::string str)
+  {
+    // In MSVC the following can lead to segfault:
+    // sass_copy_c_string(stream.str().c_str());
+    // Reason is that the string returned by str() is disposed before
+    // sass_copy_c_string is invoked. The string is actually a stack
+    // object, so indeed nobody is holding on to it. So it seems
+    // perfectly fair to release it right away. So the const char*
+    // by c_str will point to invalid memory. I'm not sure if this is
+    // the behavior for all compiler, but I'm pretty sure we would
+    // have gotten more issues reported if that would be the case.
+    // Wrapping it in a functions seems the cleanest approach as the
+    // function must hold on to the stack variable until it's done.
+    return sass_copy_c_string(str.c_str());
   }
 
 }

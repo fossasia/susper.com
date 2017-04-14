@@ -1,9 +1,8 @@
 #ifndef SASS_SASS_CONTEXT_H
 #define SASS_SASS_CONTEXT_H
 
-#include "sass.h"
-#include "sass.hpp"
-#include "context.hpp"
+#include "sass/base.h"
+#include "sass/context.h"
 #include "ast_fwd_decl.hpp"
 
 // sass config options structure
@@ -14,6 +13,9 @@ struct Sass_Options : Sass_Output_Options {
 
   // embed include contents in maps
   bool source_map_contents;
+
+  // create file urls for sources
+  bool source_map_file_urls;
 
   // Disable sourceMappingUrl in css output
   bool omit_source_map_url;
@@ -30,7 +32,7 @@ struct Sass_Options : Sass_Output_Options {
   char* input_path;
 
   // The output path is used for source map
-  // generation. Libsass will not write to
+  // generation. LibSass will not write to
   // this file, it is just used to create
   // information in source-maps etc.
   char* output_path;
@@ -121,7 +123,7 @@ struct Sass_Compiler {
   // Sass::Context
   Sass::Context* cpp_ctx;
   // Sass::Block
-  Sass::Block* root;
+  Sass::Block_Obj root;
 };
 
 #endif

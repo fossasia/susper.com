@@ -52,16 +52,16 @@ namespace Sass {
 
     Complex_Selector::Combinator combinator() const { return mCombinator; }
 
-    Complex_Selector* selector() { return mpSelector; }
-    const Complex_Selector* selector() const { return mpSelector; }
+    Complex_Selector_Obj selector() { return mpSelector; }
+    Complex_Selector_Obj selector() const { return mpSelector; }
 
     NodeDequePtr collection() { return mpCollection; }
     const NodeDequePtr collection() const { return mpCollection; }
 
     static Node createCombinator(const Complex_Selector::Combinator& combinator);
 
-    // This method will clone the selector, stripping off the tail and combinator
-    static Node createSelector(Complex_Selector* pSelector, Context& ctx);
+    // This method will klone the selector, stripping off the tail and combinator
+    static Node createSelector(Complex_Selector_Ptr pSelector, Context& ctx);
 
     static Node createCollection();
     static Node createCollection(const NodeDeque& values);
@@ -69,7 +69,7 @@ namespace Sass {
     static Node createNil();
     static Node naiveTrim(Node& seqses, Context& ctx);
 
-    Node clone(Context& ctx) const;
+    Node klone(Context& ctx) const;
 
     bool operator==(const Node& rhs) const;
     inline bool operator!=(const Node& rhs) const { return !(*this == rhs); }
@@ -97,23 +97,21 @@ namespace Sass {
     // Private constructor; Use the static methods (like createCombinator and createSelector)
     // to instantiate this object. This is more expressive, and it allows us to break apart each
     // case into separate functions.
-    Node(const TYPE& type, Complex_Selector::Combinator combinator, Complex_Selector* pSelector, NodeDequePtr& pCollection);
+    Node(const TYPE& type, Complex_Selector::Combinator combinator, Complex_Selector_Ptr pSelector, NodeDequePtr& pCollection);
 
     TYPE mType;
 
     // TODO: can we union these to save on memory?
     Complex_Selector::Combinator mCombinator;
-    Complex_Selector* mpSelector; // this is an AST_Node, so it will be handled by the Memory_Manager
+    Complex_Selector_Obj mpSelector;
     NodeDequePtr mpCollection;
   };
 
 #ifdef DEBUG
   std::ostream& operator<<(std::ostream& os, const Node& node);
 #endif
-  Node complexSelectorToNode(Complex_Selector* pToConvert, Context& ctx);
-  Complex_Selector* nodeToComplexSelector(const Node& toConvert, Context& ctx);
-
-  bool nodesEqual(const Node& one, const Node& two, bool simpleSelectorOrderDependent);
+  Node complexSelectorToNode(Complex_Selector_Ptr pToConvert, Context& ctx);
+  Complex_Selector_Ptr nodeToComplexSelector(const Node& toConvert, Context& ctx);
 
 }
 

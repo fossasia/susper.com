@@ -2,7 +2,6 @@
 #include <string>
 #include <sstream>
 #include <iostream>
-#include <cstddef>
 #include <iomanip>
 
 #include "ast.hpp"
@@ -25,20 +24,32 @@ namespace Sass {
 
     json_append_member(json_srcmap, "version", json_mknumber(3));
 
+    const char *include = file.c_str();
+    JsonNode *json_include = json_mkstring(include);
+    json_append_member(json_srcmap, "file", json_include);
+
     // pass-through sourceRoot option
     if (!ctx.source_map_root.empty()) {
       JsonNode* root = json_mkstring(ctx.source_map_root.c_str());
       json_append_member(json_srcmap, "sourceRoot", root);
     }
 
-    const char *include = file.c_str();
-    JsonNode *json_include = json_mkstring(include);
-    json_append_member(json_srcmap, "file", json_include);
-
     JsonNode *json_includes = json_mkarray();
     for (size_t i = 0; i < source_index.size(); ++i) {
-      const char *include = links[source_index[i]].c_str();
-      JsonNode *json_include = json_mkstring(include);
+      std::string include(links[source_index[i]]);
+      if (ctx.c_options.source_map_file_urls) {
+        include = File::rel2abs(include);
+        // check for windows abs path
+        if (include[0] == '/') {
+          // ends up with three slashes
+          include = "file://" + include;
+        } else {
+          // needs an additional slash
+          include = "file:///" + include;
+        }
+      }
+      const char* inc = include.c_str();
+      JsonNode *json_include = json_mkstring(inc);
       json_append_element(json_includes, json_include);
     }
     json_append_member(json_srcmap, "sources", json_includes);
@@ -54,14 +65,14 @@ namespace Sass {
         json_append_member(json_srcmap, "sourcesContent", json_contents);
     }
 
-    std::string mappings = serialize_mappings();
-    JsonNode *json_mappings = json_mkstring(mappings.c_str());
-    json_append_member(json_srcmap, "mappings", json_mappings);
-
     JsonNode *json_names = json_mkarray();
     // so far we have no implementation for names
     // no problem as we do not alter any identifiers
     json_append_member(json_srcmap, "names", json_names);
+
+    std::string mappings = serialize_mappings();
+    JsonNode *json_mappings = json_mkstring(mappings.c_str());
+    json_append_member(json_srcmap, "mappings", json_mappings);
 
     char *str = json_stringify(json_srcmap, "\t");
     std::string result = std::string(str);
@@ -160,12 +171,12 @@ namespace Sass {
     current_position += offset;
   }
 
-  void SourceMap::add_open_mapping(const AST_Node* node)
+  void SourceMap::add_open_mapping(const AST_Node_Ptr node)
   {
     mappings.push_back(Mapping(node->pstate(), current_position));
   }
 
-  void SourceMap::add_close_mapping(const AST_Node* node)
+  void SourceMap::add_close_mapping(const AST_Node_Ptr node)
   {
     mappings.push_back(Mapping(node->pstate() + node->pstate().offset, current_position));
   }

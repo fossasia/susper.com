@@ -11,7 +11,7 @@ var util = require('util'),
     Store = require('./index');
 
 function makeTempDir() {
-    var dir = path.join(os.tmpDir ? os.tmpDir() : /* istanbul ignore next */ (process.env.TMPDIR || '/tmp'), 'ts' + new Date().getTime());
+    var dir = path.join(os.tmpdir ? os.tmpdir() : /* istanbul ignore next */ (process.env.TMPDIR || '/tmp'), 'ts' + new Date().getTime());
     mkdirp.sync(dir);
     return dir;
 }
@@ -29,7 +29,7 @@ function makeTempDir() {
  * @module store
  * @param {Object} opts Optional.
  * @param {String} [opts.tmp] a pre-existing directory to use as the `tmp` directory. When not specified, a random directory
- *      is created under `os.tmpDir()`
+ *      is created under `os.tmpdir()`
  * @constructor
  */
 function TmpStore(opts) {
@@ -46,7 +46,7 @@ util.inherits(TmpStore, Store);
 Store.mix(TmpStore, {
     generateTmpFileName: function () {
         this.seq += 1;
-        return this.prefix + this.seq + '.tmp';
+        return path.join(this.tmp, this.prefix + this.seq + '.tmp');
     },
 
     set: function (key, contents) {
