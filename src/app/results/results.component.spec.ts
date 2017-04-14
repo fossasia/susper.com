@@ -20,6 +20,8 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { SearchService } from '../search.service';
 import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
 import { AboutComponent } from '../about/about.component';
+import { NgBoxModule } from 'ngbox/ngbox.module';
+import { NgBoxService } from 'ngbox/ngbox.service';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -31,6 +33,7 @@ describe('ResultsComponent', () => {
         RouterTestingModule,
         BrowserModule,
         CommonModule,
+        NgBoxModule,
         FormsModule,
         HttpModule,
         JsonpModule,
@@ -47,9 +50,8 @@ describe('ResultsComponent', () => {
         SearchBarComponent,
         FooterNavbarComponent,
         AboutComponent
-
       ],
-      providers: [SearchService]
+      providers: [SearchService, NgBoxService]
     })
       .compileComponents();
   }));

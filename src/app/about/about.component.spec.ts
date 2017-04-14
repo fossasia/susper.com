@@ -18,6 +18,8 @@ import { ResultsComponent } from '../results/results.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { AdvancedsearchComponent } from '../advancedsearch/advancedsearch.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { NgBoxModule } from 'ngbox/ngbox.module';
+import { NgBoxService } from 'ngbox/ngbox.service';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -30,6 +32,7 @@ describe('AboutComponent', () => {
         BrowserModule,
         CommonModule,
         FormsModule,
+        NgBoxModule,
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
@@ -45,7 +48,8 @@ describe('AboutComponent', () => {
         SearchBarComponent,
         FooterNavbarComponent,
         AboutComponent
-      ]
+      ],
+      providers: [NgBoxService]
     })
       .compileComponents();
   }));

@@ -19,6 +19,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducer } from './reducers/index';
 import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
 import { AboutComponent } from './about/about.component';
+import { NgBoxModule } from 'ngbox/ngbox.module';
+import { NgBoxService } from 'ngbox/ngbox.service';
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -28,6 +30,7 @@ describe('AppComponent', () => {
         BrowserModule,
         CommonModule,
         FormsModule,
+        NgBoxModule,
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
@@ -44,6 +47,7 @@ describe('AppComponent', () => {
         FooterNavbarComponent,
         AboutComponent
       ],
+      providers: [NgBoxService]
     });
     TestBed.compileComponents();
   });
