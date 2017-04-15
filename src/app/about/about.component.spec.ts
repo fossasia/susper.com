@@ -18,6 +18,8 @@ import { ResultsComponent } from '../results/results.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { AdvancedsearchComponent } from '../advancedsearch/advancedsearch.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { ContactComponent } from '../contact/contact.component';
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -33,7 +35,7 @@ describe('AboutComponent', () => {
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
+        StoreDevtoolsModule.instrumentOnlyWithExtension()
       ],
       declarations: [
         AppComponent,
@@ -44,7 +46,9 @@ describe('AboutComponent', () => {
         AdvancedsearchComponent,
         SearchBarComponent,
         FooterNavbarComponent,
-        AboutComponent
+        AboutComponent,
+        ContactComponent,
+        ModalComponent
       ]
     })
       .compileComponents();
