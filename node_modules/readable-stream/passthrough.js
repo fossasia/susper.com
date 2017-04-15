@@ -1,1 +1,1 @@
-module.exports = require('./readable').PassThrough
+module.exports = require("./lib/_stream_passthrough.js")

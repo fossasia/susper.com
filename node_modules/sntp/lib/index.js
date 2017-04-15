@@ -29,6 +29,7 @@ exports.time = function (options, callback) {
 
     // Ensure callback is only called once
 
+    var isFinished = false;
     var finish = function (err, result) {
 
         if (timeoutId) {
@@ -36,13 +37,13 @@ exports.time = function (options, callback) {
             timeoutId = 0;
         }
 
-        socket.removeAllListeners();
-        socket.once('error', internals.ignore);
-        socket.close();
-        return callback(err, result);
+        if (!isFinished) {
+            isFinished = true;
+            socket.removeAllListeners();
+            socket.close();
+            return callback(err, result);
+        }
     };
-
-    finish = Hoek.once(finish);
 
     // Create UDP socket
 
@@ -98,7 +99,7 @@ exports.time = function (options, callback) {
 
         Dns.reverse(message.referenceId, function (err, domains) {
 
-            if (/* $lab:coverage:off$ */ !err /* $lab:coverage:on$ */) {
+            if (!err) {
                 message.referenceHost = domains[0];
             }
 
@@ -317,7 +318,7 @@ exports.offset = function (options, callback) {
         now < internals.last.expires) {
 
         process.nextTick(function () {
-
+                
             callback(null, internals.last.offset);
         });
 
@@ -358,10 +359,10 @@ exports.start = function (options, callback) {
 
     if (internals.now.intervalId) {
         process.nextTick(function () {
-
+            
             callback();
         });
-
+        
         return;
     }
 
@@ -406,7 +407,3 @@ exports.now = function () {
     return now + internals.last.offset;
 };
 
-
-internals.ignore = function () {
-
-};

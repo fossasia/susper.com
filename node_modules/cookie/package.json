@@ -37,6 +37,7 @@
     "type": "version"
   },
   "_requiredBy": [
+    "/engine.io",
     "/express"
   ],
   "_resolved": "https://registry.npmjs.org/cookie/-/cookie-0.3.1.tgz",

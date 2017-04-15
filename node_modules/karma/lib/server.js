@@ -160,7 +160,7 @@ Server.prototype._start = function (config, launcher, preprocess, fileList,
     if (e.code === 'EADDRINUSE') {
       self.log.warn('Port %d in use', config.port)
       config.port++
-      webServer.listen(config.port)
+      webServer.listen(config.port, config.listenAddress)
     } else {
       throw e
     }
@@ -171,9 +171,9 @@ Server.prototype._start = function (config, launcher, preprocess, fileList,
       self._injector.invoke(watcher.watch)
     }
 
-    webServer.listen(config.port, function () {
+    webServer.listen(config.port, config.listenAddress, function () {
       self.log.info('Karma v%s server started at %s//%s:%s%s', constant.VERSION,
-        config.protocol, config.hostname, config.port, config.urlRoot)
+        config.protocol, config.listenAddress, config.port, config.urlRoot)
 
       self.emit('listening', config.port)
       if (config.browsers && config.browsers.length) {
@@ -184,6 +184,7 @@ Server.prototype._start = function (config, launcher, preprocess, fileList,
       var noLoadErrors = self.loadErrors.length
       if (noLoadErrors > 0) {
         self.log.error('Found %d load error%s', noLoadErrors, noLoadErrors === 1 ? '' : 's')
+        process.exitCode = 1
         process.kill(process.pid, 'SIGINT')
       }
     })
@@ -392,7 +393,9 @@ Server.prototype._start = function (config, launcher, preprocess, fileList,
     })
   }
 
-  processWrapper.on('SIGINT', disconnectBrowsers)
+  processWrapper.on('SIGINT', function () {
+    disconnectBrowsers(process.exitCode)
+  })
   processWrapper.on('SIGTERM', disconnectBrowsers)
 
   // Handle all unhandled exceptions, so we don't just exit but

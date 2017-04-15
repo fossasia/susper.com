@@ -1195,7 +1195,7 @@ exports = module.exports = __webpack_require__(33)();
 
 
 // module
-exports.push([module.i, ".fixed-bottom{\r\n    position: relative;\r\n    bottom: 0px;\r\n    margin: 0;\r\n}\r\n", ""]);
+exports.push([module.i, ".fixed-bottom{\r\n    position: relative;\r\n    bottom: 0px;\r\n    margin: 0;\r\n}\r\n\r\na{\r\n\tfont-family: arial;\r\n\tfont-size: 16px;\r\n\t\r\n}\r\n", ""]);
 
 // exports
 

@@ -1,1 +1,1 @@
-module.exports = require('./readable').Duplex
+module.exports = require("./lib/_stream_duplex.js")

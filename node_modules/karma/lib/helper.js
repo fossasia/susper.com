@@ -16,7 +16,7 @@ exports.isDefined = function (value) {
 }
 var parser = function (pattern, out) {
   if (pattern.length === 0) return out
-  var p = /^(\[[^\]]*\]|[\*\+@\?]\((.+?)\))/g
+  var p = /^(\[[^\]]*\]|[*+@?]\((.+?)\))/g
   var matches = p.exec(pattern)
   if (!matches) {
     var c = pattern[0]
@@ -80,6 +80,7 @@ exports.isFunction = _.isFunction
 exports.isString = _.isString
 exports.isObject = _.isObject
 exports.isArray = _.isArray
+exports.isNumber = _.isNumber
 
 var ABS_URL = /^https?:\/\//
 exports.isUrlAbsolute = function (url) {
