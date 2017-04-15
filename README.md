@@ -2,7 +2,7 @@
 
 Susper is a decentral Search Engine that uses the peer to peer system yacy and Apache Solr to crawl and index search results.
 
-[![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=gh-pages)](https://travis-ci.org/fossasia/susper.com?branch=gh-pages)
+[![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=angular)](https://travis-ci.org/fossasia/susper.com?branch=angular)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ba119419e7444b3b505bb37b4525deb)](https://www.codacy.com/app/shiven15094/susper-com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fossasia/susper.com&amp;utm_campaign=Badge_Grade)
 [![Code Climate](https://codeclimate.com/github/fossasia/susper.com/badges/gpa.svg?branch=gh-pages)](https://codeclimate.com/github/fossasia/susper.com)
 [![codecov](https://codecov.io/gh/fossasia/susper.com/branch/gh-pages/graph/badge.svg)](https://codecov.io/gh/fossasia/gh-pages)
@@ -82,17 +82,12 @@ This is an Open Source project and we would be happy to see contributors who rep
 Before making a pull request, please file an issue. So, other developers have the chance to give feedback or discuss details. Match every pull request with an issue please and add the issue number in description e.g. like "Fixes #123".
 
 We have the following branches
- * **development**
-     All development goes on in this branch. If you're making a contribution,
-     you are supposed to make a pull request to _development_.
-     PRs must pass a build check and unit-tests check on Travis
  * **gh-pages**
    This contains shipped code. After significant features/bugfixes are accumulated on development, we make a version update, and make a release.
  * **angular**
  This contains the code that is related to angular2 version of susper, where all the development of converting susper to angular2 framework is being done.If you're making a contribution related to angular issues,
     you are supposed to make a pull request to _angular_.
     PRs must pass a build check and unit-tests check on Travis
-
 
 ## LICENSE
 
@@ -129,6 +124,26 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Deploying to Github Pages
 
 Run `ng github-pages:deploy` to deploy to Github Pages.
+
+## Update Angular-CLI
+
+To update Angular-CLI to a new version, you must update both the global package and your project's local package.
+
+Global package
+
+```bash
+npm uninstall -g @angular/cli
+npm cache clean
+npm install -g @angular/cli@latest
+```
+
+Local package
+
+```bash
+rm -rf node_modules dist # use rmdir /S/Q node_modules dist in Windows Command Prompt; use rm -r -fo node_modules,dist in Windows PowerShell
+npm install --save-dev @angular/cli@latest
+npm install
+```
 
 ## Further help
 
