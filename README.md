@@ -14,7 +14,7 @@ Our chat channel is on gitter here: https://gitter.im/fossasia/susper.com
 
 ## Components and Technology
 
-This is a search front-end for YaCy. Retrieval of search results using YaCys search API and display using AJAX technology.
+This is a search front-end for YaCy. Retrieval of search results using YaCy search API and display using AJAX technology.
 
 * Solr, JSON(P) and JavaScript / backbone.js - driven
 
