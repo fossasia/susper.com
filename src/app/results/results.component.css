@@ -32,6 +32,20 @@
   color: #88aaaa;
   padding-left: 60px;
 }
+.container-fluid ul{
+  padding-top: 16px;
+}
+
+.container-fluid li{
+  height: 15px;
+    line-height: 15px;
+    padding-top: 28px;
+}
+
+.container-fluid li a{
+      position: relative; 
+      left: -25px;
+}
 
 .dropdown-menu > li {
   font-size: small;
