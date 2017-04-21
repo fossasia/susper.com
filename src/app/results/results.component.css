@@ -32,19 +32,25 @@
   color: #88aaaa;
   padding-left: 60px;
 }
+
+.container-fluid{
+  position: relative;
+} 
+
 .container-fluid ul{
-  padding-top: 16px;
+  padding-top: 6px;
+  width: 685px;
 }
 
 .container-fluid li{
   height: 15px;
-    line-height: 15px;
-    padding-top: 28px;
+  line-height: 15px;
+  padding-top: 28px;
 }
 
 .container-fluid li a{
-      position: relative; 
-      left: -25px;
+  position: relative; 
+  left: -25px;
 }
 
 .dropdown-menu > li {
@@ -67,6 +73,11 @@
   padding-left: 20px;
   background-color: #1c65ba;
   color: white;
+}
+
+#tools{
+  left: 140px;
+  position: relative;
 }
 
 .active_page {

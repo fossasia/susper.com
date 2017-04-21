@@ -1,6 +1,6 @@
 #nav-group{
   background-color: white;
-  width: 484px;
+  width: 584px;
   color: black;
   height: 44px;
   border-radius: 0px;
@@ -11,7 +11,10 @@
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
 }
 
+
 #nav-input{
+  font-size: 16px;
+  font-weight: 400;
   top: 4px;
   color: black;
   width: 511px;
@@ -20,8 +23,6 @@
   border-radius: 0px;
   border: none;
   box-shadow: none;
-  font-size: 46px arial,sans-serif;
-  z-index: 6px;
 }
 
 #nav-button{
