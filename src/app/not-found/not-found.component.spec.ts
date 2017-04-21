@@ -19,6 +19,8 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { FormsModule } from '@angular/forms';
 import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
 import { AboutComponent } from '../about/about.component';
+import { NgBoxModule } from 'ngbox/ngbox.module';
+import { NgBoxService } from 'ngbox/ngbox.service';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -31,6 +33,7 @@ describe('NotFoundComponent', () => {
         BrowserModule,
         CommonModule,
         FormsModule,
+        NgBoxModule,
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
@@ -46,7 +49,8 @@ describe('NotFoundComponent', () => {
         SearchBarComponent,
         FooterNavbarComponent,
         AboutComponent
-      ]
+      ],
+      providers: [NgBoxService]
     })
       .compileComponents();
   }));

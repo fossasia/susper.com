@@ -19,6 +19,8 @@ import { AdvancedsearchComponent } from '../advancedsearch/advancedsearch.compon
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
 import { AboutComponent } from '../about/about.component';
+import { NgBoxModule } from 'ngbox/ngbox.module';
+import { NgBoxService } from 'ngbox/ngbox.service';
 
 describe('IndexComponent', () => {
   let component: IndexComponent;
@@ -31,6 +33,7 @@ describe('IndexComponent', () => {
         BrowserModule,
         CommonModule,
         FormsModule,
+        NgBoxModule,
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
@@ -46,7 +49,8 @@ describe('IndexComponent', () => {
         SearchBarComponent,
         FooterNavbarComponent,
         AboutComponent
-      ]
+      ],
+      providers: [NgBoxService]
     })
       .compileComponents();
   }));

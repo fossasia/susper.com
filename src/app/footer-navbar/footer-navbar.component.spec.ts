@@ -18,6 +18,8 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducer } from '../reducers/search';
+import { NgBoxModule } from 'ngbox/ngbox.module';
+import { NgBoxService } from 'ngbox/ngbox.service';
 
 describe('FooterNavbarComponent', () => {
   let component: FooterNavbarComponent;
@@ -30,6 +32,7 @@ describe('FooterNavbarComponent', () => {
         BrowserModule,
         CommonModule,
         FormsModule,
+        NgBoxModule,
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
@@ -45,7 +48,8 @@ describe('FooterNavbarComponent', () => {
         SearchBarComponent,
         FooterNavbarComponent,
         AboutComponent
-      ]
+      ],
+      providers: [NgBoxService]
     })
       .compileComponents();
   }));

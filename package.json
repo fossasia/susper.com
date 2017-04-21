@@ -28,6 +28,7 @@
     "@ngrx/store-devtools": "^3.2.3",
     "codecov.io": "^0.1.6",
     "core-js": "^2.4.1",
+    "ngbox": "0.0.15",
     "ngrx-store-freeze": "^0.1.6",
     "reselect": "^2.5.4",
     "rxjs": "5.0.0-beta.12",

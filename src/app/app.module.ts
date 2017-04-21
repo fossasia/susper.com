@@ -17,6 +17,8 @@ import {reducer} from './reducers/index';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { AboutComponent } from './about/about.component';
 import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
+import { NgBoxModule } from 'ngbox/ngbox.module';
+import { NgBoxService } from 'ngbox/ngbox.service';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -43,12 +45,12 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     JsonpModule,
+    NgBoxModule,
     RouterModule.forRoot(appRoutes),
     StoreModule.provideStore(reducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
-
   ],
-  providers: [SearchService],
+  providers: [SearchService, NgBoxService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
