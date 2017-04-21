@@ -9,19 +9,19 @@ test('async foo', function (t) {
     resolve('./foo', { basedir: dir }, function (err, res, pkg) {
         if (err) t.fail(err);
         t.equal(res, path.join(dir, 'foo.js'));
-        t.equal(pkg.name, 'resolve');
+        t.equal(pkg && pkg.name, 'resolve');
     });
 
     resolve('./foo.js', { basedir: dir }, function (err, res, pkg) {
         if (err) t.fail(err);
         t.equal(res, path.join(dir, 'foo.js'));
-        t.equal(pkg.name, 'resolve');
+        t.equal(pkg && pkg.name, 'resolve');
     });
 
     resolve('./foo', { basedir: dir, 'package': { main: 'resolver' } }, function (err, res, pkg) {
         if (err) t.fail(err);
         t.equal(res, path.join(dir, 'foo.js'));
-        t.equal(pkg.main, 'resolver');
+        t.equal(pkg && pkg.main, 'resolver');
     });
 
     resolve('./foo.js', { basedir: dir, 'package': { main: 'resolver' } }, function (err, res, pkg) {
@@ -277,4 +277,51 @@ test('#25: node modules with the same name as node stdlib modules', function (t)
         if (err) t.fail(err);
         t.equal(res, path.join(resolverDir, 'node_modules/punycode/index.js'));
     });
+});
+
+test('#52 - incorrectly resolves module-paths like "./someFolder/" when there is a file of the same name', function (t) {
+    t.plan(2);
+
+    var dir = path.join(__dirname, 'resolver');
+
+    resolve('./foo', { basedir: path.join(dir, 'same_names') }, function (err, res, pkg) {
+        if (err) t.fail(err);
+        t.equal(res, path.join(dir, 'same_names/foo.js'));
+    });
+
+    resolve('./foo/', { basedir: path.join(dir, 'same_names') }, function (err, res, pkg) {
+        if (err) t.fail(err);
+        t.equal(res, path.join(dir, 'same_names/foo/index.js'));
+    });
+});
+
+test('async: #121 - treating an existing file as a dir when no basedir', function (t) {
+    var testFile = path.basename(__filename);
+
+    t.test('sanity check', function (st) {
+        st.plan(1);
+        resolve('./' + testFile, function (err, res, pkg) {
+            if (err) t.fail(err);
+            st.equal(res, __filename, 'sanity check');
+        });
+    });
+
+    t.test('with a fake directory', function (st) {
+        st.plan(4);
+
+        resolve('./' + testFile + '/blah', function (err, res, pkg) {
+            st.ok(err, 'there is an error');
+            st.notOk(res, 'no result');
+
+            st.equal(err && err.code, 'MODULE_NOT_FOUND', 'error code matches require.resolve');
+            st.equal(
+                err && err.message,
+                'Cannot find module \'./' + testFile + '/blah\' from \'' + __dirname + '\'',
+                'can not find nonexistent module'
+            );
+            st.end();
+        });
+    });
+
+    t.end();
 });

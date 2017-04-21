@@ -64390,16 +64390,21 @@ DevtoolsExtension.ctorParameters = function () { return [
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_BehaviorSubject__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_BehaviorSubject__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Dispatcher; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 
 var Dispatcher = (function (_super) {
     __extends(Dispatcher, _super);
     function Dispatcher() {
-        _super.call(this, { type: Dispatcher.INIT });
+        return _super.call(this, { type: Dispatcher.INIT }) || this;
     }
     Dispatcher.prototype.dispatch = function (action) {
         this.next(action);
@@ -64407,9 +64412,10 @@ var Dispatcher = (function (_super) {
     Dispatcher.prototype.complete = function () {
         // noop
     };
-    Dispatcher.INIT = '@ngrx/store/init';
     return Dispatcher;
 }(__WEBPACK_IMPORTED_MODULE_0_rxjs_BehaviorSubject__["BehaviorSubject"]));
+
+Dispatcher.INIT = '@ngrx/store/init';
 //# sourceMappingURL=dispatcher.js.map
 
 /***/ }),
@@ -64420,17 +64426,23 @@ var Dispatcher = (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_BehaviorSubject__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_BehaviorSubject__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Reducer; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 
 var Reducer = (function (_super) {
     __extends(Reducer, _super);
     function Reducer(_dispatcher, initialReducer) {
-        _super.call(this, initialReducer);
-        this._dispatcher = _dispatcher;
+        var _this = _super.call(this, initialReducer) || this;
+        _this._dispatcher = _dispatcher;
+        return _this;
     }
     Reducer.prototype.replaceReducer = function (reducer) {
         this.next(reducer);
@@ -64439,9 +64451,10 @@ var Reducer = (function (_super) {
         _super.prototype.next.call(this, reducer);
         this._dispatcher.dispatch({ type: Reducer.REPLACE });
     };
-    Reducer.REPLACE = '@ngrx/store/replace-reducer';
     return Reducer;
 }(__WEBPACK_IMPORTED_MODULE_0_rxjs_BehaviorSubject__["BehaviorSubject"]));
+
+Reducer.REPLACE = '@ngrx/store/replace-reducer';
 //# sourceMappingURL=reducer.js.map
 
 /***/ }),
@@ -64460,11 +64473,16 @@ var Reducer = (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return State; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 
 
 
@@ -64473,8 +64491,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var State = (function (_super) {
     __extends(State, _super);
     function State(_initialState, action$, reducer$) {
-        var _this = this;
-        _super.call(this, _initialState);
+        var _this = _super.call(this, _initialState) || this;
         var actionInQueue$ = __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_observeOn__["observeOn"].call(action$, __WEBPACK_IMPORTED_MODULE_3_rxjs_scheduler_queue__["queue"]);
         var actionAndReducer$ = __WEBPACK_IMPORTED_MODULE_0_rxjs_operator_withLatestFrom__["withLatestFrom"].call(actionInQueue$, reducer$);
         var state$ = __WEBPACK_IMPORTED_MODULE_1_rxjs_operator_scan__["scan"].call(actionAndReducer$, function (state, _a) {
@@ -64482,9 +64499,11 @@ var State = (function (_super) {
             return reducer(state, action);
         }, _initialState);
         state$.subscribe(function (value) { return _this.next(value); });
+        return _this;
     }
     return State;
 }(__WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__["BehaviorSubject"]));
+
 //# sourceMappingURL=state.js.map
 
 /***/ }),
@@ -64496,21 +64515,27 @@ var State = (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Store; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 
 
 var Store = (function (_super) {
     __extends(Store, _super);
     function Store(_dispatcher, _reducer, state$) {
-        _super.call(this);
-        this._dispatcher = _dispatcher;
-        this._reducer = _reducer;
-        this.select = __WEBPACK_IMPORTED_MODULE_0__ngrx_core__["a" /* select */].bind(this);
-        this.source = state$;
+        var _this = _super.call(this) || this;
+        _this._dispatcher = _dispatcher;
+        _this._reducer = _reducer;
+        _this.select = __WEBPACK_IMPORTED_MODULE_0__ngrx_core__["a" /* select */].bind(_this);
+        _this.source = state$;
+        return _this;
     }
     Store.prototype.lift = function (operator) {
         var store = new Store(this._dispatcher, this._reducer, this);
@@ -64534,6 +64559,7 @@ var Store = (function (_super) {
     };
     return Store;
 }(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"]));
+
 //# sourceMappingURL=store.js.map
 
 /***/ }),
@@ -84517,6 +84543,12 @@ function liftReducerWith(initialCommittedState, initialLiftedState, monitorReduc
 /* unused harmony export _reducerFactory */
 /* unused harmony export provideStore */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StoreModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 
 
 
@@ -84564,22 +84596,22 @@ function provideStore(_reducer, _initialState) {
         { provide: _INITIAL_REDUCER, useValue: _reducer }
     ];
 }
-var StoreModule = (function () {
+var StoreModule = StoreModule_1 = (function () {
     function StoreModule() {
     }
     StoreModule.provideStore = function (_reducer, _initialState) {
         return {
-            ngModule: StoreModule,
+            ngModule: StoreModule_1,
             providers: provideStore(_reducer, _initialState)
         };
     };
-    StoreModule.decorators = [
-        { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["b" /* NgModule */], args: [{},] },
-    ];
-    /** @nocollapse */
-    StoreModule.ctorParameters = [];
     return StoreModule;
 }());
+StoreModule = StoreModule_1 = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["b" /* NgModule */])({})
+], StoreModule);
+
+var StoreModule_1;
 //# sourceMappingURL=ng2.js.map
 
 /***/ }),

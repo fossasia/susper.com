@@ -204,3 +204,50 @@ test('#79 - re-throw non ENOENT errors from stat', function (t) {
     t.end();
 });
 
+test('#52 - incorrectly resolves module-paths like "./someFolder/" when there is a file of the same name', function (t) {
+    var dir = path.join(__dirname, 'resolver');
+
+    t.equal(
+        resolve.sync('./foo', { basedir: path.join(dir, 'same_names') }),
+        path.join(dir, 'same_names/foo.js')
+    );
+    t.equal(
+        resolve.sync('./foo/', { basedir: path.join(dir, 'same_names') }),
+        path.join(dir, 'same_names/foo/index.js')
+    );
+    t.end();
+});
+
+test('sync: #121 - treating an existing file as a dir when no basedir', function (t) {
+    var testFile = path.basename(__filename);
+
+    t.test('sanity check', function (st) {
+        st.equal(
+            resolve.sync('./' + testFile),
+            __filename,
+            'sanity check'
+        );
+        st.end();
+    });
+
+    t.test('with a fake directory', function (st) {
+        function run() { return resolve.sync('./' + testFile + '/blah'); }
+
+        st.throws(run, 'throws an error');
+
+        try {
+            run();
+        } catch (e) {
+            st.equal(e.code, 'MODULE_NOT_FOUND', 'error code matches require.resolve');
+            st.equal(
+                e.message,
+                'Cannot find module \'./' + testFile + '/blah\' from \'' + __dirname + '\'',
+                'can not find nonexistent module'
+            );
+        }
+
+        st.end();
+    });
+
+    t.end();
+});

@@ -5,12 +5,15 @@ var caller = require('./caller.js');
 var nodeModulesPaths = require('./node-modules-paths.js');
 
 module.exports = function (x, options) {
+    if (typeof x !== 'string') {
+        throw new TypeError('Path must be a string.');
+    }
     var opts = options || {};
     var isFile = opts.isFile || function (file) {
         try {
             var stat = fs.statSync(file);
         } catch (e) {
-            if (e && e.code === 'ENOENT') return false;
+            if (e && (e.code === 'ENOENT' || e.code === 'ENOTDIR')) return false;
             throw e;
         }
         return stat.isFile() || stat.isFIFO();
@@ -22,9 +25,9 @@ module.exports = function (x, options) {
 
     opts.paths = opts.paths || [];
 
-    if (/^(?:\.\.?(?:\/|$)|\/|([A-Za-z]:)?[\\\/])/.test(x)) {
+    if (/^(?:\.\.?(?:\/|$)|\/|([A-Za-z]:)?[/\\])/.test(x)) {
         var res = path.resolve(y, x);
-        if (x === '..') res += '/';
+        if (x === '..' || x.slice(-1) === '/') res += '/';
         var m = loadAsFileSync(res) || loadAsDirectorySync(res);
         if (m) return m;
     } else {

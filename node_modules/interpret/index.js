@@ -27,16 +27,7 @@ const extensions = {
       }
     }
   ],
-  '.buble.js': [
-    {
-      module: 'buble/register',
-      register: function (module) {
-        module({
-          extensions: '.js'
-        });
-      }
-    }
-  ],
+  '.buble.js': 'buble/register',
   '.cirru': 'cirru-script/lib/register',
   '.cjsx': 'node-cjsx/register',
   '.co': 'coco',

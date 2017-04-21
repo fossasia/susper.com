@@ -1,5 +1,12 @@
 # Change Log
 
+## v1.7.0
+**Bugfixes:**
+* `isFunctionScopeBoundary` now handles Interfaces, TypeAliases, FunctionSignatures, etc
+
+**Features:**
+* Added utilities: `isThisParameter`, `isSameLine` and `isFunctionWithBody`
+
 ## v1.6.0
 **Features:**
 * Add `isValidPropertyAccess`, `isValidNumericLiteral` and `isValidPropertyName`

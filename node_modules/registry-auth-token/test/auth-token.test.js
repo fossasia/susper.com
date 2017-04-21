@@ -52,6 +52,24 @@ describe('auth-token', function () {
       })
     })
 
+    it('should use npmrc passed in', function (done) {
+      var content = [
+        'registry=http://registry.foobar.eu/',
+        '//registry.foobar.eu/:_authToken=foobar', ''
+      ].join('\n')
+
+      fs.writeFile(npmRcPath, content, function (err) {
+        var getAuthToken = requireUncached('../index')
+        assert(!err, err)
+        const npmrc = {
+          'registry': 'http://registry.foobar.eu/',
+          '//registry.foobar.eu/:_authToken': 'qar'
+        }
+        assert.deepEqual(getAuthToken({npmrc: npmrc}), {token: 'qar', type: 'Bearer'})
+        done()
+      })
+    })
+
     it('should return auth token if registry url has port specified', function (done) {
       var content = [
         'registry=http://localhost:8770/',

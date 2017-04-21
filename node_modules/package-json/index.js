@@ -9,7 +9,7 @@ module.exports = (name, opts) => {
 	const scope = name.split('/')[0];
 	const regUrl = registryUrl(scope);
 	const pkgUrl = url.resolve(regUrl, encodeURIComponent(name).replace(/^%40/, '@'));
-	const authInfo = registryAuthToken(regUrl);
+	const authInfo = registryAuthToken(regUrl, {recursive: true});
 
 	opts = Object.assign({
 		version: 'latest'

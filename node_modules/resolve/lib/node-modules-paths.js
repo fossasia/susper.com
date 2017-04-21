@@ -9,17 +9,17 @@ module.exports = function nodeModulesPaths(start, opts) {
 
     // ensure that `start` is an absolute path at this point,
     // resolving against the process' current working directory
-    start = path.resolve(start);
+    var absoluteStart = path.resolve(start);
 
     var prefix = '/';
-    if (/^([A-Za-z]:)/.test(start)) {
+    if (/^([A-Za-z]:)/.test(absoluteStart)) {
         prefix = '';
-    } else if (/^\\\\/.test(start)) {
+    } else if (/^\\\\/.test(absoluteStart)) {
         prefix = '\\\\';
     }
 
-    var paths = [start];
-    var parsed = parse(start);
+    var paths = [absoluteStart];
+    var parsed = parse(absoluteStart);
     while (parsed.dir !== paths[paths.length - 1]) {
         paths.push(parsed.dir);
         parsed = parse(parsed.dir);

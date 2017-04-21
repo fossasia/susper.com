@@ -8,10 +8,24 @@ var tokenKey = ':_authToken'
 var userKey = ':username'
 var passwordKey = ':_password'
 
-module.exports = function getRegistryAuthInfo(registryUrl, opts) {
-  var options = opts || {}
-  var npmrc = require('rc')('npm', {registry: 'https://registry.npmjs.org/'})
-  var checkUrl = registryUrl || npmrc.registry
+module.exports = function () {
+  var checkUrl
+  var options
+  if (arguments.length >= 2) {
+    checkUrl = arguments[0]
+    options = arguments[1]
+  } else if (typeof arguments[0] === 'string') {
+    checkUrl = arguments[0]
+  } else {
+    options = arguments[0]
+  }
+  options = options || {}
+  options.npmrc = options.npmrc || require('rc')('npm', {registry: 'https://registry.npmjs.org/'})
+  checkUrl = checkUrl || options.npmrc.registry
+  return getRegistryAuthInfo(checkUrl, options)
+}
+
+function getRegistryAuthInfo(checkUrl, options) {
   var parsed = url.parse(checkUrl, false, true)
   var pathname
 
@@ -19,7 +33,7 @@ module.exports = function getRegistryAuthInfo(registryUrl, opts) {
     pathname = parsed.pathname || '/'
 
     var regUrl = '//' + parsed.host + pathname.replace(/\/$/, '')
-    var authInfo = getAuthInfoForUrl(regUrl, npmrc)
+    var authInfo = getAuthInfoForUrl(regUrl, options.npmrc)
     if (authInfo) {
       return authInfo
     }
