@@ -1,19 +1,19 @@
 webpackJsonp([0,3],{
 
-/***/ 157:
+/***/ 158:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_reselect__ = __webpack_require__(718);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_reselect__ = __webpack_require__(729);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_reselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_reselect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__environments_environment__ = __webpack_require__(351);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_core_compose__ = __webpack_require__(523);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__environments_environment__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_core_compose__ = __webpack_require__(530);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_core_compose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__ngrx_core_compose__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ngrx_store_freeze__ = __webpack_require__(707);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ngrx_store_freeze__ = __webpack_require__(717);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ngrx_store_freeze___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ngrx_store_freeze__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_store__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__search__ = __webpack_require__(542);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__query__ = __webpack_require__(541);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__search__ = __webpack_require__(550);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__query__ = __webpack_require__(549);
 /* harmony export (immutable) */ __webpack_exports__["a"] = reducer;
 /* unused harmony export getSearchState */
 /* unused harmony export getQueryState */
@@ -61,11 +61,11 @@ var getquery = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["cre
 
 /***/ }),
 
-/***/ 346:
+/***/ 349:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(350);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(353);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ActionTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return QueryAction; });
 
@@ -83,11 +83,11 @@ var QueryAction = (function () {
 
 /***/ }),
 
-/***/ 347:
+/***/ 350:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(350);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(353);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ActionTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchAction; });
 /* unused harmony export ItemsAction */
@@ -132,7 +132,7 @@ var NavigationAction = (function () {
 
 /***/ }),
 
-/***/ 348:
+/***/ 351:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -153,10 +153,10 @@ var AppComponent = (function () {
         this.title = 'Susper';
     }
     AppComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Component */])({
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-root',
-            template: __webpack_require__(711),
-            styles: [__webpack_require__(700)]
+            template: __webpack_require__(721),
+            styles: [__webpack_require__(708)]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
@@ -166,18 +166,18 @@ var AppComponent = (function () {
 
 /***/ }),
 
-/***/ 349:
+/***/ 352:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(314);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(725);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(397);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(726);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(737);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_store__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_search__ = __webpack_require__(347);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_search__ = __webpack_require__(350);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -227,7 +227,7 @@ var SearchService = (function () {
         });
     };
     SearchService = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(), 
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* Jsonp */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* Jsonp */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */]) === 'function' && _c) || Object])
     ], SearchService);
     return SearchService;
@@ -237,7 +237,7 @@ var SearchService = (function () {
 
 /***/ }),
 
-/***/ 350:
+/***/ 353:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -263,7 +263,7 @@ function type(label) {
 
 /***/ }),
 
-/***/ 351:
+/***/ 354:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -279,7 +279,7 @@ var environment = {
 
 /***/ }),
 
-/***/ 406:
+/***/ 413:
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -288,35 +288,35 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 406;
+webpackEmptyContext.id = 413;
 
 
 /***/ }),
 
-/***/ 407:
+/***/ 414:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(545);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(494);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(553);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(501);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(351);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app___ = __webpack_require__(537);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app___ = __webpack_require__(545);
 
 
 
 
 
 if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["a" /* enableProdMode */])();
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["enableProdMode"])();
 }
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_4__app___["a" /* AppModule */]);
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/main.js.map
 
 /***/ }),
 
-/***/ 533:
+/***/ 540:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -338,10 +338,10 @@ var AboutComponent = (function () {
     AboutComponent.prototype.ngOnInit = function () {
     };
     AboutComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Component */])({
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-about',
-            template: __webpack_require__(709),
-            styles: [__webpack_require__(698)]
+            template: __webpack_require__(719),
+            styles: [__webpack_require__(706)]
         }), 
         __metadata('design:paramtypes', [])
     ], AboutComponent);
@@ -351,14 +351,14 @@ var AboutComponent = (function () {
 
 /***/ }),
 
-/***/ 534:
+/***/ 541:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__(158);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdvancedsearchComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -394,10 +394,10 @@ var AdvancedsearchComponent = (function () {
     AdvancedsearchComponent.prototype.ngOnInit = function () {
     };
     AdvancedsearchComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Component */])({
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-advancedsearch',
-            template: __webpack_require__(710),
-            styles: [__webpack_require__(699)]
+            template: __webpack_require__(720),
+            styles: [__webpack_require__(707)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */]) === 'function' && _c) || Object])
     ], AdvancedsearchComponent);
@@ -408,29 +408,32 @@ var AdvancedsearchComponent = (function () {
 
 /***/ }),
 
-/***/ 535:
+/***/ 542:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(485);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(314);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(348);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__navbar_navbar_component__ = __webpack_require__(539);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__index_index_component__ = __webpack_require__(538);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__results_results_component__ = __webpack_require__(543);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(492);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(351);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__navbar_navbar_component__ = __webpack_require__(547);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__index_index_component__ = __webpack_require__(546);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__results_results_component__ = __webpack_require__(551);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_router__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__search_service__ = __webpack_require__(349);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__not_found_not_found_component__ = __webpack_require__(540);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_common__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__advancedsearch_advancedsearch_component__ = __webpack_require__(534);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ngrx_store_devtools__ = __webpack_require__(529);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__search_service__ = __webpack_require__(352);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__not_found_not_found_component__ = __webpack_require__(548);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_common__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__advancedsearch_advancedsearch_component__ = __webpack_require__(541);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ngrx_store_devtools__ = __webpack_require__(536);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ngrx_store__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__reducers_index__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__search_bar_search_bar_component__ = __webpack_require__(544);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__about_about_component__ = __webpack_require__(533);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__footer_navbar_footer_navbar_component__ = __webpack_require__(536);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__reducers_index__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__search_bar_search_bar_component__ = __webpack_require__(552);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__about_about_component__ = __webpack_require__(540);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__footer_navbar_footer_navbar_component__ = __webpack_require__(544);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__contact_contact_component__ = __webpack_require__(543);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_ng2_bs3_modal_ng2_bs3_modal__ = __webpack_require__(396);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_ng2_bs3_modal_ng2_bs3_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20_ng2_bs3_modal_ng2_bs3_modal__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -460,10 +463,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var appRoutes = [
     { path: 'search', component: __WEBPACK_IMPORTED_MODULE_7__results_results_component__["a" /* ResultsComponent */] },
     { path: '', component: __WEBPACK_IMPORTED_MODULE_6__index_index_component__["a" /* IndexComponent */] },
     { path: 'about', component: __WEBPACK_IMPORTED_MODULE_17__about_about_component__["a" /* AboutComponent */] },
+    { path: 'contact', component: __WEBPACK_IMPORTED_MODULE_19__contact_contact_component__["a" /* ContactComponent */] },
     { path: '404', component: __WEBPACK_IMPORTED_MODULE_10__not_found_not_found_component__["a" /* NotFoundComponent */] },
     { path: '**', redirectTo: '/404' },
 ];
@@ -471,7 +477,7 @@ var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
                 __WEBPACK_IMPORTED_MODULE_5__navbar_navbar_component__["a" /* NavbarComponent */],
@@ -481,17 +487,19 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_12__advancedsearch_advancedsearch_component__["a" /* AdvancedsearchComponent */],
                 __WEBPACK_IMPORTED_MODULE_16__search_bar_search_bar_component__["a" /* SearchBarComponent */],
                 __WEBPACK_IMPORTED_MODULE_17__about_about_component__["a" /* AboutComponent */],
-                __WEBPACK_IMPORTED_MODULE_18__footer_navbar_footer_navbar_component__["a" /* FooterNavbarComponent */]
+                __WEBPACK_IMPORTED_MODULE_18__footer_navbar_footer_navbar_component__["a" /* FooterNavbarComponent */],
+                __WEBPACK_IMPORTED_MODULE_19__contact_contact_component__["a" /* ContactComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_common__["a" /* CommonModule */],
+                __WEBPACK_IMPORTED_MODULE_11__angular_common__["CommonModule"],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* JsonpModule */],
                 __WEBPACK_IMPORTED_MODULE_8__angular_router__["a" /* RouterModule */].forRoot(appRoutes),
                 __WEBPACK_IMPORTED_MODULE_14__ngrx_store__["a" /* StoreModule */].provideStore(__WEBPACK_IMPORTED_MODULE_15__reducers_index__["a" /* reducer */]),
                 __WEBPACK_IMPORTED_MODULE_13__ngrx_store_devtools__["a" /* StoreDevtoolsModule */].instrumentOnlyWithExtension(),
+                __WEBPACK_IMPORTED_MODULE_20_ng2_bs3_modal_ng2_bs3_modal__["Ng2Bs3ModalModule"]
             ],
             providers: [__WEBPACK_IMPORTED_MODULE_9__search_service__["a" /* SearchService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
@@ -504,7 +512,74 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 536:
+/***/ 543:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_bs3_modal_ng2_bs3_modal__ = __webpack_require__(396);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_bs3_modal_ng2_bs3_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_ng2_bs3_modal_ng2_bs3_modal__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ContactComponent = (function () {
+    function ContactComponent() {
+        this.contactMessage = '';
+    }
+    ContactComponent.prototype.ngOnInit = function () {
+    };
+    ContactComponent.prototype.close = function () {
+        this.modal.close();
+    };
+    ContactComponent.prototype.open = function () {
+        this.modal.open();
+    };
+    // check whether messsage contains morthan 100 words
+    ContactComponent.prototype.checkWordCount = function () {
+        if (this.contactMessage.split(' ').length >= 100 && this.tpnoInput.toString().length >= 10) {
+            this.submitButton.nativeElement.disabled = false;
+        }
+        else {
+            this.submitButton.nativeElement.disabled = true;
+        }
+    }; //End checkWordCount() 
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('submitButton'), 
+        __metadata('design:type', Object)
+    ], ContactComponent.prototype, "submitButton", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('emailInput'), 
+        __metadata('design:type', Object)
+    ], ContactComponent.prototype, "emailInput", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('myModal'), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_bs3_modal_ng2_bs3_modal__["ModalComponent"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1_ng2_bs3_modal_ng2_bs3_modal__["ModalComponent"]) === 'function' && _a) || Object)
+    ], ContactComponent.prototype, "modal", void 0);
+    ContactComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-contact',
+            template: __webpack_require__(722),
+            styles: [__webpack_require__(709)]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ContactComponent);
+    return ContactComponent;
+    var _a;
+}());
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/contact.component.js.map
+
+/***/ }),
+
+/***/ 544:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -526,10 +601,10 @@ var FooterNavbarComponent = (function () {
     FooterNavbarComponent.prototype.ngOnInit = function () {
     };
     FooterNavbarComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Component */])({
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-footer-navbar',
-            template: __webpack_require__(712),
-            styles: [__webpack_require__(701)]
+            template: __webpack_require__(723),
+            styles: [__webpack_require__(710)]
         }), 
         __metadata('design:paramtypes', [])
     ], FooterNavbarComponent);
@@ -539,13 +614,13 @@ var FooterNavbarComponent = (function () {
 
 /***/ }),
 
-/***/ 537:
+/***/ 545:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_component__ = __webpack_require__(348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_component__ = __webpack_require__(351);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(535);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(542);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__app_module__["a"]; });
 
 
@@ -553,7 +628,7 @@ var FooterNavbarComponent = (function () {
 
 /***/ }),
 
-/***/ 538:
+/***/ 546:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -595,10 +670,10 @@ var IndexComponent = (function () {
         this.router.navigate(['/search'], { queryParams: this.searchdata });
     };
     IndexComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Component */])({
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-index',
-            template: __webpack_require__(713),
-            styles: [__webpack_require__(702)]
+            template: __webpack_require__(724),
+            styles: [__webpack_require__(711)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === 'function' && _b) || Object])
     ], IndexComponent);
@@ -609,7 +684,7 @@ var IndexComponent = (function () {
 
 /***/ }),
 
-/***/ 539:
+/***/ 547:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -651,10 +726,10 @@ var NavbarComponent = (function () {
         this.router.navigate(['/search'], { queryParams: this.searchdata });
     };
     NavbarComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Component */])({
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-navbar',
-            template: __webpack_require__(714),
-            styles: [__webpack_require__(703)]
+            template: __webpack_require__(725),
+            styles: [__webpack_require__(712)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === 'function' && _b) || Object])
     ], NavbarComponent);
@@ -665,7 +740,7 @@ var NavbarComponent = (function () {
 
 /***/ }),
 
-/***/ 540:
+/***/ 548:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -707,10 +782,10 @@ var NotFoundComponent = (function () {
         this.router.navigate(['/search', this.searchdata]);
     };
     NotFoundComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Component */])({
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-not-found',
-            template: __webpack_require__(715),
-            styles: [__webpack_require__(704)]
+            template: __webpack_require__(726),
+            styles: [__webpack_require__(713)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === 'function' && _b) || Object])
     ], NotFoundComponent);
@@ -721,11 +796,11 @@ var NotFoundComponent = (function () {
 
 /***/ }),
 
-/***/ 541:
+/***/ 549:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_query__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_query__ = __webpack_require__(349);
 /* unused harmony export CHANGE */
 /* harmony export (immutable) */ __webpack_exports__["a"] = reducer;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getpresentquery; });
@@ -759,11 +834,11 @@ var getpresentquery = function (state) { return state.query; };
 
 /***/ }),
 
-/***/ 542:
+/***/ 550:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_search__ = __webpack_require__(347);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_search__ = __webpack_require__(350);
 /* unused harmony export CHANGE */
 /* harmony export (immutable) */ __webpack_exports__["a"] = reducer;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getsearchresults; });
@@ -809,16 +884,16 @@ var getNavigation = function (state) { return state.navigation; };
 
 /***/ }),
 
-/***/ 543:
+/***/ 551:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_service__ = __webpack_require__(349);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_service__ = __webpack_require__(352);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_store__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__ = __webpack_require__(112);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ResultsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -980,12 +1055,12 @@ var ResultsComponent = (function () {
         this.presentPage = 0;
     };
     ResultsComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Component */])({
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-results',
-            template: __webpack_require__(716),
-            styles: [__webpack_require__(705)]
+            template: __webpack_require__(727),
+            styles: [__webpack_require__(714)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["c" /* DomSanitizer */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["c" /* DomSanitizer */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__search_service__["a" /* SearchService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__search_service__["a" /* SearchService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["y" /* ChangeDetectorRef */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["y" /* ChangeDetectorRef */]) === 'function' && _f) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["c" /* DomSanitizer */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["c" /* DomSanitizer */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__search_service__["a" /* SearchService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__search_service__["a" /* SearchService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"]) === 'function' && _f) || Object])
     ], ResultsComponent);
     return ResultsComponent;
     var _a, _b, _c, _d, _e, _f;
@@ -994,15 +1069,15 @@ var ResultsComponent = (function () {
 
 /***/ }),
 
-/***/ 544:
+/***/ 552:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_query__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_query__ = __webpack_require__(349);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchBarComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1059,14 +1134,14 @@ var SearchBarComponent = (function () {
         this.router.navigate(['/search'], { queryParams: this.searchdata });
     };
     __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* ViewChildren */])('input'), 
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChildren"])('input'), 
         __metadata('design:type', Object)
     ], SearchBarComponent.prototype, "vc", void 0);
     SearchBarComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Component */])({
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-search-bar',
-            template: __webpack_require__(717),
-            styles: [__webpack_require__(706)]
+            template: __webpack_require__(728),
+            styles: [__webpack_require__(715)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */]) === 'function' && _c) || Object])
     ], SearchBarComponent);
@@ -1077,41 +1152,41 @@ var SearchBarComponent = (function () {
 
 /***/ }),
 
-/***/ 545:
+/***/ 553:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(559);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(567);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(552);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(560);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(548);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(556);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(554);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(562);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(553);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(561);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(551);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(559);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(550);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(558);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(558);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(566);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(547);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(555);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(546);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(554);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(556);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(564);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(549);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(557);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(557);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(565);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(555);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(563);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(560);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(568);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(752);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(765);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 
 
@@ -1133,10 +1208,10 @@ var SearchBarComponent = (function () {
 
 /***/ }),
 
-/***/ 698:
+/***/ 706:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(33)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
@@ -1151,10 +1226,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 699:
+/***/ 707:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(33)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
@@ -1169,10 +1244,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 700:
+/***/ 708:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(33)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
@@ -1187,10 +1262,28 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 701:
+/***/ 709:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(33)();
+exports = module.exports = __webpack_require__(27)();
+// imports
+
+
+// module
+exports.push([module.i, ".banner {\n    width: 100%;\n    position: relative;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    top: -10%;\n    overflow: hidden;\n}\n\n.image-banner {\n    position: relative;\n    height: 450px;\n    overflow: hidden;\n}\n\n.navbar-logo {\n    height: 30px;\n    padding-left: 20px;\n}\n\n.navbar-text {\n    padding-right: 30px;\n    font-size: 20px;\n}\n\n.text-center {\n    text-align: center;\n    font-family: \"Quicksand\", sans-serif;\n}\n\n.bold {\n    font-weight: 700;\n}\n\n@media screen and (max-width:990px) {\n    .image-banner {\n        height: 190px;\n    }\n    .banner {\n        top: 0;\n    }\n}\n\n.about-navbar {\n    position: relative;\n    top: -5px;\n}\n\n.navbar {\n    margin-bottom: 0px !important;\n}\n\n.nav-about {\n    clear: both;\n    margin: -57px 0 0 0\n}\n\n.sub-details {\n    font-family: Roboto, sans-serif;\n    line-height: 1.4;\n    font-size: 14px;\n}\n\n.sub-details h5 {\n    font-family: Roboto, sans-serif;\n    line-height: 1.4;\n    font-size: 14px;\n    margin: 20px 0 20px 0;\n}\n\n.sub-details p {\n    font-family: Roboto, sans-serif;\n    line-height: 1.4;\n    font-size: 14px;\n    text-align: justify;\n}\n\n.about-sub-details {\n    padding: 20px 0 20px 0;\n    border-bottom: 1px solid #eee;\n}\n\n.about-sub-details .row h2 {\n    font-family: \"Quicksand\", sans-serif;\n    padding: 5px 10px;\n    font-weight: 500;\n    font-size: 24px;\n}\n\n.contact-sub-details {\n    margin-bottom: 40px;\n    line-height: 12px;\n}\n.contact-sub-details p{\n    line-height: 20px;\n}\n.contact-sub-details .row h2 {\n    font-family: \"Quicksand\", sans-serif;\n    padding: 5px 10px;\n    font-weight: 500;\n    font-size: 24px;\n}\n.navbar-fixed-bottom, .navbar-fixed-top{\n    position: relative !important;\n}\n.contact-title{\n    border-bottom: 1px solid #eee;\n}\n.form-horizontal{\n    margin: 20px;\n}\n.sub-btn{\n    width: 100%;\n}\n.close-btn{\n    padding: 10px;\n    position: relative;\n    top:5px;\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ 710:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
@@ -1205,10 +1298,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 702:
+/***/ 711:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(33)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
@@ -1223,10 +1316,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 703:
+/***/ 712:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(33)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
@@ -1241,15 +1334,15 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 704:
+/***/ 713:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(33)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
 // module
-exports.push([module.i, ".not-found-banner{\n    text-align: center;\n    margin: 0 auto;\n    background: url(" + __webpack_require__(751) + ");\n    background-size: cover;\n    height: 300px;\n    width: 100%;\n    position: relative;\n    top:-57px;\n}\n.not-found-banner h1{\n    font-size: 72px;\n}\n.not-found-banner h2{\n    font-size: 22px;\n    letter-spacing: 10px;\n}\n\n#search-bar{\n  position: absolute;\n  left: 27%;\n}\n\n@media screen and (min-width: 1920px) {\n  #search-bar{\n    left: 28%;\n  }\n}\n\n@media screen and (max-width: 991px) {\n  #search-bar{\n    left: 20%;\n  }\n}\n\n@media screen and (max-width: 767px) {\n  #search-bar{\n    left: 6%;\n  }\n}\n\n@media screen and (max-width: 479px) {\n  #search-bar{\n    left: 5%;\n  }\n}\n\n@media screen and (max-width: 359px) {\n  #search-bar{\n    left: 4%;\n  }\n}\n", ""]);
+exports.push([module.i, ".not-found-banner{\n    text-align: center;\n    margin: 0 auto;\n    background: url(" + __webpack_require__(764) + ");\n    background-size: cover;\n    height: 300px;\n    width: 100%;\n    position: relative;\n    top:-57px;\n}\n.not-found-banner h1{\n    font-size: 72px;\n}\n.not-found-banner h2{\n    font-size: 22px;\n    letter-spacing: 10px;\n}\n\n#search-bar{\n  position: absolute;\n  left: 27%;\n}\n\n@media screen and (min-width: 1920px) {\n  #search-bar{\n    left: 28%;\n  }\n}\n\n@media screen and (max-width: 991px) {\n  #search-bar{\n    left: 20%;\n  }\n}\n\n@media screen and (max-width: 767px) {\n  #search-bar{\n    left: 6%;\n  }\n}\n\n@media screen and (max-width: 479px) {\n  #search-bar{\n    left: 5%;\n  }\n}\n\n@media screen and (max-width: 359px) {\n  #search-bar{\n    left: 4%;\n  }\n}\n", ""]);
 
 // exports
 
@@ -1259,10 +1352,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 705:
+/***/ 714:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(33)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
@@ -1277,10 +1370,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 706:
+/***/ 715:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(33)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
@@ -1295,83 +1388,90 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 709:
+/***/ 719:
 /***/ (function(module, exports) {
 
 module.exports = "<!-- Start ignoring BootLintBear-->\n<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n<link href=\"https://fonts.googleapis.com/css?family=Quicksand\" rel=\"stylesheet\">\n<!-- Stop ignoring BootLintBear-->\n<nav class=\"navbar navbar-default nav-about\">\n    <div class=\"container-fluid\">\n        <div class=\"navbar-header\">\n            <a class=\"navbar-brand about-navbar\" href=\"//susper.com\">\n                <img alt=\"brand\" class=\"navbar-logo\" src=\"../../assets/images/susper.svg\">\n            </a>\n        </div>\n        <p class=\"navbar-text navbar-right\">About Page</p>\n    </div>\n</nav>\n<div class=\"image-banner\">\n    <img src=\"../../assets/images/mountain.jpg\" class=\"img-responsive banner\">\n</div>\n<div class=\"container\">\n    <br>\n    <h2 class=\"text-center\">Susper is a decentral Search Engine that uses the peer to peer system 'YaCy' and 'Apache Solr' to crawl and index search\n        results.\n    </h2>\n    <br>\n    <div class=\"about-sub-details\">\n        <div class=\"row\">\n            <h2 class=\"bold\">About Us</h2>\n        </div>\n        <div class=\"row\">\n            <div class=\"col-lg-4 col-sm-12 sub-details\">\n                <h5 class=\"bold\">About YaCy</h5>\n                <p>YaCy is a free search engine that anyone can use to build a search portal for their intranet or to help search\n                    the public internet. Read more about YaCy here - <a href=\"https://yacy.net/en/index.html\" target=\"_blank\">YaCy Decentralized Web Search</a></p>\n            </div>\n            <div class=\"col-lg-4 col-sm-12 sub-details\">\n                <h5 class=\"bold\">Communication</h5>\n                <p>Facing issues while setting up project on local environment? Our chat channel is on gitter here: <a href=\"https://gitter.im/fossasia/susper.com\"\n                        target=\"_blank\">fossasia/susper.com</a> We'll be happy to help you out!'</p>\n            </div>\n            <div class=\"col-lg-4 col-sm-12 sub-details\">\n                <h5 class=\"bold\">Contribute to our project</h5>\n                <p>Get involved as an Open Source developer, designer or tester and start your adventure today! Solve an issue\n                    or feature request on our repositories with <a href=\"https://github.com/fossasia/susper.com\" target=\"_blank\">FOSSASIA</a>Build\n                    up your developer profile and become part of a fantastic community.</p>\n            </div>\n        </div>\n        <!--About Us details ends-->\n    </div>\n    <!--about-sub-details ends here-->\n\n    <div class=\"contact-sub-details\">\n        <div class=\"row\">\n            <h2 class=\"bold\">Contact Us</h2>\n        </div>\n        <div class=\"row\">\n            <div class=\"col-lg-12 col-sm-12 contact-sub-details\">\n                <p>If you would like to get in touch with us, you find our details on the <a href=\"contact\">contact page.</a></p>\n            </div>\n\n        </div>\n    </div>\n    <!--contact-sub-details ends here-->\n\n    <br>\n</div>\n<footer>\n    <!--footer navigation bar goes here-->\n    <app-footer-navbar></app-footer-navbar>\n</footer>\n"
 
 /***/ }),
 
-/***/ 710:
+/***/ 720:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"modal-dialog\" role=\"document\">\n  <div class=\"modal-content\">\n    <div class=\"modal-header\">\n      <!-- Start ignoring HTMLLintBear -->\n      <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n      <!-- Stop ignoring HTMLLintBear -->\n      <h4 class=\"modal-title\" id=\"my-modal-label\">Advanced Search</h4>\n    </div>\n    <div class=\"modal-body\">\n      <div id=\"filtersearch\" *ngFor=\"let nav of navigation$|async\">\n        <ul class=\"nav nav-sidebar menugroup\">\n          <li style=\"cursor:pointer;cursor: hand;\" data-toggle=\"collapse\" [attr.data-target]=\"'#'+nav.facetname\">\n              <h3>{{nav.displayname}}</h3></li>\n          <li style=\"display: block\" *ngFor=\"let element of nav.elements\">\n            <a (click)=\"changeurl(element.modifier)\" class=\"menu-item-link\">\n              <input type=\"checkbox\">{{element.name}}  {{element.count}}\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n      <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Search</button>\n    </div>\n  </div>\n</div>\n\n\n<div id=\"sidebar\" class=\"col-md-3\">\n</div>\n"
 
 /***/ }),
 
-/***/ 711:
+/***/ 721:
 /***/ (function(module, exports) {
 
 module.exports = "<router-outlet></router-outlet>\n"
 
 /***/ }),
 
-/***/ 712:
+/***/ 722:
+/***/ (function(module, exports) {
+
+module.exports = "<!-- Start ignoring BootLintBear-->\n<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n<link href=\"https://fonts.googleapis.com/css?family=Quicksand\" rel=\"stylesheet\">\n<!-- Stop ignoring BootLintBear-->\n<nav class=\"navbar navbar-default nav-about\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <a class=\"navbar-brand about-navbar\" href=\"//susper.com\">\n        <img alt=\"brand\" class=\"navbar-logo\" src=\"../../assets/images/susper.svg\">\n      </a>\n    </div>\n    <p class=\"navbar-text navbar-right\">Contact Us</p>\n  </div>\n</nav>\n\n<div class=\"image-banner\">\n  <img src=\"../../assets/images/boat.png\" class=\"img-responsive banner\">\n</div>\n\n<div class=\"container\">\n  <br>\n  <div class=\"about-sub-details\">\n    <div class=\"row contact-title\">\n      <h2 class=\"bold\">Contact Us</h2>\n      <br>\n    </div>\n    <br>\n    <div class=\"row\">\n      <div class=\"col-lg-12 col-sm-12 sub-details\">\n        <h5 class=\"bold\">Susper</h5>\n        <p>93 Mau Than Street<br> Can Tho<br> Viet Nam<br> Phone +84 (0) 907 65 29 27<br> Email: support@susper.net<br> Board\n          of Directors: Phuc Hau Dang<br> Susper Ltd. is registered in Can Tho, Viet Nam.</p>\n      </div>\n    </div>\n    <!--Contact Us details ends-->\n  </div>\n  <!--Contact-sub-details ends here-->\n\n  <br>\n\n  <div class=\"contact-sub-details\">\n    <div class=\"row\">\n      <div class=\"col-lg-12 col-sm-12 contact-sub-details\">\n        <p>Report a safety or abuse issue affecting our products.<br> If you know of a safety or abuse problem with any of Susper's\n          services, we'd like to hear about it right away. Please use our <a (click)=\"open()\">contact</a> form to report the\n          issue.\n        </p>\n      </div>\n\n    </div>\n  </div>\n  <!--contact-sub-details ends here-->\n\n</div>\n<!--container ends here-->\n<footer>\n  <!--footer navigation bar goes here-->\n  <app-footer-navbar></app-footer-navbar>\n</footer>\n\n<modal #myModal>\n  <div>\n    <a (click)=\"close()\" class=\"close-btn\"> <i class=\"fa fa-times\" aria-hidden=\"true\" style=\"font-size: 2em\"></i> </a>\n \n\n  </div>\n  <form class=\"form-horizontal\" method=\"POST\" action=\"http://formspree.io/office@fossasia.org\">\n  <fieldset>\n\n  <!-- Form Name -->\n  <legend>Contact Form</legend>\n\n  <!-- Text input-->\n  <div class=\"form-group\">\n    <label class=\"col-md-3 control-label\" for=\"textinput\">Your Name<sup>*</sup></label>  \n    <div class=\"col-md-9\">\n    <input id=\"textinput\" name=\"yourName\" type=\"text\" placeholder=\"Your Name\" class=\"form-control input-md\" required=\"\" >\n      \n    </div>\n  </div>\n\n  <!-- Text input-->\n  <div class=\"form-group\">\n    <label class=\"col-md-3 control-label\"a for=\"textinput\">Email<sup>*</sup></label>  \n    <div class=\"col-md-9\">\n    <input id=\"textinput\" name=\"emal-address\" type=\"email\" placeholder=\"Email Address\" class=\"form-control input-md\" required=\"\"  >\n      \n    </div>\n  </div>\n\n  <!-- Select Basic -->\n  <div class=\"form-group row\">\n    <label class=\"col-md-3 control-label\" for=\"countrycode\">Mobile Number<sup>*</sup></label>\n    <div class=\"col-md-2\">\n\n      <select id=\"countrycode\" name=\"countrycode\" class=\"form-control\">\n              <option data-countryCode=\"DZ\" value=\"213\">Algeria (+213)</option>\n              <option data-countryCode=\"AD\" value=\"376\">Andorra (+376)</option>\n              <option data-countryCode=\"AO\" value=\"244\">Angola (+244)</option>\n              <option data-countryCode=\"AI\" value=\"1264\">Anguilla (+1264)</option>\n              <option data-countryCode=\"AG\" value=\"1268\">Antigua &amp; Barbuda (+1268)</option>\n              <option data-countryCode=\"AR\" value=\"54\">Argentina (+54)</option>\n              <option data-countryCode=\"AM\" value=\"374\">Armenia (+374)</option>\n              <option data-countryCode=\"AW\" value=\"297\">Aruba (+297)</option>\n              <option data-countryCode=\"AU\" value=\"61\">Australia (+61)</option>\n              <option data-countryCode=\"AT\" value=\"43\">Austria (+43)</option>\n              <option data-countryCode=\"AZ\" value=\"994\">Azerbaijan (+994)</option>\n              <option data-countryCode=\"BS\" value=\"1242\">Bahamas (+1242)</option>\n              <option data-countryCode=\"BH\" value=\"973\">Bahrain (+973)</option>\n              <option data-countryCode=\"BD\" value=\"880\">Bangladesh (+880)</option>\n              <option data-countryCode=\"BB\" value=\"1246\">Barbados (+1246)</option>\n              <option data-countryCode=\"BY\" value=\"375\">Belarus (+375)</option>\n              <option data-countryCode=\"BE\" value=\"32\">Belgium (+32)</option>\n              <option data-countryCode=\"BZ\" value=\"501\">Belize (+501)</option>\n              <option data-countryCode=\"BJ\" value=\"229\">Benin (+229)</option>\n              <option data-countryCode=\"BM\" value=\"1441\">Bermuda (+1441)</option>\n              <option data-countryCode=\"BT\" value=\"975\">Bhutan (+975)</option>\n              <option data-countryCode=\"BO\" value=\"591\">Bolivia (+591)</option>\n              <option data-countryCode=\"BA\" value=\"387\">Bosnia Herzegovina (+387)</option>\n              <option data-countryCode=\"BW\" value=\"267\">Botswana (+267)</option>\n              <option data-countryCode=\"BR\" value=\"55\">Brazil (+55)</option>\n              <option data-countryCode=\"BN\" value=\"673\">Brunei (+673)</option>\n              <option data-countryCode=\"BG\" value=\"359\">Bulgaria (+359)</option>\n              <option data-countryCode=\"BF\" value=\"226\">Burkina Faso (+226)</option>\n              <option data-countryCode=\"BI\" value=\"257\">Burundi (+257)</option>\n              <option data-countryCode=\"KH\" value=\"855\">Cambodia (+855)</option>\n              <option data-countryCode=\"CM\" value=\"237\">Cameroon (+237)</option>\n              <option data-countryCode=\"CA\" value=\"1\">Canada (+1)</option>\n              <option data-countryCode=\"CV\" value=\"238\">Cape Verde Islands (+238)</option>\n              <option data-countryCode=\"KY\" value=\"1345\">Cayman Islands (+1345)</option>\n              <option data-countryCode=\"CF\" value=\"236\">Central African Republic (+236)</option>\n              <option data-countryCode=\"CL\" value=\"56\">Chile (+56)</option>\n              <option data-countryCode=\"CN\" value=\"86\">China (+86)</option>\n              <option data-countryCode=\"CO\" value=\"57\">Colombia (+57)</option>\n              <option data-countryCode=\"KM\" value=\"269\">Comoros (+269)</option>\n              <option data-countryCode=\"CG\" value=\"242\">Congo (+242)</option>\n              <option data-countryCode=\"CK\" value=\"682\">Cook Islands (+682)</option>\n              <option data-countryCode=\"CR\" value=\"506\">Costa Rica (+506)</option>\n              <option data-countryCode=\"HR\" value=\"385\">Croatia (+385)</option>\n              <option data-countryCode=\"CU\" value=\"53\">Cuba (+53)</option>\n              <option data-countryCode=\"CY\" value=\"90392\">Cyprus North (+90392)</option>\n              <option data-countryCode=\"CY\" value=\"357\">Cyprus South (+357)</option>\n              <option data-countryCode=\"CZ\" value=\"42\">Czech Republic (+42)</option>\n              <option data-countryCode=\"DK\" value=\"45\">Denmark (+45)</option>\n              <option data-countryCode=\"DJ\" value=\"253\">Djibouti (+253)</option>\n              <option data-countryCode=\"DM\" value=\"1809\">Dominica (+1809)</option>\n              <option data-countryCode=\"DO\" value=\"1809\">Dominican Republic (+1809)</option>\n              <option data-countryCode=\"EC\" value=\"593\">Ecuador (+593)</option>\n              <option data-countryCode=\"EG\" value=\"20\">Egypt (+20)</option>\n              <option data-countryCode=\"SV\" value=\"503\">El Salvador (+503)</option>\n              <option data-countryCode=\"GQ\" value=\"240\">Equatorial Guinea (+240)</option>\n              <option data-countryCode=\"ER\" value=\"291\">Eritrea (+291)</option>\n              <option data-countryCode=\"EE\" value=\"372\">Estonia (+372)</option>\n              <option data-countryCode=\"ET\" value=\"251\">Ethiopia (+251)</option>\n              <option data-countryCode=\"FK\" value=\"500\">Falkland Islands (+500)</option>\n              <option data-countryCode=\"FO\" value=\"298\">Faroe Islands (+298)</option>\n              <option data-countryCode=\"FJ\" value=\"679\">Fiji (+679)</option>\n              <option data-countryCode=\"FI\" value=\"358\">Finland (+358)</option>\n              <option data-countryCode=\"FR\" value=\"33\">France (+33)</option>\n              <option data-countryCode=\"GF\" value=\"594\">French Guiana (+594)</option>\n              <option data-countryCode=\"PF\" value=\"689\">French Polynesia (+689)</option>\n              <option data-countryCode=\"GA\" value=\"241\">Gabon (+241)</option>\n              <option data-countryCode=\"GM\" value=\"220\">Gambia (+220)</option>\n              <option data-countryCode=\"GE\" value=\"7880\">Georgia (+7880)</option>\n              <option data-countryCode=\"DE\" value=\"49\">Germany (+49)</option>\n              <option data-countryCode=\"GH\" value=\"233\">Ghana (+233)</option>\n              <option data-countryCode=\"GI\" value=\"350\">Gibraltar (+350)</option>\n              <option data-countryCode=\"GR\" value=\"30\">Greece (+30)</option>\n              <option data-countryCode=\"GL\" value=\"299\">Greenland (+299)</option>\n              <option data-countryCode=\"GD\" value=\"1473\">Grenada (+1473)</option>\n              <option data-countryCode=\"GP\" value=\"590\">Guadeloupe (+590)</option>\n              <option data-countryCode=\"GU\" value=\"671\">Guam (+671)</option>\n              <option data-countryCode=\"GT\" value=\"502\">Guatemala (+502)</option>\n              <option data-countryCode=\"GN\" value=\"224\">Guinea (+224)</option>\n              <option data-countryCode=\"GW\" value=\"245\">Guinea - Bissau (+245)</option>\n              <option data-countryCode=\"GY\" value=\"592\">Guyana (+592)</option>\n              <option data-countryCode=\"HT\" value=\"509\">Haiti (+509)</option>\n              <option data-countryCode=\"HN\" value=\"504\">Honduras (+504)</option>\n              <option data-countryCode=\"HK\" value=\"852\">Hong Kong (+852)</option>\n              <option data-countryCode=\"HU\" value=\"36\">Hungary (+36)</option>\n              <option data-countryCode=\"IS\" value=\"354\">Iceland (+354)</option>\n              <option data-countryCode=\"IN\" value=\"91\">India (+91)</option>\n              <option data-countryCode=\"ID\" value=\"62\">Indonesia (+62)</option>\n              <option data-countryCode=\"IR\" value=\"98\">Iran (+98)</option>\n              <option data-countryCode=\"IQ\" value=\"964\">Iraq (+964)</option>\n              <option data-countryCode=\"IE\" value=\"353\">Ireland (+353)</option>\n              <option data-countryCode=\"IL\" value=\"972\">Israel (+972)</option>\n              <option data-countryCode=\"IT\" value=\"39\">Italy (+39)</option>\n              <option data-countryCode=\"JM\" value=\"1876\">Jamaica (+1876)</option>\n              <option data-countryCode=\"JP\" value=\"81\">Japan (+81)</option>\n              <option data-countryCode=\"JO\" value=\"962\">Jordan (+962)</option>\n              <option data-countryCode=\"KZ\" value=\"7\">Kazakhstan (+7)</option>\n              <option data-countryCode=\"KE\" value=\"254\">Kenya (+254)</option>\n              <option data-countryCode=\"KI\" value=\"686\">Kiribati (+686)</option>\n              <option data-countryCode=\"KP\" value=\"850\">Korea North (+850)</option>\n              <option data-countryCode=\"KR\" value=\"82\">Korea South (+82)</option>\n              <option data-countryCode=\"KW\" value=\"965\">Kuwait (+965)</option>\n              <option data-countryCode=\"KG\" value=\"996\">Kyrgyzstan (+996)</option>\n              <option data-countryCode=\"LA\" value=\"856\">Laos (+856)</option>\n              <option data-countryCode=\"LV\" value=\"371\">Latvia (+371)</option>\n              <option data-countryCode=\"LB\" value=\"961\">Lebanon (+961)</option>\n              <option data-countryCode=\"LS\" value=\"266\">Lesotho (+266)</option>\n              <option data-countryCode=\"LR\" value=\"231\">Liberia (+231)</option>\n              <option data-countryCode=\"LY\" value=\"218\">Libya (+218)</option>\n              <option data-countryCode=\"LI\" value=\"417\">Liechtenstein (+417)</option>\n              <option data-countryCode=\"LT\" value=\"370\">Lithuania (+370)</option>\n              <option data-countryCode=\"LU\" value=\"352\">Luxembourg (+352)</option>\n              <option data-countryCode=\"MO\" value=\"853\">Macao (+853)</option>\n              <option data-countryCode=\"MK\" value=\"389\">Macedonia (+389)</option>\n              <option data-countryCode=\"MG\" value=\"261\">Madagascar (+261)</option>\n              <option data-countryCode=\"MW\" value=\"265\">Malawi (+265)</option>\n              <option data-countryCode=\"MY\" value=\"60\">Malaysia (+60)</option>\n              <option data-countryCode=\"MV\" value=\"960\">Maldives (+960)</option>\n              <option data-countryCode=\"ML\" value=\"223\">Mali (+223)</option>\n              <option data-countryCode=\"MT\" value=\"356\">Malta (+356)</option>\n              <option data-countryCode=\"MH\" value=\"692\">Marshall Islands (+692)</option>\n              <option data-countryCode=\"MQ\" value=\"596\">Martinique (+596)</option>\n              <option data-countryCode=\"MR\" value=\"222\">Mauritania (+222)</option>\n              <option data-countryCode=\"YT\" value=\"269\">Mayotte (+269)</option>\n              <option data-countryCode=\"MX\" value=\"52\">Mexico (+52)</option>\n              <option data-countryCode=\"FM\" value=\"691\">Micronesia (+691)</option>\n              <option data-countryCode=\"MD\" value=\"373\">Moldova (+373)</option>\n              <option data-countryCode=\"MC\" value=\"377\">Monaco (+377)</option>\n              <option data-countryCode=\"MN\" value=\"976\">Mongolia (+976)</option>\n              <option data-countryCode=\"MS\" value=\"1664\">Montserrat (+1664)</option>\n              <option data-countryCode=\"MA\" value=\"212\">Morocco (+212)</option>\n              <option data-countryCode=\"MZ\" value=\"258\">Mozambique (+258)</option>\n              <option data-countryCode=\"MN\" value=\"95\">Myanmar (+95)</option>\n              <option data-countryCode=\"NA\" value=\"264\">Namibia (+264)</option>\n              <option data-countryCode=\"NR\" value=\"674\">Nauru (+674)</option>\n              <option data-countryCode=\"NP\" value=\"977\">Nepal (+977)</option>\n              <option data-countryCode=\"NL\" value=\"31\">Netherlands (+31)</option>\n              <option data-countryCode=\"NC\" value=\"687\">New Caledonia (+687)</option>\n              <option data-countryCode=\"NZ\" value=\"64\">New Zealand (+64)</option>\n              <option data-countryCode=\"NI\" value=\"505\">Nicaragua (+505)</option>\n              <option data-countryCode=\"NE\" value=\"227\">Niger (+227)</option>\n              <option data-countryCode=\"NG\" value=\"234\">Nigeria (+234)</option>\n              <option data-countryCode=\"NU\" value=\"683\">Niue (+683)</option>\n              <option data-countryCode=\"NF\" value=\"672\">Norfolk Islands (+672)</option>\n              <option data-countryCode=\"NP\" value=\"670\">Northern Marianas (+670)</option>\n              <option data-countryCode=\"NO\" value=\"47\">Norway (+47)</option>\n              <option data-countryCode=\"OM\" value=\"968\">Oman (+968)</option>\n              <option data-countryCode=\"PW\" value=\"680\">Palau (+680)</option>\n              <option data-countryCode=\"PA\" value=\"507\">Panama (+507)</option>\n              <option data-countryCode=\"PG\" value=\"675\">Papua New Guinea (+675)</option>\n              <option data-countryCode=\"PY\" value=\"595\">Paraguay (+595)</option>\n              <option data-countryCode=\"PE\" value=\"51\">Peru (+51)</option>\n              <option data-countryCode=\"PH\" value=\"63\">Philippines (+63)</option>\n              <option data-countryCode=\"PL\" value=\"48\">Poland (+48)</option>\n              <option data-countryCode=\"PT\" value=\"351\">Portugal (+351)</option>\n              <option data-countryCode=\"PR\" value=\"1787\">Puerto Rico (+1787)</option>\n              <option data-countryCode=\"QA\" value=\"974\">Qatar (+974)</option>\n              <option data-countryCode=\"RE\" value=\"262\">Reunion (+262)</option>\n              <option data-countryCode=\"RO\" value=\"40\">Romania (+40)</option>\n              <option data-countryCode=\"RU\" value=\"7\">Russia (+7)</option>\n              <option data-countryCode=\"RW\" value=\"250\">Rwanda (+250)</option>\n              <option data-countryCode=\"SM\" value=\"378\">San Marino (+378)</option>\n              <option data-countryCode=\"ST\" value=\"239\">Sao Tome &amp; Principe (+239)</option>\n              <option data-countryCode=\"SA\" value=\"966\">Saudi Arabia (+966)</option>\n              <option data-countryCode=\"SN\" value=\"221\">Senegal (+221)</option>\n              <option data-countryCode=\"CS\" value=\"381\">Serbia (+381)</option>\n              <option data-countryCode=\"SC\" value=\"248\">Seychelles (+248)</option>\n              <option data-countryCode=\"SL\" value=\"232\">Sierra Leone (+232)</option>\n              <option data-countryCode=\"SG\" value=\"65\">Singapore (+65)</option>\n              <option data-countryCode=\"SK\" value=\"421\">Slovak Republic (+421)</option>\n              <option data-countryCode=\"SI\" value=\"386\">Slovenia (+386)</option>\n              <option data-countryCode=\"SB\" value=\"677\">Solomon Islands (+677)</option>\n              <option data-countryCode=\"SO\" value=\"252\">Somalia (+252)</option>\n              <option data-countryCode=\"ZA\" value=\"27\">South Africa (+27)</option>\n              <option data-countryCode=\"ES\" value=\"34\">Spain (+34)</option>\n              <option data-countryCode=\"LK\" value=\"94\">Sri Lanka (+94)</option>\n              <option data-countryCode=\"SH\" value=\"290\">St. Helena (+290)</option>\n              <option data-countryCode=\"KN\" value=\"1869\">St. Kitts (+1869)</option>\n              <option data-countryCode=\"SC\" value=\"1758\">St. Lucia (+1758)</option>\n              <option data-countryCode=\"SD\" value=\"249\">Sudan (+249)</option>\n              <option data-countryCode=\"SR\" value=\"597\">Suriname (+597)</option>\n              <option data-countryCode=\"SZ\" value=\"268\">Swaziland (+268)</option>\n              <option data-countryCode=\"SE\" value=\"46\">Sweden (+46)</option>\n              <option data-countryCode=\"CH\" value=\"41\">Switzerland (+41)</option>\n              <option data-countryCode=\"SI\" value=\"963\">Syria (+963)</option>\n              <option data-countryCode=\"TW\" value=\"886\">Taiwan (+886)</option>\n              <option data-countryCode=\"TJ\" value=\"7\">Tajikstan (+7)</option>\n              <option data-countryCode=\"TH\" value=\"66\">Thailand (+66)</option>\n              <option data-countryCode=\"TG\" value=\"228\">Togo (+228)</option>\n              <option data-countryCode=\"TO\" value=\"676\">Tonga (+676)</option>\n              <option data-countryCode=\"TT\" value=\"1868\">Trinidad &amp; Tobago (+1868)</option>\n              <option data-countryCode=\"TN\" value=\"216\">Tunisia (+216)</option>\n              <option data-countryCode=\"TR\" value=\"90\">Turkey (+90)</option>\n              <option data-countryCode=\"TM\" value=\"7\">Turkmenistan (+7)</option>\n              <option data-countryCode=\"TM\" value=\"993\">Turkmenistan (+993)</option>\n              <option data-countryCode=\"TC\" value=\"1649\">Turks &amp; Caicos Islands (+1649)</option>\n              <option data-countryCode=\"TV\" value=\"688\">Tuvalu (+688)</option>\n              <option data-countryCode=\"UG\" value=\"256\">Uganda (+256)</option>\n              <option data-countryCode=\"GB\" value=\"44\">UK (+44)</option>\n              <option data-countryCode=\"UA\" value=\"380\">Ukraine (+380)</option>\n              <option data-countryCode=\"AE\" value=\"971\">United Arab Emirates (+971)</option>\n              <option data-countryCode=\"UY\" value=\"598\">Uruguay (+598)</option>\n              <option data-countryCode=\"US\" value=\"1\">USA (+1)</option> \n              <option data-countryCode=\"UZ\" value=\"7\">Uzbekistan (+7)</option>\n              <option data-countryCode=\"VU\" value=\"678\">Vanuatu (+678)</option>\n              <option data-countryCode=\"VA\" value=\"379\">Vatican City (+379)</option>\n              <option data-countryCode=\"VE\" value=\"58\">Venezuela (+58)</option>\n              <option data-countryCode=\"VN\" value=\"84\">Vietnam (+84)</option>\n              <option data-countryCode=\"VG\" value=\"84\">Virgin Islands - British (+1284)</option>\n              <option data-countryCode=\"VI\" value=\"84\">Virgin Islands - US (+1340)</option>\n              <option data-countryCode=\"WF\" value=\"681\">Wallis &amp; Futuna (+681)</option>\n              <option data-countryCode=\"YE\" value=\"969\">Yemen (North)(+969)</option>\n              <option data-countryCode=\"YE\" value=\"967\">Yemen (South)(+967)</option>\n              <option data-countryCode=\"ZM\" value=\"260\">Zambia (+260)</option>\n              <option data-countryCode=\"ZW\" value=\"263\">Zimbabwe (+263)</option>\n    \n      </select>\n    </div>\n    <div class=\"col-md-7\">\n    <input id=\"telephone\" name=\"telephone\" type=\"text\" placeholder=\"Mobile Number\"(ngModelChange)=\"checkWordCount()\" [(ngModel)]=tpnoInput class=\"form-control input-md\" required=\"\">\n      \n    </div>\n  </div>\n\n  <!-- Textarea -->\n  <div class=\"form-group\">\n    <label class=\"col-md-3 control-label\" for=\"message\">Message<sup>*</sup></label>\n    <div class=\"col-md-9\">                     \n      <textarea class=\"form-control\" id=\"message\" name=\"message\" placeholder=\"Minimum 100 words\" required=\"\"(ngModelChange)=\"checkWordCount()\" [(ngModel)]=contactMessage></textarea>\n    </div>\n  </div>\n\n  <!-- Button -->\n  <div class=\"form-group\">\n    <label class=\"col-md-12 control-label\" for=\"submit\"></label>\n    <div class=\"col-md-12\">\n      <button id=\"submit\" name=\"submit\" class=\"btn btn-info sub-btn\" type=\"submit\" #submitButton disabled>Submit</button>\n    </div>\n  </div>\n\n  </fieldset>\n  </form>\n\n</modal>"
+
+/***/ }),
+
+/***/ 723:
 /***/ (function(module, exports) {
 
 module.exports = "<nav class=\"navbar navbar-default fixed-bottom\" role=\"navigation\">\n  <div class=\"navbar-header\">\n    <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n                    <span class=\"icon-bar\"></span>\n                        <span class=\"icon-bar\"></span>\n                        <span class=\"icon-bar\"></span>\n                </button>\n  </div>\n  <div class=\"navbar-collapse collapse\">\n    <ul class=\"nav navbar-nav navbar-left\">\n      <li><a routerLink=\"/about\" routerLinkActive=\"active\">About</a></li>\n      <li><a href=\"//blog.fossasia.org\">Blogs</a></li>\n      <li><a href=\"//github.com/fossasia/susper.com\">Code</a></li>\n    </ul>\n    <ul class=\"nav navbar-nav navbar-right\">\n      <li><a href=\"#\">Terms</a></li>\n      <li><a href=\"#\">Contact</a></li>\n    </ul>\n  </div>\n</nav>\n"
 
 /***/ }),
 
-/***/ 713:
+/***/ 724:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"container-fluid\">\n    <div class=\"starter-template\">\n        <h2 class=\"yacy\">\n            <img src=\"assets/images/susper.svg\" alt=\"YaCy\" id=\"biglogo\" style=\"margin: auto;\"></h2>\n        <h2 class=\"yacy\" id=\"greeting\"></h2>\n        <div id=\"set-susper-default\">\n            <h3>Set Susper as your default search engine on Mozilla!</h3>\n            <ol>\n                <!-- Start ignoring BootLintBear -->\n                <li><button id=\"install-susper\">Install susper</button></li>\n                <li>Mark the checkbox to set Susper as your default search engine</li>\n                <li>Start searching!</li>\n            </ol>\n            <button id=\"cancel-installation\">Cancel</button>\n        </div>\n        <!-- Stop ignoring BootLintBear -->\n        <div id=\"search-bar\">\n            <app-search-bar></app-search-bar>\n        </div>\n        <footer>\n            <!--footer navigation bar goes here-->\n            <app-footer-navbar></app-footer-navbar>\n        </footer>\n    </div>\n    "
 
 /***/ }),
 
-/***/ 714:
+/***/ 725:
 /***/ (function(module, exports) {
 
-module.exports = "<link rel=\"stylesheet\" href=\"//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css\">\n<nav class=\"navbar navbar-fixed-top navbar-default\">\n    <div class=\"container-fluid\">\n        <div class=\"navbar-header\" id=\"navcontainer\">\n            <ul>\n                <li>\n                    <a href=\"/\">\n                        <img class=\"navbar-brand\" src=\"assets/images/susper.svg\">\n                    </a>\n                </li>\n                <li id=\"navbar-search\">\n                    <app-search-bar></app-search-bar>\n                </li>\n            </ul>\n        </div>\n\n        <div class=\"navbar-collapse collapse\" style=\"display:none\" id=\"side-menu\">\n            <ul class=\"nav navbar-nav navbar-right\">\n                <li class=\"dropdown\">\n                    <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\" data-proofer-ignore><i class=\"fa fa-bars\" aria-hidden=\"true\" style=\"font-size: 2em\"></i></a>\n                    <ul class=\"dropdown-menu\">\n                        <li>\n                            <div class=\"header\" id=\"header-download\">\n                                <a href=\"//blog.fossasia.org\" target=\"_blank\">\n                                    <i class=\"fa fa-newspaper-o\" aria-hidden=\"true\" style=\"font-size: 4em\" id=\"blog-icon\"></i>\n                                    <p class=\"header-text\">Blog</p>\n                                </a>\n                            </div>\n                            <div class=\"header\" id=\"header-code\">\n                                <a href=\"//github.com/fossasia/susper.com\" target=\"_blank\">\n                                    <i class=\"fa fa-code\" aria-hidden=\"true\" style=\"font-size: 4em\" id=\"code-icon\"></i>\n                                    <p class=\"header-text\">Code</p>\n                                </a>\n                            </div>\n                        </li>\n                        <li>\n                            <div class=\"header\" id=\"header-git\">\n                                <a href=\"//github.com/fossasia/susper.com\" target=\"_blank\">\n                                    <i class=\"fa fa-github\" aria-hidden=\"true\" style=\"font-size: 4em\" id=\"github-icon\"></i>\n                                </a>\n                                <p class=\"header-text\">Github</p>\n                            </div>\n                            <div class=\"header\" id=\"header-bugs\">\n                                <a href=\"//github.com/fossasia/susper.com/issues\" target=\"_blank\">\n                                    <i class=\"fa fa-bug\" aria-hidden=\"true\" style=\"font-size: 4em\" id=\"bug-icon\"></i>\n                                </a>\n                                <p class=\"header-text\">Bug Reports</p>\n                            </div>\n                        </li>\n                    </ul>\n                </li>\n            </ul>\n        </div>\n    </div>\n</nav>\n\n<script>\n    $(document).ready(function () {\n        var isFirefox = typeof InstallTrigger !== 'undefined';\n        if (isFirefox === false) {\n            $(\"#navbar-search\").addClass(\"align-navsearch-btn\");\n        }\n    }\n</script>"
+module.exports = "<nav class=\"navbar navbar-fixed-top navbar-default\">\n    <div class=\"container-fluid\">\n        <div class=\"navbar-header\" id=\"navcontainer\">\n            <ul>\n                <li>\n                    <a href=\"/\">\n                        <img class=\"navbar-brand\" src=\"assets/images/susper.svg\">\n                    </a>\n                </li>\n                <li id=\"navbar-search\">\n                    <app-search-bar></app-search-bar>\n                </li>\n            </ul>\n        </div>\n\n        <div class=\"navbar-collapse collapse\" style=\"display:none\" id=\"side-menu\">\n            <ul class=\"nav navbar-nav navbar-right\">\n                <li class=\"dropdown\">\n                    <a href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\" data-proofer-ignore><i class=\"fa fa-bars\" aria-hidden=\"true\" style=\"font-size: 2em\"></i></a>\n                    <ul class=\"dropdown-menu\">\n                        <li>\n                            <div class=\"header\" id=\"header-download\">\n                                <a href=\"//blog.fossasia.org\" target=\"_blank\">\n                                    <i class=\"fa fa-newspaper-o\" aria-hidden=\"true\" style=\"font-size: 4em\" id=\"blog-icon\"></i>\n                                    <p class=\"header-text\">Blog</p>\n                                </a>\n                            </div>\n                            <div class=\"header\" id=\"header-code\">\n                                <a href=\"//github.com/fossasia/susper.com\" target=\"_blank\">\n                                    <i class=\"fa fa-code\" aria-hidden=\"true\" style=\"font-size: 4em\" id=\"code-icon\"></i>\n                                    <p class=\"header-text\">Code</p>\n                                </a>\n                            </div>\n                        </li>\n                        <li>\n                            <div class=\"header\" id=\"header-git\">\n                                <a href=\"//github.com/fossasia/susper.com\" target=\"_blank\">\n                                    <i class=\"fa fa-github\" aria-hidden=\"true\" style=\"font-size: 4em\" id=\"github-icon\"></i>\n                                </a>\n                                <p class=\"header-text\">Github</p>\n                            </div>\n                            <div class=\"header\" id=\"header-bugs\">\n                                <a href=\"//github.com/fossasia/susper.com/issues\" target=\"_blank\">\n                                    <i class=\"fa fa-bug\" aria-hidden=\"true\" style=\"font-size: 4em\" id=\"bug-icon\"></i>\n                                </a>\n                                <p class=\"header-text\">Bug Reports</p>\n                            </div>\n                        </li>\n                    </ul>\n                </li>\n            </ul>\n        </div>\n    </div>\n</nav>\n\n<script>\n    $(document).ready(function () {\n        var isFirefox = typeof InstallTrigger !== 'undefined';\n        if (isFirefox === false) {\n            $(\"#navbar-search\").addClass(\"align-navsearch-btn\");\n        }\n    }\n</script>"
 
 /***/ }),
 
-/***/ 715:
+/***/ 726:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"container-fluid not-found-banner\">\n  <h2 class=\"yacy\">\n      <a href=\"/\" class=\"susperlogo\" id=\"homepage\">\n      <img src=\"../../assets/images/susper.svg\" alt=\"YaCy\" id=\"biglogo\" style=\"margin: auto;\"></a></h2>\n  <h1>404</h1>\n  <h2>Page not found</h2>\n</div>\n<div id=\"search-bar\">\n  <app-search-bar></app-search-bar>\n</div>\n\n"
 
 /***/ }),
 
-/***/ 716:
+/***/ 727:
 /***/ (function(module, exports) {
 
 module.exports = "<app-navbar></app-navbar>\n<div class=\"row\">\n    <div class=\"container-fluid\" id=\"search-options-field\">\n        <ul type=\"none\" id=\"search-options\">\n            <li [class.active_view]=\"Display('all')\" (click)=\"docClick()\">All</li>\n            <li [class.active_view]=\"Display('images')\" (click)=\"imageClick()\">Images</li>\n            <li [class.active_view]=\"Display('videos')\" (click)=\"videoClick()\">Videos</li>\n            <li class=\"dropdown\">\n                <a href=\"#\" id=\"tools\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n                    Tools\n                </a>\n                <ul class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"tools\" id=\"tool-dropdown\">\n                    <li (click)=\"filterByContext()\">Context Ranking</li>\n                    <li (click)=\"filterByDate()\">Sort by Date</li>\n                    <li data-toggle=\"modal\" data-target=\"#myModal\" (click)=\"advancedsearch()\">Advanced Search</li>\n                </ul>\n            </li>\n        </ul>\n    </div>\n    <div class=\"col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1\">\n        <div class=\"container-fluid\" id=\"progress-bar\">\n            {{message}}\n        </div>\n        <div class=\"text-result\" *ngIf=\"Display('all')\">\n            <div *ngFor=\"let item of items$|async let i = index; trackBy: trachHero\" class=\"result\">\n                <div class=\"title\" (mouseover)=\"overTitle()\" (mouseleave)=\"overTitle()\">\n                    <a href=\"{{item.link}}\">{{item.title}}</a>\n                    <div class=\"box\">\n                        <iframe width=\"400px\" height=\"400px\" [src]=\"myUrlList[i]\" scrolling=\"no\"></iframe>\n                    </div>\n                </div>\n                <div class=\"link\">\n                    <p>{{item.link}}</p>\n                </div>\n                <div class=\"description\">\n                    <p>{{item.description}}</p>\n                </div>\n                <div>\n                    {{item.pubDate|date:'fullDate'}}\n                </div>\n            </div>\n        </div>\n        <div class=\"image-result\" *ngIf=\"Display('images')\">\n            <div *ngFor=\"let item of items$|async\">\n                <img class=\"res-img\" src=\"{{item.link}}\" onerror=\"this.style.display='none'\">\n            </div>\n        </div>\n        <div class=\"video-result\" *ngIf=\"Display('videos')\">\n            <div *ngFor=\"let item of items$|async\" class=\"result\">\n                <div class=\"title\">\n                    <a href=\"{{item.path}}\">{{item.title}}</a>\n                </div>\n                <div class=\"link\">\n                    <p>{{item.link}}</p>\n                </div>\n            </div>\n        </div>\n        <br>\n        <div class=\"pagination-property\">\n            <nav aria-label=\"Page navigation\">\n                <ul class=\"pagination\" id=\"pag-bar\">\n                    <li class=\"page-item\"><span class=\"page-link\" href=\"#\" (click)=\"decPresentPage()\">Previous</span></li>\n                    <li class=\"page-item\" *ngFor=\"let num of getNumber(maxPage)\"><span class=\"page-link\" *ngIf=\"presentPage>=4 && num<=noOfPages\" [class.active_page]=\"getStyle(presentPage-3+num)\"\n                            (click)=\"getPresentPage(presentPage-3+num)\" href=\"#\">{{presentPage-3+num}}</span>\n                        <span class=\"page-link\" *ngIf=\"presentPage<4 && num<=noOfPages\" [class.active_page]=\"getStyle(num)\" (click)=\"getPresentPage(num)\"\n                            href=\"#\">{{num+1}}</span></li>\n                    <li class=\"page-item\"><span class=\"page-link\" (click)=\"incPresentPage()\">Next</span></li>\n                </ul>\n            </nav>\n        </div>\n    </div>\n</div>\n<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n    <app-advancedsearch></app-advancedsearch>\n</div>\n"
 
 /***/ }),
 
-/***/ 717:
+/***/ 728:
 /***/ (function(module, exports) {
 
 module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n    <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" (keyup)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\">\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n</form>\n<script>\n  $(document).ready(function(){\n    var isFirefox = typeof InstallTrigger !== 'undefined';\n    if(isFirefox === false){\n      $(\".input-group-btn\").addClass(\"align-search-btn\");\n    }\n  }\n</script>\n"
 
 /***/ }),
 
-/***/ 751:
+/***/ 764:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "not-found-bg.8f346a53ee078b98deb0.jpg";
 
 /***/ }),
 
-/***/ 753:
+/***/ 766:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(407);
+module.exports = __webpack_require__(414);
 
 
 /***/ })
 
-},[753]);
+},[766]);
 //# sourceMappingURL=main.bundle.js.map
