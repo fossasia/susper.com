@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, Output, AfterContentInit, ContentChild,
-  AfterViewChecked, AfterViewInit, ViewChild, ViewChildren } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Store} from '@ngrx/store';
+import {
+  Component, OnInit, Input, Output, AfterContentInit, ContentChild,
+  AfterViewChecked, AfterViewInit, ViewChild, ViewChildren
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import * as fromRoot from '../reducers';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import * as query from '../actions/query';
 
 @Component({
@@ -27,13 +29,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     timezoneOffset: 0
   };
   constructor(private route: ActivatedRoute,
-              private router: Router, private store: Store<fromRoot.State> ) {
-    this.query$ =  store.select(fromRoot.getquery);
+    private router: Router, private store: Store<fromRoot.State>) {
+    this.query$ = store.select(fromRoot.getquery);
     this.query$.subscribe(query => {
       this.searchdata.query = query;
-      if (this.searchdata.query !== '') {
-        this.submit();
-      }
 
     });
 
@@ -42,7 +41,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   onquery(event: any) {
     console.log(event.target.value);
     this.store.dispatch(new query.QueryAction(event.target.value));
+    this.submit();
   }
+  
   ngOnInit() {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
   }
@@ -50,7 +51,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.vc.first.nativeElement.focus();
   }
   submit() {
-    this.router.navigate(['/search'], {queryParams: this.searchdata});
+    this.router.navigate(['/search'], { queryParams: this.searchdata });
   }
 
 }
