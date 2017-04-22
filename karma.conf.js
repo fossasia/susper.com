@@ -9,14 +9,16 @@ module.exports = function (config) {
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-remap-istanbul'),
-      require('@angular/cli/plugins/karma')
+      require('@angular/cli/plugins/karma'),
+      require('karma-coverage')
     ],
     files: [
       { pattern: './src/test.ts', watched: false },
       'http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'
     ],
     preprocessors: {
-      './src/test.ts': ['@angular/cli']
+      './src/test.ts': ['@angular/cli'],
+      'src/app/**/*.js': ['coverage']
     },
     mime: {
       'text/x-typescript': ['ts', 'tsx']
@@ -26,6 +28,10 @@ module.exports = function (config) {
         html: 'coverage',
         lcovonly: './coverage/coverage.lcov'
       }
+    },
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/'
     },
     angularCli: {
       config: './angular-cli.json',
