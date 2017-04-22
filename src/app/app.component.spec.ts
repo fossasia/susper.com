@@ -19,6 +19,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducer } from './reducers/index';
 import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
 import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+import { ModalComponent, Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -32,6 +34,7 @@ describe('AppComponent', () => {
         JsonpModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    
       ],
       declarations: [
         AppComponent,
@@ -42,8 +45,10 @@ describe('AppComponent', () => {
         AdvancedsearchComponent,
         SearchBarComponent,
         FooterNavbarComponent,
-        AboutComponent
-      ],
+        AboutComponent,
+        ContactComponent,
+        ModalComponent
+      ]
     });
     TestBed.compileComponents();
   });

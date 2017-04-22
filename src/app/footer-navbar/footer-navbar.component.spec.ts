@@ -18,6 +18,8 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducer } from '../reducers/search';
+import { Ng2Bs3ModalModule, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { ContactComponent } from '../contact/contact.component';
 
 describe('FooterNavbarComponent', () => {
   let component: FooterNavbarComponent;
@@ -33,9 +35,9 @@ describe('FooterNavbarComponent', () => {
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
+        StoreDevtoolsModule.instrumentOnlyWithExtension()
       ],
-      declarations: [FooterNavbarComponent,
+      declarations: [
         AppComponent,
         NavbarComponent,
         IndexComponent,
@@ -44,7 +46,9 @@ describe('FooterNavbarComponent', () => {
         AdvancedsearchComponent,
         SearchBarComponent,
         FooterNavbarComponent,
-        AboutComponent
+        AboutComponent,
+        ContactComponent,
+        ModalComponent
       ]
     })
       .compileComponents();
