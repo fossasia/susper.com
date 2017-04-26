@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import {Store} from '@ngrx/store';
 import * as fromRoot from './reducers';
 import * as search from './actions/search';
+
 @Injectable()
 export class SearchService {
   server = 'yacy.searchlab.eu';

@@ -13,9 +13,9 @@ export class AdvancedsearchComponent implements OnInit {
   querylook = {};
   navigation$: Observable<any>;
   changeurl(modifier) {
-    console.log(modifier);
+
     this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
-    console.log(this.querylook);
+
     this.route.navigate(['/search'], {queryParams: this.querylook});
   }
   constructor(private route: Router, private activatedroute: ActivatedRoute, private store: Store<fromRoot.State>) {

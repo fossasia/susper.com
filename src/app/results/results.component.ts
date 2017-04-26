@@ -108,9 +108,9 @@ export class ResultsComponent implements OnInit {
     private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
 
     this.activatedroute.queryParams.subscribe(query => {
-      console.log(query);
+      
       if (query['fq']) {
-        console.log(query['fq']);
+
         if (query['fq'].includes('png')) {
           this.resultDisplay = 'images';
         } else if (query['fq'].includes('avi')) {
