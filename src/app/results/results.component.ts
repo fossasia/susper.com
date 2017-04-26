@@ -58,7 +58,6 @@ export class ResultsComponent implements OnInit {
     }
   }
   trachHero(index, item) {
-    console.log('item', item);
     return item ? item.id : undefined;
   }
   // ---------------------------------
@@ -116,9 +115,9 @@ export class ResultsComponent implements OnInit {
     private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
 
     this.activatedroute.queryParams.subscribe(query => {
-      console.log(query);
+      
       if (query['fq']) {
-        console.log(query['fq']);
+
         if (query['fq'].includes('png')) {
           this.resultDisplay = 'images';
         } else if (query['fq'].includes('avi')) {
@@ -153,7 +152,7 @@ export class ResultsComponent implements OnInit {
 
       for (let i = 0; i < m.length; i++) {
           this.myUrlList[i] = this.domsanitizer.bypassSecurityTrustResourceUrl(m[i].link);
-          console.log(this.myUrlList);
+
         }
       });
 
