@@ -2,8 +2,10 @@
 <form class="navbar-form navbar-left">
 <!-- Stop ignoring BootLintBear -->
   <div class="input-group" id="nav-group">
-    <input #input type="text" name="query" class="form-control" id="nav-input" (keyup)="onquery($event)"
+      <div class="input-text">
+      <input #input type="text" name="query" class="form-control" id="nav-input" (keyup)="onquery($event)"
            [(ngModel)]="searchdata.query">
+      </div>
     <div class="input-group-btn">
       <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()">
         <i class="glyphicon glyphicon-search"></i>
