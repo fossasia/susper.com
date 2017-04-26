@@ -57,7 +57,7 @@
         </div>
         <br>
         <div class="pagination-property">
-            <nav aria-label="Page navigation">
+            <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
                 <ul class="pagination" id="pag-bar">
                     <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
                     <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link" *ngIf="presentPage>=4 && num<=noOfPages" [class.active_page]="getStyle(presentPage-3+num)"
