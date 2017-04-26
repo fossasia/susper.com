@@ -386,9 +386,7 @@ var AdvancedsearchComponent = (function () {
         });
     }
     AdvancedsearchComponent.prototype.changeurl = function (modifier) {
-        console.log(modifier);
         this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
-        console.log(this.querylook);
         this.route.navigate(['/search'], { queryParams: this.querylook });
     };
     AdvancedsearchComponent.prototype.ngOnInit = function () {
@@ -935,9 +933,7 @@ var ResultsComponent = (function () {
         };
         this.querylook = {};
         this.activatedroute.queryParams.subscribe(function (query) {
-            console.log(query);
             if (query['fq']) {
-                console.log(query['fq']);
                 if (query['fq'].includes('png')) {
                     _this.resultDisplay = 'images';
                 }
@@ -971,7 +967,6 @@ var ResultsComponent = (function () {
             _this.items$.subscribe(function (m) {
                 for (var i = 0; i < m.length; i++) {
                     _this.myUrlList[i] = _this.domsanitizer.bypassSecurityTrustResourceUrl(m[i].link);
-                    console.log(_this.myUrlList);
                 }
             });
         });
@@ -998,7 +993,6 @@ var ResultsComponent = (function () {
         }
     };
     ResultsComponent.prototype.trachHero = function (index, item) {
-        console.log('item', item);
         return item ? item.id : undefined;
     };
     // ---------------------------------
@@ -1114,15 +1108,12 @@ var SearchBarComponent = (function () {
         this.query$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["b" /* getquery */]);
         this.query$.subscribe(function (query) {
             _this.searchdata.query = query;
-            if (_this.searchdata.query !== '') {
-                _this.submit();
-            }
         });
     }
     ;
     SearchBarComponent.prototype.onquery = function (event) {
-        console.log(event.target.value);
         this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryAction */](event.target.value));
+        this.submit();
     };
     SearchBarComponent.prototype.ngOnInit = function () {
         this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
@@ -1360,7 +1351,7 @@ exports = module.exports = __webpack_require__(27)(false);
 
 
 // module
-exports.push([module.i, ".result {\n  padding-left: 60px;\n  padding-top: 30px;\n}\n\n.title >a {\n  color: darkblue;\n  font-size: large;\n  text-decoration: none;\n}\n\n.link > p {\n  color: #006621;\n  text-decoration: none;\n}\n\n.title >a:hover {\n  text-decoration: underline;\n}\n\n.description {\n  text-align: justify;\n}\n\n.page-link {\n  cursor: pointer;\n}\n\n#progress-bar {\n  margin-top: 1%;\n  font-size: small;\n  color: #88aaaa;\n  padding-left: 60px;\n}\n\n.dropdown-menu > li {\n  font-size: small;\n  padding: 5px;\n  text-align: center;\n  text-decoration: none;\n}\n\n.dropdown-menu > li:hover {\n  padding: 10px;\n  padding-right: 20px;\n  padding-left: 20px;\n  background-color: #f5f5f5;\n}\n\n.dropdown-menu > li:active {\n  padding: 5px;\n  padding-right: 20px;\n  padding-left: 20px;\n  background-color: #1c65ba;\n  color: white;\n}\n\n.active_page {\n  background-color: #bdcdd4;\n}\n\n.active_view {\n  color: #4285f4 !important;\n  border-bottom: 3px solid #4285f4;\n}\n\nimg.res-img {\n  max-width: 350px;\n  max-height: 300px;\n  padding-top: 20px;\n  padding: 0.6%;\n  float: left;\n}\n\n#search-options-field {\n  background-color: #f8f8f8;\n  padding-bottom: 6px;\n}\n\n#search-options {\n  margin-top: 2.2%;\n  margin-left: 9%;\n}\n\n#search-tools {\n  margin-left: 11.5%;\n}\n\n#search-tools {\n  padding-left: 60px;\n}\n\n#search-tools .btn {\n  border: none;\n  background: none;\n  font-size: small;\n}\n\n#search-options li {\n  display: inline;\n  cursor: pointer;\n  padding: 28px 20px 12px;\n  color: #777;\n  font-weight: 500;\n  font-size: 13px;\n}\n\n#search-options li:hover {\n  color: #222;\n}\n\n#tools {\n  text-decoration: none;\n  color: #777;\n  margin-left: 23%;\n}\n\n#tools:hover {\n  color: #222;\n}\n\n.dropdown-menu {\n  min-width: 140px;\n}\n\n#tool-dropdown li {\n  text-align: left;\n  display: block;\n  padding: 4px 12px;\n}\n\n#pag-bar {\n  padding-left: 60px;\n  padding-top: 20px;\n}\n\n.pagination-property {\n  max-width: 100%;\n}\n\n.pagination li span\n {\n       background-color: white;\n       border: 0px ;\n       font-size: 16px;\n }\n \n .active_page{  \n       color: black; \n }\n\n.image-result {\n  padding-left: 80px;\n}\n\n.clean {\n  clear: both;\n}\n\n@media screen and (min-width:1920px) {\n  #tools {\n    margin-left: 27%;\n  }\n}\n\n@media screen and (max-width:1365px) {\n  #tools {\n    margin-left: 21.5%;\n  }\n}\n\n@media screen and (max-width:1279px) {\n  #search-options {\n    margin-left: 11%;\n  }\n  #tools {\n    margin-left: 17%;\n  }\n}\n\n@media screen and (max-width:991px) {\n  #tools {\n    margin-left: 26%;\n  }\n}\n\n@media screen and (max-width:979px) {\n  #search-options {\n    margin-left: 12.5%;\n  }\n  #tools {\n    margin-left: 18%;\n  }\n}\n\n@media screen and (max-width:767px) {\n  .result {\n    padding-left: 50px;\n    padding-right: 30px;\n  }\n  #progress-bar {\n    padding-left: 50px;\n    margin-bottom: -10px;\n  }\n  #search-options {\n    padding-left: 0px;\n    margin-top: 75px;\n    margin-left: 8%;\n  }\n  #pag-bar {\n    padding-left: 50px;\n  }\n  #search-tools {\n    padding-left: 50px;\n  }\n  #search-options li {\n    padding: 0px 8.3% 12px;\n  }\n  #tools {\n    margin-left: 0%;\n  }\n}\n\n@media screen and (max-width:639px) {\n  #search-options li {\n    padding: 0px 7.5% 12px;\n  }\n}\n\n@media screen and (max-width:479px) {\n  .result {\n    padding-left: 30px;\n    padding-right: 20px;\n  }\n  #progress-bar {\n    padding-left: 30px;\n  }\n  #pag-bar {\n    padding-left: 30px;\n  }\n  #search-tools {\n    padding-left: 30px;\n  }\n  #search-options {\n    margin-left: 5.5%;\n  }\n  #search-options li {\n    padding: 0px 7% 12px;\n  }\n}\n\n@media screen and (max-width:379px) {\n  #search-options li {\n    padding: 0px 6.2% 12px;\n  }\n}\n\n@media screen and (max-width:320px) {\n  #search-options li {\n    padding: 0px 5.6% 12px;\n  }\n}\n\n.box {\n  display: none;\n  width: 100%;\n  text-align: right;\n}\n\na:hover + .box, .box:hover{\n  display:block;\n  position: absolute;\n  z-index:100;\n}\n\niframe {\n  overflow-x: hidden;\n}\n", ""]);
+exports.push([module.i, ".result {\n  padding-left: 60px;\n  padding-top: 30px;\n}\n\n.title >a {\n  color: darkblue;\n  font-size: large;\n  text-decoration: none;\n}\n\n.link > p {\n  color: #006621;\n  text-decoration: none;\n}\n\n.title >a:hover {\n  text-decoration: underline;\n}\n\n.description {\n  text-align: justify;\n}\n\n.page-link {\n  cursor: pointer;\n}\n\n#progress-bar {\n  margin-top: 1%;\n  font-size: small;\n  color: #88aaaa;\n  padding-left: 60px;\n}\n\n.container-fluid{\n  position: relative;\n} \n\n.container-fluid ul{\n  padding-top: 6px;\n  width: 685px;\n}\n\n.container-fluid li{\n  height: 15px;\n  line-height: 15px;\n  padding-top: 28px;\n}\n\n.container-fluid li a{\n  position: relative; \n  left: -25px;\n}\n\n.dropdown-menu > li {\n  font-size: small;\n  padding: 5px;\n  text-align: center;\n  text-decoration: none;\n}\n\n.dropdown-menu > li:hover {\n  padding: 10px;\n  padding-right: 20px;\n  padding-left: 20px;\n  background-color: #f5f5f5;\n}\n\n.dropdown-menu > li:active {\n  padding: 5px;\n  padding-right: 20px;\n  padding-left: 20px;\n  background-color: #1c65ba;\n  color: white;\n}\n\n#tools{\n  left: 140px;\n  position: relative;\n}\n\n.active_page {\n  background-color: #bdcdd4;\n}\n\n.active_view {\n  color: #4285f4 !important;\n  border-bottom: 3px solid #4285f4;\n}\n\nimg.res-img {\n  max-width: 350px;\n  max-height: 300px;\n  padding-top: 20px;\n  padding: 0.6%;\n  float: left;\n}\n\n#search-options-field {\n  background-color: #f8f8f8;\n  padding-bottom: 6px;\n}\n\n#search-options {\n  margin-top: 2.2%;\n  margin-left: 9%;\n}\n\n#search-tools {\n  margin-left: 11.5%;\n}\n\n#search-tools {\n  padding-left: 60px;\n}\n\n#search-tools .btn {\n  border: none;\n  background: none;\n  font-size: small;\n}\n\n#search-options li {\n  display: inline;\n  cursor: pointer;\n  padding: 28px 20px 12px;\n  color: #777;\n  font-weight: 500;\n  font-size: 13px;\n}\n\n#search-options li:hover {\n  color: #222;\n}\n\n#tools {\n  text-decoration: none;\n  color: #777;\n  margin-left: 23%;\n}\n\n#tools:hover {\n  color: #222;\n}\n\n.dropdown-menu {\n  min-width: 140px;\n}\n\n#tool-dropdown li {\n  text-align: left;\n  display: block;\n  padding: 4px 12px;\n}\n\n#pag-bar {\n  padding-left: 60px;\n  padding-top: 20px;\n}\n\n.pagination-property {\n  max-width: 100%;\n}\n\n.pagination li span\n {\n       background-color: white;\n       border: 0px ;\n       font-size: 16px;\n }\n \n .active_page{  \n       color: black; \n }\n\n.image-result {\n  padding-left: 80px;\n}\n\n.clean {\n  clear: both;\n}\n\n@media screen and (min-width:1920px) {\n  #tools {\n    margin-left: 27%;\n  }\n}\n\n@media screen and (max-width:1365px) {\n  #tools {\n    margin-left: 21.5%;\n  }\n}\n\n@media screen and (max-width:1279px) {\n  #search-options {\n    margin-left: 11%;\n  }\n  #tools {\n    margin-left: 17%;\n  }\n}\n\n@media screen and (max-width:991px) {\n  #tools {\n    margin-left: 26%;\n  }\n}\n\n@media screen and (max-width:979px) {\n  #search-options {\n    margin-left: 12.5%;\n  }\n  #tools {\n    margin-left: 18%;\n  }\n}\n\n@media screen and (max-width:767px) {\n  .result {\n    padding-left: 50px;\n    padding-right: 30px;\n  }\n  #progress-bar {\n    padding-left: 50px;\n    margin-bottom: -10px;\n  }\n  #search-options {\n    padding-left: 0px;\n    margin-top: 75px;\n    margin-left: 8%;\n  }\n  #pag-bar {\n    padding-left: 50px;\n  }\n  #search-tools {\n    padding-left: 50px;\n  }\n  #search-options li {\n    padding: 0px 8.3% 12px;\n  }\n  #tools {\n    margin-left: 0%;\n  }\n}\n\n@media screen and (max-width:639px) {\n  #search-options li {\n    padding: 0px 7.5% 12px;\n  }\n}\n\n@media screen and (max-width:479px) {\n  .result {\n    padding-left: 30px;\n    padding-right: 20px;\n  }\n  #progress-bar {\n    padding-left: 30px;\n  }\n  #pag-bar {\n    padding-left: 30px;\n  }\n  #search-tools {\n    padding-left: 30px;\n  }\n  #search-options {\n    margin-left: 5.5%;\n  }\n  #search-options li {\n    padding: 0px 7% 12px;\n  }\n}\n\n@media screen and (max-width:379px) {\n  #search-options li {\n    padding: 0px 6.2% 12px;\n  }\n}\n\n@media screen and (max-width:320px) {\n  #search-options li {\n    padding: 0px 5.6% 12px;\n  }\n}\n\n.box {\n  display: none;\n  width: 100%;\n  text-align: right;\n}\n\na:hover + .box, .box:hover{\n  display:block;\n  position: absolute;\n  z-index:100;\n}\n\niframe {\n  overflow-x: hidden;\n}\n", ""]);
 
 // exports
 
@@ -1378,7 +1369,7 @@ exports = module.exports = __webpack_require__(27)(false);
 
 
 // module
-exports.push([module.i, "#nav-input{\n  width: 40vw;\n  height: 40px;\n  border-radius: 0px;\n  border: none;\n  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0 ,0, 0, 0.08);\n}\n\n#nav-button{\n  border-left: none;\n  border-radius: 0px;\n  height: 40px;\n  background-color: white;\n  color: #0066ff;\n  border-bottom: none;\n  border-top: none;\n  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);\n}\n\n#nav-group{\n  top:3px;\n}\n\n.navbar-form{\n  border-color: transparent !important;\n}\n\n@media screen and (min-width:1920px) {\n  #nav-group{\n    top:6px;\n  }\n}\n\n@media screen and (max-width: 979px) and (min-width: 768px) {\n  .navbar-form{\n    padding-left: 5px;\n   }\n}\n\n@media screen and (max-width: 991px) {\n  #nav-input{\n    width: 50vw;\n  }\n}\n\n@media screen and (max-width: 767px) {\n  #nav-input{\n    width: 80vw;\n  }\n  .align-search-btn{\n    left: -9%;\n  }\n}\n\n@media screen and (max-width: 480px) {\n  .align-search-btn{\n    left: -6%;\n  }\n}\n\n@media screen and (max-width: 360px) {\n  .align-search-btn{\n    left: -5%;\n  }\n}\n", ""]);
+exports.push([module.i, "#nav-group{\n  background-color: white;\n  width: 584px;\n  color: black;\n  height: 44px;\n  border-radius: 0px;\n  border: none;\n  border-style: solid;\n  border-color:rgba(0, 0, 0, 0);\n  border-width: 1px;\n  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);\n}\n\n\n#nav-input{\n  font-size: 16px;\n  font-weight: 400;\n  top: 4px;\n  color: black;\n  width: 511px;\n  height: 34px !important;\n  line-height: 34px ;\n  border-radius: 0px;\n  border: none;\n  box-shadow: none;\n}\n\n#nav-button{\n  border-radius: 0px;\n  height: 38px;\n  background-color: white;\n  color: #0066ff;\n  box-shadow: none;\n  border: none;\n}\n\n#nav-group{\n  top:3px;\n}\n\n.navbar-form{\n  border-color: transparent !important;\n}\n\n@media screen and (min-width:1920px) {\n  #nav-group{\n    top:6px;\n  }\n}\n\n@media screen and (max-width: 979px) and (min-width: 768px) {\n  .navbar-form{\n    padding-left: 5px;\n   }\n}\n\n@media screen and (max-width: 992px) {\n  #nav-input{\n    width: 50vw;\n  }\n}\n\n@media screen and (max-width: 767px) {\n  #nav-input{\n    width: 80vw;\n  }\n  .align-search-btn{\n    left: -9%;\n  }\n}\n\n@media screen and (max-width: 480px) {\n  .align-search-btn{\n    left: -6%;\n  }\n}\n\n@media screen and (max-width: 360px) {\n  .align-search-btn{\n    left: -5%;\n  }\n}", ""]);
 
 // exports
 
@@ -1419,7 +1410,7 @@ module.exports = "<!-- Start ignoring BootLintBear-->\n<link rel=\"stylesheet\" 
 /***/ 727:
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default fixed-bottom\" role=\"navigation\">\n  <div class=\"navbar-header\">\n    <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n                    <span class=\"icon-bar\"></span>\n                        <span class=\"icon-bar\"></span>\n                        <span class=\"icon-bar\"></span>\n                </button>\n  </div>\n  <div class=\"navbar-collapse collapse\">\n    <ul class=\"nav navbar-nav navbar-left\">\n      <li><a routerLink=\"/about\" routerLinkActive=\"active\">About</a></li>\n      <li><a href=\"//blog.fossasia.org\">Blogs</a></li>\n      <li><a href=\"//github.com/fossasia/susper.com\">Code</a></li>\n    </ul>\n    <ul class=\"nav navbar-nav navbar-right\">\n      <li><a href=\"#\">Terms</a></li>\n      <li><a href=\"#\">Contact</a></li>\n    </ul>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-default fixed-bottom\" role=\"navigation\">\n  <div class=\"navbar-header\">\n    <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n                    <span class=\"icon-bar\"></span>\n                        <span class=\"icon-bar\"></span>\n                        <span class=\"icon-bar\"></span>\n                </button>\n  </div>\n  <div class=\"navbar-collapse collapse\">\n    <ul class=\"nav navbar-nav navbar-left\">\n      <li><a routerLink=\"/about\" routerLinkActive=\"active\">About</a></li>\n      <li><a href=\"//blog.fossasia.org\">Blogs</a></li>\n      <li><a href=\"//github.com/fossasia/susper.com\">Code</a></li>\n    </ul>\n    <ul class=\"nav navbar-nav navbar-right\">\n      <li><a href=\"#\">Terms</a></li>\n      <li><a href=\"/contact\">Contact</a></li>\n    </ul>\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -1454,7 +1445,7 @@ module.exports = "<app-navbar></app-navbar>\n<div class=\"row\">\n    <div class
 /***/ 732:
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n    <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" (keyup)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\">\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n</form>\n<script>\n  $(document).ready(function(){\n    var isFirefox = typeof InstallTrigger !== 'undefined';\n    if(isFirefox === false){\n      $(\".input-group-btn\").addClass(\"align-search-btn\");\n    }\n  }\n</script>\n"
+module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n      <div class=\"input-text\">\n      <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" (keyup)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\">\n      </div>\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n</form>\n<script>\n  $(document).ready(function(){\n    var isFirefox = typeof InstallTrigger !== 'undefined';\n    if(isFirefox === false){\n      $(\".input-group-btn\").addClass(\"align-search-btn\");\n    }\n  }\n</script>\n"
 
 /***/ }),
 
