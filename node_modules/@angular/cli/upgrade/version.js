@@ -97,7 +97,7 @@ class Version {
         }
         else {
             console.error(chalk_1.bold(chalk_1.red(common_tags_1.stripIndents `
-        You seem to not be dependending on "@angular/core". This is an error.
+        You seem to not be depending on "@angular/core". This is an error.
       `)));
             process.exit(2);
         }

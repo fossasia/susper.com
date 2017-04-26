@@ -14,13 +14,10 @@ const common_tags_1 = require("common-tags");
 const exists = (p) => Promise.resolve(fs.existsSync(p));
 const writeFile = denodeify(fs.writeFile);
 const angularCliPlugins = require('../plugins/webpack');
-const autoprefixer = require('autoprefixer');
-const postcssUrl = require('postcss-url');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SilentError = require('silent-error');
 const Task = require('../ember-cli/lib/models/task');
-const LoaderOptionsPlugin = webpack.LoaderOptionsPlugin;
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 exports.pluginArgs = Symbol('plugin-args');
 exports.postcssArgs = Symbol('postcss-args');
@@ -36,6 +33,7 @@ class JsonWebpackSerializer {
         this.variables = {
             'nodeModules': `path.join(process.cwd(), 'node_modules')`,
         };
+        this._postcssProcessed = false;
     }
     _escape(str) {
         return '\uFF01' + str + '\uFF01';
@@ -108,44 +106,6 @@ class JsonWebpackSerializer {
             chunksSortMode: this._serializeFunction(chunksSortMode)
         });
     }
-    _loaderOptionsPlugin(plugin) {
-        return Object.assign({}, plugin.options, {
-            test: plugin.options.test instanceof RegExp
-                ? this._serializeRegExp(plugin.options.test)
-                : undefined,
-            options: Object.assign({}, plugin.options.options, {
-                context: '',
-                postcss: plugin.options.options.postcss.map((x) => {
-                    if (x && x.toString() == autoprefixer()) {
-                        this.variableImports['autoprefixer'] = 'autoprefixer';
-                        return this._escape('autoprefixer()');
-                    }
-                    else if (x && x.toString() == postcssUrl()) {
-                        this.variableImports['postcss-url'] = 'postcssUrl';
-                        let args = '';
-                        if (x[exports.postcssArgs] && x[exports.postcssArgs].url) {
-                            this.variables['baseHref'] = JSON.stringify(x[exports.postcssArgs].baseHref);
-                            this.variables['deployUrl'] = JSON.stringify(x[exports.postcssArgs].deployUrl);
-                            args = `{"url": ${x[exports.postcssArgs].url.toString()}}`;
-                        }
-                        return this._escape(`postcssUrl(${args})`);
-                    }
-                    else if (x && x.postcssPlugin == 'cssnano') {
-                        this.variableImports['cssnano'] = 'cssnano';
-                        return this._escape('cssnano({ safe: true, autoprefixer: false })');
-                    }
-                    else {
-                        if (typeof x == 'function') {
-                            return this._serializeFunction(x);
-                        }
-                        else {
-                            return x;
-                        }
-                    }
-                })
-            })
-        });
-    }
     _definePlugin(plugin) {
         return plugin.definitions;
     }
@@ -185,10 +145,6 @@ class JsonWebpackSerializer {
                 case HtmlWebpackPlugin:
                     args = this._htmlWebpackPlugin(plugin);
                     this.variableImports['html-webpack-plugin'] = 'HtmlWebpackPlugin';
-                    break;
-                case LoaderOptionsPlugin:
-                    args = this._loaderOptionsPlugin(plugin);
-                    this._addImport('webpack', 'LoaderOptionsPlugin');
                     break;
                 case webpack.DefinePlugin:
                     args = this._definePlugin(plugin);
@@ -239,6 +195,16 @@ class JsonWebpackSerializer {
             if (loader.loader) {
                 loader.loader = this._loaderReplacer(loader.loader);
             }
+            if (loader.loader === 'postcss-loader' && !this._postcssProcessed) {
+                const args = loader.options.plugins[exports.postcssArgs];
+                Object.keys(args.variableImports)
+                    .forEach(key => this.variableImports[key] = args.variableImports[key]);
+                Object.keys(args.variables)
+                    .forEach(key => this.variables[key] = JSON.stringify(args.variables[key]));
+                this.variables['postcssPlugins'] = loader.options.plugins;
+                loader.options.plugins = this._escape('postcssPlugins');
+                this._postcssProcessed = true;
+            }
         }
         return loader;
     }
@@ -275,6 +241,14 @@ class JsonWebpackSerializer {
         if (value.loader) {
             value.loader = this._loaderReplacer(value.loader);
         }
+        if (value.use) {
+            if (Array.isArray(value.use)) {
+                value.use = value.use.map((loader) => this._loaderReplacer(loader));
+            }
+            else {
+                value.use = this._loaderReplacer(value.loader);
+            }
+        }
         if (value.exclude) {
             value.exclude = Array.isArray(value.exclude)
                 ? value.exclude.map((x) => replaceExcludeInclude(x))
@@ -307,6 +281,10 @@ class JsonWebpackSerializer {
     serialize(config) {
         // config = Object.assign({}, config);
         config['plugins'] = this._pluginsReplacer(config['plugins']);
+        // Routes using PathLocationStrategy break without this.
+        config['devServer'] = {
+            'historyApiFallback': true
+        };
         config['resolve'] = this._resolveReplacer(config['resolve']);
         config['resolveLoader'] = this._resolveReplacer(config['resolveLoader']);
         config['entry'] = this._entryReplacer(config['entry']);

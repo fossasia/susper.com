@@ -1,3 +1,4 @@
+import * as webpack from 'webpack';
 import { WebpackConfigOptions } from '../webpack-config';
 /**
  * Enumerate loaders and their dependencies from this file to let the dependency validator
@@ -19,7 +20,7 @@ export declare function getStylesConfig(wco: WebpackConfigOptions): {
         [key: string]: string[];
     };
     module: {
-        rules: any;
+        rules: webpack.Rule[];
     };
     plugins: any[];
 };

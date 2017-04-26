@@ -15,7 +15,7 @@ module.exports = function(source) {
   var self = this;
   this.cacheable && this.cacheable();
   var done = this.async();
-  var options = cloneDeep(loaderUtils.parseQuery(this.query));
+  var options = cloneDeep(loaderUtils.getOptions(this) || {});
   options.dest = options.dest || '';
   options.filename = options.filename || this.resourcePath;
   options.Evaluator = CachedPathEvaluator;

@@ -27,6 +27,9 @@ exports.E2eTask = Task.extend({
                     port: e2eTaskOptions.port.toString()
                 });
             }
+            else if (e2eTaskOptions.baseHref) {
+                additionalProtractorConfig.baseUrl = e2eTaskOptions.baseHref;
+            }
             if (e2eTaskOptions.specs.length !== 0) {
                 additionalProtractorConfig['specs'] = e2eTaskOptions.specs;
             }

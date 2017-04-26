@@ -1,13 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const chalk = require("chalk");
+const fs = require("fs");
+const path = require("path");
 const ast_tools_1 = require("../../lib/ast-tools");
 const config_1 = require("../../models/config");
 const app_utils_1 = require("../../utilities/app-utils");
-const fs = require("fs");
-const path = require("path");
-const chalk = require("chalk");
+const dynamic_path_parser_1 = require("../../utilities/dynamic-path-parser");
+const resolve_module_file_1 = require("../../utilities/resolve-module-file");
 const Blueprint = require('../../ember-cli/lib/models/blueprint');
-const dynamicPathParser = require('../../utilities/dynamic-path-parser');
 const findParentModule = require('../../utilities/find-parent-module').default;
 const getFiles = Blueprint.prototype.files;
 const stringUtils = require('ember-cli-string-utils');
@@ -101,13 +102,8 @@ exports.default = Blueprint.extend({
     beforeInstall: function (options) {
         const appConfig = app_utils_1.getAppFromConfig(this.options.app);
         if (options.module) {
-            // Resolve path to module
-            const modulePath = options.module.endsWith('.ts') ? options.module : `${options.module}.ts`;
-            const parsedPath = dynamicPathParser(this.project, modulePath, appConfig);
-            this.pathToModule = path.join(this.project.root, parsedPath.dir, parsedPath.base);
-            if (!fs.existsSync(this.pathToModule)) {
-                throw 'Module specified does not exist';
-            }
+            this.pathToModule =
+                resolve_module_file_1.resolveModulePath(options.module, this.project, this.project.root, appConfig);
         }
         else {
             try {
@@ -122,7 +118,7 @@ exports.default = Blueprint.extend({
     },
     normalizeEntityName: function (entityName) {
         const appConfig = app_utils_1.getAppFromConfig(this.options.app);
-        const parsedPath = dynamicPathParser(this.project, entityName, appConfig);
+        const parsedPath = dynamic_path_parser_1.dynamicPathParser(this.project, entityName, appConfig);
         this.dynamicPath = parsedPath;
         const defaultPrefix = (appConfig && appConfig.prefix) || '';
         let prefix = (this.options.prefix === 'false' || this.options.prefix === '')

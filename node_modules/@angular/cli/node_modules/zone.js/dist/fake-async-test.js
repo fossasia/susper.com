@@ -82,7 +82,7 @@
             this._scheduler = new Scheduler();
             this._microtasks = [];
             this._lastError = null;
-            this._uncaughtPromiseErrors = Promise[Zone['__symbol__']('uncaughtPromiseErrors')];
+            this._uncaughtPromiseErrors = Promise[Zone.__symbol__('uncaughtPromiseErrors')];
             this.pendingPeriodicTimers = [];
             this.pendingTimers = [];
             this.properties = { 'FakeAsyncTestZoneSpec': this };
@@ -98,7 +98,7 @@
             return function () {
                 var args = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
-                    args[_i - 0] = arguments[_i];
+                    args[_i] = arguments[_i];
                 }
                 fn.apply(global, args);
                 if (_this._lastError === null) {

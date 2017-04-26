@@ -37,7 +37,7 @@ function XmlEntities() {}
  * @returns {String}
  */
 XmlEntities.prototype.encode = function(str) {
-    if (str.length === 0) {
+    if (!str || !str.length) {
         return '';
     }
     return str.replace(/<|>|"|'|&/g, function(s) {
@@ -58,7 +58,7 @@ XmlEntities.prototype.encode = function(str) {
  * @returns {String}
  */
 XmlEntities.prototype.decode = function(str) {
-    if (str.length === 0) {
+    if (!str || !str.length) {
         return '';
     }
     return str.replace(/&#?[0-9a-zA-Z]+;?/g, function(s) {
@@ -89,10 +89,10 @@ XmlEntities.prototype.decode = function(str) {
  * @returns {String}
  */
 XmlEntities.prototype.encodeNonUTF = function(str) {
-    var strLength = str.length;
-    if (strLength === 0) {
+    if (!str || !str.length) {
         return '';
     }
+    var strLength = str.length;
     var result = '';
     var i = 0;
     while (i < strLength) {
@@ -126,10 +126,10 @@ XmlEntities.prototype.encodeNonUTF = function(str) {
  * @returns {String}
  */
 XmlEntities.prototype.encodeNonASCII = function(str) {
-    var strLenght = str.length;
-    if (strLenght === 0) {
+    if (!str || !str.length) {
         return '';
     }
+    var strLenght = str.length;
     var result = '';
     var i = 0;
     while (i < strLenght) {
