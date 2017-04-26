@@ -47,9 +47,17 @@
         </div>
         <div class="video-result" *ngIf="Display('videos')">
             <div *ngFor="let item of items$|async" class="result">
-                <div class="title">
-                    <a href="{{item.path}}">{{item.title}}</a>
-                </div>
+                <img id="fetch-videos" width="320" height="240">
+                    <source id="video-mp4" src="{{item.link}}" type="video/mp4">
+                    <source id"video-avi" src="{{item.link}}" type="video/avi">
+                    {{item.path}}
+                <script>
+                    function videoResult() {
+                        document.getElementById('video-mp4').src = "{{item.link}}";
+                        document.getElementById('video-avi').src = "{{item.link}}";
+                        document.getElementById('fetch-videos').load();
+                    }
+                </script>
                 <div class="link">
                     <p>{{item.link}}</p>
                 </div>
