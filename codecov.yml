@@ -1,5 +1,5 @@
 codecov:
-  branch: gh-pages1
+  branch: gh-pages
   bot: null
 
 coverage:
@@ -68,4 +68,4 @@ coverage:
 comment:
   layout: "header, diff, changes, sunburst, uncovered, tree"
   branches: null
-behavior: default
+  behavior: default
