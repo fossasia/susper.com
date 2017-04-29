@@ -204,7 +204,7 @@ FileCoverage.prototype.getBranchCoverageByLine = function () {
         branches = this.b,
         ret = {};
     Object.keys(branchMap).forEach(function (k) {
-        var line = branchMap[k].line,
+        var line = branchMap[k].line || branchMap[k].loc.start.line,
             branchData = branches[k];
         ret[line] = ret[line] || [];
         ret[line].push.apply(ret[line], branchData);

@@ -22,9 +22,16 @@ var yargs = require('yargs')
 
     .option('e', {
       alias: 'extensions',
-      default: ['scss', 'css'],
+      default: ['scss', 'css', 'sass'],
       describe: 'File extensions to include in the graph',
       type: 'array',
+    })
+
+    .option('f', {
+      alias: 'follow',
+      default: false,
+      describe: 'Follow symbolic links',
+      type: 'bool',
     })
 
     .option('j', {
@@ -85,6 +92,7 @@ try {
   var graph = require('../').parseDir(directory, {
     extensions: argv.extensions,
     loadPaths: loadPaths,
+    follow: argv.follow,
   });
 
   if(argv.json) {

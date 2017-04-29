@@ -1,5 +1,10 @@
 # Change Log
 
+## v1.8.0
+**Features:**
+* Support peer dependency of typescript nightlies of 2.4.0
+* Added typeguards: `isJsxAttributes`, `isIntersectionTypeNode`, `isTypeOperatorNode`, `isTypePredicateNode`, `isTypeQueryNode`, `isUnionTypeNode`
+
 ## v1.7.0
 **Bugfixes:**
 * `isFunctionScopeBoundary` now handles Interfaces, TypeAliases, FunctionSignatures, etc

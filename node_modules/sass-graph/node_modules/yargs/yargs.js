@@ -1,5 +1,4 @@
-const assert = require('assert')
-const assign = require('lodash.assign')
+const assign = require('./lib/assign')
 const Command = require('./lib/command')
 const Completion = require('./lib/completion')
 const Parser = require('yargs-parser')
@@ -7,7 +6,6 @@ const path = require('path')
 const Usage = require('./lib/usage')
 const Validation = require('./lib/validation')
 const Y18n = require('y18n')
-const requireMainFilename = require('require-main-filename')
 const objFilter = require('./lib/obj-filter')
 const setBlocking = require('set-blocking')
 
@@ -19,6 +17,7 @@ function Yargs (processArgs, cwd, parentRequire) {
   var command = null
   var completion = null
   var groups = {}
+  var output = ''
   var preservedGroups = {}
   var usage = null
   var validation = null
@@ -67,6 +66,7 @@ function Yargs (processArgs, cwd, parentRequire) {
     // hierarchy.
     var tmpOptions = {}
     tmpOptions.global = options.global ? options.global : []
+    tmpOptions.configObjects = options.configObjects ? options.configObjects : []
 
     // if a key has been set as a global, we
     // do not want to reset it or its aliases.
@@ -98,7 +98,7 @@ function Yargs (processArgs, cwd, parentRequire) {
 
     var objectOptions = [
       'narg', 'key', 'alias', 'default', 'defaultDescription',
-      'config', 'choices', 'demanded'
+      'config', 'choices', 'demandedOptions', 'demandedCommands', 'coerce'
     ]
 
     arrayOptions.forEach(function (k) {
@@ -113,7 +113,7 @@ function Yargs (processArgs, cwd, parentRequire) {
       })
     })
 
-    tmpOptions.envPrefix = undefined
+    tmpOptions.envPrefix = options.envPrefix
     options = tmpOptions
 
     // if this is the first time being executed, create
@@ -123,14 +123,53 @@ function Yargs (processArgs, cwd, parentRequire) {
     command = command ? command.reset() : Command(self, usage, validation)
     if (!completion) completion = Completion(self, usage, command)
 
-    exitProcess = true
     strict = false
     completionCommand = null
+    output = ''
+    exitError = null
+    hasOutput = false
     self.parsed = false
 
     return self
   }
   self.resetOptions()
+
+  // temporary hack: allow "freezing" of reset-able state for parse(msg, cb)
+  var frozen
+  function freeze () {
+    frozen = {}
+    frozen.options = options
+    frozen.configObjects = options.configObjects.slice(0)
+    frozen.exitProcess = exitProcess
+    frozen.groups = groups
+    usage.freeze()
+    validation.freeze()
+    command.freeze()
+    frozen.strict = strict
+    frozen.completionCommand = completionCommand
+    frozen.output = output
+    frozen.exitError = exitError
+    frozen.hasOutput = hasOutput
+    frozen.parsed = self.parsed
+  }
+  function unfreeze () {
+    options = frozen.options
+    options.configObjects = frozen.configObjects
+    exitProcess = frozen.exitProcess
+    groups = frozen.groups
+    output = frozen.output
+    exitError = frozen.exitError
+    hasOutput = frozen.hasOutput
+    self.parsed = frozen.parsed
+    usage.unfreeze()
+    validation.unfreeze()
+    command.unfreeze()
+    strict = frozen.strict
+    completionCommand = frozen.completionCommand
+    parseFn = null
+    parseContext = null
+    frozen = undefined
+  }
 
   self.boolean = function (bools) {
     options.boolean.push.apply(options.boolean, [].concat(bools))
@@ -244,19 +283,33 @@ function Yargs (processArgs, cwd, parentRequire) {
     return self
   }
 
+  self.coerce = function (key, fn) {
+    if (typeof key === 'object' && !Array.isArray(key)) {
+      Object.keys(key).forEach(function (k) {
+        self.coerce(k, key[k])
+      })
+    } else {
+      [].concat(key).forEach(function (k) {
+        options.coerce[k] = fn
+      })
+    }
+    return self
+  }
+
   self.count = function (counts) {
     options.count.push.apply(options.count, [].concat(counts))
     return self
   }
 
+  // deprecated: the demand API is too overloaded, and is being
+  // deprecated in favor of .demandCommand() .demandOption().
   self.demand = self.required = self.require = function (keys, max, msg) {
     // you can optionally provide a 'max' key,
     // which will raise an exception if too many '_'
     // options are provided.
-
     if (Array.isArray(max)) {
       max.forEach(function (key) {
-        self.demand(key, msg)
+        self.demandOption(key, msg)
       })
       max = Infinity
     } else if (typeof max !== 'number') {
@@ -265,26 +318,61 @@ function Yargs (processArgs, cwd, parentRequire) {
     }
 
     if (typeof keys === 'number') {
-      if (!options.demanded._) options.demanded._ = { count: 0, msg: null, max: max }
-      options.demanded._.count = keys
-      options.demanded._.msg = msg
+      self.demandCommand(keys, max, msg)
     } else if (Array.isArray(keys)) {
       keys.forEach(function (key) {
-        self.demand(key, msg)
+        self.demandOption(key, msg)
       })
     } else {
       if (typeof msg === 'string') {
-        options.demanded[keys] = { msg: msg }
+        self.demandOption(keys, msg)
       } else if (msg === true || typeof msg === 'undefined') {
-        options.demanded[keys] = { msg: undefined }
+        self.demandOption(keys)
       }
     }
 
     return self
   }
 
-  self.getDemanded = function () {
-    return options.demanded
+  self.demandOption = function (key, msg) {
+    if (Array.isArray(key)) {
+      key.forEach(function (key) {
+        self.demandOption(key, msg)
+      })
+    } else {
+      if (typeof msg === 'string') {
+        options.demandedOptions[key] = { msg: msg }
+      // allow edge-case of options: {a: {demand: true}, b: {demand: false}}
+      } else if (msg === true || typeof msg === 'undefined') {
+        options.demandedOptions[key] = { msg: undefined }
+      }
+    }
+
+    return self
+  }
+
+  self.demandCommand = function (min, max, minMsg, maxMsg) {
+    if (typeof max !== 'number') {
+      minMsg = max
+      max = Infinity
+    }
+
+    options.demandedCommands._ = {
+      min: min,
+      max: max,
+      minMsg: minMsg,
+      maxMsg: maxMsg
+    }
+
+    return self
+  }
+
+  self.getDemandedOptions = function () {
+    return options.demandedOptions
+  }
+
+  self.getDemandedCommands = function () {
+    return options.demandedCommands
   }
 
   self.requiresArg = function (requiresArgs) {
@@ -299,6 +387,11 @@ function Yargs (processArgs, cwd, parentRequire) {
 
   self.implies = function (key, value) {
     validation.implies(key, value)
+    return self
+  }
+
+  self.conflicts = function (key1, key2) {
+    validation.conflicts(key1, key2)
     return self
   }
 
@@ -331,7 +424,13 @@ function Yargs (processArgs, cwd, parentRequire) {
   }
 
   self.describe = function (key, desc) {
-    options.key[key] = true
+    if (typeof key === 'object') {
+      Object.keys(key).forEach(function (k) {
+        options.key[k] = true
+      })
+    } else {
+      options.key[key] = true
+    }
     usage.describe(key, desc)
     return self
   }
@@ -364,7 +463,8 @@ function Yargs (processArgs, cwd, parentRequire) {
     var obj = {}
     try {
       obj = readPkgUp.sync({
-        cwd: path || requireMainFilename(parentRequire || require)
+        cwd: path || require('require-main-filename')(parentRequire || require),
+        normalize: false
       })
     } catch (noop) {}
 
@@ -372,9 +472,39 @@ function Yargs (processArgs, cwd, parentRequire) {
     return pkgs[npath]
   }
 
-  self.parse = function (args, shortCircuit) {
+  var parseFn = null
+  var parseContext = null
+  self.parse = function (args, shortCircuit, _parseFn) {
+    // a context object can optionally be provided, this allows
+    // additional information to be passed to a command handler.
+    if (typeof shortCircuit === 'object') {
+      parseContext = shortCircuit
+      shortCircuit = _parseFn
+    }
+
+    // by providing a function as a second argument to
+    // parse you can capture output that would otherwise
+    // default to printing to stdout/stderr.
+    if (typeof shortCircuit === 'function') {
+      parseFn = shortCircuit
+      shortCircuit = null
+    }
+    // completion short-circuits the parsing process,
+    // skipping validation, etc.
     if (!shortCircuit) processArgs = args
-    return parseArgs(args, shortCircuit)
+
+    freeze()
+    if (parseFn) exitProcess = false
+
+    var parsed = parseArgs(args, shortCircuit)
+    if (parseFn) parseFn(exitError, parsed, output)
+    unfreeze()
+
+    return parsed
+  }
+
+  self._hasParseCallback = function () {
+    return !!parseFn
   }
 
   self.option = self.options = function (key, opt) {
@@ -383,7 +513,9 @@ function Yargs (processArgs, cwd, parentRequire) {
         self.options(k, key[k])
       })
     } else {
-      assert(typeof opt === 'object', 'second argument to option must be an object')
+      if (typeof opt !== 'object') {
+        opt = {}
+      }
 
       options.key[key] = true // track manually set keys.
 
@@ -393,37 +525,73 @@ function Yargs (processArgs, cwd, parentRequire) {
 
       if (demand) {
         self.demand(key, demand)
-      } if ('config' in opt) {
+      }
+
+      if ('demandOption' in opt) {
+        self.demandOption(key, opt.demandOption)
+      }
+
+      if ('config' in opt) {
         self.config(key, opt.configParser)
-      } if ('default' in opt) {
+      }
+
+      if ('default' in opt) {
         self.default(key, opt.default)
-      } if ('nargs' in opt) {
+      }
+
+      if ('nargs' in opt) {
         self.nargs(key, opt.nargs)
-      } if ('normalize' in opt) {
+      }
+
+      if ('normalize' in opt) {
         self.normalize(key)
-      } if ('choices' in opt) {
+      }
+
+      if ('choices' in opt) {
         self.choices(key, opt.choices)
-      } if ('group' in opt) {
+      }
+
+      if ('coerce' in opt) {
+        self.coerce(key, opt.coerce)
+      }
+
+      if ('group' in opt) {
         self.group(key, opt.group)
-      } if (opt.global) {
+      }
+
+      if (opt.global) {
         self.global(key)
-      } if (opt.boolean || opt.type === 'boolean') {
+      }
+
+      if (opt.boolean || opt.type === 'boolean') {
         self.boolean(key)
         if (opt.alias) self.boolean(opt.alias)
-      } if (opt.array || opt.type === 'array') {
+      }
+
+      if (opt.array || opt.type === 'array') {
         self.array(key)
         if (opt.alias) self.array(opt.alias)
-      } if (opt.number || opt.type === 'number') {
+      }
+
+      if (opt.number || opt.type === 'number') {
         self.number(key)
         if (opt.alias) self.number(opt.alias)
-      } if (opt.string || opt.type === 'string') {
+      }
+
+      if (opt.string || opt.type === 'string') {
         self.string(key)
         if (opt.alias) self.string(opt.alias)
-      } if (opt.count || opt.type === 'count') {
+      }
+
+      if (opt.count || opt.type === 'count') {
         self.count(key)
-      } if (opt.defaultDescription) {
+      }
+
+      if (opt.defaultDescription) {
         options.defaultDescription[key] = opt.defaultDescription
-      } if (opt.skipValidation) {
+      }
+
+      if (opt.skipValidation) {
         self.skipValidation(key)
       }
 
@@ -460,7 +628,7 @@ function Yargs (processArgs, cwd, parentRequire) {
   }
   self.getGroups = function () {
     // combine explicit and preserved groups. explicit groups should be first
-    return assign({}, groups, preservedGroups)
+    return assign(groups, preservedGroups)
   }
 
   // as long as options.envPrefix is not undefined,
@@ -520,12 +688,33 @@ function Yargs (processArgs, cwd, parentRequire) {
   }
 
   var helpOpt = null
-  self.addHelpOpt = self.help = function (opt, msg) {
-    opt = opt || 'help'
-    helpOpt = opt
-    self.boolean(opt)
-    self.global(opt)
-    self.describe(opt, msg || usage.deferY18nLookup('Show help'))
+  var useHelpOptAsCommand = false // a call to .help() will enable this
+  self.addHelpOpt = self.help = function (opt, msg, addImplicitCmd) {
+    // argument shuffle
+    if (arguments.length === 0) {
+      useHelpOptAsCommand = true
+    } else if (arguments.length === 1) {
+      if (typeof opt === 'boolean') {
+        useHelpOptAsCommand = opt
+        opt = null
+      } else {
+        useHelpOptAsCommand = true
+      }
+    } else if (arguments.length === 2) {
+      if (typeof msg === 'boolean') {
+        useHelpOptAsCommand = msg
+        msg = null
+      } else {
+        useHelpOptAsCommand = true
+      }
+    } else {
+      useHelpOptAsCommand = Boolean(addImplicitCmd)
+    }
+    // use arguments, fallback to defaults for opt and msg
+    helpOpt = opt || 'help'
+    self.boolean(helpOpt)
+    self.global(helpOpt)
+    self.describe(helpOpt, msg || usage.deferY18nLookup('Show help'))
     return self
   }
 
@@ -571,7 +760,7 @@ function Yargs (processArgs, cwd, parentRequire) {
 
   self.showCompletionScript = function ($0) {
     $0 = $0 || self.$0
-    console.log(completion.generateCompletionScript($0))
+    _logger.log(completion.generateCompletionScript($0))
     return self
   }
 
@@ -604,6 +793,49 @@ function Yargs (processArgs, cwd, parentRequire) {
     return detectLocale
   }
 
+  var hasOutput = false
+  var exitError = null
+  // maybe exit, always capture
+  // context about why we wanted to exit.
+  self.exit = function (code, err) {
+    hasOutput = true
+    exitError = err
+    if (exitProcess) process.exit(code)
+  }
+
+  // we use a custom logger that buffers output,
+  // so that we can print to non-CLIs, e.g., chat-bots.
+  var _logger = {
+    log: function () {
+      var args = Array.prototype.slice.call(arguments)
+      if (!self._hasParseCallback()) console.log.apply(console, args)
+      hasOutput = true
+      if (output.length) output += '\n'
+      output += args.join(' ')
+    },
+    error: function () {
+      var args = Array.prototype.slice.call(arguments)
+      if (!self._hasParseCallback()) console.error.apply(console, args)
+      hasOutput = true
+      if (output.length) output += '\n'
+      output += args.join(' ')
+    }
+  }
+  self._getLoggerInstance = function () {
+    return _logger
+  }
+  // has yargs output an error our help
+  // message in the current execution context.
+  self._hasOutput = function () {
+    return hasOutput
+  }
+
+  var recommendCommands
+  self.recommendCommands = function () {
+    recommendCommands = true
+    return self
+  }
+
   self.getUsageInstance = function () {
     return usage
   }
@@ -617,7 +849,7 @@ function Yargs (processArgs, cwd, parentRequire) {
   }
 
   self.terminalWidth = function () {
-    return require('window-size').width
+    return process.stdout.columns
   }
 
   Object.defineProperty(self, 'argv', {
@@ -637,9 +869,10 @@ function Yargs (processArgs, cwd, parentRequire) {
 
   function parseArgs (args, shortCircuit) {
     options.__ = y18n.__
-    options.configuration = pkgUp(cwd)['yargs'] || {}
+    options.configuration = pkgUp()['yargs'] || {}
     const parsed = Parser.detailed(args, options)
-    const argv = parsed.argv
+    var argv = parsed.argv
+    if (parseContext) argv = assign(parseContext, argv)
     var aliases = parsed.aliases
 
     argv.$0 = self.$0
@@ -654,22 +887,54 @@ function Yargs (processArgs, cwd, parentRequire) {
       return argv
     }
 
-    // if there's a handler associated with a
-    // command defer processing to it.
-    var handlerKeys = command.getCommands()
-    for (var i = 0, cmd; (cmd = argv._[i]) !== undefined; i++) {
-      if (~handlerKeys.indexOf(cmd) && cmd !== completionCommand) {
-        setPlaceholderKeys(argv)
-        return command.runCommand(cmd, self, parsed)
+    if (argv._.length) {
+      // check for helpOpt in argv._ before running commands
+      // assumes helpOpt must be valid if useHelpOptAsCommand is true
+      if (useHelpOptAsCommand) {
+        // consider any multi-char helpOpt alias as a valid help command
+        // unless all helpOpt aliases are single-char
+        // note that parsed.aliases is a normalized bidirectional map :)
+        var helpCmds = [helpOpt].concat(aliases[helpOpt])
+        var multiCharHelpCmds = helpCmds.filter(function (k) {
+          return k.length > 1
+        })
+        if (multiCharHelpCmds.length) helpCmds = multiCharHelpCmds
+        // look for and strip any helpCmds from argv._
+        argv._ = argv._.filter(function (cmd) {
+          if (~helpCmds.indexOf(cmd)) {
+            argv[helpOpt] = true
+            return false
+          }
+          return true
+        })
       }
-    }
 
-    // generate a completion script for adding to ~/.bashrc.
-    if (completionCommand && ~argv._.indexOf(completionCommand) && !argv[completion.completionKey]) {
-      if (exitProcess) setBlocking(true)
-      self.showCompletionScript()
-      if (exitProcess) {
-        process.exit(0)
+      // if there's a handler associated with a
+      // command defer processing to it.
+      var handlerKeys = command.getCommands()
+      if (handlerKeys.length) {
+        var firstUnknownCommand
+        for (var i = 0, cmd; (cmd = argv._[i]) !== undefined; i++) {
+          if (~handlerKeys.indexOf(cmd) && cmd !== completionCommand) {
+            setPlaceholderKeys(argv)
+            return command.runCommand(cmd, self, parsed)
+          } else if (!firstUnknownCommand && cmd !== completionCommand) {
+            firstUnknownCommand = cmd
+          }
+        }
+
+        // recommend a command if recommendCommands() has
+        // been enabled, and no commands were found to execute
+        if (recommendCommands && firstUnknownCommand) {
+          validation.recommendCommands(firstUnknownCommand, handlerKeys)
+        }
+      }
+
+      // generate a completion script for adding to ~/.bashrc.
+      if (completionCommand && ~argv._.indexOf(completionCommand) && !argv[completion.completionKey]) {
+        if (exitProcess) setBlocking(true)
+        self.showCompletionScript()
+        self.exit(0)
       }
     }
 
@@ -683,14 +948,12 @@ function Yargs (processArgs, cwd, parentRequire) {
       var completionArgs = args.slice(args.indexOf('--' + completion.completionKey) + 1)
       completion.getCompletion(completionArgs, function (completions) {
         ;(completions || []).forEach(function (completion) {
-          console.log(completion)
+          _logger.log(completion)
         })
 
-        if (exitProcess) {
-          process.exit(0)
-        }
+        self.exit(0)
       })
-      return
+      return setPlaceholderKeys(argv)
     }
 
     var skipValidation = false
@@ -702,24 +965,20 @@ function Yargs (processArgs, cwd, parentRequire) {
 
         skipValidation = true
         self.showHelp('log')
-        if (exitProcess) {
-          process.exit(0)
-        }
+        self.exit(0)
       } else if (key === versionOpt && argv[key]) {
         if (exitProcess) setBlocking(true)
 
         skipValidation = true
         usage.showVersion()
-        if (exitProcess) {
-          process.exit(0)
-        }
+        self.exit(0)
       }
     })
 
     // Check if any of the options to skip validation were provided
     if (!skipValidation && options.skipValidation.length > 0) {
       skipValidation = Object.keys(argv).some(function (key) {
-        return options.skipValidation.indexOf(key) >= 0
+        return options.skipValidation.indexOf(key) >= 0 && argv[key] === true
       })
     }
 
@@ -738,12 +997,11 @@ function Yargs (processArgs, cwd, parentRequire) {
         validation.customChecks(argv, aliases)
         validation.limitedChoices(argv)
         validation.implications(argv)
+        validation.conflicting(argv)
       }
     }
 
-    setPlaceholderKeys(argv)
-
-    return argv
+    return setPlaceholderKeys(argv)
   }
 
   function guessLocale () {
@@ -765,6 +1023,7 @@ function Yargs (processArgs, cwd, parentRequire) {
       if (~key.indexOf('.')) return
       if (typeof argv[key] === 'undefined') argv[key] = undefined
     })
+    return argv
   }
 
   return self

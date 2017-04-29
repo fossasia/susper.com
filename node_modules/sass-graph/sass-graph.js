@@ -16,18 +16,22 @@ function resolveSassPath(sassPath, loadPaths, extensions) {
   for (i = 0; i < length; i++) {
     for (j = 0; j < extensions.length; j++) {
       scssPath = path.normalize(loadPaths[i] + '/' + sassPathName + '.' + extensions[j]);
-      if (fs.existsSync(scssPath) && fs.lstatSync(scssPath).isFile()) {
-        return scssPath;
-      }
+      try {
+        if (fs.lstatSync(scssPath).isFile()) {
+          return scssPath;
+        }
+      } catch (e) {}
     }
 
     // special case for _partials
     for (j = 0; j < extensions.length; j++) {
       scssPath = path.normalize(loadPaths[i] + '/' + sassPathName + '.' + extensions[j]);
       partialPath = path.join(path.dirname(scssPath), '_' + path.basename(scssPath));
-      if (fs.existsSync(partialPath) && fs.lstatSync(partialPath).isFile()) {
-        return partialPath;
-      }
+      try {
+        if (fs.lstatSync(partialPath).isFile()) {
+          return partialPath;
+        }
+      } catch (e) {}
     }
   }
 
@@ -37,13 +41,16 @@ function resolveSassPath(sassPath, loadPaths, extensions) {
 
 function Graph(options, dir) {
   this.dir = dir;
-  this.loadPaths = options.loadPaths || [];
   this.extensions = options.extensions || [];
   this.index = {};
+  this.follow = options.follow || false;
+  this.loadPaths = _(options.loadPaths).map(function(p) {
+    return path.resolve(p);
+  }).value();
 
   if (dir) {
     var graph = this;
-    _.each(glob.sync(dir+'/**/*.@('+this.extensions.join('|')+')', { dot: true, nodir: true }), function(file) {
+    _.each(glob.sync(dir+'/**/*.@('+this.extensions.join('|')+')', { dot: true, nodir: true, follow: this.follow }), function(file) {
       graph.addFile(path.resolve(file));
     });
   }
@@ -58,7 +65,8 @@ Graph.prototype.addFile = function(filepath, parent) {
   };
 
   var resolvedParent;
-  var imports = parseImports(fs.readFileSync(filepath, 'utf-8'));
+  var isIndentedSyntax = path.extname(filepath) === '.sass';
+  var imports = parseImports(fs.readFileSync(filepath, 'utf-8'), isIndentedSyntax);
   var cwd = path.dirname(filepath);
 
   var i, length = imports.length, loadPaths, resolved;
@@ -126,7 +134,7 @@ Graph.prototype.visit = function(filepath, callback, edgeCallback, visited) {
 function processOptions(options) {
   return _.assign({
     loadPaths: [process.cwd()],
-    extensions: ['scss', 'css'],
+    extensions: ['scss', 'css', 'sass'],
   }, options);
 }
 

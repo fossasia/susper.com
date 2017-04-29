@@ -58,6 +58,20 @@ CoverageMap.prototype.merge = function (obj) {
     });
 };
 /**
+ * filter the coveragemap based on the callback provided
+ * @param {Function (filename)} callback - Returns true if the path
+ *  should be included in the coveragemap. False if it should be
+ *  removed.
+ */
+CoverageMap.prototype.filter = function (callback) {
+     var that = this;
+     Object.keys(that.data).forEach(function (k) {
+         if (!callback(k)) {
+             delete that.data[k];
+         }
+     });
+};
+/**
  * returns a JSON-serializable POJO for this coverage map
  * @returns {Object}
  */
