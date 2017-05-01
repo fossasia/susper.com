@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';
 import { Store } from '@ngrx/store';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-results',
@@ -23,9 +22,6 @@ export class ResultsComponent implements OnInit {
   begin: number;
   message: string;
   query: any;
-  hoverBox: boolean = false;
-  myUrl: any;
-  myUrlList: Array<any> = [];
   searchdata: any = {
     query: '',
     verify: false,
@@ -46,39 +42,30 @@ export class ResultsComponent implements OnInit {
     }
     return result;
   };
+  
   advancedsearch() {
   }
-  // display content on hover
-  // --------------------------------
-  overTitle() {
-    if (this.hoverBox === true) {
-      this.hoverBox = false;
-    } else {
-      this.hoverBox = true;
-    }
-  }
-  trachHero(index, item) {
-    console.log('item', item);
-    return item ? item.id : undefined;
-  }
-  // ---------------------------------
+
   getPresentPage(N) {
     this.presentPage = N;
     this.searchdata.start = (this.presentPage) * this.searchdata.rows;
     this.route.navigate(['/search'], { queryParams: this.searchdata });
-
   }
+
   filterByDate() {
     this.searchdata.sort = 'last_modified desc';
     this.route.navigate(['/search'], { queryParams: this.searchdata });
   }
+
   filterByContext() {
     delete this.searchdata.sort;
     this.route.navigate(['/search'], { queryParams: this.searchdata });
   }
+
   Display(S) {
     return (this.resultDisplay === S);
   }
+
   videoClick() {
     this.getPresentPage(0);
     this.resultDisplay = 'videos';
@@ -86,6 +73,7 @@ export class ResultsComponent implements OnInit {
     this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+gif)';
     this.route.navigate(['/search'], { queryParams: this.searchdata });
   }
+
   imageClick() {
     this.getPresentPage(0);
     this.resultDisplay = 'images';
@@ -93,6 +81,7 @@ export class ResultsComponent implements OnInit {
     this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
     this.route.navigate(['/search'], { queryParams: this.searchdata });
   }
+
   docClick() {
     this.getPresentPage(0);
     this.resultDisplay = 'all';
@@ -100,25 +89,28 @@ export class ResultsComponent implements OnInit {
     this.searchdata.rows = 10;
     this.route.navigate(['/search'], { queryParams: this.searchdata });
   }
+
   incPresentPage() {
     this.presentPage = Math.min(this.noOfPages, this.presentPage + 1);
     this.getPresentPage(this.presentPage);
-
   }
+
   decPresentPage() {
     this.presentPage = Math.max(1, this.presentPage - 1);
     this.getPresentPage(this.presentPage);
   }
+
   getStyle(page) {
     return ((this.presentPage) === page);
   }
-  constructor(private domsanitizer: DomSanitizer, private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
+
+  constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
     private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
 
     this.activatedroute.queryParams.subscribe(query => {
-      console.log(query);
+      
       if (query['fq']) {
-        console.log(query['fq']);
+
         if (query['fq'].includes('png')) {
           this.resultDisplay = 'images';
         } else if (query['fq'].includes('avi')) {
@@ -149,15 +141,8 @@ export class ResultsComponent implements OnInit {
         this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
       });
 
-      this.items$.subscribe(m => {
-
-      for (let i = 0; i < m.length; i++) {
-          this.myUrlList[i] = this.domsanitizer.bypassSecurityTrustResourceUrl(m[i].link);
-          console.log(this.myUrlList);
-        }
-      });
-
     });
+
     this.presentPage = 0;
   };
 
@@ -165,5 +150,4 @@ export class ResultsComponent implements OnInit {
     this.presentPage = 0;
 
   }
-
 }

@@ -17,11 +17,14 @@ import {reducer} from './reducers/index';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { AboutComponent } from './about/about.component';
 import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
+import { ContactComponent } from './contact/contact.component';
+import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
   {path: '', component: IndexComponent},
   {path: 'about', component: AboutComponent},
+  {path: 'contact', component: ContactComponent},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'},
 ];
@@ -35,7 +38,9 @@ const appRoutes: Routes = [
     AdvancedsearchComponent,
     SearchBarComponent,
     AboutComponent,
-    FooterNavbarComponent
+    FooterNavbarComponent,
+    ContactComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -46,6 +51,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     StoreModule.provideStore(reducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    Ng2Bs3ModalModule
 
   ],
   providers: [SearchService],

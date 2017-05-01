@@ -33,6 +33,26 @@
   padding-left: 60px;
 }
 
+.container-fluid{
+  position: relative;
+} 
+
+.container-fluid ul{
+  padding-top: 6px;
+  width: 685px;
+}
+
+.container-fluid li{
+  height: 15px;
+  line-height: 15px;
+  padding-top: 28px;
+}
+
+.container-fluid li a{
+  position: relative; 
+  left: -25px;
+}
+
 .dropdown-menu > li {
   font-size: small;
   padding: 5px;
@@ -53,6 +73,11 @@
   padding-left: 20px;
   background-color: #1c65ba;
   color: white;
+}
+
+#tools{
+  left: 140px;
+  position: relative;
 }
 
 .active_page {
@@ -259,20 +284,4 @@ img.res-img {
   #search-options li {
     padding: 0px 5.6% 12px;
   }
-}
-
-.box {
-  display: none;
-  width: 100%;
-  text-align: right;
-}
-
-a:hover + .box, .box:hover{
-  display:block;
-  position: absolute;
-  z-index:100;
-}
-
-iframe {
-  overflow-x: hidden;
 }
