@@ -1,0 +1,120 @@
+.banner {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: -10%;
+    overflow: hidden;
+}
+
+.image-banner {
+    position: relative;
+    height: 450px;
+    overflow: hidden;
+}
+
+.navbar-logo {
+    height: 30px;
+    padding-left: 20px;
+}
+
+.navbar-text {
+    padding-right: 30px;
+    font-size: 20px;
+}
+
+.text-center {
+    text-align: center;
+    font-family: "Quicksand", sans-serif;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+@media screen and (max-width:990px) {
+    .image-banner {
+        height: 190px;
+    }
+    .banner {
+        top: 0;
+    }
+}
+
+.about-navbar {
+    position: relative;
+    top: -5px;
+}
+
+.navbar {
+    margin-bottom: 0px !important;
+}
+
+.nav-about {
+    clear: both;
+    margin: -57px 0 0 0
+}
+
+.sub-details {
+    font-family: Roboto, sans-serif;
+    line-height: 1.4;
+    font-size: 14px;
+}
+
+.sub-details h5 {
+    font-family: Roboto, sans-serif;
+    line-height: 1.4;
+    font-size: 14px;
+    margin: 20px 0 20px 0;
+}
+
+.sub-details p {
+    font-family: Roboto, sans-serif;
+    line-height: 1.4;
+    font-size: 14px;
+    text-align: justify;
+}
+
+.about-sub-details {
+    padding: 20px 0 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.about-sub-details .row h2 {
+    font-family: "Quicksand", sans-serif;
+    padding: 5px 10px;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.contact-sub-details {
+    margin-bottom: 40px;
+    line-height: 12px;
+}
+.contact-sub-details p{
+    line-height: 20px;
+}
+.contact-sub-details .row h2 {
+    font-family: "Quicksand", sans-serif;
+    padding: 5px 10px;
+    font-weight: 500;
+    font-size: 24px;
+}
+.navbar-fixed-bottom, .navbar-fixed-top{
+    position: relative !important;
+}
+.contact-title{
+    border-bottom: 1px solid #eee;
+}
+.form-horizontal{
+    margin: 20px;
+}
+.sub-btn{
+    width: 100%;
+}
+.close-btn{
+    padding: 10px;
+    position: relative;
+    top:5px;
+}
