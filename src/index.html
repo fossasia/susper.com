@@ -13,6 +13,9 @@
   <!-- Latest compiled JavaScript -->
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+  <!--Javascripts for the default search engine setup in the browser-->
+  <script src="assets/scripts/default_firefox.js"></script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
@@ -27,28 +30,6 @@
   <button id="cancel-installation">Cancel</button>
 </div>
 -->
-<script>
-  $(document).ready(function(){
-    var isFirefox = typeof InstallTrigger !== 'undefined';
-    if(isFirefox === false){
-      $("#set-susper-default").remove();
-      $(".input-group-btn").addClass("align-search-btn");
-      $("#navbar-search").addClass("align-navsearch-btn");
-    }
-    if(window.external && window.external.IsSearchProviderInstalled){
-      var isInstalled = window.external.IsSearchProviderInstalled("http://susper.com");
-      if(!isInstalled){
-        $("#set-susper-default").show();
-      }
-    }
-    $("#install-susper").on("click", function(){
-      window.external.AddSearchProvider("http://susper.com/susper.xml");
-    });
-    $("#cancel-installation").on("click", function(){
-      $("#set-susper-default").remove();
-    });
-  });
-</script>
 <script>
   (function(){
     var redirect = sessionStorage.redirect;
