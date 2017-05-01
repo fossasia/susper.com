@@ -1,4 +1,4 @@
-/* istanbul ignore next */
+// File ignored in coverage tests via setting in .istanbul.yml
 /* Jison generated parser */
 var handlebars = (function(){
 var parser = {trace: function trace() { },
@@ -619,5 +619,4 @@ return lexer;})()
 parser.lexer = lexer;
 function Parser () { this.yy = {}; }Parser.prototype = parser;parser.Parser = Parser;
 return new Parser;
-})();exports.__esModule = true;
-exports['default'] = handlebars;
+})();export default handlebars;

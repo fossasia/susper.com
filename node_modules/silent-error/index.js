@@ -10,7 +10,7 @@ function SilentError(message) {
   this.message       = message;
   this.isSilentError = true;
 
-  if (process.env.EMBER_VERBOSE_ERRORS === 'true') {
+  if (process.env.SILENT_ERROR === 'verbose' || process.env.EMBER_VERBOSE_ERRORS === 'true') {
     this.stack = (new Error()).stack;
     this.suppressedStacktrace = false;
   } else {
