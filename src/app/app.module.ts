@@ -19,11 +19,13 @@ import { AboutComponent } from './about/about.component';
 import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
 import { ContactComponent } from './contact/contact.component';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { TermsComponent } from './terms/terms.component';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
   {path: '', component: IndexComponent},
   {path: 'about', component: AboutComponent},
+  {path: 'terms', component: TermsComponent},
   {path: 'contact', component: ContactComponent},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'},
@@ -39,7 +41,8 @@ const appRoutes: Routes = [
     SearchBarComponent,
     AboutComponent,
     FooterNavbarComponent,
-    ContactComponent
+    ContactComponent,
+    TermsComponent
     
   ],
   imports: [
