@@ -19,6 +19,8 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 import { AdvancedsearchComponent } from '../advancedsearch/advancedsearch.component';
 import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
 import { AboutComponent } from '../about/about.component';
+import { ContactComponent } from '../contact/contact.component';
+import { ModalComponent, Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -46,7 +48,9 @@ describe('SearchBarComponent', () => {
         AdvancedsearchComponent,
         SearchBarComponent,
         FooterNavbarComponent,
-        AboutComponent
+        AboutComponent,
+        ContactComponent,
+        ModalComponent
       ]
     })
       .compileComponents();

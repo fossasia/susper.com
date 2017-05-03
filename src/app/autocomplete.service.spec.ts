@@ -1,15 +1,14 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
-import { SearchService } from './search.service';
+import { TestBed, inject } from '@angular/core/testing';
+import { AutocompleteService } from './autocomplete.service';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('SearchService', () => {
+describe('AutocompleteService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      providers: [SearchService]
+      providers: [AutocompleteService]
     });
-  });
-
+  })
 });

@@ -22,12 +22,9 @@
             {{message}}
         </div>
         <div class="text-result" *ngIf="Display('all')">
-            <div *ngFor="let item of items$|async let i = index; trackBy: trachHero" class="result">
-                <div class="title" (mouseover)="overTitle()" (mouseleave)="overTitle()">
+            <div *ngFor="let item of items$|async" class="result">
+                <div class="title">
                     <a href="{{item.link}}">{{item.title}}</a>
-                    <div class="box">
-                        <iframe width="400px" height="400px" [src]="myUrlList[i]" scrolling="no"></iframe>
-                    </div>
                 </div>
                 <div class="link">
                     <p>{{item.link}}</p>
@@ -57,7 +54,7 @@
         </div>
         <br>
         <div class="pagination-property">
-            <nav aria-label="Page navigation">
+            <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
                 <ul class="pagination" id="pag-bar">
                     <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
                     <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link" *ngIf="presentPage>=4 && num<=noOfPages" [class.active_page]="getStyle(presentPage-3+num)"
@@ -73,3 +70,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <app-advancedsearch></app-advancedsearch>
 </div>
+<footer>
+    <!--footer navigation bar goes here-->
+    <app-footer-navbar></app-footer-navbar>
+</footer>
