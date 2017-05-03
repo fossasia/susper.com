@@ -14,11 +14,9 @@
 }
 
 .header{
-  display:inline-table;
+  display: inline-block;
   width: 60px;
   padding: 4%;
-  padding-left: 8%;
-  padding-right: 8%;
   text-align: center;
 }
 
@@ -29,7 +27,7 @@
 }
 
 .dropdown-menu{
-  width: 200px;
+  width: 100px;    
 }
 
 #navcontainer ul {
