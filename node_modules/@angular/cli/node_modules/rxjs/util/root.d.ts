@@ -3,4 +3,4 @@
  * self: browser in WebWorker
  * global: Node.js/other
  */
-export declare const root: any;
+export declare let root: any;

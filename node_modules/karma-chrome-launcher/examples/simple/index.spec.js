@@ -1,5 +1,7 @@
+/* eslint-env mocha */
+
 describe('ChromeLauncher', function () {
   it('works', function () {
-    1 + 1 === 2
+    return 1 + 1 === 2
   })
 })

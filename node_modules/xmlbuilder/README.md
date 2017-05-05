@@ -82,4 +82,4 @@ This will result in:
 </squares>
 ```
 
-See the [wiki](https://github.com/oozcitak/xmlbuilder-js/wiki) for details.
+See the [wiki](https://github.com/oozcitak/xmlbuilder-js/wiki) for details and [examples](https://github.com/oozcitak/xmlbuilder-js/wiki/Examples) for more complex examples.

@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented in this file. This project adheres to [Semantic Versioning](http://semver.org/#semantic-versioning-200).
 
+## [9.0.0] - 2017-05-05
+- Removed case conversion options.
+- Removed support for node.js 4.0 and 5.0. Minimum required version is now 6.0.
+- Fixed valid char filter to use XML 1.1 instead of 1.0. See
+[#147](https://github.com/oozcitak/xmlbuilder-js/issues/147).
+- Added options for negative indentation and suppressing pretty printing of text
+nodes. See
+[#145](https://github.com/oozcitak/xmlbuilder-js/issues/145).
+
 ## [8.2.2] - 2016-04-08
 - Falsy values can now be used as a text node in callback mode.
 

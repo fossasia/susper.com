@@ -1,7 +1,7 @@
 /**!
 
  @license
- handlebars v4.0.7
+ handlebars v4.0.8
 
 Copyright (C) 2011-2016 by Yehuda Katz
 
@@ -275,7 +275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _logger2 = _interopRequireDefault(_logger);
 
-	var VERSION = '4.0.7';
+	var VERSION = '4.0.8';
 	exports.VERSION = VERSION;
 	var COMPILER_REVISION = 7;
 
@@ -1296,7 +1296,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      options.data = _base.createFrame(options.data);
 	      // Wrapper function to get access to currentPartialBlock from the closure
 	      var fn = options.fn;
-	      partialBlock = options.data['partial-block'] = function partialBlockWrapper(context, options) {
+	      partialBlock = options.data['partial-block'] = function partialBlockWrapper(context) {
+	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
 	        // Restore the partial-block from the closure for the execution of the block
 	        // i.e. the part inside the block of the partial call.
 	        options.data = _base.createFrame(options.data);

@@ -40,6 +40,10 @@ var ChromeBrowser = function (baseBrowserDecorator, args) {
       '--disable-popup-blocking',
       '--disable-translate',
       '--disable-background-timer-throttling',
+      // on macOS, disable-background-timer-throttling is not enough
+      // and we need disable-renderer-backgrounding too
+      // see https://github.com/karma-runner/karma-chrome-launcher/issues/123
+      '--disable-renderer-backgrounding',
       '--disable-device-discovery-notifications'
     ].concat(flags, [url])
   }
@@ -71,6 +75,7 @@ var ChromiumBrowser = function (baseBrowserDecorator, args) {
   baseBrowserDecorator(this)
 
   var flags = args.flags || []
+  var userDataDir = args.chromeDataDir || this._tempDir
 
   this._getOptions = function (url) {
     // Chromium CLI options
@@ -82,7 +87,7 @@ var ChromiumBrowser = function (baseBrowserDecorator, args) {
     })
 
     return [
-      '--user-data-dir=' + this._tempDir,
+      '--user-data-dir=' + userDataDir,
       '--no-default-browser-check',
       '--no-first-run',
       '--disable-default-apps',
@@ -150,6 +155,32 @@ ChromeBrowser.prototype = {
   name: 'Chrome',
 
   DEFAULT_CMD: {
+    linux: getBin(['google-chrome', 'google-chrome-stable']),
+    darwin: getChromeDarwin('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'),
+    win32: getChromeExe('Chrome')
+  },
+  ENV_CMD: 'CHROME_BIN'
+}
+
+ChromeBrowser.$inject = ['baseBrowserDecorator', 'args']
+
+function headlessGetOptions (url, args, parent) {
+  return parent.call(this, url, args).concat(['--headless', '--disable-gpu', '--remote-debugging-port=9222'])
+}
+
+var ChromeHeadlessBrowser = function (baseBrowserDecorator, args) {
+  ChromeBrowser.apply(this, arguments)
+
+  var parentOptions = this._getOptions
+  this._getOptions = function (url) {
+    return headlessGetOptions.call(this, url, args, parentOptions)
+  }
+}
+
+ChromeHeadlessBrowser.prototype = {
+  name: 'ChromeHeadless',
+
+  DEFAULT_CMD: {
     // Try chromium-browser before chromium to avoid conflict with the legacy
     // chromium-bsu package previously known as 'chromium' in Debian and Ubuntu.
     linux: getBin(['google-chrome', 'google-chrome-stable']),
@@ -159,7 +190,7 @@ ChromeBrowser.prototype = {
   ENV_CMD: 'CHROME_BIN'
 }
 
-ChromeBrowser.$inject = ['baseBrowserDecorator', 'args']
+ChromeHeadlessBrowser.$inject = ['baseBrowserDecorator', 'args']
 
 function canaryGetOptions (url, args, parent) {
   // disable crankshaft optimizations, as it causes lot of memory leaks (as of Chrome 23.0)
@@ -197,6 +228,28 @@ ChromeCanaryBrowser.prototype = {
 }
 
 ChromeCanaryBrowser.$inject = ['baseBrowserDecorator', 'args']
+
+var ChromeCanaryHeadlessBrowser = function (baseBrowserDecorator, args) {
+  ChromeCanaryBrowser.apply(this, arguments)
+
+  var parentOptions = this._getOptions
+  this._getOptions = function (url) {
+    return headlessGetOptions.call(this, url, args, parentOptions)
+  }
+}
+
+ChromeCanaryHeadlessBrowser.prototype = {
+  name: 'ChromeCanaryHeadless',
+
+  DEFAULT_CMD: {
+    linux: getBin(['google-chrome-canary', 'google-chrome-unstable']),
+    darwin: getChromeDarwin('/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary'),
+    win32: getChromeExe('Chrome SxS')
+  },
+  ENV_CMD: 'CHROME_CANARY_BIN'
+}
+
+ChromeCanaryHeadlessBrowser.$inject = ['baseBrowserDecorator', 'args']
 
 ChromiumBrowser.prototype = {
   name: 'Chromium',
@@ -236,7 +289,9 @@ DartiumBrowser.$inject = ['baseBrowserDecorator', 'args']
 // PUBLISH DI MODULE
 module.exports = {
   'launcher:Chrome': ['type', ChromeBrowser],
+  'launcher:ChromeHeadless': ['type', ChromeHeadlessBrowser],
   'launcher:ChromeCanary': ['type', ChromeCanaryBrowser],
+  'launcher:ChromeCanaryHeadless': ['type', ChromeCanaryHeadlessBrowser],
   'launcher:Chromium': ['type', ChromiumBrowser],
   'launcher:Dartium': ['type', DartiumBrowser]
 }
@@ -244,5 +299,6 @@ module.exports = {
 module.exports.test = {
   isJSFlags: isJSFlags,
   sanitizeJSFlags: sanitizeJSFlags,
+  headlessGetOptions: headlessGetOptions,
   canaryGetOptions: canaryGetOptions
 }

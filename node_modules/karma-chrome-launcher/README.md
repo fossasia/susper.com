@@ -22,7 +22,7 @@ $ npm install karma-chrome-launcher --save-dev
 // karma.conf.js
 module.exports = function(config) {
   config.set({
-    browsers: ['Chrome', 'Chrome_without_security'], // You may use 'ChromeCanary' or 'Chromium' as well
+    browsers: ['Chrome', 'Chrome_without_security'], // You may use 'ChromeCanary', 'Chromium' or any other supported browser
 
     // you can define custom flags
     customLaunchers: {
@@ -53,6 +53,15 @@ You can pass list of browsers as a CLI argument too:
 ```bash
 $ karma start --browsers Chrome,Chrome_without_security
 ```
+
+### Available browsers
+
+- Chrome
+- ChromeCanary
+- Chromium
+- ChromeHeadless (only on Chrome >= 59)
+- ChromeCanaryHeadless (only on Chrome >= 59)
+- Dartium
 
 ----
 
