@@ -124,10 +124,12 @@ img.res-img {
 #search-options li {
   display: inline;
   cursor: pointer;
-  padding: 28px 20px 12px;
+  padding: 28px 16px 12px;
   color: #777;
   font-weight: 500;
   font-size: 13px;
+  line-height: 15px;
+  font-family: Arial, sans-serif;
 }
 
 #search-options li:hover {
@@ -137,7 +139,7 @@ img.res-img {
 #tools {
   text-decoration: none;
   color: #777;
-  margin-left: 23%;
+  margin-left: 27%;
 }
 
 #tools:hover {
