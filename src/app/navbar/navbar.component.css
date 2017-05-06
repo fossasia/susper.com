@@ -8,17 +8,20 @@
   height: 50px;
 }
 
+.top-nav{
+  margin-bottom: 0px;
+  margin-top: -5%;
+}
+
 .menu-drop-image{
   width: 25px;
   height: auto;
 }
 
 .header{
-  display:inline-table;
-  width: 60px;
+  display: inline-block;
+  width: 70px;
   padding: 4%;
-  padding-left: 8%;
-  padding-right: 8%;
   text-align: center;
 }
 
@@ -29,7 +32,7 @@
 }
 
 .dropdown-menu{
-  width: 200px;
+  width: 100px;    
 }
 
 #navcontainer ul {
