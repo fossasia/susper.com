@@ -1294,7 +1294,7 @@ exports = module.exports = __webpack_require__(23)(false);
 
 
 // module
-exports.push([module.i, ".fixed-bottom{\r\n    position: relative;\r\n    bottom: 0px;\r\n    margin: 0;\r\n}\r\n\r\na{\r\n\tfont-family: arial;\r\n\tfont-size: 16px;\r\n\t\r\n}\r\n", ""]);
+exports.push([module.i, "footer {\r\n  width: 100%;\r\n  background: #f2f2f2;\r\n  padding: 0px 14px;\r\n  border-top: 1px solid #e4e4e4;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;\r\n  -webkit-box-pack: justify;\r\n      -ms-flex-pack: justify;\r\n          justify-content: space-between;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  margin-top: 100px;\r\n}\r\n\r\ndiv a {\r\n  padding: 0px 6px;\r\n  color: #666;\r\n  font-size: small;\r\n  line-height: 40px;\r\n  text-decoration: none;\r\n}\r\n\r\n@media(max-width: 750px) {\r\n  footer{\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n  }\r\n  .left-side {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-wrap: wrap;\r\n        flex-wrap: wrap;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n  }\r\n  .right-side {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-wrap: wrap;\r\n        flex-wrap: wrap;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n  }\r\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -1443,7 +1443,7 @@ module.exports = "<!-- Start ignoring BootLintBear-->\n<link rel=\"stylesheet\" 
 /***/ 729:
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default footer navbar-fixed-bottom\" role=\"navigation\">\n  <div class=\"navbar-header\">\n    <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n                    <span class=\"icon-bar\"></span>\n                        <span class=\"icon-bar\"></span>\n                        <span class=\"icon-bar\"></span>\n                </button>\n  </div>\n  <div class=\"navbar-collapse collapse\">\n    <ul class=\"nav navbar-nav navbar-left\">\n      <li><a routerLink=\"/about\" routerLinkActive=\"active\">About</a></li>\n      <li><a href=\"//blog.fossasia.org\">Blogs</a></li>\n      <li><a href=\"//github.com/fossasia/susper.com\">Code</a></li>\n    </ul>\n    <ul class=\"nav navbar-nav navbar-right\">\n      <li><a href=\"/terms\">Terms</a></li>\n      <li><a href=\"/contact\">Contact</a></li>\n    </ul>\n  </div>\n</nav>\n"
+module.exports = "<footer>\n  <div class=\"left-side\">\n      <a routerLink=\"/about\" routerLinkActive=\"active\">About</a>\n      <a href=\"//blog.fossasia.org\">Blogs</a>\n      <a href=\"//github.com/fossasia/susper.com\">Code</a>\n  </div>\n  <div class=\"right-side\">\n      <a href=\"/terms\">Terms</a>\n      <a href=\"/contact\">Contact</a>\n  </div>\n</footer>\n\n"
 
 /***/ }),
 
