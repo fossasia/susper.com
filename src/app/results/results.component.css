@@ -1,17 +1,25 @@
 .result {
   padding-left: 60px;
-  padding-top: 30px;
+  padding-top: 18px;
 }
 
 .title >a {
-  color: darkblue;
+  color: #1a0dab;
   font-size: large;
   text-decoration: none;
+  font-family: Arial, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .link > p {
   color: #006621;
   text-decoration: none;
+  word-wrap: break-word;
+  font-size: 14px;
+  font-style: normal;
+  font-family: Arial, sans-serif;
 }
 
 .title >a:hover {
@@ -20,6 +28,9 @@
 
 .description {
   text-align: justify;
+  color: #808080;
+  line-height: 1.4;
+  word-wrap: break-word;
 }
 
 .page-link {
@@ -35,11 +46,10 @@
 
 .container-fluid{
   position: relative;
-} 
+}
 
 .container-fluid ul{
   padding-top: 6px;
-  width: 685px;
 }
 
 .container-fluid li{
@@ -49,13 +59,13 @@
 }
 
 .container-fluid li a{
-  position: relative; 
+  position: relative;
   left: -25px;
 }
 
 .dropdown-menu > li {
   font-size: small;
-  padding: 5px;
+  padding: 3px;
   text-align: center;
   text-decoration: none;
 }
@@ -124,10 +134,12 @@ img.res-img {
 #search-options li {
   display: inline;
   cursor: pointer;
-  padding: 28px 20px 12px;
+  padding: 28px 16px 12px;
   color: #777;
   font-weight: 500;
   font-size: 13px;
+  line-height: 15px;
+  font-family: Arial, sans-serif;
 }
 
 #search-options li:hover {
@@ -137,7 +149,7 @@ img.res-img {
 #tools {
   text-decoration: none;
   color: #777;
-  margin-left: 23%;
+  margin-left: 27%;
 }
 
 #tools:hover {
@@ -145,13 +157,15 @@ img.res-img {
 }
 
 .dropdown-menu {
-  min-width: 140px;
+  left:100%;
+
 }
 
 #tool-dropdown li {
   text-align: left;
   display: block;
-  padding: 4px 12px;
+  padding-top: 16px;
+  padding-bottom: 24px;
 }
 
 #pag-bar {
@@ -169,9 +183,9 @@ img.res-img {
        border: 0px ;
        font-size: 16px;
  }
- 
- .active_page{  
-       color: black; 
+
+ .active_page{
+       color: black;
  }
 
 .image-result {
@@ -284,4 +298,8 @@ img.res-img {
   #search-options li {
     padding: 0px 5.6% 12px;
   }
+}
+
+p {
+  padding-right: 500px;
 }
