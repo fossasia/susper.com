@@ -43,7 +43,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.store.dispatch(new query.QueryAction(event.target.value));
     this.submit();
   }
-  
+
   ngOnInit() {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
   }

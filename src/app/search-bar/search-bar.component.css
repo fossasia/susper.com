@@ -23,6 +23,8 @@
   border-radius: 0px;
   border: none;
   box-shadow: none;
+  padding-left: 16px;
+  font-family: Arial, sans-serif;
 }
 
 #nav-button{

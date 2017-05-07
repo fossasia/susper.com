@@ -1,11 +1,36 @@
-.fixed-bottom{
-    position: relative;
-    bottom: 0px;
-    margin: 0;
+footer {
+  width: 100%;
+  background: #f2f2f2;
+  padding: 0px 14px;
+  border-top: 1px solid #e4e4e4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0px;
 }
 
-a{
-	font-family: arial;
-	font-size: 16px;
-	
+div a {
+  padding: 0px 6px;
+  color: #666;
+  font-size: small;
+  line-height: 40px;
+  text-decoration: none;
 }
+
+@media(max-width: 750px) {
+  footer{
+    justify-content: center;
+  }
+  .left-side {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .right-side {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+

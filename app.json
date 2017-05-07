@@ -1,0 +1,22 @@
+{
+
+  "name": "susper.com-1",
+  "scripts": {
+    "postdeploy": "ng build --prod --aot --base-href=/susper.com/ && cp ./dist/index.html ./dist/404.html && ./node_modules/.bin/angular-cli-ghpages --no-silent"
+  },
+  "env": {
+     "LANG": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
