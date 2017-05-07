@@ -1,17 +1,25 @@
 .result {
   padding-left: 60px;
-  padding-top: 30px;
+  padding-top: 18px;
 }
 
 .title >a {
-  color: darkblue;
+  color: #1a0dab;
   font-size: large;
   text-decoration: none;
+  font-family: Arial, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .link > p {
   color: #006621;
   text-decoration: none;
+  word-wrap: break-word;
+  font-size: 14px;
+  font-style: normal;
+  font-family: Arial, sans-serif;
 }
 
 .title >a:hover {
@@ -20,6 +28,9 @@
 
 .description {
   text-align: justify;
+  color: #808080;
+  line-height: 1.4;
+  word-wrap: break-word;
 }
 
 .page-link {
@@ -284,4 +295,8 @@ img.res-img {
   #search-options li {
     padding: 0px 5.6% 12px;
   }
+}
+
+p {
+  padding-right: 500px;
 }
