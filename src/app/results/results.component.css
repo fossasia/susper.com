@@ -46,11 +46,10 @@
 
 .container-fluid{
   position: relative;
-} 
+}
 
 .container-fluid ul{
   padding-top: 6px;
-  width: 685px;
 }
 
 .container-fluid li{
@@ -60,13 +59,13 @@
 }
 
 .container-fluid li a{
-  position: relative; 
+  position: relative;
   left: -25px;
 }
 
 .dropdown-menu > li {
   font-size: small;
-  padding: 5px;
+  padding: 3px;
   text-align: center;
   text-decoration: none;
 }
@@ -158,13 +157,15 @@ img.res-img {
 }
 
 .dropdown-menu {
-  min-width: 140px;
+  left:100%;
+
 }
 
 #tool-dropdown li {
   text-align: left;
   display: block;
-  padding: 4px 12px;
+  padding-top: 16px;
+  padding-bottom: 24px;
 }
 
 #pag-bar {
@@ -182,9 +183,9 @@ img.res-img {
        border: 0px ;
        font-size: 16px;
  }
- 
- .active_page{  
-       color: black; 
+
+ .active_page{
+       color: black;
  }
 
 .image-result {
