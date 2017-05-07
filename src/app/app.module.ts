@@ -43,7 +43,6 @@ const appRoutes: Routes = [
     FooterNavbarComponent,
     ContactComponent,
     TermsComponent
-    
   ],
   imports: [
     BrowserModule,
