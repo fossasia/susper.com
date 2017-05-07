@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Http, URLSearchParams, Jsonp, Response} from '@angular/http';
-
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import {Store} from '@ngrx/store';
+import * as fromRoot from './reducers';
+import * as search from './actions/search';
+
 @Injectable()
 export class SearchService {
   server = 'yacy.searchlab.eu';
@@ -14,7 +17,7 @@ export class SearchService {
   headline: string;
   greeting: string;
   queryplaceholder: string;
-  constructor(private http: Http, private jsonp: Jsonp) {
+  constructor(private http: Http, private jsonp: Jsonp, private store: Store<fromRoot.State>) {
   }
   getsearchresults(searchquery) {
     let params = new URLSearchParams();
@@ -34,9 +37,9 @@ export class SearchService {
     params.append('facet.field', 'author_sxt');
     params.append('facet.field', 'collection_sxt');
     return this.jsonp
-      .get('http://yacy.searchlab.eu/solr/select', {search: params}).map(res => {
-        console.log(res.json()[0].channels[0].items);
-        return res;
+      .get('http://yacy.searchlab.eu/solr/select', {search: params}).subscribe(res => {
+        this.store.dispatch(new search.SearchAction(res.json()[0]));
+
       });
 
   }

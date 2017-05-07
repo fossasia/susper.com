@@ -1,0 +1,31 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <!-- Start ignoring HTMLLintBear -->
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <!-- Stop ignoring HTMLLintBear -->
+      <h4 class="modal-title" id="my-modal-label">Advanced Search</h4>
+    </div>
+    <div class="modal-body">
+      <div id="filtersearch" *ngFor="let nav of navigation$|async">
+        <ul class="nav nav-sidebar menugroup">
+          <li style="cursor:pointer;cursor: hand;" data-toggle="collapse" [attr.data-target]="'#'+nav.facetname">
+              <h3>{{nav.displayname}}</h3></li>
+          <li style="display: block" *ngFor="let element of nav.elements">
+            <a (click)="changeurl(element.modifier)" class="menu-item-link">
+              <input type="checkbox">{{element.name}}  {{element.count}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary" data-dismiss="modal">Search</button>
+    </div>
+  </div>
+</div>
+
+
+<div id="sidebar" class="col-md-3">
+</div>

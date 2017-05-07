@@ -1,21 +1,23 @@
 <div class="container-fluid">
-  <div class="starter-template">
-
-    <h2 class="yacy"><a href="http://yacy.net" class="yacylogo" id="homepage"><img src="assets/images/susper.svg"
-                                                                                   alt="YaCy" id="biglogo"
-                                                                                   style="margin: auto;"/></a></h2>
-    <h2 class="yacy" id="greeting"></h2>
-    <form class="search form-inline" id="searchform">
-      <fieldset class="maininput">
-        <div class="input-group">
-          <input name="query" id="search" type="text" size="40" maxlength="80" value="" autofocus="autofocus"
-                 onFocus="this.select()" placeholder="Search susper" class="form-control searchinput typeahead"
-                 [(ngModel)]="searchdata.query"/>
-          <div class="input-group-btn">
-            <button id="Enter" name="Enter" (click)="submit()" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-          </div>
+    <div class="starter-template">
+        <h2 class="yacy">
+            <img src="assets/images/susper.svg" alt="YaCy" id="biglogo" style="margin: auto;"></h2>
+        <h2 class="yacy" id="greeting"></h2>
+        <div id="set-susper-default">
+            <h3>Set Susper as your default search engine on Mozilla!</h3>
+            <ol>
+                <!-- Start ignoring BootLintBear -->
+                <li><button id="install-susper">Install susper</button></li>
+                <li>Mark the checkbox to set Susper as your default search engine</li>
+                <li>Start searching!</li>
+            </ol>
+            <button id="cancel-installation">Cancel</button>
         </div>
-      </fieldset>
-    </form>
-  </div>
-</div>
+        <!-- Stop ignoring BootLintBear -->
+        <div id="search-bar">
+            <app-search-bar></app-search-bar>
+        </div>
+            <!--footer navigation bar goes here-->
+        <app-footer-navbar></app-footer-navbar>
+
+    </div>

@@ -18,7 +18,7 @@
     "label-position": true,
     "max-line-length": [
       true,
-      140
+      300
     ],
     "member-access": false,
     "member-ordering": [
@@ -41,10 +41,9 @@
     "no-duplicate-variable": true,
     "no-empty": false,
     "no-eval": true,
-    "no-inferrable-types": true,
     "no-shadowed-variable": true,
     "no-string-literal": false,
-    "no-switch-case-fall-through": true,
+    "no-switch-case-fall-through": false,
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
     "no-use-before-declare": true,

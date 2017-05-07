@@ -1,11 +1,109 @@
-#nav-input{
-  width: 550px;
-  height: 40px;
-  border-radius: 0px;
+.navbar-brand{
+    width: 140px;
+    height: auto;
 }
-#nav-button{
-  border-radius: 0px;
-  height: 40px;
-  background-color: #0066ff;
-  color: white;
+
+.menu-image{
+  width: 60px;
+  height: 50px;
+}
+
+.top-nav{
+  margin-bottom: 0px;
+  margin-top: -5%;
+}
+
+.menu-drop-image{
+  width: 25px;
+  height: auto;
+}
+
+.header{
+  display: inline-block;
+  width: 70px;
+  padding: 4%;
+  text-align: center;
+}
+
+.header-text{
+  font-size: small;
+  width: inherit;
+  text-align: center;
+}
+
+.dropdown-menu{
+  width: 100px;    
+}
+
+#navcontainer ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+@media screen and (min-width:1920px) {
+  .navbar-brand{
+      width: 170px;
+      height: auto;
+  }
+}
+
+@media screen and (min-width:768px) {
+  #navcontainer ul li {
+    display: inline;
+  }
+
+  #navcontainer, #side-menu {
+    margin-top: 8px;
+  }
+}
+
+@media screen and (max-width:1079px) {
+  .navbar-brand{
+      margin-top: 2px;
+      width: 130px;
+  }
+}
+
+@media screen and (max-width:767px) {
+  .navbar-brand{
+      margin-left: 38%;
+      height: auto;
+  }
+  #navbar-search {
+    margin-left: 7%;
+    margin-right: 8%;
+  }
+  .align-navsearch-btn {
+    margin-right: 1% !important;
+  }
+}
+
+@media screen and (max-width:639px) {
+  .align-navsearch-btn {
+    margin-right: 2% !important;
+  }
+}
+
+@media screen and (max-width:479px) {
+  .navbar-brand{
+      margin-left: 33%;
+  }
+  #navbar-search {
+    margin-left: 5%;
+    margin-right: 9%;
+  }
+  .align-navsearch-btn {
+    margin-right: 3% !important;
+  }
+}
+
+@media screen and (max-width:359px) {
+  .navbar-brand{
+      margin-left: 30%;
+  }
+}
+
+.fa {
+  color: #808080;
 }

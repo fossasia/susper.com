@@ -2,4 +2,79 @@
   margin-top: 10%;
 }
 
+#search-bar{
+  position: absolute;
+  left: 27%;
+}
 
+@media screen and (min-width: 1920px) {
+  #search-bar{
+    left: 28%;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  #search-bar{
+    left: 20%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #search-bar{
+    left: 6%;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  #search-bar{
+    left: 5%;
+  }
+}
+
+@media screen and (max-width: 359px) {
+  #search-bar{
+    left: 4%;
+  }
+}
+
+#set-susper-default{
+  display:none;
+}
+
+@media screen and (max-width: 480px) {
+  #set-susper-default h3{
+    font-size: 14px;
+  }
+  #set-susper-default ol{
+    font-size: 12px;
+  }
+  #install-susper{
+    font-size: 12px;
+  }
+  #cancel-installation{
+    font-size: 12px;
+  }
+}
+
+.navbar-fixed-bottom{
+  z-index: -1;
+}
+
+.navbar-brand
+{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin:0 auto;
+}
+
+.navbar-toggle {
+    z-index:3;
+}
+footer{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width:100%;
+}

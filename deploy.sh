@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE_BRANCH="angular"
+SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
 # Pull requests and commits to other branches shouldn't try to deploy.
@@ -45,6 +45,9 @@ git checkout $SOURCE_BRANCH
 # Actual building and setup of current push or PR.
 npm install
 ng build
+mv susper.xml dist/
+mv 404.html dist/
+
 git checkout $TARGET_BRANCH
 mv dist/* .
 

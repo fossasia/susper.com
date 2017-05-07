@@ -9,10 +9,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   searchdata = {
-    query : '',
+    query: '',
     verify: false,
     nav: 'filetype,protocol,hosts,authors,collections,namespace,topics,date',
-    startRecord: 0,
+    start: 0,
     indexof: 'off',
     meanCount: '5',
     resource: 'global',
@@ -27,7 +27,8 @@ export class NavbarComponent implements OnInit {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
   }
   submit() {
-    this.router.navigate(['/search', this.searchdata]);
+    this.router.navigate(['/search'], {queryParams: this.searchdata});
   }
 
 }
+

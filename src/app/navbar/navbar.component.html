@@ -1,43 +1,63 @@
-<nav class="navbar navbar-fixed-top navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <img class="navbar-brand" src="assets/images/susper.svg">
-
-    </div>
-
-    <div class="navbar-collapse collapse">
-      <form class="navbar-form navbar-left">
-        <div class="input-group" id="nav-group">
-          <input type="text" name="query" class="form-control" id="nav-input" placeholder="Search" [(ngModel)]="searchdata.query">
-          <div class="input-group-btn">
-            <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()">
-              <i class="glyphicon glyphicon-search"></i>
-            </button>
-          </div>
+<nav class="top-nav navbar navbar-static-top navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header" id="navcontainer">
+            <ul>
+                <li>
+                    <a href="/">
+                        <img class="navbar-brand" src="assets/images/susper.svg">
+                    </a>
+                </li>
+                <li id="navbar-search">
+                    <app-search-bar></app-search-bar>
+                </li>
+            </ul>
         </div>
-      </form>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li id="header_help" class="dropdown">
-          <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span
-            class="glyphicon glyphicon-question-sign"></span></a>
-          <ul class="dropdown-menu">
-            <li id="header_profile"><a href="yacysearch/about.html">About This Page</a></li>
-            <li id="header_tutorial"><a href="http://yacy.net/tutorials/">YaCy Tutorials</a></li>
-            <li class="divider"></li>
-            <li id="header_download"><a href="http://yacy.net" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Download
-              YaCy</a></li>
-            <li id="header_community"><a href="http://forum.yacy.de" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Community
-              (Web Forums)</a></li>
-            <li id="header_wiki"><a href="http://wiki.yacy.de" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Project
-              Wiki</a></li>
-            <li id="header_git"><a href="https://github.com/yacy/yacy_search_server/commits/master" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Git
-              Repository</a></li>
-            <li id="header_bugs"><a href="http://bugs.yacy.net" target="_blank"><i>external</i>&nbsp;&nbsp;&nbsp;Bugtracker</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
+        <div class="navbar-collapse collapse" style="display:none" id="side-menu">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle" data-proofer-ignore><i class="fa fa-bars" aria-hidden="true" style="font-size: 2em"></i></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="header" id="header-download">
+                                <a href="//blog.fossasia.org" target="_blank">
+                                    <i class="fa fa-newspaper-o" aria-hidden="true" style="font-size: 2em" id="blog-icon"></i>
+                                    <p class="header-text">Blog</p>
+                                </a>
+                            </div>
+                            <div class="header" id="header-code">
+                                <a href="//github.com/fossasia/susper.com" target="_blank">
+                                    <i class="fa fa-code" aria-hidden="true" style="font-size: 2em" id="code-icon"></i>
+                                    <p class="header-text">Code</p>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="header" id="header-git">
+                                <a href="//github.com/fossasia/susper.com" target="_blank">
+                                    <i class="fa fa-github" aria-hidden="true" style="font-size: 2em" id="github-icon"></i>
+                                </a>
+                                <p class="header-text">Github</p>
+                            </div>
+                            <div class="header" id="header-bugs">
+                                <a href="//github.com/fossasia/susper.com/issues" target="_blank">
+                                    <i class="fa fa-bug" aria-hidden="true" style="font-size: 2em" id="bug-icon"></i>
+                                </a>
+                                <p class="header-text">Bug Reports</p>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
+
+<script>
+    $(document).ready(function () {
+        var isFirefox = typeof InstallTrigger !== 'undefined';
+        if (isFirefox === false) {
+            $("#navbar-search").addClass("align-navsearch-btn");
+        }
+    }
+</script>
