@@ -10,7 +10,7 @@ import * as search from './actions/search';
 import * as fromRoot from './reducers';
 
 @Injectable()
-export class AutocompleteService {
+export class AutocompleteService implements OnInit {
   server = 'yacy.searchlab.eu';
   suggestUrl = 'http://' + this.server + '/suggest.json?callback=?';
   data: Observable<any>;
@@ -37,11 +37,11 @@ export class AutocompleteService {
   ngOnInit(): void {
     this.data = this.searchTerms
       .debounceTime(300) // pause in events
-      .distinctUntilChanged() // ignore if search term not changed 
+      .distinctUntilChanged() // ignore if search term not changed
       .switchMap(term => term // switch to new observable each time
         // http service to retrieve data
         ? this.searchService.search(term)
         : Observable.of<any>([])
-      )
+      );
   }
 }
