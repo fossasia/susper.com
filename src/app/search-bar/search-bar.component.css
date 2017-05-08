@@ -2,7 +2,8 @@
   background-color: white;
   width: 584px;
   color: black;
-  height: 44px;
+  height: 8px;
+  top:3px;
   border-radius: 0px;
   border: none;
   border-style: solid;
@@ -34,12 +35,9 @@
   border: none;
 }
 
-#nav-group{
-  top:3px;
-}
-
 .navbar-form{
   border-color: transparent !important;
+  padding-left: .5%;
 }
 
 @media screen and (min-width:1920px) {
