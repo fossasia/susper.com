@@ -50,6 +50,7 @@
             </div>
         </div>
         <br>
+        <div class="clean"></div>
         <div class="pagination-property">
             <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
                 <ul class="pagination" id="pag-bar">
@@ -67,7 +68,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <app-advancedsearch></app-advancedsearch>
 </div>
-<footer>
-    <!--footer navigation bar goes here-->
-    <app-footer-navbar></app-footer-navbar>
-</footer>
+
+<!--footer navigation bar goes here-->
+<app-footer-navbar></app-footer-navbar>
+
