@@ -96,6 +96,7 @@
 
 .active_view {
   color: #4285f4 !important;
+  font-weight: 900 !important;
   border-bottom: 3px solid #4285f4;
 }
 
@@ -113,8 +114,8 @@ img.res-img {
 }
 
 #search-options {
-  margin-top: 2.2%;
-  margin-left: 9%;
+  margin-top: 0.5%;
+  margin-left: 8.5%;
 }
 
 #search-tools {
@@ -204,7 +205,7 @@ img.res-img {
 
 @media screen and (max-width:1365px) {
   #tools {
-    margin-left: 21.5%;
+    margin-left: 16%;
   }
 }
 
@@ -213,13 +214,13 @@ img.res-img {
     margin-left: 11%;
   }
   #tools {
-    margin-left: 17%;
+    margin-left: 14%;
   }
 }
 
 @media screen and (max-width:991px) {
   #tools {
-    margin-left: 26%;
+    margin-left: 20%;
   }
 }
 
@@ -228,17 +229,17 @@ img.res-img {
     margin-left: 12.5%;
   }
   #tools {
-    margin-left: 18%;
+    margin-left: 19%;
   }
 }
 
 @media screen and (max-width:767px) {
   .result {
-    padding-left: 50px;
+    padding-left: 46px;
     padding-right: 30px;
   }
   #progress-bar {
-    padding-left: 50px;
+    padding-left: 46px;
     margin-bottom: -10px;
   }
   #search-options {
@@ -303,3 +304,4 @@ img.res-img {
 p {
   padding-right: 500px;
 }
+
