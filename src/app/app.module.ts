@@ -20,6 +20,8 @@ import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
 import { ContactComponent } from './contact/contact.component';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { TermsComponent } from './terms/terms.component';
+import { NgBoxModule } from 'ngbox/ngbox.module';
+import { NgBoxService } from 'ngbox/ngbox.service';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -53,10 +55,11 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     StoreModule.provideStore(reducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    Ng2Bs3ModalModule
+    Ng2Bs3ModalModule,
+    NgBoxModule
 
   ],
-  providers: [SearchService],
+  providers: [SearchService, NgBoxService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
