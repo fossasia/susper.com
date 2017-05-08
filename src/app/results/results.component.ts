@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';
 import { Store } from '@ngrx/store';
-
+import * as queryactions from '../actions/query';
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -122,6 +122,7 @@ export class ResultsComponent implements OnInit {
 
       this.presentPage = query['start'] / this.searchdata.rows;
       this.searchdata.query = query['query'];
+      this.store.dispatch(new queryactions.QueryAction(query['query']));
       this.querylook = Object.assign({}, query);
       this.searchdata.sort = query['sort'];
       this.begin = Number(query['start']) + 1;
