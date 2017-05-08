@@ -17,13 +17,25 @@
   }
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 11360px) {
+  #search-bar{
+    left: 24%;
+  }
+}
+
+@media screen and (max-width: 1040px) {
   #search-bar{
     left: 20%;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 908px) {
+  #search-bar{
+    left: 16%;
+  }
+}
+
+@media screen and (max-width: 753px) {
   #search-bar{
     left: 6%;
   }
