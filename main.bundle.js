@@ -565,7 +565,7 @@ var ContactComponent = (function () {
         else {
             this.submitButton.nativeElement.disabled = true;
         }
-    }; //End checkWordCount() 
+    }; // End checkWordCount()
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('submitButton'), 
         __metadata('design:type', Object)
