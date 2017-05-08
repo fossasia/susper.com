@@ -42,7 +42,6 @@ export class ResultsComponent implements OnInit {
     }
     return result;
   };
-
   advancedsearch() {
   }
 
@@ -108,7 +107,6 @@ export class ResultsComponent implements OnInit {
     private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
 
     this.activatedroute.queryParams.subscribe(query => {
-
       if (query['fq']) {
 
         if (query['fq'].includes('png')) {
