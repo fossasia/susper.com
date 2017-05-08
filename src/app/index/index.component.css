@@ -6,7 +6,11 @@
   position: absolute;
   left: 27%;
 }
-
+.footer-fixed{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
 @media screen and (min-width: 1920px) {
   #search-bar{
     left: 28%;
