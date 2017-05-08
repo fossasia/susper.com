@@ -10,5 +10,5 @@ describe('AutocompleteService', () => {
       imports: [RouterTestingModule],
       providers: [AutocompleteService]
     });
-  })
+  });
 });

@@ -34,8 +34,7 @@ describe('AppComponent', () => {
         JsonpModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    
-      ],
+    ],
       declarations: [
         AppComponent,
         NavbarComponent,
