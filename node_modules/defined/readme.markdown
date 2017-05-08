@@ -2,6 +2,8 @@
 
 return the first argument that is `!== undefined`
 
+[![browser support](http://ci.testling.com/substack/defined.png)](http://ci.testling.com/substack/defined)
+
 [![build status](https://secure.travis-ci.org/substack/defined.png)](http://travis-ci.org/substack/defined)
 
 Most of the time when I chain together `||`s, I actually just want the first
