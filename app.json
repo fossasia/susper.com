@@ -1,10 +1,11 @@
 {
-  "name": "susper.com",
-  "description": "Frontend for Susper",
+
+  "name": "susper.com-1",
   "scripts": {
+
   },
   "env": {
-    "LANG": {
+     "LANG": {
       "required": true
     }
   },
