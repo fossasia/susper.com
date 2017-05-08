@@ -7,17 +7,32 @@
       <h4 class="modal-title" id="my-modal-label">Advanced Search</h4>
     </div>
     <div class="modal-body">
+      <div >
+        <ul class="nav nav-sidebar menugroup">
+          <li style="cursor:pointer;cursor: hand;" data-toggle="collapse" >
+            <h3>selected</h3></li>
+          <li style="display: block" *ngFor="let element of selectedelements">
+            <a (click)="removeurl(element.modifier)" class="menu-item-link">
+              <input type="checkbox" checked>{{element.name}}  {{element.count}}
+            </a>
+          </li>
+
+        </ul>
+      </div>
+
       <div id="filtersearch" *ngFor="let nav of navigation$|async">
         <ul class="nav nav-sidebar menugroup">
           <li style="cursor:pointer;cursor: hand;" data-toggle="collapse" [attr.data-target]="'#'+nav.facetname">
               <h3>{{nav.displayname}}</h3></li>
           <li style="display: block" *ngFor="let element of nav.elements">
-            <a (click)="changeurl(element.modifier)" class="menu-item-link">
+            <a (click)="changeurl(element.modifier,element)" class="menu-item-link">
               <input type="checkbox">{{element.name}}  {{element.count}}
             </a>
           </li>
+
         </ul>
       </div>
+
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
