@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { RouterModule, Router, NavigationEnd } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Susper';
   constructor(private router: Router) { }
   ngOnInit() {
@@ -14,7 +14,7 @@ export class AppComponent {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
     });
   }
 }
