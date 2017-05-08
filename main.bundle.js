@@ -1458,7 +1458,7 @@ module.exports = "<!-- Start ignoring BootLintBear-->\n<link rel=\"stylesheet\" 
 /***/ 729:
 /***/ (function(module, exports) {
 
-module.exports = "<footer>\n    <div class=\"footer-bar\">\n        <div class=\"left-side\">\n            <a routerLink=\"/about\" routerLinkActive=\"active\">About</a>\n            <a href=\"//blog.fossasia.org\">Blogs</a>\n            <a href=\"//github.com/fossasia/susper.com\">Code</a>\n        </div>\n        <div class=\"right-side\">\n            <a href=\"/terms\">Terms</a>\n            <a href=\"/contact\">Contact</a>\n        </div>\n    </div>\n</footer>"
+module.exports = "<footer>\n    <div class=\"footer-bar\">\n        <div class=\"left-side\">\n            <a routerLink=\"/about\" routerLinkActive=\"active\">About</a>\n            <a href=\"//blog.fossasia.org\">Blogs</a>\n            <a href=\"//github.com/fossasia/susper.com\">Code</a>\n        </div>\n        <div class=\"right-side\">\n            <a routerLink=\"/terms\" routerLinkActive=\"active\">Terms</a>\n            <a routerLink=\"/contact\" routerLinkActive=\"active\">Contact</a>\n        </div>\n    </div>\n</footer>\n"
 
 /***/ }),
 
