@@ -84,3 +84,43 @@
     left: -5%;
   }
 }
+
+@media screen and (min-width: 1920px) {
+  #nav-group {
+    left: 65%;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  #nav-group {
+    left: -12%;
+  }
+  #nav-input {
+    width: 50vw;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #nav-group {
+    left: -22%;
+    width: 20px;
+  }
+  #nav-input {
+    width: 80vw;
+  }
+}
+
+@media screen and (max-width: 503px) {
+  #nav-group {
+    width: 5px;
+  }
+  #nav-input {
+    width: 80vw;
+  }
+}
+
+@media screen and (max-width: 359px) {
+  #nav-input {
+    width: 80vw;
+  }
+}
