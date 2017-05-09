@@ -26,7 +26,6 @@
   box-shadow: none;
   padding-left: 16px;
   font-family: Arial, sans-serif;
-  z-index: -1;
 }
 
 #nav-button{
@@ -36,7 +35,6 @@
   color: #0066ff;
   box-shadow: none;
   border: none;
-  z-index: -1;
 }
 
 #nav-group{
