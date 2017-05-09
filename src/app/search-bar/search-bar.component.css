@@ -2,7 +2,8 @@
   background-color: white;
   width: 584px;
   color: black;
-  height: 44px;
+  height: 8px;
+  top: 3px;
   border-radius: 0px;
   border: none;
   border-style: solid;
@@ -23,6 +24,8 @@
   border-radius: 0px;
   border: none;
   box-shadow: none;
+  padding-left: 16px;
+  font-family: Arial, sans-serif;
 }
 
 #nav-button{

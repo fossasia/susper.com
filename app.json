@@ -1,0 +1,22 @@
+{
+
+  "name": "susper.com-1",
+  "scripts": {
+
+  },
+  "env": {
+     "LANG": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
