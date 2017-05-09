@@ -1,3 +1,9 @@
+@media screen and (max-width:990px) {
+    .navbar-collapse.navbar-right {
+        text-align: right;
+    }
+}
+
 .banner {
     width: 100%;
     position: relative;
@@ -17,6 +23,7 @@
 .navbar-logo {
     height: 30px;
     padding-left: 20px;
+    margin-top: -4%;
 }
 
 .navbar-text {
@@ -117,4 +124,23 @@
     padding: 10px;
     position: relative;
     top:5px;
+}
+
+a {
+    text-decoration: none;
+    padding-right: 30px;
+    color: rgb(119,119,119);
+}
+
+.navbar-collapse.navbar-right {
+    padding-top: 15px;
+}
+
+a:hover {
+    color: rgb(51,51,51);
+    text-decoration: none;
+}
+
+.navbar-brand {
+    padding-left: 100px;
 }

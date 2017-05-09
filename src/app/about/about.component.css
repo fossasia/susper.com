@@ -40,6 +40,9 @@
     .banner {
         top: 0;
     }
+    .navbar-collapse.navbar-right {
+        text-align: right;
+    }
 }
 
 .about-navbar {
