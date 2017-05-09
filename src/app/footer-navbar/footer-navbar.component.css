@@ -7,7 +7,9 @@ footer {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin-top: 100px;
+  margin-bottom: 0px;
+  position: fixed;
+  bottom: 0px;
 }
 
 div a {
