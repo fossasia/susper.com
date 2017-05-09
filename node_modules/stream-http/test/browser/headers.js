@@ -90,11 +90,12 @@ test('content-type response header', function (t) {
 var browser = (new UAParser()).setUA(navigator.userAgent).getBrowser()
 var browserName = browser.name
 var browserVersion = browser.major
-var browserMinorVersion = browser.minor
+var browserMinorVersion = browser.minor || 0
 // The content-type header is broken when 'prefer-streaming' or 'allow-wrong-content-type'
-// is passed in browsers that rely on xhr.overrideMimeType(), namely older chrome and safari 6-10.0
+// is passed in browsers that rely on xhr.overrideMimeType(), namely older chrome, safari 6-10.0, and the stock Android browser
 var wrongMimeType = ((browserName === 'Chrome' && browserVersion <= 42) ||
-	((browserName === 'Safari' || browserName === 'Mobile Safari') && browserVersion >= 6 && (browserVersion < 10 || (browserVersion === 10 && browserMinorVersion === 0))))
+	((browserName === 'Safari' || browserName === 'Mobile Safari') && browserVersion >= 6 && (browserVersion < 10 || (browserVersion == 10 && browserMinorVersion == 0)))
+	|| (browserName === 'Android Browser'))
 
 test('content-type response header with forced streaming', function (t) {
 	http.get({
