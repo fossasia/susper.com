@@ -101,8 +101,8 @@
 }
 
 img.res-img {
-  max-width: 350px;
-  max-height: 300px;
+  width: 250px;
+  height: 200px;
   padding-top: 20px;
   padding: 0.6%;
   float: left;
@@ -192,6 +192,7 @@ img.res-img {
 
 .image-result {
   padding-left: 80px;
+  display: inline;
 }
 
 .clean {
