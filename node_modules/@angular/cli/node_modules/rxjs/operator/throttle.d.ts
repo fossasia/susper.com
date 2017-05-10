@@ -1,4 +1,9 @@
 import { Observable, SubscribableOrPromise } from '../Observable';
+export interface ThrottleConfig {
+    leading?: boolean;
+    trailing?: boolean;
+}
+export declare const defaultThrottleConfig: ThrottleConfig;
 /**
  * Emits a value from the source Observable, then ignores subsequent source
  * values for a duration determined by another Observable, then repeats this
@@ -32,9 +37,11 @@ import { Observable, SubscribableOrPromise } from '../Observable';
  * @param {function(value: T): SubscribableOrPromise} durationSelector A function
  * that receives a value from the source Observable, for computing the silencing
  * duration for each source value, returned as an Observable or a Promise.
+ * @param {Object} config a configuration object to define `leading` and `trailing` behavior. Defaults
+ * to `{ leading: true, trailing: false }`.
  * @return {Observable<T>} An Observable that performs the throttle operation to
  * limit the rate of emissions from the source.
  * @method throttle
  * @owner Observable
  */
-export declare function throttle<T>(this: Observable<T>, durationSelector: (value: T) => SubscribableOrPromise<number>): Observable<T>;
+export declare function throttle<T>(this: Observable<T>, durationSelector: (value: T) => SubscribableOrPromise<number>, config?: ThrottleConfig): Observable<T>;

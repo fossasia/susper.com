@@ -6,7 +6,7 @@ export declare class CliConfig<JsonType> {
     save(path?: string): void;
     serialize(mimetype?: string): string;
     alias(path: string, newPath: string): boolean;
-    get(jsonPath: string): any;
+    get(jsonPath?: string): any;
     typeOf(jsonPath: string): string;
     isDefined(jsonPath: string): boolean;
     deletePath(jsonPath: string): void;

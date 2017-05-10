@@ -1,2 +1,2 @@
-declare const GenerateCommand: any;
-export default GenerateCommand;
+declare var _default: any;
+export default _default;

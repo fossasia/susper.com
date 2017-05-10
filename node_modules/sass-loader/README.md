@@ -11,13 +11,15 @@
   <img height="100"
     src="https://worldvectorlogo.com/logos/sass-1.svg">
   <a href="https://github.com/webpack/webpack">
-    <img height="100"
-      src="https://github.com/webpack/media/raw/master/logo/logo-on-white-bg.png?raw=true">
+    <img width="200" height="200"
+      src="https://webpack.js.org/assets/icon-square-big.svg">
   </a>
-  <h1>sass-loader</h1>
-  <p>Compiles Sass to CSS.<br>Use the <a href="https://github.com/webpack-contrib/css-loader">css-loader</a> or the <a href="https://github.com/webpack-contrib/raw-loader">raw-loader</a> to turn it into a JS module and the <a href="https://github.com/webpack-contrib/extract-text-webpack-plugin">ExtractTextPlugin</a> to extract it into a separate file.<p>
-  <p>Looking for the webpack 1 loader? Check out the <a href="https://github.com/webpack-contrib/sass-loader/tree/archive/webpack-1">archive/webpack-1 branch</a>.</p>
+  <h1>SASS Loader</h1>
+  <p>Loads a SASS/SCSS file and and compiles it to CSS.</p>
 </div>
+
+Use the [css-loader](https://github.com/webpack-contrib/css-loader) or the [raw-loader](https://github.com/webpack-contrib/raw-loader) to turn it into a JS module and the [ExtractTextPlugin](https://github.com/webpack-contrib/extract-text-webpack-plugin) to extract it into a separate file.
+Looking for the webpack 1 loader? Check out the [archive/webpack-1 branch](https://github.com/webpack-contrib/sass-loader/tree/archive/webpack-1).
 
 <h2 align="center">Install</h2>
 
@@ -25,7 +27,7 @@
 npm install sass-loader node-sass webpack --save-dev
 ```
 
-The sass-loader requires [node-sass](https://github.com/sass/node-sass) and [webpack](https://github.comwebpack)
+The sass-loader requires [node-sass](https://github.com/sass/node-sass) and [webpack](https://github.com/webpack)
 as [`peerDependency`](https://docs.npmjs.com/files/package.json#peerdependencies). Thus you are able to control the versions accurately.
 
 <h2 align="center">Examples</h2>
@@ -94,7 +96,7 @@ module.exports = {
     module: {
         rules: [{
             test: /\.scss$/,
-            loader: extractSass.extract({
+            use: extractSass.extract({
                 use: [{
                     loader: "css-loader"
                 }, {
@@ -115,10 +117,10 @@ module.exports = {
 
 ### Imports
 
-webpack provides an [advanced mechanism to resolve files](http://webpack.github.io/docs/resolving.html). The sass-loader uses node-sass' custom importer feature to pass all queries to the webpack resolving engine. Thus you can import your Sass modules from `node_modules`. Just prepend them with a `~` to tell webpack that this is not a relative import:
+webpack provides an [advanced mechanism to resolve files](https://webpack.js.org/concepts/module-resolution/). The sass-loader uses node-sass' custom importer feature to pass all queries to the webpack resolving engine. Thus you can import your Sass modules from `node_modules`. Just prepend them with a `~` to tell webpack that this is not a relative import:
 
 ```css
-@import "~bootstrap/css/bootstrap";
+@import "~bootstrap/dist/css/bootstrap";
 ```
 
 It's important to only prepend it with `~`, because `~/` resolves to the home directory. webpack needs to distinguish between `bootstrap` and `~bootstrap` because CSS and Sass files have no special syntax for importing relative files. Writing `@import "file"` is the same as `@import "./file";`
@@ -191,25 +193,20 @@ If you want to prepend Sass code before the actual entry file, you can set the `
 <h2 align="center">Maintainers</h2>
 
 <table>
-  <tbody>
     <tr>
       <td align="center">
-        <img width="150 height="150"
-        src="https://avatars0.githubusercontent.com/u/781746?v=3"><br>
+        <a href="https://github.com/jhnns"><img width="150" height="150" src="https://avatars0.githubusercontent.com/u/781746?v=3"></a><br>
         <a href="https://github.com/jhnns">Johannes Ewald</a>
       </td>
       <td align="center">
-        <img width="150 height="150"
-        src="https://avatars1.githubusercontent.com/u/1243901?v=3&s=460"><br>
+        <a href="https://github.com/webpack-contrib"><img width="150" height="150" src="https://avatars1.githubusercontent.com/u/1243901?v=3&s=460"></a><br>
         <a href="https://github.com/webpack-contrib">Jorik Tangelder</a>
       </td>
       <td align="center">
-        <img width="150" height="150"
-        src="https://avatars1.githubusercontent.com/u/3403295?v=3"><br>
+        <a href="https://github.com/akiran"><img width="150" height="150" src="https://avatars1.githubusercontent.com/u/3403295?v=3"></a><br>
         <a href="https://github.com/akiran">Kiran</a>
       </td>
     <tr>
-  <tbody>
 </table>
 
 
@@ -236,5 +233,5 @@ If you want to prepend Sass code before the actual entry file, you can set the `
 [cover]: https://coveralls.io/repos/github/webpack-contrib/sass-loader/badge.svg
 [cover-url]: https://coveralls.io/github/webpack-contrib/sass-loader
 
-[chat]: https://badges.gitter.im/webpack-contrib/webpack.svg
-[chat-url]: https://gitter.im/webpack-contrib/webpack
+[chat]: https://badges.gitter.im/webpack/webpack.svg
+[chat-url]: https://gitter.im/webpack/webpack

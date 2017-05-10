@@ -288,7 +288,21 @@ var upload = function(args, on_success, on_failure){
 
     } else {
       console.log('==> Uploading reports');
-      sendToCodecovV3(codecov_endpoint, query, upload, on_success || function(){}, on_failure || function(){});
+      sendToCodecovV3(codecov_endpoint, query, upload,
+                      function(){
+                        // remove files after Uploading
+                        if (args.options.clear) {
+                          for (var i = files.length - 1; i >= 0; i--) {
+                            try {
+                              fs.unlinkSync(files[i]);
+                            } catch (e) {}
+                          }
+                        }
+                        if (on_success) {
+                          on_success.apply(this, arguments);
+                        }
+                      },
+                      on_failure || function(){});
     }
   }
 

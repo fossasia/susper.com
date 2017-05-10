@@ -14,6 +14,7 @@ var args = argv.option([
   {name: 'gcov-args', type: 'string', description: "extra arguments to pass to gcov"},
   {name: 'disable', short: 'X', type: 'string', description: "Disable features. Accepting `search` to disable crawling through directories, `detect` to disable detecting CI provider, `gcov` disable gcov commands"},
   {name: 'commit', short: 'c', type: 'string', description: "Commit sha, set automatically"},
+  {name: 'clear', short: 'C', type: 'boolean', description: "Remove all discovered reports after uploading"},
   {name: 'branch', short: 'b', type: 'string', description: "Branch name"},
   {name: 'build', short: 'B', type: 'string', description: "Specify a custom build number to distinguish ci jobs, provided automatically for supported ci companies"},
   {name: 'slug', short: 'r', type: 'string', description: "Specify repository slug for Enterprise ex. owner/repo"},

@@ -1,5 +1,6 @@
 import { IScheduler } from '../Scheduler';
 import { Observable } from '../Observable';
+import { ThrottleConfig } from './throttle';
 /**
  * Emits a value from the source Observable, then ignores subsequent source
  * values for `duration` milliseconds, then repeats this process.
@@ -39,4 +40,4 @@ import { Observable } from '../Observable';
  * @method throttleTime
  * @owner Observable
  */
-export declare function throttleTime<T>(this: Observable<T>, duration: number, scheduler?: IScheduler): Observable<T>;
+export declare function throttleTime<T>(this: Observable<T>, duration: number, scheduler?: IScheduler, config?: ThrottleConfig): Observable<T>;

@@ -1,4 +1,4 @@
-var execSync = require('child_process').execSync;
+var git = require('../git');
 
 module.exports = {
 
@@ -11,7 +11,7 @@ module.exports = {
     return {
       service : 'drone.io',
       build : process.env.DRONE_BUILD_NUMBER,
-      commit : execSync("git rev-parse HEAD || hg id -i --debug | tr -d '+'").toString().trim(),
+      commit : git.head(),
       build_url : process.env.DRONE_BUILD_URL,
       branch : process.env.DRONE_BRANCH,
       root : process.env.DRONE_BUILD_DIR

@@ -1,4 +1,5 @@
 var jenkins = require("../../lib/services/jenkins");
+var git = require("../../lib/git");
 
 describe("Jenkins CI Provider", function(){
 
@@ -23,6 +24,24 @@ describe("Jenkins CI Provider", function(){
       branch : 'master'
     });
   });
+
+  it ("can get service env info when using Blue Ocean", function(){
+    delete process.env.GIT_COMMIT;
+    delete process.env.GIT_BRANCH;
+    process.env.BUILD_NUMBER = '1234';
+    process.env.BUILD_URL = 'http://asdf/';
+    process.env.BRANCH_NAME = 'master';
+    process.env.WORKSPACE = '/';
+    expect(jenkins.configuration()).to.eql({
+      service : 'jenkins',
+      build_url : 'http://asdf/',
+      build : '1234',
+      root : '/',
+      commit : git.head(),
+      pr : undefined,
+      branch : 'master'
+    });
+  })
 
   it ("github pull request env variables win out over jenkins variables", function(){
     process.env.BUILD_NUMBER = '1234';

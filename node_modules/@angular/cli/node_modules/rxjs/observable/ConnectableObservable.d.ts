@@ -11,6 +11,7 @@ export declare class ConnectableObservable<T> extends Observable<T> {
     protected _subject: Subject<T>;
     protected _refCount: number;
     protected _connection: Subscription;
+    _isComplete: boolean;
     constructor(source: Observable<T>, subjectFactory: () => Subject<T>);
     protected _subscribe(subscriber: Subscriber<T>): Subscription;
     protected getSubject(): Subject<T>;
