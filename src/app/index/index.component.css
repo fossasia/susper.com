@@ -6,20 +6,36 @@
   position: absolute;
   left: 27%;
 }
-
+.footer-fixed{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
 @media screen and (min-width: 1920px) {
   #search-bar{
     left: 28%;
   }
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 11360px) {
+  #search-bar{
+    left: 24%;
+  }
+}
+
+@media screen and (max-width: 1040px) {
   #search-bar{
     left: 20%;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 908px) {
+  #search-bar{
+    left: 16%;
+  }
+}
+
+@media screen and (max-width: 753px) {
   #search-bar{
     left: 6%;
   }
@@ -53,6 +69,60 @@
   }
   #cancel-installation{
     font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 281px) {
+  #set-susper-default{
+    bottom: 80px;
+  }
+  #set-susper-default h3{
+    font-size: 14px;
+  }
+  #set-susper-default ol{
+    font-size: 12px;
+  }
+  #install-susper{
+    font-size: 12px;
+  }
+  #cancel-installation{
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-height: 584px) {
+  #set-susper-default{
+    bottom: 75px;
+  }
+  #set-susper-default h3{
+    font-size: 14px;
+  }
+  #set-susper-default ol{
+    font-size: 12px;
+  }
+  #install-susper{
+    font-size: 12px;
+  }
+  #cancel-installation{
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-height: 530px) {
+  #set-susper-default{
+    bottom: 75px;
+  }
+  #set-susper-default h3{
+    font-size: 12px;
+  }
+  #set-susper-default ol{
+    font-size: 10px;
+  }
+  #install-susper{
+    font-size: 10px;
+  }
+  #cancel-installation{
+    font-size: 10px;
   }
 }
 
