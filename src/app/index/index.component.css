@@ -32,6 +32,60 @@
   }
 }
 
+@media screen and (max-width: 281px) {
+  #set-susper-default{
+    bottom: 80px;
+  }
+  #set-susper-default h3{
+    font-size: 14px;
+  }
+  #set-susper-default ol{
+    font-size: 12px;
+  }
+  #install-susper{
+    font-size: 12px;
+  }
+  #cancel-installation{
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-height: 584px) {
+  #set-susper-default{
+    bottom: 75px;
+  }
+  #set-susper-default h3{
+    font-size: 14px;
+  }
+  #set-susper-default ol{
+    font-size: 12px;
+  }
+  #install-susper{
+    font-size: 12px;
+  }
+  #cancel-installation{
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-height: 530px) {
+  #set-susper-default{
+    bottom: 75px;
+  }
+  #set-susper-default h3{
+    font-size: 12px;
+  }
+  #set-susper-default ol{
+    font-size: 10px;
+  }
+  #install-susper{
+    font-size: 10px;
+  }
+  #cancel-installation{
+    font-size: 10px;
+  }
+}
+
 .navbar-fixed-bottom{
   z-index: -1;
 }
