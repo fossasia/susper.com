@@ -150,7 +150,7 @@ img.res-img {
 #tools {
   text-decoration: none;
   color: #777;
-  margin-left: 27%;
+  margin-left: 15%;
 }
 
 #tools:hover {
@@ -215,7 +215,7 @@ img.res-img {
     margin-left: 11%;
   }
   #tools {
-    margin-left: 14%;
+    margin-left: 17%;
   }
 }
 
@@ -230,7 +230,7 @@ img.res-img {
     margin-left: 12.5%;
   }
   #tools {
-    margin-left: 19%;
+    margin-left: 22%;
   }
 }
 
@@ -245,7 +245,6 @@ img.res-img {
   }
   #search-options {
     padding-left: 0px;
-    margin-top: 75px;
     margin-left: 8%;
   }
   #pag-bar {
@@ -258,7 +257,7 @@ img.res-img {
     padding: 0px 8.3% 12px;
   }
   #tools {
-    margin-left: 0%;
+    margin-left: -19%;
   }
 }
 
@@ -293,6 +292,12 @@ img.res-img {
 @media screen and (max-width:379px) {
   #search-options li {
     padding: 0px 6.2% 12px;
+  }
+}
+
+@media screen and (max-width:408px) {
+  #tools {
+    left: 20%;
   }
 }
 
