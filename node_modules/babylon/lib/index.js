@@ -521,7 +521,7 @@ var State = function () {
 
     this.potentialArrowAt = -1;
 
-    this.inMethod = this.inFunction = this.inGenerator = this.inAsync = this.inPropertyName = this.inType = this.noAnonFunctionType = false;
+    this.inMethod = this.inFunction = this.inGenerator = this.inAsync = this.inPropertyName = this.inType = this.inClassProperty = this.noAnonFunctionType = false;
 
     this.labels = [];
 
@@ -1233,25 +1233,29 @@ var Tokenizer = function () {
 
   Tokenizer.prototype.readNumber = function readNumber(startsWithDot) {
     var start = this.state.pos;
-    var octal = this.input.charCodeAt(this.state.pos) === 48;
+    var octal = this.input.charCodeAt(start) === 48; // '0'
     var isFloat = false;
 
     if (!startsWithDot && this.readInt(10) === null) this.raise(start, "Invalid number");
+    if (octal && this.state.pos == start + 1) octal = false; // number === 0
+
     var next = this.input.charCodeAt(this.state.pos);
-    if (next === 46) {
+    if (next === 46 && !octal) {
       // '.'
       ++this.state.pos;
       this.readInt(10);
       isFloat = true;
       next = this.input.charCodeAt(this.state.pos);
     }
-    if (next === 69 || next === 101) {
+
+    if ((next === 69 || next === 101) && !octal) {
       // 'eE'
       next = this.input.charCodeAt(++this.state.pos);
       if (next === 43 || next === 45) ++this.state.pos; // '+-'
       if (this.readInt(10) === null) this.raise(start, "Invalid number");
       isFloat = true;
     }
+
     if (isIdentifierStart(this.fullCharCodeAtPos())) this.raise(this.state.pos, "Identifier directly after number");
 
     var str = this.input.slice(start, this.state.pos);
@@ -1260,8 +1264,10 @@ var Tokenizer = function () {
       val = parseFloat(str);
     } else if (!octal || str.length === 1) {
       val = parseInt(str, 10);
-    } else if (/[89]/.test(str) || this.state.strict) {
+    } else if (this.state.strict) {
       this.raise(start, "Invalid number");
+    } else if (/[89]/.test(str)) {
+      val = parseInt(str, 10);
     } else {
       val = parseInt(str, 8);
     }
@@ -2560,6 +2566,7 @@ pp$1.parseClassBody = function (node) {
 };
 
 pp$1.parseClassProperty = function (node) {
+  this.state.inClassProperty = true;
   if (this.match(types.eq)) {
     if (!this.hasPlugin("classProperties")) this.unexpected();
     this.next();
@@ -2568,6 +2575,7 @@ pp$1.parseClassProperty = function (node) {
     node.value = null;
   }
   this.semicolon();
+  this.state.inClassProperty = false;
   return this.finishNode(node, "ClassProperty");
 };
 
@@ -3599,7 +3607,7 @@ pp$3.parseExprAtom = function (refShorthandDefaultPos) {
 
   switch (this.state.type) {
     case types._super:
-      if (!this.state.inMethod && !this.options.allowSuperOutsideMethod) {
+      if (!this.state.inMethod && !this.state.inClassProperty && !this.options.allowSuperOutsideMethod) {
         this.raise(this.state.start, "'super' outside of function or class");
       }
 
@@ -4108,8 +4116,9 @@ pp$3.parseObjectProperty = function (prop, startPos, startLoc, isPattern, refSho
   }
 
   if (!prop.computed && prop.key.type === "Identifier") {
+    this.checkReservedWord(prop.key.name, prop.key.start, true, true);
+
     if (isPattern) {
-      this.checkReservedWord(prop.key.name, prop.key.start, true, true);
       prop.value = this.parseMaybeDefault(startPos, startLoc, prop.key.__clone());
     } else if (this.match(types.eq) && refShorthandDefaultPos) {
       if (!refShorthandDefaultPos.start) {
@@ -5352,7 +5361,7 @@ pp$8.flowParseObjectType = function (allowStatic, allowExact, allowSpread) {
     } else {
       if (this.match(types.ellipsis)) {
         if (!allowSpread) {
-          this.unexpected(null, "Spread operator cannnot appear in class or interface definitions");
+          this.unexpected(null, "Spread operator cannot appear in class or interface definitions");
         }
         if (variance) {
           this.unexpected(variance.start, "Spread properties cannot have variance");
@@ -6038,6 +6047,12 @@ var flowPlugin = function (instance) {
     };
   });
 
+  instance.extend("isNonstaticConstructor", function (inner) {
+    return function (method) {
+      return !this.match(types.colon) && inner.call(this, method);
+    };
+  });
+
   // parse type parameters for class methods
   instance.extend("parseClassMethod", function (inner) {
     return function (classBody, method) {
@@ -6294,6 +6309,12 @@ var flowPlugin = function (instance) {
         } catch (err) {
           if (err instanceof SyntaxError) {
             this.state = state;
+
+            // Remove `tc.j_expr` and `tc.j_oTag` from context added
+            // by parsing `jsxTagStart` to stop the JSX plugin from
+            // messing with the tokens
+            this.state.context.length -= 2;
+
             jsxError = err;
           } else {
             // istanbul ignore next: no such error is expected
@@ -6302,9 +6323,6 @@ var flowPlugin = function (instance) {
         }
       }
 
-      // Need to push something onto the context to stop
-      // the JSX plugin from messing with the tokens
-      this.state.context.push(types$1.parenExpression);
       if (jsxError != null || this.isRelational("<")) {
         var arrowExpression = void 0;
         var typeParameters = void 0;
@@ -6327,7 +6345,6 @@ var flowPlugin = function (instance) {
           this.raise(typeParameters.start, "Expected an arrow function after this type parameter declaration");
         }
       }
-      this.state.context.pop();
 
       return inner.apply(this, args);
     };
