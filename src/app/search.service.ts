@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import {Store} from '@ngrx/store';
 import * as fromRoot from './reducers';
 import * as search from './actions/search';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class SearchService {
@@ -20,6 +21,7 @@ export class SearchService {
   constructor(private http: Http, private jsonp: Jsonp, private store: Store<fromRoot.State>) {
   }
   getsearchresults(searchquery) {
+
     let params = new URLSearchParams();
     for (let key in searchquery) {
       if (searchquery.hasOwnProperty(key)) {
@@ -36,12 +38,21 @@ export class SearchService {
     params.append('facet.field', 'url_protocol_s');
     params.append('facet.field', 'author_sxt');
     params.append('facet.field', 'collection_sxt');
+
     return this.jsonp
-      .get('http://yacy.searchlab.eu/solr/select', {search: params}).subscribe(res => {
-        this.store.dispatch(new search.SearchAction(res.json()[0]));
+      .get('http://yacy.searchlab.eu/solr/select', {search: params}).map(res =>
 
-      });
+        res.json()[0]
 
+      ).catch(this.handleError);
+
+  }
+  private handleError (error: any) {
+    // In some advance version we can include a remote logging of errors
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // Right now we are logging to console itself
+    return Observable.throw(errMsg);
   }
 
 
