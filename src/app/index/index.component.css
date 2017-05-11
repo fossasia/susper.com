@@ -4,53 +4,13 @@
 
 #search-bar{
   position: absolute;
-  left: 27%;
+  left: 28%;
 }
+
 .footer-fixed{
   position: fixed;
   bottom: 0px;
   width: 100%;
-}
-@media screen and (min-width: 1920px) {
-  #search-bar{
-    left: 28%;
-  }
-}
-
-@media screen and (max-width: 11360px) {
-  #search-bar{
-    left: 24%;
-  }
-}
-
-@media screen and (max-width: 1040px) {
-  #search-bar{
-    left: 20%;
-  }
-}
-
-@media screen and (max-width: 908px) {
-  #search-bar{
-    left: 16%;
-  }
-}
-
-@media screen and (max-width: 753px) {
-  #search-bar{
-    left: 6%;
-  }
-}
-
-@media screen and (max-width: 479px) {
-  #search-bar{
-    left: 5%;
-  }
-}
-
-@media screen and (max-width: 359px) {
-  #search-bar{
-    left: 4%;
-  }
 }
 
 #set-susper-default{
