@@ -41,6 +41,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   onquery(event: any) {
 
     this.store.dispatch(new query.QueryAction(event.target.value));
+
     this.submit();
   }
 
