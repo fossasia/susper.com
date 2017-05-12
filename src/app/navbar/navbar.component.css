@@ -53,12 +53,22 @@
 }
 
 @media screen and (min-width:768px) {
+<<<<<<< HEAD
   #navcontainer ul li {
     display: inline;
   }
 
   #navcontainer, #side-menu {
     margin-top: 8px;
+=======
+  .navbar-right {
+    padding-right: 20px;
+    font-size: 14px;
+    left: 92%;
+  }
+  .top-nav{
+    margin-top: -5%;
+>>>>>>> fa3f60d... Fix images to a same height maintaining their aspect ratio
   }
 }
 
