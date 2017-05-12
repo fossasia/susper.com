@@ -5,15 +5,23 @@
 <nav class="navbar navbar-default nav-terms">
     <div class="container-fluid">
         <div class="navbar-header">
+          <button type = "button" class = "navbar-toggle"
+                  data-toggle = "collapse" data-target = "#dropmenu">
+            <span class = "icon-bar"></span>
+            <span class = "icon-bar"></span>
+            <span class = "icon-bar"></span>
+          </button>
             <a class="navbar-brand about-navbar" href="//susper.com">
                 <img alt="brand" class="navbar-logo" src="../../assets/images/susper.svg">
             </a>
         </div>
-        <p class="navbar-collapse navbar-right">
-            <a routerLink="/terms">Terms</a>
-            <a routerLink="/about">About</a>
-            <a routerLink="/contact">Contact</a>
-        </p>
+      <div class="collapse navbar-collapse" id="dropmenu">
+          <ul class="nav navbar-nav navbar-collapse navbar-right">
+          <li><a routerLink="/terms">Terms</a></li>
+          <li><a routerLink="/about">About</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+          </ul>
+        </div>
     </div>
 </nav>
 

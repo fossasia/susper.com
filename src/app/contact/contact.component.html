@@ -5,15 +5,23 @@
 <nav class="navbar navbar-default nav-about">
   <div class="container-fluid">
     <div class="navbar-header">
+      <button type = "button" class = "navbar-toggle"
+              data-toggle = "collapse" data-target = "#dropmenu">
+        <span class = "icon-bar"></span>
+        <span class = "icon-bar"></span>
+        <span class = "icon-bar"></span>
+      </button>
       <a class="navbar-brand contact-navbar" href="//susper.com">
         <img alt="brand" class="navbar-logo" src="../../assets/images/susper.svg">
       </a>
     </div>
-    <p class="navbar-collapse navbar-right">
-      <a routerLink="/terms">Terms</a>
-      <a routerLink="/about">About</a>
-      <a routerLink="/contact">Contact</a>
-    </p>
+    <div class="collapse navbar-collapse" id="dropmenu">
+      <ul class="nav navbar-nav navbar-collapse navbar-right">
+        <li><a routerLink="/terms">Terms</a></li>
+        <li><a routerLink="/about">About</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 
@@ -65,7 +73,7 @@
 <modal #myModal>
   <div>
     <a (click)="close()" class="close-btn"> <i class="fa fa-times" aria-hidden="true" style="font-size: 2em"></i> </a>
- 
+
 
   </div>
   <form class="form-horizontal" method="POST" action="http://formspree.io/office@fossasia.org">
@@ -76,19 +84,19 @@
 
   <!-- Text input-->
   <div class="form-group">
-    <label class="col-md-3 control-label" for="textinput">Your Name<sup>*</sup></label>  
+    <label class="col-md-3 control-label" for="textinput">Your Name<sup>*</sup></label>
     <div class="col-md-9">
     <input id="textinput" name="yourName" type="text" placeholder="Your Name" class="form-control input-md" required="" >
-      
+
     </div>
   </div>
 
   <!-- Text input-->
   <div class="form-group">
-    <label class="col-md-3 control-label"a for="textinput">Email<sup>*</sup></label>  
+    <label class="col-md-3 control-label"a for="textinput">Email<sup>*</sup></label>
     <div class="col-md-9">
     <input id="textinput" name="emal-address" type="email" placeholder="Email Address" class="form-control input-md" required=""  >
-      
+
     </div>
   </div>
 
@@ -299,7 +307,7 @@
               <option data-countryCode="UA" value="380">Ukraine (+380)</option>
               <option data-countryCode="AE" value="971">United Arab Emirates (+971)</option>
               <option data-countryCode="UY" value="598">Uruguay (+598)</option>
-              <option data-countryCode="US" value="1">USA (+1)</option> 
+              <option data-countryCode="US" value="1">USA (+1)</option>
               <option data-countryCode="UZ" value="7">Uzbekistan (+7)</option>
               <option data-countryCode="VU" value="678">Vanuatu (+678)</option>
               <option data-countryCode="VA" value="379">Vatican City (+379)</option>
@@ -312,19 +320,19 @@
               <option data-countryCode="YE" value="967">Yemen (South)(+967)</option>
               <option data-countryCode="ZM" value="260">Zambia (+260)</option>
               <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
-    
+
       </select>
     </div>
     <div class="col-md-7">
     <input id="telephone" name="telephone" type="text" placeholder="Mobile Number"(ngModelChange)="checkWordCount()" [(ngModel)]=tpnoInput class="form-control input-md" required="">
-      
+
     </div>
   </div>
 
   <!-- Textarea -->
   <div class="form-group">
     <label class="col-md-3 control-label" for="message">Message<sup>*</sup></label>
-    <div class="col-md-9">                     
+    <div class="col-md-9">
       <textarea class="form-control" id="message" name="message" placeholder="Minimum 100 words" required=""(ngModelChange)="checkWordCount()" [(ngModel)]=contactMessage></textarea>
     </div>
   </div>

@@ -8,6 +8,14 @@
     overflow: hidden;
 }
 
+.navbar-nav > li > a{
+  text-align: left;
+}
+
+.navbar-right{
+  border-top:none;
+}
+
 .image-banner {
     position: relative;
     height: 450px;
