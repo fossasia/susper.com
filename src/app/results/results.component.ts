@@ -141,7 +141,7 @@ export class ResultsComponent implements OnInit {
       this.start = (this.presentPage) * this.searchdata.rows;
       this.begin = this.start + 1;
 
-      searchservice.getsearchresults(query);
+      this.store.dispatch(new queryactions.QueryServerAction(query));
       this.items$ = store.select(fromRoot.getItems);
       this.totalResults$ = store.select(fromRoot.getTotalResults);
       this.totalResults$.subscribe(totalResults => {
