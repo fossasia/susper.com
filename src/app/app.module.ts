@@ -20,6 +20,10 @@ import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
 import { ContactComponent } from './contact/contact.component';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { TermsComponent } from './terms/terms.component';
+import {EffectsModule} from '@ngrx/effects';
+import {ApiSearchEffects} from './effects/search-effects';
+import { NewadvancedsearchComponent } from './newadvancedsearch/newadvancedsearch.component';
+
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -28,6 +32,7 @@ const appRoutes: Routes = [
   {path: 'terms', component: TermsComponent},
   {path: 'contact', component: ContactComponent},
   {path: '404', component: NotFoundComponent},
+  {path: 'advancedsearch', component: NewadvancedsearchComponent},
   {path: '**', redirectTo: '/404'},
 ];
 @NgModule({
@@ -42,7 +47,8 @@ const appRoutes: Routes = [
     AboutComponent,
     FooterNavbarComponent,
     ContactComponent,
-    TermsComponent
+    TermsComponent,
+    NewadvancedsearchComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +58,7 @@ const appRoutes: Routes = [
     JsonpModule,
     RouterModule.forRoot(appRoutes),
     StoreModule.provideStore(reducer),
+    EffectsModule.run(ApiSearchEffects),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     Ng2Bs3ModalModule
 
