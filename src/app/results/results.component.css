@@ -216,15 +216,12 @@ img.res-img {
   }
   #tools {
     margin-left: 17%;
-<<<<<<< HEAD
-=======
   }
 }
 
 @media screen and (max-width:1105px) {
   #tools {
     margin-left: 18%;
->>>>>>> a756c96... Fix 'tools' responsiveness
   }
 }
 
@@ -238,12 +235,6 @@ img.res-img {
   #search-options {
     margin-left: 12.5%;
   }
-<<<<<<< HEAD
-  #tools {
-    margin-left: 22%;
-  }
-=======
->>>>>>> a756c96... Fix 'tools' responsiveness
 }
 
 @media screen and (max-width:767px) {
@@ -270,15 +261,12 @@ img.res-img {
   }
   #tools {
     margin-left: -19%;
-<<<<<<< HEAD
-=======
   }
 }
 
 @media screen and (max-width:741px) {
   #tools {
     margin-left: -26%;
->>>>>>> a756c96... Fix 'tools' responsiveness
   }
 }
 
