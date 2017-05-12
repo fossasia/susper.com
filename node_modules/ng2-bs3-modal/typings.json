@@ -1,0 +1,9 @@
+{
+  "globalDevDependencies": {
+    "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
+    "jasmine-jquery-matchers": "file:typings/custom/jasmine-jquery-matchers.d.ts"
+  },
+  "globalDependencies": {
+    "core-js": "registry:dt/core-js#0.0.0+20160914114559"
+  }
+}

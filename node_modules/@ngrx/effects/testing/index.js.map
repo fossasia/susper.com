@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../testing/index.ts"],"names":[],"mappings":"AAAA,cAAc,UAAU,CAAC;AACzB,cAAc,kBAAkB,CAAC","sourcesContent":["export * from './runner';\nexport * from './testing.module';\n\ninterface DecoratorInvocation {\n  type: Function;\n  args?: any[];\n}\n"]}

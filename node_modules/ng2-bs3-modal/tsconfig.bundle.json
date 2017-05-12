@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "system",
+        "moduleResolution": "node",
+        "target": "es5",
+        "noImplicitAny": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "inlineSourceMap": true,
+        "declaration": false,
+        "rootDir": "./src",
+        "outFile": "./bundles/ng2-bs3-modal.js"
+    },
+    "exclude": [
+        "node_modules",
+        "demo",
+        "bundles",
+        "components",
+        "directives",
+        "src/test",
+        "**/*.spec.ts"
+    ]
+}

@@ -1,0 +1,1 @@
+{"summaries":[{"symbol":{"__symbol":0},"metadata":{"__symbolic":"function","parameters":["action"],"value":{"__symbolic":"select","expression":{"__symbolic":"reference","name":"action"},"member":"payload"}}}],"symbols":[{"__symbol":0,"name":"toPayload","filePath":"/Users/robertsbt/Development/ngrx/effects/release/src/util.d.ts"}]}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Susper</title>
+  <base href="/">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/bootstrap-base.css">
+  <!-- jQuery library -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+<!--<div id="set-susper-default">
+  <h3>Set Susper as your default search engine on Mozilla!</h3>
+  <ol>
+    <li><button id="install-susper">Install susper</button></li>
+    <li>Mark the checkbox to set Susper as your default search engine</li>
+    <li>Start searching!</li>
+  </ol>
+  <button id="cancel-installation">Cancel</button>
+</div>
+-->
+<script>
+  $(document).ready(function () {
+    //var isFirefox = typeof InstallTrigger !== 'undefined';
+
+    //if (isFirefox === false) {
+    //    $("#set-susper-default").remove();
+    //    $(".input-group-btn").addClass("align-search-btn");
+    //    $("#navbar-search").addClass("align-navsearch-btn");
+    //}
+
+    if (window.external && window.external.IsSearchProviderInstalled) {
+        var isInstalled = window.external.IsSearchProviderInstalled("http://susper.com");
+
+        if (!isInstalled) {
+            $("#set-susper-default").show();
+        }
+    }
+
+    $("#install-susper").on("click", function () {
+        window.external.AddSearchProvider("http://susper.com/susper.xml");
+    });
+
+    $("#cancel-installation").on("click", function () {
+        $("#set-susper-default").remove();
+    });
+});
+</script>
+<script>
+  (function(){
+    var redirect = sessionStorage.redirect;
+    delete sessionStorage.redirect;
+    if (redirect && redirect != location.href) {
+      history.replaceState(null, null, redirect);
+    }
+  })();
+</script>
+<app-root></app-root>
+<script type="text/javascript" src="inline.bundle.js"></script><script type="text/javascript" src="styles.bundle.js"></script><script type="text/javascript" src="vendor.bundle.js"></script><script type="text/javascript" src="main.bundle.js"></script></body>
+</html>
