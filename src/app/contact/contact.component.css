@@ -3,6 +3,13 @@
         text-align: right;
     }
 }
+.navbar-nav > li > a{
+  text-align: left;
+}
+
+.navbar-right{
+  border-top:none;
+}
 
 .banner {
     width: 100%;

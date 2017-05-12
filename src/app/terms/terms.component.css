@@ -8,6 +8,13 @@
 	font-weight: 700;
 }
 
+.navbar-nav > li > a{
+  text-align: left;
+}
+
+.navbar-right{
+  border-top:none;
+}
 .nav-terms {
 	padding: 0px;
     clear: both;
