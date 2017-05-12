@@ -62,7 +62,9 @@ export class ResultsComponent implements OnInit {
   }
 
   Display(S) {
+
     return (this.resultDisplay === S);
+
   }
 
   videoClick() {
@@ -78,7 +80,9 @@ export class ResultsComponent implements OnInit {
     this.resultDisplay = 'images';
     this.searchdata.rows = 100;
     this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
+    this.searchdata.resultDisplay = this.resultDisplay;
     this.route.navigate(['/search'], { queryParams: this.searchdata });
+
   }
 
   docClick() {
@@ -104,13 +108,14 @@ export class ResultsComponent implements OnInit {
   }
 
   constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
-    private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
+              private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
 
     this.activatedroute.queryParams.subscribe(query => {
       if (query['fq']) {
 
         if (query['fq'].includes('png')) {
           this.resultDisplay = 'images';
+          this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
         } else if (query['fq'].includes('avi')) {
           this.resultDisplay = 'videos';
         } else {
@@ -119,6 +124,12 @@ export class ResultsComponent implements OnInit {
       } else {
         this.resultDisplay = 'all';
       }
+      if (query['resultDisplay']) {
+        this.resultDisplay = query['resultDisplay'];
+        this.searchdata.resultDisplay = this.resultDisplay;
+
+      }
+
 
       this.presentPage = query['start'] / this.searchdata.rows;
       this.searchdata.query = query['query'];
