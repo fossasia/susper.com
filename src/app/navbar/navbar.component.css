@@ -39,6 +39,11 @@
   width: 100px;
 }
 
+.dropdown {
+  position: relative;
+  margin-left: -10px;
+}
+
 #navcontainer ul {
   margin: 0;
   padding: 0;
@@ -103,11 +108,17 @@
     margin-right: 1% !important;
   }
 }
+
 @media screen and (min-width:768px) {
   #navcontainer ul li {
     display: inline;
   }
-
+  .navbar-right {
+    padding-right: 20px;
+    font-size: 14px;
+    left: 95%;
+    position: absolute;
+  }
   #navcontainer, #side-menu {
     margin-top: 8px;
   }
