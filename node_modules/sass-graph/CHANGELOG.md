@@ -8,7 +8,12 @@ All notable changes to this project will be documented in this file.
 
 ### Tests
 
-## 2.2.2
+## [2.2.3]
+### Dependencies
+
+- scss-tokenizer@^0.2.3
+
+## [2.2.2]
 ### Fixes
 
 - Babel runtime error messages (#76, #77)
@@ -17,7 +22,7 @@ All notable changes to this project will be documented in this file.
 
 - scss-tokenizer@^0.2.1
 
-## 2.2.1
+## [2.2.1]
 ### Fixes
 
 - Babel runtime error messages (#76, #77)
