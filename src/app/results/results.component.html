@@ -22,11 +22,12 @@
             {{message}}
         </div>
     </div>
-  <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-  <div class="text-result" *ngIf="Display('all')">
+    <!-- Basic results 'All' -->
+    <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+        <div class="text-result" *ngIf="Display('all')">
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
-                    <a href="{{item.link}}">{{item.title}}</a>
+                    <a class="title-pointer" href="{{item.link}}">{{item.title}}</a>
                 </div>
                 <div class="link">
                     <p>{{item.link}}</p>
@@ -36,17 +37,18 @@
                 </div>
             </div>
         </div>
-  </div>
+    </div>
+    <!-- END -->
         <div class="image-result" *ngIf="Display('images')">
             <div *ngFor="let item of items$|async">
               <a href="{{item.link}}"><img class="res-img" src="{{item.link}}" onerror="this.style.display='none'"></a>
             </div>
         </div>
         <div class="video-result" *ngIf="Display('videos')">
-          <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-          <div *ngFor="let item of items$|async" class="result">
+          <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+            <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
-                    <a href="{{item.path}}">{{item.title}}</a>
+                    <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
                 </div>
                 <div class="link">
                     <p>{{item.link}}</p>

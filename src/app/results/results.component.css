@@ -1,15 +1,14 @@
+/** Basic results 'All' **/
 .result {
-  padding-left: 60px;
-  padding-top: 18px;
+  padding-left: 50px;
+  padding-top: 10px;
 }
 
-.title >a {
-  color: #1a0dab;
+.title {
   font-size: large;
   text-decoration: none;
-  font-family: Arial, sans-serif;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: hidden !important;
   text-overflow: ellipsis;
 }
 
@@ -20,10 +19,14 @@
   font-size: 14px;
   font-style: normal;
   font-family: Arial, sans-serif;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
-.title >a:hover {
-  text-decoration: underline;
+a {
+  text-decoration: none;
 }
 
 .description {
@@ -31,7 +34,32 @@
   color: #808080;
   line-height: 1.4;
   word-wrap: break-word;
+  margin-top: -8px;
 }
+
+.feed {
+  width: 670px;
+}
+
+.title-pointer:hover {
+  text-decoration: underline;
+}
+
+.title-pointer {
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+  white-space: nowrap;
+  color: #1a0dab;
+  font-family: Arial, sans-serif;
+}
+/** END **/
+/** Screen responsiveness for result feed **/
+@media screen and (max-width:571px) {
+  .feed {
+    max-width: 100%;
+  }
+}
+/** END **/
 
 .page-link {
   cursor: pointer;
@@ -301,8 +329,3 @@ img.res-img {
     padding: 0px 5.6% 12px;
   }
 }
-
-p {
-  padding-right: 500px;
-}
-
