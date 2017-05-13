@@ -50,9 +50,10 @@
       width: 160px;
       height: auto;
   }
-  .top-nav{
-    margin-top: -5%;
-  }
+}
+
+.top-nav{
+  margin-top: -5%;
 }
 
 @media screen and (max-width:1079px) {

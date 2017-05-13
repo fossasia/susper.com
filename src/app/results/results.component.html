@@ -38,8 +38,12 @@
         </div>
   </div>
         <div class="image-result" *ngIf="Display('images')">
-            <div *ngFor="let item of items$|async">
-              <a href="{{item.link}}"><img class="res-img" src="{{item.link}}" onerror="this.style.display='none'"></a>
+            <div class="col-sm-3" *ngFor="let item of items$|async">
+                <a href="{{item.link}}">
+                    <figure>
+                        <img class="res-img" src="{{item.link}}" onerror="this.style.display='none'">
+                    </figure>
+                </a>
             </div>
         </div>
         <div class="video-result" *ngIf="Display('videos')">
