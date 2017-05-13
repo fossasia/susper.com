@@ -35,6 +35,7 @@ export class ResultsComponent implements OnInit {
     timezoneOffset: 0,
   };
   querylook = {};
+  hidefooter = 1;
   getNumber(N) {
     let result = Array.apply(null, { length: N }).map(Number.call, Number);
     if (result.length > 10) {
@@ -107,6 +108,8 @@ export class ResultsComponent implements OnInit {
     private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
 
     this.activatedroute.queryParams.subscribe(query => {
+      this.hidefooter = 1;
+
       if (query['fq']) {
 
         if (query['fq'].includes('png')) {
@@ -120,6 +123,7 @@ export class ResultsComponent implements OnInit {
         this.resultDisplay = 'all';
       }
 
+
       this.presentPage = query['start'] / this.searchdata.rows;
       this.searchdata.query = query['query'];
       this.store.dispatch(new queryactions.QueryAction(query['query']));
@@ -130,16 +134,22 @@ export class ResultsComponent implements OnInit {
       this.start = (this.presentPage) * this.searchdata.rows;
       this.begin = this.start + 1;
 
-      searchservice.getsearchresults(query);
+      this.store.dispatch(new queryactions.QueryServerAction(query));
       this.items$ = store.select(fromRoot.getItems);
       this.totalResults$ = store.select(fromRoot.getTotalResults);
-      this.totalResults$.subscribe(totalResults => {
-        this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
-        this.message = 'showing results ' + this.begin + ' to ' + this.end + ' of ' + totalResults;
-        this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
-        this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
-      });
 
+
+
+    });
+    this.totalResults$.subscribe(totalResults => {
+      if (totalResults) {
+        this.hidefooter = 0;
+
+      }
+      this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
+      this.message = 'showing results ' + this.begin + ' to ' + this.end + ' of ' + totalResults;
+      this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
+      this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
     });
 
     this.presentPage = 0;

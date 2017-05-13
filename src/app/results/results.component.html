@@ -57,6 +57,7 @@
                     </div>
                 </div>
             </div>
+          </div>
         </div>
         <br>
         <div class="clean"></div>
@@ -74,10 +75,9 @@
                 </div>
             </nav>
         </div>
-    </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <app-advancedsearch></app-advancedsearch>
 </div>
 
 <!--footer navigation bar goes here-->
-<app-footer-navbar></app-footer-navbar>
+<app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
