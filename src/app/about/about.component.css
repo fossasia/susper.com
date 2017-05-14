@@ -136,3 +136,8 @@ a:hover {
 .navbar-brand {
     padding-left: 100px;
 }
+@media only screen and (max-width: 768px) {
+  .navbar-logo{
+    margin-left: -77px;
+  }
+}
