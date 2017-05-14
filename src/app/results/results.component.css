@@ -169,7 +169,7 @@
 #tools {
   text-decoration: none;
   color: #777;
-  margin-left: 27%;
+  margin-left: 15%;
 }
 
 #tools:hover {
@@ -230,7 +230,13 @@
     margin-left: 11%;
   }
   #tools {
-    margin-left: 14%;
+    margin-left: 17%;
+  }
+}
+
+@media screen and (max-width:1105px) {
+  #tools {
+    margin-left: 18%;
   }
 }
 
@@ -243,9 +249,6 @@
 @media screen and (max-width:979px) {
   #search-options {
     margin-left: 12.5%;
-  }
-  #tools {
-    margin-left: 19%;
   }
 }
 
@@ -260,7 +263,6 @@
   }
   #search-options {
     padding-left: 0px;
-    margin-top: 75px;
     margin-left: 8%;
   }
   #pag-bar {
@@ -273,7 +275,13 @@
     padding: 0px 8.3% 12px;
   }
   #tools {
-    margin-left: 0%;
+    margin-left: -19%;
+  }
+}
+
+@media screen and (max-width:741px) {
+  #tools {
+    margin-left: -26%;
   }
 }
 
@@ -308,6 +316,12 @@
 @media screen and (max-width:379px) {
   #search-options li {
     padding: 0px 6.2% 12px;
+  }
+}
+
+@media screen and (max-width:408px) {
+  #tools {
+    left: 20%;
   }
 }
 
