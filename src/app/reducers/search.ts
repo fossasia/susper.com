@@ -29,7 +29,7 @@ export function reducer(state: State = initialState, action: search.Actions): St
       return Object.assign({}, state, {
         searchresults: search,
         items: search.channels[0].items,
-        totalResults: Number(search.channels[0].totalResults),
+        totalResults: Number(search.channels[0].totalResults) || 0,
         navigation: search.channels[0].navigation,
       });
     }
