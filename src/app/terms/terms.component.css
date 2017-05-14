@@ -29,6 +29,9 @@
     padding-left: 20px;
 }
 
+.about-navbar{
+
+}
 .navbar-text {
     padding-right: 30px;
     font-size: 20px;
@@ -43,7 +46,7 @@
 .link{
 	margin-top:2px;
 	font-weight: 700;
-	line-height: 1.8;
+	line-height: 1.1;
 	color:#1565C0;
 	text-decoration: none !important;
 
@@ -66,7 +69,8 @@ p{
 h2{
 	line-height: 1.8;
 }
-@media only screen and (max-width: 500px) {
+
+@media only screen and (max-width: 768px) {
 	#left{
 			width: 100%;
 	}
@@ -74,6 +78,14 @@ h2{
 	#right{
 			width: 100%;
 	}
+  .navbar-brand{
+    margin-left: -77px;
+  }
+}
+@media only screen and (max-width: 923px)and (min-width: 768px) {
+  .navbar-brand{
+    margin-left: -27%!important;
+  }
 }
 
 a {
@@ -94,3 +106,8 @@ a:hover {
 .navbar-brand {
 	padding-left: 100px;
 }
+
+
+
+
+

@@ -56,7 +56,8 @@
 
 @media screen and (max-width: 979px) and (min-width: 768px) {
   .navbar-form{
-    padding-left: 84px;
+    padding-left: 4px;
+    width: 100px;
    }
 }
 
@@ -93,7 +94,7 @@
   }
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 968px) {
   #nav-group {
     left: -12%;
   }

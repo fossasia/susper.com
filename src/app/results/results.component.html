@@ -39,11 +39,15 @@
         </div>
     </div>
     <!-- END -->
-        <div class="image-result" *ngIf="Display('images')">
-            <div *ngFor="let item of items$|async">
-              <a href="{{item.link}}"><img class="res-img" src="{{item.link}}" onerror="this.style.display='none'"></a>
+    <!-- Image section -->
+    <div class="container">
+        <div class="grid" *ngIf="Display('images')">
+            <div class="cell" *ngFor="let item of items$|async">
+                <a class="image-pointer" href="{{item.link}}"><img class="responsive-image" src="{{item.link}}"></a>
             </div>
         </div>
+    </div>
+    <!-- END -->
         <div class="video-result" *ngIf="Display('videos')">
           <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
             <div *ngFor="let item of items$|async" class="result">
@@ -60,8 +64,8 @@
         <div class="clean"></div>
         <div class="pagination-property">
             <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
-              <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-              <ul class="pagination" id="pag-bar">
+                <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+                <ul class="pagination" id="pag-bar">
                     <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
                     <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link" *ngIf="presentPage>=4 && num<=noOfPages" [class.active_page]="getStyle(presentPage-3+num)"
                             (click)="getPresentPage(presentPage-3+num)" href="#">{{presentPage-3+num}}</span>
@@ -69,14 +73,12 @@
                             href="#">{{num+1}}</span></li>
                     <li class="page-item"><span class="page-link" (click)="incPresentPage()">Next</span></li>
                 </ul>
-              </div>
+                </div>
             </nav>
         </div>
-    </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <app-advancedsearch></app-advancedsearch>
 </div>
 
 <!--footer navigation bar goes here-->
-<app-footer-navbar></app-footer-navbar>
-
+<app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
