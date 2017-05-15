@@ -1,4 +1,15 @@
+@media screen and (max-width:990px) {
+  .navbar-collapse.navbar-right {
+    text-align: right;
+  }
+}
+.navbar-nav > li > a{
+  text-align: left;
+}
 
+.navbar-right{
+  border-top:none;
+}
 
 .bold{
   font-weight: 700;
@@ -8,6 +19,28 @@
   padding: 0px;
   clear: both;
   margin: -57px 0 0 0
+}
+.advsearch-navbar{
+  position: relative;
+  top:-5px;
+}
+
+.navbar {
+  margin-bottom: 0px !important;
+}
+
+.nav-about {
+  clear: both;
+  margin: -57px 0 0 0
+}
+
+.navbar-logo {
+  height: 30px;
+  padding-left: 20px;
+  margin-top: -4%;
+}
+.navbar-brand{
+  margin-left: 25px!important;
 }
 label {
   font-weight: normal !important;
@@ -75,5 +108,10 @@ div{
 
   #right{
     width: 100%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .navbar-logo{
+    margin-left: -77px;
   }
 }
