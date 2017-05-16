@@ -1,8 +1,8 @@
 /*!
  * time-stamp <https://github.com/jonschlinkert/time-stamp>
  *
- * Copyright (c) 2015, Jon Schlinkert.
- * Licensed under the MIT License.
+ * Copyright (c) 2015-2017, Jon Schlinkert.
+ * Released under the MIT License.
  */
 
 'use strict';
@@ -16,32 +16,41 @@
  * @return {String}
  */
 
-module.exports = function timestamp(pattern, date) {
+module.exports = function(pattern, date) {
   if (typeof pattern !== 'string') {
     date = pattern;
     pattern = 'YYYY:MM:DD';
   }
-  date = date || new Date();
-  return pattern.replace(/([YMDHms]{2,4})(:\/)?/g, function(_, key, sep) {
-    var increment = method(key);
-    if (!increment) return _;
-    sep = sep || '';
 
-    var res = '00' + String(date[increment[0]]() + (increment[2] || 0));
-    return res.slice(-increment[1]) + sep;
-  });
+  if (!date) date = new Date();
+
+  function timestamp() {
+    var regex = /(?=(YYYY|YY|MM|DD|HH|mm|ss|ms))\1([:\/]*)/;
+    var match = regex.exec(pattern);
+
+    if (match) {
+      var increment = method(match[1]);
+      var val = '00' + String(date[increment[0]]() + (increment[2] || 0));
+      var res = val.slice(-increment[1]) + (match[2] || '');
+      pattern = pattern.replace(match[0], res);
+      timestamp();
+    }
+  }
+
+  timestamp(pattern);
+  return pattern;
 };
 
 function method(key) {
   return ({
-   YYYY: ['getFullYear', 4],
-   YY: ['getFullYear', 2],
-   // getMonth is zero-based, thus the extra increment field
-   MM: ['getMonth', 2, 1],
-   DD: ['getDate', 2],
-   HH: ['getHours', 2],
-   mm: ['getMinutes', 2],
-   ss: ['getSeconds', 2],
-   ms: ['getMilliseconds', 3]
+    YYYY: ['getFullYear', 4],
+    YY: ['getFullYear', 2],
+    // getMonth is zero-based, thus the extra increment field
+    MM: ['getMonth', 2, 1],
+    DD: ['getDate', 2],
+    HH: ['getHours', 2],
+    mm: ['getMinutes', 2],
+    ss: ['getSeconds', 2],
+    ms: ['getMilliseconds', 3]
   })[key];
 }

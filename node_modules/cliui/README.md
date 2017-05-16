@@ -1,8 +1,9 @@
 # cliui
 
-[![Build Status](https://travis-ci.org/bcoe/cliui.png)](https://travis-ci.org/bcoe/cliui)
-[![Coverage Status](https://coveralls.io/repos/bcoe/cliui/badge.svg?branch=)](https://coveralls.io/r/bcoe/cliui?branch=)
+[![Build Status](https://travis-ci.org/yargs/cliui.svg)](https://travis-ci.org/yargs/cliui)
+[![Coverage Status](https://coveralls.io/repos/yargs/cliui/badge.svg?branch=)](https://coveralls.io/r/yargs/cliui?branch=)
 [![NPM version](https://img.shields.io/npm/v/cliui.svg)](https://www.npmjs.com/package/cliui)
+[![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
 
 easily create complex multi-column command-line-interfaces.
 
@@ -23,21 +24,25 @@ ui.div({
 ui.div(
   {
     text: "-f, --file",
-    width: 40,
+    width: 20,
     padding: [0, 4, 0, 4]
   },
   {
-    text: "the file to load",
-    width: 25
+    text: "the file to load." +
+      chalk.green("(if this description is long it wraps).")
+    ,
+    width: 20
   },
   {
-    text: "[required]",
+    text: chalk.red("[required]"),
     align: 'right'
   }
 )
 
 console.log(ui.toString())
 ```
+
+<img width="500" src="screenshot.png">
 
 ## Layout DSL
 
@@ -48,7 +53,7 @@ object:
 
 * `\n`: characters will be interpreted as new rows.
 * `\t`: characters will be interpreted as new columns.
-* ` `: characters will be interpreted as padding.
+* `\s`: characters will be interpreted as padding.
 
 **as an example...**
 
@@ -97,6 +102,7 @@ options:
 * **width:** the width of a column.
 * **align:** alignment, `right` or `center`.
 * **padding:** `[top, right, bottom, left]`.
+* **border:** should a border be placed around the div?
 
 ### cliui.span(column, column, column)
 
