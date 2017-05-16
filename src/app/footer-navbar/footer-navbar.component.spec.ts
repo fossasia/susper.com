@@ -20,6 +20,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducer } from '../reducers/search';
 import { Ng2Bs3ModalModule, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ContactComponent } from '../contact/contact.component';
+import {InfoboxComponent} from "../infobox/infobox.component";
 
 describe('FooterNavbarComponent', () => {
   let component: FooterNavbarComponent;
@@ -48,7 +49,8 @@ describe('FooterNavbarComponent', () => {
         FooterNavbarComponent,
         AboutComponent,
         ContactComponent,
-        ModalComponent
+        ModalComponent,
+        InfoboxComponent
       ]
     })
       .compileComponents();

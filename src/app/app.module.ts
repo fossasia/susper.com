@@ -23,6 +23,8 @@ import { TermsComponent } from './terms/terms.component';
 import {EffectsModule} from '@ngrx/effects';
 import {ApiSearchEffects} from './effects/search-effects';
 import { NewadvancedsearchComponent } from './newadvancedsearch/newadvancedsearch.component';
+import { InfoboxComponent } from './infobox/infobox.component';
+import {KnowledgeapiService} from './knowledgeapi.service';
 
 
 const appRoutes: Routes = [
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
     FooterNavbarComponent,
     ContactComponent,
     TermsComponent,
-    NewadvancedsearchComponent
+    NewadvancedsearchComponent,
+    InfoboxComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,7 @@ const appRoutes: Routes = [
     Ng2Bs3ModalModule
 
   ],
-  providers: [SearchService],
+  providers: [SearchService, KnowledgeapiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

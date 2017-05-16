@@ -20,6 +20,7 @@ import { AdvancedsearchComponent } from '../advancedsearch/advancedsearch.compon
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { ContactComponent } from '../contact/contact.component';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import {InfoboxComponent} from "../infobox/infobox.component";
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -48,7 +49,8 @@ describe('AboutComponent', () => {
         FooterNavbarComponent,
         AboutComponent,
         ContactComponent,
-        ModalComponent
+        ModalComponent,
+        InfoboxComponent
       ]
     })
       .compileComponents();
