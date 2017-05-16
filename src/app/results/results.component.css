@@ -3,6 +3,9 @@
   padding-top: 18px;
 }
 
+.row{
+  min-height: 84vh;
+}
 .title >a {
   color: #1a0dab;
   font-size: large;
