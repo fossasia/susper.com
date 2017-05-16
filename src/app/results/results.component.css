@@ -4,6 +4,10 @@
   padding-top: 10px;
 }
 
+.row{
+  min-height: 84vh;
+}
+
 .title {
   font-size: large;
   text-decoration: none;
