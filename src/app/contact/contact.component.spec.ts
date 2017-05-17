@@ -19,6 +19,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
 import { AboutComponent } from '../about/about.component';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import {InfoboxComponent} from "../infobox/infobox.component";
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
@@ -47,7 +48,9 @@ describe('ContactComponent', () => {
         FooterNavbarComponent,
         AboutComponent,
         ModalComponent,
-        ContactComponent
+        ContactComponent,
+        InfoboxComponent,
+
       ]
     })
       .compileComponents();
