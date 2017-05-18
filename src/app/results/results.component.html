@@ -38,7 +38,9 @@
             </div>
         </div>
     </div>
-    <!-- END -->
+
+  <app-infobox [hidden]="hidefooter" class="infobox col-md-4 col-md-offset-1"></app-infobox>
+  <!-- END -->
     <!-- Image section -->
     <div class="container">
         <div class="grid" *ngIf="Display('images')">
@@ -59,7 +61,9 @@
                 </div>
             </div>
           </div>
+
         </div>
+
         <br>
         <div class="clean"></div>
         <div class="pagination-property">
@@ -81,4 +85,5 @@
 </div>
 
 <!--footer navigation bar goes here-->
+</div>
 <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
