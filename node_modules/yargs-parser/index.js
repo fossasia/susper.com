@@ -273,14 +273,14 @@ function parse (args, opts) {
 
   // order of precedence:
   // 1. command line arg
-  // 2. value from config file
-  // 3. value from config objects
-  // 4. value from env var
+  // 2. value from env var
+  // 3. value from config file
+  // 4. value from config objects
   // 5. configured default value
   applyEnvVars(argv, true) // special case: check env vars that point to config file
+  applyEnvVars(argv, false)
   setConfig(argv)
   setConfigObjects()
-  applyEnvVars(argv, false)
   applyDefaultsAndAliases(argv, flags.aliases, defaults)
   applyCoercions(argv)
 

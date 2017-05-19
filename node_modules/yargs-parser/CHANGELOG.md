@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/yargs/yargs-parser/compare/v4.2.1...v5.0.0) (2017-02-18)
+
+
+### Bug Fixes
+
+* environment variables should take precedence over config file ([#81](https://github.com/yargs/yargs-parser/issues/81)) ([76cee1f](https://github.com/yargs/yargs-parser/commit/76cee1f))
+
+
+### BREAKING CHANGES
+
+* environment variables will now override config files (args, env, config-file, config-object)
+
+
+
 <a name="4.2.1"></a>
 ## [4.2.1](https://github.com/yargs/yargs-parser/compare/v4.2.0...v4.2.1) (2017-01-02)
 

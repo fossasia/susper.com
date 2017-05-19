@@ -11,7 +11,7 @@ The mighty option parser used by [yargs](https://github.com/yargs/yargs).
 
 visit the [yargs website](http://yargs.js.org/) for more examples, and thorough usage instructions.
 
-<img width="250" src="yargs-logo.png">
+<img width="250" src="https://github.com/yargs/yargs-parser/blob/master/yargs-logo.png">
 
 ## Example
 

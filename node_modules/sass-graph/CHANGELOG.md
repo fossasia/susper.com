@@ -8,24 +8,29 @@ All notable changes to this project will be documented in this file.
 
 ### Tests
 
+## [2.2.4]
+### Dependencies
+
+- yargs@^7.0.0 (@alan-agius4, #84)
+
 ## [2.2.3]
 ### Dependencies
 
-- scss-tokenizer@^0.2.3
+- scss-tokenizer@^0.2.3 (@xzyfer)
 
 ## [2.2.2]
 ### Fixes
 
-- Babel runtime error messages (#76, #77)
+- Babel runtime error messages (@xzyfer, #76 #77)
 
 ### Dependencies
 
-- scss-tokenizer@^0.2.1
+- scss-tokenizer@^0.2.1 (@xzyfer)
 
 ## [2.2.1]
 ### Fixes
 
-- Babel runtime error messages (#76, #77)
+- Babel runtime error messages (@STRML, #76 #77)
 
 ### Dependencies
 
