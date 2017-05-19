@@ -145,7 +145,8 @@ a {
 }
 
 .grid {
-  padding-left: 80px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .responsive-image {
