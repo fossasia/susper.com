@@ -39,7 +39,7 @@
         </div>
     </div>
 
-  <app-infobox [hidden]="hidefooter" class="infobox col-md-4 col-md-offset-1"></app-infobox>
+  <app-infobox [hidden]="hidefooter" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
   <!-- END -->
     <!-- Image section -->
     <div class="container">
