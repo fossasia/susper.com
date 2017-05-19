@@ -25,6 +25,8 @@ import {ApiSearchEffects} from './effects/search-effects';
 import { NewadvancedsearchComponent } from './newadvancedsearch/newadvancedsearch.component';
 import { InfoboxComponent } from './infobox/infobox.component';
 import {KnowledgeapiService} from './knowledgeapi.service';
+import { SuggestService } from './suggest.service';
+import { SuggestEffects } from './effects/suggest-effects';
 
 
 const appRoutes: Routes = [
@@ -62,11 +64,12 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     StoreModule.provideStore(reducer),
     EffectsModule.run(ApiSearchEffects),
+    EffectsModule.run(SuggestEffects),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     Ng2Bs3ModalModule
 
   ],
-  providers: [SearchService, KnowledgeapiService],
+  providers: [SearchService, KnowledgeapiService, SuggestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
