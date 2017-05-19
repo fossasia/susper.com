@@ -16,6 +16,7 @@
   text-overflow: ellipsis;
 }
 .infobox {
+  float:right!important;
 
 }
 
