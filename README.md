@@ -60,8 +60,7 @@ $ npm install
 ##### Running on localhost:
 * **Step 1:** Fork susper repository and clone it to your desktop
 * **Step 2:** Then cd into that cloned folder
-* **Step 3:** Then checkout to your master branch `$ git checkout master`
-* **Step 4:** Deploy locally by running this :```$ ng serve```
+* **Step 3:** Deploy locally by running this :```$ ng serve```
 
 #### For deploying with [Github Pages](https://pages.github.com/):
 With these very simple steps you can have susper deployed:
