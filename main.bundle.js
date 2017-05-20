@@ -1291,7 +1291,7 @@ var ResultsComponent = (function () {
             _this.querylook = Object.assign({}, query);
             _this.searchdata.sort = query['sort'];
             _this.begin = Number(query['start']) + 1;
-            _this.message = 'loading...';
+            _this.message = '';
             _this.start = (_this.presentPage - 1) * _this.searchdata.rows;
             _this.begin = _this.start + 1;
             _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_5__actions_query__["c" /* QueryServerAction */](query));

@@ -314,12 +314,15 @@ type _PatchFn = (global: Window, Zone: ZoneType, api: _ZonePrivate) => void;
 
 /** @internal */
 interface _ZonePrivate {
-  currentZoneFrame(): _ZoneFrame;
-  symbol(name: string): string;
-  scheduleMicroTask(task?: MicroTask): void;
+  currentZoneFrame: () => _ZoneFrame;
+  symbol: (name: string) => string;
+  scheduleMicroTask: (task?: MicroTask) => void;
   onUnhandledError: (error: Error) => void;
   microtaskDrainDone: () => void;
   showUncaughtError: () => boolean;
+  patchEventTargetMethods:
+      (obj: any, addFnName?: string, removeFnName?: string, metaCreator?: any) => boolean;
+  patchOnProperties: (obj: any, properties: string[]) => void;
 }
 
 /** @internal */
@@ -756,10 +759,22 @@ const Zone: ZoneType = (function(global: any) {
 
 
     runTask(task: Task, applyThis?: any, applyArgs?: any): any {
-      if (task.zone != this)
+      if (task.zone != this) {
         throw new Error(
             'A task can only be run in the zone of creation! (Creation: ' +
             (task.zone || NO_ZONE).name + '; Execution: ' + this.name + ')');
+      }
+      // https://github.com/angular/zone.js/issues/778, sometimes eventTask
+      // will run in notScheduled(canceled) state, we should not try to
+      // run such kind of task but just return
+
+      // we have to define an variable here, if not
+      // typescript compiler will complain below
+      const isNotScheduled = task.state === notScheduled;
+      if (isNotScheduled && task.type === eventTask) {
+        return;
+      }
+
       const reEntryGuard = task.state != running;
       reEntryGuard && (task as ZoneTask<any>)._transitionTo(running, scheduled);
       task.runCount++;
@@ -1277,7 +1292,9 @@ const Zone: ZoneType = (function(global: any) {
     onUnhandledError: noop,
     microtaskDrainDone: noop,
     scheduleMicroTask: scheduleMicroTask,
-    showUncaughtError: () => !(Zone as any)[__symbol__('ignoreConsoleErrorUncaughtError')]
+    showUncaughtError: () => !(Zone as any)[__symbol__('ignoreConsoleErrorUncaughtError')],
+    patchEventTargetMethods: () => false,
+    patchOnProperties: noop
   };
   let _currentZoneFrame: _ZoneFrame = {parent: null, zone: new Zone(null, null)};
   let _currentTask: Task = null;
