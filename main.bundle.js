@@ -1349,7 +1349,7 @@ var ResultsComponent = (function () {
         this.getPresentPage(0);
         this.resultDisplay = 'videos';
         this.searchdata.rows = 10;
-        this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+gif)';
+        this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
         this.route.navigate(['/search'], { queryParams: this.searchdata });
     };
     ResultsComponent.prototype.imageClick = function () {
