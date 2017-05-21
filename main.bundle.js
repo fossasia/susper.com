@@ -1846,7 +1846,7 @@ module.exports = "<div class=\"container-fluid\">\n    <div class=\"starter-temp
 /***/ 790:
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"results?.length > 0\" class=\"card\">\n<div>\n  <h2><b>{{this.results[0].label}}</b></h2>\n  <p>{{this.results[0].description}}</p>\n</div>\n<div class=\"card-container\">\n  <h3><b>Related Searches</b></h3>\n\n  <div *ngFor=\"let result of results\">\n    <a [routerLink]=\"resultsearch+result.label\">{{result.label}}</a>\n  </div>\n  </div>\n</div>\n\n"
+module.exports = "<div *ngIf=\"results?.length > 0\" class=\"card\">\n<div>\n  <h2><b>{{this.results[0].label}}</b></h2>\n  <p>{{this.results[0].description}}</p>\n</div>\n<div class=\"card-container\">\n  <h3><b>Related Searches</b></h3>\n\n  <div *ngFor=\"let result of results\">\n    <a [routerLink]=\"resultsearch\" [queryParams]=\"{query: result.label}\">{{result.label}}</a>\n  </div>\n  </div>\n</div>\n\n"
 
 /***/ }),
 
