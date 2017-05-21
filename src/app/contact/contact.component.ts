@@ -32,7 +32,7 @@ export class ContactComponent implements OnInit {
     // check whether messsage contains morthan 100 words
     checkWordCount() {
 
-        if (this.contactMessage.split(' ').length >= 100 && this.tpnoInput.toString().length >= 10) {
+        if (this.tpnoInput && this.tpnoInput.toString().length >= 10) {
             this.submitButton.nativeElement.disabled = false;
         }else {
             this.submitButton.nativeElement.disabled = true;
