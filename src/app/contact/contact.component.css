@@ -147,6 +147,11 @@ a:hover {
     color: rgb(51,51,51);
     text-decoration: none;
 }
+a {
+  color: #1a0dab;
+  text-decoration: none;
+
+}
 
 .navbar-brand {
     padding-left: 100px;
@@ -157,3 +162,4 @@ a:hover {
     margin-left: -77px;
   }
 }
+
