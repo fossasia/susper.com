@@ -7,7 +7,7 @@
   <h3><b>Related Searches</b></h3>
 
   <div *ngFor="let result of results">
-    <a [routerLink]="resultsearch+result.label">{{result.label}}</a>
+    <a [routerLink]="resultsearch" [queryParams]="{query: result.label}">{{result.label}}</a>
   </div>
   </div>
 </div>
