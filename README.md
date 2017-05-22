@@ -1,6 +1,6 @@
 # susper.com
 
-Susper is a decentral Search Engine that uses the peer to peer system yacy and Apache Solr to crawl and index search results.
+Susper is a decentralized Search Engine that uses the peer to peer system yacy and Apache Solr to crawl and index search results.
 
 [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=angular)](https://travis-ci.org/fossasia/susper.com?branch=angular)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ba119419e7444b3b505bb37b4525deb)](https://www.codacy.com/app/shiven15094/susper-com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fossasia/susper.com&amp;utm_campaign=Badge_Grade)
@@ -10,7 +10,7 @@ Susper is a decentral Search Engine that uses the peer to peer system yacy and A
 
 ## Communication
 
-Our chat channel is on gitter here: https://gitter.im/fossasia/susper.com
+Our chat channel is on gitter : https://gitter.im/fossasia/susper.com
 
 ## Components and Technology
 
@@ -50,7 +50,7 @@ These pages are made with the YAML4 CSS Framework and it will serve you very wel
 ## Installation
 First we will need to install angular-cli by using the following command:
 ```sh
-$ npm install -g angular-cli
+$ npm install -g @angular/cli@latest
 ```
 After installing angular-cli we need to install our required node modules, so we will do that by using the following command:
 ```sh
