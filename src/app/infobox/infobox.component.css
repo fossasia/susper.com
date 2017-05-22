@@ -1,20 +1,39 @@
 .card {
   /* Add shadows to create the "card" effect */
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16),0 0 0 1px rgba(0,0,0,0.08);
   border: 1px solid rgba(150,150,150,0.3);
   border-bottom-color: rgba(125,125,125,0.3);
   margin-bottom: 16px;
   padding: 22px 22px 18px 22px;
-  margin-top: 42px;
   transition: 0.3s;
-}
-
-/* On mouse-over, add a deeper shadow */
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  width: 100%;
+  margin-left: 20px;
 }
 
 /* Add some padding inside the card container */
 .card-container {
   padding: 2px 16px;
+}
+
+/* Heading */
+h2 {
+  font-size: 2.6em;
+}
+
+/* Description */
+p {
+  line-height: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+
+/* Points of interest */
+h3 {
+  font-size: 1.3em;
+  margin-left: -15px;
+}
+
+a {
+  color: #1a0dab;
+  text-decoration: none;
+  margin-left: -11px;
 }

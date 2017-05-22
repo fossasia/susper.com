@@ -15,10 +15,6 @@
   overflow: hidden !important;
   text-overflow: ellipsis;
 }
-.infobox {
-  float:right!important;
-
-}
 
 .link > p {
   color: #006621;
@@ -78,6 +74,11 @@ a {
   font-size: small;
   color: #808080;
   padding-left: 60px;
+  margin-left: 0.3%;
+}
+
+.text-result {
+  margin-left: 2%;
 }
 
 .container-fluid{
@@ -166,12 +167,12 @@ a {
 
 #search-options-field {
   background-color: #f8f8f8;
-  padding-bottom: 6px;
+  padding-bottom: 3px;
 }
 
 #search-options {
   margin-top: 0.5%;
-  margin-left: 8.5%;
+  margin-left: 9%;
 }
 
 #search-tools {
