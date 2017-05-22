@@ -24,8 +24,8 @@
 
 .header{
   display: inline-block;
-  width: 70px;
-  padding: 4%;
+  width: 103px;
+  padding: 1%;
   text-align: center;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .dropdown-menu{
-  width: 100px;
+  min-width: 240px;
 }
 
 .dropdown {
