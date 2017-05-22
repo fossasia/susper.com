@@ -72,7 +72,7 @@ export class ResultsComponent implements OnInit {
     this.getPresentPage(0);
     this.resultDisplay = 'videos';
     this.searchdata.rows = 10;
-    this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+gif)';
+    this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
     this.route.navigate(['/search'], { queryParams: this.searchdata });
   }
 
@@ -135,21 +135,32 @@ export class ResultsComponent implements OnInit {
 
 
 
-      this.presentPage = query['start'] / this.searchdata.rows;
+      this.presentPage = Math.abs(query['start'] / this.searchdata.rows) + 1;
       this.searchdata.query = query['query'];
       this.store.dispatch(new queryactions.QueryAction(query['query']));
       this.querylook = Object.assign({}, query);
       this.searchdata.sort = query['sort'];
       this.begin = Number(query['start']) + 1;
-      this.message = 'loading...';
-      this.start = (this.presentPage) * this.searchdata.rows;
+      this.message = '';
+      this.start = (this.presentPage - 1) * this.searchdata.rows;
       this.begin = this.start + 1;
 
       this.store.dispatch(new queryactions.QueryServerAction(query));
       this.items$ = store.select(fromRoot.getItems);
       this.totalResults$ = store.select(fromRoot.getTotalResults);
+      this.totalResults$.subscribe(totalResults => {
+        if (totalResults) {
+          this.hidefooter = 0;
 
+        }
+        this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
+        this.message = 'showing results ' + this.begin + ' to ' + this.end + ' of ' + totalResults;
+        this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
+        this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
+      });
 
+      this.searchdata.rows = Number(query['rows']) || 10;
+      this.presentPage = Math.abs(query['start'] / this.searchdata.rows) + 1;
 
     });
     this.totalResults$.subscribe(totalResults => {
@@ -157,17 +168,17 @@ export class ResultsComponent implements OnInit {
         this.hidefooter = 0;
 
       }
+
       this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
       this.message = 'showing results ' + this.begin + ' to ' + this.end + ' of ' + totalResults;
       this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
       this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
     });
 
-    this.presentPage = 0;
+
   };
 
   ngOnInit() {
-    this.presentPage = 0;
 
   }
 }

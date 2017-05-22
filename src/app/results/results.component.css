@@ -15,9 +15,6 @@
   overflow: hidden !important;
   text-overflow: ellipsis;
 }
-.infobox {
-
-}
 
 .link > p {
   color: #006621;
@@ -145,7 +142,8 @@ a {
 }
 
 .grid {
-  padding-left: 80px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .responsive-image {
