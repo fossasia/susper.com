@@ -74,6 +74,11 @@ a {
   font-size: small;
   color: #808080;
   padding-left: 60px;
+  margin-left: 0.3%;
+}
+
+.text-result {
+  margin-left: 2%;
 }
 
 .container-fluid{
@@ -167,7 +172,7 @@ a {
 
 #search-options {
   margin-top: 0.5%;
-  margin-left: 8.5%;
+  margin-left: 9%;
 }
 
 #search-tools {
