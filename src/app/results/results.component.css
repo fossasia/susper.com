@@ -15,10 +15,6 @@
   overflow: hidden !important;
   text-overflow: ellipsis;
 }
-.infobox {
-  float:right!important;
-
-}
 
 .link > p {
   color: #006621;
