@@ -38,5 +38,11 @@ export class ContactComponent implements OnInit {
             this.submitButton.nativeElement.disabled = true;
         }
 
+      if (this.contactMessage && this.contactMessage.length >= 100) {
+        this.submitButton.nativeElement.disabled = false;
+      }else {
+        this.submitButton.nativeElement.disabled = true;
+      }
+
     } // End checkWordCount()
 }
