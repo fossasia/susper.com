@@ -1,12 +1,12 @@
-'use strict';
+'use strict'
 
-var transport = require('../../../spdy-transport');
-var utils = transport.utils;
+var transport = require('../../../spdy-transport')
+var utils = transport.utils
 
-var assert = require('assert');
-var util = require('util');
-var debug = require('debug')('spdy:scheduler');
-var Readable = require('readable-stream').Readable;
+var assert = require('assert')
+var util = require('util')
+var debug = require('debug')('spdy:scheduler')
+var Readable = require('readable-stream').Readable
 
 /*
  * We create following structure in `pending`:
@@ -27,176 +27,178 @@ var Readable = require('readable-stream').Readable;
  * This way data is interleaved between the different streams.
  */
 
-function Scheduler(options) {
-  Readable.call(this);
+function Scheduler (options) {
+  Readable.call(this)
 
   // Pretty big window by default
-  this.window = 0.25;
+  this.window = 0.25
 
-  if (options && options.window)
-    this.window = options.window;
+  if (options && options.window) { this.window = options.window }
 
-  this.sync = [];
-  this.list = [];
-  this.count = 0;
-  this.pendingTick = false;
+  this.sync = []
+  this.list = []
+  this.count = 0
+  this.pendingTick = false
 }
-util.inherits(Scheduler, Readable);
-module.exports = Scheduler;
+util.inherits(Scheduler, Readable)
+module.exports = Scheduler
 
 // Just for testing, really
-Scheduler.create = function create(options) {
-  return new Scheduler(options);
-};
-
-function insertCompare(a, b) {
-  return a.priority === b.priority ?
-      a.stream - b.stream :
-      b.priority - a.priority;
+Scheduler.create = function create (options) {
+  return new Scheduler(options)
 }
 
-Scheduler.prototype.schedule = function schedule(data) {
-  var priority = data.priority;
-  var stream = data.stream;
-  var chunks = data.chunks;
+function insertCompare (a, b) {
+  return a.priority === b.priority
+    ? a.stream - b.stream
+    : b.priority - a.priority
+}
+
+Scheduler.prototype.schedule = function schedule (data) {
+  var priority = data.priority
+  var stream = data.stream
+  var chunks = data.chunks
 
   // Synchronous frames should not be interleaved
   if (priority === false) {
-    debug('queue sync', chunks);
-    this.sync.push(data);
-    this.count += chunks.length;
+    debug('queue sync', chunks)
+    this.sync.push(data)
+    this.count += chunks.length
 
-    this._read();
-    return;
+    this._read()
+    return
   }
 
-  debug('queue async priority=%d stream=%d', priority, stream, chunks);
-  var item = new SchedulerItem(stream, priority);
-  var index = utils.binaryLookup(this.list, item, insertCompare);
+  debug('queue async priority=%d stream=%d', priority, stream, chunks)
+  var item = new SchedulerItem(stream, priority)
+  var index = utils.binaryLookup(this.list, item, insertCompare)
 
   // Push new item
-  if (index >= this.list.length || insertCompare(this.list[index], item) !== 0)
-    this.list.splice(index, 0, item);
-  // Coalesce
-  else
-    item = this.list[index];
+  if (index >= this.list.length || insertCompare(this.list[index], item) !== 0) {
+    this.list.splice(index, 0, item)
+  } else { // Coalesce
+    item = this.list[index]
+  }
 
-  item.push(data);
+  item.push(data)
 
-  this.count += chunks.length;
+  this.count += chunks.length
 
-  this._read();
-};
+  this._read()
+}
 
-Scheduler.prototype._read = function _read() {
-  if (this.count === 0)
-    return;
+Scheduler.prototype._read = function _read () {
+  if (this.count === 0) {
+    return
+  }
 
-  if (this.pendingTick)
-    return;
-  this.pendingTick = true;
+  if (this.pendingTick) {
+    return
+  }
+  this.pendingTick = true
 
-  var self = this;
-  process.nextTick(function() {
-    self.pendingTick = false;
-    self.tick();
-  });
-};
+  var self = this
+  process.nextTick(function () {
+    self.pendingTick = false
+    self.tick()
+  })
+}
 
-Scheduler.prototype.tick = function tick() {
+Scheduler.prototype.tick = function tick () {
   // No luck for async frames
-  if (!this.tickSync())
-    return false;
+  if (!this.tickSync()) { return false }
 
-  return this.tickAsync();
-};
+  return this.tickAsync()
+}
 
-Scheduler.prototype.tickSync = function tickSync() {
+Scheduler.prototype.tickSync = function tickSync () {
   // Empty sync queue first
-  var sync = this.sync;
-  var res = true;
-  this.sync = [];
+  var sync = this.sync
+  var res = true
+  this.sync = []
   for (var i = 0; i < sync.length; i++) {
-    var item = sync[i];
-    debug('tick sync pending=%d', this.count, item.chunks);
+    var item = sync[i]
+    debug('tick sync pending=%d', this.count, item.chunks)
     for (var j = 0; j < item.chunks.length; j++) {
-      this.count--;
-      res = this.push(item.chunks[j]);
+      this.count--
+      res = this.push(item.chunks[j])
     }
-    debug('after tick sync pending=%d', this.count);
+    debug('after tick sync pending=%d', this.count)
 
     // TODO(indutny): figure out the way to invoke callback on actual write
-    if (item.callback)
-      item.callback(null);
+    if (item.callback) {
+      item.callback(null)
+    }
   }
-  return res;
-};
+  return res
+}
 
-Scheduler.prototype.tickAsync = function tickAsync() {
-  var res = true;
-  var list = this.list;
-  if (list.length === 0)
-    return res;
+Scheduler.prototype.tickAsync = function tickAsync () {
+  var res = true
+  var list = this.list
+  if (list.length === 0) {
+    return res
+  }
 
-  var startPriority = list[0].priority;
+  var startPriority = list[0].priority
   for (var index = 0; list.length > 0; index++) {
     // Loop index
-    index %= list.length;
-    if (startPriority - list[index].priority > this.window)
-      index = 0;
-    debug('tick async index=%d start=%d', index, startPriority);
+    index %= list.length
+    if (startPriority - list[index].priority > this.window) { index = 0 }
+    debug('tick async index=%d start=%d', index, startPriority)
 
-    var current = list[index];
-    var item = current.shift();
+    var current = list[index]
+    var item = current.shift()
 
     if (current.isEmpty()) {
-      list.splice(index, 1);
-      if (index === 0 && list.length > 0)
-        startPriority = list[0].priority;
-      index--;
+      list.splice(index, 1)
+      if (index === 0 && list.length > 0) {
+        startPriority = list[0].priority
+      }
+      index--
     }
 
-    debug('tick async pending=%d', this.count, item.chunks);
+    debug('tick async pending=%d', this.count, item.chunks)
     for (var i = 0; i < item.chunks.length; i++) {
-      this.count--;
-      res = this.push(item.chunks[i]);
+      this.count--
+      res = this.push(item.chunks[i])
     }
-    debug('after tick pending=%d', this.count);
+    debug('after tick pending=%d', this.count)
 
     // TODO(indutny): figure out the way to invoke callback on actual write
-    if (item.callback)
-      item.callback(null);
-    if (!res)
-      break;
+    if (item.callback) {
+      item.callback(null)
+    }
+    if (!res) { break }
   }
 
-  return res;
-};
+  return res
+}
 
-Scheduler.prototype.dump = function dump() {
-  this.tickSync();
+Scheduler.prototype.dump = function dump () {
+  this.tickSync()
 
   // Write everything out
   while (!this.tickAsync()) {
     // Intentional no-op
   }
-  assert.equal(this.count, 0);
-};
-
-function SchedulerItem(stream, priority) {
-  this.stream = stream;
-  this.priority = priority;
-  this.queue = [];
+  assert.equal(this.count, 0)
 }
 
-SchedulerItem.prototype.push = function push(chunks) {
-  this.queue.push(chunks);
-};
+function SchedulerItem (stream, priority) {
+  this.stream = stream
+  this.priority = priority
+  this.queue = []
+}
 
-SchedulerItem.prototype.shift = function shift() {
-  return this.queue.shift();
-};
+SchedulerItem.prototype.push = function push (chunks) {
+  this.queue.push(chunks)
+}
 
-SchedulerItem.prototype.isEmpty = function isEmpty() {
-  return this.queue.length === 0;
-};
+SchedulerItem.prototype.shift = function shift () {
+  return this.queue.shift()
+}
+
+SchedulerItem.prototype.isEmpty = function isEmpty () {
+  return this.queue.length === 0
+}

@@ -1,8 +1,12 @@
 # spdy-transport
-[![Build Status](https://secure.travis-ci.org/indutny/spdy-transport.png)](http://travis-ci.org/indutny/spdy-transport)
-[![NPM version](https://badge.fury.io/js/spdy-transport.svg)](http://badge.fury.io/js/spdy-transport)
 
-SPDY/HTTP2 generic transport implementation.
+[![Build Status](https://travis-ci.org/spdy-http2/spdy-transport.svg?branch=master)](http://travis-ci.org/spdy-http2/spdy-transport)
+[![NPM version](https://badge.fury.io/js/spdy-transport.svg)](http://badge.fury.io/js/spdy-transport)
+[![dependencies Status](https://david-dm.org/spdy-http2/spdy-transport/status.svg?style=flat-square)](https://david-dm.org/spdy-http2/spdy-transport)
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
+[![Waffle](https://img.shields.io/badge/track-waffle-blue.svg?style=flat-square)](https://waffle.io/spdy-http2/node-spdy)
+
+> SPDY/HTTP2 generic transport implementation.
 
 ## Usage
 

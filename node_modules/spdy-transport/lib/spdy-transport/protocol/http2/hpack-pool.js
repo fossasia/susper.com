@@ -1,35 +1,34 @@
-'use strict';
+'use strict'
 
-var transport = require('../../../spdy-transport');
-var constants = require('./').constants;
+var constants = require('./').constants
 
-var hpack = require('hpack.js');
+var hpack = require('hpack.js')
 
-function Pool() {
+function Pool () {
 }
-module.exports = Pool;
+module.exports = Pool
 
-Pool.create = function create() {
-  return new Pool();
-};
+Pool.create = function create () {
+  return new Pool()
+}
 
-Pool.prototype.get = function get(version) {
+Pool.prototype.get = function get (version) {
   var options = {
     table: {
       maxSize: constants.HEADER_TABLE_SIZE
     }
-  };
+  }
 
-  var compress = hpack.compressor.create(options);
-  var decompress = hpack.decompressor.create(options);
+  var compress = hpack.compressor.create(options)
+  var decompress = hpack.decompressor.create(options)
 
   return {
     version: version,
 
     compress: compress,
     decompress: decompress
-  };
-};
+  }
+}
 
-Pool.prototype.put = function put() {
-};
+Pool.prototype.put = function put () {
+}
