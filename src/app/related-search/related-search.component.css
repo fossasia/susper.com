@@ -1,0 +1,24 @@
+.card{
+  padding-left: 50px;
+  padding-top: 10px;
+  max-width: 450px;
+}
+.h3{
+  padding-bottom: 1%;
+}
+.related{
+  padding: 3px 32px 3px 0;
+  display: inline-block;
+  width: 180px;
+  float: left;
+}
+
+.rellink{
+  color: #1a0dab;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+.rellink:hover{
+  text-decoration: underline;
+}

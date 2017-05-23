@@ -25,6 +25,7 @@ import {ApiSearchEffects} from './effects/search-effects';
 import { NewadvancedsearchComponent } from './newadvancedsearch/newadvancedsearch.component';
 import { InfoboxComponent } from './infobox/infobox.component';
 import {KnowledgeapiService} from './knowledgeapi.service';
+import { RelatedSearchComponent } from './related-search/related-search.component';
 
 
 const appRoutes: Routes = [
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
     TermsComponent,
     NewadvancedsearchComponent,
     InfoboxComponent,
+    RelatedSearchComponent,
   ],
   imports: [
     BrowserModule,
