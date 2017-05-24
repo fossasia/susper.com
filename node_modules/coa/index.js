@@ -1,1 +1,1 @@
-module.exports = require(process.env.COVER? './lib-cov' : './lib');
+module.exports = require('./lib');

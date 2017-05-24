@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 // Manually added data to be used by sbcs codec in addition to generated one.
 
@@ -84,6 +84,8 @@ module.exports = {
 
     "cp819": "iso88591",
     "ibm819": "iso88591",
+    "cp28591": "iso88591",
+    "28591": "iso88591",
 
     "cyrillic": "iso88595",
 
