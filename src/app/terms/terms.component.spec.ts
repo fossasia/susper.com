@@ -20,6 +20,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { TermsComponent } from './terms.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
+import { CustomizeComponent } from '../customize/customize.component';
 
 describe('TermsComponent', () => {
   let component: TermsComponent;
@@ -48,7 +49,8 @@ describe('TermsComponent', () => {
         FooterNavbarComponent,
         ModalComponent,
         TermsComponent,
-        InfoboxComponent
+        InfoboxComponent,
+        CustomizeComponent
       ]
     })
     .compileComponents();
