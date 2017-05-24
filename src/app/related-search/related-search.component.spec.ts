@@ -1,9 +1,8 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By, BrowserModule } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { NavbarComponent } from './navbar.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -19,14 +18,15 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { reducer } from '../reducers/index';
 import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
 import { AboutComponent } from '../about/about.component';
-import { Ng2Bs3ModalModule, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ContactComponent } from '../contact/contact.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
-import {RelatedSearchComponent} from "../related-search/related-search.component";
+import { RelatedSearchComponent } from './related-search.component';
+import {KnowledgeapiService} from "../knowledgeapi.service";
 
-describe('NavbarComponent', () => {
-  let component: NavbarComponent;
-  let fixture: ComponentFixture<NavbarComponent>;
+describe('RelatedSearchComponent', () => {
+  let component: RelatedSearchComponent;
+  let fixture: ComponentFixture<RelatedSearchComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -38,7 +38,7 @@ describe('NavbarComponent', () => {
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension()
+        StoreDevtoolsModule.instrumentOnlyWithExtension(),
       ],
       declarations: [
         AppComponent,
@@ -54,37 +54,21 @@ describe('NavbarComponent', () => {
         ModalComponent,
         InfoboxComponent,
         RelatedSearchComponent,
-      ]
+      ],
+      providers: [
+        KnowledgeapiService
+      ],
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavbarComponent);
+    fixture = TestBed.createComponent(RelatedSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create an instance', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should have an app-search-bar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
-
-    expect(compiled.querySelector('app-search-bar')).toBeTruthy();
-  });
-
-  it('should have a dropdown menu', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('li.dropdown')).toBeTruthy();
-  });
-
-  it('should have susper logo', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
-
-    expect(image).toBeTruthy();
-  });
-
 });

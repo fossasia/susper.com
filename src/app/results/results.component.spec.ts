@@ -24,6 +24,7 @@ import { ModalComponent, Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ContactComponent } from '../contact/contact.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import {KnowledgeapiService} from "../knowledgeapi.service";
+import {RelatedSearchComponent} from "../related-search/related-search.component";
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -54,6 +55,7 @@ describe('ResultsComponent', () => {
         ContactComponent,
         ModalComponent,
         InfoboxComponent,
+        RelatedSearchComponent,
       ],
       providers: [SearchService, KnowledgeapiService]
     })
