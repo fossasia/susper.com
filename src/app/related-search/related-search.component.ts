@@ -24,7 +24,7 @@ export class RelatedSearchComponent implements OnInit {
           if (res.results) {
             res.results.splice(0, 1);
             this.results = res.results;
-            this.keyword = this.query$._dispatcher._value.payload.query;
+            this.keyword = query;
           }
 
         });
