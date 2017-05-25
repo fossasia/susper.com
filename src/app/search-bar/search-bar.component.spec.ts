@@ -23,6 +23,7 @@ import { ContactComponent } from '../contact/contact.component';
 import { ModalComponent, Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import { CustomizeComponent } from '../customize/customize.component';
+import {RelatedSearchComponent} from "../related-search/related-search.component";
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -54,7 +55,8 @@ describe('SearchBarComponent', () => {
         ContactComponent,
         ModalComponent,
         InfoboxComponent,
-        CustomizeComponent
+        CustomizeComponent,
+        RelatedSearchComponent
       ]
     })
       .compileComponents();

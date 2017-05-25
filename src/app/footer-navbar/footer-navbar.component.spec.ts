@@ -22,6 +22,7 @@ import { Ng2Bs3ModalModule, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ContactComponent } from '../contact/contact.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import { CustomizeComponent } from '../customize/customize.component';
+import {RelatedSearchComponent} from "../related-search/related-search.component";
 
 describe('FooterNavbarComponent', () => {
   let component: FooterNavbarComponent;
@@ -52,7 +53,8 @@ describe('FooterNavbarComponent', () => {
         ContactComponent,
         ModalComponent,
         InfoboxComponent,
-        CustomizeComponent
+        CustomizeComponent,
+        RelatedSearchComponent
       ]
     })
       .compileComponents();

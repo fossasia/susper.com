@@ -26,6 +26,7 @@ import {InfoboxComponent} from "../infobox/infobox.component";
 import {KnowledgeapiService} from "../knowledgeapi.service";
 import { ThemeService } from '../theme.service';
 import { CustomizeComponent } from '../customize/customize.component';
+import {RelatedSearchComponent} from "../related-search/related-search.component";
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -56,7 +57,8 @@ describe('ResultsComponent', () => {
         ContactComponent,
         ModalComponent,
         InfoboxComponent,
-        CustomizeComponent
+        CustomizeComponent,
+        RelatedSearchComponent
       ],
       providers: [SearchService, KnowledgeapiService, ThemeService]
     })
