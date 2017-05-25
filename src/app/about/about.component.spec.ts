@@ -22,6 +22,7 @@ import { ContactComponent } from '../contact/contact.component';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
+import { CustomizeComponent } from '../customize/customize.component';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -53,6 +54,7 @@ describe('AboutComponent', () => {
         ModalComponent,
         InfoboxComponent,
         RelatedSearchComponent,
+        CustomizeComponent
       ]
     })
       .compileComponents();

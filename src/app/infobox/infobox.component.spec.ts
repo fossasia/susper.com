@@ -22,6 +22,7 @@ import {reducer} from "../reducers/index";
 import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
+import { CustomizeComponent } from '../customize/customize.component';
 
 describe('InfoboxComponent', () => {
   let component: InfoboxComponent;
@@ -53,6 +54,7 @@ describe('InfoboxComponent', () => {
         ModalComponent,
         InfoboxComponent,
         RelatedSearchComponent,
+        CustomizeComponent
       ],
       providers: [
         KnowledgeapiService
