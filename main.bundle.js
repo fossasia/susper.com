@@ -907,7 +907,12 @@ var InfoboxComponent = (function () {
             if (query) {
                 _this.knowledgeservice.getsearchresults(query).subscribe(function (res) {
                     if (res.results) {
-                        _this.results = res.results;
+                        if (res.results[0].label.toLowerCase().includes(query.toLowerCase())) {
+                            _this.results = res.results;
+                        }
+                        else {
+                            _this.results = [];
+                        }
                     }
                 });
             }
