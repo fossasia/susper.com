@@ -1,6 +1,12 @@
 'use strict'
 
 var util = require('util')
+var isNode = require('detect-node')
+
+// Node.js 0.8, 0.10 and 0.12 support
+Object.assign = (process.versions.modules >= 46 || !isNode)
+  ? Object.assign // eslint-disable-next-line
+  : util._extend
 
 function QueueItem () {
   this.prev = null

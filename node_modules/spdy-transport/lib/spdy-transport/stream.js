@@ -12,11 +12,6 @@ var debug = {
 var Buffer = require('safe-buffer').Buffer
 var Duplex = require('readable-stream').Duplex
 
-// Node.js 0.8, 0.10 and 0.12 support
-Object.assign = process.versions.modules >= 46
-  ? Object.assign // eslint-disable-next-line
-  : util._extend
-
 function Stream (connection, options) {
   Duplex.call(this)
 

@@ -1205,7 +1205,7 @@ var RelatedSearchComponent = (function () {
                     if (res.results) {
                         res.results.splice(0, 1);
                         _this.results = res.results;
-                        _this.keyword = _this.query$._dispatcher._value.payload.query;
+                        _this.keyword = query;
                     }
                 });
             }

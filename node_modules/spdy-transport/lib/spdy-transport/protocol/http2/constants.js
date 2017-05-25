@@ -3,13 +3,7 @@
 var transport = require('../../../spdy-transport')
 var base = transport.protocol.base
 
-var util = require('util')
 var Buffer = require('safe-buffer').Buffer
-
-// Node.js 0.8, 0.10 and 0.12 support
-Object.assign = process.versions.modules >= 46
-  ? Object.assign // eslint-disable-next-line
-  : util._extend
 
 exports.PREFACE_SIZE = 24
 exports.PREFACE = 'PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n'

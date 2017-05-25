@@ -12,11 +12,6 @@ var WriteBuffer = require('wbuf')
 
 var debug = require('debug')('spdy:framer')
 
-// Node.js 0.8, 0.10 and 0.12 support
-Object.assign = process.versions.modules >= 46
-  ? Object.assign // eslint-disable-next-line
-  : util._extend
-
 function Framer (options) {
   base.Framer.call(this, options)
 }
