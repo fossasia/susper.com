@@ -25,9 +25,14 @@ export class RelatedSearchComponent implements OnInit {
             res.results.splice(0, 1);
             this.results = res.results;
             this.keyword = query;
-          }
+
+        } else {
+          this.results = [];
+        }
 
         });
+      } else {
+        this.results = [];
       }
     });
   }
