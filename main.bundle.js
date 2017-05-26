@@ -1208,8 +1208,13 @@ var RelatedSearchComponent = (function () {
             if (query) {
                 _this.knowledgeservice.getsearchresults(query).subscribe(function (res) {
                     if (res.results) {
-                        res.results.splice(0, 1);
-                        _this.results = res.results;
+                        if (!res.results[0].label.toLowerCase().localeCompare(query.toLowerCase())) {
+                            res.results.splice(0, 1);
+                            _this.results = res.results;
+                        }
+                        else {
+                            _this.results = res.results;
+                        }
                         _this.keyword = query;
                     }
                 });
