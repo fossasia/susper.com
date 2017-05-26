@@ -1700,7 +1700,7 @@ exports = module.exports = __webpack_require__(24)(false);
 
 
 // module
-exports.push([module.i, ".card {\n  /* Add shadows to create the \"card\" effect */\n  border: 1px solid rgba(150,150,150,0.3);\n  border-bottom-color: rgba(125,125,125,0.3);\n  margin-bottom: 16px;\n  padding: 22px 22px 18px 22px;\n  transition: 0.3s;\n  width: 100%;\n  margin-left: 20px;\n}\n\n/* Add some padding inside the card container */\n.card-container {\n  padding: 2px 16px;\n}\n\n/* Heading */\nh2 {\n  font-size: 2.6em;\n}\n\n/* Description */\np {\n  line-height: 20px;\n  font-family: Arial, sans-serif;\n  font-size: 13px;\n}\n\n/* Points of interest */\nh3 {\n  font-size: 1.3em;\n  margin-left: -15px;\n}\n\na {\n  color: #1a0dab;\n  text-decoration: none;\n  margin-left: -11px;\n}\n", ""]);
+exports.push([module.i, ".card {\n  /* Add shadows to create the \"card\" effect */\n  border: 1px solid rgba(150,150,150,0.3);\n  border-bottom-color: rgba(125,125,125,0.3);\n  margin-bottom: 16px;\n  padding: 22px 22px 18px 22px;\n  transition: 0.3s;\n  width: 100%;\n  margin-left: 20px;\n}\n\n/* Add some padding inside the card container */\n.card-container {\n  padding: 2px 16px;\n}\n\n/* Heading */\nh2 {\n  font-size: 2.6em;\n}\n\n/* Description */\np {\n  line-height: 20px;\n  font-family: Arial, sans-serif;\n  font-size: 13px;\n}\n\n/* Points of interest */\nh3 {\n  font-size: 1.3em;\n  margin-left: -15px;\n}\n\na {\n  color: #1a0dab;\n  text-decoration: none;\n  margin-left: -11px;\n}\n\n/** Screen Responsiveness **/\n@media screen and (max-width: 1143px) {\n  .card {\n    display: none;\n  }\n}\n", ""]);
 
 // exports
 
