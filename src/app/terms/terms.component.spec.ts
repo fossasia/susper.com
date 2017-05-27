@@ -20,6 +20,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { TermsComponent } from './terms.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
+import { CustomizeComponent } from '../customize/customize.component';
 import {RelatedSearchComponent} from "../related-search/related-search.component";
 
 describe('TermsComponent', () => {
@@ -50,7 +51,8 @@ describe('TermsComponent', () => {
         ModalComponent,
         TermsComponent,
         InfoboxComponent,
-        RelatedSearchComponent,
+        CustomizeComponent,
+        RelatedSearchComponent
       ]
     })
     .compileComponents();

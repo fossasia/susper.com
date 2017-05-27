@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { CustomizeComponent } from '../customize/customize.component';
 import { InfoboxComponent } from './infobox.component';
 import {AppComponent} from "../app.component";
 import {NavbarComponent} from "../navbar/navbar.component";
@@ -52,7 +53,8 @@ describe('InfoboxComponent', () => {
         ContactComponent,
         ModalComponent,
         InfoboxComponent,
-        RelatedSearchComponent,
+        CustomizeComponent,
+        RelatedSearchComponent
       ],
       providers: [
         KnowledgeapiService
