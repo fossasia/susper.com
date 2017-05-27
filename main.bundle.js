@@ -919,6 +919,9 @@ var InfoboxComponent = (function () {
                     }
                 });
             }
+            else {
+                _this.results = [];
+            }
         });
     }
     InfoboxComponent.prototype.ngOnInit = function () {
