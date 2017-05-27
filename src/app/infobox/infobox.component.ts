@@ -30,7 +30,10 @@ export class InfoboxComponent implements OnInit {
           } else {
             this.results = [];
           }
+
         });
+      }else {
+        this.results = [];
       }
     });
   }
