@@ -38,12 +38,12 @@ export class InfoboxComponent implements OnInit {
             }
 
           } else {
-            this.results = [];
+            this.initialresults = [];
           }
 
         });
       }else {
-        this.results = [];
+        this.initialresults = [];
       }
     });
   }
