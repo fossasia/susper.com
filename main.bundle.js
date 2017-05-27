@@ -500,7 +500,7 @@ var AdvancedsearchComponent = (function () {
         this.selectedelements = [];
         this.activatedroute.queryParams.subscribe(function (query) {
             _this.querylook = Object.assign({}, query);
-            _this.navigation$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getNavigation */]);
+            _this.navigation$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["d" /* getNavigation */]);
         });
     }
     AdvancedsearchComponent.prototype.changeurl = function (modifier, element) {
@@ -1039,25 +1039,28 @@ var InfoboxComponent = (function () {
         this.ref = ref;
         this.resultsearch = '/search';
         this.query$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["b" /* getquery */]);
-        console.log(this.query$);
+        this.resultscomponentchange$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getItems */]);
+        this.resultscomponentchange$.subscribe(function (res) {
+            _this.results = _this.initialresults;
+        });
         this.query$.subscribe(function (query) {
             if (query) {
                 _this.knowledgeservice.getsearchresults(query).subscribe(function (res) {
                     if (res.results) {
                         if (res.results[0].label.toLowerCase().includes(query.toLowerCase())) {
-                            _this.results = res.results;
+                            _this.initialresults = res.results;
                         }
                         else {
-                            _this.results = [];
+                            _this.initialresults = [];
                         }
                     }
                     else {
-                        _this.results = [];
+                        _this.initialresults = [];
                     }
                 });
             }
             else {
-                _this.results = [];
+                _this.initialresults = [];
             }
         });
     }
@@ -1347,27 +1350,31 @@ var RelatedSearchComponent = (function () {
         this.ref = ref;
         this.resultsearch = '/search';
         this.query$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["b" /* getquery */]);
+        this.resultscomponentchange$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getItems */]);
+        this.resultscomponentchange$.subscribe(function (res) {
+            _this.results = _this.initialresults;
+        });
         this.query$.subscribe(function (query) {
             if (query) {
                 _this.knowledgeservice.getsearchresults(query).subscribe(function (res) {
                     if (res.results) {
                         if (!res.results[0].label.toLowerCase().localeCompare(query.toLowerCase())) {
                             res.results.splice(0, 1);
-                            _this.results = res.results;
+                            _this.initialresults = res.results;
                         }
                         else {
-                            _this.results = res.results;
+                            _this.initialresults = res.results;
                         }
                         _this.keyword = query;
                     }
                     else {
-                        _this.results = [];
+                        _this.initialresults = [];
                         _this.keyword = query;
                     }
                 });
             }
             else {
-                _this.results = [];
+                _this.initialresults = [];
             }
         });
     }
@@ -1467,7 +1474,7 @@ var ResultsComponent = (function () {
             _this.start = (_this.presentPage - 1) * _this.searchdata.rows;
             _this.begin = _this.start + 1;
             _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_5__actions_query__["c" /* QueryServerAction */](query));
-            _this.items$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["d" /* getItems */]);
+            _this.items$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getItems */]);
             _this.totalResults$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["e" /* getTotalResults */]);
             _this.totalResults$.subscribe(function (totalResults) {
                 if (totalResults) {
@@ -2132,9 +2139,9 @@ module.exports = "<!-- Start ignoring BootLintBear-->\n<link rel=\"stylesheet\" 
 /* unused harmony export getSearchState */
 /* unused harmony export getQueryState */
 /* unused harmony export getSearchResults */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getItems; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getTotalResults; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getNavigation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getNavigation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getquery; });
 
 
