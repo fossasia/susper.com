@@ -42,13 +42,13 @@ export class RelatedSearchComponent implements OnInit {
             this.keyword = query;
 
           } else {
-            this.results = [];
+            this.initialresults = [];
             this.keyword = query;
           }
 
         });
       } else {
-        this.results = [];
+        this.initialresults = [];
       }
     });
   }
