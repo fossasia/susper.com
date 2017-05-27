@@ -1366,6 +1366,9 @@ var RelatedSearchComponent = (function () {
                     }
                 });
             }
+            else {
+                _this.results = [];
+            }
         });
     }
     RelatedSearchComponent.prototype.ngOnInit = function () {
