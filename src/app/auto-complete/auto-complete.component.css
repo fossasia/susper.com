@@ -1,0 +1,12 @@
+a{
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  padding-bottom: 1%;
+}
+
+.suggestion-box{
+  width: 100%;
+  border: solid;
+  background-color: white;
+  padding: 1%;
+}
