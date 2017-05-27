@@ -29,12 +29,15 @@ export class RelatedSearchComponent implements OnInit {
               this.results = res.results;
             }
             this.keyword = query;
+
           } else {
             this.results = [];
             this.keyword = query;
           }
 
         });
+      } else {
+        this.results = [];
       }
     });
   }
