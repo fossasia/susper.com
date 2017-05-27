@@ -1,4 +1,17 @@
 
+2.1.0 / 2017-05-26
+==================
+
+  * unref is not supported for node < 0.9.1 (@pi0)
+  * add tests to dangling socket (@pi0)
+  * check unref() is supported (@pi0)
+  * fix dangling sockets problem (@pi0)
+  * add basic "ws" module tests
+  * make `Agent` be subclassable
+  * turn `addRequest()` into a named function
+  * test: Node.js v4 likes to call `cork` on the stream (#3, @tomhughes)
+  * travis: test node v4, v5, v6 and v7
+
 2.0.1 / 2015-09-10
 ==================
 

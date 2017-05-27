@@ -914,6 +914,9 @@ var InfoboxComponent = (function () {
                             _this.results = [];
                         }
                     }
+                    else {
+                        _this.results = [];
+                    }
                 });
             }
         });
@@ -1215,6 +1218,10 @@ var RelatedSearchComponent = (function () {
                         else {
                             _this.results = res.results;
                         }
+                        _this.keyword = query;
+                    }
+                    else {
+                        _this.results = [];
                         _this.keyword = query;
                     }
                 });
