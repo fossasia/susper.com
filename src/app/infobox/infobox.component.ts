@@ -27,8 +27,13 @@ export class InfoboxComponent implements OnInit {
               this.results = [];
             }
 
+          } else {
+            this.results = [];
           }
+
         });
+      }else {
+        this.results = [];
       }
     });
   }

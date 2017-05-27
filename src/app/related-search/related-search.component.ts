@@ -30,9 +30,10 @@ export class RelatedSearchComponent implements OnInit {
             }
             this.keyword = query;
 
-        } else {
-          this.results = [];
-        }
+          } else {
+            this.results = [];
+            this.keyword = query;
+          }
 
         });
       } else {
