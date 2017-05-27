@@ -24,6 +24,7 @@ import { ContactComponent } from '../contact/contact.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
 import { CustomizeComponent } from '../customize/customize.component';
+import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 
 describe('AdvancedsearchComponent', () => {
   let component: AdvancedsearchComponent;
@@ -56,7 +57,8 @@ describe('AdvancedsearchComponent', () => {
         ModalComponent,
         InfoboxComponent,
         RelatedSearchComponent,
-        CustomizeComponent
+        CustomizeComponent,
+        AutoCompleteComponent
       ]
     })
       .compileComponents();

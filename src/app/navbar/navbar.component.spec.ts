@@ -24,6 +24,8 @@ import { ContactComponent } from '../contact/contact.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
 import { CustomizeComponent } from '../customize/customize.component';
+import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
+import {AutocompleteService} from "../autocomplete.service";
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -55,8 +57,12 @@ describe('NavbarComponent', () => {
         ModalComponent,
         InfoboxComponent,
         RelatedSearchComponent,
-        CustomizeComponent
-      ]
+        CustomizeComponent,
+        AutoCompleteComponent
+      ],
+      providers: [
+        AutocompleteService,
+      ],
     })
       .compileComponents();
   }));

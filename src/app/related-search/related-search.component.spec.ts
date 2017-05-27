@@ -24,6 +24,8 @@ import {InfoboxComponent} from "../infobox/infobox.component";
 import { RelatedSearchComponent } from './related-search.component';
 import {KnowledgeapiService} from "../knowledgeapi.service";
 import { CustomizeComponent } from '../customize/customize.component';
+import {AutocompleteService} from "../autocomplete.service";
+import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 
 describe('RelatedSearchComponent', () => {
   let component: RelatedSearchComponent;
@@ -55,7 +57,8 @@ describe('RelatedSearchComponent', () => {
         ModalComponent,
         InfoboxComponent,
         RelatedSearchComponent,
-        CustomizeComponent
+        CustomizeComponent,
+        AutoCompleteComponent
       ],
       providers: [
         KnowledgeapiService
