@@ -91,11 +91,4 @@ describe('ResultsComponent', () => {
     expect(textResult).toBeTruthy();
   });
 
-
-  it('should have pagination property', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let pagination = compiled.querySelector('div.pagination-property');
-
-    expect(pagination).toBeTruthy();
-  });
 });
