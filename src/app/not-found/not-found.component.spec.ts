@@ -25,6 +25,7 @@ import {InfoboxComponent} from "../infobox/infobox.component";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import {AutocompleteService} from "../autocomplete.service";
+import { ThemeComponent } from '../theme/theme.component';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -57,6 +58,7 @@ describe('NotFoundComponent', () => {
         InfoboxComponent,
         RelatedSearchComponent,
         AutoCompleteComponent,
+        ThemeComponent
       ],
       providers: [
         AutocompleteService
