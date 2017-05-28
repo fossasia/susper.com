@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="search" href="//susper.com/susper.xml" type="application/opensearchdescription+xml" title="susper.com"/>
 </head>
 <body>
 <!--<div id="set-susper-default">
@@ -30,13 +31,13 @@
 -->
 <script>
   $(document).ready(function () {
-    //var isFirefox = typeof InstallTrigger !== 'undefined';
+    var isFirefox = typeof InstallTrigger !== 'undefined';
 
-    //if (isFirefox === false) {
-    //    $("#set-susper-default").remove();
-    //    $(".input-group-btn").addClass("align-search-btn");
-    //    $("#navbar-search").addClass("align-navsearch-btn");
-    //}
+    if (isFirefox === false) {
+        $("#set-susper-default").remove();
+        $(".input-group-btn").addClass("align-search-btn");
+        $("#navbar-search").addClass("align-navsearch-btn");
+    }
 
     if (window.external && window.external.IsSearchProviderInstalled) {
         var isInstalled = window.external.IsSearchProviderInstalled("http://susper.com");
