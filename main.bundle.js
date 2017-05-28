@@ -1808,7 +1808,7 @@ exports = module.exports = __webpack_require__(23)(false);
 
 
 // module
-exports.push([module.i, "a{\n  text-decoration: none;\n  font-family: Arial, sans-serif;\n  padding-bottom: 1%;\n}\n\n.suggestion-box{\n  width: 100%;\n  border: solid;\n  background-color: white;\n  padding: 1%;\n}\n", ""]);
+exports.push([module.i, "a {\n  text-decoration: none;\n}\n\n.suggestions {\n  font-family: Arial, sans-serif;\n  font-size: 17px;\n  margin-left: 4px;\n}\n\n.suggestion-box{\n  width: 585.2px;\n  max-width: 100%;\n  border: 1px solid rgba(150,150,150,0.3);\n  background-color: white;\n  padding: 1%;\n  margin-left: -0.7px;\n  position: absolute;\n}\n\n@media screen and (max-width: 961px) {\n  .suggestion-box {\n    margin-left: -10.6px;\n  }\n}\n\n@media screen and (max-width: 764px) {\n  .suggestion-box {\n    margin-left: -15.7%;\n    width: 652px;\n  }\n}\n\n@media screen and (max-width: 712px) {\n  .suggestion-box {\n    margin-left: -15.7%;\n    width: 609.8px;\n  }\n}\n\n@media screen and (max-width: 645px) {\n  .suggestion-box {\n    width: 557px;\n  }\n}\n\n@media screen and (max-width: 598px) {\n  .suggestion-box {\n    width: 519px;\n  }\n}\n\n@media screen and (max-width: 548px) {\n  .suggestion-box {\n    width: 479px;\n  }\n}\n\n@media screen and (max-width: 436px) {\n  .suggestion-box {\n    display: none;\n  }\n}\n", ""]);
 
 // exports
 
@@ -2040,7 +2040,7 @@ module.exports = "<router-outlet></router-outlet>\n"
 /***/ 792:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"suggestion-box\">\n<div *ngFor=\"let result of results\">\n  <a [routerLink]=\"resultsearch\" [queryParams]=\"{query: result.label}\">{{result.label}}</a>\n</div>\n</div>\n"
+module.exports = "<div class=\"suggestion-box\">\n  <div *ngFor=\"let result of results\">\n    <a [routerLink]=\"resultsearch\" [queryParams]=\"{query: result.label}\" class=\"suggestions\">{{result.label}}</a>\n  </div>\n</div>\n"
 
 /***/ }),
 
