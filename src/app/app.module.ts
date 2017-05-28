@@ -26,6 +26,8 @@ import { NewadvancedsearchComponent } from './newadvancedsearch/newadvancedsearc
 import { InfoboxComponent } from './infobox/infobox.component';
 import {KnowledgeapiService} from './knowledgeapi.service';
 import { RelatedSearchComponent } from './related-search/related-search.component';
+import { CustomizeComponent } from './customize/customize.component';
+import { ThemeService } from './theme.service';
 import {AutocompleteService} from "./autocomplete.service";
 import { AutoCompleteComponent } from './auto-complete/auto-complete.component';
 
@@ -56,7 +58,8 @@ const appRoutes: Routes = [
     NewadvancedsearchComponent,
     InfoboxComponent,
     RelatedSearchComponent,
-    AutoCompleteComponent,
+    CustomizeComponent,
+    AutoCompleteComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,7 @@ const appRoutes: Routes = [
     Ng2Bs3ModalModule
 
   ],
-  providers: [SearchService, KnowledgeapiService, AutocompleteService],
+  providers: [SearchService, KnowledgeapiService, ThemeService, AutocompleteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

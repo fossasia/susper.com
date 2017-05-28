@@ -23,6 +23,7 @@ import { Ng2Bs3ModalModule, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ContactComponent } from '../contact/contact.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
+import { CustomizeComponent } from '../customize/customize.component';
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import {AutocompleteService} from "../autocomplete.service";
 
@@ -56,7 +57,8 @@ describe('NavbarComponent', () => {
         ModalComponent,
         InfoboxComponent,
         RelatedSearchComponent,
-        AutoCompleteComponent,
+        CustomizeComponent,
+        AutoCompleteComponent
       ],
       providers: [
         AutocompleteService,

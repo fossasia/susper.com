@@ -25,8 +25,11 @@ import { ContactComponent } from '../contact/contact.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import {KnowledgeapiService} from "../knowledgeapi.service";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
+import { CustomizeComponent } from '../customize/customize.component';
+import { ThemeService } from '../theme.service';
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import {AutocompleteService} from "../autocomplete.service";
+
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -58,9 +61,10 @@ describe('ResultsComponent', () => {
         ModalComponent,
         InfoboxComponent,
         RelatedSearchComponent,
-        AutoCompleteComponent,
+        CustomizeComponent,
+        AutocompleteComponent
       ],
-      providers: [SearchService, KnowledgeapiService, AutocompleteService]
+      providers: [SearchService, KnowledgeapiService, ThemeService, AutocompleteService]
     })
       .compileComponents();
   }));
