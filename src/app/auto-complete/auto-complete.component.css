@@ -1,12 +1,63 @@
-a{
+a {
   text-decoration: none;
+}
+
+.suggestions {
   font-family: Arial, sans-serif;
-  padding-bottom: 1%;
+  font-size: 17px;
+  margin-left: 4px;
 }
 
 .suggestion-box{
-  width: 100%;
-  border: solid;
+  width: 585.2px;
+  max-width: 100%;
+  border: 1px solid rgba(150,150,150,0.3);
   background-color: white;
   padding: 1%;
+  margin-left: -0.7px;
+  position: absolute;
+}
+
+@media screen and (max-width: 961px) {
+  .suggestion-box {
+    margin-left: -10.6px;
+  }
+}
+
+@media screen and (max-width: 764px) {
+  .suggestion-box {
+    margin-left: -15.7%;
+    width: 652px;
+  }
+}
+
+@media screen and (max-width: 712px) {
+  .suggestion-box {
+    margin-left: -15.7%;
+    width: 609.8px;
+  }
+}
+
+@media screen and (max-width: 645px) {
+  .suggestion-box {
+    width: 557px;
+  }
+}
+
+@media screen and (max-width: 598px) {
+  .suggestion-box {
+    width: 519px;
+  }
+}
+
+@media screen and (max-width: 548px) {
+  .suggestion-box {
+    width: 479px;
+  }
+}
+
+@media screen and (max-width: 436px) {
+  .suggestion-box {
+    display: none;
+  }
 }
