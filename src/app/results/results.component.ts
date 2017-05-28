@@ -151,7 +151,6 @@ export class ResultsComponent implements OnInit {
       this.totalResults$.subscribe(totalResults => {
         if (totalResults) {
           this.hidefooter = 0;
-
         }
         this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
         this.message = 'showing results ' + this.begin + ' to ' + this.end + ' of ' + totalResults;
