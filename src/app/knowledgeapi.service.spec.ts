@@ -1,14 +1,12 @@
-/* tslint:disable:no-unused-variable */
-
 import { TestBed, inject } from '@angular/core/testing';
-import { AutocompleteService } from './autocomplete.service';
-import { RouterTestingModule } from '@angular/router/testing';
+
+import { KnowledgeapiService } from './knowledgeapi.service';
 import {HttpModule, JsonpModule} from "@angular/http";
+import {reducer} from "./reducers/index";
 import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import {reducer} from "./reducers/index";
 
-describe('AutocompleteService', () => {
+describe('KnowledgeapiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -17,11 +15,11 @@ describe('AutocompleteService', () => {
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
       ],
-      providers: [AutocompleteService]
+      providers: [KnowledgeapiService]
     });
   });
 
-  it('should ...', inject([AutocompleteService], (service: AutocompleteService) => {
+  it('should ...', inject([KnowledgeapiService], (service: KnowledgeapiService) => {
     expect(service).toBeTruthy();
   }));
 });

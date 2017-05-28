@@ -5,7 +5,7 @@
             <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
             <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
             <li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li>
-            <li class="dropdown">
+          <li class="dropdown">
                 <a href="#" id="tools" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     Tools
                 </a>
@@ -22,11 +22,12 @@
             {{message}}
         </div>
     </div>
-    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-        <div class="text-result" *ngIf="Display('all')">
+    <!-- Basic results 'All' -->
+  <div class="text-result" *ngIf="Display('all')">
+    <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
-                    <a href="{{item.link}}">{{item.title}}</a>
+                    <a class="title-pointer" href="{{item.link}}">{{item.title}}</a>
                 </div>
                 <div class="link">
                     <p>{{item.link}}</p>
@@ -35,8 +36,12 @@
                     <p>{{item.pubDate|date:'MMMM d, yyyy'}} - {{item.description}}</p>
                 </div>
             </div>
+      <app-related-search [hidden]="hidefooter"></app-related-search>
         </div>
     </div>
+
+  <app-infobox [hidden]="hidefooter" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
+  <!-- END -->
     <!-- Image section -->
     <div class="container">
         <div class="grid" *ngIf="Display('images')">
@@ -47,28 +52,27 @@
     </div>
     <!-- END -->
         <div class="video-result" *ngIf="Display('videos')">
-            <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-                <div *ngFor="let item of items$|async" class="result">
-                    <div class="title">
-                        <a href="{{item.path}}">{{item.title}}</a>
-                    </div>
-                    <div class="link">
-                        <p>{{item.link}}</p>
-                    </div>
+            <div *ngFor="let item of items$|async" class="result">
+                <div class="title">
+                    <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
+                </div>
+                <div class="link">
+                    <p>{{item.link}}</p>
                 </div>
             </div>
-          </div>
+
         </div>
+
         <br>
         <div class="clean"></div>
-        <div class="pagination-property">
+        <div class="pagination-property" *ngIf="noOfPages>1">
             <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
                 <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
                 <ul class="pagination" id="pag-bar">
                     <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
                     <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link" *ngIf="presentPage>=4 && num<=noOfPages" [class.active_page]="getStyle(presentPage-3+num)"
                             (click)="getPresentPage(presentPage-3+num)" href="#">{{presentPage-3+num}}</span>
-                        <span class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="getStyle(num)" (click)="getPresentPage(num)"
+                        <span class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="num+1 == presentPage" (click)="getPresentPage(num)"
                             href="#">{{num+1}}</span></li>
                     <li class="page-item"><span class="page-link" (click)="incPresentPage()">Next</span></li>
                 </ul>
@@ -80,4 +84,5 @@
 </div>
 
 <!--footer navigation bar goes here-->
+</div>
 <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
