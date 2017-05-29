@@ -12,7 +12,7 @@
       </button>
     </div>
   </div>
-  <app-auto-complete></app-auto-complete>
+  <app-auto-complete *ngIf="ShowAuto()"></app-auto-complete>
 </form>
 <script>
   $(document).ready(function(){
