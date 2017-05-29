@@ -50,7 +50,7 @@ These pages are made with the YAML4 CSS Framework and it will serve you very wel
 ## Installation
 First we will need to install angular-cli by using the following command:
 ```sh
-$ npm install -g angular-cli
+$ npm install -g @angular/cli@latest
 ```
 After installing angular-cli we need to install our required node modules, so we will do that by using the following command:
 ```sh
