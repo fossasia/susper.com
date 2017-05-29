@@ -16,6 +16,7 @@ import * as query from '../actions/query';
 export class SearchBarComponent implements OnInit, AfterViewInit {
   @ViewChildren('input') vc;
   query$: Observable<any>;
+  displayStatus: any;
   searchdata = {
     query: '',
     verify: false,
@@ -26,7 +27,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     resource: 'global',
     prefermaskfilter: '',
     maximumRecords: 10,
-    timezoneOffset: 0
+    timezoneOffset: 0,
   };
   constructor(private route: ActivatedRoute,
     private router: Router, private store: Store<fromRoot.State>) {
@@ -37,16 +38,21 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     });
 
   };
-
+  hidebox() {
+    this.displayStatus = 'hidebox';
+  }
   onquery(event: any) {
 
     this.store.dispatch(new query.QueryAction(event.target.value));
-
+    this.displayStatus = 'showbox';
     this.submit();
   }
-
+  ShowAuto() {
+    return (this.displayStatus === 'showbox');
+  }
   ngOnInit() {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
+    this.displayStatus = 'hidebox';
   }
   ngAfterViewInit() {
     this.vc.first.nativeElement.focus();
