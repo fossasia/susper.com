@@ -1,6 +1,6 @@
 webpackJsonp([1,3],{
 
-/***/ 1056:
+/***/ 1060:
 /***/ (function(module, exports) {
 
 /*
@@ -253,15 +253,15 @@ function updateLink(linkElement, obj) {
 
 /***/ }),
 
-/***/ 1060:
+/***/ 1064:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(472);
+module.exports = __webpack_require__(473);
 
 
 /***/ }),
 
-/***/ 23:
+/***/ 20:
 /***/ (function(module, exports) {
 
 /*
@@ -344,16 +344,16 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ 472:
+/***/ 473:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(769);
+var content = __webpack_require__(771);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(1056)(content, {});
+var update = __webpack_require__(1060)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -371,10 +371,10 @@ if(false) {
 
 /***/ }),
 
-/***/ 769:
+/***/ 771:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(23)(false);
+exports = module.exports = __webpack_require__(20)(false);
 // imports
 
 
@@ -386,5 +386,5 @@ exports.push([module.i, "/* You can add global styles to this file, and also imp
 
 /***/ })
 
-},[1060]);
+},[1064]);
 //# sourceMappingURL=styles.bundle.js.map
