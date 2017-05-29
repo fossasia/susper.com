@@ -25,6 +25,7 @@ import {InfoboxComponent} from "../infobox/infobox.component";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
 import {AutocompleteService} from "../autocomplete.service";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
+import { ThemeComponent } from '../theme/theme.component';
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -58,6 +59,7 @@ describe('SearchBarComponent', () => {
         InfoboxComponent,
         RelatedSearchComponent,
         AutoCompleteComponent,
+        ThemeComponent
       ],
       providers: [
         AutocompleteService

@@ -22,6 +22,7 @@ import { TermsComponent } from './terms.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
+import { ThemeComponent } from '../theme/theme.component';
 
 describe('TermsComponent', () => {
   let component: TermsComponent;
@@ -53,6 +54,7 @@ describe('TermsComponent', () => {
         InfoboxComponent,
         RelatedSearchComponent,
         AutoCompleteComponent,
+        ThemeComponent
       ]
     })
     .compileComponents();
