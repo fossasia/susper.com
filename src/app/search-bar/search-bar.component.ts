@@ -44,10 +44,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     }
   }
   onquery(event: any) {
-    this.store.dispatch(new query.QueryAction(event.target.value));
-    this.displayStatus = 'showbox';
-    this.submit();
-    this.hidebox(event);
+    if (event.target.value.length > 2) {
+      this.store.dispatch(new query.QueryAction(event.target.value));
+      this.displayStatus = 'showbox';
+      this.submit();
+      this.hidebox(event);
+    }
   }
   ShowAuto() {
     return (this.displayStatus === 'showbox');
