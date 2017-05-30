@@ -1,3 +1,5 @@
+'use strict';
+
 var removeSourceMappingUrl = require('./removeSourceMappingUrl');
 var formatLessError = require('./formatLessError');
 
@@ -34,4 +36,3 @@ function processResult(loaderContext, resultPromise) {
 }
 
 module.exports = processResult;
-//# sourceMappingURL=processResult.js.map

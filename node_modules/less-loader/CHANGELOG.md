@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.4"></a>
+## [4.0.4](https://github.com/webpack-contrib/less-loader/compare/v4.0.3...v4.0.4) (2017-05-30)
+
+
+### Bug Fixes
+
+* resolve `[@import](https://github.com/import)` with absolute paths ([#201](https://github.com/webpack-contrib/less-loader/issues/201)) ([a3f9601](https://github.com/webpack-contrib/less-loader/commit/a3f9601)), closes [webpack-contrib/less-loader#93](https://github.com/webpack-contrib/less-loader/issues/93)
+
+
+
 <a name="4.0.3"></a>
 ## [4.0.3](https://github.com/webpack-contrib/less-loader/compare/v4.0.2...v4.0.3) (2017-03-30)
 

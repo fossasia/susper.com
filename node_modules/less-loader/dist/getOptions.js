@@ -1,3 +1,5 @@
+'use strict';
+
 var loaderUtils = require('loader-utils');
 var clone = require('clone');
 var createWebpackLessPlugin = require('./createWebpackLessPlugin');
@@ -37,4 +39,3 @@ function getOptions(loaderContext) {
 }
 
 module.exports = getOptions;
-//# sourceMappingURL=getOptions.js.map

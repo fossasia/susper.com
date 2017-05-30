@@ -1,3 +1,5 @@
+'use strict';
+
 var less = require('less');
 var pify = require('pify');
 var processResult = require('./processResult');
@@ -19,4 +21,3 @@ function lessLoader(source) {
 }
 
 module.exports = lessLoader;
-//# sourceMappingURL=index.js.map

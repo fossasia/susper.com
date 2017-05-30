@@ -1,3 +1,5 @@
+'use strict';
+
 var matchSourceMappingUrl = /\/\*# sourceMappingURL=[^*]+\*\//;
 
 /**
@@ -15,4 +17,3 @@ function removeSourceMappingUrl(content) {
 }
 
 module.exports = removeSourceMappingUrl;
-//# sourceMappingURL=removeSourceMappingUrl.js.map

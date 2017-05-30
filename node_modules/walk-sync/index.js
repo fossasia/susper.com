@@ -3,6 +3,7 @@
 var fs = require('fs');
 var MatcherCollection = require('matcher-collection');
 var ensurePosix = require('ensure-posix-path');
+var path = require('path');
 
 function handleOptions(_options) {
   var options = {};
@@ -29,9 +30,18 @@ module.exports = walkSync;
 function walkSync(baseDir, _options) {
   var options = handleOptions(_options);
 
-  return _walkSync(baseDir, options).map(function(entry) {
-    return entry.relativePath;
-  });
+  var mapFunct;
+  if (options.includeBasePath) {
+    mapFunct = function (entry) {
+      return entry.basePath.split(path.sep).join('/') + '/' + entry.relativePath;
+    };
+  } else {
+    mapFunct = function (entry) {
+        return entry.relativePath;
+    };
+  }
+
+  return _walkSync(baseDir, options).map(mapFunct);
 }
 
 module.exports.entries = function entries(baseDir, _options) {

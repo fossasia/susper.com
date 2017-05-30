@@ -1,3 +1,5 @@
+'use strict';
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -56,7 +58,7 @@ function createWebpackLessPlugin(loaderContext) {
       value: function loadFile(filename, currentDirectory /* , options, environment */) {
         // eslint-disable-line class-methods-use-this
         var url = filename.replace(matchMalformedModuleFilename, '$1');
-        var moduleRequest = loaderUtils.urlToRequest(url);
+        var moduleRequest = loaderUtils.urlToRequest(url, url.charAt(0) === '/' ? '' : null);
         // Less is giving us trailing slashes, but the context should have no trailing slash
         var context = currentDirectory.replace(trailingSlash, '');
         var resolvedFilename = void 0;
@@ -93,4 +95,3 @@ function createWebpackLessPlugin(loaderContext) {
 }
 
 module.exports = createWebpackLessPlugin;
-//# sourceMappingURL=createWebpackLessPlugin.js.map
