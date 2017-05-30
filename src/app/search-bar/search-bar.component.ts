@@ -27,7 +27,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     resource: 'global',
     prefermaskfilter: '',
     maximumRecords: 10,
-    timezoneOffset: 0
+    timezoneOffset: 0,
   };
   constructor(private route: ActivatedRoute,
     private router: Router, private store: Store<fromRoot.State>) {
@@ -38,7 +38,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     });
 
   };
-
   hidebox(event: any) {
     if (event.which === 13) {
       this.displayStatus = 'hidebox';
@@ -50,12 +49,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.submit();
     this.hidebox(event);
   }
-
   ShowAuto() {
     return (this.displayStatus === 'showbox');
   }
   ngOnInit() {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
+    this.displayStatus = 'hidebox';
   }
   ngAfterViewInit() {
     this.vc.first.nativeElement.focus();

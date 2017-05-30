@@ -25,6 +25,8 @@ import {InfoboxComponent} from "../infobox/infobox.component";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
 import {AutocompleteService} from "../autocomplete.service";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
+import { ThemeComponent } from '../theme/theme.component';
+import { ThemeService } from '../theme.service';
 
 describe('IndexComponent', () => {
   let component: IndexComponent;
@@ -57,9 +59,11 @@ describe('IndexComponent', () => {
         InfoboxComponent,
         RelatedSearchComponent,
         AutoCompleteComponent,
+        ThemeComponent
       ],
       providers: [
-        AutocompleteService
+        AutocompleteService,
+        ThemeService
       ],
     })
       .compileComponents();

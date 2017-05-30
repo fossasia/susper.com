@@ -24,6 +24,7 @@ import { ModalComponent, Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {InfoboxComponent} from "./infobox/infobox.component";
 import {RelatedSearchComponent} from "./related-search/related-search.component";
 import {AutoCompleteComponent} from "./auto-complete/auto-complete.component";
+import { ThemeComponent } from './theme/theme.component';
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -53,6 +54,7 @@ describe('AppComponent', () => {
         InfoboxComponent,
         RelatedSearchComponent,
         AutoCompleteComponent,
+        ThemeComponent
       ]
     });
     TestBed.compileComponents();

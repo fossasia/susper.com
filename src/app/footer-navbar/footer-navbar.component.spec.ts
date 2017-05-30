@@ -23,6 +23,7 @@ import { ContactComponent } from '../contact/contact.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
+import { ThemeComponent } from '../theme/theme.component';
 
 describe('FooterNavbarComponent', () => {
   let component: FooterNavbarComponent;
@@ -55,6 +56,7 @@ describe('FooterNavbarComponent', () => {
         InfoboxComponent,
         RelatedSearchComponent,
         AutoCompleteComponent,
+        ThemeComponent
       ]
     })
       .compileComponents();
