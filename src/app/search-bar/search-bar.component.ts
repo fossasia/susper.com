@@ -38,16 +38,18 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     });
 
   };
-  hidebox() {
-    this.displayStatus = 'hidebox';
+  hidebox(event: any) {
+    if (event.which === 13) {
+      this.displayStatus = 'hidebox';
+    }
   }
   onquery(event: any) {
     if (event.target.value.length > 2) {
       this.store.dispatch(new query.QueryAction(event.target.value));
       this.displayStatus = 'showbox';
       this.submit();
+      this.hidebox(event);
     }
-
   }
   ShowAuto() {
     return (this.displayStatus === 'showbox');
