@@ -1,6 +1,6 @@
 /** Basic results 'All' **/
 .result {
-  padding-left: 50px;
+  margin-left: 6%;
   padding-top: 10px;
 }
 
@@ -265,7 +265,7 @@ a {
 
 @media screen and (max-width:1279px) {
   #search-options {
-    margin-left: 11%;
+    margin-left: 9%;
   }
   #tools {
     margin-left: 17%;
@@ -282,22 +282,42 @@ a {
   #tools {
     margin-left: 20%;
   }
+  #progress-bar {
+    margin-left: 10%;
+  }
+}
+
+@media screen and (max-width: 986px) {
+  #progress-bar {
+    margin-left: 0.3%;
+  }
+  .result {
+    margin-left: 6.5%;
+  }
 }
 
 @media screen and (max-width:979px) {
-  #search-options {
-    margin-left: 12.5%;
+  #progress-bar {
+    margin-left: initial;
+  }
+  .result {
+    margin-left: 6.3%;
+  }
+}
+
+@media screen and (max-width:804px) {
+  .result {
+    margin-left: 6.8%;
   }
 }
 
 @media screen and (max-width:767px) {
   .result {
-    padding-left: 46px;
     padding-right: 30px;
+    margin-left: 13%;
   }
   #progress-bar {
-    padding-left: 46px;
-    margin-bottom: -10px;
+    margin-left: 3%;
   }
   #search-options {
     padding-left: 0px;
@@ -329,13 +349,19 @@ a {
   }
 }
 
+@media screen and (max-width: 572px) {
+  #nav-button {
+    margin-right: 10%;
+  }
+}
+
 @media screen and (max-width:479px) {
   .result {
-    padding-left: 30px;
     padding-right: 20px;
+    margin-left: 10%;
   }
   #progress-bar {
-    padding-left: 30px;
+    margin-left: -6.4%;
   }
   #pag-bar {
     padding-left: 30px;
