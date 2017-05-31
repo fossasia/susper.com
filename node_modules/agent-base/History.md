@@ -1,4 +1,9 @@
 
+2.1.1 / 2017-05-30
+==================
+
+  * Revert [fe2162e0ba18123f5b301cba4de1e9dd74e437cd](https://github.com/TooTallNate/node-agent-base/commit/fe2162e0ba18123f5b301cba4de1e9dd74e437cd) and [270bdc92eb8e3bd0444d1e5266e8e9390aeb3095](https://github.com/TooTallNate/node-agent-base/commit/270bdc92eb8e3bd0444d1e5266e8e9390aeb3095) (fixes #7)
+
 2.1.0 / 2017-05-26
 ==================
 

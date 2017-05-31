@@ -245,29 +245,6 @@ describe('"http" module', function () {
       agent: agent
     });
   });
-
-  it('has no any dangling sockets', function (done) {
-      // unref is not supported for node < 0.9.1
-      if (semver.lt(process.version, '0.9.1')) {
-          return done()
-      }
-      var agent = new Agent(function (req, opts, fn) {
-          fn(null, net.connect(opts));
-      });
-      function getActiveSockets() {
-          return process._getActiveHandles().filter(function (handler) {
-              return handler.constructor.name === 'Socket'
-          });
-      }
-      // Some sockets are created outside of this test
-      const initialSockets = getActiveSockets()
-      http.get({
-          host: 'google.com',
-          agent: agent
-      });
-      assert.equal(initialSockets.length, getActiveSockets().length);
-      done();
-  })
 });
 
 describe('"https" module', function () {
