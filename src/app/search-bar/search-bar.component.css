@@ -40,6 +40,10 @@
   position: initial;
 }
 
+#nav-button:focus {
+  outline: none;
+}
+
 #nav-group{
   top:3px;
 }
