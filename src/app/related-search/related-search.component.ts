@@ -52,7 +52,18 @@ export class RelatedSearchComponent implements OnInit {
       }
     });
   }
-
+  getQuery(q) {
+    return {query: q.toString(),
+      verify: false,
+      nav: 'filetype,protocol,hosts,authors,collections,namespace,topics,date',
+      start: 0,
+      indexof: 'off',
+      meanCount: '5',
+      resource: 'global',
+      prefermaskfilter: '',
+      rows: 10,
+      timezoneOffset: 0};
+  }
   ngOnInit() {
   }
 
