@@ -1764,6 +1764,7 @@ var ResultsComponent = (function () {
         this.resultDisplay = 'videos';
         this.searchdata.rows = 10;
         this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
+        this.searchdata.resultDisplay = this.resultDisplay;
         this.route.navigate(['/search'], { queryParams: this.searchdata });
     };
     ResultsComponent.prototype.imageClick = function () {
@@ -1779,6 +1780,7 @@ var ResultsComponent = (function () {
         this.resultDisplay = 'all';
         delete this.searchdata.fq;
         this.searchdata.rows = 10;
+        this.searchdata.resultDisplay = this.resultDisplay;
         this.route.navigate(['/search'], { queryParams: this.searchdata });
     };
     ResultsComponent.prototype.incPresentPage = function () {
