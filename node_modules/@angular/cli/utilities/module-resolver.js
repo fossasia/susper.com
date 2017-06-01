@@ -71,7 +71,6 @@ class ModuleResolver {
                     if (changeText.length > 0 && changeText.charAt(0) !== '.') {
                         changeText = `.${path.sep}${changeText}`;
                     }
-                    ;
                     let position = specifier.end - specifier.specifierText.length;
                     return new change_1.ReplaceChange(file, position - 1, specifier.specifierText, changeText);
                 });

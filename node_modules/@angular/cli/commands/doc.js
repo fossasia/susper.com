@@ -6,16 +6,25 @@ const DocCommand = Command.extend({
     name: 'doc',
     description: 'Opens the official Angular documentation for a given keyword.',
     works: 'everywhere',
+    availableOptions: [
+        {
+            name: 'search',
+            aliases: ['s'],
+            type: Boolean,
+            default: false,
+            description: 'Search docs instead of api.'
+        }
+    ],
     anonymousOptions: [
         '<keyword>'
     ],
-    run: function (_commandOptions, rawArgs) {
+    run: function (commandOptions, rawArgs) {
         const keyword = rawArgs[0];
         const docTask = new doc_1.DocTask({
             ui: this.ui,
             project: this.project
         });
-        return docTask.run(keyword);
+        return docTask.run(keyword, commandOptions.search);
     }
 });
 exports.default = DocCommand;

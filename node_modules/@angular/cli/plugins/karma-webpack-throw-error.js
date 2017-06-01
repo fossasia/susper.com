@@ -1,6 +1,6 @@
+"use strict";
 // Force Webpack to throw compilation errors. Useful with karma-webpack when in single-run mode.
 // Workaround for https://github.com/webpack-contrib/karma-webpack/issues/66
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class KarmaWebpackThrowError {
     constructor() { }

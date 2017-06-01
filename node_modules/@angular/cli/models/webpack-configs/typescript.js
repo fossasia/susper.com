@@ -81,7 +81,6 @@ exports.getAotConfig = function (wco) {
         if (appConfig.test) {
             exclude.push(path.join(projectRoot, appConfig.root, appConfig.test));
         }
-        ;
         pluginOptions.exclude = exclude;
     }
     return {

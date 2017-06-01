@@ -4,7 +4,8 @@ export interface ServeTaskOptions extends BuildOptions {
     host?: string;
     proxyConfig?: string;
     liveReload?: boolean;
-    liveReloadClient?: string;
+    publicHost?: string;
+    disableHostCheck?: boolean;
     ssl?: boolean;
     sslKey?: string;
     sslCert?: string;

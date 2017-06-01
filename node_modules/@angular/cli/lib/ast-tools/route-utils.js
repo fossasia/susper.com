@@ -120,7 +120,6 @@ function insertImport(fileToEdit, symbolName, fileName, isDefault = false) {
     return ast_utils_1.insertAfterLastOccurrence(allImports, toInsert, fileToEdit, fallbackPos, ts.SyntaxKind.StringLiteral);
 }
 exports.insertImport = insertImport;
-;
 /**
  * Inserts a path to the new route into src/routes.ts if it doesn't exist
  * @param routesFile

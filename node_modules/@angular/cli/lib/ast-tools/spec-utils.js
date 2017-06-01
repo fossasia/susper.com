@@ -1,7 +1,7 @@
+"use strict";
 // This file exports a version of the Jasmine `it` that understands promises.
 // To use this, simply `import {it} from './spec-utils`.
 // TODO(hansl): move this to its own Jasmine-TypeScript package.
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function async(fn) {
     return (done) => {

@@ -127,7 +127,6 @@ function getDependentFiles(fileName, rootPath) {
             if (tempModuleSpecifiers.length > 0) {
                 relevantFiles[filePath] = tempModuleSpecifiers;
             }
-            ;
         });
         return relevantFiles;
     }));

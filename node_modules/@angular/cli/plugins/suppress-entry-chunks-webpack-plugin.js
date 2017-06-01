@@ -1,6 +1,6 @@
+"use strict";
 // Remove .js files from entry points consisting entirely of .css|scss|sass|less|styl.
 // To be used together with ExtractTextPlugin.
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class SuppressExtractedTextChunksWebpackPlugin {
     constructor() { }

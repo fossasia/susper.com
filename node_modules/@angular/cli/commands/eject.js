@@ -22,10 +22,9 @@ const EjectCommand = Command.extend({
     description: 'Ejects your app and output the proper webpack configuration and scripts.',
     availableOptions: exports.baseEjectCommandOptions,
     run: function (commandOptions) {
-        const project = this.project;
         const EjectTask = require('../tasks/eject').default;
         const ejectTask = new EjectTask({
-            cliProject: project,
+            project: this.project,
             ui: this.ui,
         });
         return ejectTask.run(commandOptions);

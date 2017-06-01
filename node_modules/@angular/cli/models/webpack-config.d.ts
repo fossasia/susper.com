@@ -12,7 +12,7 @@ export declare class NgCliWebpackConfig {
     getTargetConfig(webpackConfigOptions: WebpackConfigOptions): any;
     validateBuildOptions(buildOptions: BuildOptions): void;
     addTargetDefaults(buildOptions: BuildOptions): BuildOptions;
-    mergeConfigs(buildOptions: BuildOptions, appConfig: any): {} & {
+    mergeConfigs(buildOptions: BuildOptions, appConfig: any): {
         outputPath: any;
         deployUrl: any;
     } & BuildOptions;

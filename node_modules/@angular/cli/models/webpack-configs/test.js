@@ -4,7 +4,6 @@ const path = require("path");
 const glob = require("glob");
 const webpack = require("webpack");
 const config_1 = require("../config");
-const karma_webpack_emitless_error_1 = require("../../plugins/karma-webpack-emitless-error");
 /**
  * Enumerate loaders and their dependencies from this file to let the dependency validator
  * know they are used.
@@ -16,7 +15,9 @@ function getTestConfig(testConfig) {
     const configPath = config_1.CliConfig.configFilePath();
     const projectRoot = path.dirname(configPath);
     const appConfig = config_1.CliConfig.fromProject().config.apps[0];
+    const nodeModules = path.resolve(projectRoot, 'node_modules');
     const extraRules = [];
+    const extraPlugins = [];
     if (testConfig.codeCoverage && config_1.CliConfig.fromProject()) {
         const codeCoverageExclude = config_1.CliConfig.fromProject().get('test.codeCoverage.exclude');
         let exclude = [
@@ -40,18 +41,22 @@ function getTestConfig(testConfig) {
     return {
         devtool: testConfig.sourcemaps ? 'inline-source-map' : 'eval',
         entry: {
-            test: path.resolve(projectRoot, appConfig.root, appConfig.test)
+            main: path.resolve(projectRoot, appConfig.root, appConfig.test)
         },
         module: {
             rules: [].concat(extraRules)
         },
         plugins: [
-            new webpack.SourceMapDevToolPlugin({
-                filename: null,
-                test: /\.(ts|js)($|\?)/i // process .js and .ts files only
+            new webpack.optimize.CommonsChunkPlugin({
+                minChunks: Infinity,
+                name: 'inline'
             }),
-            new karma_webpack_emitless_error_1.KarmaWebpackEmitlessError()
-        ]
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'vendor',
+                chunks: ['main'],
+                minChunks: (module) => module.resource && module.resource.startsWith(nodeModules)
+            })
+        ].concat(extraPlugins)
     };
 }
 exports.getTestConfig = getTestConfig;

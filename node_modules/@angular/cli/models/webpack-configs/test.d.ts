@@ -10,10 +10,10 @@ import { WebpackTestOptions } from '../webpack-test-config';
 export declare function getTestConfig(testConfig: WebpackTestOptions): {
     devtool: string;
     entry: {
-        test: string;
+        main: string;
     };
     module: {
         rules: any[];
     };
-    plugins: webpack.SourceMapDevToolPlugin[];
+    plugins: webpack.optimize.CommonsChunkPlugin[];
 };

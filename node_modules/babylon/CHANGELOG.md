@@ -15,6 +15,13 @@ _Note: Gaps between patch versions are faulty, broken or test releases._
 
 See the [Babel Changelog](https://github.com/babel/babel/blob/master/CHANGELOG.md) for the pre-6.8.0 version Changelog.
 
+## 6.17.2 (2017-05-31)
+
+ * Fixed disappearing comments following a trailing comma on the last property of an object literal or the last argument of a call expression (#478) (aardito2)
+ * Fix #437: only prohibit 'export type from "module" ' when flow is enabled (#438) (Kevin Gibbons)
+ * Fix handling of anonymous parameters in `flowParseObjectTypeMethodish`. (#526) (Max Schaefer)
+ * Convert argument of SpreadElement correctly to assignable (#518) (Daniel Tschinder)
+
 ## 6.17.1 (2017-05-10)
 
  * Fix typo in flow spread operator error (Brian Ng)

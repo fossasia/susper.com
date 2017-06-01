@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const webpack = require("webpack");
 const webpackMerge = require('webpack-merge');
 const webpack_config_1 = require("./webpack-config");
 const webpack_configs_1 = require("./webpack-configs");
@@ -18,9 +17,6 @@ class WebpackTestConfig extends webpack_config_1.NgCliWebpackConfig {
             webpack_configs_1.getTestConfig(this.testOptions)
         ];
         this.config = webpackMerge(webpackConfigs);
-        delete this.config.entry;
-        // Remove any instance of CommonsChunkPlugin, not needed with karma-webpack.
-        this.config.plugins = this.config.plugins.filter((plugin) => !(plugin instanceof webpack.optimize.CommonsChunkPlugin));
         return this.config;
     }
 }
