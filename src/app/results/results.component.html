@@ -28,13 +28,13 @@
     <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
-                    <a class="title-pointer" href="{{item.link}}" [style.color]="themeService.titleColor">{{item.title}}</a>
+                    <a class="title-pointer" href="{{item.link}}" [style.color]="themeService.titleColor" *ngIf="filterLink(item.title)">{{item.title}}</a>
                 </div>
                 <div class="link">
-                    <p [style.color]="themeService.linkColor">{{item.link}}</p>
+                    <p [style.color]="themeService.linkColor" *ngIf="filterLink(item.link)">{{item.link}}</p>
                 </div>
                 <div class="description">
-                    <p [style.color]="themeService.descriptionColor">{{item.pubDate|date:'MMMM d, yyyy'}} - {{item.description}}</p>
+                    <p [style.color]="themeService.descriptionColor" *ngIf="displayNoDate(item.description)">{{item.pubDate|date:'MMMM d, yyyy'}} - {{item.description}}</p>
                 </div>
             </div>
       <app-related-search [hidden]="hidefooter"></app-related-search>
