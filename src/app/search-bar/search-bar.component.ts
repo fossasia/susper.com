@@ -62,7 +62,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.vc.first.nativeElement.focus();
   }
   submit() {
-    this.router.navigate(['/search'], { queryParams: this.searchdata });
+    if (this.searchdata.query.toString().length !== 0) {
+      this.router.navigate(['/search'], {queryParams: this.searchdata});
+    }
   }
 
 }
