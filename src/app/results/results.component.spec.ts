@@ -27,6 +27,8 @@ import {KnowledgeapiService} from "../knowledgeapi.service";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import {AutocompleteService} from "../autocomplete.service";
+import { ThemeComponent } from '../theme/theme.component';
+import { ThemeService } from '../theme.service';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -59,8 +61,9 @@ describe('ResultsComponent', () => {
         InfoboxComponent,
         RelatedSearchComponent,
         AutoCompleteComponent,
+        ThemeComponent
       ],
-      providers: [SearchService, KnowledgeapiService, AutocompleteService]
+      providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService]
     })
       .compileComponents();
   }));

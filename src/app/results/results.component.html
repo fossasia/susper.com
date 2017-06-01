@@ -12,28 +12,29 @@
                 <ul class="dropdown-menu" aria-labelledby="tools" id="tool-dropdown">
                     <li (click)="filterByContext()">Context Ranking</li>
                     <li (click)="filterByDate()">Sort by Date</li>
-                    <li data-toggle="modal" data-target="#myModal" (click)="advancedsearch()">Advanced Search</li>
+                    <li data-toggle="modal" data-target="#myModal">Advanced Search</li>
+                    <li data-toggle="modal" data-target="#customization">Customization</li>
                 </ul>
             </li>
         </ul>
     </div>
     <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-        <div class="container-fluid" id="progress-bar">
-            {{message}}
-        </div>
     </div>
     <!-- Basic results 'All' -->
   <div class="text-result" *ngIf="Display('all')">
+      <div class="container-fluid" id="progress-bar">
+          {{message}}
+      </div>
     <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
-                    <a class="title-pointer" href="{{item.link}}">{{item.title}}</a>
+                    <a class="title-pointer" href="{{item.link}}" [style.color]="themeService.titleColor">{{item.title}}</a>
                 </div>
                 <div class="link">
-                    <p>{{item.link}}</p>
+                    <p [style.color]="themeService.linkColor">{{item.link}}</p>
                 </div>
                 <div class="description">
-                    <p>{{item.pubDate|date:'MMMM d, yyyy'}} - {{item.description}}</p>
+                    <p [style.color]="themeService.descriptionColor">{{item.pubDate|date:'MMMM d, yyyy'}} - {{item.description}}</p>
                 </div>
             </div>
       <app-related-search [hidden]="hidefooter"></app-related-search>
@@ -52,6 +53,9 @@
     </div>
     <!-- END -->
         <div class="video-result" *ngIf="Display('videos')">
+            <div class="container-fluid" id="progress-bar">
+                {{message}}
+            </div>
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
                     <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
@@ -81,6 +85,9 @@
         </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <app-advancedsearch></app-advancedsearch>
+</div>
+<div class="modal fade" id="customization" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <app-theme></app-theme>
 </div>
 
 <!--footer navigation bar goes here-->

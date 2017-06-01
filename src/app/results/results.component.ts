@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SearchService } from '../search.service';
+import { ThemeService } from '../theme.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';
@@ -109,7 +110,7 @@ export class ResultsComponent implements OnInit {
   }
 
   constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
-              private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
+              private store: Store<fromRoot.State>, private ref: ChangeDetectorRef, public themeService: ThemeService) {
 
     this.activatedroute.queryParams.subscribe(query => {
       this.hidefooter = 1;

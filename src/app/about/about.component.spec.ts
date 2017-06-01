@@ -23,6 +23,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
+import { ThemeComponent } from '../theme/theme.component';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -55,6 +56,7 @@ describe('AboutComponent', () => {
         InfoboxComponent,
         RelatedSearchComponent,
         AutoCompleteComponent,
+        ThemeComponent
       ]
     })
       .compileComponents();

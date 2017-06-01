@@ -4,7 +4,7 @@
   <div class="input-group" id="nav-group">
       <div class="input-text">
       <input #input type="text" name="query" class="form-control" id="nav-input" (keyup)="onquery($event)"
-           [(ngModel)]="searchdata.query">
+           [(ngModel)]="searchdata.query" autocomplete="off">
       </div>
     <div class="input-group-btn">
       <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()">
@@ -12,7 +12,7 @@
       </button>
     </div>
   </div>
-  <app-auto-complete></app-auto-complete>
+  <app-auto-complete id="auto-box" *ngIf="ShowAuto()"></app-auto-complete>
 </form>
 <script>
   $(document).ready(function(){
