@@ -472,7 +472,7 @@ module.exports = module.exports.toString();
 /***/ "./src/app/auto-complete/auto-complete.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"suggestion-box\">\n  <div *ngFor=\"let result of results\">\n    <a [routerLink]=\"resultsearch\" [queryParams]=\"{query: result.label}\" class=\"suggestions\">{{result.label}}</a>\n  </div>\n</div>\n"
+module.exports = "<div class=\"suggestion-box\" *ngIf=\"results.length > 0\">\n  <div *ngFor=\"let result of results\">\n    <a [routerLink]=\"resultsearch\" [queryParams]=\"{query: result.label}\" class=\"suggestions\">{{result.label}}</a>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -510,6 +510,7 @@ var AutoCompleteComponent = (function () {
         this.ref = ref;
         this.resultsearch = '/search';
         this.query$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["b" /* getquery */]);
+        this.results = [];
         this.query$.subscribe(function (query) {
             if (query) {
                 _this.autocompleteservice.getsearchresults(query).subscribe(function (res) {
