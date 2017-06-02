@@ -1,1 +1,1 @@
-[{"__symbolic":"module","version":3,"metadata":{"createClassStmt":{"__symbolic":"function"}}},{"__symbolic":"module","version":1,"metadata":{"createClassStmt":{"__symbolic":"function"}}}]
+[{"__symbolic":"module","version":3,"metadata":{"createClassStmt":{"__symbolic":"function"},"ClassBuilderPart":{"__symbolic":"interface"},"ClassBuilder":{"__symbolic":"interface"}}},{"__symbolic":"module","version":1,"metadata":{"createClassStmt":{"__symbolic":"function"},"ClassBuilderPart":{"__symbolic":"interface"},"ClassBuilder":{"__symbolic":"interface"}}}]

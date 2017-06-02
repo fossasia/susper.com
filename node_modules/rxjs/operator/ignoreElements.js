@@ -11,7 +11,7 @@ var noop_1 = require('../util/noop');
  *
  * <img src="./img/ignoreElements.png" width="100%">
  *
- * @return {Observable} an empty Observable that only calls `complete`
+ * @return {Observable} An empty Observable that only calls `complete`
  * or `error`, based on which one is called by the source Observable.
  * @method ignoreElements
  * @owner Observable
@@ -25,7 +25,7 @@ var IgnoreElementsOperator = (function () {
     function IgnoreElementsOperator() {
     }
     IgnoreElementsOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new IgnoreElementsSubscriber(subscriber));
+        return source.subscribe(new IgnoreElementsSubscriber(subscriber));
     };
     return IgnoreElementsOperator;
 }());

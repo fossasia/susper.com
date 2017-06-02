@@ -1,6 +1,6 @@
-import { PublishSignature } from '../../operator/publish';
+import { publish } from '../../operator/publish';
 declare module '../../Observable' {
     interface Observable<T> {
-        publish: PublishSignature<T>;
+        publish: typeof publish;
     }
 }

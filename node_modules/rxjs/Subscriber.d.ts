@@ -64,4 +64,5 @@ export declare class Subscriber<T> extends Subscription implements Observer<T> {
     protected _next(value: T): void;
     protected _error(err: any): void;
     protected _complete(): void;
+    protected _unsubscribeAndRecycle(): Subscriber<T>;
 }

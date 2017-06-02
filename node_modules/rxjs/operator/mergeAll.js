@@ -60,7 +60,7 @@ var MergeAllOperator = (function () {
         this.concurrent = concurrent;
     }
     MergeAllOperator.prototype.call = function (observer, source) {
-        return source._subscribe(new MergeAllSubscriber(observer, this.concurrent));
+        return source.subscribe(new MergeAllSubscriber(observer, this.concurrent));
     };
     return MergeAllOperator;
 }());

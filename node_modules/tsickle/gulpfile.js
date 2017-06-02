@@ -25,8 +25,16 @@ var tsProject = ts.createProject('tsconfig.json', {
   typescript: typescript,
 });
 
+const formatted = ['*.js', 'src/**/*.ts', 'test/**/*.ts'];
+
+gulp.task('format', function() {
+  return gulp.src(formatted, {base: '.'})
+      .pipe(formatter.format('file', clangFormat))
+      .pipe(gulp.dest('.'));
+});
+
 gulp.task('test.check-format', function() {
-  return gulp.src(['*.js', 'src/**/*.ts', 'test/**/*.ts'])
+  return gulp.src(formatted)
       .pipe(formatter.checkFormat('file', clangFormat, {verbose: true}))
       .on('warning', onError);
 });

@@ -14,14 +14,10 @@ function shareSubjectFactory() {
  *
  * <img src="./img/share.png" width="100%">
  *
- * @return {Observable<T>} an Observable that upon connection causes the source Observable to emit items to its Observers
+ * @return {Observable<T>} An Observable that upon connection causes the source Observable to emit items to its Observers.
  * @method share
  * @owner Observable
  */
-export function share<T>(): Observable<T> {
+export function share<T>(this: Observable<T>): Observable<T> {
   return multicast.call(this, shareSubjectFactory).refCount();
 };
-
-export interface ShareSignature<T> {
-  (): Observable<T>;
-}

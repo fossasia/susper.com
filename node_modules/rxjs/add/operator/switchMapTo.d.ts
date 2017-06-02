@@ -1,6 +1,6 @@
-import { SwitchMapToSignature } from '../../operator/switchMapTo';
+import { switchMapTo } from '../../operator/switchMapTo';
 declare module '../../Observable' {
     interface Observable<T> {
-        switchMapTo: SwitchMapToSignature<T>;
+        switchMapTo: typeof switchMapTo;
     }
 }

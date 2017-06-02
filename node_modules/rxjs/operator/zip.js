@@ -10,6 +10,7 @@ var Subscriber_1 = require('../Subscriber');
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
 var iterator_1 = require('../symbol/iterator');
+/* tslint:enable:max-line-length */
 /**
  * @param observables
  * @return {Observable<R>}
@@ -21,12 +22,35 @@ function zipProto() {
     for (var _i = 0; _i < arguments.length; _i++) {
         observables[_i - 0] = arguments[_i];
     }
-    observables.unshift(this);
-    return zipStatic.apply(this, observables);
+    return this.lift.call(zipStatic.apply(void 0, [this].concat(observables)));
 }
 exports.zipProto = zipProto;
 /* tslint:enable:max-line-length */
 /**
+ * Combines multiple Observables to create an Observable whose values are calculated from the values, in order, of each
+ * of its input Observables.
+ *
+ * If the latest parameter is a function, this function is used to compute the created value from the input values.
+ * Otherwise, an array of the input values is returned.
+ *
+ * @example <caption>Combine age and name from different sources</caption>
+ *
+ * let age$ = Observable.of<number>(27, 25, 29);
+ * let name$ = Observable.of<string>('Foo', 'Bar', 'Beer');
+ * let isDev$ = Observable.of<boolean>(true, true, false);
+ *
+ * Observable
+ *     .zip(age$,
+ *          name$,
+ *          isDev$,
+ *          (age: number, name: string, isDev: boolean) => ({ age, name, isDev }))
+ *     .subscribe(x => console.log(x));
+ *
+ * // outputs
+ * // { age: 27, name: 'Foo', isDev: true }
+ * // { age: 25, name: 'Bar', isDev: true }
+ * // { age: 29, name: 'Beer', isDev: false }
+ *
  * @param observables
  * @return {Observable<R>}
  * @static true
@@ -50,7 +74,7 @@ var ZipOperator = (function () {
         this.project = project;
     }
     ZipOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new ZipSubscriber(subscriber, this.project));
+        return source.subscribe(new ZipSubscriber(subscriber, this.project));
     };
     return ZipOperator;
 }());
@@ -65,7 +89,6 @@ var ZipSubscriber = (function (_super) {
     function ZipSubscriber(destination, project, values) {
         if (values === void 0) { values = Object.create(null); }
         _super.call(this, destination);
-        this.index = 0;
         this.iterators = [];
         this.active = 0;
         this.project = (typeof project === 'function') ? project : null;
@@ -73,20 +96,23 @@ var ZipSubscriber = (function (_super) {
     }
     ZipSubscriber.prototype._next = function (value) {
         var iterators = this.iterators;
-        var index = this.index++;
         if (isArray_1.isArray(value)) {
             iterators.push(new StaticArrayIterator(value));
         }
-        else if (typeof value[iterator_1.$$iterator] === 'function') {
-            iterators.push(new StaticIterator(value[iterator_1.$$iterator]()));
+        else if (typeof value[iterator_1.iterator] === 'function') {
+            iterators.push(new StaticIterator(value[iterator_1.iterator]()));
         }
         else {
-            iterators.push(new ZipBufferIterator(this.destination, this, value, index));
+            iterators.push(new ZipBufferIterator(this.destination, this, value));
         }
     };
     ZipSubscriber.prototype._complete = function () {
         var iterators = this.iterators;
         var len = iterators.length;
+        if (len === 0) {
+            this.destination.complete();
+            return;
+        }
         this.active = len;
         for (var i = 0; i < len; i++) {
             var iterator = iterators[i];
@@ -181,7 +207,7 @@ var StaticArrayIterator = (function () {
         this.length = 0;
         this.length = array.length;
     }
-    StaticArrayIterator.prototype[iterator_1.$$iterator] = function () {
+    StaticArrayIterator.prototype[iterator_1.iterator] = function () {
         return this;
     };
     StaticArrayIterator.prototype.next = function (value) {
@@ -204,16 +230,15 @@ var StaticArrayIterator = (function () {
  */
 var ZipBufferIterator = (function (_super) {
     __extends(ZipBufferIterator, _super);
-    function ZipBufferIterator(destination, parent, observable, index) {
+    function ZipBufferIterator(destination, parent, observable) {
         _super.call(this, destination);
         this.parent = parent;
         this.observable = observable;
-        this.index = index;
         this.stillUnsubscribed = true;
         this.buffer = [];
         this.isComplete = false;
     }
-    ZipBufferIterator.prototype[iterator_1.$$iterator] = function () {
+    ZipBufferIterator.prototype[iterator_1.iterator] = function () {
         return this;
     };
     // NOTE: there is actually a name collision here with Subscriber.next and Iterator.next

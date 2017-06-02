@@ -12,10 +12,14 @@ interface Options extends ts.CompilerOptions {
     skipMetadataEmit?: boolean;
     strictMetadataEmit?: boolean;
     skipTemplateCodegen?: boolean;
+    flatModuleOutFile?: string;
+    flatModuleId?: string;
     generateCodeForLibraries?: boolean;
     annotateForClosureCompiler?: boolean;
     annotationsAs?: 'decorators' | 'static fields';
     trace?: boolean;
+    /** @deprecated since v4 this option has no effect anymore. */
     debug?: boolean;
+    enableLegacyTemplate?: boolean;
 }
 export default Options;

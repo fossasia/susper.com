@@ -6,9 +6,9 @@
 * found in the LICENSE file at https://angular.io/license
 */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
-    (factory());
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(factory());
 }(this, (function () { 'use strict';
 
 /**
@@ -54,7 +54,7 @@
     // Example:
     //   - In beforeEach() do childZone = Zone.current.fork(...);
     //   - In it() try to do fakeAsync(). The issue is that because the beforeEach forked the
-    //     zone outside of fakeAsync it will be able to escope the fakeAsync rules.
+    //     zone outside of fakeAsync it will be able to escape the fakeAsync rules.
     //   - Because ProxyZone is parent fo `childZone` fakeAsync can retroactively add
     //     fakeAsync behavior to the childZone.
     var testProxyZone = null;
@@ -98,11 +98,11 @@
         // The `done` callback is only passed through if the function expects at least one argument.
         // Note we have to make a function with correct number of arguments, otherwise jasmine will
         // think that all functions are sync or async.
-        return (testBody.length == 0) ? function () {
-            return testProxyZone.run(testBody, this);
-        } : function (done) {
+        return testBody && (testBody.length ? function (done) {
             return testProxyZone.run(testBody, this, [done]);
-        };
+        } : function () {
+            return testProxyZone.run(testBody, this);
+        });
     }
     var QueueRunner = jasmine.QueueRunner;
     jasmine.QueueRunner = (function (_super) {

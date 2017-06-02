@@ -2,10 +2,10 @@ import { Operator } from './Operator';
 import { Observer } from './Observer';
 import { Observable } from './Observable';
 import { Subscriber } from './Subscriber';
-import { ISubscription, Subscription } from './Subscription';
+import { ISubscription, Subscription, TeardownLogic } from './Subscription';
 import { ObjectUnsubscribedError } from './util/ObjectUnsubscribedError';
 import { SubjectSubscription } from './SubjectSubscription';
-import { $$rxSubscriber } from './symbol/rxSubscriber';
+import { rxSubscriber as rxSubscriberSymbol } from './symbol/rxSubscriber';
 
 /**
  * @class SubjectSubscriber<T>
@@ -21,7 +21,7 @@ export class SubjectSubscriber<T> extends Subscriber<T> {
  */
 export class Subject<T> extends Observable<T> implements ISubscription {
 
-  [$$rxSubscriber]() {
+  [rxSubscriberSymbol]() {
     return new SubjectSubscriber(this);
   }
 
@@ -41,11 +41,11 @@ export class Subject<T> extends Observable<T> implements ISubscription {
 
   static create: Function = <T>(destination: Observer<T>, source: Observable<T>): AnonymousSubject<T> => {
     return new AnonymousSubject<T>(destination, source);
-  };
+  }
 
-  lift<T, R>(operator: Operator<T, R>): Observable<T> {
+  lift<R>(operator: Operator<T, R>): Observable<T> {
     const subject = new AnonymousSubject(this, this);
-    subject.operator = operator;
+    subject.operator = <any>operator;
     return <any>subject;
   }
 
@@ -97,6 +97,14 @@ export class Subject<T> extends Observable<T> implements ISubscription {
     this.isStopped = true;
     this.closed = true;
     this.observers = null;
+  }
+
+  protected _trySubscribe(subscriber: Subscriber<T>): TeardownLogic {
+    if (this.closed) {
+      throw new ObjectUnsubscribedError();
+    } else {
+      return super._trySubscribe(subscriber);
+    }
   }
 
   protected _subscribe(subscriber: Subscriber<T>): Subscription {

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var ts = require('typescript');
-var evaluator_1 = require('../src/evaluator');
-var symbols_1 = require('../src/symbols');
-var typescript_mocks_1 = require('./typescript.mocks');
+var ts = require("typescript");
+var evaluator_1 = require("../src/evaluator");
+var symbols_1 = require("../src/symbols");
+var typescript_mocks_1 = require("./typescript.mocks");
 describe('Evaluator', function () {
     var documentRegistry = ts.createDocumentRegistry();
     var host;
@@ -194,7 +194,16 @@ describe('Evaluator', function () {
             0, { __symbolic: 'spread', expression: { __symbolic: 'reference', name: 'arrImport' } }, 5
         ]);
     });
+    it('should be able to handle a new expression with no arguments', function () {
+        var source = sourceFileOf("\n      export var a = new f;\n    ");
+        var expr = typescript_mocks_1.findVar(source, 'a');
+        expect(evaluator.evaluateNode(expr.initializer))
+            .toEqual({ __symbolic: 'new', expression: { __symbolic: 'reference', name: 'f' } });
+    });
 });
+function sourceFileOf(text) {
+    return ts.createSourceFile('test.ts', text, ts.ScriptTarget.Latest, true);
+}
 var FILES = {
     'directives.ts': "\n    export function Pipe(options: { name?: string, pure?: boolean}) {\n      return function(fn: Function) { }\n    }\n    ",
     'classes.ts': "\n    export class Value {\n      constructor(public name: string, public value: any) {}\n    }\n  ",

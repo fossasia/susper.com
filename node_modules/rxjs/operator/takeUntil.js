@@ -48,7 +48,7 @@ var TakeUntilOperator = (function () {
         this.notifier = notifier;
     }
     TakeUntilOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new TakeUntilSubscriber(subscriber, this.notifier));
+        return source.subscribe(new TakeUntilSubscriber(subscriber, this.notifier));
     };
     return TakeUntilOperator;
 }());

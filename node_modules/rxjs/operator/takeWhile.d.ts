@@ -35,7 +35,4 @@ import { Observable } from '../Observable';
  * @method takeWhile
  * @owner Observable
  */
-export declare function takeWhile<T>(predicate: (value: T, index: number) => boolean): Observable<T>;
-export interface TakeWhileSignature<T> {
-    (predicate: (value: T, index: number) => boolean): Observable<T>;
-}
+export declare function takeWhile<T>(this: Observable<T>, predicate: (value: T, index: number) => boolean): Observable<T>;

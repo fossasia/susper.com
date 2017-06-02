@@ -6,18 +6,18 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Subscriber_1 = require('../Subscriber');
 /**
- * Returns an Observable that skips `n` items emitted by an Observable.
+ * Returns an Observable that skips the first `count` items emitted by the source Observable.
  *
  * <img src="./img/skip.png" width="100%">
  *
- * @param {Number} the `n` of times, items emitted by source Observable should be skipped.
- * @return {Observable} an Observable that skips values emitted by the source Observable.
+ * @param {Number} count - The number of times, items emitted by source Observable should be skipped.
+ * @return {Observable} An Observable that skips values emitted by the source Observable.
  *
  * @method skip
  * @owner Observable
  */
-function skip(total) {
-    return this.lift(new SkipOperator(total));
+function skip(count) {
+    return this.lift(new SkipOperator(count));
 }
 exports.skip = skip;
 var SkipOperator = (function () {
@@ -25,7 +25,7 @@ var SkipOperator = (function () {
         this.total = total;
     }
     SkipOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new SkipSubscriber(subscriber, this.total));
+        return source.subscribe(new SkipSubscriber(subscriber, this.total));
     };
     return SkipOperator;
 }());

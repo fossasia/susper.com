@@ -10,6 +10,6 @@ if (graceful) {
 
 spawn.tmpFunction(function (err, name) {
   spawn.out(name, function () {
-    throw new Error("Thrown on purpose");
+    throw new Error('Thrown on purpose');
   });
 });

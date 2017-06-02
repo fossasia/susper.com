@@ -5,6 +5,23 @@ import { OuterSubscriber } from '../OuterSubscriber';
 import { InnerSubscriber } from '../InnerSubscriber';
 import { subscribeToResult } from '../util/subscribeToResult';
 
+/* tslint:disable:max-line-length */
+export function withLatestFrom<T, R>(this: Observable<T>, project: (v1: T) => R): Observable<R>;
+export function withLatestFrom<T, T2, R>(this: Observable<T>, v2: ObservableInput<T2>, project: (v1: T, v2: T2) => R): Observable<R>;
+export function withLatestFrom<T, T2, T3, R>(this: Observable<T>, v2: ObservableInput<T2>, v3: ObservableInput<T3>, project: (v1: T, v2: T2, v3: T3) => R): Observable<R>;
+export function withLatestFrom<T, T2, T3, T4, R>(this: Observable<T>, v2: ObservableInput<T2>, v3: ObservableInput<T3>, v4: ObservableInput<T4>, project: (v1: T, v2: T2, v3: T3, v4: T4) => R): Observable<R>;
+export function withLatestFrom<T, T2, T3, T4, T5, R>(this: Observable<T>, v2: ObservableInput<T2>, v3: ObservableInput<T3>, v4: ObservableInput<T4>, v5: ObservableInput<T5>, project: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => R): Observable<R>;
+export function withLatestFrom<T, T2, T3, T4, T5, T6, R>(this: Observable<T>, v2: ObservableInput<T2>, v3: ObservableInput<T3>, v4: ObservableInput<T4>, v5: ObservableInput<T5>, v6: ObservableInput<T6>, project: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6) => R): Observable<R> ;
+export function withLatestFrom<T, T2>(this: Observable<T>, v2: ObservableInput<T2>): Observable<[T, T2]>;
+export function withLatestFrom<T, T2, T3>(this: Observable<T>, v2: ObservableInput<T2>, v3: ObservableInput<T3>): Observable<[T, T2, T3]>;
+export function withLatestFrom<T, T2, T3, T4>(this: Observable<T>, v2: ObservableInput<T2>, v3: ObservableInput<T3>, v4: ObservableInput<T4>): Observable<[T, T2, T3, T4]>;
+export function withLatestFrom<T, T2, T3, T4, T5>(this: Observable<T>, v2: ObservableInput<T2>, v3: ObservableInput<T3>, v4: ObservableInput<T4>, v5: ObservableInput<T5>): Observable<[T, T2, T3, T4, T5]>;
+export function withLatestFrom<T, T2, T3, T4, T5, T6>(this: Observable<T>, v2: ObservableInput<T2>, v3: ObservableInput<T3>, v4: ObservableInput<T4>, v5: ObservableInput<T5>, v6: ObservableInput<T6>): Observable<[T, T2, T3, T4, T5, T6]> ;
+export function withLatestFrom<T, R>(this: Observable<T>, ...observables: Array<ObservableInput<any> | ((...values: Array<any>) => R)>): Observable<R>;
+export function withLatestFrom<T, R>(this: Observable<T>, array: ObservableInput<any>[]): Observable<R>;
+export function withLatestFrom<T, R>(this: Observable<T>, array: ObservableInput<any>[], project: (...values: Array<any>) => R): Observable<R>;
+/* tslint:enable:max-line-length */
+
 /**
  * Combines the source Observable with other Observables to create an Observable
  * whose values are calculated from the latest values of each, only when the
@@ -30,7 +47,7 @@ import { subscribeToResult } from '../util/subscribeToResult';
  *
  * @see {@link combineLatest}
  *
- * @param {Observable} other An input Observable to combine with the source
+ * @param {ObservableInput} other An input Observable to combine with the source
  * Observable. More than one input Observables may be given as argument.
  * @param {Function} [project] Projection function for combining values
  * together. Receives all values in order of the Observables passed, where the
@@ -43,7 +60,7 @@ import { subscribeToResult } from '../util/subscribeToResult';
  * @method withLatestFrom
  * @owner Observable
  */
-export function withLatestFrom<T, R>(...args: Array<ObservableInput<any> | ((...values: Array<any>) => R)>): Observable<R> {
+export function withLatestFrom<T, R>(this: Observable<T>, ...args: Array<ObservableInput<any> | ((...values: Array<any>) => R)>): Observable<R> {
   let project: any;
   if (typeof args[args.length - 1] === 'function') {
     project = args.pop();
@@ -52,34 +69,13 @@ export function withLatestFrom<T, R>(...args: Array<ObservableInput<any> | ((...
   return this.lift(new WithLatestFromOperator(observables, project));
 }
 
-/* tslint:disable:max-line-length */
-export interface WithLatestFromSignature<T> {
-  <R>(project: (v1: T) => R): Observable<R>;
-  <T2, R>(v2: ObservableInput<T2>, project: (v1: T, v2: T2) => R): Observable<R>;
-  <T2, T3, R>(v2: ObservableInput<T2>, v3: ObservableInput<T3>, project: (v1: T, v2: T2, v3: T3) => R): Observable<R>;
-  <T2, T3, T4, R>(v2: ObservableInput<T2>, v3: ObservableInput<T3>, v4: ObservableInput<T4>, project: (v1: T, v2: T2, v3: T3, v4: T4) => R): Observable<R>;
-  <T2, T3, T4, T5, R>(v2: ObservableInput<T2>, v3: ObservableInput<T3>, v4: ObservableInput<T4>, v5: ObservableInput<T5>, project: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => R): Observable<R>;
-  <T2, T3, T4, T5, T6, R>(v2: ObservableInput<T2>, v3: ObservableInput<T3>, v4: ObservableInput<T4>, v5: ObservableInput<T5>, v6: ObservableInput<T6>, project: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6) => R): Observable<R>;
-
-  <T2>(v2: ObservableInput<T2>): Observable<[T, T2]>;
-  <T2, T3>(v2: ObservableInput<T2>, v3: ObservableInput<T3>): Observable<[T, T2, T3]>;
-  <T2, T3, T4>(v2: ObservableInput<T2>, v3: ObservableInput<T3>, v4: ObservableInput<T4>): Observable<[T, T2, T3, T4]>;
-  <T2, T3, T4, T5>(v2: ObservableInput<T2>, v3: ObservableInput<T3>, v4: ObservableInput<T4>, v5: ObservableInput<T5>): Observable<[T, T2, T3, T4, T5]>;
-  <T2, T3, T4, T5, T6>(v2: ObservableInput<T2>, v3: ObservableInput<T3>, v4: ObservableInput<T4>, v5: ObservableInput<T5>, v6: ObservableInput<T6>): Observable<[T, T2, T3, T4, T5, T6]>;
-
-  <R>(...observables: Array<ObservableInput<any> | ((...values: Array<any>) => R)>): Observable<R>;
-  <R>(array: ObservableInput<any>[]): Observable<R>;
-  <R>(array: ObservableInput<any>[], project: (...values: Array<any>) => R): Observable<R>;
-}
-/* tslint:enable:max-line-length */
-
 class WithLatestFromOperator<T, R> implements Operator<T, R> {
   constructor(private observables: Observable<any>[],
               private project?: (...values: any[]) => Observable<R>) {
   }
 
   call(subscriber: Subscriber<R>, source: any): any {
-    return source._subscribe(new WithLatestFromSubscriber(subscriber, this.observables, this.project));
+    return source.subscribe(new WithLatestFromSubscriber(subscriber, this.observables, this.project));
   }
 }
 

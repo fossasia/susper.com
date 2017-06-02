@@ -1,10 +1,12 @@
 import { async } from '../scheduler/async';
 import { isDate } from '../util/isDate';
 import { Operator } from '../Operator';
-import { Scheduler } from '../Scheduler';
+import { IScheduler } from '../Scheduler';
 import { Subscriber } from '../Subscriber';
+import { Action } from '../scheduler/Action';
 import { Notification } from '../Notification';
 import { Observable } from '../Observable';
+import { PartialObserver } from '../Observer';
 import { TeardownLogic } from '../Subscription';
 
 /**
@@ -39,32 +41,34 @@ import { TeardownLogic } from '../Subscription';
  *
  * @param {number|Date} delay The delay duration in milliseconds (a `number`) or
  * a `Date` until which the emission of the source items is delayed.
- * @param {Scheduler} [scheduler=async] The Scheduler to use for
+ * @param {Scheduler} [scheduler=async] The IScheduler to use for
  * managing the timers that handle the time-shift for each item.
  * @return {Observable} An Observable that delays the emissions of the source
  * Observable by the specified timeout or Date.
  * @method delay
  * @owner Observable
  */
-export function delay<T>(delay: number|Date,
-                         scheduler: Scheduler = async): Observable<T> {
+export function delay<T>(this: Observable<T>, delay: number|Date,
+                         scheduler: IScheduler = async): Observable<T> {
   const absoluteDelay = isDate(delay);
   const delayFor = absoluteDelay ? (+delay - scheduler.now()) : Math.abs(<number>delay);
   return this.lift(new DelayOperator(delayFor, scheduler));
 }
 
-export interface DelaySignature<T> {
-  (delay: number | Date, scheduler?: Scheduler): Observable<T>;
-}
-
 class DelayOperator<T> implements Operator<T, T> {
   constructor(private delay: number,
-              private scheduler: Scheduler) {
+              private scheduler: IScheduler) {
   }
 
   call(subscriber: Subscriber<T>, source: any): TeardownLogic {
-    return source._subscribe(new DelaySubscriber(subscriber, this.delay, this.scheduler));
+    return source.subscribe(new DelaySubscriber(subscriber, this.delay, this.scheduler));
   }
+}
+
+interface DelayState<T> {
+  source: DelaySubscriber<T>;
+  destination: PartialObserver<T>;
+  scheduler: IScheduler;
 }
 
 /**
@@ -73,11 +77,11 @@ class DelayOperator<T> implements Operator<T, T> {
  * @extends {Ignored}
  */
 class DelaySubscriber<T> extends Subscriber<T> {
-  private queue: Array<any> = [];
+  private queue: Array<DelayMessage<T>> = [];
   private active: boolean = false;
   private errored: boolean = false;
 
-  private static dispatch(state: any): void {
+  private static dispatch<T>(this: Action<DelayState<T>>, state: DelayState<T>): void {
     const source = state.source;
     const queue = source.queue;
     const scheduler = state.scheduler;
@@ -89,7 +93,7 @@ class DelaySubscriber<T> extends Subscriber<T> {
 
     if (queue.length > 0) {
       const delay = Math.max(0, queue[0].time - scheduler.now());
-      (<any> this).schedule(state, delay);
+      this.schedule(state, delay);
     } else {
       source.active = false;
     }
@@ -97,18 +101,18 @@ class DelaySubscriber<T> extends Subscriber<T> {
 
   constructor(destination: Subscriber<T>,
               private delay: number,
-              private scheduler: Scheduler) {
+              private scheduler: IScheduler) {
     super(destination);
   }
 
-  private _schedule(scheduler: Scheduler): void {
+  private _schedule(scheduler: IScheduler): void {
     this.active = true;
-    this.add(scheduler.schedule(DelaySubscriber.dispatch, this.delay, {
+    this.add(scheduler.schedule<DelayState<T>>(DelaySubscriber.dispatch, this.delay, {
       source: this, destination: this.destination, scheduler: scheduler
     }));
   }
 
-  private scheduleNotification(notification: Notification<any>): void {
+  private scheduleNotification(notification: Notification<T>): void {
     if (this.errored === true) {
       return;
     }
@@ -138,7 +142,7 @@ class DelaySubscriber<T> extends Subscriber<T> {
 }
 
 class DelayMessage<T> {
-  constructor(private time: number,
-              private notification: any) {
+  constructor(public readonly time: number,
+              public readonly notification: Notification<T>) {
   }
 }

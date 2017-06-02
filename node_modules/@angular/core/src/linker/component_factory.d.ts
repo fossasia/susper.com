@@ -9,7 +9,7 @@ import { ChangeDetectorRef } from '../change_detection/change_detection';
 import { Injector } from '../di/injector';
 import { Type } from '../type';
 import { ElementRef } from './element_ref';
-import { AppView } from './view';
+import { NgModuleRef } from './ng_module_factory';
 import { ViewRef } from './view_ref';
 /**
  * Represents an instance of a Component created via a {@link ComponentFactory}.
@@ -23,27 +23,27 @@ export declare abstract class ComponentRef<C> {
     /**
      * Location of the Host Element of this Component Instance.
      */
-    location: ElementRef;
+    readonly abstract location: ElementRef;
     /**
      * The injector on which the component instance exists.
      */
-    injector: Injector;
+    readonly abstract injector: Injector;
     /**
      * The instance of the Component.
      */
-    instance: C;
+    readonly abstract instance: C;
     /**
      * The {@link ViewRef} of the Host View of this Component instance.
      */
-    hostView: ViewRef;
+    readonly abstract hostView: ViewRef;
     /**
      * The {@link ChangeDetectorRef} of the Component instance.
      */
-    changeDetectorRef: ChangeDetectorRef;
+    readonly abstract changeDetectorRef: ChangeDetectorRef;
     /**
      * The component type.
      */
-    componentType: Type<any>;
+    readonly abstract componentType: Type<any>;
     /**
      * Destroys the component instance and all of the data structures associated with it.
      */
@@ -53,32 +53,32 @@ export declare abstract class ComponentRef<C> {
      */
     abstract onDestroy(callback: Function): void;
 }
-export declare class ComponentRef_<C> extends ComponentRef<C> {
-    private _index;
-    private _parentView;
-    private _nativeElement;
-    private _component;
-    constructor(_index: number, _parentView: AppView<any>, _nativeElement: any, _component: C);
-    location: ElementRef;
-    injector: Injector;
-    instance: C;
-    hostView: ViewRef;
-    changeDetectorRef: ChangeDetectorRef;
-    componentType: Type<any>;
-    destroy(): void;
-    onDestroy(callback: Function): void;
-}
 /**
  * @stable
  */
-export declare class ComponentFactory<C> {
-    selector: string;
-    private _viewClass;
-    private _componentType;
-    constructor(selector: string, _viewClass: Type<AppView<any>>, _componentType: Type<any>);
-    componentType: Type<any>;
+export declare abstract class ComponentFactory<C> {
+    readonly abstract selector: string;
+    readonly abstract componentType: Type<any>;
+    /**
+     * selector for all <ng-content> elements in the component.
+     */
+    readonly abstract ngContentSelectors: string[];
+    /**
+     * the inputs of the component.
+     */
+    readonly abstract inputs: {
+        propName: string;
+        templateName: string;
+    }[];
+    /**
+     * the outputs of the component.
+     */
+    readonly abstract outputs: {
+        propName: string;
+        templateName: string;
+    }[];
     /**
      * Creates a new component.
      */
-    create(injector: Injector, projectableNodes?: any[][], rootSelectorOrNode?: string | any): ComponentRef<C>;
+    abstract create(injector: Injector, projectableNodes?: any[][], rootSelectorOrNode?: string | any, ngModule?: NgModuleRef<any>): ComponentRef<C>;
 }

@@ -43,12 +43,8 @@ import { subscribeToResult } from '../util/subscribeToResult';
  * @method window
  * @owner Observable
  */
-export function window<T>(windowBoundaries: Observable<any>): Observable<Observable<T>> {
+export function window<T>(this: Observable<T>, windowBoundaries: Observable<any>): Observable<Observable<T>> {
   return this.lift(new WindowOperator<T>(windowBoundaries));
-}
-
-export interface WindowSignature<T> {
-  (windowBoundaries: Observable<any>): Observable<Observable<T>>;
 }
 
 class WindowOperator<T> implements Operator<T, Observable<T>> {
@@ -58,7 +54,7 @@ class WindowOperator<T> implements Operator<T, Observable<T>> {
 
   call(subscriber: Subscriber<Observable<T>>, source: any): any {
     const windowSubscriber = new WindowSubscriber(subscriber);
-    const sourceSubscription = source._subscribe(windowSubscriber);
+    const sourceSubscription = source.subscribe(windowSubscriber);
     if (!sourceSubscription.closed) {
       windowSubscriber.add(subscribeToResult(windowSubscriber, this.windowBoundaries));
     }

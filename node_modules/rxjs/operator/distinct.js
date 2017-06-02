@@ -6,29 +6,63 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
+var Set_1 = require('../util/Set');
 /**
  * Returns an Observable that emits all items emitted by the source Observable that are distinct by comparison from previous items.
- * If a comparator function is provided, then it will be called for each item to test for whether or not that value should be emitted.
- * If a comparator function is not provided, an equality check is used by default.
- * As the internal HashSet of this operator grows larger and larger, care should be taken in the domain of inputs this operator may see.
- * An optional parameter is also provided such that an Observable can be provided to queue the internal HashSet to flush the values it holds.
- * @param {function} [compare] optional comparison function called to test if an item is distinct from previous items in the source.
- * @param {Observable} [flushes] optional Observable for flushing the internal HashSet of the operator.
- * @return {Observable} an Observable that emits items from the source Observable with distinct values.
+ *
+ * If a keySelector function is provided, then it will project each value from the source observable into a new value that it will
+ * check for equality with previously projected values. If a keySelector function is not provided, it will use each value from the
+ * source observable directly with an equality check against previous values.
+ *
+ * In JavaScript runtimes that support `Set`, this operator will use a `Set` to improve performance of the distinct value checking.
+ *
+ * In other runtimes, this operator will use a minimal implementation of `Set` that relies on an `Array` and `indexOf` under the
+ * hood, so performance will degrade as more values are checked for distinction. Even in newer browsers, a long-running `distinct`
+ * use might result in memory leaks. To help alleviate this in some scenarios, an optional `flushes` parameter is also provided so
+ * that the internal `Set` can be "flushed", basically clearing it of values.
+ *
+ * @example <caption>A simple example with numbers</caption>
+ * Observable.of(1, 1, 2, 2, 2, 1, 2, 3, 4, 3, 2, 1)
+ *   .distinct()
+ *   .subscribe(x => console.log(x)); // 1, 2, 3, 4
+ *
+ * @example <caption>An example using a keySelector function</caption>
+ * interface Person {
+ *    age: number,
+ *    name: string
+ * }
+ *
+ * Observable.of<Person>(
+ *     { age: 4, name: 'Foo'},
+ *     { age: 7, name: 'Bar'},
+ *     { age: 5, name: 'Foo'})
+ *     .distinct((p: Person) => p.name)
+ *     .subscribe(x => console.log(x));
+ *
+ * // displays:
+ * // { age: 4, name: 'Foo' }
+ * // { age: 7, name: 'Bar' }
+ *
+ * @see {@link distinctUntilChanged}
+ * @see {@link distinctUntilKeyChanged}
+ *
+ * @param {function} [keySelector] Optional function to select which value you want to check as distinct.
+ * @param {Observable} [flushes] Optional Observable for flushing the internal HashSet of the operator.
+ * @return {Observable} An Observable that emits items from the source Observable with distinct values.
  * @method distinct
  * @owner Observable
  */
-function distinct(compare, flushes) {
-    return this.lift(new DistinctOperator(compare, flushes));
+function distinct(keySelector, flushes) {
+    return this.lift(new DistinctOperator(keySelector, flushes));
 }
 exports.distinct = distinct;
 var DistinctOperator = (function () {
-    function DistinctOperator(compare, flushes) {
-        this.compare = compare;
+    function DistinctOperator(keySelector, flushes) {
+        this.keySelector = keySelector;
         this.flushes = flushes;
     }
     DistinctOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new DistinctSubscriber(subscriber, this.compare, this.flushes));
+        return source.subscribe(new DistinctSubscriber(subscriber, this.keySelector, this.flushes));
     };
     return DistinctOperator;
 }());
@@ -39,43 +73,46 @@ var DistinctOperator = (function () {
  */
 var DistinctSubscriber = (function (_super) {
     __extends(DistinctSubscriber, _super);
-    function DistinctSubscriber(destination, compare, flushes) {
+    function DistinctSubscriber(destination, keySelector, flushes) {
         _super.call(this, destination);
-        this.values = [];
-        if (typeof compare === 'function') {
-            this.compare = compare;
-        }
+        this.keySelector = keySelector;
+        this.values = new Set_1.Set();
         if (flushes) {
             this.add(subscribeToResult_1.subscribeToResult(this, flushes));
         }
     }
     DistinctSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
-        this.values.length = 0;
+        this.values.clear();
     };
     DistinctSubscriber.prototype.notifyError = function (error, innerSub) {
         this._error(error);
     };
     DistinctSubscriber.prototype._next = function (value) {
-        var found = false;
-        var values = this.values;
-        var len = values.length;
+        if (this.keySelector) {
+            this._useKeySelector(value);
+        }
+        else {
+            this._finalizeNext(value, value);
+        }
+    };
+    DistinctSubscriber.prototype._useKeySelector = function (value) {
+        var key;
+        var destination = this.destination;
         try {
-            for (var i = 0; i < len; i++) {
-                if (this.compare(values[i], value)) {
-                    found = true;
-                    return;
-                }
-            }
+            key = this.keySelector(value);
         }
         catch (err) {
-            this.destination.error(err);
+            destination.error(err);
             return;
         }
-        this.values.push(value);
-        this.destination.next(value);
+        this._finalizeNext(key, value);
     };
-    DistinctSubscriber.prototype.compare = function (x, y) {
-        return x === y;
+    DistinctSubscriber.prototype._finalizeNext = function (key, value) {
+        var values = this.values;
+        if (!values.has(key)) {
+            values.add(key);
+            this.destination.next(value);
+        }
     };
     return DistinctSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));

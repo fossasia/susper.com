@@ -1,6 +1,6 @@
-import { MinSignature } from '../../operator/min';
+import { min } from '../../operator/min';
 declare module '../../Observable' {
     interface Observable<T> {
-        min: MinSignature<T>;
+        min: typeof min;
     }
 }

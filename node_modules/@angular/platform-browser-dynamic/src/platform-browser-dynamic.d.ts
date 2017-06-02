@@ -8,4 +8,4 @@ export declare const RESOURCE_CACHE_PROVIDER: Provider[];
 /**
  * @stable
  */
-export declare const platformBrowserDynamic: (extraProviders?: Provider[]) => PlatformRef;
+export declare const platformBrowserDynamic: (extraProviders?: Provider[] | undefined) => PlatformRef;

@@ -2,7 +2,7 @@
 // Subject imported before Observable to bypass circular dependency issue since
 // Subject extends Observable and Observable references Subject in it's
 // definition
-export {Subject} from './Subject';
+export {Subject, AnonymousSubject} from './Subject';
 /* tslint:enable:no-unused-variable */
 export {Observable} from './Observable';
 
@@ -44,7 +44,6 @@ import './add/operator/bufferCount';
 import './add/operator/bufferTime';
 import './add/operator/bufferToggle';
 import './add/operator/bufferWhen';
-import './add/operator/cache';
 import './add/operator/catch';
 import './add/operator/combineAll';
 import './add/operator/combineLatest';
@@ -60,7 +59,6 @@ import './add/operator/defaultIfEmpty';
 import './add/operator/delay';
 import './add/operator/delayWhen';
 import './add/operator/distinct';
-import './add/operator/distinctKey';
 import './add/operator/distinctUntilChanged';
 import './add/operator/distinctUntilKeyChanged';
 import './add/operator/do';
@@ -112,8 +110,10 @@ import './add/operator/sampleTime';
 import './add/operator/scan';
 import './add/operator/sequenceEqual';
 import './add/operator/share';
+import './add/operator/shareReplay';
 import './add/operator/single';
 import './add/operator/skip';
+import './add/operator/skipLast';
 import './add/operator/skipUntil';
 import './add/operator/skipWhile';
 import './add/operator/startWith';
@@ -150,12 +150,12 @@ export {Subscriber} from './Subscriber';
 export {AsyncSubject} from './AsyncSubject';
 export {ReplaySubject} from './ReplaySubject';
 export {BehaviorSubject} from './BehaviorSubject';
-export {MulticastObservable} from './observable/MulticastObservable';
 export {ConnectableObservable} from './observable/ConnectableObservable';
 export {Notification} from './Notification';
 export {EmptyError} from './util/EmptyError';
 export {ArgumentOutOfRangeError} from './util/ArgumentOutOfRangeError';
 export {ObjectUnsubscribedError} from './util/ObjectUnsubscribedError';
+export {TimeoutError} from './util/TimeoutError';
 export {UnsubscriptionError} from './util/UnsubscriptionError';
 export {TimeInterval} from './operator/timeInterval';
 export {Timestamp} from './operator/timestamp';
@@ -171,9 +171,9 @@ import { AsapScheduler } from './scheduler/AsapScheduler';
 import { AsyncScheduler } from './scheduler/AsyncScheduler';
 import { QueueScheduler } from './scheduler/QueueScheduler';
 import { AnimationFrameScheduler } from './scheduler/AnimationFrameScheduler';
-import { $$rxSubscriber as rxSubscriber } from './symbol/rxSubscriber';
-import { $$iterator as iterator } from './symbol/iterator';
-import { $$observable as observable } from './symbol/observable';
+import { rxSubscriber } from './symbol/rxSubscriber';
+import { iterator } from './symbol/iterator';
+import { observable } from './symbol/observable';
 
 /* tslint:enable:no-unused-variable */
 

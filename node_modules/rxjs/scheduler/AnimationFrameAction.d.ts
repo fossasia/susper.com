@@ -7,8 +7,8 @@ import { AnimationFrameScheduler } from './AnimationFrameScheduler';
  */
 export declare class AnimationFrameAction<T> extends AsyncAction<T> {
     protected scheduler: AnimationFrameScheduler;
-    protected work: (state?: T) => void;
-    constructor(scheduler: AnimationFrameScheduler, work: (state?: T) => void);
+    protected work: (this: AnimationFrameAction<T>, state?: T) => void;
+    constructor(scheduler: AnimationFrameScheduler, work: (this: AnimationFrameAction<T>, state?: T) => void);
     protected requestAsyncId(scheduler: AnimationFrameScheduler, id?: any, delay?: number): any;
     protected recycleAsyncId(scheduler: AnimationFrameScheduler, id?: any, delay?: number): any;
 }

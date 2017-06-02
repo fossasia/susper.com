@@ -28,6 +28,13 @@ import { Notification } from '../Notification';
  * var materialized = upperCase.materialize();
  * materialized.subscribe(x => console.log(x));
  *
+ * // Results in the following:
+ * // - Notification {kind: "N", value: "A", error: undefined, hasValue: true}
+ * // - Notification {kind: "N", value: "B", error: undefined, hasValue: true}
+ * // - Notification {kind: "E", value: undefined, error: TypeError:
+ * //   x.toUpperCase is not a function at MapSubscriber.letters.map.x
+ * //   [as project] (http://1…, hasValue: false}
+ *
  * @see {@link Notification}
  * @see {@link dematerialize}
  *
@@ -37,7 +44,4 @@ import { Notification } from '../Notification';
  * @method materialize
  * @owner Observable
  */
-export declare function materialize<T>(): Observable<Notification<T>>;
-export interface MaterializeSignature<T> {
-    (): Observable<Notification<T>>;
-}
+export declare function materialize<T>(this: Observable<T>): Observable<Notification<T>>;

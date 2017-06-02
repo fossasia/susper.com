@@ -16,7 +16,7 @@ import { Observable } from '../Observable';
  * applies a projection to each value and emits that projection in the output
  * Observable.
  *
- * @example <caption>Map every every click to the clientX position of that click</caption>
+ * @example <caption>Map every click to the clientX position of that click</caption>
  * var clicks = Rx.Observable.fromEvent(document, 'click');
  * var positions = clicks.map(ev => ev.clientX);
  * positions.subscribe(x => console.log(x));
@@ -35,15 +35,11 @@ import { Observable } from '../Observable';
  * @method map
  * @owner Observable
  */
-export function map<T, R>(project: (value: T, index: number) => R, thisArg?: any): Observable<R> {
+export function map<T, R>(this: Observable<T>, project: (value: T, index: number) => R, thisArg?: any): Observable<R> {
   if (typeof project !== 'function') {
     throw new TypeError('argument is not a function. Are you looking for `mapTo()`?');
   }
   return this.lift(new MapOperator(project, thisArg));
-}
-
-export interface MapSignature<T> {
-  <R>(project: (value: T, index: number) => R, thisArg?: any): Observable<R>;
 }
 
 export class MapOperator<T, R> implements Operator<T, R> {
@@ -51,7 +47,7 @@ export class MapOperator<T, R> implements Operator<T, R> {
   }
 
   call(subscriber: Subscriber<R>, source: any): any {
-    return source._subscribe(new MapSubscriber(subscriber, this.project, this.thisArg));
+    return source.subscribe(new MapSubscriber(subscriber, this.project, this.thisArg));
   }
 }
 

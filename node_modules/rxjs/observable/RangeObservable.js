@@ -28,8 +28,8 @@ var RangeObservable = (function (_super) {
      *
      * `range` operator emits a range of sequential integers, in order, where you
      * select the `start` of the range and its `length`. By default, uses no
-     * Scheduler and just delivers the notifications synchronously, but may use
-     * an optional Scheduler to regulate those deliveries.
+     * IScheduler and just delivers the notifications synchronously, but may use
+     * an optional IScheduler to regulate those deliveries.
      *
      * @example <caption>Emits the numbers 1 to 10</caption>
      * var numbers = Rx.Observable.range(1, 10);
@@ -40,7 +40,7 @@ var RangeObservable = (function (_super) {
      *
      * @param {number} [start=0] The value of the first integer in the sequence.
      * @param {number} [count=0] The number of sequential integers to generate.
-     * @param {Scheduler} [scheduler] A {@link Scheduler} to use for scheduling
+     * @param {Scheduler} [scheduler] A {@link IScheduler} to use for scheduling
      * the emissions of the notifications.
      * @return {Observable} An Observable of numbers that emits a finite range of
      * sequential integers.

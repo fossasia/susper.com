@@ -9,18 +9,14 @@ import { TeardownLogic } from '../Subscription';
  *
  * <img src="./img/skipWhile.png" width="100%">
  *
- * @param {Function} predicate - a function to test each item emitted from the source Observable.
- * @return {Observable<T>} an Observable that begins emitting items emitted by the source Observable when the
+ * @param {Function} predicate - A function to test each item emitted from the source Observable.
+ * @return {Observable<T>} An Observable that begins emitting items emitted by the source Observable when the
  * specified predicate becomes false.
  * @method skipWhile
  * @owner Observable
  */
-export function skipWhile<T>(predicate: (value: T, index: number) => boolean): Observable<T> {
+export function skipWhile<T>(this: Observable<T>, predicate: (value: T, index: number) => boolean): Observable<T> {
   return this.lift(new SkipWhileOperator(predicate));
-}
-
-export interface SkipWhileSignature<T> {
-  (predicate: (value: T, index: number) => boolean): Observable<T>;
 }
 
 class SkipWhileOperator<T> implements Operator<T, T> {
@@ -28,7 +24,7 @@ class SkipWhileOperator<T> implements Operator<T, T> {
   }
 
   call(subscriber: Subscriber<T>, source: any): TeardownLogic {
-    return source._subscribe(new SkipWhileSubscriber(subscriber, this.predicate));
+    return source.subscribe(new SkipWhileSubscriber(subscriber, this.predicate));
   }
 }
 

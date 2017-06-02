@@ -37,7 +37,4 @@ import { Observable } from '../Observable';
  * @method windowWhen
  * @owner Observable
  */
-export declare function windowWhen<T>(closingSelector: () => Observable<any>): Observable<Observable<T>>;
-export interface WindowWhenSignature<T> {
-    (closingSelector: () => Observable<any>): Observable<Observable<T>>;
-}
+export declare function windowWhen<T>(this: Observable<T>, closingSelector: () => Observable<any>): Observable<Observable<T>>;

@@ -1,6 +1,6 @@
-import { FirstSignature } from '../../operator/first';
+import { first } from '../../operator/first';
 declare module '../../Observable' {
     interface Observable<T> {
-        first: FirstSignature<T>;
+        first: typeof first;
     }
 }

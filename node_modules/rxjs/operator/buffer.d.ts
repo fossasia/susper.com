@@ -31,7 +31,4 @@ import { Observable } from '../Observable';
  * @method buffer
  * @owner Observable
  */
-export declare function buffer<T>(closingNotifier: Observable<any>): Observable<T[]>;
-export interface BufferSignature<T> {
-    (closingNotifier: Observable<any>): Observable<T[]>;
-}
+export declare function buffer<T>(this: Observable<T>, closingNotifier: Observable<any>): Observable<T[]>;

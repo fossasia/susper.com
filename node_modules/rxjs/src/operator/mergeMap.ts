@@ -6,6 +6,11 @@ import { subscribeToResult } from '../util/subscribeToResult';
 import { OuterSubscriber } from '../OuterSubscriber';
 import { InnerSubscriber } from '../InnerSubscriber';
 
+/* tslint:disable:max-line-length */
+export function mergeMap<T, R>(this: Observable<T>, project: (value: T, index: number) => ObservableInput<R>, concurrent?: number): Observable<R>;
+export function mergeMap<T, I, R>(this: Observable<T>, project: (value: T, index: number) => ObservableInput<I>, resultSelector: (outerValue: T, innerValue: I, outerIndex: number, innerIndex: number) => R, concurrent?: number): Observable<R>;
+/* tslint:enable:max-line-length */
+
 /**
  * Projects each source value to an Observable which is merged in the output
  * Observable.
@@ -27,6 +32,15 @@ import { InnerSubscriber } from '../InnerSubscriber';
  * );
  * result.subscribe(x => console.log(x));
  *
+ * // Results in the following:
+ * // a0
+ * // b0
+ * // c0
+ * // a1
+ * // b1
+ * // c1
+ * // continues to list a,b,c with respective ascending integers
+ *
  * @see {@link concatMap}
  * @see {@link exhaustMap}
  * @see {@link merge}
@@ -35,7 +49,7 @@ import { InnerSubscriber } from '../InnerSubscriber';
  * @see {@link mergeScan}
  * @see {@link switchMap}
  *
- * @param {function(value: T, ?index: number): Observable} project A function
+ * @param {function(value: T, ?index: number): ObservableInput} project A function
  * that, when applied to an item emitted by the source Observable, returns an
  * Observable.
  * @param {function(outerValue: T, innerValue: I, outerIndex: number, innerIndex: number): any} [resultSelector]
@@ -55,21 +69,14 @@ import { InnerSubscriber } from '../InnerSubscriber';
  * @method mergeMap
  * @owner Observable
  */
-export function mergeMap<T, I, R>(project: (value: T, index: number) => ObservableInput<I>,
+export function mergeMap<T, I, R>(this: Observable<T>, project: (value: T, index: number) => ObservableInput<I>,
                                   resultSelector?: ((outerValue: T, innerValue: I, outerIndex: number, innerIndex: number) => R) | number,
-                                  concurrent: number = Number.POSITIVE_INFINITY): Observable<R> {
+                                  concurrent: number = Number.POSITIVE_INFINITY): Observable<I | R> {
   if (typeof resultSelector === 'number') {
     concurrent = <number>resultSelector;
     resultSelector = null;
   }
   return this.lift(new MergeMapOperator(project, <any>resultSelector, concurrent));
-}
-
-export interface MergeMapSignature<T> {
-  <R>(project: (value: T, index: number) => ObservableInput<R>, concurrent?: number): Observable<R>;
-  <I, R>(project: (value: T, index: number) => ObservableInput<I>,
-         resultSelector: (outerValue: T, innerValue: I, outerIndex: number, innerIndex: number) => R,
-         concurrent?: number): Observable<R>;
 }
 
 export class MergeMapOperator<T, I, R> implements Operator<T, I> {
@@ -79,7 +86,7 @@ export class MergeMapOperator<T, I, R> implements Operator<T, I> {
   }
 
   call(observer: Subscriber<I>, source: any): any {
-    return source._subscribe(new MergeMapSubscriber(
+    return source.subscribe(new MergeMapSubscriber(
       observer, this.project, this.resultSelector, this.concurrent
     ));
   }

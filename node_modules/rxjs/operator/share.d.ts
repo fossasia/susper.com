@@ -7,11 +7,8 @@ import { Observable } from '../Observable';
  *
  * <img src="./img/share.png" width="100%">
  *
- * @return {Observable<T>} an Observable that upon connection causes the source Observable to emit items to its Observers
+ * @return {Observable<T>} An Observable that upon connection causes the source Observable to emit items to its Observers.
  * @method share
  * @owner Observable
  */
-export declare function share<T>(): Observable<T>;
-export interface ShareSignature<T> {
-    (): Observable<T>;
-}
+export declare function share<T>(this: Observable<T>): Observable<T>;

@@ -11,8 +11,8 @@ var Subscriber_1 = require('../Subscriber');
  *
  * <img src="./img/skipWhile.png" width="100%">
  *
- * @param {Function} predicate - a function to test each item emitted from the source Observable.
- * @return {Observable<T>} an Observable that begins emitting items emitted by the source Observable when the
+ * @param {Function} predicate - A function to test each item emitted from the source Observable.
+ * @return {Observable<T>} An Observable that begins emitting items emitted by the source Observable when the
  * specified predicate becomes false.
  * @method skipWhile
  * @owner Observable
@@ -26,7 +26,7 @@ var SkipWhileOperator = (function () {
         this.predicate = predicate;
     }
     SkipWhileOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new SkipWhileSubscriber(subscriber, this.predicate));
+        return source.subscribe(new SkipWhileSubscriber(subscriber, this.predicate));
     };
     return SkipWhileOperator;
 }());

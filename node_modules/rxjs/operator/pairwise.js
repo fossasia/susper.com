@@ -48,7 +48,7 @@ var PairwiseOperator = (function () {
     function PairwiseOperator() {
     }
     PairwiseOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new PairwiseSubscriber(subscriber));
+        return source.subscribe(new PairwiseSubscriber(subscriber));
     };
     return PairwiseOperator;
 }());

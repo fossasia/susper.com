@@ -6,6 +6,11 @@ import { OuterSubscriber } from '../OuterSubscriber';
 import { InnerSubscriber } from '../InnerSubscriber';
 import { subscribeToResult } from '../util/subscribeToResult';
 
+/* tslint:disable:max-line-length */
+export function switchMap<T, R>(this: Observable<T>, project: (value: T, index: number) => ObservableInput<R>): Observable<R>;
+export function switchMap<T, I, R>(this: Observable<T>, project: (value: T, index: number) => ObservableInput<I>, resultSelector: (outerValue: T, innerValue: I, outerIndex: number, innerIndex: number) => R): Observable<R>;
+/* tslint:enable:max-line-length */
+
 /**
  * Projects each source value to an Observable which is merged in the output
  * Observable, emitting values only from the most recently projected Observable.
@@ -35,7 +40,7 @@ import { subscribeToResult } from '../util/subscribeToResult';
  * @see {@link switch}
  * @see {@link switchMapTo}
  *
- * @param {function(value: T, ?index: number): Observable} project A function
+ * @param {function(value: T, ?index: number): ObservableInput} project A function
  * that, when applied to an item emitted by the source Observable, returns an
  * Observable.
  * @param {function(outerValue: T, innerValue: I, outerIndex: number, innerIndex: number): any} [resultSelector]
@@ -53,15 +58,9 @@ import { subscribeToResult } from '../util/subscribeToResult';
  * @method switchMap
  * @owner Observable
  */
-export function switchMap<T, I, R>(project: (value: T, index: number) => ObservableInput<I>,
-                                   resultSelector?: (outerValue: T, innerValue: I, outerIndex: number, innerIndex: number) => R): Observable<R> {
+export function switchMap<T, I, R>(this: Observable<T>, project: (value: T, index: number) => ObservableInput<I>,
+                                   resultSelector?: (outerValue: T, innerValue: I, outerIndex: number, innerIndex: number) => R): Observable<I | R> {
   return this.lift(new SwitchMapOperator(project, resultSelector));
-}
-
-export interface SwitchMapSignature<T> {
-  <R>(project: (value: T, index: number) => ObservableInput<R>): Observable<R>;
-  <I, R>(project: (value: T, index: number) => ObservableInput<I>,
-         resultSelector: (outerValue: T, innerValue: I, outerIndex: number, innerIndex: number) => R): Observable<R>;
 }
 
 class SwitchMapOperator<T, I, R> implements Operator<T, I> {
@@ -70,7 +69,7 @@ class SwitchMapOperator<T, I, R> implements Operator<T, I> {
   }
 
   call(subscriber: Subscriber<I>, source: any): any {
-    return source._subscribe(new SwitchMapSubscriber(subscriber, this.project, this.resultSelector));
+    return source.subscribe(new SwitchMapSubscriber(subscriber, this.project, this.resultSelector));
   }
 }
 

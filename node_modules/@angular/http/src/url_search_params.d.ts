@@ -47,7 +47,7 @@ export declare class URLSearchParams {
     constructor(rawParams?: string, queryEncoder?: QueryEncoder);
     clone(): URLSearchParams;
     has(param: string): boolean;
-    get(param: string): string;
+    get(param: string): string | null;
     getAll(param: string): string[];
     set(param: string, val: string): void;
     setAll(searchParams: URLSearchParams): void;

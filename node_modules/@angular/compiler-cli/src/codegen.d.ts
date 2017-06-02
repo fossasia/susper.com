@@ -20,7 +20,6 @@ export declare class CodeGenerator {
     private compiler;
     private ngCompilerHost;
     constructor(options: AngularCompilerOptions, program: ts.Program, host: ts.CompilerHost, compiler: compiler.AotCompiler, ngCompilerHost: CompilerHost);
-    private calculateEmitPath(filePath);
     codegen(): Promise<any>;
     static create(options: AngularCompilerOptions, cliOptions: NgcCliOptions, program: ts.Program, tsCompilerHost: ts.CompilerHost, compilerHostContext?: CompilerHostContext, ngCompilerHost?: CompilerHost): CodeGenerator;
 }

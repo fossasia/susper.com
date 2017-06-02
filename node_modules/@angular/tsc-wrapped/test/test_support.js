@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var fs = require('fs');
-var os = require('os');
-var path = require('path');
+var fs = require("fs");
+var os = require("os");
+var path = require("path");
 var tmpdir = process.env.TEST_TMPDIR || os.tmpdir();
 function writeTempFile(name, contents) {
     // TEST_TMPDIR is set by bazel.

@@ -7,7 +7,7 @@
  */
 export declare class Tree<T> {
     constructor(root: TreeNode<T>);
-    root: T;
+    readonly root: T;
 }
 export declare class TreeNode<T> {
     value: T;

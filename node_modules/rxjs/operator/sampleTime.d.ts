@@ -1,5 +1,5 @@
 import { Observable } from '../Observable';
-import { Scheduler } from '../Scheduler';
+import { IScheduler } from '../Scheduler';
 /**
  * Emits the most recently emitted value from the source Observable within
  * periodic time intervals.
@@ -29,14 +29,11 @@ import { Scheduler } from '../Scheduler';
  *
  * @param {number} period The sampling period expressed in milliseconds or the
  * time unit determined internally by the optional `scheduler`.
- * @param {Scheduler} [scheduler=async] The {@link Scheduler} to use for
+ * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
  * managing the timers that handle the sampling.
  * @return {Observable<T>} An Observable that emits the results of sampling the
  * values emitted by the source Observable at the specified time interval.
  * @method sampleTime
  * @owner Observable
  */
-export declare function sampleTime<T>(period: number, scheduler?: Scheduler): Observable<T>;
-export interface SampleTimeSignature<T> {
-    (period: number, scheduler?: Scheduler): Observable<T>;
-}
+export declare function sampleTime<T>(this: Observable<T>, period: number, scheduler?: IScheduler): Observable<T>;

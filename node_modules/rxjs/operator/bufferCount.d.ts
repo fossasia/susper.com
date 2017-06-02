@@ -40,7 +40,4 @@ import { Observable } from '../Observable';
  * @method bufferCount
  * @owner Observable
  */
-export declare function bufferCount<T>(bufferSize: number, startBufferEvery?: number): Observable<T[]>;
-export interface BufferCountSignature<T> {
-    (bufferSize: number, startBufferEvery?: number): Observable<T[]>;
-}
+export declare function bufferCount<T>(this: Observable<T>, bufferSize: number, startBufferEvery?: number): Observable<T[]>;

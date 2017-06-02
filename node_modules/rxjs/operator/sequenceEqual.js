@@ -24,7 +24,7 @@ var errorObject_1 = require('../util/errorObject');
  * completes or emits after the other complets, the returned observable will never complete.
  *
  * @example <caption>figure out if the Konami code matches</caption>
- * var code = Observable.from([
+ * var code = Rx.Observable.from([
  *  "ArrowUp",
  *  "ArrowUp",
  *  "ArrowDown",
@@ -52,10 +52,10 @@ var errorObject_1 = require('../util/errorObject');
  * @see {@link zip}
  * @see {@link withLatestFrom}
  *
- * @param {Observable} compareTo the observable sequence to compare the source sequence to.
+ * @param {Observable} compareTo The observable sequence to compare the source sequence to.
  * @param {function} [comparor] An optional function to compare each value pair
  * @return {Observable} An Observable of a single boolean value representing whether or not
- * the values emitted by both observables were equal in sequence
+ * the values emitted by both observables were equal in sequence.
  * @method sequenceEqual
  * @owner Observable
  */
@@ -69,7 +69,7 @@ var SequenceEqualOperator = (function () {
         this.comparor = comparor;
     }
     SequenceEqualOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new SequenceEqualSubscriber(subscriber, this.compareTo, this.comparor));
+        return source.subscribe(new SequenceEqualSubscriber(subscriber, this.compareTo, this.comparor));
     };
     return SequenceEqualOperator;
 }());

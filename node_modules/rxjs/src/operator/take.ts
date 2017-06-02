@@ -38,16 +38,12 @@ import { TeardownLogic } from '../Subscription';
  * @method take
  * @owner Observable
  */
-export function take<T>(count: number): Observable<T> {
+export function take<T>(this: Observable<T>, count: number): Observable<T> {
   if (count === 0) {
     return new EmptyObservable<T>();
   } else {
     return this.lift(new TakeOperator(count));
   }
-}
-
-export interface TakeSignature<T> {
-  (count: number): Observable<T>;
 }
 
 class TakeOperator<T> implements Operator<T, T> {
@@ -58,7 +54,7 @@ class TakeOperator<T> implements Operator<T, T> {
   }
 
   call(subscriber: Subscriber<T>, source: any): TeardownLogic {
-    return source._subscribe(new TakeSubscriber(subscriber, this.total));
+    return source.subscribe(new TakeSubscriber(subscriber, this.total));
   }
 }
 
@@ -76,9 +72,10 @@ class TakeSubscriber<T> extends Subscriber<T> {
 
   protected _next(value: T): void {
     const total = this.total;
-    if (++this.count <= total) {
+    const count = ++this.count;
+    if (count <= total) {
       this.destination.next(value);
-      if (this.count === total) {
+      if (count === total) {
         this.destination.complete();
         this.unsubscribe();
       }

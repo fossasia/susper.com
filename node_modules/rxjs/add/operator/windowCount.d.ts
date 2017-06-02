@@ -1,6 +1,6 @@
-import { WindowCountSignature } from '../../operator/windowCount';
+import { windowCount } from '../../operator/windowCount';
 declare module '../../Observable' {
     interface Observable<T> {
-        windowCount: WindowCountSignature<T>;
+        windowCount: typeof windowCount;
     }
 }

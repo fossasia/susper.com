@@ -5,7 +5,4 @@ import { Observable } from '../Observable';
  * @method zipAll
  * @owner Observable
  */
-export declare function zipAll<T, R>(project?: (...values: Array<any>) => R): Observable<R>;
-export interface ZipAllSignature<T> {
-    <R>(project?: (...values: Array<T>) => R): Observable<R>;
-}
+export declare function zipAll<T, R>(this: Observable<T>, project?: (...values: Array<any>) => R): Observable<R>;

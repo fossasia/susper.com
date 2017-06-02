@@ -6,9 +6,9 @@ export interface NgTools_InternalApi_NG2_CodeGen_Options {
     program: ts.Program;
     host: ts.CompilerHost;
     angularCompilerOptions: AngularCompilerOptions;
-    i18nFormat: string;
-    i18nFile: string;
-    locale: string;
+    i18nFormat?: string;
+    i18nFile?: string;
+    locale?: string;
     readResource: (fileName: string) => Promise<string>;
 }
 export interface NgTools_InternalApi_NG2_ListLazyRoutes_Options {
@@ -26,8 +26,10 @@ export interface NgTools_InternalApi_NG2_ExtractI18n_Options {
     program: ts.Program;
     host: ts.CompilerHost;
     angularCompilerOptions: AngularCompilerOptions;
-    i18nFormat: string;
+    i18nFormat?: string;
     readResource: (fileName: string) => Promise<string>;
+    locale?: string;
+    outFile?: string;
 }
 /**
  * @internal

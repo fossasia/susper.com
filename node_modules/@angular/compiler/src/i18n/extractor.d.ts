@@ -20,7 +20,7 @@ export declare class Extractor {
     private metadataResolver;
     constructor(host: ExtractorHost, staticSymbolResolver: StaticSymbolResolver, messageBundle: MessageBundle, metadataResolver: CompileMetadataResolver);
     extract(rootFiles: string[]): Promise<MessageBundle>;
-    static create(host: ExtractorHost): {
+    static create(host: ExtractorHost, locale: string | null): {
         extractor: Extractor;
         staticReflector: StaticReflector;
     };

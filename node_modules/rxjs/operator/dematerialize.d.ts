@@ -26,6 +26,11 @@ import { Observable } from '../Observable';
  * var upperCase = materialized.dematerialize();
  * upperCase.subscribe(x => console.log(x), e => console.error(e));
  *
+ * // Results in:
+ * // A
+ * // B
+ * // TypeError: x.toUpperCase is not a function
+ *
  * @see {@link Notification}
  * @see {@link materialize}
  *
@@ -34,7 +39,4 @@ import { Observable } from '../Observable';
  * @method dematerialize
  * @owner Observable
  */
-export declare function dematerialize<T>(): Observable<any>;
-export interface DematerializeSignature<T> {
-    <R>(): Observable<R>;
-}
+export declare function dematerialize<T>(this: Observable<T>): Observable<any>;

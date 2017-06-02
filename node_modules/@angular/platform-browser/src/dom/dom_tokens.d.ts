@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 /**
  * A DI Token representing the main rendering context. In a browser this is the DOM Document.
  *
@@ -14,4 +14,4 @@ import { OpaqueToken } from '@angular/core';
  *
  * @stable
  */
-export declare const DOCUMENT: OpaqueToken;
+export declare const DOCUMENT: InjectionToken<Document>;

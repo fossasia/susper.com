@@ -1,6 +1,6 @@
-import { RetrySignature } from '../../operator/retry';
+import { retry } from '../../operator/retry';
 declare module '../../Observable' {
     interface Observable<T> {
-        retry: RetrySignature<T>;
+        retry: typeof retry;
     }
 }

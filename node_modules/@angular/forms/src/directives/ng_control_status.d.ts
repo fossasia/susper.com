@@ -4,13 +4,13 @@ import { NgControl } from './ng_control';
 export declare class AbstractControlStatus {
     private _cd;
     constructor(cd: AbstractControlDirective);
-    ngClassUntouched: boolean;
-    ngClassTouched: boolean;
-    ngClassPristine: boolean;
-    ngClassDirty: boolean;
-    ngClassValid: boolean;
-    ngClassInvalid: boolean;
-    ngClassPending: boolean;
+    readonly ngClassUntouched: boolean;
+    readonly ngClassTouched: boolean;
+    readonly ngClassPristine: boolean;
+    readonly ngClassDirty: boolean;
+    readonly ngClassValid: boolean;
+    readonly ngClassInvalid: boolean;
+    readonly ngClassPending: boolean;
 }
 export declare const ngControlStatusHost: {
     '[class.ng-untouched]': string;

@@ -25,7 +25,4 @@ import { Observable } from '../Observable';
  * @method mapTo
  * @owner Observable
  */
-export declare function mapTo<T, R>(value: R): Observable<R>;
-export interface MapToSignature<T> {
-    <R>(value: R): Observable<R>;
-}
+export declare function mapTo<T, R>(this: Observable<T>, value: R): Observable<R>;

@@ -3,16 +3,20 @@
     "experimentalDecorators": true,
     "module": "commonjs",
     "declaration": true,
-    "noImplicitAny": true,
     "noEmitOnError": true,
     "target": "es5",
     "lib": ["es5", "es6", "es2015.collection", "es2015.iterable", "dom"],
     "jsx": "react",
     "types": ["node", "mocha"],
+
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
     "strictNullChecks": true
   },
   "files": [
     "src/cli_support.ts",
+    "src/decorators.ts",
     "src/decorator-annotator.ts",
     "src/es5processor.ts",
     "src/jsdoc.ts",

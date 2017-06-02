@@ -35,7 +35,7 @@ var async_1 = require('../scheduler/async');
  *
  * @param {number} period The sampling period expressed in milliseconds or the
  * time unit determined internally by the optional `scheduler`.
- * @param {Scheduler} [scheduler=async] The {@link Scheduler} to use for
+ * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
  * managing the timers that handle the sampling.
  * @return {Observable<T>} An Observable that emits the results of sampling the
  * values emitted by the source Observable at the specified time interval.
@@ -53,7 +53,7 @@ var SampleTimeOperator = (function () {
         this.scheduler = scheduler;
     }
     SampleTimeOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new SampleTimeSubscriber(subscriber, this.period, this.scheduler));
+        return source.subscribe(new SampleTimeSubscriber(subscriber, this.period, this.scheduler));
     };
     return SampleTimeOperator;
 }());

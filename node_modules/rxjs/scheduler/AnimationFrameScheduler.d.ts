@@ -1,4 +1,5 @@
+import { AsyncAction } from './AsyncAction';
 import { AsyncScheduler } from './AsyncScheduler';
 export declare class AnimationFrameScheduler extends AsyncScheduler {
-    flush(): void;
+    flush(action?: AsyncAction<any>): void;
 }

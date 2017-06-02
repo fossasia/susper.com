@@ -18,6 +18,7 @@ export interface WebSocketSubjectConfig {
   closeObserver?: NextObserver<CloseEvent>;
   closingObserver?: NextObserver<void>;
   WebSocketCtor?: { new(url: string, protocol?: string|Array<string>): WebSocket };
+  binaryType?: 'blob' | 'arraybuffer';
 }
 
 /**
@@ -34,6 +35,7 @@ export class WebSocketSubject<T> extends AnonymousSubject<T> {
   closeObserver: NextObserver<CloseEvent>;
   closingObserver: NextObserver<void>;
   WebSocketCtor: { new(url: string, protocol?: string|Array<string>): WebSocket };
+  binaryType?: 'blob' | 'arraybuffer';
 
   private _output: Subject<T>;
 
@@ -42,7 +44,38 @@ export class WebSocketSubject<T> extends AnonymousSubject<T> {
   }
 
   /**
-   * @param urlConfigOrSource
+   * Wrapper around the w3c-compatible WebSocket object provided by the browser.
+   *
+   * @example <caption>Wraps browser WebSocket</caption>
+   *
+   * let socket$ = Observable.webSocket('ws://localhost:8081');
+   *
+   * socket$.subscribe(
+   *    (msg) => console.log('message received: ' + msg),
+   *    (err) => console.log(err),
+   *    () => console.log('complete')
+   *  );
+   *
+   * socket$.next(JSON.stringify({ op: 'hello' }));
+   *
+   * @example <caption>Wraps WebSocket from nodejs-websocket (using node.js)</caption>
+   *
+   * import { w3cwebsocket } from 'websocket';
+   *
+   * let socket$ = Observable.webSocket({
+   *   url: 'ws://localhost:8081',
+   *   WebSocketCtor: w3cwebsocket
+   * });
+   *
+   * socket$.subscribe(
+   *    (msg) => console.log('message received: ' + msg),
+   *    (err) => console.log(err),
+   *    () => console.log('complete')
+   *  );
+   *
+   * socket$.next(JSON.stringify({ op: 'hello' }));
+   *
+   * @param {string | WebSocketSubjectConfig} urlConfigOrSource the source of the websocket as an url or a structure defining the websocket object
    * @return {WebSocketSubject}
    * @static true
    * @name webSocket
@@ -76,6 +109,14 @@ export class WebSocketSubject<T> extends AnonymousSubject<T> {
     const sock = new WebSocketSubject<R>(this, <any> this.destination);
     sock.operator = operator;
     return sock;
+  }
+
+  private _resetState() {
+    this.socket = null;
+    if (!this.source) {
+      this.destination = new ReplaySubject();
+    }
+    this._output = new Subject<T>();
   }
 
   // TODO: factor this out to be a proper Operator/Subscriber implementation and eliminate closures
@@ -122,6 +163,9 @@ export class WebSocketSubject<T> extends AnonymousSubject<T> {
         new WebSocketCtor(this.url, this.protocol) :
         new WebSocketCtor(this.url);
       this.socket = socket;
+      if (this.binaryType) {
+        this.socket.binaryType = this.binaryType;
+      }
     } catch (e) {
       observer.error(e);
       return;
@@ -155,8 +199,7 @@ export class WebSocketSubject<T> extends AnonymousSubject<T> {
             observer.error(new TypeError('WebSocketSubject.error must be called with an object with an error code, ' +
               'and an optional reason: { code: number, reason: string }'));
           }
-          this.destination = new ReplaySubject();
-          this.socket = null;
+          this._resetState();
         },
         ( ) => {
           const closingObserver = this.closingObserver;
@@ -164,8 +207,7 @@ export class WebSocketSubject<T> extends AnonymousSubject<T> {
             closingObserver.next(undefined);
           }
           socket.close();
-          this.destination = new ReplaySubject();
-          this.socket = null;
+          this._resetState();
         }
       );
 
@@ -174,9 +216,13 @@ export class WebSocketSubject<T> extends AnonymousSubject<T> {
       }
     };
 
-    socket.onerror = (e: Event) => observer.error(e);
+    socket.onerror = (e: Event) => {
+      this._resetState();
+      observer.error(e);
+    };
 
     socket.onclose = (e: CloseEvent) => {
+      this._resetState();
       const closeObserver = this.closeObserver;
       if (closeObserver) {
         closeObserver.next(e);
@@ -210,9 +256,11 @@ export class WebSocketSubject<T> extends AnonymousSubject<T> {
     subscription.add(this._output.subscribe(subscriber));
     subscription.add(() => {
       const { socket } = this;
-      if (this._output.observers.length === 0 && socket && socket.readyState === 1) {
-        socket.close();
-        this.socket = null;
+      if (this._output.observers.length === 0) {
+        if (socket && socket.readyState === 1) {
+          socket.close();
+        }
+        this._resetState();
       }
     });
     return subscription;
@@ -222,7 +270,7 @@ export class WebSocketSubject<T> extends AnonymousSubject<T> {
     const { source, socket } = this;
     if (socket && socket.readyState === 1) {
       socket.close();
-      this.socket = null;
+      this._resetState();
     }
     super.unsubscribe();
     if (!source) {

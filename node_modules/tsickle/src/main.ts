@@ -22,8 +22,8 @@ export interface Settings {
   /** If provided, path to save externs to. */
   externsPath?: string;
 
-  /** If provided, convert every type to the Closure {?} type */
-  isUntyped: boolean;
+  /** If provided, attempt to provide types rather than {?}. */
+  isTyped?: boolean;
 
   /** If true, log internal debug warnings to the console. */
   verbose?: boolean;
@@ -37,7 +37,7 @@ example:
 
 tsickle flags are:
   --externs=PATH     save generated Closure externs.js to PATH
-  --untyped          convert every type in TypeScript to the Closure {?} type
+  --typed            [experimental] attempt to provide Closure types instead of {?}
 `);
 }
 
@@ -46,7 +46,7 @@ tsickle flags are:
  * the arguments to pass on to tsc.
  */
 function loadSettingsFromArgs(args: string[]): {settings: Settings, tscArgs: string[]} {
-  let settings: Settings = {isUntyped: false};
+  let settings: Settings = {};
   let parsedArgs = minimist(args);
   for (let flag of Object.keys(parsedArgs)) {
     switch (flag) {
@@ -58,8 +58,8 @@ function loadSettingsFromArgs(args: string[]): {settings: Settings, tscArgs: str
       case 'externs':
         settings.externsPath = parsedArgs[flag];
         break;
-      case 'untyped':
-        settings.isUntyped = true;
+      case 'typed':
+        settings.isTyped = true;
         break;
       case 'verbose':
         settings.verbose = true;
@@ -123,23 +123,59 @@ function loadTscConfig(args: string[], allDiagnostics: ts.Diagnostic[]):
   return {options, fileNames};
 }
 
+export interface ClosureJSOptions {
+  tsickleCompilerHostOptions: tsickle.Options;
+  tsickleHost: tsickle.TsickleHost;
+  files: Map<string, string>;
+  tsicklePasses: tsickle.Pass[];
+}
+
+function getDefaultClosureJSOptions(fileNames: string[], settings: Settings): ClosureJSOptions {
+  return {
+    tsickleCompilerHostOptions: {
+      googmodule: true,
+      es5Mode: false,
+      untyped: !settings.isTyped,
+    },
+    tsickleHost: {
+      shouldSkipTsickleProcessing: (fileName) => fileNames.indexOf(fileName) === -1,
+      pathToModuleName: cliSupport.pathToModuleName,
+      shouldIgnoreWarningsForPath: (filePath) => false,
+      fileNameToModuleId: (fileName) => fileName,
+    },
+    files: new Map<string, string>(),
+    tsicklePasses: [tsickle.Pass.CLOSURIZE],
+  };
+}
+
 /**
  * Compiles TypeScript code into Closure-compiler-ready JS.
  * Doesn't write any files to disk; all JS content is returned in a map.
  */
 export function toClosureJS(
     options: ts.CompilerOptions, fileNames: string[], settings: Settings,
-    allDiagnostics: ts.Diagnostic[],
-    files?: Map<string, string>): {jsFiles: Map<string, string>, externs: string}|null {
+    allDiagnostics: ts.Diagnostic[], partialClosureJSOptions = {} as Partial<ClosureJSOptions>):
+    {jsFiles: Map<string, string>, externs: string}|null {
+  const closureJSOptions: ClosureJSOptions = {
+    ...getDefaultClosureJSOptions(fileNames, settings),
+    ...partialClosureJSOptions
+  };
   // Parse and load the program without tsickle processing.
   // This is so:
   // - error messages point at the original source text
   // - tsickle can use the result of typechecking for annotation
-  let program = files === undefined ?
-      ts.createProgram(fileNames, options) :
-      ts.createProgram(
-          fileNames, options,
-          createSourceReplacingCompilerHost(files, ts.createCompilerHost(options)));
+  const jsFiles = new Map<string, string>();
+  const outputRetainingHost =
+      createOutputRetainingCompilerHost(jsFiles, ts.createCompilerHost(options));
+
+  const sourceReplacingHost =
+      createSourceReplacingCompilerHost(closureJSOptions.files, outputRetainingHost);
+
+  const tch = new tsickle.TsickleCompilerHost(
+      sourceReplacingHost, options, closureJSOptions.tsickleCompilerHostOptions,
+      closureJSOptions.tsickleHost);
+
+  let program = ts.createProgram(fileNames, options, tch);
   {  // Scope for the "diagnostics" variable so we can use the name again later.
     let diagnostics = ts.getPreEmitDiagnostics(program);
     if (diagnostics.length > 0) {
@@ -148,28 +184,17 @@ export function toClosureJS(
     }
   }
 
-  const tsickleCompilerHostOptions: tsickle.Options = {
-    googmodule: true,
-    es5Mode: false,
-    untyped: settings.isUntyped,
-  };
-
-  const tsickleHost: tsickle.TsickleHost = {
-    shouldSkipTsickleProcessing: (fileName) => fileNames.indexOf(fileName) === -1,
-    pathToModuleName: cliSupport.pathToModuleName,
-    shouldIgnoreWarningsForPath: (filePath) => false,
-    fileNameToModuleId: (fileName) => fileName,
-  };
-
-  const jsFiles = new Map<string, string>();
-  const hostDelegate = createOutputRetainingCompilerHost(jsFiles, ts.createCompilerHost(options));
-
   // Reparse and reload the program, inserting the tsickle output in
   // place of the original source.
-  let host = new tsickle.TsickleCompilerHost(
-      hostDelegate, options, tsickleCompilerHostOptions, tsickleHost,
-      {oldProgram: program, pass: tsickle.Pass.CLOSURIZE});
-  program = ts.createProgram(fileNames, options, host);
+  if (closureJSOptions.tsicklePasses.indexOf(tsickle.Pass.DECORATOR_DOWNLEVEL) !== -1) {
+    tch.reconfigureForRun(program, tsickle.Pass.DECORATOR_DOWNLEVEL);
+    program = ts.createProgram(fileNames, options, tch);
+  }
+
+  if (closureJSOptions.tsicklePasses.indexOf(tsickle.Pass.CLOSURIZE) !== -1) {
+    tch.reconfigureForRun(program, tsickle.Pass.CLOSURIZE);
+    program = ts.createProgram(fileNames, options, tch);
+  }
 
   let {diagnostics} = program.emit(undefined);
   if (diagnostics.length > 0) {
@@ -177,7 +202,7 @@ export function toClosureJS(
     return null;
   }
 
-  return {jsFiles, externs: host.getGeneratedExterns()};
+  return {jsFiles, externs: tch.getGeneratedExterns()};
 }
 
 function main(args: string[]): number {
@@ -186,6 +211,14 @@ function main(args: string[]): number {
   let config = loadTscConfig(tscArgs, diagnostics);
   if (config === null) {
     console.error(tsickle.formatDiagnostics(diagnostics));
+    return 1;
+  }
+
+  if (config.options.module !== ts.ModuleKind.CommonJS) {
+    // This is not an upstream TypeScript diagnostic, therefore it does not go
+    // through the diagnostics array mechanism.
+    console.error(
+        'tsickle converts TypeScript modules to Closure modules via CommonJS internally. Set tsconfig.js "module": "commonjs"');
     return 1;
   }
 

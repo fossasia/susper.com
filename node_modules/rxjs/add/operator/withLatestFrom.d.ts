@@ -1,6 +1,6 @@
-import { WithLatestFromSignature } from '../../operator/withLatestFrom';
+import { withLatestFrom } from '../../operator/withLatestFrom';
 declare module '../../Observable' {
     interface Observable<T> {
-        withLatestFrom: WithLatestFromSignature<T>;
+        withLatestFrom: typeof withLatestFrom;
     }
 }

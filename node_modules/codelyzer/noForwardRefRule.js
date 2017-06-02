@@ -17,6 +17,15 @@ var Rule = (function (_super) {
     };
     return Rule;
 }(Lint.Rules.AbstractRule));
+Rule.metadata = {
+    ruleName: 'no-forward-ref',
+    type: 'maintainability',
+    description: "Disallows usage of forward references for DI.",
+    rationale: "The flow of DI is disrupted by using `forwardRef` and might make code more difficult to understand.",
+    options: null,
+    optionsDescription: "Not configurable.",
+    typescriptOnly: true,
+};
 Rule.FAILURE_IN_CLASS = 'Avoid using forwardRef in class "%s"';
 Rule.FAILURE_IN_VARIABLE = 'Avoid using forwardRef in variable "%s"';
 exports.Rule = Rule;

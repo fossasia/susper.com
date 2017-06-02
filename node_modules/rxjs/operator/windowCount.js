@@ -65,7 +65,7 @@ var WindowCountOperator = (function () {
         this.startWindowEvery = startWindowEvery;
     }
     WindowCountOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new WindowCountSubscriber(subscriber, this.windowSize, this.startWindowEvery));
+        return source.subscribe(new WindowCountSubscriber(subscriber, this.windowSize, this.startWindowEvery));
     };
     return WindowCountOperator;
 }());

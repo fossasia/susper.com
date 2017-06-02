@@ -24,7 +24,7 @@ export declare class NumberValueAccessor implements ControlValueAccessor {
     onTouched: () => void;
     constructor(_renderer: Renderer, _elementRef: ElementRef);
     writeValue(value: number): void;
-    registerOnChange(fn: (_: number) => void): void;
+    registerOnChange(fn: (_: number | null) => void): void;
     registerOnTouched(fn: () => void): void;
     setDisabledState(isDisabled: boolean): void;
 }

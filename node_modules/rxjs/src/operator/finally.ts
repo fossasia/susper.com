@@ -6,17 +6,13 @@ import { Observable } from '../Observable';
 /**
  * Returns an Observable that mirrors the source Observable, but will call a specified function when
  * the source terminates on complete or error.
- * @param {function} callback function to be called when source terminates.
- * @return {Observable} an Observable that mirrors the source, but will call the specified function on termination.
+ * @param {function} callback Function to be called when source terminates.
+ * @return {Observable} An Observable that mirrors the source, but will call the specified function on termination.
  * @method finally
  * @owner Observable
  */
-export function _finally<T>(callback: () => void): Observable<T> {
+export function _finally<T>(this: Observable<T>, callback: () => void): Observable<T> {
   return this.lift(new FinallyOperator(callback));
-}
-
-export interface FinallySignature<T> {
-  (callback: () => void): Observable<T>;
 }
 
 class FinallyOperator<T> implements Operator<T, T> {
@@ -24,7 +20,7 @@ class FinallyOperator<T> implements Operator<T, T> {
   }
 
   call(subscriber: Subscriber<T>, source: any): TeardownLogic {
-    return source._subscribe(new FinallySubscriber(subscriber, this.callback));
+    return source.subscribe(new FinallySubscriber(subscriber, this.callback));
   }
 }
 

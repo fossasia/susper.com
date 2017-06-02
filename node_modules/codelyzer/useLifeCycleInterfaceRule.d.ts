@@ -1,6 +1,7 @@
 import * as Lint from 'tslint';
 import * as ts from 'typescript';
 export declare class Rule extends Lint.Rules.AbstractRule {
+    static metadata: Lint.IRuleMetadata;
     static FAILURE: string;
     static HOOKS_PREFIX: string;
     static LIFE_CYCLE_HOOKS_NAMES: Array<any>;

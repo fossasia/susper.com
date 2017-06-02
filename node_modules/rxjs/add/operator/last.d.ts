@@ -1,6 +1,6 @@
-import { LastSignature } from '../../operator/last';
+import { last } from '../../operator/last';
 declare module '../../Observable' {
     interface Observable<T> {
-        last: LastSignature<T>;
+        last: typeof last;
     }
 }

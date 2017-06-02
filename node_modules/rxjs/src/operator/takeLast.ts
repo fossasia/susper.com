@@ -41,16 +41,12 @@ import { TeardownLogic } from '../Subscription';
  * @method takeLast
  * @owner Observable
  */
-export function takeLast<T>(count: number): Observable<T> {
+export function takeLast<T>(this: Observable<T>, count: number): Observable<T> {
   if (count === 0) {
     return new EmptyObservable<T>();
   } else {
     return this.lift(new TakeLastOperator(count));
   }
-}
-
-export interface TakeLastSignature<T> {
-  (count: number): Observable<T>;
 }
 
 class TakeLastOperator<T> implements Operator<T, T> {
@@ -61,7 +57,7 @@ class TakeLastOperator<T> implements Operator<T, T> {
   }
 
   call(subscriber: Subscriber<T>, source: any): TeardownLogic {
-    return source._subscribe(new TakeLastSubscriber(subscriber, this.total));
+    return source.subscribe(new TakeLastSubscriber(subscriber, this.total));
   }
 }
 

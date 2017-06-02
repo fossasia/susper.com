@@ -1,5 +1,11 @@
+import { Observable } from '../Observable';
 import { Subscribable } from '../Observable';
 import { MergeAllOperator } from './mergeAll';
+
+/* tslint:disable:max-line-length */
+export function concatAll<T>(this: Observable<T>): T;
+export function concatAll<T, R>(this: Observable<T>): Subscribable<R>;
+/* tslint:enable:max-line-length */
 
 /**
  * Converts a higher-order Observable into a first-order Observable by
@@ -29,6 +35,12 @@ import { MergeAllOperator } from './mergeAll';
  * var firstOrder = higherOrder.concatAll();
  * firstOrder.subscribe(x => console.log(x));
  *
+ * // Results in the following:
+ * // (results are not concurrent)
+ * // For every click on the "document" it will emit values 0 to 3 spaced
+ * // on a 1000ms interval
+ * // one click = 1000ms-> 0 -1000ms-> 1 -1000ms-> 2 -1000ms-> 3
+ *
  * @see {@link combineAll}
  * @see {@link concat}
  * @see {@link concatMap}
@@ -43,11 +55,6 @@ import { MergeAllOperator } from './mergeAll';
  * @method concatAll
  * @owner Observable
  */
-export function concatAll<T>(): T {
-  return this.lift(new MergeAllOperator<T>(1));
-}
-
-export interface ConcatAllSignature<T> {
-  (): T;
-  <R>(): Subscribable<R>;
+export function concatAll<T>(this: Observable<T>): T {
+  return <any>this.lift<any>(new MergeAllOperator<T>(1));
 }

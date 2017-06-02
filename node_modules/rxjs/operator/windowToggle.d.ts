@@ -40,7 +40,4 @@ import { Observable } from '../Observable';
  * @method windowToggle
  * @owner Observable
  */
-export declare function windowToggle<T, O>(openings: Observable<O>, closingSelector: (openValue: O) => Observable<any>): Observable<Observable<T>>;
-export interface WindowToggleSignature<T> {
-    <O>(openings: Observable<O>, closingSelector: (openValue: O) => Observable<any>): Observable<Observable<T>>;
-}
+export declare function windowToggle<T, O>(this: Observable<T>, openings: Observable<O>, closingSelector: (openValue: O) => Observable<any>): Observable<Observable<T>>;

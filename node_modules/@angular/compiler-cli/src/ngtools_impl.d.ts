@@ -20,8 +20,8 @@ export declare type LazyRouteMap = {
     [route: string]: LazyRoute;
 };
 export declare class RouteDef {
-    path: string;
-    className: string;
+    readonly path: string;
+    readonly className: string | null;
     private constructor(path, className?);
     toString(): string;
     static fromString(entry: string): RouteDef;

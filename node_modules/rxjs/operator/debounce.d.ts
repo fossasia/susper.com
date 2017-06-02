@@ -32,7 +32,7 @@ import { Observable, SubscribableOrPromise } from '../Observable';
  * @see {@link delayWhen}
  * @see {@link throttle}
  *
- * @param {function(value: T): Observable|Promise} durationSelector A function
+ * @param {function(value: T): SubscribableOrPromise} durationSelector A function
  * that receives a value from the source Observable, for computing the timeout
  * duration for each source value, returned as an Observable or a Promise.
  * @return {Observable} An Observable that delays the emissions of the source
@@ -41,7 +41,4 @@ import { Observable, SubscribableOrPromise } from '../Observable';
  * @method debounce
  * @owner Observable
  */
-export declare function debounce<T>(durationSelector: (value: T) => SubscribableOrPromise<number>): Observable<T>;
-export interface DebounceSignature<T> {
-    (durationSelector: (value: T) => SubscribableOrPromise<number>): Observable<T>;
-}
+export declare function debounce<T>(this: Observable<T>, durationSelector: (value: T) => SubscribableOrPromise<number>): Observable<T>;

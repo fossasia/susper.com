@@ -60,8 +60,8 @@ var ParseError = (function () {
             while (ctxLen < 100 && ctxStart > 0) {
                 ctxStart--;
                 ctxLen++;
-                if (source[ctxStart] == '\n') {
-                    if (++ctxLines == 3) {
+                if (source[ctxStart] === '\n') {
+                    if (++ctxLines === 3) {
                         break;
                     }
                 }
@@ -71,8 +71,8 @@ var ParseError = (function () {
             while (ctxLen < 100 && ctxEnd < source.length - 1) {
                 ctxEnd++;
                 ctxLen++;
-                if (source[ctxEnd] == '\n') {
-                    if (++ctxLines == 3) {
+                if (source[ctxEnd] === '\n') {
+                    if (++ctxLines === 3) {
                         break;
                     }
                 }

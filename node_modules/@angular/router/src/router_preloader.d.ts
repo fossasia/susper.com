@@ -5,7 +5,7 @@
 *Use of this source code is governed by an MIT-style license that can be
 *found in the LICENSE file at https://angular.io/license
 */
-import { Compiler, Injector, NgModuleFactoryLoader } from '@angular/core';
+import { Compiler, Injector, NgModuleFactoryLoader, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Route } from './config';
 import { Router } from './router';
@@ -18,7 +18,7 @@ export declare abstract class PreloadingStrategy {
     abstract preload(route: Route, fn: () => Observable<any>): Observable<any>;
 }
 /**
- * @whatItDoes Provides a preloading strategy that preloads all modules as quicky as possible.
+ * @whatItDoes Provides a preloading strategy that preloads all modules as quickly as possible.
  *
  * @howToUse
  *
@@ -55,7 +55,7 @@ export declare class NoPreloading implements PreloadingStrategy {
  *
  * @stable
  */
-export declare class RouterPreloader {
+export declare class RouterPreloader implements OnDestroy {
     private router;
     private injector;
     private preloadingStrategy;
@@ -65,6 +65,6 @@ export declare class RouterPreloader {
     setUpPreloading(): void;
     preload(): Observable<any>;
     ngOnDestroy(): void;
-    private processRoutes(injector, routes);
-    private preloadConfig(injector, route);
+    private processRoutes(ngModule, routes);
+    private preloadConfig(ngModule, route);
 }

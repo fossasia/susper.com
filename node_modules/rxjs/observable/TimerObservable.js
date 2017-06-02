@@ -48,8 +48,8 @@ var TimerObservable = (function (_super) {
      * integers, with a constant interval of time, `period` of your choosing
      * between those emissions. The first emission happens after the specified
      * `initialDelay`. The initial delay may be a {@link Date}. By default, this
-     * operator uses the `async` Scheduler to provide a notion of time, but you
-     * may pass any Scheduler to it. If `period` is not specified, the output
+     * operator uses the `async` IScheduler to provide a notion of time, but you
+     * may pass any IScheduler to it. If `period` is not specified, the output
      * Observable emits only one value, `0`. Otherwise, it emits an infinite
      * sequence.
      *
@@ -68,7 +68,7 @@ var TimerObservable = (function (_super) {
      * emitting the first value of `0`.
      * @param {number} [period] The period of time between emissions of the
      * subsequent numbers.
-     * @param {Scheduler} [scheduler=async] The Scheduler to use for scheduling
+     * @param {Scheduler} [scheduler=async] The IScheduler to use for scheduling
      * the emission of values, and providing a notion of "time".
      * @return {Observable} An Observable that emits a `0` after the
      * `initialDelay` and ever increasing numbers after each `period` of time

@@ -5,7 +5,4 @@ import { Observable } from '../Observable';
  * @method let
  * @owner Observable
  */
-export declare function letProto<T, R>(func: (selector: Observable<T>) => Observable<R>): Observable<R>;
-export interface LetSignature<T> {
-    <R>(func: (selector: Observable<T>) => Observable<R>): Observable<R>;
-}
+export declare function letProto<T, R>(this: Observable<T>, func: (selector: Observable<T>) => Observable<R>): Observable<R>;

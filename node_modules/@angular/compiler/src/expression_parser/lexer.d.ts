@@ -23,6 +23,7 @@ export declare class Token {
     isIdentifier(): boolean;
     isKeyword(): boolean;
     isKeywordLet(): boolean;
+    isKeywordAs(): boolean;
     isKeywordNull(): boolean;
     isKeywordUndefined(): boolean;
     isKeywordTrue(): boolean;
@@ -30,8 +31,8 @@ export declare class Token {
     isKeywordThis(): boolean;
     isError(): boolean;
     toNumber(): number;
-    toString(): string;
+    toString(): string | null;
 }
-export declare var EOF: Token;
+export declare const EOF: Token;
 export declare function isIdentifier(input: string): boolean;
 export declare function isQuote(code: number): boolean;

@@ -35,23 +35,28 @@ test.suite(function(env) {
   });
 
   describe('fingerprinting', function() {
-    test.it('it should fingerprint the navigator object', function() {
-      driver.get(Pages.simpleTestPage);
-      assert(driver.executeScript('return navigator.webdriver')).equalTo(true);
+    test.it('it should fingerprint the navigator object', function*() {
+      yield driver.get(Pages.simpleTestPage);
+
+      let wd = yield driver.executeScript('return navigator.webdriver');
+      assert(wd).equalTo(true);
     });
 
-    test.it('fingerprint must not be writable', function() {
-      driver.get(Pages.simpleTestPage);
-      assert(driver.executeScript(
-          'navigator.webdriver = "ohai"; return navigator.webdriver'))
-          .equalTo(true);
+    test.it('fingerprint must not be writable', function*() {
+      yield driver.get(Pages.simpleTestPage);
+
+      let wd = yield driver.executeScript(
+          'navigator.webdriver = "ohai"; return navigator.webdriver');
+      assert(wd).equalTo(true);
     });
 
-    test.it('leaves fingerprint on svg pages', function() {
-      driver.get(Pages.svgPage);
-      assert(driver.executeScript('return navigator.webdriver')).equalTo(true);
+    test.it('leaves fingerprint on svg pages', function*() {
+      yield driver.get(Pages.svgPage);
+
+      let wd = yield driver.executeScript('return navigator.webdriver');
+      assert(wd).equalTo(true);
     });
   });
 
-// Currently only implemented in firefox.
-}, {browsers: ['firefox']});
+// Currently only implemented in legacy firefox.
+}, {browsers: ['legacy-firefox']});

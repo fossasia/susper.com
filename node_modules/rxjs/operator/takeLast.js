@@ -60,7 +60,7 @@ var TakeLastOperator = (function () {
         }
     }
     TakeLastOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new TakeLastSubscriber(subscriber, this.total));
+        return source.subscribe(new TakeLastSubscriber(subscriber, this.total));
     };
     return TakeLastOperator;
 }());

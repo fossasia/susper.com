@@ -32,7 +32,4 @@ import { Observable } from '../Observable';
  * @method bufferWhen
  * @owner Observable
  */
-export declare function bufferWhen<T>(closingSelector: () => Observable<any>): Observable<T[]>;
-export interface BufferWhenSignature<T> {
-    (closingSelector: () => Observable<any>): Observable<T[]>;
-}
+export declare function bufferWhen<T>(this: Observable<T>, closingSelector: () => Observable<any>): Observable<T[]>;

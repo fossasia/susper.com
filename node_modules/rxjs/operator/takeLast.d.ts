@@ -35,7 +35,4 @@ import { Observable } from '../Observable';
  * @method takeLast
  * @owner Observable
  */
-export declare function takeLast<T>(count: number): Observable<T>;
-export interface TakeLastSignature<T> {
-    (count: number): Observable<T>;
-}
+export declare function takeLast<T>(this: Observable<T>, count: number): Observable<T>;

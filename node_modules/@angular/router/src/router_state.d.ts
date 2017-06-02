@@ -8,7 +8,7 @@
 import { Type } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Data, Route } from './config';
-import { Params } from './shared';
+import { ParamMap, Params } from './shared';
 import { UrlSegment, UrlTree } from './url_tree';
 import { Tree } from './utils/tree';
 /**
@@ -31,8 +31,7 @@ import { Tree } from './utils/tree';
  *
  * @description
  * RouterState is a tree of activated routes. Every node in this tree knows about the "consumed" URL
- * segments,
- * the extracted parameters, and the resolved data.
+ * segments, the extracted parameters, and the resolved data.
  *
  * See {@link ActivatedRoute} for more information.
  *
@@ -43,8 +42,8 @@ export declare class RouterState extends Tree<ActivatedRoute> {
     snapshot: RouterStateSnapshot;
     toString(): string;
 }
-export declare function createEmptyState(urlTree: UrlTree, rootComponent: Type<any>): RouterState;
-export declare function createEmptyStateSnapshot(urlTree: UrlTree, rootComponent: Type<any>): RouterStateSnapshot;
+export declare function createEmptyState(urlTree: UrlTree, rootComponent: Type<any> | null): RouterState;
+export declare function createEmptyStateSnapshot(urlTree: UrlTree, rootComponent: Type<any> | null): RouterStateSnapshot;
 /**
  * @whatItDoes Contains the information about a route associated with a component loaded in an
  * outlet.
@@ -80,21 +79,23 @@ export declare class ActivatedRoute {
     /** The outlet name of the route. It's a constant */
     outlet: string;
     /** The component of the route. It's a constant */
-    component: Type<any> | string;
+    component: Type<any> | string | null;
     /** The current snapshot of this route */
     snapshot: ActivatedRouteSnapshot;
     /** The configuration used to match this route */
-    routeConfig: Route;
+    readonly routeConfig: Route | null;
     /** The root of the router state */
-    root: ActivatedRoute;
+    readonly root: ActivatedRoute;
     /** The parent of this route in the router state tree */
-    parent: ActivatedRoute;
+    readonly parent: ActivatedRoute | null;
     /** The first child of this route in the router state tree */
-    firstChild: ActivatedRoute;
+    readonly firstChild: ActivatedRoute | null;
     /** The children of this route in the router state tree */
-    children: ActivatedRoute[];
+    readonly children: ActivatedRoute[];
     /** The path from the root of the router state tree to this route */
-    pathFromRoot: ActivatedRoute[];
+    readonly pathFromRoot: ActivatedRoute[];
+    readonly paramMap: Observable<ParamMap>;
+    readonly queryParamMap: Observable<ParamMap>;
     toString(): string;
 }
 /**
@@ -132,19 +133,21 @@ export declare class ActivatedRouteSnapshot {
     /** The outlet name of the route */
     outlet: string;
     /** The component of the route */
-    component: Type<any> | string;
+    component: Type<any> | string | null;
     /** The configuration used to match this route */
-    routeConfig: Route;
+    readonly routeConfig: Route | null;
     /** The root of the router state */
-    root: ActivatedRouteSnapshot;
+    readonly root: ActivatedRouteSnapshot;
     /** The parent of this route in the router state tree */
-    parent: ActivatedRouteSnapshot;
+    readonly parent: ActivatedRouteSnapshot | null;
     /** The first child of this route in the router state tree */
-    firstChild: ActivatedRouteSnapshot;
+    readonly firstChild: ActivatedRouteSnapshot | null;
     /** The children of this route in the router state tree */
-    children: ActivatedRouteSnapshot[];
+    readonly children: ActivatedRouteSnapshot[];
     /** The path from the root of the router state tree to this route */
-    pathFromRoot: ActivatedRouteSnapshot[];
+    readonly pathFromRoot: ActivatedRouteSnapshot[];
+    readonly paramMap: ParamMap;
+    readonly queryParamMap: ParamMap;
     toString(): string;
 }
 /**

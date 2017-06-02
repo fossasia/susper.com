@@ -7,15 +7,13 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Subscriber_1 = require('../Subscriber');
 var EmptyObservable_1 = require('../observable/EmptyObservable');
 /**
- * Returns an Observable that repeats the stream of items emitted by the source Observable at most count times,
- * on a particular Scheduler.
+ * Returns an Observable that repeats the stream of items emitted by the source Observable at most count times.
  *
  * <img src="./img/repeat.png" width="100%">
  *
- * @param {Scheduler} [scheduler] the Scheduler to emit the items on.
- * @param {number} [count] the number of times the source Observable items are repeated, a count of 0 will yield
+ * @param {number} [count] The number of times the source Observable items are repeated, a count of 0 will yield
  * an empty Observable.
- * @return {Observable} an Observable that repeats the stream of items emitted by the source Observable at most
+ * @return {Observable} An Observable that repeats the stream of items emitted by the source Observable at most
  * count times.
  * @method repeat
  * @owner Observable
@@ -39,7 +37,7 @@ var RepeatOperator = (function () {
         this.source = source;
     }
     RepeatOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new RepeatSubscriber(subscriber, this.count, this.source));
+        return source.subscribe(new RepeatSubscriber(subscriber, this.count, this.source));
     };
     return RepeatOperator;
 }());
@@ -64,10 +62,7 @@ var RepeatSubscriber = (function (_super) {
             else if (count > -1) {
                 this.count = count - 1;
             }
-            this.unsubscribe();
-            this.isStopped = false;
-            this.closed = false;
-            source.subscribe(this);
+            source.subscribe(this._unsubscribeAndRecycle());
         }
     };
     return RepeatSubscriber;

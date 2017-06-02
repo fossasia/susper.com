@@ -1,13 +1,14 @@
 import { root } from './root';
-import { isArray } from './isArray';
+import { isArrayLike } from './isArrayLike';
 import { isPromise } from './isPromise';
+import { isObject } from './isObject';
 import { Subscriber } from '../Subscriber';
 import { Observable, ObservableInput } from '../Observable';
-import { $$iterator } from '../symbol/iterator';
+import { iterator as Symbol_iterator } from '../symbol/iterator';
 import { Subscription } from '../Subscription';
 import { InnerSubscriber } from '../InnerSubscriber';
 import { OuterSubscriber } from '../OuterSubscriber';
-import { $$observable } from '../symbol/observable';
+import { observable as Symbol_observable } from '../symbol/observable';
 
 export function subscribeToResult<T, R>(outerSubscriber: OuterSubscriber<T, R>,
                                         result: any,
@@ -31,9 +32,7 @@ export function subscribeToResult<T>(outerSubscriber: OuterSubscriber<any, any>,
     } else {
       return result.subscribe(destination);
     }
-  }
-
-  if (isArray(result)) {
+  } else if (isArrayLike(result)) {
     for (let i = 0, len = result.length; i < len && !destination.closed; i++) {
       destination.next(result[i]);
     }
@@ -55,8 +54,8 @@ export function subscribeToResult<T>(outerSubscriber: OuterSubscriber<any, any>,
       root.setTimeout(() => { throw err; });
     });
     return destination;
-  } else if (typeof result[$$iterator] === 'function') {
-    const iterator = <any>result[$$iterator]();
+  } else if (result && typeof result[Symbol_iterator] === 'function') {
+    const iterator = <any>result[Symbol_iterator]();
     do {
       let item = iterator.next();
       if (item.done) {
@@ -68,15 +67,18 @@ export function subscribeToResult<T>(outerSubscriber: OuterSubscriber<any, any>,
         break;
       }
     } while (true);
-  } else if (typeof result[$$observable] === 'function') {
-    const obs = result[$$observable]();
+  } else if (result && typeof result[Symbol_observable] === 'function') {
+    const obs = result[Symbol_observable]();
     if (typeof obs.subscribe !== 'function') {
-      destination.error(new Error('invalid observable'));
+      destination.error(new TypeError('Provided object does not correctly implement Symbol.observable'));
     } else {
       return obs.subscribe(new InnerSubscriber(outerSubscriber, outerValue, outerIndex));
     }
   } else {
-    destination.error(new TypeError('unknown type returned'));
+    const value = isObject(result) ? 'an invalid object' : `'${result}'`;
+    const msg = `You provided ${value} where a stream was expected.`
+      + ' You can provide an Observable, Promise, Array, or Iterable.';
+    destination.error(new TypeError(msg));
   }
   return null;
 }

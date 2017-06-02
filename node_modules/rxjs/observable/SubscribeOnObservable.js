@@ -35,7 +35,7 @@ var SubscribeOnObservable = (function (_super) {
     };
     SubscribeOnObservable.dispatch = function (arg) {
         var source = arg.source, subscriber = arg.subscriber;
-        return source.subscribe(subscriber);
+        return this.add(source.subscribe(subscriber));
     };
     SubscribeOnObservable.prototype._subscribe = function (subscriber) {
         var delay = this.delayTime;

@@ -33,8 +33,10 @@ var AsapAction = (function (_super) {
     };
     AsapAction.prototype.recycleAsyncId = function (scheduler, id, delay) {
         if (delay === void 0) { delay = 0; }
-        // If delay exists and is greater than 0, recycle as an async action.
-        if (delay !== null && delay > 0) {
+        // If delay exists and is greater than 0, or if the delay is null (the
+        // action wasn't rescheduled) but was originally scheduled as an async
+        // action, then recycle as an async action.
+        if ((delay !== null && delay > 0) || (delay === null && this.delay > 0)) {
             return _super.prototype.recycleAsyncId.call(this, scheduler, id, delay);
         }
         // If the scheduler queue is empty, cancel the requested microtask and

@@ -5,18 +5,17 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AnimationEntryMetadata } from '../animation/metadata';
 /**
  * Defines template and style encapsulation options available for Component's {@link Component}.
  *
- * See {@link ViewMetadata#encapsulation}.
+ * See {@link Component#encapsulation}.
  * @stable
  */
 export declare enum ViewEncapsulation {
     /**
      * Emulate `Native` scoping of styles by adding an attribute containing surrogate id to the Host
      * Element and pre-processing the style rules provided via
-     * {@link ViewMetadata#styles} or {@link ViewMetadata#stylesUrls}, and adding the new Host Element
+     * {@link Component#styles} or {@link Component#styleUrls}, and adding the new Host Element
      * attribute to all selectors.
      *
      * This is the default option.
@@ -60,27 +59,27 @@ export declare enum ViewEncapsulation {
  * {@link Component}
  */
 export declare class ViewMetadata {
-    /** {@link Component.templateUrl} */
-    templateUrl: string;
-    /** {@link Component.template} */
-    template: string;
-    /** {@link Component.stylesUrl} */
-    styleUrls: string[];
-    /** {@link Component.styles} */
-    styles: string[];
-    /** {@link Component.encapsulation} */
-    encapsulation: ViewEncapsulation;
-    /** {@link Component.animation} */
-    animations: AnimationEntryMetadata[];
-    /** {@link Component.interpolation} */
-    interpolation: [string, string];
+    /** {@link Component#templateUrl} */
+    templateUrl: string | undefined;
+    /** {@link Component#template} */
+    template: string | undefined;
+    /** {@link Component#stylesUrl} */
+    styleUrls: string[] | undefined;
+    /** {@link Component#styles} */
+    styles: string[] | undefined;
+    /** {@link Component#encapsulation} */
+    encapsulation: ViewEncapsulation | undefined;
+    /** {@link Component#animation} */
+    animations: any[] | undefined;
+    /** {@link Component#interpolation} */
+    interpolation: [string, string] | undefined;
     constructor({templateUrl, template, encapsulation, styles, styleUrls, animations, interpolation}?: {
         templateUrl?: string;
         template?: string;
         encapsulation?: ViewEncapsulation;
         styles?: string[];
         styleUrls?: string[];
-        animations?: AnimationEntryMetadata[];
+        animations?: any[];
         interpolation?: [string, string];
     });
 }

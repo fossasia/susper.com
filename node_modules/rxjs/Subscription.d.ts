@@ -4,7 +4,7 @@ export interface AnonymousSubscription {
 export declare type TeardownLogic = AnonymousSubscription | Function | void;
 export interface ISubscription extends AnonymousSubscription {
     unsubscribe(): void;
-    closed: boolean;
+    readonly closed: boolean;
 }
 /**
  * Represents a disposable resource, such as the execution of an Observable. A
@@ -25,6 +25,9 @@ export declare class Subscription implements ISubscription {
      * @type {boolean}
      */
     closed: boolean;
+    protected _parent: Subscription;
+    protected _parents: Subscription[];
+    private _subscriptions;
     /**
      * @param {function(): void} [unsubscribe] A function describing how to
      * perform the disposal of resources when the `unsubscribe` method is called.
@@ -63,4 +66,5 @@ export declare class Subscription implements ISubscription {
      * @return {void}
      */
     remove(subscription: Subscription): void;
+    private _addParent(parent);
 }

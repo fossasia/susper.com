@@ -1,6 +1,6 @@
-import { CombineAllSignature } from '../../operator/combineAll';
+import { combineAll } from '../../operator/combineAll';
 declare module '../../Observable' {
     interface Observable<T> {
-        combineAll: CombineAllSignature<T>;
+        combineAll: typeof combineAll;
     }
 }

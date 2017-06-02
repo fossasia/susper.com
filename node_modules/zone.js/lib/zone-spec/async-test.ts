@@ -61,15 +61,6 @@ class AsyncTestZoneSpec implements ZoneSpec {
     return false;
   }
 
-  onScheduleTask(delegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, task: Task): Task {
-    if (task.type == 'macroTask' && task.source == 'setInterval') {
-      this._failCallback('Cannot use setInterval from within an async zone test.');
-      return;
-    }
-
-    return delegate.scheduleTask(targetZone, task);
-  }
-
   onHasTask(delegate: ZoneDelegate, current: Zone, target: Zone, hasTaskState: HasTaskState) {
     delegate.hasTask(target, hasTaskState);
     if (hasTaskState.change == 'microTask') {
@@ -84,4 +75,4 @@ class AsyncTestZoneSpec implements ZoneSpec {
 
 // Export the class so that new instances can be created with proper
 // constructor params.
-Zone['AsyncTestZoneSpec'] = AsyncTestZoneSpec;
+(Zone as any)['AsyncTestZoneSpec'] = AsyncTestZoneSpec;

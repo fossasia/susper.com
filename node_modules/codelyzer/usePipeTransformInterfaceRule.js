@@ -23,6 +23,15 @@ var Rule = (function (_super) {
     };
     return Rule;
 }(Lint.Rules.AbstractRule));
+Rule.metadata = {
+    ruleName: 'use-pipe-transform-interface',
+    type: 'maintainability',
+    description: "Ensure that pipes implement PipeTransform interface.",
+    rationale: "Interfaces prescribe typed method signatures. Use those signatures to flag spelling and syntax mistakes.",
+    options: null,
+    optionsDescription: "Not configurable.",
+    typescriptOnly: true,
+};
 Rule.FAILURE = 'The %s class has the Pipe decorator, so it should implement the PipeTransform interface';
 Rule.PIPE_INTERFACE_NAME = 'PipeTransform';
 exports.Rule = Rule;

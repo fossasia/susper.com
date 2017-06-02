@@ -1,11 +1,3 @@
-/**
- * @param PromiseCtor
- * @return {Promise<T>}
- * @method toPromise
- * @owner Observable
- */
-export declare function toPromise<T>(PromiseCtor?: typeof Promise): Promise<T>;
-export interface ToPromiseSignature<T> {
-    (): Promise<T>;
-    (PromiseCtor: typeof Promise): Promise<T>;
-}
+import { Observable } from '../Observable';
+export declare function toPromise<T>(this: Observable<T>): Promise<T>;
+export declare function toPromise<T>(this: Observable<T>, PromiseCtor: typeof Promise): Promise<T>;

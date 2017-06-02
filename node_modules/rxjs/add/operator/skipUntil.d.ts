@@ -1,6 +1,6 @@
-import { SkipUntilSignature } from '../../operator/skipUntil';
+import { skipUntil } from '../../operator/skipUntil';
 declare module '../../Observable' {
     interface Observable<T> {
-        skipUntil: SkipUntilSignature<T>;
+        skipUntil: typeof skipUntil;
     }
 }

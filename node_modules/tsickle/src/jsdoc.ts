@@ -113,14 +113,35 @@ const JSDOC_TAGS_WHITELIST = [
 ];
 
 /**
- * A list of JSDoc @tags that are never allowed in TypeScript source.
- * These are Closure tags that can be expressed in the TypeScript surface
- * syntax.
+ * A list of JSDoc @tags that are never allowed in TypeScript source. These are Closure tags that
+ * can be expressed in the TypeScript surface syntax. As tsickle's emit will mangle type names,
+ * these will cause Closure Compiler issues and should not be used.
  */
-const JSDOC_TAGS_BLACKLIST = ['constructor', 'extends', 'implements', 'private', 'public', 'type'];
+const JSDOC_TAGS_BLACKLIST = [
+  'constructor',
+  'enum',
+  'extends',
+  'implements',
+  'interface',
+  'lends',
+  'private',
+  'public',
+  'record',
+  'template',
+  'this',
+  'type',
+  'typedef',
+];
 
-/** A list of JSDoc @tags that might include a {type} after them. */
-const JSDOC_TAGS_WITH_TYPES = ['export', 'param', 'return'];
+/**
+ * A list of JSDoc @tags that might include a {type} after them. Only banned when a type is passed.
+ */
+const JSDOC_TAGS_WITH_TYPES = [
+  'const',
+  'export',
+  'param',
+  'return',
+];
 
 /**
  * parse parses JSDoc out of a comment string.
@@ -150,7 +171,12 @@ export function parse(comment: string): {tags: Tag[], warnings?: string[]}|null 
         warnings.push(`@${tagName} annotations are redundant with TypeScript equivalents`);
         continue;  // Drop the tag so Closure won't process it.
       } else if (arrayIncludes(JSDOC_TAGS_WITH_TYPES, tagName) && text[0] === '{') {
-        warnings.push('type annotations (using {...}) are redundant with TypeScript types');
+        warnings.push(
+            `the type annotation on @${tagName} is redundant with its TypeScript type, ` +
+            `remove the {...} part`);
+        continue;
+      } else if (tagName === 'dict') {
+        warnings.push('use index signatures (`[k: string]: type`) instead of @dict');
         continue;
       }
 
@@ -186,10 +212,11 @@ export function parse(comment: string): {tags: Tag[], warnings?: string[]}|null 
  * Serializes a Tag into a string usable in a comment.
  * Returns a string like " @foo {bar} baz" (note the whitespace).
  */
-function tagToString(tag: Tag): string {
+function tagToString(tag: Tag, escapeExtraTags: string[] = []): string {
   let out = '';
   if (tag.tagName) {
-    if (!arrayIncludes(JSDOC_TAGS_WHITELIST, tag.tagName)) {
+    if (!arrayIncludes(JSDOC_TAGS_WHITELIST, tag.tagName) ||
+        arrayIncludes(escapeExtraTags, tag.tagName)) {
       // Escape tags we don't understand.  This is a subtle
       // compromise between multiple issues.
       // 1) If we pass through these non-Closure tags, the user will
@@ -227,14 +254,14 @@ function tagToString(tag: Tag): string {
 }
 
 /** Serializes a Comment out to a string usable in source code. */
-export function toString(tags: Tag[]): string {
+export function toString(tags: Tag[], escapeExtraTags: string[] = []): string {
   if (tags.length === 0) return '';
   if (tags.length === 1) {
     let tag = tags[0];
     if (tag.tagName === 'type' && (!tag.text || !tag.text.match('\n'))) {
       // Special-case one-liner "type" tags to fit on one line, e.g.
       //   /** @type {foo} */
-      return '/**' + tagToString(tag) + ' */\n';
+      return '/**' + tagToString(tag, escapeExtraTags) + ' */\n';
     }
     // Otherwise, fall through to the multi-line output.
   }
@@ -244,7 +271,7 @@ export function toString(tags: Tag[]): string {
   for (let tag of tags) {
     out += ' *';
     // If the tagToString is multi-line, insert " * " prefixes on subsequent lines.
-    out += tagToString(tag).split('\n').join('\n * ');
+    out += tagToString(tag, escapeExtraTags).split('\n').join('\n * ');
     out += '\n';
   }
   out += ' */\n';
@@ -257,11 +284,16 @@ export function merge(tags: Tag[]): Tag {
   let parameterNames = new Set<string>();
   let types = new Set<string>();
   let texts = new Set<string>();
+  // If any of the tags are optional/rest, then the merged output is optional/rest.
+  let optional = false;
+  let restParam = false;
   for (const tag of tags) {
     if (tag.tagName) tagNames.add(tag.tagName);
     if (tag.parameterName) parameterNames.add(tag.parameterName);
     if (tag.type) types.add(tag.type);
     if (tag.text) texts.add(tag.text);
+    if (tag.optional) optional = true;
+    if (tag.restParam) restParam = true;
   }
 
   if (tagNames.size !== 1) {
@@ -272,5 +304,8 @@ export function merge(tags: Tag[]): Tag {
       parameterNames.size > 0 ? Array.from(parameterNames).join('_or_') : undefined;
   const type = types.size > 0 ? Array.from(types).join('|') : undefined;
   const text = texts.size > 0 ? Array.from(texts).join(' / ') : undefined;
-  return {tagName, parameterName, type, text};
+  let tag: Tag = {tagName, parameterName, type, text};
+  if (optional) tag.optional = true;
+  if (restParam) tag.restParam = true;
+  return tag;
 }

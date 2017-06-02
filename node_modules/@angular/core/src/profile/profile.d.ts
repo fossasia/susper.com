@@ -41,7 +41,7 @@ export declare const wtfEnabled: boolean;
  *
  * @experimental
  */
-export declare var wtfCreateScope: (signature: string, flags?: any) => WtfScopeFn;
+export declare const wtfCreateScope: (signature: string, flags?: any) => WtfScopeFn;
 /**
  * Used to mark end of Scope.
  *
@@ -51,7 +51,7 @@ export declare var wtfCreateScope: (signature: string, flags?: any) => WtfScopeF
  * Returns the `returnValue for easy chaining.
  * @experimental
  */
-export declare var wtfLeave: <T>(scope: any, returnValue?: T) => T;
+export declare const wtfLeave: <T>(scope: any, returnValue?: T) => T;
 /**
  * Used to mark Async start. Async are similar to scope but they don't have to be strictly nested.
  * The return value is used in the call to [endAsync]. Async ranges only work if WTF has been
@@ -65,11 +65,11 @@ export declare var wtfLeave: <T>(scope: any, returnValue?: T) => T;
  *     }
  * @experimental
  */
-export declare var wtfStartTimeRange: (rangeType: string, action: string) => any;
+export declare const wtfStartTimeRange: (rangeType: string, action: string) => any;
 /**
  * Ends a async time range operation.
  * [range] is the return value from [wtfStartTimeRange] Async ranges only work if WTF has been
  * enabled.
  * @experimental
  */
-export declare var wtfEndTimeRange: (range: any) => void;
+export declare const wtfEndTimeRange: (range: any) => void;

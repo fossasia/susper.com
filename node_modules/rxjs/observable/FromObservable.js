@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var isArray_1 = require('../util/isArray');
+var isArrayLike_1 = require('../util/isArrayLike');
 var isPromise_1 = require('../util/isPromise');
 var PromiseObservable_1 = require('./PromiseObservable');
 var IteratorObservable_1 = require('./IteratorObservable');
@@ -14,7 +15,6 @@ var iterator_1 = require('../symbol/iterator');
 var Observable_1 = require('../Observable');
 var observeOn_1 = require('../operator/observeOn');
 var observable_1 = require('../symbol/observable');
-var isArrayLike = (function (x) { return x && typeof x.length === 'number'; });
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -48,6 +48,9 @@ var FromObservable = (function (_super) {
      * var result = Rx.Observable.from(array);
      * result.subscribe(x => console.log(x));
      *
+     * // Results in the following:
+     * // 10 20 30
+     *
      * @example <caption>Convert an infinite iterable (from a generator) to an Observable</caption>
      * function* generateDoubles(seed) {
      *   var i = seed;
@@ -60,6 +63,9 @@ var FromObservable = (function (_super) {
      * var iterator = generateDoubles(3);
      * var result = Rx.Observable.from(iterator).take(10);
      * result.subscribe(x => console.log(x));
+     *
+     * // Results in the following:
+     * // 3 6 12 24 48 96 192 384 768 1536
      *
      * @see {@link create}
      * @see {@link fromEvent}
@@ -79,7 +85,7 @@ var FromObservable = (function (_super) {
      */
     FromObservable.create = function (ish, scheduler) {
         if (ish != null) {
-            if (typeof ish[observable_1.$$observable] === 'function') {
+            if (typeof ish[observable_1.observable] === 'function') {
                 if (ish instanceof Observable_1.Observable && !scheduler) {
                     return ish;
                 }
@@ -91,10 +97,10 @@ var FromObservable = (function (_super) {
             else if (isPromise_1.isPromise(ish)) {
                 return new PromiseObservable_1.PromiseObservable(ish, scheduler);
             }
-            else if (typeof ish[iterator_1.$$iterator] === 'function' || typeof ish === 'string') {
+            else if (typeof ish[iterator_1.iterator] === 'function' || typeof ish === 'string') {
                 return new IteratorObservable_1.IteratorObservable(ish, scheduler);
             }
-            else if (isArrayLike(ish)) {
+            else if (isArrayLike_1.isArrayLike(ish)) {
                 return new ArrayLikeObservable_1.ArrayLikeObservable(ish, scheduler);
             }
         }
@@ -104,10 +110,10 @@ var FromObservable = (function (_super) {
         var ish = this.ish;
         var scheduler = this.scheduler;
         if (scheduler == null) {
-            return ish[observable_1.$$observable]().subscribe(subscriber);
+            return ish[observable_1.observable]().subscribe(subscriber);
         }
         else {
-            return ish[observable_1.$$observable]().subscribe(new observeOn_1.ObserveOnSubscriber(subscriber, scheduler, 0));
+            return ish[observable_1.observable]().subscribe(new observeOn_1.ObserveOnSubscriber(subscriber, scheduler, 0));
         }
     };
     return FromObservable;

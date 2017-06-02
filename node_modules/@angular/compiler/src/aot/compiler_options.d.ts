@@ -6,8 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 export interface AotCompilerOptions {
-    debug?: boolean;
     locale?: string;
     i18nFormat?: string;
     translations?: string;
+    enableLegacyTemplate?: boolean;
+    /** preamble for all generated source files */
+    genFilePreamble?: string;
 }

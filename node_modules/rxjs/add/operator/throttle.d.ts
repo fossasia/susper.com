@@ -1,6 +1,6 @@
-import { ThrottleSignature } from '../../operator/throttle';
+import { throttle } from '../../operator/throttle';
 declare module '../../Observable' {
     interface Observable<T> {
-        throttle: ThrottleSignature<T>;
+        throttle: typeof throttle;
     }
 }

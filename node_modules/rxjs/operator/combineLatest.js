@@ -9,6 +9,7 @@ var isArray_1 = require('../util/isArray');
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
 var none = {};
+/* tslint:enable:max-line-length */
 /**
  * Combines multiple Observables to create an Observable whose values are
  * calculated from the latest values of each of its input Observables.
@@ -33,11 +34,16 @@ var none = {};
  * var bmi = weight.combineLatest(height, (w, h) => w / (h * h));
  * bmi.subscribe(x => console.log('BMI is ' + x));
  *
+ * // With output to console:
+ * // BMI is 24.212293388429753
+ * // BMI is 23.93948099205209
+ * // BMI is 23.671253629592222
+ *
  * @see {@link combineAll}
  * @see {@link merge}
  * @see {@link withLatestFrom}
  *
- * @param {Observable} other An input Observable to combine with the source
+ * @param {ObservableInput} other An input Observable to combine with the source
  * Observable. More than one input Observables may be given as argument.
  * @param {function} [project] An optional function to project the values from
  * the combined latest values into a new value on the output Observable.
@@ -59,19 +65,18 @@ function combineLatest() {
     // if the first and only other argument besides the resultSelector is an array
     // assume it's been called with `combineLatest([obs1, obs2, obs3], project)`
     if (observables.length === 1 && isArray_1.isArray(observables[0])) {
-        observables = observables[0];
+        observables = observables[0].slice();
     }
     observables.unshift(this);
-    return new ArrayObservable_1.ArrayObservable(observables).lift(new CombineLatestOperator(project));
+    return this.lift.call(new ArrayObservable_1.ArrayObservable(observables), new CombineLatestOperator(project));
 }
 exports.combineLatest = combineLatest;
-/* tslint:enable:max-line-length */
 var CombineLatestOperator = (function () {
     function CombineLatestOperator(project) {
         this.project = project;
     }
     CombineLatestOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new CombineLatestSubscriber(subscriber, this.project));
+        return source.subscribe(new CombineLatestSubscriber(subscriber, this.project));
     };
     return CombineLatestOperator;
 }());

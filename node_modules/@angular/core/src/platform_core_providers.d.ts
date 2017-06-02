@@ -12,4 +12,4 @@ import { Provider } from './di';
  *
  * @experimental
  */
-export declare const platformCore: (extraProviders?: Provider[]) => PlatformRef;
+export declare const platformCore: (extraProviders?: Provider[] | undefined) => PlatformRef;

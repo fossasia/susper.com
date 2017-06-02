@@ -39,9 +39,15 @@ export class DeferObservable<T> extends Observable<T> {
    * });
    * clicksOrInterval.subscribe(x => console.log(x));
    *
+   * // Results in the following behavior:
+   * // If the result of Math.random() is greater than 0.5 it will listen
+   * // for clicks anywhere on the "document"; when document is clicked it
+   * // will log a MouseEvent object to the console. If the result is less
+   * // than 0.5 it will emit ascending numbers, one every second(1000ms).
+   *
    * @see {@link create}
    *
-   * @param {function(): Observable|Promise} observableFactory The Observable
+   * @param {function(): SubscribableOrPromise} observableFactory The Observable
    * factory function to invoke for each Observer that subscribes to the output
    * Observable. May also return a Promise, which will be converted on the fly
    * to an Observable.

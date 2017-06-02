@@ -13,15 +13,16 @@ import { ResourceLoader } from './resource_loader';
 import { UrlResolver } from './url_resolver';
 import { SyncAsyncResult } from './util';
 export interface PrenormalizedTemplateMetadata {
+    ngModuleType: any;
     componentType: any;
     moduleUrl: string;
-    template?: string;
-    templateUrl?: string;
-    styles?: string[];
-    styleUrls?: string[];
-    interpolation?: [string, string];
-    encapsulation?: ViewEncapsulation;
-    animations?: CompileAnimationEntryMetadata[];
+    template: string | null;
+    templateUrl: string | null;
+    styles: string[];
+    styleUrls: string[];
+    interpolation: [string, string] | null;
+    encapsulation: ViewEncapsulation | null;
+    animations: CompileAnimationEntryMetadata[];
 }
 export declare class DirectiveNormalizer {
     private _resourceLoader;
@@ -36,7 +37,7 @@ export declare class DirectiveNormalizer {
     normalizeTemplate(prenormData: PrenormalizedTemplateMetadata): SyncAsyncResult<CompileTemplateMetadata>;
     normalizeTemplateSync(prenomData: PrenormalizedTemplateMetadata): CompileTemplateMetadata;
     normalizeTemplateAsync(prenomData: PrenormalizedTemplateMetadata): Promise<CompileTemplateMetadata>;
-    normalizeLoadedTemplate(prenomData: PrenormalizedTemplateMetadata, template: string, templateAbsUrl: string): CompileTemplateMetadata;
+    normalizeLoadedTemplate(prenormData: PrenormalizedTemplateMetadata, template: string, templateAbsUrl: string): CompileTemplateMetadata;
     normalizeExternalStylesheets(templateMeta: CompileTemplateMetadata): Promise<CompileTemplateMetadata>;
     private _loadMissingExternalStylesheets(styleUrls, loadedStylesheets?);
     normalizeStylesheet(stylesheet: CompileStylesheetMetadata): CompileStylesheetMetadata;

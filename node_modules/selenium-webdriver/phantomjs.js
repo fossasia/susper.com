@@ -15,12 +15,38 @@
 // specific language governing permissions and limitations
 // under the License.
 
+/**
+ * @fileoverview Defines a {@linkplain Driver WebDriver} client for the
+ * PhantomJS web browser. By default, it is expected that the PhantomJS
+ * executable can be located on your
+ * [PATH](https://en.wikipedia.org/wiki/PATH_(variable))
+ *
+ *  __Using a Custom PhantomJS Binary__
+ *
+ * If you have PhantomJS.exe placed somewhere other than the root of your
+ * working directory, you can build a custom Capability and attach the
+ * executable's location to the Capability
+ *
+ * For example, if you're using the
+ * [phantomjs-prebuilt](https://www.npmjs.com/package/phantomjs-prebuilt) module
+ * from npm:
+ *
+ *     //setup custom phantomJS capability
+ *     var phantomjs_exe = require('phantomjs-prebuilt').path;
+ *     var customPhantom = selenium.Capabilities.phantomjs();
+ *     customPhantom.set("phantomjs.binary.path", phantomjs_exe);
+ *     //build custom phantomJS driver
+ *     var driver = new selenium.Builder().
+ *            withCapabilities(customPhantom).
+ *            build();
+ *
+ */
+
 'use strict';
 
 const fs = require('fs');
 
-const executors = require('./executors'),
-    http = require('./http'),
+const http = require('./http'),
     io = require('./io'),
     capabilities = require('./lib/capabilities'),
     command = require('./lib/command'),
@@ -103,20 +129,18 @@ const WEBDRIVER_TO_PHANTOMJS_LEVEL = new Map([
 
 /**
  * Creates a command executor with support for PhantomJS' custom commands.
- * @param {!promise.Promise<string>} url The server's URL.
+ * @param {!Promise<string>} url The server's URL.
  * @return {!command.Executor} The new command executor.
  */
 function createExecutor(url) {
-  return new executors.DeferredExecutor(url.then(function(url) {
-    var client = new http.HttpClient(url);
-    var executor = new http.Executor(client);
+  let client = url.then(url => new http.HttpClient(url));
+  let executor = new http.Executor(client);
 
-    executor.defineCommand(
-        Command.EXECUTE_PHANTOM_SCRIPT,
-        'POST', '/session/:sessionId/phantom/execute');
+  executor.defineCommand(
+      Command.EXECUTE_PHANTOM_SCRIPT,
+      'POST', '/session/:sessionId/phantom/execute');
 
-    return executor;
-  }));
+  return executor;
 }
 
 /**
@@ -124,6 +148,8 @@ function createExecutor(url) {
  */
 class Driver extends webdriver.WebDriver {
   /**
+   * Creates a new PhantomJS session.
+   *
    * @param {capabilities.Capabilities=} opt_capabilities The desired
    *     capabilities.
    * @param {promise.ControlFlow=} opt_flow The control flow to use,
@@ -131,8 +157,9 @@ class Driver extends webdriver.WebDriver {
    * @param {string=} opt_logFile Path to the log file for the phantomjs
    *     executable's output. For convenience, this may be set at runtime with
    *     the `SELENIUM_PHANTOMJS_LOG` environment variable.
+   * @return {!Driver} A new driver reference.
    */
-  constructor(opt_capabilities, opt_flow, opt_logFile) {
+  static createSession(opt_capabilities, opt_flow, opt_logFile) {
     // TODO: add an Options class for consistency with the other driver types.
 
     var caps = opt_capabilities || capabilities.Capabilities.phantomjs();
@@ -164,7 +191,8 @@ class Driver extends webdriver.WebDriver {
           if (proxy.httpProxy) {
             args.push(
                 '--proxy-type=http',
-                '--proxy=http://' + proxy.httpProxy);
+                '--proxy=' + proxy.httpProxy);
+            console.log(args);
           }
           break;
         case 'pac':
@@ -182,23 +210,15 @@ class Driver extends webdriver.WebDriver {
     var port = portprober.findFreePort();
     var service = new remote.DriverService(exe, {
       port: port,
-      args: promise.when(port, function(port) {
+      args: Promise.resolve(port).then(function(port) {
         args.push('--webdriver=' + port);
         return args;
       })
     });
 
     var executor = createExecutor(service.start());
-    var driver = webdriver.WebDriver.createSession(executor, caps, opt_flow);
-
-    super(driver.getSession(), executor, driver.controlFlow());
-
-    var boundQuit = this.quit.bind(this);
-
-    /** @override */
-    this.quit = function() {
-      return boundQuit().thenFinally(service.kill.bind(service));
-    };
+    return /** @type {!Driver} */(webdriver.WebDriver.createSession(
+        executor, caps, opt_flow, this, () => service.kill()));
   }
 
   /**
@@ -238,7 +258,7 @@ class Driver extends webdriver.WebDriver {
    *
    * @param {(string|!Function)} script The script to execute.
    * @param {...*} var_args The arguments to pass to the script.
-   * @return {!promise.Promise<T>} A promise that resolve to the
+   * @return {!promise.Thenable<T>} A promise that resolve to the
    *     script's return value.
    * @template T
    */

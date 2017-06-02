@@ -20,7 +20,7 @@ export { AbstractFormGroupDirective } from './directives/abstract_form_group_dir
 export { CheckboxControlValueAccessor } from './directives/checkbox_value_accessor';
 export { ControlContainer } from './directives/control_container';
 export { ControlValueAccessor, NG_VALUE_ACCESSOR } from './directives/control_value_accessor';
-export { DefaultValueAccessor } from './directives/default_value_accessor';
+export { COMPOSITION_BUFFER_MODE, DefaultValueAccessor } from './directives/default_value_accessor';
 export { Form } from './directives/form_interface';
 export { NgControl } from './directives/ng_control';
 export { NgControlStatus, NgControlStatusGroup } from './directives/ng_control_status';
@@ -35,7 +35,7 @@ export { FormArrayName } from './directives/reactive_directives/form_group_name'
 export { FormGroupName } from './directives/reactive_directives/form_group_name';
 export { NgSelectOption, SelectControlValueAccessor } from './directives/select_control_value_accessor';
 export { SelectMultipleControlValueAccessor } from './directives/select_multiple_control_value_accessor';
-export { AsyncValidatorFn, CheckboxRequiredValidator, MaxLengthValidator, MinLengthValidator, PatternValidator, RequiredValidator, Validator, ValidatorFn } from './directives/validators';
+export { AsyncValidator, AsyncValidatorFn, CheckboxRequiredValidator, EmailValidator, MaxLengthValidator, MinLengthValidator, PatternValidator, RequiredValidator, ValidationErrors, Validator, ValidatorFn } from './directives/validators';
 export { FormBuilder } from './form_builder';
 export { AbstractControl, FormArray, FormControl, FormGroup } from './model';
 export { NG_ASYNC_VALIDATORS, NG_VALIDATORS, Validators } from './validators';

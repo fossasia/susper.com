@@ -6,7 +6,10 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Subject_1 = require('./Subject');
 var queue_1 = require('./scheduler/queue');
+var Subscription_1 = require('./Subscription');
 var observeOn_1 = require('./operator/observeOn');
+var ObjectUnsubscribedError_1 = require('./util/ObjectUnsubscribedError');
+var SubjectSubscription_1 = require('./SubjectSubscription');
 /**
  * @class ReplaySubject<T>
  */
@@ -30,6 +33,20 @@ var ReplaySubject = (function (_super) {
     ReplaySubject.prototype._subscribe = function (subscriber) {
         var _events = this._trimBufferThenGetEvents();
         var scheduler = this.scheduler;
+        var subscription;
+        if (this.closed) {
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+        }
+        else if (this.hasError) {
+            subscription = Subscription_1.Subscription.EMPTY;
+        }
+        else if (this.isStopped) {
+            subscription = Subscription_1.Subscription.EMPTY;
+        }
+        else {
+            this.observers.push(subscriber);
+            subscription = new SubjectSubscription_1.SubjectSubscription(this, subscriber);
+        }
         if (scheduler) {
             subscriber.add(subscriber = new observeOn_1.ObserveOnSubscriber(subscriber, scheduler));
         }
@@ -37,7 +54,13 @@ var ReplaySubject = (function (_super) {
         for (var i = 0; i < len && !subscriber.closed; i++) {
             subscriber.next(_events[i].value);
         }
-        return _super.prototype._subscribe.call(this, subscriber);
+        if (this.hasError) {
+            subscriber.error(this.thrownError);
+        }
+        else if (this.isStopped) {
+            subscriber.complete();
+        }
+        return subscription;
     };
     ReplaySubject.prototype._getNow = function () {
         return (this.scheduler || queue_1.queue).now();

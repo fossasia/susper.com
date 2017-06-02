@@ -1,7 +1,7 @@
-import { MergeMapToSignature } from '../../operator/mergeMapTo';
+import { mergeMapTo } from '../../operator/mergeMapTo';
 declare module '../../Observable' {
     interface Observable<T> {
-        flatMapTo: MergeMapToSignature<T>;
-        mergeMapTo: MergeMapToSignature<T>;
+        flatMapTo: typeof mergeMapTo;
+        mergeMapTo: typeof mergeMapTo;
     }
 }

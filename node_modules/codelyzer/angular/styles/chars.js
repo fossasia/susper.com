@@ -58,7 +58,7 @@ exports.$TILDA = 126;
 exports.$AT = 64;
 exports.$BT = 96;
 function isWhitespace(code) {
-    return (code >= exports.$TAB && code <= exports.$SPACE) || (code == exports.$NBSP);
+    return (code >= exports.$TAB && code <= exports.$SPACE) || (code === exports.$NBSP);
 }
 exports.isWhitespace = isWhitespace;
 function isDigit(code) {

@@ -1,6 +1,6 @@
-import { DistinctSignature } from '../../operator/distinct';
+import { distinct } from '../../operator/distinct';
 declare module '../../Observable' {
     interface Observable<T> {
-        distinct: DistinctSignature<T>;
+        distinct: typeof distinct;
     }
 }

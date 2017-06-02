@@ -10,7 +10,7 @@ var Subscriber_1 = require('../Subscriber');
  *
  * <img src="./img/isEmpty.png" width="100%">
  *
- * @return {Observable} an Observable that emits a Boolean.
+ * @return {Observable} An Observable that emits a Boolean.
  * @method isEmpty
  * @owner Observable
  */
@@ -22,7 +22,7 @@ var IsEmptyOperator = (function () {
     function IsEmptyOperator() {
     }
     IsEmptyOperator.prototype.call = function (observer, source) {
-        return source._subscribe(new IsEmptySubscriber(observer));
+        return source.subscribe(new IsEmptySubscriber(observer));
     };
     return IsEmptyOperator;
 }());

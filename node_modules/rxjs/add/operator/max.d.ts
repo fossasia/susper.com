@@ -1,6 +1,6 @@
-import { MaxSignature } from '../../operator/max';
+import { max } from '../../operator/max';
 declare module '../../Observable' {
     interface Observable<T> {
-        max: MaxSignature<T>;
+        max: typeof max;
     }
 }

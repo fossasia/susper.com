@@ -11,7 +11,7 @@ import { CompilerHost, CompilerHostContext } from './compiler_host';
 export declare class PathMappedCompilerHost extends CompilerHost {
     constructor(program: ts.Program, options: AngularCompilerOptions, context: CompilerHostContext);
     getCanonicalFileName(fileName: string): string;
-    moduleNameToFileName(m: string, containingFile: string): string;
+    moduleNameToFileName(m: string, containingFile: string): string | null;
     /**
      * We want a moduleId that will appear in import statements in the generated code.
      * These need to be in a form that system.js can load, so absolute file paths don't work.

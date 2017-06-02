@@ -1,4 +1,4 @@
-import { Scheduler } from '../Scheduler';
+import { IScheduler } from '../Scheduler';
 import { Observable } from '../Observable';
 import { Subscriber } from '../Subscriber';
 import { TeardownLogic } from '../Subscription';
@@ -10,9 +10,9 @@ import { TeardownLogic } from '../Subscription';
 export declare class ArrayLikeObservable<T> extends Observable<T> {
     private arrayLike;
     private scheduler;
-    static create<T>(arrayLike: ArrayLike<T>, scheduler?: Scheduler): Observable<T>;
+    static create<T>(arrayLike: ArrayLike<T>, scheduler?: IScheduler): Observable<T>;
     static dispatch(state: any): void;
     private value;
-    constructor(arrayLike: ArrayLike<T>, scheduler?: Scheduler);
+    constructor(arrayLike: ArrayLike<T>, scheduler?: IScheduler);
     protected _subscribe(subscriber: Subscriber<T>): TeardownLogic;
 }

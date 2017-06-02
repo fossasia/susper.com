@@ -1,5 +1,6 @@
 "use strict";
 var mergeMap_1 = require('./mergeMap');
+/* tslint:enable:max-line-length */
 /**
  * Projects each source value to an Observable which is merged in the output
  * Observable, in a serialized fashion waiting for each one to complete before
@@ -28,6 +29,12 @@ var mergeMap_1 = require('./mergeMap');
  * var result = clicks.concatMap(ev => Rx.Observable.interval(1000).take(4));
  * result.subscribe(x => console.log(x));
  *
+ * // Results in the following:
+ * // (results are not concurrent)
+ * // For every click on the "document" it will emit values 0 to 3 spaced
+ * // on a 1000ms interval
+ * // one click = 1000ms-> 0 -1000ms-> 1 -1000ms-> 2 -1000ms-> 3
+ *
  * @see {@link concat}
  * @see {@link concatAll}
  * @see {@link concatMapTo}
@@ -35,7 +42,7 @@ var mergeMap_1 = require('./mergeMap');
  * @see {@link mergeMap}
  * @see {@link switchMap}
  *
- * @param {function(value: T, ?index: number): Observable} project A function
+ * @param {function(value: T, ?index: number): ObservableInput} project A function
  * that, when applied to an item emitted by the source Observable, returns an
  * Observable.
  * @param {function(outerValue: T, innerValue: I, outerIndex: number, innerIndex: number): any} [resultSelector]
@@ -46,7 +53,7 @@ var mergeMap_1 = require('./mergeMap');
  * - `innerValue`: the value that came from the projected Observable
  * - `outerIndex`: the "index" of the value that came from the source
  * - `innerIndex`: the "index" of the value from the projected Observable
- * @return {Observable} an observable of values merged from the projected
+ * @return {Observable} An observable of values merged from the projected
  * Observables as they were subscribed to, one at a time. Optionally, these
  * values may have been projected from a passed `projectResult` argument.
  * @return {Observable} An Observable that emits the result of applying the

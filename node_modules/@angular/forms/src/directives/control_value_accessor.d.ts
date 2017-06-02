@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 /**
  * A bridge between a control and a native element.
  *
@@ -43,4 +43,4 @@ export interface ControlValueAccessor {
  * See {@link DefaultValueAccessor} for how to implement one.
  * @stable
  */
-export declare const NG_VALUE_ACCESSOR: OpaqueToken;
+export declare const NG_VALUE_ACCESSOR: InjectionToken<ControlValueAccessor>;

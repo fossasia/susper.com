@@ -1,86 +1,13 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { Injector } from './injector';
 import { Provider } from './provider';
 import { ResolvedReflectiveProvider } from './reflective_provider';
-export interface ReflectiveProtoInjectorStrategy {
-    getProviderAtIndex(index: number): ResolvedReflectiveProvider;
-    createInjectorStrategy(inj: ReflectiveInjector_): ReflectiveInjectorStrategy;
-}
-export declare class ReflectiveProtoInjectorInlineStrategy implements ReflectiveProtoInjectorStrategy {
-    provider0: ResolvedReflectiveProvider;
-    provider1: ResolvedReflectiveProvider;
-    provider2: ResolvedReflectiveProvider;
-    provider3: ResolvedReflectiveProvider;
-    provider4: ResolvedReflectiveProvider;
-    provider5: ResolvedReflectiveProvider;
-    provider6: ResolvedReflectiveProvider;
-    provider7: ResolvedReflectiveProvider;
-    provider8: ResolvedReflectiveProvider;
-    provider9: ResolvedReflectiveProvider;
-    keyId0: number;
-    keyId1: number;
-    keyId2: number;
-    keyId3: number;
-    keyId4: number;
-    keyId5: number;
-    keyId6: number;
-    keyId7: number;
-    keyId8: number;
-    keyId9: number;
-    constructor(protoEI: ReflectiveProtoInjector, providers: ResolvedReflectiveProvider[]);
-    getProviderAtIndex(index: number): ResolvedReflectiveProvider;
-    createInjectorStrategy(injector: ReflectiveInjector_): ReflectiveInjectorStrategy;
-}
-export declare class ReflectiveProtoInjectorDynamicStrategy implements ReflectiveProtoInjectorStrategy {
-    providers: ResolvedReflectiveProvider[];
-    keyIds: number[];
-    constructor(protoInj: ReflectiveProtoInjector, providers: ResolvedReflectiveProvider[]);
-    getProviderAtIndex(index: number): ResolvedReflectiveProvider;
-    createInjectorStrategy(ei: ReflectiveInjector_): ReflectiveInjectorStrategy;
-}
-export declare class ReflectiveProtoInjector {
-    static fromResolvedProviders(providers: ResolvedReflectiveProvider[]): ReflectiveProtoInjector;
-    numberOfProviders: number;
-    constructor(providers: ResolvedReflectiveProvider[]);
-    getProviderAtIndex(index: number): ResolvedReflectiveProvider;
-}
-export interface ReflectiveInjectorStrategy {
-    getObjByKeyId(keyId: number): any;
-    getObjAtIndex(index: number): any;
-    getMaxNumberOfObjects(): number;
-    resetConstructionCounter(): void;
-    instantiateProvider(provider: ResolvedReflectiveProvider): any;
-}
-export declare class ReflectiveInjectorInlineStrategy implements ReflectiveInjectorStrategy {
-    injector: ReflectiveInjector_;
-    protoStrategy: ReflectiveProtoInjectorInlineStrategy;
-    obj0: any;
-    obj1: any;
-    obj2: any;
-    obj3: any;
-    obj4: any;
-    obj5: any;
-    obj6: any;
-    obj7: any;
-    obj8: any;
-    obj9: any;
-    constructor(injector: ReflectiveInjector_, protoStrategy: ReflectiveProtoInjectorInlineStrategy);
-    resetConstructionCounter(): void;
-    instantiateProvider(provider: ResolvedReflectiveProvider): any;
-    getObjByKeyId(keyId: number): any;
-    getObjAtIndex(index: number): any;
-    getMaxNumberOfObjects(): number;
-}
-export declare class ReflectiveInjectorDynamicStrategy implements ReflectiveInjectorStrategy {
-    protoStrategy: ReflectiveProtoInjectorDynamicStrategy;
-    injector: ReflectiveInjector_;
-    objs: any[];
-    constructor(protoStrategy: ReflectiveProtoInjectorDynamicStrategy, injector: ReflectiveInjector_);
-    resetConstructionCounter(): void;
-    instantiateProvider(provider: ResolvedReflectiveProvider): any;
-    getObjByKeyId(keyId: number): any;
-    getObjAtIndex(index: number): any;
-    getMaxNumberOfObjects(): number;
-}
 /**
  * A ReflectiveDependency injection container used for instantiating objects and resolving
  * dependencies.
@@ -175,7 +102,7 @@ export declare abstract class ReflectiveInjector implements Injector {
      *
      * This function is slower than the corresponding `fromResolvedProviders`
      * because it needs to resolve the passed-in providers first.
-     * See {@link Injector#resolve} and {@link Injector#fromResolvedProviders}.
+     * See {@link ReflectiveInjector#resolve} and {@link ReflectiveInjector#fromResolvedProviders}.
      */
     static resolveAndCreate(providers: Provider[], parent?: Injector): ReflectiveInjector;
     /**
@@ -216,7 +143,7 @@ export declare abstract class ReflectiveInjector implements Injector {
      * expect(child.parent).toBe(parent);
      * ```
      */
-    parent: Injector;
+    readonly abstract parent: Injector | null;
     /**
      * Resolves an array of providers and creates a child injector from those providers.
      *
@@ -242,9 +169,9 @@ export declare abstract class ReflectiveInjector implements Injector {
      *
      * This function is slower than the corresponding `createChildFromResolved`
      * because it needs to resolve the passed-in providers first.
-     * See {@link Injector#resolve} and {@link Injector#createChildFromResolved}.
+     * See {@link ReflectiveInjector#resolve} and {@link ReflectiveInjector#createChildFromResolved}.
      */
-    resolveAndCreateChild(providers: Provider[]): ReflectiveInjector;
+    abstract resolveAndCreateChild(providers: Provider[]): ReflectiveInjector;
     /**
      * Creates a child injector from previously resolved providers.
      *
@@ -270,7 +197,7 @@ export declare abstract class ReflectiveInjector implements Injector {
      * expect(child.get(ParentProvider)).toBe(parent.get(ParentProvider));
      * ```
      */
-    createChildFromResolved(providers: ResolvedReflectiveProvider[]): ReflectiveInjector;
+    abstract createChildFromResolved(providers: ResolvedReflectiveProvider[]): ReflectiveInjector;
     /**
      * Resolves a provider and instantiates an object in the context of the injector.
      *
@@ -295,7 +222,7 @@ export declare abstract class ReflectiveInjector implements Injector {
      * expect(car).not.toBe(injector.resolveAndInstantiate(Car));
      * ```
      */
-    resolveAndInstantiate(provider: Provider): any;
+    abstract resolveAndInstantiate(provider: Provider): any;
     /**
      * Instantiates an object using a resolved provider in the context of the injector.
      *
@@ -320,26 +247,29 @@ export declare abstract class ReflectiveInjector implements Injector {
      * expect(car).not.toBe(injector.instantiateResolved(carProvider));
      * ```
      */
-    instantiateResolved(provider: ResolvedReflectiveProvider): any;
+    abstract instantiateResolved(provider: ResolvedReflectiveProvider): any;
     abstract get(token: any, notFoundValue?: any): any;
 }
 export declare class ReflectiveInjector_ implements ReflectiveInjector {
-    private _strategy;
+    keyIds: number[];
+    objs: any[];
     /**
      * Private
      */
-    constructor(_proto: any, _parent?: Injector);
+    constructor(_providers: ResolvedReflectiveProvider[], _parent?: Injector);
     get(token: any, notFoundValue?: any): any;
-    getAt(index: number): any;
-    parent: Injector;
+    readonly parent: Injector | null;
     resolveAndCreateChild(providers: Provider[]): ReflectiveInjector;
     createChildFromResolved(providers: ResolvedReflectiveProvider[]): ReflectiveInjector;
     resolveAndInstantiate(provider: Provider): any;
     instantiateResolved(provider: ResolvedReflectiveProvider): any;
+    getProviderAtIndex(index: number): ResolvedReflectiveProvider;
+    private _getMaxNumberOfObjects();
     private _instantiateProvider(provider);
     private _instantiate(provider, ResolvedReflectiveFactory);
-    private _getByReflectiveDependency(provider, dep);
-    private _getByKey(key, lowerBoundVisibility, upperBoundVisibility, notFoundValue);
-    displayName: string;
+    private _getByReflectiveDependency(dep);
+    private _getByKey(key, visibility, notFoundValue);
+    private _getObjByKeyId(keyId);
+    readonly displayName: string;
     toString(): string;
 }

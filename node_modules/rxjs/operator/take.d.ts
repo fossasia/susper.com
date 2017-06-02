@@ -32,7 +32,4 @@ import { Observable } from '../Observable';
  * @method take
  * @owner Observable
  */
-export declare function take<T>(count: number): Observable<T>;
-export interface TakeSignature<T> {
-    (count: number): Observable<T>;
-}
+export declare function take<T>(this: Observable<T>, count: number): Observable<T>;

@@ -45,9 +45,10 @@ Customize `spec/support/jasmine.json` to enumerate the source and spec files you
 You may use dir glob strings.
 More information on the format of `jasmine.json` can be found in [the documentation](http://jasmine.github.io/2.4/node.html#section-Configuration)
 
-Alternatively, you may specify the path to your `jasmine.json` by setting an environment variable:
+Alternatively, you may specify the path to your `jasmine.json` by setting an environment variable or an option:
 
 `jasmine JASMINE_CONFIG_PATH=relative/path/to/your/jasmine.json`
+`jasmine --config=relative/path/to/your/jasmine.json`
 
 ## Support
 

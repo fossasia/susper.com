@@ -37,6 +37,13 @@ var dummyMetadataFactory = function (declaration) {
         }
     };
 };
+var Console = (function () {
+    function Console() {
+    }
+    Console.prototype.log = function (message) { };
+    Console.prototype.warn = function (message) { };
+    return Console;
+}());
 var defaultDirectives = [];
 exports.parseTemplate = function (template, directives) {
     if (directives === void 0) { directives = []; }
@@ -44,7 +51,7 @@ exports.parseTemplate = function (template, directives) {
     var TemplateParser = compiler.TemplateParser;
     var expressionParser = new compiler.Parser(new compiler.Lexer());
     var elementSchemaRegistry = new compiler.DomElementSchemaRegistry();
-    var ngConsole = new core_1.__core_private__.Console();
+    var ngConsole = new Console();
     var htmlParser = new compiler.I18NHtmlParser(new compiler.HtmlParser());
     var tmplParser;
     ngVersion_1.SemVerDSL
@@ -64,6 +71,7 @@ exports.parseTemplate = function (template, directives) {
         template: template,
         templateUrl: '',
         styles: [],
+        isInline: true,
         styleUrls: [],
         ngContentSelectors: [],
         animations: [],

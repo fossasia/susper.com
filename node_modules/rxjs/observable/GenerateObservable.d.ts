@@ -1,4 +1,4 @@
-import { Scheduler } from '../Scheduler';
+import { IScheduler } from '../Scheduler';
 import { Observable } from '../Observable';
 import { Subscriber } from '../Subscriber';
 import { Subscription } from '../Subscription';
@@ -7,7 +7,7 @@ export declare type IterateFunc<S> = (state: S) => S;
 export declare type ResultFunc<S, T> = (state: S) => T;
 export interface GenerateBaseOptions<S> {
     /**
-     * Inital state.
+     * Initial state.
     */
     initialState: S;
     /**
@@ -21,10 +21,10 @@ export interface GenerateBaseOptions<S> {
      */
     iterate: IterateFunc<S>;
     /**
-     * Scheduler to use for generation process.
+     * IScheduler to use for generation process.
      * By default, a generator starts immediately.
     */
-    scheduler?: Scheduler;
+    scheduler?: IScheduler;
 }
 export interface GenerateOptions<T, S> extends GenerateBaseOptions<S> {
     /**
@@ -43,7 +43,7 @@ export declare class GenerateObservable<T, S> extends Observable<T> {
     private iterate;
     private resultSelector;
     private scheduler;
-    constructor(initialState: S, condition: ConditionFunc<S>, iterate: IterateFunc<S>, resultSelector: ResultFunc<S, T>, scheduler?: Scheduler);
+    constructor(initialState: S, condition: ConditionFunc<S>, iterate: IterateFunc<S>, resultSelector: ResultFunc<S, T>, scheduler?: IScheduler);
     /**
      * Generates an observable sequence by running a state-driven loop
      * producing the sequence's elements, using the specified scheduler
@@ -64,10 +64,10 @@ export declare class GenerateObservable<T, S> extends Observable<T> {
      * @param {function (state: S): boolean} condition Condition to terminate generation (upon returning false).
      * @param {function (state: S): S} iterate Iteration step function.
      * @param {function (state: S): T} resultSelector Selector function for results produced in the sequence.
-     * @param {Scheduler} [scheduler] A {@link Scheduler} on which to run the generator loop. If not provided, defaults to emit immediately.
+     * @param {Scheduler} [scheduler] A {@link IScheduler} on which to run the generator loop. If not provided, defaults to emit immediately.
      * @returns {Observable<T>} The generated sequence.
      */
-    static create<T, S>(initialState: S, condition: ConditionFunc<S>, iterate: IterateFunc<S>, resultSelector: ResultFunc<S, T>, scheduler?: Scheduler): Observable<T>;
+    static create<T, S>(initialState: S, condition: ConditionFunc<S>, iterate: IterateFunc<S>, resultSelector: ResultFunc<S, T>, scheduler?: IScheduler): Observable<T>;
     /**
      * Generates an observable sequence by running a state-driven loop
      * producing the sequence's elements, using the specified scheduler
@@ -88,15 +88,15 @@ export declare class GenerateObservable<T, S> extends Observable<T> {
      * @param {S} initialState Initial state.
      * @param {function (state: S): boolean} condition Condition to terminate generation (upon returning false).
      * @param {function (state: S): S} iterate Iteration step function.
-     * @param {Scheduler} [scheduler] A {@link Scheduler} on which to run the generator loop. If not provided, defaults to emit immediately.
+     * @param {Scheduler} [scheduler] A {@link IScheduler} on which to run the generator loop. If not provided, defaults to emit immediately.
      * @returns {Observable<S>} The generated sequence.
      */
-    static create<S>(initialState: S, condition: ConditionFunc<S>, iterate: IterateFunc<S>, scheduler?: Scheduler): Observable<S>;
+    static create<S>(initialState: S, condition: ConditionFunc<S>, iterate: IterateFunc<S>, scheduler?: IScheduler): Observable<S>;
     /**
      * Generates an observable sequence by running a state-driven loop
      * producing the sequence's elements, using the specified scheduler
      * to send out observer messages.
-     * The overload accepts options object that might contain inital state, iterate,
+     * The overload accepts options object that might contain initial state, iterate,
      * condition and scheduler.
      *
      * <img src="./img/generate.png" width="100%">
@@ -119,7 +119,7 @@ export declare class GenerateObservable<T, S> extends Observable<T> {
      * Generates an observable sequence by running a state-driven loop
      * producing the sequence's elements, using the specified scheduler
      * to send out observer messages.
-     * The overload accepts options object that might contain inital state, iterate,
+     * The overload accepts options object that might contain initial state, iterate,
      * condition, result selector and scheduler.
      *
      * <img src="./img/generate.png" width="100%">

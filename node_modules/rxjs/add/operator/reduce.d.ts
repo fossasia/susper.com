@@ -1,6 +1,6 @@
-import { ReduceSignature } from '../../operator/reduce';
+import { reduce } from '../../operator/reduce';
 declare module '../../Observable' {
     interface Observable<T> {
-        reduce: ReduceSignature<T>;
+        reduce: typeof reduce;
     }
 }

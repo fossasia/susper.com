@@ -1,7 +1,3 @@
-export { looseIdentical } from '../facade/lang';
-export declare const UNINITIALIZED: {
-    toString: () => string;
-};
 export declare function devModeEqual(a: any, b: any): boolean;
 /**
  * Indicates that the result of a {@link Pipe} transformation has changed even though the
@@ -42,9 +38,14 @@ export declare class ValueUnwrapper {
 export declare class SimpleChange {
     previousValue: any;
     currentValue: any;
-    constructor(previousValue: any, currentValue: any);
+    firstChange: boolean;
+    constructor(previousValue: any, currentValue: any, firstChange: boolean);
     /**
      * Check whether the new value is the first value assigned.
      */
     isFirstChange(): boolean;
 }
+export declare function isListLikeIterable(obj: any): boolean;
+export declare function areIterablesEqual(a: any, b: any, comparator: (a: any, b: any) => boolean): boolean;
+export declare function iterateListLike(obj: any, fn: (p: any) => any): void;
+export declare function isJsObject(o: any): boolean;

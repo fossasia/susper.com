@@ -24,9 +24,9 @@ import * as html from './ast';
  *
  * ```
  * <ng-container [ngPlural]="messages.length">
- *   <template ngPluralCase="=0">zero</template>
- *   <template ngPluralCase="=1">one</template>
- *   <template ngPluralCase="other">more than one</template>
+ *   <ng-template ngPluralCase="=0">zero</ng-template>
+ *   <ng-template ngPluralCase="=1">one</ng-template>
+ *   <ng-template ngPluralCase="other">more than one</ng-template>
  * </ng-container>
  * ```
  */

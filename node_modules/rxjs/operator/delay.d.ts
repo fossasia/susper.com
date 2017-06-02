@@ -1,4 +1,4 @@
-import { Scheduler } from '../Scheduler';
+import { IScheduler } from '../Scheduler';
 import { Observable } from '../Observable';
 /**
  * Delays the emission of items from the source Observable by a given timeout or
@@ -32,14 +32,11 @@ import { Observable } from '../Observable';
  *
  * @param {number|Date} delay The delay duration in milliseconds (a `number`) or
  * a `Date` until which the emission of the source items is delayed.
- * @param {Scheduler} [scheduler=async] The Scheduler to use for
+ * @param {Scheduler} [scheduler=async] The IScheduler to use for
  * managing the timers that handle the time-shift for each item.
  * @return {Observable} An Observable that delays the emissions of the source
  * Observable by the specified timeout or Date.
  * @method delay
  * @owner Observable
  */
-export declare function delay<T>(delay: number | Date, scheduler?: Scheduler): Observable<T>;
-export interface DelaySignature<T> {
-    (delay: number | Date, scheduler?: Scheduler): Observable<T>;
-}
+export declare function delay<T>(this: Observable<T>, delay: number | Date, scheduler?: IScheduler): Observable<T>;

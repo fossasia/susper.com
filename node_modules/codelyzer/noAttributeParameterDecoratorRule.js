@@ -27,6 +27,15 @@ var Rule = (function (_super) {
     };
     return Rule;
 }(Lint.Rules.AbstractRule));
+Rule.metadata = {
+    ruleName: 'no-attribute-parameter-decorator-rule',
+    type: 'maintainability',
+    description: "Disallow usage of @Attribute decorator",
+    rationale: "@Attribute is considered bad practice. Use @Input instead.",
+    options: null,
+    optionsDescription: "Not configurable.",
+    typescriptOnly: true,
+};
 Rule.FAILURE_STRING = 'In the constructor of class "%s",' +
     ' the parameter "%s" uses the @Attribute decorator, ' +
     'which is considered as a bad practice. Please,' +

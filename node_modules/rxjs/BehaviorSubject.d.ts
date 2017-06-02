@@ -7,7 +7,7 @@ import { Subscription } from './Subscription';
 export declare class BehaviorSubject<T> extends Subject<T> {
     private _value;
     constructor(_value: T);
-    value: T;
+    readonly value: T;
     protected _subscribe(subscriber: Subscriber<T>): Subscription;
     getValue(): T;
     next(value: T): void;

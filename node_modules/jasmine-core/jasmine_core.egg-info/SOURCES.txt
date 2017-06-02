@@ -1,5 +1,11 @@
 MANIFEST.in
 package.json
+setup.py
+./setup.py
+./images/__init__.py
+./lib/jasmine-core/__init__.py
+./lib/jasmine-core/core.py
+./node_modules/walkdir/test/comparison/find.py
 images/__init__.py
 images/jasmine-horizontal.png
 images/jasmine_favicon.png

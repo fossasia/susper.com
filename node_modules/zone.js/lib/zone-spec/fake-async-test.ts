@@ -13,6 +13,13 @@
     func: Function;
     args: any[];
     delay: number;
+    isPeriodic: boolean;
+  }
+
+  interface MicroTaskScheduledFunction {
+    func: Function;
+    args: any[];
+    target: any;
   }
 
   class Scheduler {
@@ -26,13 +33,21 @@
 
     constructor() {}
 
-    scheduleFunction(cb: Function, delay: number, args: any[] = [], id: number = -1): number {
+    scheduleFunction(
+        cb: Function, delay: number, args: any[] = [], isPeriodic: boolean = false,
+        id: number = -1): number {
       let currentId: number = id < 0 ? this.nextId++ : id;
       let endTime = this._currentTime + delay;
 
       // Insert so that scheduler queue remains sorted by end time.
-      let newEntry:
-          ScheduledFunction = {endTime: endTime, id: currentId, func: cb, args: args, delay: delay};
+      let newEntry: ScheduledFunction = {
+        endTime: endTime,
+        id: currentId,
+        func: cb,
+        args: args,
+        delay: delay,
+        isPeriodic: isPeriodic
+      };
       let i = 0;
       for (; i < this._schedulerQueue.length; i++) {
         let currentEntry = this._schedulerQueue[i];
@@ -73,6 +88,31 @@
       }
       this._currentTime = finalTime;
     }
+
+    flush(limit: number = 20): number {
+      const startTime = this._currentTime;
+      let count = 0;
+      while (this._schedulerQueue.length > 0) {
+        count++;
+        if (count > limit) {
+          throw new Error(
+              'flush failed after reaching the limit of ' + limit +
+              ' tasks. Does your code use a polling timeout?');
+        }
+        // If the only remaining tasks are periodic, finish flushing.
+        if (!(this._schedulerQueue.filter(task => !task.isPeriodic).length)) {
+          break;
+        }
+        let current = this._schedulerQueue.shift();
+        this._currentTime = current.endTime;
+        let retval = current.func.apply(global, current.args);
+        if (!retval) {
+          // Uncaught exception in the current scheduled function. Stop processing the queue.
+          break;
+        }
+      }
+      return this._currentTime - startTime;
+    }
   }
 
   class FakeAsyncTestZoneSpec implements ZoneSpec {
@@ -83,10 +123,10 @@
     }
 
     private _scheduler: Scheduler = new Scheduler();
-    private _microtasks: Function[] = [];
+    private _microtasks: MicroTaskScheduledFunction[] = [];
     private _lastError: Error = null;
     private _uncaughtPromiseErrors: {rejection: any}[] =
-        Promise[Zone['__symbol__']('uncaughtPromiseErrors')];
+        (Promise as any)[(Zone as any).__symbol__('uncaughtPromiseErrors')];
 
     pendingPeriodicTimers: number[] = [];
     pendingTimers: number[] = [];
@@ -97,7 +137,7 @@
 
     private _fnAndFlush(fn: Function, completers: {onSuccess?: Function, onError?: Function}):
         Function {
-      return (...args): boolean => {
+      return (...args: any[]): boolean => {
         fn.apply(global, args);
 
         if (this._lastError === null) {  // Success
@@ -134,7 +174,7 @@
       return () => {
         // Requeue the timer callback if it's not been canceled.
         if (this.pendingPeriodicTimers.indexOf(id) !== -1) {
-          this._scheduler.scheduleFunction(fn, interval, args, id);
+          this._scheduler.scheduleFunction(fn, interval, args, true, id);
         }
       };
     }
@@ -159,16 +199,16 @@
       this._scheduler.removeScheduledFunctionWithId(id);
     }
 
-    private _setInterval(fn: Function, interval: number, ...args): number {
+    private _setInterval(fn: Function, interval: number, ...args: any[]): number {
       let id = this._scheduler.nextId;
-      let completers = {onSuccess: null, onError: this._dequeuePeriodicTimer(id)};
+      let completers = {onSuccess: null as Function, onError: this._dequeuePeriodicTimer(id)};
       let cb = this._fnAndFlush(fn, completers);
 
       // Use the callback created above to requeue on success.
       completers.onSuccess = this._requeuePeriodicTimer(cb, interval, args, id);
 
       // Queue the callback and dequeue the periodic timer only on error.
-      this._scheduler.scheduleFunction(cb, interval, args);
+      this._scheduler.scheduleFunction(cb, interval, args, true);
       this.pendingPeriodicTimers.push(id);
       return id;
     }
@@ -204,9 +244,19 @@
       };
       while (this._microtasks.length > 0) {
         let microtask = this._microtasks.shift();
-        microtask();
+        microtask.func.apply(microtask.target, microtask.args);
       }
       flushErrors();
+    }
+
+    flush(): number {
+      FakeAsyncTestZoneSpec.assertInZone();
+      this.flushMicrotasks();
+      let elapsed = this._scheduler.flush();
+      if (this._lastError !== null) {
+        this._resetLastErrorAndThrow();
+      }
+      return elapsed;
     }
 
     // ZoneSpec implementation below.
@@ -218,17 +268,32 @@
     onScheduleTask(delegate: ZoneDelegate, current: Zone, target: Zone, task: Task): Task {
       switch (task.type) {
         case 'microTask':
-          this._microtasks.push(task.invoke);
+          let args = task.data && (task.data as any).args;
+          // should pass additional arguments to callback if have any
+          // currently we know process.nextTick will have such additional
+          // arguments
+          let addtionalArgs: any[];
+          if (args) {
+            let callbackIndex = (task.data as any).callbackIndex;
+            if (typeof args.length === 'number' && args.length > callbackIndex + 1) {
+              addtionalArgs = Array.prototype.slice.call(args, callbackIndex + 1);
+            }
+          }
+          this._microtasks.push({
+            func: task.invoke,
+            args: addtionalArgs,
+            target: task.data && (task.data as any).target
+          });
           break;
         case 'macroTask':
           switch (task.source) {
             case 'setTimeout':
               task.data['handleId'] =
-                  this._setTimeout(task.invoke, task.data['delay'], task.data['args']);
+                  this._setTimeout(task.invoke, task.data['delay'], (task.data as any)['args']);
               break;
             case 'setInterval':
               task.data['handleId'] =
-                  this._setInterval(task.invoke, task.data['delay'], task.data['args']);
+                  this._setInterval(task.invoke, task.data['delay'], (task.data as any)['args']);
               break;
             case 'XMLHttpRequest.send':
               throw new Error('Cannot make XHRs from within a fake async test.');
@@ -264,5 +329,5 @@
 
   // Export the class so that new instances can be created with proper
   // constructor params.
-  Zone['FakeAsyncTestZoneSpec'] = FakeAsyncTestZoneSpec;
+  (Zone as any)['FakeAsyncTestZoneSpec'] = FakeAsyncTestZoneSpec;
 })(typeof window === 'object' && window || typeof self === 'object' && self || global);

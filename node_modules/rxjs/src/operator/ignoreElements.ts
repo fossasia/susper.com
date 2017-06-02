@@ -8,22 +8,18 @@ import { noop } from '../util/noop';
  *
  * <img src="./img/ignoreElements.png" width="100%">
  *
- * @return {Observable} an empty Observable that only calls `complete`
+ * @return {Observable} An empty Observable that only calls `complete`
  * or `error`, based on which one is called by the source Observable.
  * @method ignoreElements
  * @owner Observable
  */
-export function ignoreElements<T>(): Observable<T> {
+export function ignoreElements<T>(this: Observable<T>): Observable<T> {
   return this.lift(new IgnoreElementsOperator());
 };
 
-export interface IgnoreElementsSignature<T> {
-  (): Observable<T>;
-}
-
 class IgnoreElementsOperator<T, R> implements Operator<T, R> {
   call(subscriber: Subscriber<R>, source: any): any {
-    return source._subscribe(new IgnoreElementsSubscriber(subscriber));
+    return source.subscribe(new IgnoreElementsSubscriber(subscriber));
   }
 }
 

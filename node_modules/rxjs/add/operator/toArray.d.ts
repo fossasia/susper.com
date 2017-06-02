@@ -1,6 +1,6 @@
-import { ToArraySignature } from '../../operator/toArray';
+import { toArray } from '../../operator/toArray';
 declare module '../../Observable' {
     interface Observable<T> {
-        toArray: ToArraySignature<T>;
+        toArray: typeof toArray;
     }
 }

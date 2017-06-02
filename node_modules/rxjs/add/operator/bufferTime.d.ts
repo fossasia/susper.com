@@ -1,6 +1,6 @@
-import { BufferTimeSignature } from '../../operator/bufferTime';
+import { bufferTime } from '../../operator/bufferTime';
 declare module '../../Observable' {
     interface Observable<T> {
-        bufferTime: BufferTimeSignature<T>;
+        bufferTime: typeof bufferTime;
     }
 }

@@ -5,6 +5,7 @@
 // definition
 var Subject_1 = require('./Subject');
 exports.Subject = Subject_1.Subject;
+exports.AnonymousSubject = Subject_1.AnonymousSubject;
 /* tslint:enable:no-unused-variable */
 var Observable_1 = require('./Observable');
 exports.Observable = Observable_1.Observable;
@@ -44,7 +45,6 @@ require('./add/operator/bufferCount');
 require('./add/operator/bufferTime');
 require('./add/operator/bufferToggle');
 require('./add/operator/bufferWhen');
-require('./add/operator/cache');
 require('./add/operator/catch');
 require('./add/operator/combineAll');
 require('./add/operator/combineLatest');
@@ -60,7 +60,6 @@ require('./add/operator/defaultIfEmpty');
 require('./add/operator/delay');
 require('./add/operator/delayWhen');
 require('./add/operator/distinct');
-require('./add/operator/distinctKey');
 require('./add/operator/distinctUntilChanged');
 require('./add/operator/distinctUntilKeyChanged');
 require('./add/operator/do');
@@ -112,8 +111,10 @@ require('./add/operator/sampleTime');
 require('./add/operator/scan');
 require('./add/operator/sequenceEqual');
 require('./add/operator/share');
+require('./add/operator/shareReplay');
 require('./add/operator/single');
 require('./add/operator/skip');
+require('./add/operator/skipLast');
 require('./add/operator/skipUntil');
 require('./add/operator/skipWhile');
 require('./add/operator/startWith');
@@ -152,8 +153,6 @@ var ReplaySubject_1 = require('./ReplaySubject');
 exports.ReplaySubject = ReplaySubject_1.ReplaySubject;
 var BehaviorSubject_1 = require('./BehaviorSubject');
 exports.BehaviorSubject = BehaviorSubject_1.BehaviorSubject;
-var MulticastObservable_1 = require('./observable/MulticastObservable');
-exports.MulticastObservable = MulticastObservable_1.MulticastObservable;
 var ConnectableObservable_1 = require('./observable/ConnectableObservable');
 exports.ConnectableObservable = ConnectableObservable_1.ConnectableObservable;
 var Notification_1 = require('./Notification');
@@ -164,6 +163,8 @@ var ArgumentOutOfRangeError_1 = require('./util/ArgumentOutOfRangeError');
 exports.ArgumentOutOfRangeError = ArgumentOutOfRangeError_1.ArgumentOutOfRangeError;
 var ObjectUnsubscribedError_1 = require('./util/ObjectUnsubscribedError');
 exports.ObjectUnsubscribedError = ObjectUnsubscribedError_1.ObjectUnsubscribedError;
+var TimeoutError_1 = require('./util/TimeoutError');
+exports.TimeoutError = TimeoutError_1.TimeoutError;
 var UnsubscriptionError_1 = require('./util/UnsubscriptionError');
 exports.UnsubscriptionError = UnsubscriptionError_1.UnsubscriptionError;
 var timeInterval_1 = require('./operator/timeInterval');
@@ -220,9 +221,9 @@ exports.Scheduler = Scheduler;
  * to retrieve an iterator from an object.
  */
 var Symbol = {
-    rxSubscriber: rxSubscriber_1.$$rxSubscriber,
-    observable: observable_1.$$observable,
-    iterator: iterator_1.$$iterator
+    rxSubscriber: rxSubscriber_1.rxSubscriber,
+    observable: observable_1.observable,
+    iterator: iterator_1.iterator
 };
 exports.Symbol = Symbol;
 //# sourceMappingURL=Rx.js.map

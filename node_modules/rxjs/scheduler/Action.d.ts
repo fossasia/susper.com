@@ -15,7 +15,7 @@ import { Subscription } from '../Subscription';
  * @class Action<T>
  */
 export declare class Action<T> extends Subscription {
-    constructor(scheduler: Scheduler, work: (state?: T) => void);
+    constructor(scheduler: Scheduler, work: (this: Action<T>, state?: T) => void);
     /**
      * Schedules this action on its parent Scheduler for execution. May be passed
      * some context object, `state`. May happen at some point in the future,

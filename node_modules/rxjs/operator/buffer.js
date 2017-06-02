@@ -47,7 +47,7 @@ var BufferOperator = (function () {
         this.closingNotifier = closingNotifier;
     }
     BufferOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new BufferSubscriber(subscriber, this.closingNotifier));
+        return source.subscribe(new BufferSubscriber(subscriber, this.closingNotifier));
     };
     return BufferOperator;
 }());

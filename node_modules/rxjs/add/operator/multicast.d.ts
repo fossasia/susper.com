@@ -1,6 +1,6 @@
-import { MulticastSignature } from '../../operator/multicast';
+import { multicast } from '../../operator/multicast';
 declare module '../../Observable' {
     interface Observable<T> {
-        multicast: MulticastSignature<T>;
+        multicast: typeof multicast;
     }
 }

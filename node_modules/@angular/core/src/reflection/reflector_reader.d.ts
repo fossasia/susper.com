@@ -15,7 +15,8 @@ export declare abstract class ReflectorReader {
     abstract propMetadata(typeOrFunc: any): {
         [key: string]: any[];
     };
-    abstract importUri(typeOrFunc: any): string;
-    abstract resolveIdentifier(name: string, moduleUrl: string, runtime: any): any;
+    abstract importUri(typeOrFunc: any): string | null;
+    abstract resourceUri(typeOrFunc: any): string;
+    abstract resolveIdentifier(name: string, moduleUrl: string, members: string[], runtime: any): any;
     abstract resolveEnum(identifier: any, name: string): any;
 }

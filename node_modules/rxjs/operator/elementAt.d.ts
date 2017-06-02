@@ -18,6 +18,11 @@ import { Observable } from '../Observable';
  * var result = clicks.elementAt(2);
  * result.subscribe(x => console.log(x));
  *
+ * // Results in:
+ * // click 1 = nothing
+ * // click 2 = nothing
+ * // click 3 = MouseEvent object logged to console
+ *
  * @see {@link first}
  * @see {@link last}
  * @see {@link skip}
@@ -36,7 +41,4 @@ import { Observable } from '../Observable';
  * @method elementAt
  * @owner Observable
  */
-export declare function elementAt<T>(index: number, defaultValue?: T): Observable<T>;
-export interface ElementAtSignature<T> {
-    (index: number, defaultValue?: T): Observable<T>;
-}
+export declare function elementAt<T>(this: Observable<T>, index: number, defaultValue?: T): Observable<T>;

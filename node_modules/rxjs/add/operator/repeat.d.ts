@@ -1,6 +1,6 @@
-import { RepeatSignature } from '../../operator/repeat';
+import { repeat } from '../../operator/repeat';
 declare module '../../Observable' {
     interface Observable<T> {
-        repeat: RepeatSignature<T>;
+        repeat: typeof repeat;
     }
 }

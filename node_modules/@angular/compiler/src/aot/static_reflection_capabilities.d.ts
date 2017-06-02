@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { GetterFn, MethodFn, SetterFn } from '../private_import_core';
+import { ɵGetterFn, ɵMethodFn, ɵSetterFn } from '@angular/core';
 import { StaticReflector } from './static_reflector';
 import { StaticSymbol } from './static_symbol';
 export declare class StaticAndDynamicReflectionCapabilities {
@@ -21,10 +21,11 @@ export declare class StaticAndDynamicReflectionCapabilities {
     propMetadata(typeOrFunc: any): {
         [key: string]: any[];
     };
-    getter(name: string): GetterFn;
-    setter(name: string): SetterFn;
-    method(name: string): MethodFn;
+    getter(name: string): ɵGetterFn;
+    setter(name: string): ɵSetterFn;
+    method(name: string): ɵMethodFn;
     importUri(type: any): string;
-    resolveIdentifier(name: string, moduleUrl: string, runtime: any): StaticSymbol;
+    resourceUri(type: any): string;
+    resolveIdentifier(name: string, moduleUrl: string, members: string[], runtime: any): StaticSymbol;
     resolveEnum(enumIdentifier: any, name: string): any;
 }

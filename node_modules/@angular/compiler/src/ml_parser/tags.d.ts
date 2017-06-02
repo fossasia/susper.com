@@ -16,7 +16,7 @@ export interface TagDefinition {
         [key: string]: boolean;
     };
     parentToAdd: string;
-    implicitNamespacePrefix: string;
+    implicitNamespacePrefix: string | null;
     contentType: TagContentType;
     isVoid: boolean;
     ignoreFirstLf: boolean;
@@ -24,8 +24,12 @@ export interface TagDefinition {
     requireExtraParent(currentParent: string): boolean;
     isClosedByChild(name: string): boolean;
 }
-export declare function splitNsName(elementName: string): [string, string];
+export declare function splitNsName(elementName: string): [string | null, string];
+export declare function isNgContainer(tagName: string): boolean;
+export declare function isNgContent(tagName: string): boolean;
+export declare function isNgTemplate(tagName: string): boolean;
 export declare function getNsPrefix(fullName: string): string;
+export declare function getNsPrefix(fullName: null): null;
 export declare function mergeNsAndName(prefix: string, localName: string): string;
 export declare const NAMED_ENTITIES: {
     [k: string]: string;

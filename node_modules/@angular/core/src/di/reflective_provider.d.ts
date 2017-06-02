@@ -1,3 +1,4 @@
+import { Self, SkipSelf } from './metadata';
 import { Provider } from './provider';
 import { ReflectiveKey } from './reflective_key';
 /**
@@ -7,10 +8,8 @@ import { ReflectiveKey } from './reflective_key';
 export declare class ReflectiveDependency {
     key: ReflectiveKey;
     optional: boolean;
-    lowerBoundVisibility: any;
-    upperBoundVisibility: any;
-    properties: any[];
-    constructor(key: ReflectiveKey, optional: boolean, lowerBoundVisibility: any, upperBoundVisibility: any, properties: any[]);
+    visibility: Self | SkipSelf | null;
+    constructor(key: ReflectiveKey, optional: boolean, visibility: Self | SkipSelf | null);
     static fromKey(key: ReflectiveKey): ReflectiveDependency;
 }
 /**
@@ -50,7 +49,7 @@ export declare class ResolvedReflectiveProvider_ implements ResolvedReflectivePr
     resolvedFactories: ResolvedReflectiveFactory[];
     multiProvider: boolean;
     constructor(key: ReflectiveKey, resolvedFactories: ResolvedReflectiveFactory[], multiProvider: boolean);
-    resolvedFactory: ResolvedReflectiveFactory;
+    readonly resolvedFactory: ResolvedReflectiveFactory;
 }
 /**
  * An internal resolved representation of a factory function created by resolving {@link
@@ -86,4 +85,4 @@ export declare function resolveReflectiveProviders(providers: Provider[]): Resol
  * have been merged.
  */
 export declare function mergeResolvedReflectiveProviders(providers: ResolvedReflectiveProvider[], normalizedProvidersMap: Map<number, ResolvedReflectiveProvider>): Map<number, ResolvedReflectiveProvider>;
-export declare function constructDependencies(typeOrFunc: any, dependencies: any[]): ReflectiveDependency[];
+export declare function constructDependencies(typeOrFunc: any, dependencies?: any[]): ReflectiveDependency[];

@@ -1,6 +1,6 @@
-import { ShareSignature } from '../../operator/share';
+import { share } from '../../operator/share';
 declare module '../../Observable' {
     interface Observable<T> {
-        share: ShareSignature<T>;
+        share: typeof share;
     }
 }

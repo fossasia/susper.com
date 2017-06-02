@@ -31,7 +31,7 @@ var PairsObservable = (function (_super) {
     }
     /**
      * Convert an object into an observable sequence of [key, value] pairs
-     * using an optional Scheduler to enumerate the object.
+     * using an optional IScheduler to enumerate the object.
      *
      * @example <caption>Converts a javascript object to an Observable</caption>
      * var obj = {
@@ -55,7 +55,7 @@ var PairsObservable = (function (_super) {
      *
      * @param {Object} obj The object to inspect and turn into an
      * Observable sequence.
-     * @param {Scheduler} [scheduler] An optional Scheduler to run the
+     * @param {Scheduler} [scheduler] An optional IScheduler to run the
      * enumeration of the input sequence on.
      * @returns {(Observable<Array<string | T>>)} An observable sequence of
      * [key, value] pairs from the object.

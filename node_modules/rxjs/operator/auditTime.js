@@ -25,7 +25,7 @@ var Subscriber_1 = require('../Subscriber');
  * the time unit determined internally by the optional `scheduler`) has passed,
  * the timer is disabled, then the most recent source value is emitted on the
  * output Observable, and this process repeats for the next source value.
- * Optionally takes a {@link Scheduler} for managing timers.
+ * Optionally takes a {@link IScheduler} for managing timers.
  *
  * @example <caption>Emit clicks at a rate of at most one click per second</caption>
  * var clicks = Rx.Observable.fromEvent(document, 'click');
@@ -41,7 +41,7 @@ var Subscriber_1 = require('../Subscriber');
  * @param {number} duration Time to wait before emitting the most recent source
  * value, measured in milliseconds or the time unit determined internally
  * by the optional `scheduler`.
- * @param {Scheduler} [scheduler=async] The {@link Scheduler} to use for
+ * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
  * managing the timers that handle the rate-limiting behavior.
  * @return {Observable<T>} An Observable that performs rate-limiting of
  * emissions from the source Observable.
@@ -59,7 +59,7 @@ var AuditTimeOperator = (function () {
         this.scheduler = scheduler;
     }
     AuditTimeOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new AuditTimeSubscriber(subscriber, this.duration, this.scheduler));
+        return source.subscribe(new AuditTimeSubscriber(subscriber, this.duration, this.scheduler));
     };
     return AuditTimeOperator;
 }());

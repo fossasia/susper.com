@@ -1,4 +1,4 @@
-import { Scheduler } from '../Scheduler';
+import { IScheduler } from '../Scheduler';
 import { Observable } from '../Observable';
 /**
  * Branch out the source Observable values as a nested Observable periodically
@@ -17,7 +17,10 @@ import { Observable } from '../Observable';
  * emits the current window and propagates the notification from the source
  * Observable. If `windowCreationInterval` is not provided, the output
  * Observable starts a new window when the previous window of duration
- * `windowTimeSpan` completes.
+ * `windowTimeSpan` completes. If `maxWindowCount` is provided, each window
+ * will emit at most fixed number of values. Window will complete immediately
+ * after emitting last value and next one still will open as specified by
+ * `windowTimeSpan` and `windowCreationInterval` arguments.
  *
  * @example <caption>In every window of 1 second each, emit at most 2 click events</caption>
  * var clicks = Rx.Observable.fromEvent(document, 'click');
@@ -33,6 +36,12 @@ import { Observable } from '../Observable';
  *   .mergeAll(); // flatten the Observable-of-Observables
  * result.subscribe(x => console.log(x));
  *
+ * @example <caption>Same as example above but with maxWindowCount instead of take</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.windowTime(1000, 5000, 2) // each window has still at most 2 emissions
+ *   .mergeAll(); // flatten the Observable-of-Observables
+ * result.subscribe(x => console.log(x));
+
  * @see {@link window}
  * @see {@link windowCount}
  * @see {@link windowToggle}
@@ -42,6 +51,8 @@ import { Observable } from '../Observable';
  * @param {number} windowTimeSpan The amount of time to fill each window.
  * @param {number} [windowCreationInterval] The interval at which to start new
  * windows.
+ * @param {number} [maxWindowSize=Number.POSITIVE_INFINITY] Max number of
+ * values each window can emit before completion.
  * @param {Scheduler} [scheduler=async] The scheduler on which to schedule the
  * intervals that determine window boundaries.
  * @return {Observable<Observable<T>>} An observable of windows, which in turn
@@ -49,7 +60,6 @@ import { Observable } from '../Observable';
  * @method windowTime
  * @owner Observable
  */
-export declare function windowTime<T>(windowTimeSpan: number, windowCreationInterval?: number, scheduler?: Scheduler): Observable<Observable<T>>;
-export interface WindowTimeSignature<T> {
-    (windowTimeSpan: number, windowCreationInterval?: number, scheduler?: Scheduler): Observable<Observable<T>>;
-}
+export declare function windowTime<T>(this: Observable<T>, windowTimeSpan: number, scheduler?: IScheduler): Observable<Observable<T>>;
+export declare function windowTime<T>(this: Observable<T>, windowTimeSpan: number, windowCreationInterval: number, scheduler?: IScheduler): Observable<Observable<T>>;
+export declare function windowTime<T>(this: Observable<T>, windowTimeSpan: number, windowCreationInterval: number, maxWindowSize: number, scheduler?: IScheduler): Observable<Observable<T>>;

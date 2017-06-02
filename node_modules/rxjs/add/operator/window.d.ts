@@ -1,6 +1,6 @@
-import { WindowSignature } from '../../operator/window';
+import { window } from '../../operator/window';
 declare module '../../Observable' {
     interface Observable<T> {
-        window: WindowSignature<T>;
+        window: typeof window;
     }
 }

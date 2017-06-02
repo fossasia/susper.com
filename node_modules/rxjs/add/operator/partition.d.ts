@@ -1,6 +1,6 @@
-import { PartitionSignature } from '../../operator/partition';
+import { partition } from '../../operator/partition';
 declare module '../../Observable' {
     interface Observable<T> {
-        partition: PartitionSignature<T>;
+        partition: typeof partition;
     }
 }

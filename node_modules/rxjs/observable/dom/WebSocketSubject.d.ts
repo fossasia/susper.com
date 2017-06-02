@@ -14,6 +14,7 @@ export interface WebSocketSubjectConfig {
     WebSocketCtor?: {
         new (url: string, protocol?: string | Array<string>): WebSocket;
     };
+    binaryType?: 'blob' | 'arraybuffer';
 }
 /**
  * We need this JSDoc comment for affecting ESDoc.
@@ -30,10 +31,42 @@ export declare class WebSocketSubject<T> extends AnonymousSubject<T> {
     WebSocketCtor: {
         new (url: string, protocol?: string | Array<string>): WebSocket;
     };
+    binaryType?: 'blob' | 'arraybuffer';
     private _output;
     resultSelector(e: MessageEvent): any;
     /**
-     * @param urlConfigOrSource
+     * Wrapper around the w3c-compatible WebSocket object provided by the browser.
+     *
+     * @example <caption>Wraps browser WebSocket</caption>
+     *
+     * let socket$ = Observable.webSocket('ws://localhost:8081');
+     *
+     * socket$.subscribe(
+     *    (msg) => console.log('message received: ' + msg),
+     *    (err) => console.log(err),
+     *    () => console.log('complete')
+     *  );
+     *
+     * socket$.next(JSON.stringify({ op: 'hello' }));
+     *
+     * @example <caption>Wraps WebSocket from nodejs-websocket (using node.js)</caption>
+     *
+     * import { w3cwebsocket } from 'websocket';
+     *
+     * let socket$ = Observable.webSocket({
+     *   url: 'ws://localhost:8081',
+     *   WebSocketCtor: w3cwebsocket
+     * });
+     *
+     * socket$.subscribe(
+     *    (msg) => console.log('message received: ' + msg),
+     *    (err) => console.log(err),
+     *    () => console.log('complete')
+     *  );
+     *
+     * socket$.next(JSON.stringify({ op: 'hello' }));
+     *
+     * @param {string | WebSocketSubjectConfig} urlConfigOrSource the source of the websocket as an url or a structure defining the websocket object
      * @return {WebSocketSubject}
      * @static true
      * @name webSocket
@@ -42,7 +75,8 @@ export declare class WebSocketSubject<T> extends AnonymousSubject<T> {
     static create<T>(urlConfigOrSource: string | WebSocketSubjectConfig): WebSocketSubject<T>;
     constructor(urlConfigOrSource: string | WebSocketSubjectConfig | Observable<T>, destination?: Observer<T>);
     lift<R>(operator: Operator<T, R>): WebSocketSubject<R>;
-    multiplex(subMsg: () => any, unsubMsg: () => any, messageFilter: (value: T) => boolean): Observable<{}>;
+    private _resetState();
+    multiplex(subMsg: () => any, unsubMsg: () => any, messageFilter: (value: T) => boolean): Observable<any>;
     private _connectSocket();
     protected _subscribe(subscriber: Subscriber<T>): Subscription;
     unsubscribe(): void;

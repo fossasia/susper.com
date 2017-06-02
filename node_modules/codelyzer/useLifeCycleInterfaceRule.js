@@ -23,6 +23,16 @@ var Rule = (function (_super) {
     };
     return Rule;
 }(Lint.Rules.AbstractRule));
+Rule.metadata = {
+    ruleName: 'use-life-cycle-interface',
+    type: 'maintainability',
+    description: "Ensure that components implement life cycle interfaces if they use them.",
+    descriptionDetails: "See more at https://angular.io/styleguide#!#09-01.",
+    rationale: "Interfaces prescribe typed method signatures. Use those signatures to flag spelling and syntax mistakes.",
+    options: null,
+    optionsDescription: "Not configurable.",
+    typescriptOnly: true,
+};
 Rule.FAILURE = 'Implement lifecycle hook interface %s for method %s in class %s (https://goo.gl/w1Nwk3)';
 Rule.HOOKS_PREFIX = 'ng';
 Rule.LIFE_CYCLE_HOOKS_NAMES = [

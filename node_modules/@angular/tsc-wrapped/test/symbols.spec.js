@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var ts = require('typescript');
-var schema_1 = require('../src/schema');
-var symbols_1 = require('../src/symbols');
-var typescript_mocks_1 = require('./typescript.mocks');
+var ts = require("typescript");
+var schema_1 = require("../src/schema");
+var symbols_1 = require("../src/symbols");
+var typescript_mocks_1 = require("./typescript.mocks");
 describe('Symbols', function () {
     var symbols;
     var someValue = 'some-value';

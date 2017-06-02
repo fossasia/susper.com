@@ -11,7 +11,7 @@ import { Observable } from '../Observable';
  * `count` transforms an Observable that emits values into an Observable that
  * emits a single value that represents the number of values emitted by the
  * source Observable. If the source Observable terminates with an error, `count`
- * will pass this error notification along without emitting an value first. If
+ * will pass this error notification along without emitting a value first. If
  * the source Observable does not terminate at all, `count` will neither emit
  * a value nor terminate. This operator takes an optional `predicate` function
  * as argument, in which case the output emission will represent the number of
@@ -29,6 +29,9 @@ import { Observable } from '../Observable';
  * var result = numbers.count(i => i % 2 === 1);
  * result.subscribe(x => console.log(x));
  *
+ * // Results in:
+ * // 4
+ *
  * @see {@link max}
  * @see {@link min}
  * @see {@link reduce}
@@ -44,7 +47,4 @@ import { Observable } from '../Observable';
  * @method count
  * @owner Observable
  */
-export declare function count<T>(predicate?: (value: T, index: number, source: Observable<T>) => boolean): Observable<number>;
-export interface CountSignature<T> {
-    (predicate?: (value: T, index: number, source: Observable<T>) => boolean): Observable<number>;
-}
+export declare function count<T>(this: Observable<T>, predicate?: (value: T, index: number, source: Observable<T>) => boolean): Observable<number>;

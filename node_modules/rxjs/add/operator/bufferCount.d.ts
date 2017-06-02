@@ -1,6 +1,6 @@
-import { BufferCountSignature } from '../../operator/bufferCount';
+import { bufferCount } from '../../operator/bufferCount';
 declare module '../../Observable' {
     interface Observable<T> {
-        bufferCount: BufferCountSignature<T>;
+        bufferCount: typeof bufferCount;
     }
 }

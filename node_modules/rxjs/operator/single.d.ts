@@ -8,14 +8,11 @@ import { Observable } from '../Observable';
  *
  * @throws {EmptyError} Delivers an EmptyError to the Observer's `error`
  * callback if the Observable completes before any `next` notification was sent.
- * @param {Function} a predicate function to evaluate items emitted by the source Observable.
- * @return {Observable<T>} an Observable that emits the single item emitted by the source Observable that matches
+ * @param {Function} predicate - A predicate function to evaluate items emitted by the source Observable.
+ * @return {Observable<T>} An Observable that emits the single item emitted by the source Observable that matches
  * the predicate.
  .
  * @method single
  * @owner Observable
  */
-export declare function single<T>(predicate?: (value: T, index: number, source: Observable<T>) => boolean): Observable<T>;
-export interface SingleSignature<T> {
-    (predicate?: (value: T, index: number, source: Observable<T>) => boolean): Observable<T>;
-}
+export declare function single<T>(this: Observable<T>, predicate?: (value: T, index: number, source: Observable<T>) => boolean): Observable<T>;

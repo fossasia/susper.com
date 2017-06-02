@@ -117,11 +117,9 @@
 const fs = require('fs'),
     util = require('util');
 
-const executors = require('./executors'),
-    http = require('./http'),
+const http = require('./http'),
     io = require('./io'),
-    Capabilities = require('./lib/capabilities').Capabilities,
-    Capability = require('./lib/capabilities').Capability,
+    {Capabilities, Capability} = require('./lib/capabilities'),
     command = require('./lib/command'),
     logging = require('./lib/logging'),
     promise = require('./lib/promise'),
@@ -151,18 +149,26 @@ const Command = {
 
 /**
  * Creates a command executor with support for ChromeDriver's custom commands.
- * @param {!promise.Promise<string>} url The server's URL.
+ * @param {!Promise<string>} url The server's URL.
  * @return {!command.Executor} The new command executor.
  */
 function createExecutor(url) {
-  return new executors.DeferredExecutor(url.then(function(url) {
-    let client = new http.HttpClient(url);
-    let executor = new http.Executor(client);
-    executor.defineCommand(
-        Command.LAUNCH_APP,
-        'POST', '/session/:sessionId/chromium/launch_app');
-    return executor;
-  }));
+  let client = url.then(url => new http.HttpClient(url));
+  let executor = new http.Executor(client);
+  configureExecutor(executor);
+  return executor;
+}
+
+
+/**
+ * Configures the given executor with Chrome-specific commands.
+ * @param {!http.Executor} executor the executor to configure.
+ */
+function configureExecutor(executor) {
+  executor.defineCommand(
+      Command.LAUNCH_APP,
+      'POST',
+      '/session/:sessionId/chromium/launch_app');
 }
 
 
@@ -171,7 +177,7 @@ function createExecutor(url) {
  * a [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/)
  * server in a child process.
  */
-class ServiceBuilder {
+class ServiceBuilder extends remote.DriverService.Builder {
   /**
    * @param {string=} opt_exe Path to the server executable to use. If omitted,
    *     the builder will attempt to locate the chromedriver on the current
@@ -189,42 +195,8 @@ class ServiceBuilder {
           'it can be found on your PATH.');
     }
 
-    if (!fs.existsSync(exe)) {
-      throw Error('File does not exist: ' + exe);
-    }
-    /** @private {string} */
-    this.exe_ = exe;
-
-    /** @private {!Array<string>} */
-    this.args_ = [];
-
-    /**
-     * @private {(string|!Array<string|number|!stream.Stream|null|undefined>)}
-     */
-    this.stdio_ = 'ignore';
-
-    /** @private {?string} */
-    this.path_ = null;
-
-    /** @private {number} */
-    this.port_ = 0;
-
-    /** @private {Object<string, string>} */
-    this.env_ = null;
-  }
-
-  /**
-   * Sets the port to start the ChromeDriver on.
-   * @param {number} port The port to use, or 0 for any free port.
-   * @return {!ServiceBuilder} A self reference.
-   * @throws {Error} If the port is invalid.
-   */
-  usingPort(port) {
-    if (port < 0) {
-      throw Error('port must be >= 0: ' + port);
-    }
-    this.port_ = port;
-    return this;
+    super(exe);
+    this.setLoopback(true);  // Required
   }
 
   /**
@@ -236,8 +208,7 @@ class ServiceBuilder {
    * @return {!ServiceBuilder} A self reference.
    */
   setAdbPort(port) {
-    this.args_.push('--adb-port=' + port);
-    return this;
+    return this.addArguments('--adb-port=' + port);
   }
 
   /**
@@ -247,8 +218,7 @@ class ServiceBuilder {
    * @return {!ServiceBuilder} A self reference.
    */
   loggingTo(path) {
-    this.args_.push('--log-path=' + path);
-    return this;
+    return this.addArguments('--log-path=' + path);
   }
 
   /**
@@ -256,8 +226,7 @@ class ServiceBuilder {
    * @return {!ServiceBuilder} A self reference.
    */
   enableVerboseLogging() {
-    this.args_.push('--verbose');
-    return this;
+    return this.addArguments('--verbose');
   }
 
   /**
@@ -267,66 +236,15 @@ class ServiceBuilder {
    * @return {!ServiceBuilder} A self reference.
    */
   setNumHttpThreads(n) {
-    this.args_.push('--http-threads=' + n);
-    return this;
+    return this.addArguments('--http-threads=' + n);
   }
 
   /**
-   * Sets the base path for WebDriver REST commands (e.g. "/wd/hub").
-   * By default, the driver will accept commands relative to "/".
-   * @param {string} path The base path to use.
-   * @return {!ServiceBuilder} A self reference.
+   * @override
    */
-  setUrlBasePath(path) {
-    this.args_.push('--url-base=' + path);
-    this.path_ = path;
-    return this;
-  }
-
-  /**
-   * Defines the stdio configuration for the driver service. See
-   * {@code child_process.spawn} for more information.
-   * @param {(string|!Array<string|number|!stream.Stream|null|undefined>)}
-   *     config The configuration to use.
-   * @return {!ServiceBuilder} A self reference.
-   */
-  setStdio(config) {
-    this.stdio_ = config;
-    return this;
-  }
-
-  /**
-   * Defines the environment to start the server under. This settings will be
-   * inherited by every browser session started by the server.
-   * @param {!Object<string, string>} env The environment to use.
-   * @return {!ServiceBuilder} A self reference.
-   */
-  withEnvironment(env) {
-    this.env_ = env;
-    return this;
-  }
-
-  /**
-   * Creates a new DriverService using this instance's current configuration.
-   * @return {!remote.DriverService} A new driver service using this instance's
-   *     current configuration.
-   * @throws {Error} If the driver exectuable was not specified and a default
-   *     could not be found on the current PATH.
-   */
-  build() {
-    let port = this.port_ || portprober.findFreePort();
-    let args = this.args_.concat();  // Defensive copy.
-
-    return new remote.DriverService(this.exe_, {
-      loopback: true,
-      path: this.path_,
-      port: port,
-      args: promise.when(port, function(port) {
-        return args.concat('--port=' + port);
-      }),
-      env: this.env_,
-      stdio: this.stdio_
-    });
+  setPath(path) {
+    super.setPath(path);
+    return this.addArguments('--url-base=' + path);
   }
 }
 
@@ -746,8 +664,8 @@ class Options {
         if (Buffer.isBuffer(extension)) {
           return extension.toString('base64');
         }
-        return promise.checkedNodeCall(
-            fs.readFile, extension, 'base64');
+        return io.read(/** @type {string} */(extension))
+            .then(buffer => buffer.toString('base64'));
       });
     }
     return json;
@@ -759,25 +677,36 @@ class Options {
  * Creates a new WebDriver client for Chrome.
  */
 class Driver extends webdriver.WebDriver {
+
   /**
-   * @param {(Capabilities|Options)=} opt_config The configuration
-   *     options.
-   * @param {remote.DriverService=} opt_service The session to use; will use
-   *     the {@linkplain #getDefaultService default service} by default.
-   * @param {promise.ControlFlow=} opt_flow The control flow to use,
-   *     or {@code null} to use the currently active flow.
+   * Creates a new session with the ChromeDriver.
+   *
+   * @param {(Capabilities|Options)=} opt_config The configuration options.
+   * @param {(remote.DriverService|http.Executor)=} opt_serviceExecutor Either
+   *     a  DriverService to use for the remote end, or a preconfigured executor
+   *     for an externally managed endpoint. If neither is provided, the
+   *     {@linkplain ##getDefaultService default service} will be used by
+   *     default.
+   * @param {promise.ControlFlow=} opt_flow The control flow to use, or `null`
+   *     to use the currently active flow.
+   * @return {!Driver} A new driver instance.
    */
-  constructor(opt_config, opt_service, opt_flow) {
-    let service = opt_service || getDefaultService();
-    let executor = createExecutor(service.start());
+  static createSession(opt_config, opt_serviceExecutor, opt_flow) {
+    let executor;
+    if (opt_serviceExecutor instanceof http.Executor) {
+      executor = opt_serviceExecutor;
+      configureExecutor(executor);
+    } else {
+      let service = opt_serviceExecutor || getDefaultService();
+      executor = createExecutor(service.start());
+    }
 
     let caps =
         opt_config instanceof Options ? opt_config.toCapabilities() :
         (opt_config || Capabilities.chrome());
 
-    let driver = webdriver.WebDriver.createSession(executor, caps, opt_flow);
-
-    super(driver.getSession(), executor, driver.controlFlow());
+    return /** @type {!Driver} */(
+        webdriver.WebDriver.createSession(executor, caps, opt_flow, this));
   }
 
   /**
@@ -790,7 +719,7 @@ class Driver extends webdriver.WebDriver {
   /**
    * Schedules a command to launch Chrome App with given ID.
    * @param {string} id ID of the App to launch.
-   * @return {!promise.Promise<void>} A promise that will be resolved
+   * @return {!promise.Thenable<void>} A promise that will be resolved
    *     when app is launched.
    */
   launchApp(id) {

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var ts = require('typescript');
+var ts = require("typescript");
 var Symbols = (function () {
     function Symbols(sourceFile) {
         this.sourceFile = sourceFile;

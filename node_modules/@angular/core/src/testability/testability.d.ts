@@ -35,10 +35,10 @@ export declare class Testability implements PublicTestability {
 export declare class TestabilityRegistry {
     constructor();
     registerApplication(token: any, testability: Testability): void;
-    getTestability(elem: any): Testability;
+    getTestability(elem: any): Testability | null;
     getAllTestabilities(): Testability[];
     getAllRootElements(): any[];
-    findTestabilityInTree(elem: Node, findInAncestors?: boolean): Testability;
+    findTestabilityInTree(elem: Node, findInAncestors?: boolean): Testability | null;
 }
 /**
  * Adapter interface for retrieving the `Testability` service associated for a
@@ -49,7 +49,7 @@ export declare class TestabilityRegistry {
  */
 export interface GetTestability {
     addToWindow(registry: TestabilityRegistry): void;
-    findTestabilityInTree(registry: TestabilityRegistry, elem: any, findInAncestors: boolean): Testability;
+    findTestabilityInTree(registry: TestabilityRegistry, elem: any, findInAncestors: boolean): Testability | null;
 }
 /**
  * Set the {@link GetTestability} implementation used by the Angular testing framework.

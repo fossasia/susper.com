@@ -12,9 +12,74 @@ import { ChangeDetectorRef } from '../change_detector_ref';
  *
  * @stable
  */
-export interface KeyValueDiffer {
-    diff(object: any): any;
-    onDestroy(): any;
+export interface KeyValueDiffer<K, V> {
+    /**
+     * Compute a difference between the previous state and the new `object` state.
+     *
+     * @param object containing the new value.
+     * @returns an object describing the difference. The return value is only valid until the next
+     * `diff()` invocation.
+     */
+    diff(object: Map<K, V>): KeyValueChanges<K, V>;
+    /**
+     * Compute a difference between the previous state and the new `object` state.
+     *
+     * @param object containing the new value.
+     * @returns an object describing the difference. The return value is only valid until the next
+     * `diff()` invocation.
+     */
+    diff(object: {
+        [key: string]: V;
+    }): KeyValueChanges<string, V>;
+}
+/**
+ * An object describing the changes in the `Map` or `{[k:string]: string}` since last time
+ * `KeyValueDiffer#diff()` was invoked.
+ *
+ * @stable
+ */
+export interface KeyValueChanges<K, V> {
+    /**
+     * Iterate over all changes. `KeyValueChangeRecord` will contain information about changes
+     * to each item.
+     */
+    forEachItem(fn: (r: KeyValueChangeRecord<K, V>) => void): void;
+    /**
+     * Iterate over changes in the order of original Map showing where the original items
+     * have moved.
+     */
+    forEachPreviousItem(fn: (r: KeyValueChangeRecord<K, V>) => void): void;
+    /**
+     * Iterate over all keys for which values have changed.
+     */
+    forEachChangedItem(fn: (r: KeyValueChangeRecord<K, V>) => void): void;
+    /**
+     * Iterate over all added items.
+     */
+    forEachAddedItem(fn: (r: KeyValueChangeRecord<K, V>) => void): void;
+    /**
+     * Iterate over all removed items.
+     */
+    forEachRemovedItem(fn: (r: KeyValueChangeRecord<K, V>) => void): void;
+}
+/**
+ * Record representing the item change information.
+ *
+ * @stable
+ */
+export interface KeyValueChangeRecord<K, V> {
+    /**
+     * Current key in the Map.
+     */
+    readonly key: K;
+    /**
+     * Current value for the key or `null` if removed.
+     */
+    readonly currentValue: V | null;
+    /**
+     * Previous value for the key or `null` if added.
+     */
+    readonly previousValue: V | null;
 }
 /**
  * Provides a factory for {@link KeyValueDiffer}.
@@ -22,17 +87,30 @@ export interface KeyValueDiffer {
  * @stable
  */
 export interface KeyValueDifferFactory {
+    /**
+     * Test to see if the differ knows how to diff this kind of object.
+     */
     supports(objects: any): boolean;
-    create(cdRef: ChangeDetectorRef): KeyValueDiffer;
+    /**
+     * Create a `KeyValueDiffer`.
+     */
+    create<K, V>(): KeyValueDiffer<K, V>;
+    /**
+     * @deprecated v4.0.0 - ChangeDetectorRef is not used and is no longer a parameter
+     */
+    create<K, V>(_cdr?: ChangeDetectorRef): KeyValueDiffer<K, V>;
 }
 /**
  * A repository of different Map diffing strategies used by NgClass, NgStyle, and others.
  * @stable
  */
 export declare class KeyValueDiffers {
+    /**
+     * @deprecated v4.0.0 - Should be private.
+     */
     factories: KeyValueDifferFactory[];
     constructor(factories: KeyValueDifferFactory[]);
-    static create(factories: KeyValueDifferFactory[], parent?: KeyValueDiffers): KeyValueDiffers;
+    static create<S>(factories: KeyValueDifferFactory[], parent?: KeyValueDiffers): KeyValueDiffers;
     /**
      * Takes an array of {@link KeyValueDifferFactory} and returns a provider used to extend the
      * inherited {@link KeyValueDiffers} instance with the provided factories and return a new
@@ -52,6 +130,6 @@ export declare class KeyValueDiffers {
      * })
      * ```
      */
-    static extend(factories: KeyValueDifferFactory[]): Provider;
-    find(kv: Object): KeyValueDifferFactory;
+    static extend<S>(factories: KeyValueDifferFactory[]): Provider;
+    find(kv: any): KeyValueDifferFactory;
 }

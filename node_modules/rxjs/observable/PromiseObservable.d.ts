@@ -1,4 +1,4 @@
-import { Scheduler } from '../Scheduler';
+import { IScheduler } from '../Scheduler';
 import { Observable } from '../Observable';
 import { Subscriber } from '../Subscriber';
 import { TeardownLogic } from '../Subscription';
@@ -29,15 +29,15 @@ export declare class PromiseObservable<T> extends Observable<T> {
      * @see {@link bindCallback}
      * @see {@link from}
      *
-     * @param {Promise<T>} promise The promise to be converted.
-     * @param {Scheduler} [scheduler] An optional Scheduler to use for scheduling
+     * @param {PromiseLike<T>} promise The promise to be converted.
+     * @param {Scheduler} [scheduler] An optional IScheduler to use for scheduling
      * the delivery of the resolved value (or the rejection).
      * @return {Observable<T>} An Observable which wraps the Promise.
      * @static true
      * @name fromPromise
      * @owner Observable
      */
-    static create<T>(promise: Promise<T>, scheduler?: Scheduler): Observable<T>;
-    constructor(promise: Promise<T>, scheduler?: Scheduler);
+    static create<T>(promise: PromiseLike<T>, scheduler?: IScheduler): Observable<T>;
+    constructor(promise: PromiseLike<T>, scheduler?: IScheduler);
     protected _subscribe(subscriber: Subscriber<T>): TeardownLogic;
 }

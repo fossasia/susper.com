@@ -34,7 +34,4 @@ import { Observable } from '../Observable';
  * @method pairwise
  * @owner Observable
  */
-export declare function pairwise<T>(): Observable<[T, T]>;
-export interface PairwiseSignature<T> {
-    (): Observable<[T, T]>;
-}
+export declare function pairwise<T>(this: Observable<T>): Observable<[T, T]>;

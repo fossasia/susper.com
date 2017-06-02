@@ -1,5 +1,5 @@
 import { Observable } from '../Observable';
-import { Scheduler } from '../Scheduler';
+import { IScheduler } from '../Scheduler';
 import { Operator } from '../Operator';
 import { Subscriber } from '../Subscriber';
 import { tryCatch } from '../util/tryCatch';
@@ -8,6 +8,11 @@ import { Subscription } from '../Subscription';
 import { OuterSubscriber } from '../OuterSubscriber';
 import { InnerSubscriber } from '../InnerSubscriber';
 import { subscribeToResult } from '../util/subscribeToResult';
+
+/* tslint:disable:max-line-length */
+export function expand<T>(this: Observable<T>, project: (value: T, index: number) => Observable<T>, concurrent?: number, scheduler?: IScheduler): Observable<T>;
+export function expand<T, R>(this: Observable<T>, project: (value: T, index: number) => Observable<R>, concurrent?: number, scheduler?: IScheduler): Observable<R>;
+/* tslint:enable:max-line-length */
 
 /**
  * Recursively projects each source value to an Observable which is merged in
@@ -45,7 +50,7 @@ import { subscribeToResult } from '../util/subscribeToResult';
  * returns an Observable.
  * @param {number} [concurrent=Number.POSITIVE_INFINITY] Maximum number of input
  * Observables being subscribed to concurrently.
- * @param {Scheduler} [scheduler=null] The Scheduler to use for subscribing to
+ * @param {Scheduler} [scheduler=null] The IScheduler to use for subscribing to
  * each projected inner Observable.
  * @return {Observable} An Observable that emits the source values and also
  * result of applying the projection function to each value emitted on the
@@ -54,27 +59,22 @@ import { subscribeToResult } from '../util/subscribeToResult';
  * @method expand
  * @owner Observable
  */
-export function expand<T, R>(project: (value: T, index: number) => Observable<R>,
+export function expand<T, R>(this: Observable<T>, project: (value: T, index: number) => Observable<R>,
                              concurrent: number = Number.POSITIVE_INFINITY,
-                             scheduler: Scheduler = undefined): Observable<R> {
+                             scheduler: IScheduler = undefined): Observable<R> {
   concurrent = (concurrent || 0) < 1 ? Number.POSITIVE_INFINITY : concurrent;
 
   return this.lift(new ExpandOperator(project, concurrent, scheduler));
 }
 
-export interface ExpandSignature<T> {
-  (project: (value: T, index: number) => Observable<T>, concurrent?: number, scheduler?: Scheduler): Observable<T>;
-  <R>(project: (value: T, index: number) => Observable<R>, concurrent?: number, scheduler?: Scheduler): Observable<R>;
-}
-
 export class ExpandOperator<T, R> implements Operator<T, R> {
   constructor(private project: (value: T, index: number) => Observable<R>,
               private concurrent: number,
-              private scheduler: Scheduler) {
+              private scheduler: IScheduler) {
   }
 
   call(subscriber: Subscriber<R>, source: any): any {
-    return source._subscribe(new ExpandSubscriber(subscriber, this.project, this.concurrent, this.scheduler));
+    return source.subscribe(new ExpandSubscriber(subscriber, this.project, this.concurrent, this.scheduler));
   }
 }
 
@@ -99,7 +99,7 @@ export class ExpandSubscriber<T, R> extends OuterSubscriber<T, R> {
   constructor(destination: Subscriber<R>,
               private project: (value: T, index: number) => Observable<R>,
               private concurrent: number,
-              private scheduler: Scheduler) {
+              private scheduler: IScheduler) {
     super(destination);
     if (concurrent < Number.POSITIVE_INFINITY) {
       this.buffer = [];

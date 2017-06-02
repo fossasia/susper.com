@@ -17,9 +17,9 @@ import { Observable } from './Observable';
 export declare class Notification<T> {
     kind: string;
     value: T;
-    exception: any;
+    error: any;
     hasValue: boolean;
-    constructor(kind: string, value?: T, exception?: any);
+    constructor(kind: string, value?: T, error?: any);
     /**
      * Delivers to the given `observer` the value wrapped by this Notification.
      * @param {Observer} observer
@@ -64,7 +64,7 @@ export declare class Notification<T> {
     /**
      * A shortcut to create a Notification instance of the type `error` from a
      * given error.
-     * @param {any} [err] The `error` exception.
+     * @param {any} [err] The `error` error.
      * @return {Notification<T>} The "error" Notification representing the
      * argument.
      */

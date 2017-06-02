@@ -61,7 +61,7 @@ var WindowToggleOperator = (function () {
         this.closingSelector = closingSelector;
     }
     WindowToggleOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new WindowToggleSubscriber(subscriber, this.openings, this.closingSelector));
+        return source.subscribe(new WindowToggleSubscriber(subscriber, this.openings, this.closingSelector));
     };
     return WindowToggleOperator;
 }());

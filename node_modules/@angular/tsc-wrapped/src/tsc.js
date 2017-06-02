@@ -11,31 +11,45 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var fs_1 = require('fs');
-var path = require('path');
-var ts = require('typescript');
+var fs_1 = require("fs");
+var path = require("path");
+var ts = require("typescript");
+var vinyl_file_1 = require("./vinyl_file");
 var UserError = (function (_super) {
     __extends(UserError, _super);
     function UserError(message) {
-        // Errors don't use current this, instead they create a new instance.
-        // We have to do forward all of our api to the nativeInstance.
-        var nativeError = _super.call(this, message);
-        this._nativeError = nativeError;
+        var _this = _super.call(this, message) || this;
+        // Required for TS 2.1, see
+        // https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+        Object.setPrototypeOf(_this, UserError.prototype);
+        var nativeError = new Error(message);
+        _this._nativeError = nativeError;
+        return _this;
     }
     Object.defineProperty(UserError.prototype, "message", {
         get: function () { return this._nativeError.message; },
-        set: function (message) { this._nativeError.message = message; },
+        set: function (message) {
+            if (this._nativeError)
+                this._nativeError.message = message;
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(UserError.prototype, "name", {
-        get: function () { return 'UserError'; },
+        get: function () { return this._nativeError.name; },
+        set: function (name) {
+            if (this._nativeError)
+                this._nativeError.name = name;
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(UserError.prototype, "stack", {
         get: function () { return this._nativeError.stack; },
-        set: function (value) { this._nativeError.stack = value; },
+        set: function (value) {
+            if (this._nativeError)
+                this._nativeError.stack = value;
+        },
         enumerable: true,
         configurable: true
     });
@@ -100,18 +114,27 @@ var Tsc = (function () {
         this.readFile = readFile;
         this.readDirectory = readDirectory;
     }
-    Tsc.prototype.readConfiguration = function (project, basePath) {
+    Tsc.prototype.readConfiguration = function (project, basePath, existingOptions) {
+        var _this = this;
         this.basePath = basePath;
         // Allow a directory containing tsconfig.json as the project value
         // Note, TS@next returns an empty array, while earlier versions throw
         try {
-            if (this.readDirectory(project).length > 0) {
+            if (!vinyl_file_1.isVinylFile(project) && this.readDirectory(project).length > 0) {
                 project = path.join(project, 'tsconfig.json');
             }
         }
         catch (e) {
         }
-        var _a = ts.readConfigFile(project, this.readFile), config = _a.config, error = _a.error;
+        var _a = (function () {
+            // project is vinyl like file object
+            if (vinyl_file_1.isVinylFile(project)) {
+                return { config: JSON.parse(project.contents.toString()), error: null };
+            }
+            else {
+                return ts.readConfigFile(project, _this.readFile);
+            }
+        })(), config = _a.config, error = _a.error;
         check([error]);
         // Do not inline `host` into `parseJsonConfigFileContent` until after
         // g3 is updated to the latest TypeScript.
@@ -121,9 +144,10 @@ var Tsc = (function () {
         var host = {
             useCaseSensitiveFileNames: true,
             fileExists: fs_1.existsSync,
-            readDirectory: this.readDirectory
+            readDirectory: this.readDirectory,
+            readFile: ts.sys.readFile
         };
-        this.parsed = ts.parseJsonConfigFileContent(config, host, basePath);
+        this.parsed = ts.parseJsonConfigFileContent(config, host, basePath, existingOptions);
         check(this.parsed.errors);
         // Default codegen goes to the current directory
         // Parsed options are already converted to absolute paths

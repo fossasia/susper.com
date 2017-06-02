@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
+/* tslint:enable:max-line-length */
 /**
  * Applies an accumulator function over the source Observable, and returns each
  * intermediate result, with an optional seed value.
@@ -43,16 +44,27 @@ var Subscriber_1 = require('../Subscriber');
  * @owner Observable
  */
 function scan(accumulator, seed) {
-    return this.lift(new ScanOperator(accumulator, seed));
+    var hasSeed = false;
+    // providing a seed of `undefined` *should* be valid and trigger
+    // hasSeed! so don't use `seed !== undefined` checks!
+    // For this reason, we have to check it here at the original call site
+    // otherwise inside Operator/Subscriber we won't know if `undefined`
+    // means they didn't provide anything or if they literally provided `undefined`
+    if (arguments.length >= 2) {
+        hasSeed = true;
+    }
+    return this.lift(new ScanOperator(accumulator, seed, hasSeed));
 }
 exports.scan = scan;
 var ScanOperator = (function () {
-    function ScanOperator(accumulator, seed) {
+    function ScanOperator(accumulator, seed, hasSeed) {
+        if (hasSeed === void 0) { hasSeed = false; }
         this.accumulator = accumulator;
         this.seed = seed;
+        this.hasSeed = hasSeed;
     }
     ScanOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new ScanSubscriber(subscriber, this.accumulator, this.seed));
+        return source.subscribe(new ScanSubscriber(subscriber, this.accumulator, this.seed, this.hasSeed));
     };
     return ScanOperator;
 }());
@@ -63,27 +75,26 @@ var ScanOperator = (function () {
  */
 var ScanSubscriber = (function (_super) {
     __extends(ScanSubscriber, _super);
-    function ScanSubscriber(destination, accumulator, seed) {
+    function ScanSubscriber(destination, accumulator, _seed, hasSeed) {
         _super.call(this, destination);
         this.accumulator = accumulator;
+        this._seed = _seed;
+        this.hasSeed = hasSeed;
         this.index = 0;
-        this.accumulatorSet = false;
-        this.seed = seed;
-        this.accumulatorSet = typeof seed !== 'undefined';
     }
     Object.defineProperty(ScanSubscriber.prototype, "seed", {
         get: function () {
             return this._seed;
         },
         set: function (value) {
-            this.accumulatorSet = true;
+            this.hasSeed = true;
             this._seed = value;
         },
         enumerable: true,
         configurable: true
     });
     ScanSubscriber.prototype._next = function (value) {
-        if (!this.accumulatorSet) {
+        if (!this.hasSeed) {
             this.seed = value;
             this.destination.next(value);
         }

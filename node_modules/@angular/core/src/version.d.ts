@@ -13,9 +13,9 @@
 export declare class Version {
     full: string;
     constructor(full: string);
-    major: string;
-    minor: string;
-    patch: string;
+    readonly major: string;
+    readonly minor: string;
+    readonly patch: string;
 }
 /**
  * @stable

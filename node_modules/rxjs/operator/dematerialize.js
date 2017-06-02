@@ -32,6 +32,11 @@ var Subscriber_1 = require('../Subscriber');
  * var upperCase = materialized.dematerialize();
  * upperCase.subscribe(x => console.log(x), e => console.error(e));
  *
+ * // Results in:
+ * // A
+ * // B
+ * // TypeError: x.toUpperCase is not a function
+ *
  * @see {@link Notification}
  * @see {@link materialize}
  *
@@ -48,7 +53,7 @@ var DeMaterializeOperator = (function () {
     function DeMaterializeOperator() {
     }
     DeMaterializeOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new DeMaterializeSubscriber(subscriber));
+        return source.subscribe(new DeMaterializeSubscriber(subscriber));
     };
     return DeMaterializeOperator;
 }());

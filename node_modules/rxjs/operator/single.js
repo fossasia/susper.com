@@ -15,8 +15,8 @@ var EmptyError_1 = require('../util/EmptyError');
  *
  * @throws {EmptyError} Delivers an EmptyError to the Observer's `error`
  * callback if the Observable completes before any `next` notification was sent.
- * @param {Function} a predicate function to evaluate items emitted by the source Observable.
- * @return {Observable<T>} an Observable that emits the single item emitted by the source Observable that matches
+ * @param {Function} predicate - A predicate function to evaluate items emitted by the source Observable.
+ * @return {Observable<T>} An Observable that emits the single item emitted by the source Observable that matches
  * the predicate.
  .
  * @method single
@@ -32,7 +32,7 @@ var SingleOperator = (function () {
         this.source = source;
     }
     SingleOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new SingleSubscriber(subscriber, this.predicate, this.source));
+        return source.subscribe(new SingleSubscriber(subscriber, this.predicate, this.source));
     };
     return SingleOperator;
 }());
@@ -60,19 +60,17 @@ var SingleSubscriber = (function (_super) {
         }
     };
     SingleSubscriber.prototype._next = function (value) {
-        var predicate = this.predicate;
-        this.index++;
-        if (predicate) {
-            this.tryNext(value);
+        var index = this.index++;
+        if (this.predicate) {
+            this.tryNext(value, index);
         }
         else {
             this.applySingleValue(value);
         }
     };
-    SingleSubscriber.prototype.tryNext = function (value) {
+    SingleSubscriber.prototype.tryNext = function (value, index) {
         try {
-            var result = this.predicate(value, this.index, this.source);
-            if (result) {
+            if (this.predicate(value, index, this.source)) {
                 this.applySingleValue(value);
             }
         }

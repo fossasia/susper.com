@@ -5,8 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Observable } from '../facade/async';
+import { Observable } from 'rxjs/Observable';
 import { AbstractControl } from '../model';
+import { ValidationErrors } from './validators';
 /**
  * Base class for control directives.
  *
@@ -15,23 +16,21 @@ import { AbstractControl } from '../model';
  * @stable
  */
 export declare abstract class AbstractControlDirective {
-    control: AbstractControl;
-    value: any;
-    valid: boolean;
-    invalid: boolean;
-    pending: boolean;
-    errors: {
-        [key: string]: any;
-    };
-    pristine: boolean;
-    dirty: boolean;
-    touched: boolean;
-    untouched: boolean;
-    disabled: boolean;
-    enabled: boolean;
-    statusChanges: Observable<any>;
-    valueChanges: Observable<any>;
-    path: string[];
+    readonly abstract control: AbstractControl | null;
+    readonly value: any;
+    readonly valid: boolean | null;
+    readonly invalid: boolean | null;
+    readonly pending: boolean | null;
+    readonly errors: ValidationErrors | null;
+    readonly pristine: boolean | null;
+    readonly dirty: boolean | null;
+    readonly touched: boolean | null;
+    readonly untouched: boolean | null;
+    readonly disabled: boolean | null;
+    readonly enabled: boolean | null;
+    readonly statusChanges: Observable<any> | null;
+    readonly valueChanges: Observable<any> | null;
+    readonly path: string[] | null;
     reset(value?: any): void;
     hasError(errorCode: string, path?: string[]): boolean;
     getError(errorCode: string, path?: string[]): any;

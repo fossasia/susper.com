@@ -31,7 +31,7 @@ var TimeIntervalOperator = (function () {
         this.scheduler = scheduler;
     }
     TimeIntervalOperator.prototype.call = function (observer, source) {
-        return source._subscribe(new TimeIntervalSubscriber(observer, this.scheduler));
+        return source.subscribe(new TimeIntervalSubscriber(observer, this.scheduler));
     };
     return TimeIntervalOperator;
 }());

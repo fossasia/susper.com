@@ -8,7 +8,7 @@
 import { Injector } from '../di/injector';
 import { Type } from '../type';
 import { ComponentFactory } from './component_factory';
-import { CodegenComponentFactoryResolver, ComponentFactoryResolver } from './component_factory_resolver';
+import { ComponentFactoryResolver } from './component_factory_resolver';
 /**
  * Represents an instance of an NgModule created via a {@link NgModuleFactory}.
  *
@@ -21,16 +21,16 @@ export declare abstract class NgModuleRef<T> {
     /**
      * The injector that contains all of the providers of the NgModule.
      */
-    injector: Injector;
+    readonly abstract injector: Injector;
     /**
      * The ComponentFactoryResolver to get hold of the ComponentFactories
      * declared in the `entryComponents` property of the module.
      */
-    componentFactoryResolver: ComponentFactoryResolver;
+    readonly abstract componentFactoryResolver: ComponentFactoryResolver;
     /**
      * The NgModule instance.
      */
-    instance: T;
+    readonly abstract instance: T;
     /**
      * Destroys the module instance and all of the data structures associated with it.
      */
@@ -49,22 +49,23 @@ export declare class NgModuleFactory<T> {
     constructor(_injectorClass: {
         new (parentInjector: Injector): NgModuleInjector<T>;
     }, _moduleType: Type<T>);
-    moduleType: Type<T>;
-    create(parentInjector: Injector): NgModuleRef<T>;
+    readonly moduleType: Type<T>;
+    create(parentInjector: Injector | null): NgModuleRef<T>;
 }
-export declare abstract class NgModuleInjector<T> extends CodegenComponentFactoryResolver implements Injector, NgModuleRef<T> {
+export declare abstract class NgModuleInjector<T> implements Injector, NgModuleRef<T> {
     parent: Injector;
     bootstrapFactories: ComponentFactory<any>[];
+    instance: T;
     private _destroyListeners;
     private _destroyed;
-    instance: T;
+    private _cmpFactoryResolver;
     constructor(parent: Injector, factories: ComponentFactory<any>[], bootstrapFactories: ComponentFactory<any>[]);
     create(): void;
     abstract createInternal(): T;
     get(token: any, notFoundValue?: any): any;
     abstract getInternal(token: any, notFoundValue: any): any;
-    injector: Injector;
-    componentFactoryResolver: ComponentFactoryResolver;
+    readonly injector: Injector;
+    readonly componentFactoryResolver: ComponentFactoryResolver;
     destroy(): void;
     onDestroy(callback: () => void): void;
     abstract destroyInternal(): void;

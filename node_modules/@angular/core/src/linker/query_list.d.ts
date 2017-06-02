@@ -5,12 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Observable } from '../facade/async';
+import { Observable } from 'rxjs/Observable';
 /**
  * An unmodifiable list of items that Angular keeps up to date when the state
  * of the application changes.
  *
- * The type of object that {@link Query} and {@link ViewQueryMetadata} provide.
+ * The type of object that {@link ViewChildren}, {@link ContentChildren}, and {@link QueryList}
+ * provide.
  *
  * Implements an iterable interface, therefore it can be used in both ES6
  * javascript `for (var i of items)` loops as well as in Angular templates with
@@ -33,10 +34,10 @@ export declare class QueryList<T> {
     private _dirty;
     private _results;
     private _emitter;
-    changes: Observable<any>;
-    length: number;
-    first: T;
-    last: T;
+    readonly changes: Observable<any>;
+    readonly length: number;
+    readonly first: T;
+    readonly last: T;
     /**
      * See
      * [Array.map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
@@ -51,7 +52,7 @@ export declare class QueryList<T> {
      * See
      * [Array.find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
      */
-    find(fn: (item: T, index: number, array: T[]) => boolean): T;
+    find(fn: (item: T, index: number, array: T[]) => boolean): T | undefined;
     /**
      * See
      * [Array.reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
@@ -74,5 +75,5 @@ export declare class QueryList<T> {
     /** internal */
     setDirty(): void;
     /** internal */
-    dirty: boolean;
+    readonly dirty: boolean;
 }

@@ -35,7 +35,4 @@ import { Observable } from '../Observable';
  * @method window
  * @owner Observable
  */
-export declare function window<T>(windowBoundaries: Observable<any>): Observable<Observable<T>>;
-export interface WindowSignature<T> {
-    (windowBoundaries: Observable<any>): Observable<Observable<T>>;
-}
+export declare function window<T>(this: Observable<T>, windowBoundaries: Observable<any>): Observable<Observable<T>>;

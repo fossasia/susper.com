@@ -1,6 +1,6 @@
-import { AuditSignature } from '../../operator/audit';
+import { audit } from '../../operator/audit';
 declare module '../../Observable' {
     interface Observable<T> {
-        audit: AuditSignature<T>;
+        audit: typeof audit;
     }
 }

@@ -1,4 +1,11 @@
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * Zone is a mechanism for intercepting and keeping track of asynchronous work.
  *
  * A Zone is a global object which is configured with rules about how to intercept and keep track
@@ -83,7 +90,7 @@
  *
  * ### [TimerTask]
  *
- * [TimerTask]s represents work which will be done after some delay. (Sometimes the delay is
+ * [TimerTask]s represent work which will be done after some delay. (Sometimes the delay is
  * approximate such as on next available animation frame). Typically these methods include:
  * `setTimeout`, `setImmediate`, `setInterval`, `requestAnimationFrame`, and all browser specif
  * variants.
@@ -91,8 +98,8 @@
  *
  * ### [EventTask]
  *
- * [EventTask]s represents a request to create a listener on an event. Unlike the other task
- * events may never be executed, but typically execute more then once. There is no queue of
+ * [EventTask]s represent a request to create a listener on an event. Unlike the other task
+ * events may never be executed, but typically execute more than once. There is no queue of
  * events, rather their callbacks are unpredictable both in order and time.
  *
  *
@@ -168,11 +175,11 @@ interface Zone {
      * @param source A unique debug location of the API being wrapped.
      * @returns {function(): *} A function which will invoke the `callback` through [Zone.runGuarded].
      */
-    wrap(callback: Function, source: string): Function;
+    wrap<F extends Function>(callback: F, source: string): F;
     /**
      * Invokes a function in a given zone.
      *
-     * The invocation of `callback` can be intercepted be declaring [ZoneSpec.onInvoke].
+     * The invocation of `callback` can be intercepted by declaring [ZoneSpec.onInvoke].
      *
      * @param callback The function to invoke.
      * @param applyThis
@@ -186,7 +193,7 @@ interface Zone {
      *
      * Any exceptions thrown will be forwarded to [Zone.HandleError].
      *
-     * The invocation of `callback` can be intercepted be declaring [ZoneSpec.onInvoke]. The
+     * The invocation of `callback` can be intercepted by declaring [ZoneSpec.onInvoke]. The
      * handling of exceptions can intercepted by declaring [ZoneSpec.handleError].
      *
      * @param callback The function to invoke.
@@ -199,15 +206,49 @@ interface Zone {
     /**
      * Execute the Task by restoring the [Zone.currentTask] in the Task's zone.
      *
-     * @param callback
+     * @param task to run
      * @param applyThis
      * @param applyArgs
      * @returns {*}
      */
     runTask(task: Task, applyThis?: any, applyArgs?: any): any;
+    /**
+     * Schedule a MicroTask.
+     *
+     * @param source
+     * @param callback
+     * @param data
+     * @param customSchedule
+     */
     scheduleMicroTask(source: string, callback: Function, data?: TaskData, customSchedule?: (task: Task) => void): MicroTask;
+    /**
+     * Schedule a MacroTask.
+     *
+     * @param source
+     * @param callback
+     * @param data
+     * @param customSchedule
+     * @param customCancel
+     */
     scheduleMacroTask(source: string, callback: Function, data: TaskData, customSchedule: (task: Task) => void, customCancel: (task: Task) => void): MacroTask;
+    /**
+     * Schedule an EventTask.
+     *
+     * @param source
+     * @param callback
+     * @param data
+     * @param customSchedule
+     * @param customCancel
+     */
     scheduleEventTask(source: string, callback: Function, data: TaskData, customSchedule: (task: Task) => void, customCancel: (task: Task) => void): EventTask;
+    /**
+     * Schedule an existing Task.
+     *
+     * Useful for rescheduling a task which was already canceled.
+     *
+     * @param task
+     */
+    scheduleTask<T extends Task>(task: T): T;
     /**
      * Allows the zone to intercept canceling of scheduled Task.
      *
@@ -233,7 +274,11 @@ interface ZoneType {
     /**
      * Verify that Zone has been correctly patched. Specifically that Promise is zone aware.
      */
-    assertZonePatched(): any;
+    assertZonePatched(): void;
+    /**
+     *  Return the root zone.
+     */
+    root: Zone;
 }
 /**
  * Provides a way to configure the interception of zone events.
@@ -242,11 +287,11 @@ interface ZoneType {
  */
 interface ZoneSpec {
     /**
-     * The name of the zone. Usefull when debugging Zones.
+     * The name of the zone. Useful when debugging Zones.
      */
     name: string;
     /**
-     * A set of properties to be associated with Zone. Use [Zone.get] to retrive them.
+     * A set of properties to be associated with Zone. Use [Zone.get] to retrieve them.
      */
     properties?: {
         [key: string]: any;
@@ -257,7 +302,7 @@ interface ZoneSpec {
      * When the zone is being forked, the request is forwarded to this method for interception.
      *
      * @param parentZoneDelegate Delegate which performs the parent [ZoneSpec] operation.
-     * @param currentZone The current [Zone] where the current interceptor has beed declared.
+     * @param currentZone The current [Zone] where the current interceptor has been declared.
      * @param targetZone The [Zone] which originally received the request.
      * @param zoneSpec The argument passed into the `fork` method.
      */
@@ -266,7 +311,7 @@ interface ZoneSpec {
      * Allows interception of the wrapping of the callback.
      *
      * @param parentZoneDelegate Delegate which performs the parent [ZoneSpec] operation.
-     * @param currentZone The current [Zone] where the current interceptor has beed declared.
+     * @param currentZone The current [Zone] where the current interceptor has been declared.
      * @param targetZone The [Zone] which originally received the request.
      * @param delegate The argument passed into the `warp` method.
      * @param source The argument passed into the `warp` method.
@@ -276,7 +321,7 @@ interface ZoneSpec {
      * Allows interception of the callback invocation.
      *
      * @param parentZoneDelegate Delegate which performs the parent [ZoneSpec] operation.
-     * @param currentZone The current [Zone] where the current interceptor has beed declared.
+     * @param currentZone The current [Zone] where the current interceptor has been declared.
      * @param targetZone The [Zone] which originally received the request.
      * @param delegate The argument passed into the `run` method.
      * @param applyThis The argument passed into the `run` method.
@@ -288,7 +333,7 @@ interface ZoneSpec {
      * Allows interception of the error handling.
      *
      * @param parentZoneDelegate Delegate which performs the parent [ZoneSpec] operation.
-     * @param currentZone The current [Zone] where the current interceptor has beed declared.
+     * @param currentZone The current [Zone] where the current interceptor has been declared.
      * @param targetZone The [Zone] which originally received the request.
      * @param error The argument passed into the `handleError` method.
      */
@@ -297,17 +342,17 @@ interface ZoneSpec {
      * Allows interception of task scheduling.
      *
      * @param parentZoneDelegate Delegate which performs the parent [ZoneSpec] operation.
-     * @param currentZone The current [Zone] where the current interceptor has beed declared.
+     * @param currentZone The current [Zone] where the current interceptor has been declared.
      * @param targetZone The [Zone] which originally received the request.
      * @param task The argument passed into the `scheduleTask` method.
      */
     onScheduleTask?: (parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, task: Task) => Task;
     onInvokeTask?: (parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, task: Task, applyThis: any, applyArgs: any) => any;
     /**
-     * Allows interception of task cancelation.
+     * Allows interception of task cancellation.
      *
      * @param parentZoneDelegate Delegate which performs the parent [ZoneSpec] operation.
-     * @param currentZone The current [Zone] where the current interceptor has beed declared.
+     * @param currentZone The current [Zone] where the current interceptor has been declared.
      * @param targetZone The [Zone] which originally received the request.
      * @param task The argument passed into the `cancelTask` method.
      */
@@ -316,11 +361,11 @@ interface ZoneSpec {
      * Notifies of changes to the task queue empty status.
      *
      * @param parentZoneDelegate Delegate which performs the parent [ZoneSpec] operation.
-     * @param currentZone The current [Zone] where the current interceptor has beed declared.
+     * @param currentZone The current [Zone] where the current interceptor has been declared.
      * @param targetZone The [Zone] which originally received the request.
-     * @param isEmpty
+     * @param hasTaskState
      */
-    onHasTask?: (delegate: ZoneDelegate, current: Zone, target: Zone, hasTaskState: HasTaskState) => void;
+    onHasTask?: (parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, hasTaskState: HasTaskState) => void;
 }
 /**
  *  A delegate when intercepting zone operations.
@@ -373,7 +418,11 @@ declare type HasTaskState = {
 /**
  * Task type: `microTask`, `macroTask`, `eventTask`.
  */
-declare type TaskType = string;
+declare type TaskType = 'microTask' | 'macroTask' | 'eventTask';
+/**
+ * Task type: `notScheduled`, `scheduling`, `scheduled`, `running`, `canceling`, 'unknown'.
+ */
+declare type TaskState = 'notScheduled' | 'scheduling' | 'scheduled' | 'running' | 'canceling' | 'unknown';
 /**
  */
 interface TaskData {
@@ -413,6 +462,10 @@ interface Task {
      */
     type: TaskType;
     /**
+     * Task state: `notScheduled`, `scheduling`, `scheduled`, `running`, `canceling`, `unknown`.
+     */
+    state: TaskState;
+    /**
      * Debug string representing the API which requested the scheduling of the task.
      */
     source: string;
@@ -447,16 +500,25 @@ interface Task {
      * @type {Zone} The zone which will be used to invoke the `callback`. The Zone is captured
      * at the time of Task creation.
      */
-    zone: Zone;
+    readonly zone: Zone;
     /**
      * Number of times the task has been executed, or -1 if canceled.
      */
     runCount: number;
+    /**
+     * Cancel the scheduling request. This method can be called from `ZoneSpec.onScheduleTask` to
+     * cancel the current scheduling interception. Once canceled the task can be discarded or
+     * rescheduled using `Zone.scheduleTask` on a different zone.
+     */
+    cancelScheduleRequest(): void;
 }
 interface MicroTask extends Task {
+    type: 'microTask';
 }
 interface MacroTask extends Task {
+    type: 'macroTask';
 }
 interface EventTask extends Task {
+    type: 'eventTask';
 }
 declare const Zone: ZoneType;

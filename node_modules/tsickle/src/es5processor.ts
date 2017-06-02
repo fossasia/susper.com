@@ -11,6 +11,14 @@ import * as ts from 'typescript';
 import {getIdentifierText, Rewriter} from './rewriter';
 import {toArray} from './util';
 
+/**
+ * Extracts the namespace part of a goog: import, or returns null if the given
+ * import is not a goog: import.
+ */
+export function extractGoogNamespaceImport(tsImport: string): string|null {
+  if (tsImport.match(/^goog:/)) return tsImport.substring('goog:'.length);
+  return null;
+}
 
 /**
  * ES5Processor postprocesses TypeScript compilation output JS, to rewrite commonjs require()s into
@@ -209,10 +217,11 @@ class ES5Processor extends Rewriter {
   emitGoogRequire(varName: string|null, tsImport: string): string {
     let modName: string;
     let isNamespaceImport = false;
-    if (tsImport.match(/^goog:/)) {
+    const nsImport = extractGoogNamespaceImport(tsImport);
+    if (nsImport !== null) {
       // This is a namespace import, of the form "goog:foo.bar".
-      // Fix it to just "foo.bar", and save the variable name.
-      modName = tsImport.substr(5);
+      // Fix it to just "foo.bar".
+      modName = nsImport;
       isNamespaceImport = true;
     } else {
       modName = this.pathToModuleName(this.file.fileName, tsImport);

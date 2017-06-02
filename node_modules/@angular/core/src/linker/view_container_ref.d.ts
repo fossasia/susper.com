@@ -8,8 +8,8 @@
 import { Injector } from '../di/injector';
 import { ComponentFactory, ComponentRef } from './component_factory';
 import { ElementRef } from './element_ref';
+import { NgModuleRef } from './ng_module_factory';
 import { TemplateRef } from './template_ref';
-import { ViewContainer } from './view_container';
 import { EmbeddedViewRef, ViewRef } from './view_ref';
 /**
  * Represents a container where one or more Views can be attached.
@@ -34,9 +34,9 @@ export declare abstract class ViewContainerRef {
      * Anchor element that specifies the location of this container in the containing View.
      * <!-- TODO: rename to anchorElement -->
      */
-    element: ElementRef;
-    injector: Injector;
-    parentInjector: Injector;
+    readonly abstract element: ElementRef;
+    readonly abstract injector: Injector;
+    readonly abstract parentInjector: Injector;
     /**
      * Destroys all Views in this container.
      */
@@ -44,11 +44,11 @@ export declare abstract class ViewContainerRef {
     /**
      * Returns the {@link ViewRef} for the View located in this container at the specified index.
      */
-    abstract get(index: number): ViewRef;
+    abstract get(index: number): ViewRef | null;
     /**
      * Returns the number of Views currently attached to this container.
      */
-    length: number;
+    readonly abstract length: number;
     /**
      * Instantiates an Embedded View based on the {@link TemplateRef `templateRef`} and inserts it
      * into this container at the specified `index`.
@@ -71,7 +71,7 @@ export declare abstract class ViewContainerRef {
      *
      * Returns the {@link ComponentRef} of the Host View created for the newly instantiated Component.
      */
-    abstract createComponent<C>(componentFactory: ComponentFactory<C>, index?: number, injector?: Injector, projectableNodes?: any[][]): ComponentRef<C>;
+    abstract createComponent<C>(componentFactory: ComponentFactory<C>, index?: number, injector?: Injector, projectableNodes?: any[][], ngModule?: NgModuleRef<any>): ComponentRef<C>;
     /**
      * Inserts a View identified by a {@link ViewRef} into the container at the specified `index`.
      *
@@ -102,22 +102,5 @@ export declare abstract class ViewContainerRef {
      *
      * If the `index` param is omitted, the last {@link ViewRef} is detached.
      */
-    abstract detach(index?: number): ViewRef;
-}
-export declare class ViewContainerRef_ implements ViewContainerRef {
-    private _element;
-    constructor(_element: ViewContainer);
-    get(index: number): ViewRef;
-    length: number;
-    element: ElementRef;
-    injector: Injector;
-    parentInjector: Injector;
-    createEmbeddedView<C>(templateRef: TemplateRef<C>, context?: C, index?: number): EmbeddedViewRef<C>;
-    createComponent<C>(componentFactory: ComponentFactory<C>, index?: number, injector?: Injector, projectableNodes?: any[][]): ComponentRef<C>;
-    insert(viewRef: ViewRef, index?: number): ViewRef;
-    move(viewRef: ViewRef, currentIndex: number): ViewRef;
-    indexOf(viewRef: ViewRef): number;
-    remove(index?: number): void;
-    detach(index?: number): ViewRef;
-    clear(): void;
+    abstract detach(index?: number): ViewRef | null;
 }

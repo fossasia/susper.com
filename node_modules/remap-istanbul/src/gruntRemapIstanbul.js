@@ -1,0 +1,55 @@
+/* jshint node: true */
+/* global Promise */
+
+import loadCoverage from './loadCoverage';
+import remap from './remap';
+import writeReport from './writeReport';
+import MemoryStore from '../utils/node!istanbul/lib/store/memory';
+
+export default function gruntPlugin(grunt) {
+	grunt.registerMultiTask('remapIstanbul', function () {
+		const done = this.async();
+		const options = this.options();
+		let sources = new MemoryStore();
+		let p = [];
+
+		function warn(message) {
+			if (options.fail) {
+				grunt.fail.warn(message);
+			} else {
+				grunt.log.error(message);
+			}
+		}
+
+		this.files.forEach((file) => {
+			const coverage = remap(loadCoverage(file.src, {
+				readJSON: grunt.readJSON,
+				warn,
+			}), {
+				readFile: grunt.readFile,
+				readJSON: grunt.readJSON,
+				warn,
+				sources,
+				basePath: file.basePath,
+				useAbsolutePaths: options.useAbsolutePaths,
+				exclude: options.exclude,
+			});
+
+			if (!Object.keys(sources.map).length) {
+				sources = undefined;
+			}
+
+			if (file.type && file.dest) {
+				p.push(writeReport(coverage, file.type, {}, file.dest, sources));
+			} else {
+				p = p.concat(Object.keys(options.reports).map((key) =>
+					writeReport(coverage, key, options.reportOpts || {}, options.reports[key], sources)
+				));
+			}
+		});
+
+		Promise.all(p).then(() => {
+			done();
+		}, grunt.fail.fatal);
+	});
+};

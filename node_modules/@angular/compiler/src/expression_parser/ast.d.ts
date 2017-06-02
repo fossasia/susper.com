@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 export declare class ParserError {
     input: string;
     errLocation: string;
@@ -146,17 +153,17 @@ export declare class SafeMethodCall extends AST {
     visit(visitor: AstVisitor, context?: any): any;
 }
 export declare class FunctionCall extends AST {
-    target: AST;
+    target: AST | null;
     args: any[];
-    constructor(span: ParseSpan, target: AST, args: any[]);
+    constructor(span: ParseSpan, target: AST | null, args: any[]);
     visit(visitor: AstVisitor, context?: any): any;
 }
 export declare class ASTWithSource extends AST {
     ast: AST;
-    source: string;
+    source: string | null;
     location: string;
     errors: ParserError[];
-    constructor(ast: AST, source: string, location: string, errors: ParserError[]);
+    constructor(ast: AST, source: string | null, location: string, errors: ParserError[]);
     visit(visitor: AstVisitor, context?: any): any;
     toString(): string;
 }

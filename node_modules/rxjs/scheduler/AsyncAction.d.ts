@@ -8,12 +8,12 @@ import { AsyncScheduler } from './AsyncScheduler';
  */
 export declare class AsyncAction<T> extends Action<T> {
     protected scheduler: AsyncScheduler;
-    protected work: (state?: T) => void;
+    protected work: (this: AsyncAction<T>, state?: T) => void;
     id: any;
     state: T;
     delay: number;
     protected pending: boolean;
-    constructor(scheduler: AsyncScheduler, work: (state?: T) => void);
+    constructor(scheduler: AsyncScheduler, work: (this: AsyncAction<T>, state?: T) => void);
     schedule(state?: T, delay?: number): Subscription;
     protected requestAsyncId(scheduler: AsyncScheduler, id?: any, delay?: number): any;
     protected recycleAsyncId(scheduler: AsyncScheduler, id: any, delay?: number): any;

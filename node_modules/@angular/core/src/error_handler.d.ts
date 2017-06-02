@@ -25,6 +25,12 @@
  * @stable
  */
 export declare class ErrorHandler {
-    constructor(rethrowError?: boolean);
+    constructor(
+        /**
+         * @deprecated since v4.0 parameter no longer has an effect, as ErrorHandler will never
+         * rethrow.
+         */
+        deprecatedParameter?: boolean);
     handleError(error: any): void;
 }
+export declare function wrappedError(message: string, originalError: any): Error;

@@ -8,6 +8,7 @@ var tryCatch_1 = require('../util/tryCatch');
 var errorObject_1 = require('../util/errorObject');
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
+/* tslint:enable:max-line-length */
 /**
  * Recursively projects each source value to an Observable which is merged in
  * the output Observable.
@@ -44,7 +45,7 @@ var subscribeToResult_1 = require('../util/subscribeToResult');
  * returns an Observable.
  * @param {number} [concurrent=Number.POSITIVE_INFINITY] Maximum number of input
  * Observables being subscribed to concurrently.
- * @param {Scheduler} [scheduler=null] The Scheduler to use for subscribing to
+ * @param {Scheduler} [scheduler=null] The IScheduler to use for subscribing to
  * each projected inner Observable.
  * @return {Observable} An Observable that emits the source values and also
  * result of applying the projection function to each value emitted on the
@@ -67,7 +68,7 @@ var ExpandOperator = (function () {
         this.scheduler = scheduler;
     }
     ExpandOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new ExpandSubscriber(subscriber, this.project, this.concurrent, this.scheduler));
+        return source.subscribe(new ExpandSubscriber(subscriber, this.project, this.concurrent, this.scheduler));
     };
     return ExpandOperator;
 }());

@@ -11,19 +11,15 @@ import { subscribeToResult } from '../util/subscribeToResult';
  *
  * <img src="./img/skipUntil.png" width="100%">
  *
- * @param {Observable} the second Observable that has to emit an item before the source Observable's elements begin to
+ * @param {Observable} notifier - The second Observable that has to emit an item before the source Observable's elements begin to
  * be mirrored by the resulting Observable.
- * @return {Observable<T>} an Observable that skips items from the source Observable until the second Observable emits
+ * @return {Observable<T>} An Observable that skips items from the source Observable until the second Observable emits
  * an item, then emits the remaining items.
  * @method skipUntil
  * @owner Observable
  */
-export function skipUntil<T>(notifier: Observable<any>): Observable<T> {
+export function skipUntil<T>(this: Observable<T>, notifier: Observable<any>): Observable<T> {
   return this.lift(new SkipUntilOperator(notifier));
-}
-
-export interface SkipUntilSignature<T> {
-  (notifier: Observable<any>): Observable<T>;
 }
 
 class SkipUntilOperator<T> implements Operator<T, T> {
@@ -31,7 +27,7 @@ class SkipUntilOperator<T> implements Operator<T, T> {
   }
 
   call(subscriber: Subscriber<T>, source: any): TeardownLogic {
-    return source._subscribe(new SkipUntilSubscriber(subscriber, this.notifier));
+    return source.subscribe(new SkipUntilSubscriber(subscriber, this.notifier));
   }
 }
 

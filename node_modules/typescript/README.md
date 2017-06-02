@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Microsoft/TypeScript.svg?branch=master)](https://travis-ci.org/Microsoft/TypeScript)
 [![npm version](https://badge.fury.io/js/typescript.svg)](https://www.npmjs.com/package/typescript)
-[![Downloads](https://img.shields.io/npm/dm/TypeScript.svg)](https://www.npmjs.com/package/typescript)
+[![Downloads](https://img.shields.io/npm/dm/typescript.svg)](https://www.npmjs.com/package/typescript)
 
 # TypeScript
 
@@ -30,13 +30,17 @@ There are many ways to [contribute](https://github.com/Microsoft/TypeScript/blob
 * Engage with other TypeScript users and developers on [StackOverflow](http://stackoverflow.com/questions/tagged/typescript). 
 * Join the [#typescript](http://twitter.com/#!/search/realtime/%23typescript) discussion on Twitter.
 * [Contribute bug fixes](https://github.com/Microsoft/TypeScript/blob/master/CONTRIBUTING.md).
-* Read the language specification ([docx](https://github.com/Microsoft/TypeScript/blob/master/doc/TypeScript%20Language%20Specification.docx?raw=true), [pdf](https://github.com/Microsoft/TypeScript/blob/master/doc/TypeScript%20Language%20Specification.pdf?raw=true), [md](https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md)).
+* Read the language specification ([docx](https://github.com/Microsoft/TypeScript/blob/master/doc/TypeScript%20Language%20Specification.docx?raw=true),
+ [pdf](https://github.com/Microsoft/TypeScript/blob/master/doc/TypeScript%20Language%20Specification.pdf?raw=true), [md](https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md)).
 
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see 
+the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) 
+with any additional questions or comments.
 
 ## Documentation
 
-*  [Quick tutorial](http://www.typescriptlang.org/Tutorial)
-*  [Programming handbook](http://www.typescriptlang.org/Handbook)
+*  [Quick tutorial](http://www.typescriptlang.org/docs/tutorial.html)
+*  [Programming handbook](http://www.typescriptlang.org/docs/handbook/basic-types.html)
 *  [Language specification](https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md)
 *  [Homepage](http://www.typescriptlang.org/)
 

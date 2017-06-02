@@ -31,7 +31,7 @@ var TimestampOperator = (function () {
         this.scheduler = scheduler;
     }
     TimestampOperator.prototype.call = function (observer, source) {
-        return source._subscribe(new TimestampSubscriber(observer, this.scheduler));
+        return source.subscribe(new TimestampSubscriber(observer, this.scheduler));
     };
     return TimestampOperator;
 }());

@@ -6,29 +6,36 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {bindArguments} from '../common/utils';
+import {patchMacroTask} from '../common/utils';
 
-let fs;
-try {
-  fs = require('fs');
-} catch (err) {
-}
+Zone.__load_patch('fs', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
+  let fs: any;
+  try {
+    fs = require('fs');
+  } catch (err) {
+  }
 
-// TODO(alxhub): Patch `watch` and `unwatchFile`.
-const TO_PATCH = [
-  'access',  'appendFile', 'chmod',    'chown',    'close',     'exists',    'fchmod',
-  'fchown',  'fdatasync',  'fstat',    'fsync',    'ftruncate', 'futimes',   'lchmod',
-  'lchown',  'link',       'lstat',    'mkdir',    'mkdtemp',   'open',      'read',
-  'readdir', 'readFile',   'readlink', 'realpath', 'rename',    'rmdir',     'stat',
-  'symlink', 'truncate',   'unlink',   'utimes',   'write',     'writeFile',
-];
+  // watch, watchFile, unwatchFile has been patched
+  // because EventEmitter has been patched
+  const TO_PATCH_MACROTASK_METHODS = [
+    'access',  'appendFile', 'chmod',    'chown',    'close',     'exists',    'fchmod',
+    'fchown',  'fdatasync',  'fstat',    'fsync',    'ftruncate', 'futimes',   'lchmod',
+    'lchown',  'link',       'lstat',    'mkdir',    'mkdtemp',   'open',      'read',
+    'readdir', 'readFile',   'readlink', 'realpath', 'rename',    'rmdir',     'stat',
+    'symlink', 'truncate',   'unlink',   'utimes',   'write',     'writeFile',
+  ];
 
-if (fs) {
-  TO_PATCH.filter(name => !!fs[name] && typeof fs[name] === 'function').forEach(name => {
-    fs[name] = ((delegate: Function) => {
-      return function() {
-        return delegate.apply(this, bindArguments(<any>arguments, 'fs.' + name));
-      };
-    })(fs[name]);
-  });
-}
+  if (fs) {
+    TO_PATCH_MACROTASK_METHODS.filter(name => !!fs[name] && typeof fs[name] === 'function')
+        .forEach(name => {
+          patchMacroTask(fs, name, (self: any, args: any[]) => {
+            return {
+              name: 'fs.' + name,
+              args: args,
+              callbackIndex: args.length > 0 ? args.length - 1 : -1,
+              target: self
+            };
+          });
+        });
+  }
+});

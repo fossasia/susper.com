@@ -21,3 +21,20 @@ export declare function runFilenameOrFn_(configDir: string, filenameOrFn: any, a
  * @return {object} The joined log
  */
 export declare function joinTestLogs(log1: any, log2: any): any;
+/**
+ * Returns false if an error indicates a missing or stale element, re-throws
+ * the error otherwise
+ *
+ * @param {*} The error to check
+ * @throws {*} The error it was passed if it doesn't indicate a missing or stale
+ *   element
+ * @return {boolean} false, if it doesn't re-throw the error
+ */
+export declare function falseIfMissing(error: any): boolean;
+/**
+ * Return a boolean given boolean value.
+ *
+ * @param {boolean} value
+ * @returns {boolean} given value
+ */
+export declare function passBoolean(value: boolean): boolean;

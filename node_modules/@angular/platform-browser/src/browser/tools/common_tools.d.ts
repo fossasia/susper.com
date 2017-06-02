@@ -12,14 +12,6 @@ export declare class ChangeDetectionPerfRecord {
     constructor(msPerTick: number, numTicks: number);
 }
 /**
- * Entry point for all Angular debug tools. This object corresponds to the `ng`
- * global variable accessible in the dev console.
- */
-export declare class AngularTools {
-    profiler: AngularProfiler;
-    constructor(ref: ComponentRef<any>);
-}
-/**
  * Entry point for all Angular profiling-related debug tools. This object
  * corresponds to the `ng.profiler` in the dev console.
  */

@@ -16,10 +16,9 @@ import { SwitchView } from './ng_switch';
  * @howToUse
  * ```
  * <some-element [ngPlural]="value">
- *   <ng-container *ngPluralCase="'=0'">there is nothing</ng-container>
- *   <ng-container *ngPluralCase="'=1'">there is one</ng-container>
- *   <ng-container *ngPluralCase="'few'">there are a few</ng-container>
- *   <ng-container *ngPluralCase="'other'">there are exactly #</ng-container>
+ *   <ng-template ngPluralCase="=0">there is nothing</ng-template>
+ *   <ng-template ngPluralCase="=1">there is one</ng-template>
+ *   <ng-template ngPluralCase="few">there are a few</ng-template>
  * </some-element>
  * ```
  *
@@ -61,8 +60,8 @@ export declare class NgPlural {
  * @howToUse
  * ```
  * <some-element [ngPlural]="value">
- *   <ng-container *ngPluralCase="'=0'">...</ng-container>
- *   <ng-container *ngPluralCase="'other'">...</ng-container>
+ *   <ng-template ngPluralCase="=0">...</ng-template>
+ *   <ng-template ngPluralCase="other">...</ng-template>
  * </some-element>
  *```
  *

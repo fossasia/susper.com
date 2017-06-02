@@ -1,6 +1,6 @@
-import { SwitchFirstMapSignature } from '../../operator/exhaustMap';
+import { exhaustMap } from '../../operator/exhaustMap';
 declare module '../../Observable' {
     interface Observable<T> {
-        exhaustMap: SwitchFirstMapSignature<T>;
+        exhaustMap: typeof exhaustMap;
     }
 }

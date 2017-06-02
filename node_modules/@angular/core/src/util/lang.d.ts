@@ -5,4 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { Observable } from 'rxjs/Observable';
+/**
+ * Determine if the argument is shaped like a Promise
+ */
 export declare function isPromise(obj: any): obj is Promise<any>;
+/**
+ * Determine if the argument is an Observable
+ */
+export declare function isObservable(obj: any | Observable<any>): obj is Observable<any>;

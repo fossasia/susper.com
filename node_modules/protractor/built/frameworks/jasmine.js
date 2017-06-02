@@ -30,7 +30,7 @@ RunnerReporter.prototype.specDone = function(result) {
   }
 
   var entry = {
-    description: result.description,
+    description: result.fullName,
     assertions: [],
     duration: new Date().getTime() - this.startTime.getTime()
   };
@@ -63,7 +63,7 @@ exports.run = function(runner, specs) {
   var jrunner = new JasmineRunner();
   /* global jasmine */
 
-  require('jasminewd2').init(webdriver.promise.controlFlow());
+  require('jasminewd2').init(webdriver.promise.controlFlow(), webdriver);
 
   var jasmineNodeOpts = runner.getConfig().jasmineNodeOpts;
 
@@ -74,6 +74,9 @@ exports.run = function(runner, specs) {
   // get to complete first.
   var reporter = new RunnerReporter(runner);
   jasmine.getEnv().addReporter(reporter);
+
+  // Add hooks for afterEach
+  require('./setupAfterEach').setup(runner, specs);
 
   // Filter specs to run based on jasmineNodeOpts.grep and jasmineNodeOpts.invert.
   jasmine.getEnv().specFilter = function(spec) {
@@ -86,6 +89,16 @@ exports.run = function(runner, specs) {
     }
     return true;
   };
+
+  // Run specs in semi-random order
+  if (jasmineNodeOpts.random) {
+    jasmine.getEnv().randomizeTests(true);
+
+    // Sets the randomization seed if randomization is turned on
+    if (jasmineNodeOpts.seed) {
+      jasmine.getEnv().seed(jasmineNodeOpts.seed);
+    }
+  }
 
   return runner.runTestPreparer().then(function() {
     return q.promise(function(resolve, reject) {

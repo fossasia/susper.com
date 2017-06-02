@@ -33,7 +33,4 @@ import { Observable } from '../Observable';
  * @method sample
  * @owner Observable
  */
-export declare function sample<T>(notifier: Observable<any>): Observable<T>;
-export interface SampleSignature<T> {
-    (notifier: Observable<any>): Observable<T>;
-}
+export declare function sample<T>(this: Observable<T>, notifier: Observable<any>): Observable<T>;

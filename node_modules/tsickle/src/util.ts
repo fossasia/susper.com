@@ -1,5 +1,3 @@
-import * as ts from 'typescript';
-
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -12,6 +10,8 @@ import * as ts from 'typescript';
 // ES6 maps and sets when running on node 4, which doesn't
 // support Iterators completely.
 
+import * as ts from 'typescript';
+
 export function toArray<T>(iterator: Iterator<T>): T[] {
   const array: T[] = [];
   while (true) {
@@ -19,7 +19,7 @@ export function toArray<T>(iterator: Iterator<T>): T[] {
     if (ir.done) {
       break;
     }
-    array.push(ir.value!);
+    array.push(ir.value);
   }
   return array;
 }
@@ -52,7 +52,7 @@ export function createSourceReplacingCompilerHost(
       onError?: (message: string) => void): ts.SourceFile {
     let path: string = ts.sys.resolvePath(fileName);
     let sourceText = substituteSource.get(path);
-    if (sourceText) {
+    if (sourceText !== undefined) {
       return ts.createSourceFile(fileName, sourceText, languageVersion);
     }
     return delegate.getSourceFile(path, languageVersion, onError);

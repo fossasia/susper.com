@@ -14,19 +14,15 @@ import { TeardownLogic } from '../Subscription';
  *
  * @throws {EmptyError} Delivers an EmptyError to the Observer's `error`
  * callback if the Observable completes before any `next` notification was sent.
- * @param {Function} a predicate function to evaluate items emitted by the source Observable.
- * @return {Observable<T>} an Observable that emits the single item emitted by the source Observable that matches
+ * @param {Function} predicate - A predicate function to evaluate items emitted by the source Observable.
+ * @return {Observable<T>} An Observable that emits the single item emitted by the source Observable that matches
  * the predicate.
  .
  * @method single
  * @owner Observable
  */
-export function single<T>(predicate?: (value: T, index: number, source: Observable<T>) => boolean): Observable<T> {
+export function single<T>(this: Observable<T>, predicate?: (value: T, index: number, source: Observable<T>) => boolean): Observable<T> {
   return this.lift(new SingleOperator(predicate, this));
-}
-
-export interface SingleSignature<T> {
-  (predicate?: (value: T, index: number, source: Observable<T>) => boolean): Observable<T>;
 }
 
 class SingleOperator<T> implements Operator<T, T> {
@@ -35,7 +31,7 @@ class SingleOperator<T> implements Operator<T, T> {
   }
 
   call(subscriber: Subscriber<T>, source: any): TeardownLogic {
-    return source._subscribe(new SingleSubscriber(subscriber, this.predicate, this.source));
+    return source.subscribe(new SingleSubscriber(subscriber, this.predicate, this.source));
   }
 }
 
@@ -65,19 +61,18 @@ class SingleSubscriber<T> extends Subscriber<T> {
   }
 
   protected _next(value: T): void {
-    const predicate = this.predicate;
-    this.index++;
-    if (predicate) {
-      this.tryNext(value);
+    const index = this.index++;
+
+    if (this.predicate) {
+      this.tryNext(value, index);
     } else {
       this.applySingleValue(value);
     }
   }
 
-  private tryNext(value: T): void {
+  private tryNext(value: T, index: number): void {
     try {
-      const result = this.predicate(value, this.index, this.source);
-      if (result) {
+      if (this.predicate(value, index, this.source)) {
         this.applySingleValue(value);
       }
     } catch (err) {

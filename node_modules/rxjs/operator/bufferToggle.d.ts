@@ -37,7 +37,4 @@ import { Observable, SubscribableOrPromise } from '../Observable';
  * @method bufferToggle
  * @owner Observable
  */
-export declare function bufferToggle<T, O>(openings: SubscribableOrPromise<O>, closingSelector: (value: O) => SubscribableOrPromise<any>): Observable<T[]>;
-export interface BufferToggleSignature<T> {
-    <O>(openings: SubscribableOrPromise<O>, closingSelector: (value: O) => SubscribableOrPromise<any>): Observable<T[]>;
-}
+export declare function bufferToggle<T, O>(this: Observable<T>, openings: SubscribableOrPromise<O>, closingSelector: (value: O) => SubscribableOrPromise<any>): Observable<T[]>;

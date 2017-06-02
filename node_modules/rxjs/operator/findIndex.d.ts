@@ -33,7 +33,4 @@ import { Observable } from '../Observable';
  * @method find
  * @owner Observable
  */
-export declare function findIndex<T>(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<number>;
-export interface FindIndexSignature<T> {
-    (predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<number>;
-}
+export declare function findIndex<T>(this: Observable<T>, predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<number>;

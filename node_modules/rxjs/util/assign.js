@@ -1,31 +1,26 @@
 "use strict";
 var root_1 = require('./root');
-var Object = root_1.root.Object;
-if (typeof Object.assign != 'function') {
-    (function () {
-        Object.assign = function assignPolyfill(target) {
-            var sources = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                sources[_i - 1] = arguments[_i];
+function assignImpl(target) {
+    var sources = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        sources[_i - 1] = arguments[_i];
+    }
+    var len = sources.length;
+    for (var i = 0; i < len; i++) {
+        var source = sources[i];
+        for (var k in source) {
+            if (source.hasOwnProperty(k)) {
+                target[k] = source[k];
             }
-            if (target === undefined || target === null) {
-                throw new TypeError('cannot convert undefined or null to object');
-            }
-            var output = Object(target);
-            var len = sources.length;
-            for (var index = 0; index < len; index++) {
-                var source = sources[index];
-                if (source !== undefined && source !== null) {
-                    for (var key in source) {
-                        if (source.hasOwnProperty(key)) {
-                            output[key] = source[key];
-                        }
-                    }
-                }
-            }
-            return output;
-        };
-    })();
+        }
+    }
+    return target;
 }
-exports.assign = Object.assign;
+exports.assignImpl = assignImpl;
+;
+function getAssign(root) {
+    return root.Object.assign || assignImpl;
+}
+exports.getAssign = getAssign;
+exports.assign = getAssign(root_1.root);
 //# sourceMappingURL=assign.js.map

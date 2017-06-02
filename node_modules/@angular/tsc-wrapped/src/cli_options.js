@@ -22,9 +22,12 @@ exports.CliOptions = CliOptions;
 var I18nExtractionCliOptions = (function (_super) {
     __extends(I18nExtractionCliOptions, _super);
     function I18nExtractionCliOptions(_a) {
-        var _b = _a.i18nFormat, i18nFormat = _b === void 0 ? null : _b;
-        _super.call(this, {});
-        this.i18nFormat = i18nFormat;
+        var _b = _a.i18nFormat, i18nFormat = _b === void 0 ? null : _b, _c = _a.locale, locale = _c === void 0 ? null : _c, _d = _a.outFile, outFile = _d === void 0 ? null : _d;
+        var _this = _super.call(this, {}) || this;
+        _this.i18nFormat = i18nFormat;
+        _this.locale = locale;
+        _this.outFile = outFile;
+        return _this;
     }
     return I18nExtractionCliOptions;
 }(CliOptions));
@@ -33,10 +36,11 @@ var NgcCliOptions = (function (_super) {
     __extends(NgcCliOptions, _super);
     function NgcCliOptions(_a) {
         var _b = _a.i18nFormat, i18nFormat = _b === void 0 ? null : _b, _c = _a.i18nFile, i18nFile = _c === void 0 ? null : _c, _d = _a.locale, locale = _d === void 0 ? null : _d, _e = _a.basePath, basePath = _e === void 0 ? null : _e;
-        _super.call(this, { basePath: basePath });
-        this.i18nFormat = i18nFormat;
-        this.i18nFile = i18nFile;
-        this.locale = locale;
+        var _this = _super.call(this, { basePath: basePath }) || this;
+        _this.i18nFormat = i18nFormat;
+        _this.i18nFile = i18nFile;
+        _this.locale = locale;
+        return _this;
     }
     return NgcCliOptions;
 }(CliOptions));

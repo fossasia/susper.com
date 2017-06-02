@@ -24,7 +24,7 @@ export declare class ReflectiveKey {
     /**
      * Returns a stringified token.
      */
-    displayName: string;
+    readonly displayName: string;
     /**
      * Retrieves a `Key` for a token.
      */
@@ -32,5 +32,5 @@ export declare class ReflectiveKey {
     /**
      * @returns the number of keys registered in the system.
      */
-    static numberOfKeys: number;
+    static readonly numberOfKeys: number;
 }

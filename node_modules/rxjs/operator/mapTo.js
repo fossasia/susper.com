@@ -40,7 +40,7 @@ var MapToOperator = (function () {
         this.value = value;
     }
     MapToOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new MapToSubscriber(subscriber, this.value));
+        return source.subscribe(new MapToSubscriber(subscriber, this.value));
     };
     return MapToOperator;
 }());

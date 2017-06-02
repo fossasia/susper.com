@@ -1,7 +1,16 @@
 languages:
   JavaScript: true
+ratings:
+  paths:
+  - "src/**/*.js"
 exclude_paths:
-- "lib/*"
+- "lib/**"
 - "dist/*"
-- "grunt/*"
+- "grunt/**"
 - "images/*"
+- "**/*.md"
+- "**/*.yml"
+- "**/*.json"
+- "**/*.scss"
+- "**/*.erb"
+- "*.sh"

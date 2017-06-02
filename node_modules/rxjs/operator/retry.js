@@ -6,10 +6,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Subscriber_1 = require('../Subscriber');
 /**
- * Returns an Observable that mirrors the source Observable, resubscribing to it if it calls `error` and the
- * predicate returns true for that specific exception and retry count.
- * If the source Observable calls `error`, this method will resubscribe to the source Observable for a maximum of
- * count resubscriptions (given as a number parameter) rather than propagating the `error` call.
+ * Returns an Observable that mirrors the source Observable with the exception of an `error`. If the source Observable
+ * calls `error`, this method will resubscribe to the source Observable for a maximum of `count` resubscriptions (given
+ * as a number parameter) rather than propagating the `error` call.
  *
  * <img src="./img/retry.png" width="100%">
  *
@@ -17,8 +16,8 @@ var Subscriber_1 = require('../Subscriber');
  * during failed subscriptions. For example, if an Observable fails at first but emits [1, 2] then succeeds the second
  * time and emits: [1, 2, 3, 4, 5] then the complete stream of emissions and notifications
  * would be: [1, 2, 1, 2, 3, 4, 5, `complete`].
- * @param {number} number of retry attempts before failing.
- * @return {Observable} the source Observable modified with the retry logic.
+ * @param {number} count - Number of retry attempts before failing.
+ * @return {Observable} The source Observable modified with the retry logic.
  * @method retry
  * @owner Observable
  */
@@ -33,7 +32,7 @@ var RetryOperator = (function () {
         this.source = source;
     }
     RetryOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new RetrySubscriber(subscriber, this.count, this.source));
+        return source.subscribe(new RetrySubscriber(subscriber, this.count, this.source));
     };
     return RetryOperator;
 }());
@@ -58,10 +57,7 @@ var RetrySubscriber = (function (_super) {
             else if (count > -1) {
                 this.count = count - 1;
             }
-            this.unsubscribe();
-            this.isStopped = false;
-            this.closed = false;
-            source.subscribe(this);
+            source.subscribe(this._unsubscribeAndRecycle());
         }
     };
     return RetrySubscriber;

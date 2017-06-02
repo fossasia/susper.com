@@ -51,7 +51,7 @@ var BufferWhenOperator = (function () {
         this.closingSelector = closingSelector;
     }
     BufferWhenOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new BufferWhenSubscriber(subscriber, this.closingSelector));
+        return source.subscribe(new BufferWhenSubscriber(subscriber, this.closingSelector));
     };
     return BufferWhenOperator;
 }());

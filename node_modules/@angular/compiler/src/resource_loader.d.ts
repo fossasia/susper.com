@@ -10,5 +10,5 @@
  * to load templates.
  */
 export declare class ResourceLoader {
-    get(url: string): Promise<string>;
+    get(url: string): Promise<string> | null;
 }

@@ -52,17 +52,13 @@ import { subscribeToResult } from '../util/subscribeToResult';
  * @method delayWhen
  * @owner Observable
  */
-export function delayWhen<T>(delayDurationSelector: (value: T) => Observable<any>,
+export function delayWhen<T>(this: Observable<T>, delayDurationSelector: (value: T) => Observable<any>,
                              subscriptionDelay?: Observable<any>): Observable<T> {
   if (subscriptionDelay) {
     return new SubscriptionDelayObservable(this, subscriptionDelay)
-            .lift(new DelayWhenOperator(delayDurationSelector));
+      .lift(new DelayWhenOperator(delayDurationSelector));
   }
   return this.lift(new DelayWhenOperator(delayDurationSelector));
-}
-
-export interface DelayWhenSignature<T> {
-  (delayDurationSelector: (value: T) => Observable<any>, subscriptionDelay?: Observable<any>): Observable<T>;
 }
 
 class DelayWhenOperator<T> implements Operator<T, T> {
@@ -70,7 +66,7 @@ class DelayWhenOperator<T> implements Operator<T, T> {
   }
 
   call(subscriber: Subscriber<T>, source: any): TeardownLogic {
-    return source._subscribe(new DelayWhenSubscriber(subscriber, this.delayDurationSelector));
+    return source.subscribe(new DelayWhenSubscriber(subscriber, this.delayDurationSelector));
   }
 }
 
@@ -116,7 +112,7 @@ class DelayWhenSubscriber<T, R> extends OuterSubscriber<T, R> {
         this.tryDelay(delayNotifier, value);
       }
     } catch (err) {
-        this.destination.error(err);
+      this.destination.error(err);
     }
   }
 
@@ -142,9 +138,12 @@ class DelayWhenSubscriber<T, R> extends OuterSubscriber<T, R> {
 
   private tryDelay(delayNotifier: Observable<any>, value: T): void {
     const notifierSubscription = subscribeToResult(this, delayNotifier, value);
-    this.add(notifierSubscription);
 
-    this.delayNotifierSubscriptions.push(notifierSubscription);
+    if (notifierSubscription && !notifierSubscription.closed) {
+      this.add(notifierSubscription);
+      this.delayNotifierSubscriptions.push(notifierSubscription);
+    }
+
     this.values.push(value);
   }
 

@@ -8,11 +8,12 @@ var isArray_1 = require('../util/isArray');
 var ArrayObservable_1 = require('../observable/ArrayObservable');
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
+/* tslint:enable:max-line-length */
 /**
  * Returns an Observable that mirrors the first source Observable to emit an item
- * from the combination of this Observable and supplied Observables
- * @param {...Observables} ...observables sources used to race for which Observable emits first.
- * @return {Observable} an Observable that mirrors the output of the first Observable to emit an item.
+ * from the combination of this Observable and supplied Observables.
+ * @param {...Observables} ...observables Sources used to race for which Observable emits first.
+ * @return {Observable} An Observable that mirrors the output of the first Observable to emit an item.
  * @method race
  * @owner Observable
  */
@@ -26,8 +27,7 @@ function race() {
     if (observables.length === 1 && isArray_1.isArray(observables[0])) {
         observables = observables[0];
     }
-    observables.unshift(this);
-    return raceStatic.apply(this, observables);
+    return this.lift.call(raceStatic.apply(void 0, [this].concat(observables)));
 }
 exports.race = race;
 function raceStatic() {
@@ -36,7 +36,7 @@ function raceStatic() {
         observables[_i - 0] = arguments[_i];
     }
     // if the only argument is an array, it was most likely called with
-    // `pair([obs1, obs2, ...])`
+    // `race([obs1, obs2, ...])`
     if (observables.length === 1) {
         if (isArray_1.isArray(observables[0])) {
             observables = observables[0];
@@ -52,7 +52,7 @@ var RaceOperator = (function () {
     function RaceOperator() {
     }
     RaceOperator.prototype.call = function (subscriber, source) {
-        return source._subscribe(new RaceSubscriber(subscriber));
+        return source.subscribe(new RaceSubscriber(subscriber));
     };
     return RaceOperator;
 }());
@@ -80,13 +80,13 @@ var RaceSubscriber = (function (_super) {
             this.destination.complete();
         }
         else {
-            for (var i = 0; i < len; i++) {
+            for (var i = 0; i < len && !this.hasFirst; i++) {
                 var observable = observables[i];
                 var subscription = subscribeToResult_1.subscribeToResult(this, observable, observable, i);
                 if (this.subscriptions) {
                     this.subscriptions.push(subscription);
-                    this.add(subscription);
                 }
+                this.add(subscription);
             }
             this.observables = null;
         }

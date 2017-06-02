@@ -11,12 +11,12 @@ import { EventManagerPlugin } from './event_manager';
  * @experimental
  */
 export declare class KeyEventsPlugin extends EventManagerPlugin {
-    constructor();
+    constructor(doc: any);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     static parseEventName(eventName: string): {
         [key: string]: string;
-    };
+    } | null;
     static getEventFullKey(event: KeyboardEvent): string;
     static eventCallback(fullKey: any, handler: Function, zone: NgZone): Function;
 }

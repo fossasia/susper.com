@@ -1,7 +1,8 @@
 "use strict";
 var root_1 = require('./root');
-var isArray_1 = require('./isArray');
+var isArrayLike_1 = require('./isArrayLike');
 var isPromise_1 = require('./isPromise');
+var isObject_1 = require('./isObject');
 var Observable_1 = require('../Observable');
 var iterator_1 = require('../symbol/iterator');
 var InnerSubscriber_1 = require('../InnerSubscriber');
@@ -21,7 +22,7 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
             return result.subscribe(destination);
         }
     }
-    if (isArray_1.isArray(result)) {
+    else if (isArrayLike_1.isArrayLike(result)) {
         for (var i = 0, len = result.length; i < len && !destination.closed; i++) {
             destination.next(result[i]);
         }
@@ -42,8 +43,8 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
         });
         return destination;
     }
-    else if (typeof result[iterator_1.$$iterator] === 'function') {
-        var iterator = result[iterator_1.$$iterator]();
+    else if (result && typeof result[iterator_1.iterator] === 'function') {
+        var iterator = result[iterator_1.iterator]();
         do {
             var item = iterator.next();
             if (item.done) {
@@ -56,17 +57,20 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
             }
         } while (true);
     }
-    else if (typeof result[observable_1.$$observable] === 'function') {
-        var obs = result[observable_1.$$observable]();
+    else if (result && typeof result[observable_1.observable] === 'function') {
+        var obs = result[observable_1.observable]();
         if (typeof obs.subscribe !== 'function') {
-            destination.error(new Error('invalid observable'));
+            destination.error(new TypeError('Provided object does not correctly implement Symbol.observable'));
         }
         else {
             return obs.subscribe(new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex));
         }
     }
     else {
-        destination.error(new TypeError('unknown type returned'));
+        var value = isObject_1.isObject(result) ? 'an invalid object' : "'" + result + "'";
+        var msg = ("You provided " + value + " where a stream was expected.")
+            + ' You can provide an Observable, Promise, Array, or Iterable.';
+        destination.error(new TypeError(msg));
     }
     return null;
 }

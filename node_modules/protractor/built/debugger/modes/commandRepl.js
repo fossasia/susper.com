@@ -9,7 +9,7 @@ var REPL_INITIAL_SUGGESTIONS = [
 ];
 
 /**
- * Repl to interactively run code.
+ * Repl to interactively run commands in the context of the test.
  *
  * @param {Client} node debugger client.
  * @constructor
@@ -30,7 +30,7 @@ var CommandRepl = function(client) {
 CommandRepl.prototype.stepEval = function(expression, callback) {
   expression = expression.replace(/"/g, '\\\"');
 
-  var expr = 'browser.dbgCodeExecutor_.execute("' + expression + '")';
+  var expr = 'browser.debugHelper.dbgCodeExecutor.execute("' + expression + '")';
   this.evaluate_(expr, callback);
 };
 
@@ -46,8 +46,9 @@ CommandRepl.prototype.complete = function(line, callback) {
   if (line === '') {
     callback(null, [REPL_INITIAL_SUGGESTIONS, '']);
   } else {
+    // TODO(juliemr): This is freezing the program!
     line = line.replace(/"/g, '\\\"');
-    var expr = 'browser.dbgCodeExecutor_.complete("' + line + '")';
+    var expr = 'browser.debugHelper.dbgCodeExecutor.complete("' + line + '")';
     this.evaluate_(expr, function(err, res) {
       // Result is a JSON representation of the autocomplete response. 
       var result = res === undefined ? undefined : JSON.parse(res);
@@ -73,9 +74,13 @@ CommandRepl.prototype.evaluate_ = function(expression, callback) {
       arguments: {
         frame: 0,
         maxStringLength: 1000,
-        expression: 'browser.dbgCodeExecutor_.resultReady()'
+        expression: 'browser.debugHelper.dbgCodeExecutor.resultReady()'
       }
     }, function(err, res) {
+      if (err) {
+        throw new Error('Error while checking if debugger expression result was ready.' + 
+            'Expression: ' + expression + ' Error: ' + err);
+      }
       // If code finished executing, get result.
       if (res.value) {
         self.client.req({
@@ -83,7 +88,7 @@ CommandRepl.prototype.evaluate_ = function(expression, callback) {
           arguments: {
             frame: 0,
             maxStringLength: -1,
-            expression: 'browser.dbgCodeExecutor_.getResult()'
+            expression: 'browser.debugHelper.dbgCodeExecutor.getResult()'
           }
         }, function(err, res) {
           try {

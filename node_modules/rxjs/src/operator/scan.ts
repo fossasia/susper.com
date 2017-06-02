@@ -2,6 +2,12 @@ import { Operator } from '../Operator';
 import { Observable } from '../Observable';
 import { Subscriber } from '../Subscriber';
 
+/* tslint:disable:max-line-length */
+export function scan<T>(this: Observable<T>, accumulator: (acc: T, value: T, index: number) => T, seed?: T): Observable<T>;
+export function scan<T>(this: Observable<T>, accumulator: (acc: T[], value: T, index: number) => T[], seed?: T[]): Observable<T[]>;
+export function scan<T, R>(this: Observable<T>, accumulator: (acc: R, value: T, index: number) => R, seed?: R): Observable<R>;
+/* tslint:enable:max-line-length */
+
 /**
  * Applies an accumulator function over the source Observable, and returns each
  * intermediate result, with an optional seed value.
@@ -39,16 +45,25 @@ import { Subscriber } from '../Subscriber';
  * @method scan
  * @owner Observable
  */
-export function scan<T, R>(accumulator: (acc: R, value: T, index: number) => R, seed?: T | R): Observable<R> {
-  return this.lift(new ScanOperator(accumulator, seed));
+export function scan<T, R>(this: Observable<T>, accumulator: (acc: R, value: T, index: number) => R, seed?: T | R): Observable<R> {
+  let hasSeed = false;
+  // providing a seed of `undefined` *should* be valid and trigger
+  // hasSeed! so don't use `seed !== undefined` checks!
+  // For this reason, we have to check it here at the original call site
+  // otherwise inside Operator/Subscriber we won't know if `undefined`
+  // means they didn't provide anything or if they literally provided `undefined`
+  if (arguments.length >= 2) {
+    hasSeed = true;
+  }
+
+  return this.lift(new ScanOperator(accumulator, seed, hasSeed));
 }
 
 class ScanOperator<T, R> implements Operator<T, R> {
-  constructor(private accumulator: (acc: R, value: T, index: number) => R, private seed?: T | R) {
-  }
+  constructor(private accumulator: (acc: R, value: T, index: number) => R, private seed?: T | R, private hasSeed: boolean = false) {}
 
   call(subscriber: Subscriber<R>, source: any): any {
-    return source._subscribe(new ScanSubscriber(subscriber, this.accumulator, this.seed));
+    return source.subscribe(new ScanSubscriber(subscriber, this.accumulator, this.seed, this.hasSeed));
   }
 }
 
@@ -59,26 +74,23 @@ class ScanOperator<T, R> implements Operator<T, R> {
  */
 class ScanSubscriber<T, R> extends Subscriber<T> {
   private index: number = 0;
-  private accumulatorSet: boolean = false;
-  private _seed: T | R;
 
   get seed(): T | R {
     return this._seed;
   }
 
   set seed(value: T | R) {
-    this.accumulatorSet = true;
+    this.hasSeed = true;
     this._seed = value;
   }
 
-  constructor(destination: Subscriber<R>, private accumulator: (acc: R, value: T, index: number) => R, seed?: T | R) {
+  constructor(destination: Subscriber<R>, private accumulator: (acc: R, value: T, index: number) => R, private _seed: T | R,
+              private hasSeed: boolean) {
     super(destination);
-    this.seed = seed;
-    this.accumulatorSet = typeof seed !== 'undefined';
   }
 
   protected _next(value: T): void {
-    if (!this.accumulatorSet) {
+    if (!this.hasSeed) {
       this.seed = value;
       this.destination.next(value);
     } else {

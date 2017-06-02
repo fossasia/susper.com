@@ -1,3 +1,12 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { Type } from '../type';
+import { InjectionToken } from './injection_token';
 export declare const THROW_IF_NOT_FOUND: Object;
 /**
  * @whatItDoes Injector interface
@@ -25,9 +34,14 @@ export declare abstract class Injector {
     /**
      * Retrieves an instance from the injector based on the provided token.
      * If not found:
-     * - Throws {@link NoProviderError} if no `notFoundValue` that is not equal to
+     * - Throws an error if no `notFoundValue` that is not equal to
      * Injector.THROW_IF_NOT_FOUND is given
      * - Returns the `notFoundValue` otherwise
      */
-    get(token: any, notFoundValue?: any): any;
+    abstract get<T>(token: Type<T> | InjectionToken<T>, notFoundValue?: T): T;
+    /**
+     * @deprecated from v4.0.0 use Type<T> or InjectionToken<T>
+     * @suppress {duplicate}
+     */
+    abstract get(token: any, notFoundValue?: any): any;
 }

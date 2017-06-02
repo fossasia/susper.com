@@ -5,8 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { OnChanges, SimpleChanges } from '@angular/core';
-import { EventEmitter } from '../../facade/async';
+import { EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '../../model';
 import { ControlContainer } from '../control_container';
 import { Form } from '../form_interface';
@@ -25,11 +24,11 @@ export declare const formDirectiveProvider: any;
  *
  * **Set value**: You can set the form's initial value when instantiating the
  * {@link FormGroup}, or you can set it programmatically later using the {@link FormGroup}'s
- * {@link AbstractControl.setValue} or {@link AbstractControl.patchValue} methods.
+ * {@link AbstractControl#setValue} or {@link AbstractControl#patchValue} methods.
  *
  * **Listen to value**: If you want to listen to changes in the value of the form, you can subscribe
- * to the {@link FormGroup}'s {@link AbstractControl.valueChanges} event.  You can also listen to
- * its {@link AbstractControl.statusChanges} event to be notified when the validation status is
+ * to the {@link FormGroup}'s {@link AbstractControl#valueChanges} event.  You can also listen to
+ * its {@link AbstractControl#statusChanges} event to be notified when the validation status is
  * re-calculated.
  *
  * Furthermore, you can listen to the directive's `ngSubmit` event to be notified when the user has
@@ -58,10 +57,10 @@ export declare class FormGroupDirective extends ControlContainer implements Form
     ngSubmit: EventEmitter<{}>;
     constructor(_validators: any[], _asyncValidators: any[]);
     ngOnChanges(changes: SimpleChanges): void;
-    submitted: boolean;
-    formDirective: Form;
-    control: FormGroup;
-    path: string[];
+    readonly submitted: boolean;
+    readonly formDirective: Form;
+    readonly control: FormGroup;
+    readonly path: string[];
     addControl(dir: FormControlName): FormControl;
     getControl(dir: FormControlName): FormControl;
     removeControl(dir: FormControlName): void;

@@ -8,6 +8,7 @@ export interface ASTField {
     span: e.ParseSpan;
 }
 export declare class Rule extends Lint.Rules.AbstractRule {
+    static metadata: Lint.IRuleMetadata;
     static FAILURE: string;
     apply(sourceFile: ts.SourceFile): Lint.RuleFailure[];
 }

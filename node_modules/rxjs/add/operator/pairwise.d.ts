@@ -1,6 +1,6 @@
-import { PairwiseSignature } from '../../operator/pairwise';
+import { pairwise } from '../../operator/pairwise';
 declare module '../../Observable' {
     interface Observable<T> {
-        pairwise: PairwiseSignature<T>;
+        pairwise: typeof pairwise;
     }
 }

@@ -1,6 +1,6 @@
-import { ObserveOnSignature } from '../../operator/observeOn';
+import { observeOn } from '../../operator/observeOn';
 declare module '../../Observable' {
     interface Observable<T> {
-        observeOn: ObserveOnSignature<T>;
+        observeOn: typeof observeOn;
     }
 }

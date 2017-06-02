@@ -40,12 +40,8 @@ import { subscribeToResult } from '../util/subscribeToResult';
  * @method sample
  * @owner Observable
  */
-export function sample<T>(notifier: Observable<any>): Observable<T> {
+export function sample<T>(this: Observable<T>, notifier: Observable<any>): Observable<T> {
   return this.lift(new SampleOperator(notifier));
-}
-
-export interface SampleSignature<T> {
-  (notifier: Observable<any>): Observable<T>;
 }
 
 class SampleOperator<T> implements Operator<T, T> {
@@ -53,7 +49,10 @@ class SampleOperator<T> implements Operator<T, T> {
   }
 
   call(subscriber: Subscriber<T>, source: any): TeardownLogic {
-    return source._subscribe(new SampleSubscriber(subscriber, this.notifier));
+    const sampleSubscriber = new SampleSubscriber(subscriber);
+    const subscription = source.subscribe(sampleSubscriber);
+    subscription.add(subscribeToResult(sampleSubscriber, this.notifier));
+    return subscription;
   }
 }
 
@@ -65,11 +64,6 @@ class SampleOperator<T> implements Operator<T, T> {
 class SampleSubscriber<T, R> extends OuterSubscriber<T, R> {
   private value: T;
   private hasValue: boolean = false;
-
-  constructor(destination: Subscriber<any>, notifier: Observable<any>) {
-    super(destination);
-    this.add(subscribeToResult(this, notifier));
-  }
 
   protected _next(value: T) {
     this.value = value;

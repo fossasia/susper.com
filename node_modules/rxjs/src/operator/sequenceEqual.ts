@@ -5,10 +5,6 @@ import { Subscriber } from '../Subscriber';
 import { tryCatch } from '../util/tryCatch';
 import { errorObject } from '../util/errorObject';
 
-export interface SequenceEqualSignature<T> {
-  (compareTo: Observable<T>, comparor?: (a: T, b: T) => boolean): Observable<boolean>;
-}
-
 /**
  * Compares all values of two observables in sequence using an optional comparor function
  * and returns an observable of a single boolean value representing whether or not the two sequences
@@ -26,7 +22,7 @@ export interface SequenceEqualSignature<T> {
  * completes or emits after the other complets, the returned observable will never complete.
  *
  * @example <caption>figure out if the Konami code matches</caption>
- * var code = Observable.from([
+ * var code = Rx.Observable.from([
  *  "ArrowUp",
  *  "ArrowUp",
  *  "ArrowDown",
@@ -54,25 +50,25 @@ export interface SequenceEqualSignature<T> {
  * @see {@link zip}
  * @see {@link withLatestFrom}
  *
- * @param {Observable} compareTo the observable sequence to compare the source sequence to.
+ * @param {Observable} compareTo The observable sequence to compare the source sequence to.
  * @param {function} [comparor] An optional function to compare each value pair
  * @return {Observable} An Observable of a single boolean value representing whether or not
- * the values emitted by both observables were equal in sequence
+ * the values emitted by both observables were equal in sequence.
  * @method sequenceEqual
  * @owner Observable
  */
-export function sequenceEqual<T>(compareTo: Observable<T>,
+export function sequenceEqual<T>(this: Observable<T>, compareTo: Observable<T>,
                                  comparor?: (a: T, b: T) => boolean): Observable<boolean> {
   return this.lift(new SequenceEqualOperator(compareTo, comparor));
 }
 
-export class SequenceEqualOperator<T> implements Operator<T, T> {
+export class SequenceEqualOperator<T> implements Operator<T, boolean> {
   constructor(private compareTo: Observable<T>,
               private comparor: (a: T, b: T) => boolean) {
   }
 
-  call(subscriber: Subscriber<T>, source: any): any {
-    return source._subscribe(new SequenceEqualSubscriber(subscriber, this.compareTo, this.comparor));
+  call(subscriber: Subscriber<boolean>, source: any): any {
+    return source.subscribe(new SequenceEqualSubscriber(subscriber, this.compareTo, this.comparor));
   }
 }
 

@@ -1,6 +1,6 @@
-import { WindowTimeSignature } from '../../operator/windowTime';
+import { windowTime } from '../../operator/windowTime';
 declare module '../../Observable' {
     interface Observable<T> {
-        windowTime: WindowTimeSignature<T>;
+        windowTime: typeof windowTime;
     }
 }

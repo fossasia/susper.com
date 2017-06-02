@@ -1,6 +1,6 @@
-import { TimeoutWithSignature } from '../../operator/timeoutWith';
+import { timeoutWith } from '../../operator/timeoutWith';
 declare module '../../Observable' {
     interface Observable<T> {
-        timeoutWith: TimeoutWithSignature<T>;
+        timeoutWith: typeof timeoutWith;
     }
 }

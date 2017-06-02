@@ -31,7 +31,7 @@ export declare class FormBuilder {
         [key: string]: any;
     }, extra?: {
         [key: string]: any;
-    }): FormGroup;
+    } | null): FormGroup;
     /**
      * Construct a new {@link FormControl} with the given `formState`,`validator`, and
      * `asyncValidator`.
@@ -40,10 +40,10 @@ export declare class FormBuilder {
      * that contains both a value and a disabled status.
      *
      */
-    control(formState: Object, validator?: ValidatorFn | ValidatorFn[], asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[]): FormControl;
+    control(formState: Object, validator?: ValidatorFn | ValidatorFn[] | null, asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null): FormControl;
     /**
      * Construct a {@link FormArray} from the given `controlsConfig` array of
      * configuration, with the given optional `validator` and `asyncValidator`.
      */
-    array(controlsConfig: any[], validator?: ValidatorFn, asyncValidator?: AsyncValidatorFn): FormArray;
+    array(controlsConfig: any[], validator?: ValidatorFn | null, asyncValidator?: AsyncValidatorFn | null): FormArray;
 }

@@ -53,7 +53,7 @@ var WindowOperator = (function () {
     }
     WindowOperator.prototype.call = function (subscriber, source) {
         var windowSubscriber = new WindowSubscriber(subscriber);
-        var sourceSubscription = source._subscribe(windowSubscriber);
+        var sourceSubscription = source.subscribe(windowSubscriber);
         if (!sourceSubscription.closed) {
             windowSubscriber.add(subscribeToResult_1.subscribeToResult(windowSubscriber, this.windowBoundaries));
         }

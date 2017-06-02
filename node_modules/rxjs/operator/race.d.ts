@@ -4,19 +4,10 @@ import { Subscriber } from '../Subscriber';
 import { TeardownLogic } from '../Subscription';
 import { OuterSubscriber } from '../OuterSubscriber';
 import { InnerSubscriber } from '../InnerSubscriber';
-/**
- * Returns an Observable that mirrors the first source Observable to emit an item
- * from the combination of this Observable and supplied Observables
- * @param {...Observables} ...observables sources used to race for which Observable emits first.
- * @return {Observable} an Observable that mirrors the output of the first Observable to emit an item.
- * @method race
- * @owner Observable
- */
-export declare function race<T>(...observables: Array<Observable<T> | Array<Observable<T>>>): Observable<T>;
-export interface RaceSignature<T> {
-    (...observables: Array<Observable<T> | Array<Observable<T>>>): Observable<T>;
-    <R>(...observables: Array<Observable<any> | Array<Observable<T>>>): Observable<R>;
-}
+export declare function race<T>(this: Observable<T>, observables: Array<Observable<T>>): Observable<T>;
+export declare function race<T, R>(this: Observable<T>, observables: Array<Observable<T>>): Observable<R>;
+export declare function race<T>(this: Observable<T>, ...observables: Array<Observable<T> | Array<Observable<T>>>): Observable<T>;
+export declare function race<T, R>(this: Observable<T>, ...observables: Array<Observable<any> | Array<Observable<any>>>): Observable<R>;
 /**
  * Returns an Observable that mirrors the first source Observable to emit an item.
  * @param {...Observables} ...observables sources used to race for which Observable emits first.
@@ -25,6 +16,8 @@ export interface RaceSignature<T> {
  * @name race
  * @owner Observable
  */
+export declare function raceStatic<T>(observables: Array<Observable<T>>): Observable<T>;
+export declare function raceStatic<T>(observables: Array<Observable<any>>): Observable<T>;
 export declare function raceStatic<T>(...observables: Array<Observable<T> | Array<Observable<T>>>): Observable<T>;
 export declare class RaceOperator<T> implements Operator<T, T> {
     call(subscriber: Subscriber<T>, source: any): TeardownLogic;

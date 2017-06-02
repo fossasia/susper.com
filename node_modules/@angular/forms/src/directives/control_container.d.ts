@@ -14,14 +14,14 @@ import { Form } from './form_interface';
  *
  * @stable
  */
-export declare class ControlContainer extends AbstractControlDirective {
+export declare abstract class ControlContainer extends AbstractControlDirective {
     name: string;
     /**
      * Get the form to which this container belongs.
      */
-    formDirective: Form;
+    readonly formDirective: Form | null;
     /**
      * Get the path to this container.
      */
-    path: string[];
+    readonly path: string[] | null;
 }

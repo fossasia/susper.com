@@ -21,9 +21,6 @@
 
 'use strict';
 
-const promise = require('./promise');
-
-
 /**
  * Describes a command to execute.
  * @final
@@ -228,29 +225,10 @@ class Executor {
    * response object.
    *
    * @param {!Command} command The command to execute.
-   * @return {!promise.Promise<?>} A promise that will be fulfilled with
-   *     the command result.
+   * @return {!Promise<?>} A promise that will be fulfilled with the command
+   *     result.
    */
   execute(command) {}
-}
-
-
-/**
- * Wraps a promised {@link Executor}, ensuring no commands are executed until
- * the wrapped executor has been fully resolved.
- * @implements {Executor}
- */
-class DeferredExecutor {
-  /**
-   * @param {!promise.Promise<Executor>} delegate The promised delegate, which
-   *     may be provided by any promise-like thenable object.
-   */
-  constructor(delegate) {
-    /** @override */
-    this.execute = function(command) {
-      return delegate.then(executor => executor.execute(command));
-    };
-  }
 }
 
 
@@ -261,6 +239,5 @@ class DeferredExecutor {
 module.exports = {
   Command: Command,
   Name: Name,
-  Executor: Executor,
-  DeferredExecutor: DeferredExecutor
+  Executor: Executor
 };

@@ -6,12 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {isBrowser} from '../common/utils';
+import {attachOriginToPatched, isBrowser, isMix} from '../common/utils';
 
 import {_redefineProperty} from './define-property';
 
 export function registerElementPatch(_global: any) {
-  if (!isBrowser || !('registerElement' in (<any>_global).document)) {
+  if ((!isBrowser && !isMix) || !('registerElement' in (<any>_global).document)) {
     return;
   }
 
@@ -19,7 +19,7 @@ export function registerElementPatch(_global: any) {
   const callbacks =
       ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
 
-  (<any>document).registerElement = function(name, opts) {
+  (<any>document).registerElement = function(name: any, opts: any) {
     if (opts && opts.prototype) {
       callbacks.forEach(function(callback) {
         const source = 'Document.registerElement::' + callback;
@@ -39,4 +39,6 @@ export function registerElementPatch(_global: any) {
 
     return _registerElement.apply(document, [name, opts]);
   };
+
+  attachOriginToPatched((<any>document).registerElement, _registerElement);
 }

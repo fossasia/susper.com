@@ -1,6 +1,6 @@
-import { ZipAllSignature } from '../../operator/zipAll';
+import { zipAll } from '../../operator/zipAll';
 declare module '../../Observable' {
     interface Observable<T> {
-        zipAll: ZipAllSignature<T>;
+        zipAll: typeof zipAll;
     }
 }

@@ -1,6 +1,6 @@
-import { RepeatWhenSignature } from '../../operator/repeatWhen';
+import { repeatWhen } from '../../operator/repeatWhen';
 declare module '../../Observable' {
     interface Observable<T> {
-        repeatWhen: RepeatWhenSignature<T>;
+        repeatWhen: typeof repeatWhen;
     }
 }

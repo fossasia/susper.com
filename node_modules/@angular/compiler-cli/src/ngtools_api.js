@@ -17,12 +17,12 @@ var __extends = (this && this.__extends) || function (d, b) {
  * This API should be stable for NG 2. It can be removed in NG 4..., but should be replaced by
  * something else.
  */
-var compiler_1 = require('@angular/compiler');
-var codegen_1 = require('./codegen');
-var compiler_host_1 = require('./compiler_host');
-var extractor_1 = require('./extractor');
-var ngtools_impl_1 = require('./ngtools_impl');
-var path_mapped_compiler_host_1 = require('./path_mapped_compiler_host');
+var compiler_1 = require("@angular/compiler");
+var codegen_1 = require("./codegen");
+var compiler_host_1 = require("./compiler_host");
+var extractor_1 = require("./extractor");
+var ngtools_impl_1 = require("./ngtools_impl");
+var path_mapped_compiler_host_1 = require("./path_mapped_compiler_host");
 /**
  * A ModuleResolutionHostAdapter that overrides the readResource() method with the one
  * passed in the interface.
@@ -30,8 +30,9 @@ var path_mapped_compiler_host_1 = require('./path_mapped_compiler_host');
 var CustomLoaderModuleResolutionHostAdapter = (function (_super) {
     __extends(CustomLoaderModuleResolutionHostAdapter, _super);
     function CustomLoaderModuleResolutionHostAdapter(_readResource, host) {
-        _super.call(this, host);
-        this._readResource = _readResource;
+        var _this = _super.call(this, host) || this;
+        _this._readResource = _readResource;
+        return _this;
     }
     CustomLoaderModuleResolutionHostAdapter.prototype.readResource = function (path) { return this._readResource(path); };
     return CustomLoaderModuleResolutionHostAdapter;
@@ -74,7 +75,7 @@ var NgTools_InternalApi_NG_2 = (function () {
         var symbolCache = new compiler_1.StaticSymbolCache();
         var summaryResolver = new compiler_1.AotSummaryResolver(ngCompilerHost, symbolCache);
         var symbolResolver = new compiler_1.StaticSymbolResolver(ngCompilerHost, symbolCache, summaryResolver);
-        var staticReflector = new compiler_1.StaticReflector(symbolResolver);
+        var staticReflector = new compiler_1.StaticReflector(summaryResolver, symbolResolver);
         var routeMap = ngtools_impl_1.listLazyRoutesOfModule(options.entryModule, ngCompilerHost, staticReflector);
         return Object.keys(routeMap).reduce(function (acc, route) {
             acc[route] = routeMap[route].absoluteFilePath;
@@ -88,8 +89,9 @@ var NgTools_InternalApi_NG_2 = (function () {
     NgTools_InternalApi_NG_2.extractI18n = function (options) {
         var hostContext = new CustomLoaderModuleResolutionHostAdapter(options.readResource, options.host);
         // Create the i18n extractor.
-        var extractor = extractor_1.Extractor.create(options.angularCompilerOptions, options.program, options.host, hostContext);
-        return extractor.extract(options.i18nFormat);
+        var locale = options.locale || null;
+        var extractor = extractor_1.Extractor.create(options.angularCompilerOptions, options.program, options.host, locale, hostContext);
+        return extractor.extract(options.i18nFormat, options.outFile || null);
     };
     return NgTools_InternalApi_NG_2;
 }());
