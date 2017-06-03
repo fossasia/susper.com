@@ -18,6 +18,7 @@ export class AutoCompleteComponent implements OnInit {
   constructor(private autocompleteservice: AutocompleteService, private route: Router, private activatedroute: ActivatedRoute,
               private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
     this.query$ = store.select(fromRoot.getquery);
+    this.results = [];
     this.query$.subscribe( query => {
       if (query) {
         this.autocompleteservice.getsearchresults(query).subscribe(res => {
