@@ -138,7 +138,12 @@ export class ResultsComponent implements OnInit {
 
 
 
-      this.presentPage = Math.abs(query['start'] / this.searchdata.rows) + 1;
+      if (query['start']) {
+        this.searchdata.start = query['start'];
+      } else {
+        this.searchdata.start = 0;
+      }
+
       this.searchdata.query = query['query'];
       this.store.dispatch(new queryactions.QueryAction(query['query']));
       this.querylook = Object.assign({}, query);
