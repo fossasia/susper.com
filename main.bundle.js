@@ -1767,7 +1767,7 @@ var ResultsComponent = (function () {
                     _this.hidefooter = 0;
                 }
                 _this.end = Math.min(totalResults, _this.begin + _this.searchdata.rows - 1);
-                _this.message = 'showing results ' + _this.begin + ' to ' + _this.end + ' of ' + totalResults;
+                _this.message = 'About ' + totalResults + ' results';
                 _this.noOfPages = Math.ceil(totalResults / _this.searchdata.rows);
                 _this.maxPage = Math.min(_this.searchdata.rows, _this.noOfPages);
             });
@@ -1779,7 +1779,7 @@ var ResultsComponent = (function () {
                 _this.hidefooter = 0;
             }
             _this.end = Math.min(totalResults, _this.begin + _this.searchdata.rows - 1);
-            _this.message = 'showing results ' + _this.begin + ' to ' + _this.end + ' of ' + totalResults;
+            _this.message = 'About ' + totalResults + ' results';
             _this.noOfPages = Math.ceil(totalResults / _this.searchdata.rows);
             _this.maxPage = Math.min(_this.searchdata.rows, _this.noOfPages);
         });
