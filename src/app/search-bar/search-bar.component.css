@@ -92,26 +92,13 @@
   }
 }
 
-@media screen and (min-width: 1920px) {
-  #nav-group {
-    left: 65%;
-  }
-}
-
 @media screen and (max-width: 968px) {
-  #nav-group {
-    left: -12%;
-  }
   #nav-input {
     width: 50vw;
   }
 }
 
 @media screen and (max-width: 767px) {
-  #nav-group {
-    left: -22%;
-    width: 20px;
-  }
   #nav-input {
     width: 80vw;
   }
