@@ -74,6 +74,7 @@ export class ResultsComponent implements OnInit {
     this.resultDisplay = 'videos';
     this.searchdata.rows = 10;
     this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
+    this.searchdata.resultDisplay = this.resultDisplay;
     this.route.navigate(['/search'], { queryParams: this.searchdata });
   }
 
@@ -92,6 +93,7 @@ export class ResultsComponent implements OnInit {
     this.resultDisplay = 'all';
     delete this.searchdata.fq;
     this.searchdata.rows = 10;
+    this.searchdata.resultDisplay = this.resultDisplay;
     this.route.navigate(['/search'], { queryParams: this.searchdata });
   }
 
@@ -136,7 +138,12 @@ export class ResultsComponent implements OnInit {
 
 
 
-      this.presentPage = Math.abs(query['start'] / this.searchdata.rows) + 1;
+      if (query['start']) {
+        this.searchdata.start = query['start'];
+      } else {
+        this.searchdata.start = 0;
+      }
+
       this.searchdata.query = query['query'];
       this.store.dispatch(new queryactions.QueryAction(query['query']));
       this.querylook = Object.assign({}, query);
@@ -154,7 +161,7 @@ export class ResultsComponent implements OnInit {
           this.hidefooter = 0;
         }
         this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
-        this.message = 'showing results ' + this.begin + ' to ' + this.end + ' of ' + totalResults;
+        this.message = 'About ' + totalResults + ' results';
         this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
         this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
       });
@@ -170,7 +177,7 @@ export class ResultsComponent implements OnInit {
       }
 
       this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
-      this.message = 'showing results ' + this.begin + ' to ' + this.end + ' of ' + totalResults;
+      this.message = 'About ' + totalResults + ' results';
       this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
       this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
     });
