@@ -49,7 +49,7 @@ export class ResultsComponent implements OnInit {
 
   getPresentPage(N) {
     this.presentPage = N;
-    this.searchdata.start = (this.presentPage) * this.searchdata.rows;
+    this.searchdata.start = (this.presentPage - 1) * this.searchdata.rows;
     this.route.navigate(['/search'], { queryParams: this.searchdata });
   }
 
