@@ -25,9 +25,6 @@
   top:-5px;
 }
 
-.navbar {
-  margin-bottom: 0px !important;
-}
 
 .nav-about {
   clear: both;
@@ -38,12 +35,6 @@
   height: 30px;
   padding-left: 20px;
   margin-top: -4%;
-}
-.navbar-brand{
-  margin-left: 25px!important;
-}
-label {
-  font-weight: normal !important;
 }
 .btn-round-lg{
   border-radius: 22.5px;
@@ -76,7 +67,6 @@ label {
   font-weight: 700;
   line-height: 1.8;
   color:#1565C0;
-  text-decoration: none !important;
 
 }
 .link:hover{
