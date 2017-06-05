@@ -49,7 +49,7 @@ export class ResultsComponent implements OnInit {
 
   getPresentPage(N) {
     this.presentPage = N;
-    this.searchdata.start = (this.presentPage) * this.searchdata.rows;
+    this.searchdata.start = (this.presentPage - 1) * this.searchdata.rows;
     this.route.navigate(['/search'], { queryParams: this.searchdata });
   }
 
@@ -161,7 +161,7 @@ export class ResultsComponent implements OnInit {
           this.hidefooter = 0;
         }
         this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
-        this.message =  'showing results ' + this.begin + ' to ' + this.end + ' of ' + totalResults;
+        this.message = 'About ' + totalResults + ' results';
         this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
         this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
       });
@@ -177,7 +177,7 @@ export class ResultsComponent implements OnInit {
       }
 
       this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
-      this.message =  'showing results ' + this.begin + ' to ' + this.end + ' of ' + totalResults;
+      this.message = 'About ' + totalResults + ' results';
       this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
       this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
     });
