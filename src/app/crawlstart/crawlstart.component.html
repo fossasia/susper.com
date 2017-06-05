@@ -1,0 +1,309 @@
+<nav class="navbar navbar-default nav-about">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type = "button" class = "navbar-toggle"
+              data-toggle = "collapse" data-target = "#dropmenu">
+        <span class = "icon-bar"></span>
+        <span class = "icon-bar"></span>
+        <span class = "icon-bar"></span>
+      </button>
+      <a class="navbar-brand advsearch-navbar" href="//susper.com">
+        <img alt="brand" class="navbar-logo" src="../../assets/images/susper.svg">
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="dropmenu">
+      <ul class="nav navbar-nav navbar-collapse navbar-right">
+        <li><a routerLink="/terms">Terms</a></li>
+        <li><a routerLink="/about">About</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="container">
+  <h3 style="color: #dd4b39;font-family: Arial,SansSerif">Expert Crawl Start</h3>
+  <p>
+    You can define URLs as start points for Web page crawling and start crawling here.
+    "Crawling" means that YaCy will download the given website, extract all links in it and then download the content behind these links.
+    This is repeated as long as specified under "Crawling Depth".
+    A crawl can also be started using wget and the <a href="http://www.yacy-websearch.net/wiki/index.php/Dev:APICrawler" target="_blank">post arguments</a> for this web page.
+  </p>
+  <hr>
+  <h3>Crawl Job</h3>
+  <p>A Crawl Job consist of one or more start point, crawl limitations and document freshness rules.</p>
+  <h4>Start Point</h4>
+  <form>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-4"><label for="words">One Start URL or a list of URLs:
+          (must start with http:// https:// ftp:// smb:// file://):</label>
+        </div>
+        <div class="col-md-6"><input [(ngModel)]="crawlvalues.crawlingMode" name="crawlingMode" value="url" type="radio">
+          <textarea [(ngModel)]="crawlvalues.crawlingURL" type="text" name="crawlingURL" class="form-control" id="words"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4">
+          <label>From Link-List of URL</label>
+        </div>
+        <div class="col-md-6">
+          <input type="radio" [(ngModel)]="crawlvalues.crawlingMode" value="sitelist" name="crawlingMode">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label for="any">from site-map</label></div>
+        <div class="col-md-6">
+          <input type="radio" [(ngModel)]="crawlvalues.crawlingMode" value="sitemap" name="crawlingMode">
+          <input type="text" class="form-control" id="any" [(ngModel)]="crawlvalues.sitemapURL" maxlength="256" name="sitemapURL">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4">
+          <label for="none">From File (enter a path
+          within your local file system)</label>
+        </div>
+        <div class="col-md-6">
+          <input type="radio" [(ngModel)]="crawlvalues.crawlingMode" value="file" name="crawlingMode">
+          <input type="text" class="form-control" id="none" [(ngModel)]="crawlvalues.crawlingFile" size="71" maxlength="256" name="crawlingFile">
+        </div>
+      </div>
+
+    </div>
+  </form>
+  <hr>
+
+  <h4>
+    Crawler Filter
+  </h4>
+  <p>These are limitations on the crawl stacker. The filters will be applied before a web page is loaded.</p>
+  <form>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-4"><label for="language">Crawling Depth</label></div>
+        <div class="col-md-6"><input type="text" class="form-control" id="language" name="crawlingDepth" [(ngModel)]="crawlvalues.crawlingDepth" size="2" maxlength="2">
+          <input type="checkbox" [(ngModel)]="crawlvalues.directDocByURL" name="directDocByURL">also all linked non-parsable documents</div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label for="region">Unlimited crawl depth for URLs matching with</label></div>
+        <div class="col-md-6"><input type="text" name="crawlingDepthExtension" class="form-control" id="region" [(ngModel)]="crawlvalues.crawlingDepthExtension" size="40" maxlength="100">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label for="last update">Maximum Pages per Domain</label></div>
+        <div class="col-md-6">Use:<input type="checkbox" name="DomMaxCheck" [(ngModel)]="crawlvalues.crawlingDomMaxCheck">Page Count:
+          <input type="text" class="form-control" id="last update" name="DomMaxPages" [(ngModel)]="crawlvalues.crawlingDomMaxPages" size="6" maxlength="6">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4">
+          <label for="site">miscelleneous contraints</label>
+        </div>
+        <div class="col-md-6"><input type="checkbox" [(ngModel)]="crawlvalues.crawlingQ" name="crawlingQ" id="site">Accept URLs with query-part ('?'):
+          <input type="checkbox" [(ngModel)]="crawlvalues.obeyHtmlRobotsNoIndex" name="obeyhtml"> Obey html-robots-noindex:
+          <input type="checkbox" [(ngModel)]="crawlvalues.obeyHtmlRobotsNoFollow" name="obeyhtml"> Obey html-robots-nofollow:
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label for="terms appearing">Load Filter on URLs
+          info</label>
+        </div>
+        <div class="col-md-6">
+          <img src="http://yacy.searchlab.eu/env/grafics/plus.gif">
+          must-match
+          <input type="radio" [(ngModel)]="crawlvalues.range" id="terms appearing" value="domain" name="range">Restrict to start domain(s)
+          <input type="radio" [(ngModel)]="crawlvalues.range" value="subpath" name="range">Restrict to sub-path(s)
+          <input [(ngModel)]="crawlvalues.range" type="radio" name="range">Use Filter
+          <input [(ngModel)]="crawlvalues.mustmatch" type="text" name="mustmatch" class="form-control" size="55" maxlength="100000" value=".*" onblur="if(this.value=='')this.value='.*;">
+          <img src="http://yacy.searchlab.eu/env/grafics/minus.gif"> must-not-match
+          <input type="text" class="form-control" [(ngModel)]="crawlvalues.mustnotmatch" name="mustnotmatch" size="55" maxlength="100000">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label for="terms appearing">Load Filter on IPs</label>
+        </div>
+        <div class="col-md-6">
+          <img src="http://yacy.searchlab.eu/env/grafics/plus.gif">
+          must-match
+          <input [(ngModel)]="crawlvalues.ipMustmatch" name="ipMustmatch" type="text" class="form-control" size="55" maxlength="100000" value=".*" onblur="if(this.value=='')this.value='.*;">
+          <img src="http://yacy.searchlab.eu/env/grafics/minus.gif"> must-not-match
+          <input type="text" class="form-control" [(ngModel)]="crawlvalues.ipMustnotmatch" size="55" name="ipmustnotmatch" maxlength="100000">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label for="safe search">Must-Match List for Country Codes
+          info </label>
+        </div>
+        <div class="col-md-6">
+          <input name="country" [(ngModel)]="crawlvalues.countryMustMatchSwitch" type="radio" id="safe search">
+          no country code restriction
+          <input name="country" [(ngModel)]="crawlvalues.countryMustMatchSwitch" type="radio">Use filter
+          <input name="country" [(ngModel)]="crawlvalues.countryMustMatchList" class="form-control" type="text" size="60" maxlength="256">
+        </div>
+      </div>
+    </div>
+  </form>
+  <hr>
+  <h3>Document Filter</h3>
+  <p>These are limitations on index feeder. The filters will be applied after a web page was loaded.<p>
+  <form>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-4">
+          <label>Filter On URLs</label>
+        </div>
+        <div class="col-md-6">
+          <img src="http://yacy.searchlab.eu/env/grafics/plus.gif">
+           must match
+          <input name="index" [(ngModel)]="crawlvalues.indexmustmatch" type="text" class="form-control">
+          <img src="http://yacy.searchlab.eu/env/grafics/minus.gif"> must-not-match
+          <input name="index" [(ngModel)]="crawlvalues.indexmustnotmatch" type="text" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-4"><label>Filter on Content of Document
+          (all visible text, including camel-case-tokenized url and title)</label></div>
+        <div class="col-md-6">
+          <img src="http://yacy.searchlab.eu/env/grafics/plus.gif"> must match
+          <input name="index" [(ngModel)]="crawlvalues.indexcontentmustmatch" type="text" size="55" class="form-control" maxlength="100000">
+          <img src="http://yacy.searchlab.eu/env/grafics/minus.gif"> must-not-match
+          <input name="index" [(ngModel)]="crawlvalues.indexcontentmustnotmatch" type="text" class="form-control"></div >
+      </div>
+    </div>
+</form>
+  <hr>
+  <h3>Clean-Up before Crawl Start</h3>
+  <form>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-4">
+          <label>No Deletion</label>
+        </div>
+        <div class="col-md-6">
+          <input name="deleteold" [(ngModel)]="crawlvalues.deleteold" value="off" type="radio">infoDo not delete any document before the crawl is started.
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label>Delete sub-path</label></div>
+        <div class="col-md-6">
+          <input name="deleteold" [(ngModel)]="crawlvalues.deleteold" value="on" type="radio">For each host in the start url list, delete all documents (in the given subpath) from that host.
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label>Delete only old</label></div>
+        <div class="col-md-6">
+          <input name="deleteold" [(ngModel)]="crawlvalues.deleteold" value="age" type="radio">Treat documents that are loaded ago as stale and delete them before the crawl is started.
+        </div>
+      </div>
+  </div>
+  </form>
+  <hr>
+  <h3>Double-Check Rules</h3>
+  <form>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-4"><label>No Doubles</label></div>
+        <div class="col-md-6">
+          <input name="recrawl" [(ngModel)]="crawlvalues.recrawl" value="nodoubles" type="radio">Never load any page that is already known. Only the start-url may be loaded again
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label>Reload</label></div>
+        <div class="col-md-6">
+          <input name="recrawl" [(ngModel)]="crawlvalues.recrawl" value="nodobles" type="radio">Treat documents that are loaded ago as stale and load them again. If they are younger, they are ignored.
+        </div>
+      </div>
+    </div>
+  </form>
+  <hr>
+  <h3>Document Cache</h3>
+  <form>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-4"><label>Store to Web Cache</label></div>
+        <div class="col-md-6">
+          <input name="storeHT" [(ngModel)]="crawlvalues.storeHTCache" type="checkbox">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label>Policy for usage of Web Cache</label></div>
+        <div class="col-md-6">
+          <input name="cache" [(ngModel)]="crawlvalues.cachePolicy" type="radio" value="nocache">no cache
+          <input name="cachepolicy" type="radio" [(ngModel)]="crawlvalues.cachePolicy" value="iffresh">if fresh
+          <input name="cachepolicy" type="radio" [(ngModel)]="crawlvalues.cachePolicy" value="ifexist">if exist
+          <input name="cachepolicy" type="radio" [(ngModel)]="crawlvalues.cachePolicy" value="cacheonly">cache only
+        </div>
+      </div>
+    </div>
+  </form>
+  <hr>
+  <h3>Snapshot Creation</h3>
+  <form>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-4"><label>Max Depth for Snapshots</label></div>
+        <div class="col-md-6">
+          <input type="text" name="snapshotsmaxdepth" class="form-control" [(ngModel)]="crawlvalues.snapshotsMaxDepth" size="2" maxlength="2" value="-1">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label>Multiple Snapshot Versions</label></div>
+        <div class="col-md-6"><input name="replaceold" [(ngModel)]="crawlvalues.snapshotsReplaceOld" value="on" type="radio">replace old snapshots with new one
+        <div class="col-md-6"><input name="replaceold" [(ngModel)]="crawlvalues.snapshotsReplaceOld" value="on" type="radio">replace old snapshots with new one
+          <input name="replaceold" type="radio" value="off" [(ngModel)]="crawlvalues.snapshotsReplaceOld">add new versions for each crawl
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4">
+          <label>
+            <img src="http://yacy.searchlab.eu/env/grafics/minus.gif">must-not-match filter for snapshot generation
+          </label>
+        </div>
+        <div class="col-md-6">
+          <input name="mustnotmatch" type="text" [(ngModel)]="crawlvalues.snapshotsMustnotmatch" size="55" class="form-control" maxlength="100000">
+        </div>
+      </div>
+    </div>
+    </div>
+  </form>
+  <hr>
+  <h3>Index Attributes</h3>
+  <form>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-4"><label>Indexing</label></div>
+        <div class="col-md-6"><input name="indextext" type="checkbox" [(ngModel)]="crawlvalues.indexText">
+          index text: <input name="indexmedia" type="checkbox" [(ngModel)]="crawlvalues.indexMedia">index media
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label>Do Remote Indexing</label></div>
+        <div class="col-md-6">Describe your intention to start this global crawl (optional):
+          <input name="crawlorder" type="checkbox" [(ngModel)]="crawlvalues.crawlOrder">
+          <input name="intention" type="text" [(ngModel)]="crawlvalues.intention" size="40" class="form-control" maxlength="100">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label>Add Crawl result to collection(s)</label></div>
+        <div class="col-md-6"><input name="collection" type="text" [(ngModel)]="crawlvalues.collection" size="60" class="form-control" maxlength="100">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4"><label>Time Zone Offset info </label></div>
+        <div class="col-md-6"><input name="timezoneoffset" type="text" [(ngModel)]="crawlvalues.timezoneOffset" size="4" maxlength="4" class="form-control">
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div>
+    <button style="border-color: white;background-color: #4d90fe;border: 1px solid #3079ed" (click)="starcrawljob()"><span style="color: white">Start New Crawl Job</span></button>
+  </div>
+
+</div>
+
+<!--footer navigation bar goes here-->
+<app-footer-navbar></app-footer-navbar>
