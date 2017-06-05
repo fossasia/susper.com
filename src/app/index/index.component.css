@@ -3,8 +3,10 @@
 }
 
 #search-bar{
-  position: absolute;
-  left: 28%;
+  position: fixed;
+  left: 50%;
+  margin-left: -275px;
+
 }
 
 .footer-fixed{
