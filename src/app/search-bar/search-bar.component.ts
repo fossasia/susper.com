@@ -49,6 +49,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.displayStatus = 'showbox';
       this.submit();
       this.hidebox(event);
+    } else {
+      this.displayStatus = 'hidebox';
     }
   }
   ShowAuto() {
