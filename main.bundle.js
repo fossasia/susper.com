@@ -472,7 +472,7 @@ module.exports = module.exports.toString();
 /***/ "./src/app/auto-complete/auto-complete.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"suggestion-box\" *ngIf=\"results.length > 0\">\n  <div *ngFor=\"let result of results\">\n    <a [routerLink]=\"resultsearch\" [queryParams]=\"{query: result.label}\" class=\"suggestions\">{{result.label}}</a>\n  </div>\n</div>\n"
+module.exports = "<div class=\"suggestion-box\" *ngIf=\"results\">\n  <div *ngFor=\"let result of results\">\n    <a [routerLink]=\"resultsearch\" [queryParams]=\"{query: result}\" class=\"suggestions\">{{result}}</a>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -514,8 +514,13 @@ var AutoCompleteComponent = (function () {
         this.query$.subscribe(function (query) {
             if (query) {
                 _this.autocompleteservice.getsearchresults(query).subscribe(function (res) {
-                    if (res.results) {
-                        _this.results = res.results;
+                    if (res[0]) {
+                        // console.log(res[1]);
+                        _this.results = res[1];
+                        _this.results.concat(res[0]);
+                        if (_this.results.length > 5) {
+                            _this.results = _this.results.splice(0, 5);
+                        }
                     }
                     else {
                         _this.results = [];
@@ -576,20 +581,28 @@ var AutocompleteService = (function () {
         this.http = http;
         this.jsonp = jsonp;
         this.store = store;
-        this.server = 'http://lookup.dbpedia.org';
-        this.searchURL = this.server + '/api/search/PrefixSearch?';
+        this.server = 'yacy.searchlab.eu';
+        this.suggestUrl = 'http://' + this.server + '/suggest.json?callback=?';
         this.homepage = 'http://susper.com';
         this.logo = '../images/susper.svg';
     }
     AutocompleteService.prototype.getsearchresults = function (searchquery) {
         var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* URLSearchParams */]();
-        params.set('QueryString', searchquery);
+        params.set('q', searchquery);
         // params.set('QueryClass', 'MaxHits=5');
+        params.set('wt', 'yjson');
+        params.set('callback', 'JSONP_CALLBACK');
+        params.set('facet', 'true');
+        params.set('facet.mincount', '1');
+        params.append('facet.field', 'host_s');
+        params.append('facet.field', 'url_protocol_s');
+        params.append('facet.field', 'author_sxt');
+        params.append('facet.field', 'collection_sxt');
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Headers */]({ 'Accept': 'application/json' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* RequestOptions */]({ headers: headers, search: params });
-        return this.http
-            .get(this.searchURL, options).map(function (res) {
-            return res.json();
+        return this.jsonp
+            .get('http://yacy.searchlab.eu/suggest.json', { search: params }).map(function (res) {
+            return res.json()[0];
         }).catch(this.handleError);
     };
     AutocompleteService.prototype.handleError = function (error) {
