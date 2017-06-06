@@ -32,7 +32,7 @@ export class RelatedSearchComponent implements OnInit {
     this.query$.subscribe( query => {
       if (query) {
         this.knowledgeservice.getsearchresults(query).subscribe(res => {
-          if (res.results) {
+          if (res.results[0]) {
             if (!res.results[0].label.toLowerCase().localeCompare(query.toLowerCase())) {
               res.results.splice(0, 1);
               this.initialresults = res.results;

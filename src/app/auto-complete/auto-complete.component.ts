@@ -3,7 +3,6 @@ import {AutocompleteService} from "../autocomplete.service";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
-import {KnowledgeapiService} from "../knowledgeapi.service";
 
 @Component({
   selector: 'app-auto-complete',
@@ -22,8 +21,13 @@ export class AutoCompleteComponent implements OnInit {
     this.query$.subscribe( query => {
       if (query) {
         this.autocompleteservice.getsearchresults(query).subscribe(res => {
-          if (res.results) {
-            this.results = res.results;
+          if (res[0]) {
+            // console.log(res[1]);
+            this.results = res[1];
+            this.results.concat(res[0]);
+            if ( this.results.length > 5) {
+            this.results = this.results.splice (0, 5);
+            }
           } else {
             this.results = [];
           }
