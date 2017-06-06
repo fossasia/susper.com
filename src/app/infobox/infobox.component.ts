@@ -30,7 +30,7 @@ export class InfoboxComponent implements OnInit {
     this.query$.subscribe( query => {
       if (query) {
         this.knowledgeservice.getsearchresults(query).subscribe(res => {
-          if (res.results) {
+          if (res.results[0]) {
             if (res.results[0].label.toLowerCase().includes(query.toLowerCase())) {
               this.initialresults = res.results;
             } else {
