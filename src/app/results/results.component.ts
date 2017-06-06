@@ -15,6 +15,7 @@ export class ResultsComponent implements OnInit {
   items$: Observable<any>;
   totalResults$: Observable<number>;
   resultDisplay: string;
+  fileFormat: boolean;
   noOfPages: number;
   presentPage: number;
   maxPage: number;
@@ -54,7 +55,7 @@ export class ResultsComponent implements OnInit {
   }
 
   filterByDate() {
-    this.searchdata.sort = 'last_modified desc';
+    this.searchdata.sort = 'last_modified desc'; // last modified
     this.route.navigate(['/search'], { queryParams: this.searchdata });
   }
 
@@ -130,12 +131,11 @@ export class ResultsComponent implements OnInit {
       } else {
         this.resultDisplay = 'all';
       }
+
       if (query['resultDisplay']) {
         this.resultDisplay = query['resultDisplay'];
         this.searchdata.resultDisplay = this.resultDisplay;
-
       }
-
 
 
       if (query['start']) {
@@ -143,6 +143,7 @@ export class ResultsComponent implements OnInit {
       } else {
         this.searchdata.start = 0;
       }
+
 
       this.searchdata.query = query['query'];
       this.store.dispatch(new queryactions.QueryAction(query['query']));
@@ -156,10 +157,12 @@ export class ResultsComponent implements OnInit {
       this.store.dispatch(new queryactions.QueryServerAction(query));
       this.items$ = store.select(fromRoot.getItems);
       this.totalResults$ = store.select(fromRoot.getTotalResults);
+
       this.totalResults$.subscribe(totalResults => {
         if (totalResults) {
           this.hidefooter = 0;
         }
+
         this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
         this.message = 'About ' + totalResults + ' results';
         this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
@@ -170,10 +173,10 @@ export class ResultsComponent implements OnInit {
       this.presentPage = Math.abs(query['start'] / this.searchdata.rows) + 1;
 
     });
+
     this.totalResults$.subscribe(totalResults => {
       if (totalResults) {
         this.hidefooter = 0;
-
       }
 
       this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
@@ -181,11 +184,27 @@ export class ResultsComponent implements OnInit {
       this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
       this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
     });
-
-
   };
 
   ngOnInit() {
 
+  }
+
+  filterLink(link) {
+    if (link.includes('jpg')) {
+      this.fileFormat = false;
+      return false;
+    } else {
+      this.fileFormat = true;
+      return true;
+    }
+  }
+
+  displayNoDate(description) {
+    if (this.fileFormat === false) {
+      return false;
+    } else {
+      return description;
+    }
   }
 }
