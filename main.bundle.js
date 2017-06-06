@@ -1051,7 +1051,7 @@ var InfoboxComponent = (function () {
         this.query$.subscribe(function (query) {
             if (query) {
                 _this.knowledgeservice.getsearchresults(query).subscribe(function (res) {
-                    if (res.results) {
+                    if (res.results[0]) {
                         if (res.results[0].label.toLowerCase().includes(query.toLowerCase())) {
                             _this.initialresults = res.results;
                         }
@@ -1622,7 +1622,7 @@ var RelatedSearchComponent = (function () {
         this.query$.subscribe(function (query) {
             if (query) {
                 _this.knowledgeservice.getsearchresults(query).subscribe(function (res) {
-                    if (res.results) {
+                    if (res.results[0]) {
                         if (!res.results[0].label.toLowerCase().localeCompare(query.toLowerCase())) {
                             res.results.splice(0, 1);
                             _this.initialresults = res.results;
