@@ -72,11 +72,23 @@
 }
 
 @media screen and (max-width: 767px) {
-  #nav-input{
-    width: 80vw;
+  #nav-group {
+    margin-left: -18.6%;
   }
   .align-search-btn{
     left: -9%;
+  }
+}
+
+@media screen and (max-width: 601px) {
+  #nav-group {
+    width: 110%;
+  }
+}
+
+@media screen and (max-width:567px) {
+  #nav-group {
+    width: 120%;
   }
 }
 
@@ -92,28 +104,9 @@
   }
 }
 
-@media screen and (min-width: 1920px) {
-  #nav-group {
-    left: 65%;
-  }
-}
-
 @media screen and (max-width: 968px) {
-  #nav-group {
-    left: -12%;
-  }
   #nav-input {
     width: 50vw;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  #nav-group {
-    left: -22%;
-    width: 20px;
-  }
-  #nav-input {
-    width: 80vw;
   }
 }
 

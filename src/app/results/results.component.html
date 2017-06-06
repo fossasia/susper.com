@@ -76,7 +76,8 @@
                     <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()">Previous</span></li>
                     <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link" *ngIf="presentPage>=4 && num<=noOfPages" [class.active_page]="getStyle(presentPage-3+num)"
                             (click)="getPresentPage(presentPage-3+num)" href="#">{{presentPage-3+num}}</span>
-                        <span class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="num + 1 == presentPage" (click)="getPresentPage(num)"
+                        <span class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="num+1 == presentPage" (click)="getPresentPage(num+1)"
+
                             href="#">{{num+1}}</span></li>
                     <li class="page-item"><span class="page-link" (click)="incPresentPage()">Next</span></li>
                 </ul>

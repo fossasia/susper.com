@@ -1,6 +1,6 @@
 /** Basic results 'All' **/
 .result {
-  padding-left: 50px;
+  margin-left: 5.9%;
   padding-top: 10px;
 }
 
@@ -73,7 +73,7 @@ a {
   margin-top: 1%;
   font-size: small;
   color: #808080;
-  margin-left: 11.5%;
+  margin-left: 11.2%;
 }
 
 .text-result {
@@ -264,10 +264,34 @@ a {
 
 @media screen and (max-width:1279px) {
   #search-options {
-    margin-left: 11%;
+    margin-left: 9.1%;
   }
   #tools {
     margin-left: 17%;
+  }
+}
+
+@media screen and (max-width:1139px) {
+  #progress-bar {
+    margin-left: 13%;
+  }
+  #search-options {
+    margin-left: 10.2%;
+  }
+  .result {
+    margin-left: 8.2%;
+  }
+}
+
+@media screen and (max-width:1077px) {
+  #search-options {
+    margin-left: 9%;
+  }
+  #progress-bar {
+    margin-left: 12.1%;
+  }
+  .result {
+    margin-left: 6.2%;
   }
 }
 
@@ -285,17 +309,35 @@ a {
 
 @media screen and (max-width:979px) {
   #search-options {
-    margin-left: 12.5%;
+    margin-left: 8.8%;
+  }
+  #progress-bar {
+    margin-left: 12.3%;
+  }
+  .result {
+    margin-left: 6.2%;
+  }
+}
+
+@media screen and (max-width:882px) {
+  #search-options {
+    margin-left: 9.8%;
+  }
+  #progress-bar {
+    margin-left: 14%;
+  }
+  .result {
+    margin-left: 7.7%;
   }
 }
 
 @media screen and (max-width:767px) {
   .result {
-    padding-left: 46px;
+    margin-left: 16%;
     padding-right: 30px;
   }
   #progress-bar {
-    padding-left: 46px;
+    margin-left: 13.4%;
     margin-bottom: -10px;
   }
   #search-options {
@@ -320,6 +362,18 @@ a {
   #tools {
     margin-left: -26%;
   }
+  .result {
+    margin-left: 13.5%;
+  }
+}
+
+@media screen and (max-width:546px) {
+  .result {
+    margin-left: 13%;
+  }
+  #progress-bar {
+    margin-left: 12.3%;
+  }
 }
 
 @media screen and (max-width:639px) {
@@ -330,11 +384,11 @@ a {
 
 @media screen and (max-width:479px) {
   .result {
-    padding-left: 30px;
+    margin-left: 12%;
     padding-right: 20px;
   }
   #progress-bar {
-    padding-left: 30px;
+    margin-left: 11%;
   }
   #pag-bar {
     padding-left: 30px;
@@ -343,7 +397,7 @@ a {
     padding-left: 30px;
   }
   #search-options {
-    margin-left: 5.5%;
+    margin-left: 7%;
   }
   #search-options li {
     padding: 0px 7% 12px;
