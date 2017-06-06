@@ -11,8 +11,8 @@ import * as fromRoot from './reducers';
 
 @Injectable()
 export class AutocompleteService {
-  server = 'http://lookup.dbpedia.org';
-  searchURL = this.server + '/api/search/PrefixSearch?';
+  server = 'yacy.searchlab.eu';
+  suggestUrl = 'http://' + this.server + '/suggest.json?callback=?';
   homepage = 'http://susper.com';
   logo = '../images/susper.svg';
   constructor(private http: Http, private jsonp: Jsonp, private store: Store<fromRoot.State>) {
@@ -20,15 +20,24 @@ export class AutocompleteService {
   getsearchresults(searchquery) {
 
     let params = new URLSearchParams();
-    params.set('QueryString', searchquery);
+    params.set('q', searchquery);
    // params.set('QueryClass', 'MaxHits=5');
 
+    params.set('wt', 'yjson');
+    params.set('callback', 'JSONP_CALLBACK');
+
+    params.set('facet', 'true');
+    params.set('facet.mincount', '1');
+    params.append('facet.field', 'host_s');
+    params.append('facet.field', 'url_protocol_s');
+    params.append('facet.field', 'author_sxt');
+    params.append('facet.field', 'collection_sxt');
     let headers = new Headers({ 'Accept': 'application/json' });
     let options = new RequestOptions({ headers: headers, search: params });
-    return this.http
-      .get(this.searchURL, options).map(res =>
+    return this.jsonp
+      .get('http://yacy.searchlab.eu/suggest.json', {search: params}).map(res =>
 
-        res.json()
+        res.json()[0]
 
       ).catch(this.handleError);
 
