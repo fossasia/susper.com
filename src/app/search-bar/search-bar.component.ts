@@ -46,7 +46,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
   onquery(event: any) {
     this.store.dispatch(new query.QueryAction(event.target.value));
-    if (event.target.value.length > 2) {
+    if (event.target.value.length > 0) {
       this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query}));
       this.displayStatus = 'showbox';
       this.submit();
@@ -66,7 +66,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
   submit() {
     if (this.searchdata.query.toString().length !== 0) {
-      this.router.navigate(['/search'], {queryParams: this.searchdata});
+      if (!this.router.url.toString().includes('/search')) {
+        this.router.navigate(['/search'], {queryParams: this.searchdata});
+      }
+
     }
   }
 
