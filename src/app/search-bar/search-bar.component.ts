@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../reducers';
 import { Observable } from 'rxjs';
 import * as query from '../actions/query';
-
+import * as queryactions from '../actions/query';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -29,6 +29,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     maximumRecords: 10,
     timezoneOffset: 0,
   };
+  querydata$: Observable<any>;
   constructor(private route: ActivatedRoute,
     private router: Router, private store: Store<fromRoot.State>) {
     this.query$ = store.select(fromRoot.getquery);
@@ -51,17 +52,20 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     }
   }
   onquery(event: any) {
+    this.store.dispatch(new query.QueryAction(event.target.value));
     if (event.target.value.length > 2) {
-      this.store.dispatch(new query.QueryAction(event.target.value));
+      this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query}));
+      this.displayStatus = 'showbox';
       this.submit();
       this.hidebox(event);
+    } else {
+
     }
   }
   ShowAuto() {
     return (this.displayStatus === 'showbox');
   }
   ngOnInit() {
-    this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
     this.displayStatus = 'hidebox';
   }
   ngAfterViewInit() {
