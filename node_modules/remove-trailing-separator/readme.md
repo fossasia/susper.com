@@ -28,8 +28,8 @@ removeTrailingSeparator('') // ''
 
 ## Backslash, or win32 separator
 
-`\` is considered a separator only on WIN32 systems. All UNIX compliant systems
-see backslash as a valid file name character, so it would break UNIX compliance
+`\` is considered a separator only on WIN32 systems. All POSIX compliant systems
+see backslash as a valid file name character, so it would break POSIX compliance
 to remove it there.
 
 In practice, this means that this code will return different things depending on

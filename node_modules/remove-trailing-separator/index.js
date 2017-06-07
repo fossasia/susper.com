@@ -1,4 +1,4 @@
-const isWin = process.platform === 'win32';
+var isWin = process.platform === 'win32';
 
 module.exports = function (str) {
 	while (endsInSeparator(str)) {

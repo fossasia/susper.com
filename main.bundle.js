@@ -535,21 +535,34 @@ var AutoCompleteComponent = (function () {
         this.store = store;
         this.ref = ref;
         this.resultsearch = '/search';
+        this.hidecomponent = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.query$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["b" /* getquery */]);
         this.results = [];
         this.query$.subscribe(function (query) {
             if (query) {
                 _this.autocompleteservice.getsearchresults(query).subscribe(function (res) {
-                    if (res[0]) {
-                        // console.log(res[1]);
-                        _this.results = res[1];
-                        _this.results.concat(res[0]);
-                        if (_this.results.length > 5) {
-                            _this.results = _this.results.splice(0, 5);
+                    if (res) {
+                        if (res[0]) {
+                            _this.results = res[1];
+                            if (_this.results.length === 0) {
+                                _this.hidecomponent.emit(1);
+                            }
+                            else {
+                                _this.hidecomponent.emit(0);
+                            }
+                            _this.results.concat(res[0]);
+                            if (_this.results.length > 5) {
+                                _this.results = _this.results.splice(0, 5);
+                            }
+                        }
+                        else {
+                            _this.results = [];
+                            _this.hidecomponent.emit(1);
                         }
                     }
                     else {
                         _this.results = [];
+                        _this.hidecomponent.emit(1);
                     }
                 });
             }
@@ -559,16 +572,20 @@ var AutoCompleteComponent = (function () {
     };
     return AutoCompleteComponent;
 }());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === "function" && _a || Object)
+], AutoCompleteComponent.prototype, "hidecomponent", void 0);
 AutoCompleteComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-auto-complete',
         template: __webpack_require__("./src/app/auto-complete/auto-complete.component.html"),
         styles: [__webpack_require__("./src/app/auto-complete/auto-complete.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__autocomplete_service__["a" /* AutocompleteService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__autocomplete_service__["a" /* AutocompleteService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["b" /* Store */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__autocomplete_service__["a" /* AutocompleteService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__autocomplete_service__["a" /* AutocompleteService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["b" /* Store */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"]) === "function" && _f || Object])
 ], AutoCompleteComponent);
 
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/auto-complete.component.js.map
 
 /***/ }),
@@ -2057,7 +2074,7 @@ module.exports = module.exports.toString();
 /***/ "./src/app/search-bar/search-bar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n      <div class=\"input-text\">\n      <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" (keyup)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\" autocomplete=\"off\">\n      </div>\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n  <app-auto-complete id=\"auto-box\" *ngIf=\"ShowAuto()\"></app-auto-complete>\n</form>\n<script>\n  $(document).ready(function(){\n    var isFirefox = typeof InstallTrigger !== 'undefined';\n    if(isFirefox === false){\n      $(\".input-group-btn\").addClass(\"align-search-btn\");\n    }\n  }\n</script>\n"
+module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n      <div class=\"input-text\">\n      <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" (keyup)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\" autocomplete=\"off\">\n      </div>\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n  <app-auto-complete (hidecomponent)=\"hidesuggestions($event)\" id=\"auto-box\" [hidden]=\"!ShowAuto()\"></app-auto-complete>\n</form>\n<script>\n  $(document).ready(function(){\n    var isFirefox = typeof InstallTrigger !== 'undefined';\n    if(isFirefox === false){\n      $(\".input-group-btn\").addClass(\"align-search-btn\");\n    }\n  }\n</script>\n"
 
 /***/ }),
 
@@ -2113,6 +2130,14 @@ var SearchBarComponent = (function () {
     SearchBarComponent.prototype.hidebox = function (event) {
         if (event.which === 13) {
             this.displayStatus = 'hidebox';
+        }
+    };
+    SearchBarComponent.prototype.hidesuggestions = function (data) {
+        if (data === 1) {
+            this.displayStatus = 'hidebox';
+        }
+        else {
+            this.displayStatus = 'showbox';
         }
     };
     SearchBarComponent.prototype.onquery = function (event) {
