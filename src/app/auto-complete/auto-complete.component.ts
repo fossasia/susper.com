@@ -12,7 +12,6 @@ import * as fromRoot from '../reducers';
 export class AutoCompleteComponent implements OnInit {
   results: Array<any>;
   query$: any;
-  query: any = '';
   resultsearch = '/search';
   @Output() hidecomponent: EventEmitter<any> = new EventEmitter<any>();
   constructor(private autocompleteservice: AutocompleteService, private route: Router, private activatedroute: ActivatedRoute,
@@ -21,8 +20,6 @@ export class AutoCompleteComponent implements OnInit {
     this.results = [];
     this.query$.subscribe( query => {
       if (query) {
-        this.query = query;
-
         this.autocompleteservice.getsearchresults(this.query).subscribe(res => {
           if (res) {
             if (res[0]) {
