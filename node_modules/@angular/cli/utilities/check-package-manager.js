@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk = require("chalk");
 const child_process_1 = require("child_process");
 const config_1 = require("../models/config");
-const Promise = require('../ember-cli/lib/ext/promise');
-const execPromise = Promise.denodeify(child_process_1.exec);
+const denodeify = require("denodeify");
+const execPromise = denodeify(child_process_1.exec);
 const packageManager = config_1.CliConfig.fromGlobal().get('packageManager');
 function checkYarnOrCNPM() {
     if (packageManager !== 'default') {

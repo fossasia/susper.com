@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_tags_1 = require("common-tags");
-const Promise = require('../ember-cli/lib/ext/promise');
-const exec = Promise.denodeify(require('child_process').exec);
+const denodeify = require("denodeify");
+const exec = denodeify(require('child_process').exec);
 const path = require('path');
 const pkg = require('../package.json');
 const fs = require('fs');

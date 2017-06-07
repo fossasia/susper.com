@@ -22,7 +22,7 @@ exports.default = Task.extend({
         const projectConfig = config_1.CliConfig.fromProject().config;
         const appConfig = app_utils_1.getAppFromConfig(serveTaskOptions.app);
         const outputPath = serveTaskOptions.outputPath || appConfig.outDir;
-        if (this.project.root === outputPath) {
+        if (this.project.root === path.resolve(outputPath)) {
             throw new SilentError('Output path MUST not be project root directory!');
         }
         if (projectConfig.project && projectConfig.project.ejected) {
@@ -51,12 +51,13 @@ exports.default = Task.extend({
         }
         let clientAddress = serverAddress;
         if (serveTaskOptions.publicHost) {
-            const clientUrl = url.parse(serveTaskOptions.publicHost);
-            // very basic sanity check
-            if (!clientUrl.host) {
-                return Promise.reject(new SilentError(`'live-reload-client' must be a full URL.`));
+            let publicHost = serveTaskOptions.publicHost;
+            if (!/^\w+:\/\//.test(publicHost)) {
+                publicHost = `${serveTaskOptions.ssl ? 'https' : 'http'}://${publicHost}`;
             }
-            clientAddress = clientUrl.href;
+            const clientUrl = url.parse(publicHost);
+            serveTaskOptions.publicHost = clientUrl.host;
+            clientAddress = url.format(clientUrl);
         }
         if (serveTaskOptions.liveReload) {
             // This allows for live reload of page when changes are made to repo.

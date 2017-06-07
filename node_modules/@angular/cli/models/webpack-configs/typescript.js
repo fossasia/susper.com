@@ -49,7 +49,7 @@ function _createAotPlugin(wco, options) {
         const sourcePath = appConfig.environmentSource;
         const envFile = appConfig.environments[buildOptions.environment];
         hostReplacementPaths = {
-            [path.join(appRoot, sourcePath)]: path.join(appRoot, envFile)
+            [path.resolve(appRoot, sourcePath)]: path.resolve(appRoot, envFile)
         };
     }
     return new webpack_1.AotPlugin(Object.assign({}, {

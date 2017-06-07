@@ -1,1 +1,1 @@
-export declare function checkYarnOrCNPM(): any;
+export declare function checkYarnOrCNPM(): Promise<void>;
