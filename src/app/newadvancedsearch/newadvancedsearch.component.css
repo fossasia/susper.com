@@ -3,6 +3,9 @@
     text-align: right;
   }
 }
+.label-search{
+  cursor: default;
+}
 .navbar-nav > li > a{
   text-align: left;
 }
