@@ -1531,6 +1531,7 @@ var _a, _b;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getTotalResults; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getNavigation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getquery; });
+/* unused harmony export getwholequery */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getKnowledge; });
 
 
@@ -1597,6 +1598,7 @@ var getItems = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["cre
 var getTotalResults = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getSearchState, __WEBPACK_IMPORTED_MODULE_5__search__["d" /* getTotalResults */]);
 var getNavigation = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getSearchState, __WEBPACK_IMPORTED_MODULE_5__search__["e" /* getNavigation */]);
 var getquery = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getQueryState, __WEBPACK_IMPORTED_MODULE_6__query__["b" /* getpresentquery */]);
+var getwholequery = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getQueryState, __WEBPACK_IMPORTED_MODULE_6__query__["c" /* getpresentwholequery */]);
 var getKnowledge = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getKnowledgeState, __WEBPACK_IMPORTED_MODULE_7__knowledge__["b" /* getresponse */]);
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/index.js.map
 
@@ -1648,6 +1650,7 @@ var getresponse = function (state) { return state.response; };
 /* unused harmony export CHANGE */
 /* harmony export (immutable) */ __webpack_exports__["a"] = reducer;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getpresentquery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getpresentwholequery; });
 
 var CHANGE = 'CHANGE';
 /**
@@ -1658,6 +1661,9 @@ var CHANGE = 'CHANGE';
  */
 var initialState = {
     query: '',
+    wholequery: {
+        query: '',
+    },
 };
 function reducer(state, action) {
     if (state === void 0) { state = initialState; }
@@ -1666,6 +1672,14 @@ function reducer(state, action) {
             var query_1 = action.payload;
             return Object.assign({}, state, {
                 query: query_1,
+                wholequery: state.wholequery
+            });
+        }
+        case __WEBPACK_IMPORTED_MODULE_0__actions_query__["a" /* ActionTypes */].QUERYSERVER: {
+            var query_2 = action.payload;
+            return Object.assign({}, state, {
+                wholequery: query_2,
+                query: state.query
             });
         }
         default: {
@@ -1674,6 +1688,7 @@ function reducer(state, action) {
     }
 }
 var getpresentquery = function (state) { return state.query; };
+var getpresentwholequery = function (state) { return state.wholequery; };
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/query.js.map
 
 /***/ }),
@@ -2070,6 +2085,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var SearchBarComponent = (function () {
     function SearchBarComponent(route, router, store) {
         var _this = this;
@@ -2100,18 +2116,20 @@ var SearchBarComponent = (function () {
         }
     };
     SearchBarComponent.prototype.onquery = function (event) {
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryAction */](event.target.value));
         if (event.target.value.length > 2) {
-            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryAction */](event.target.value));
+            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["c" /* QueryServerAction */]({ 'query': this.searchdata.query }));
             this.displayStatus = 'showbox';
             this.submit();
             this.hidebox(event);
+        }
+        else {
         }
     };
     SearchBarComponent.prototype.ShowAuto = function () {
         return (this.displayStatus === 'showbox');
     };
     SearchBarComponent.prototype.ngOnInit = function () {
-        this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
         this.displayStatus = 'hidebox';
     };
     SearchBarComponent.prototype.ngAfterViewInit = function () {
