@@ -1,7 +1,7 @@
 <div *ngIf="results?.length > 0" class="card">
     <h3>Searches related to {{this.keyword}}</h3>
     <div *ngFor="let result of results" class="related">
-      <a [routerLink]="resultsearch" [queryParams]="{query: result.label}" class="rellink">{{result.label}}</a>
+      <a [routerLink]="resultsearch" [queryParams]="getQuery(result.label)" class="rellink">{{result.label}}</a>
     </div>
   </div>
 
