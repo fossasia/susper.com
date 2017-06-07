@@ -57,13 +57,18 @@ export class KnowledgeEffects {
         .takeUntil(nextSearch$)
         .subscribe((response) => {
         if (response.results) {
-          if (response.results[0].label.toLowerCase().includes(querypay.query.toLowerCase())) {
-            this.store.dispatch(new knowledge.SearchAction(response));
-            return empty();
+          if(response.results[0]){
+            if (response.results[0].label.toLowerCase().includes(querypay.query.toLowerCase())) {
+              this.store.dispatch(new knowledge.SearchAction(response));
+              return empty();
+            } else {
+              this.store.dispatch(new knowledge.SearchAction([]));
+              return empty();
+            }
           } else {
             this.store.dispatch(new knowledge.SearchAction([]));
-            return empty();
           }
+
         } else {
           this.store.dispatch(new knowledge.SearchAction([]));
         }
