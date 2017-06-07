@@ -6,6 +6,7 @@ import * as query from '../actions/query';
 export const CHANGE = 'CHANGE';
 export interface State {
   query: string;
+  wholequery: any;
 }
 /**
  * There is always a need of initial state to be passed onto the store.
@@ -15,6 +16,9 @@ export interface State {
  */
 const initialState: State = {
   query: '',
+  wholequery: {
+    query: '',
+  },
 };
 export function reducer(state: State = initialState, action: query.Actions): State {
   switch (action.type) {
@@ -23,6 +27,15 @@ export function reducer(state: State = initialState, action: query.Actions): Sta
 
       return Object.assign({}, state, {
         query: query,
+        wholequery: state.wholequery
+      });
+    }
+    case query.ActionTypes.QUERYSERVER: {
+      const query = action.payload;
+
+      return Object.assign({}, state, {
+        wholequery: query,
+        query: state.query
 
       });
     }
@@ -32,3 +45,4 @@ export function reducer(state: State = initialState, action: query.Actions): Sta
   }
 }
 export const getpresentquery = (state: State) => state.query;
+export const getpresentwholequery = (state: State) => state.wholequery;
