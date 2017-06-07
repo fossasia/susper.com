@@ -74,6 +74,29 @@ AboutComponent = __decorate([
 
 /***/ }),
 
+/***/ "./src/app/actions/knowledge.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__("./src/app/utils.ts");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ActionTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchAction; });
+
+var ActionTypes = {
+    CHANGE: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* type */])('[Knowledge] Change'),
+};
+var SearchAction = (function () {
+    function SearchAction(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.CHANGE;
+    }
+    return SearchAction;
+}());
+
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/knowledge.js.map
+
+/***/ }),
+
 /***/ "./src/app/actions/query.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -217,7 +240,7 @@ var AdvancedsearchComponent = (function () {
         this.selectedelements = [];
         this.activatedroute.queryParams.subscribe(function (query) {
             _this.querylook = Object.assign({}, query);
-            _this.navigation$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["d" /* getNavigation */]);
+            _this.navigation$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["e" /* getNavigation */]);
         });
     }
     AdvancedsearchComponent.prototype.changeurl = function (modifier, element) {
@@ -356,6 +379,7 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__auto_complete_auto_complete_component__ = __webpack_require__("./src/app/auto-complete/auto-complete.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__theme_theme_component__ = __webpack_require__("./src/app/theme/theme.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__theme_service__ = __webpack_require__("./src/app/theme.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__effects_knowledge__ = __webpack_require__("./src/app/effects/knowledge.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -363,6 +387,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -439,6 +464,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_8__angular_router__["a" /* RouterModule */].forRoot(appRoutes),
             __WEBPACK_IMPORTED_MODULE_14__ngrx_store__["a" /* StoreModule */].provideStore(__WEBPACK_IMPORTED_MODULE_15__reducers_index__["a" /* reducer */]),
             __WEBPACK_IMPORTED_MODULE_22__ngrx_effects__["a" /* EffectsModule */].run(__WEBPACK_IMPORTED_MODULE_23__effects_search_effects__["a" /* ApiSearchEffects */]),
+            __WEBPACK_IMPORTED_MODULE_22__ngrx_effects__["a" /* EffectsModule */].run(__WEBPACK_IMPORTED_MODULE_32__effects_knowledge__["a" /* KnowledgeEffects */]),
             __WEBPACK_IMPORTED_MODULE_13__ngrx_store_devtools__["a" /* StoreDevtoolsModule */].instrumentOnlyWithExtension(),
             __WEBPACK_IMPORTED_MODULE_20_ng2_bs3_modal_ng2_bs3_modal__["Ng2Bs3ModalModule"]
         ],
@@ -720,6 +746,123 @@ ContactComponent = __decorate([
 
 var _a;
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/contact.component.js.map
+
+/***/ }),
+
+/***/ "./src/app/effects/knowledge.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngrx_effects__ = __webpack_require__("./node_modules/@ngrx/effects/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__("./node_modules/@ngrx/store/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__("./node_modules/rxjs/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__ = __webpack_require__("./node_modules/rxjs/observable/empty.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch__ = __webpack_require__("./node_modules/rxjs/add/operator/catch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__ = __webpack_require__("./node_modules/rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_switchMap__ = __webpack_require__("./node_modules/rxjs/add/operator/switchMap.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_switchMap__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_debounceTime__ = __webpack_require__("./node_modules/rxjs/add/operator/debounceTime.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_debounceTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_debounceTime__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_skip__ = __webpack_require__("./node_modules/rxjs/add/operator/skip.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_skip___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_skip__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_takeUntil__ = __webpack_require__("./node_modules/rxjs/add/operator/takeUntil.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_takeUntil___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_takeUntil__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__actions_query__ = __webpack_require__("./src/app/actions/query.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__actions_knowledge__ = __webpack_require__("./src/app/actions/knowledge.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__knowledgeapi_service__ = __webpack_require__("./src/app/knowledgeapi.service.ts");
+/* unused harmony export CHANGE */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return KnowledgeEffects; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+var CHANGE = 'CHANGE';
+
+
+/**
+ * Effects offer a way to isolate and easily test side-effects within your
+ * application. StateUpdates is an observable of the latest state and
+ * dispatched action. The `toPayload` helper function returns just
+ * the payload of the currently dispatched action, useful in
+ * instances where the current state is not necessary.
+ *
+ * A simple way to think of it is that ngrx/effects is an event listener of sorts.
+ * It listens for actions being dispatched to the store. You can then tell `ngrx/effects`
+ * that when a particular action is dispatched, to take another, new action as a result.
+ * At the end, what’s really happening is `ngrx/effects` is an `action generator` that dispatches
+ * a `new action` as a result of a different action.
+ */
+var KnowledgeEffects = (function () {
+    function KnowledgeEffects(actions$, knowledgeservice, store) {
+        var _this = this;
+        this.actions$ = actions$;
+        this.knowledgeservice = knowledgeservice;
+        this.store = store;
+        this.search$ = this.actions$
+            .ofType(__WEBPACK_IMPORTED_MODULE_11__actions_query__["a" /* ActionTypes */].QUERYSERVER)
+            .debounceTime(300)
+            .map(function (action) { return action.payload; })
+            .switchMap(function (querypay) {
+            if (querypay === '') {
+                _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_12__actions_knowledge__["a" /* SearchAction */]([]));
+                return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
+            }
+            var nextSearch$ = _this.actions$.ofType(__WEBPACK_IMPORTED_MODULE_11__actions_query__["a" /* ActionTypes */].QUERYSERVER).skip(1);
+            _this.knowledgeservice.getsearchresults(querypay.query)
+                .takeUntil(nextSearch$)
+                .subscribe(function (response) {
+                if (response.results) {
+                    if (response.results[0].label.toLowerCase().includes(querypay.query.toLowerCase())) {
+                        _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_12__actions_knowledge__["a" /* SearchAction */](response));
+                        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
+                    }
+                    else {
+                        _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_12__actions_knowledge__["a" /* SearchAction */]([]));
+                        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
+                    }
+                }
+                else {
+                    _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_12__actions_knowledge__["a" /* SearchAction */]([]));
+                }
+            });
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
+        });
+    }
+    return KnowledgeEffects;
+}());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__ngrx_effects__["b" /* Effect */])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"]) === "function" && _a || Object)
+], KnowledgeEffects.prototype, "search$", void 0);
+KnowledgeEffects = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__ngrx_effects__["c" /* Actions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ngrx_effects__["c" /* Actions */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_13__knowledgeapi_service__["a" /* KnowledgeapiService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_13__knowledgeapi_service__["a" /* KnowledgeapiService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */]) === "function" && _d || Object])
+], KnowledgeEffects);
+
+var _a, _b, _c, _d;
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/knowledge.js.map
 
 /***/ }),
 
@@ -1048,25 +1191,9 @@ var InfoboxComponent = (function () {
         this.resultscomponentchange$.subscribe(function (res) {
             _this.results = _this.initialresults;
         });
-        this.query$.subscribe(function (query) {
-            if (query) {
-                _this.knowledgeservice.getsearchresults(query).subscribe(function (res) {
-                    if (res.results[0]) {
-                        if (res.results[0].label.toLowerCase().includes(query.toLowerCase())) {
-                            _this.initialresults = res.results;
-                        }
-                        else {
-                            _this.initialresults = [];
-                        }
-                    }
-                    else {
-                        _this.initialresults = [];
-                    }
-                });
-            }
-            else {
-                _this.initialresults = [];
-            }
+        this.response$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["d" /* getKnowledge */]);
+        this.response$.subscribe(function (res) {
+            _this.initialresults = res.results || [];
         });
     }
     InfoboxComponent.prototype.ngOnInit = function () {
@@ -1394,14 +1521,17 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_store__ = __webpack_require__("./node_modules/@ngrx/store/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__search__ = __webpack_require__("./src/app/reducers/search.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__query__ = __webpack_require__("./src/app/reducers/query.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__knowledge__ = __webpack_require__("./src/app/reducers/knowledge.ts");
 /* harmony export (immutable) */ __webpack_exports__["a"] = reducer;
 /* unused harmony export getSearchState */
 /* unused harmony export getQueryState */
+/* unused harmony export getKnowledgeState */
 /* unused harmony export getSearchResults */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getItems; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getTotalResults; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getNavigation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getTotalResults; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getNavigation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getquery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getKnowledge; });
 
 
 /**
@@ -1436,6 +1566,7 @@ var _a, _b;
  */
 
 
+
 /**
  * Because metareducers take a reducer function and return a new reducer,
  * we can use our compose helper to chain them together. Here we are
@@ -1446,6 +1577,7 @@ var _a, _b;
 var reducers = {
     search: __WEBPACK_IMPORTED_MODULE_5__search__["a" /* reducer */],
     query: __WEBPACK_IMPORTED_MODULE_6__query__["a" /* reducer */],
+    knowledge: __WEBPACK_IMPORTED_MODULE_7__knowledge__["a" /* reducer */]
 };
 var developmentReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__ngrx_core_compose__["compose"])(__WEBPACK_IMPORTED_MODULE_3_ngrx_store_freeze__["storeFreeze"], __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["h" /* combineReducers */])(reducers);
 var productionReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__ngrx_store__["h" /* combineReducers */])(reducers);
@@ -1459,12 +1591,52 @@ function reducer(state, action) {
 }
 var getSearchState = function (state) { return state.search; };
 var getQueryState = function (state) { return state.query; };
+var getKnowledgeState = function (state) { return state.knowledge; };
 var getSearchResults = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getSearchState, __WEBPACK_IMPORTED_MODULE_5__search__["b" /* getsearchresults */]);
 var getItems = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getSearchState, __WEBPACK_IMPORTED_MODULE_5__search__["c" /* getItems */]);
 var getTotalResults = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getSearchState, __WEBPACK_IMPORTED_MODULE_5__search__["d" /* getTotalResults */]);
 var getNavigation = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getSearchState, __WEBPACK_IMPORTED_MODULE_5__search__["e" /* getNavigation */]);
 var getquery = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getQueryState, __WEBPACK_IMPORTED_MODULE_6__query__["b" /* getpresentquery */]);
+var getKnowledge = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getKnowledgeState, __WEBPACK_IMPORTED_MODULE_7__knowledge__["b" /* getresponse */]);
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/index.js.map
+
+/***/ }),
+
+/***/ "./src/app/reducers/knowledge.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_knowledge__ = __webpack_require__("./src/app/actions/knowledge.ts");
+/* unused harmony export CHANGE */
+/* harmony export (immutable) */ __webpack_exports__["a"] = reducer;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getresponse; });
+
+var CHANGE = 'CHANGE';
+/**
+ * There is always a need of initial state to be passed onto the store.
+ *
+ * @prop: query: ''
+ * @prop: loading: false
+ */
+var initialState = {
+    response: {}
+};
+function reducer(state, action) {
+    if (state === void 0) { state = initialState; }
+    switch (action.type) {
+        case __WEBPACK_IMPORTED_MODULE_0__actions_knowledge__["b" /* ActionTypes */].CHANGE: {
+            var response = action.payload;
+            return Object.assign({}, state, {
+                response: response,
+            });
+        }
+        default: {
+            return state;
+        }
+    }
+}
+var getresponse = function (state) { return state.response; };
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/knowledge.js.map
 
 /***/ }),
 
@@ -1619,28 +1791,9 @@ var RelatedSearchComponent = (function () {
         this.resultscomponentchange$.subscribe(function (res) {
             _this.results = _this.initialresults;
         });
-        this.query$.subscribe(function (query) {
-            if (query) {
-                _this.knowledgeservice.getsearchresults(query).subscribe(function (res) {
-                    if (res.results[0]) {
-                        if (!res.results[0].label.toLowerCase().localeCompare(query.toLowerCase())) {
-                            res.results.splice(0, 1);
-                            _this.initialresults = res.results;
-                        }
-                        else {
-                            _this.initialresults = res.results;
-                        }
-                        _this.keyword = query;
-                    }
-                    else {
-                        _this.initialresults = [];
-                        _this.keyword = query;
-                    }
-                });
-            }
-            else {
-                _this.initialresults = [];
-            }
+        this.response$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["d" /* getKnowledge */]);
+        this.response$.subscribe(function (res) {
+            _this.initialresults = res.results || [];
         });
     }
     RelatedSearchComponent.prototype.ngOnInit = function () {
@@ -1774,7 +1927,7 @@ var ResultsComponent = (function () {
             _this.begin = _this.start + 1;
             _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](query));
             _this.items$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["c" /* getItems */]);
-            _this.totalResults$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["e" /* getTotalResults */]);
+            _this.totalResults$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["f" /* getTotalResults */]);
             _this.totalResults$.subscribe(function (totalResults) {
                 if (totalResults) {
                     _this.hidefooter = 0;
