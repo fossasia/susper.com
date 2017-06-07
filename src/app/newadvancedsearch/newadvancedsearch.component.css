@@ -115,3 +115,22 @@ div{
     margin-left: -77px;
   }
 }
+
+.col-md-4 {
+  font-size: 13px;
+  font-weight: 2px;
+}
+
+.advanced-search-heading {
+  color: #dd4b39;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+}
+
+.to-word-alignment {
+  margin-top: 10px;
+}
+
+.label:hover {
+  cursor: default;
+}
