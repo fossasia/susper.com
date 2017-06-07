@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="row">
+<div class="row" [style.background-color]="themeService.backgroundColor">
     <div class="container-fluid" id="search-options-field">
         <ul type="none" id="search-options">
             <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
