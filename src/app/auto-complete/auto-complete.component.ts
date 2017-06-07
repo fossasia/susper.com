@@ -20,7 +20,7 @@ export class AutoCompleteComponent implements OnInit {
     this.results = [];
     this.query$.subscribe( query => {
       if (query) {
-        this.autocompleteservice.getsearchresults(this.query).subscribe(res => {
+        this.autocompleteservice.getsearchresults(query).subscribe(res => {
           if (res) {
             if (res[0]) {
               this.results = res[1];
