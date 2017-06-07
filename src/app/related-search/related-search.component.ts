@@ -18,7 +18,7 @@ export class RelatedSearchComponent implements OnInit {
   resultsearch = '/search';
   initialresults: Array<any>;
   resultscomponentchange$: Observable<any>;
-
+  response$: Observable<any>;
   constructor(private knowledgeservice: KnowledgeapiService, private route: Router, private activatedroute: ActivatedRoute,
               private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
     this.query$ = store.select(fromRoot.getquery);
@@ -29,27 +29,10 @@ export class RelatedSearchComponent implements OnInit {
     });
 
 
-    this.query$.subscribe( query => {
-      if (query) {
-        this.knowledgeservice.getsearchresults(query).subscribe(res => {
-          if (res.results[0]) {
-            if (!res.results[0].label.toLowerCase().localeCompare(query.toLowerCase())) {
-              res.results.splice(0, 1);
-              this.initialresults = res.results;
-            } else {
-              this.initialresults = res.results;
-            }
-            this.keyword = query;
+    this.response$ = store.select(fromRoot.getKnowledge);
+    this.response$.subscribe(res => {
+      this.initialresults = res.results || [];
 
-          } else {
-            this.initialresults = [];
-            this.keyword = query;
-          }
-
-        });
-      } else {
-        this.initialresults = [];
-      }
     });
   }
 
