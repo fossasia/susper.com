@@ -155,21 +155,11 @@ export class ResultsComponent implements OnInit {
 
       this.store.dispatch(new queryactions.QueryServerAction(query));
       this.items$ = store.select(fromRoot.getItems);
-      this.totalResults$ = store.select(fromRoot.getTotalResults);
-      this.totalResults$.subscribe(totalResults => {
-        if (totalResults) {
-          this.hidefooter = 0;
-        }
-        this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
-        this.message = 'About ' + totalResults + ' results';
-        this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
-        this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
-      });
-
       this.searchdata.rows = Number(query['rows']) || 10;
       this.presentPage = Math.abs(query['start'] / this.searchdata.rows) + 1;
 
     });
+    this.totalResults$ = store.select(fromRoot.getTotalResults);
     this.totalResults$.subscribe(totalResults => {
       if (totalResults) {
         this.hidefooter = 0;
