@@ -79,3 +79,4 @@ export const getItems = createSelector(getSearchState, fromSearch.getItems);
 export const getTotalResults = createSelector(getSearchState, fromSearch.getTotalResults);
 export const getNavigation = createSelector(getSearchState, fromSearch.getNavigation);
 export const getquery = createSelector(getQueryState, fromQuery.getpresentquery);
+export const getwholequery = createSelector(getQueryState, fromQuery.getpresentwholequery);
