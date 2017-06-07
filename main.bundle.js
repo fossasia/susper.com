@@ -1927,19 +1927,10 @@ var ResultsComponent = (function () {
             _this.begin = _this.start + 1;
             _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](query));
             _this.items$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["c" /* getItems */]);
-            _this.totalResults$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["f" /* getTotalResults */]);
-            _this.totalResults$.subscribe(function (totalResults) {
-                if (totalResults) {
-                    _this.hidefooter = 0;
-                }
-                _this.end = Math.min(totalResults, _this.begin + _this.searchdata.rows - 1);
-                _this.message = 'About ' + totalResults + ' results';
-                _this.noOfPages = Math.ceil(totalResults / _this.searchdata.rows);
-                _this.maxPage = Math.min(_this.searchdata.rows, _this.noOfPages);
-            });
             _this.searchdata.rows = Number(query['rows']) || 10;
             _this.presentPage = Math.abs(query['start'] / _this.searchdata.rows) + 1;
         });
+        this.totalResults$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["f" /* getTotalResults */]);
         this.totalResults$.subscribe(function (totalResults) {
             if (totalResults) {
                 _this.hidefooter = 0;
