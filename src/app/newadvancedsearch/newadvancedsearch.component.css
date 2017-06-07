@@ -7,6 +7,9 @@
   text-align: left;
 }
 
+.form-label{
+  cursor: default;
+}
 .navbar-right{
   border-top:none;
 }
