@@ -42,7 +42,7 @@ a {
 }
 
 .feed {
-  width: 670px;
+  width: 49%;
 }
 
 .title-pointer:hover {
@@ -256,9 +256,24 @@ a {
   }
 }
 
+@media screen and (max-width: 1440px) {
+  .feed {
+    width: 43%;
+  }
+}
+
 @media screen and (max-width:1365px) {
   #tools {
     margin-left: 16%;
+  }
+  .feed {
+    width: 49%;
+  }
+}
+
+@media screen and (max-width:1175px) {
+  .feed {
+    width: 56%;
   }
 }
 
@@ -319,6 +334,12 @@ a {
   }
 }
 
+@media screen and (max-width:950px) {
+  .feed {
+    width: 66.3%;
+  }
+}
+
 @media screen and (max-width:882px) {
   #search-options {
     margin-left: 9.8%;
@@ -328,6 +349,9 @@ a {
   }
   .result {
     margin-left: 7.7%;
+  }
+  .feed {
+    width: 77%;
   }
 }
 
@@ -364,6 +388,9 @@ a {
   }
   .result {
     margin-left: 13.5%;
+  }
+  .feed {
+    width: 87%;
   }
 }
 
