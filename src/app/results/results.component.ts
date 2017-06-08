@@ -37,6 +37,8 @@ export class ResultsComponent implements OnInit {
   };
   querylook = {};
   hidefooter = 1;
+  querychange$: Observable<any>;
+  resultscomponentchange$: Observable<any>;
   getNumber(N) {
     let result = Array.apply(null, { length: N }).map(Number.call, Number);
     if (result.length > 10) {
@@ -171,8 +173,14 @@ export class ResultsComponent implements OnInit {
       this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
       this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
     });
-
-
+    this.resultscomponentchange$ = store.select(fromRoot.getItems);
+    this.resultscomponentchange$.subscribe(res => {
+      this.route.navigate(['/search'], {queryParams: this.searchdata});
+    });
+    this.querychange$ = store.select(fromRoot.getquery);
+    this.querychange$.subscribe(res => {
+      this.searchdata.query = res;
+    });
   };
 
   ngOnInit() {
