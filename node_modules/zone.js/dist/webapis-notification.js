@@ -19,7 +19,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Zone.__load_patch('notification', function (global, Zone, api) {
-    var Notification = _global['Notification'];
+    var Notification = global['Notification'];
     if (!Notification || !Notification.prototype) {
         return;
     }

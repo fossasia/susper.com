@@ -39,7 +39,6 @@
   },
   "_requiredBy": [
     "/ecc-jsbn",
-    "/jodid25519",
     "/sshpk"
   ],
   "_resolved": "https://registry.npmjs.org/jsbn/-/jsbn-0.1.1.tgz",
