@@ -243,6 +243,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   fields: {}
 });
 
+(0, _index2.default)("ObjectTypeSpreadProperty", {
+  visitor: ["argument"],
+  aliases: ["Flow", "UserWhitespacable"],
+  fields: {}
+});
+
 (0, _index2.default)("QualifiedTypeIdentifier", {
   visitor: ["id", "qualification"],
   aliases: ["Flow"],
