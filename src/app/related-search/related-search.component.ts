@@ -22,7 +22,9 @@ export class RelatedSearchComponent implements OnInit {
   constructor(private knowledgeservice: KnowledgeapiService, private route: Router, private activatedroute: ActivatedRoute,
               private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
     this.query$ = store.select(fromRoot.getquery);
-
+    this.query$.subscribe(query => {
+      this.keyword = query;
+    });
     this.resultscomponentchange$ = store.select(fromRoot.getItems);
     this.resultscomponentchange$.subscribe(res => {
       this.results = this.initialresults;
