@@ -47,7 +47,7 @@ describe('Component: Terms', () => {
   it('should have alt text property as brand', () => {
     let compiled = fixture.debugElement.nativeElement;
 
-    let image: HTMLInputElement = compiled.querySelector('div.navbar-header img');
+    let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
     expect(image).toBeTruthy();
     expect(image.alt).toBe('brand');
   });

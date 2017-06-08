@@ -47,7 +47,7 @@ describe('Component: Contact', () => {
   it('should have alt text property as brand', () => {
     let compiled = fixture.debugElement.nativeElement;
 
-    let image: HTMLInputElement = compiled.querySelector('div.navbar-header img');
+    let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
     expect(image).toBeTruthy();
     expect(image.alt).toBe('brand');
   });
@@ -55,6 +55,12 @@ describe('Component: Contact', () => {
   it('should have a FooterNavbar Component', () => {
     const footerNavbar = new FooterNavbarComponent();
     expect(footerNavbar).toBeTruthy();
+  });
+
+  it('should have an element app-footer-navbar', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
   });
 
 });
