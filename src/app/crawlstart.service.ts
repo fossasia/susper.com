@@ -9,7 +9,7 @@ export class CrawlstartService {
   searchURL = 'http://' + this.server + '/solr/select?callback=?';
   constructor(private http: Http, private jsonp: Jsonp, private store: Store<fromRoot.State>) { }
   getcrawldefaults() {
-    return this.http.get('http://yacygrid.com:8300/yacy/grid/crawler/defaultValues.json').map(res => {
+    return this.jsonp.get('http://yacygrid.com:8300/yacy/grid/crawler/defaultValues.json').map(res => {
       res.json();
     });
   }
@@ -20,7 +20,7 @@ export class CrawlstartService {
     console.error(errMsg); // Right now we are logging to console itself
     return Observable.throw(errMsg);
   }
-  startcrawljob(crawlvalues) {
+  startCrawlJob(crawlvalues) {
     this.http.post('http://yacy.searchlab.eu/Crawler_p.html', crawlvalues)
       .subscribe(res => {
 

@@ -35,7 +35,6 @@ export class CrawlstartComponent implements OnInit {
     "cachePolicy": "if fresh",
     "indexText": "on",
     "indexMedia": "off",
-    "xsstopw": "off",
     "collection": "user",
     "agentName": ""
   };
@@ -44,9 +43,10 @@ export class CrawlstartComponent implements OnInit {
       this.crawlvalues = res;
     });*/
   };
-  starcrawljob() {
-    this.crawlstartservice.startcrawljob(this.crawlvalues);
+  startCrawlJob() {
+    this.crawlstartservice.startCrawlJob(this.crawlvalues);
   };
+
   ngOnInit() {
   }
 

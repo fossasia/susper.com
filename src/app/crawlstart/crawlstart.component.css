@@ -14,6 +14,11 @@
 .bold{
   font-weight: 700;
 }
+.crawlstartbutton{
+  border-color: white;
+  background-color: #4d90fe;
+  border: 1px solid #3079ed
+}
 
 .nav-terms {
   padding: 0px;
