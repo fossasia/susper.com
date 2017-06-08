@@ -1977,6 +1977,14 @@ var ResultsComponent = (function () {
             _this.noOfPages = Math.ceil(totalResults / _this.searchdata.rows);
             _this.maxPage = Math.min(_this.searchdata.rows, _this.noOfPages);
         });
+        this.resultscomponentchange$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["c" /* getItems */]);
+        this.resultscomponentchange$.subscribe(function (res) {
+            _this.route.navigate(['/search'], { queryParams: _this.searchdata });
+        });
+        this.querychange$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["b" /* getquery */]);
+        this.querychange$.subscribe(function (res) {
+            _this.searchdata.query = res;
+        });
     }
     ResultsComponent.prototype.getNumber = function (N) {
         var result = Array.apply(null, { length: N }).map(Number.call, Number);
@@ -2147,7 +2155,7 @@ var SearchBarComponent = (function () {
     };
     SearchBarComponent.prototype.onquery = function (event) {
         this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryAction */](event.target.value));
-        if (event.target.value.length > 2) {
+        if (event.target.value.length > 0) {
             this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["c" /* QueryServerAction */]({ 'query': this.searchdata.query }));
             this.displayStatus = 'showbox';
             this.submit();
@@ -2167,7 +2175,9 @@ var SearchBarComponent = (function () {
     };
     SearchBarComponent.prototype.submit = function () {
         if (this.searchdata.query.toString().length !== 0) {
-            this.router.navigate(['/search'], { queryParams: this.searchdata });
+            if (!this.router.url.toString().includes('/search')) {
+                this.router.navigate(['/search'], { queryParams: this.searchdata });
+            }
         }
     };
     return SearchBarComponent;
