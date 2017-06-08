@@ -16,7 +16,7 @@ export class InfoboxComponent implements OnInit {
   resultsearch = '/search';
   initialresults: Array<any>;
   resultscomponentchange$: Observable<any>;
-
+  response$: Observable<any>;
   constructor(private knowledgeservice: KnowledgeapiService, private route: Router, private activatedroute: ActivatedRoute,
               private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
     this.query$ = store.select(fromRoot.getquery);
@@ -24,28 +24,13 @@ export class InfoboxComponent implements OnInit {
     this.resultscomponentchange$.subscribe(res => {
       this.results = this.initialresults;
     });
+    this.response$ = store.select(fromRoot.getKnowledge);
+    this.response$.subscribe(res => {
+      this.initialresults = res.results || [];
 
-
-
-    this.query$.subscribe( query => {
-      if (query) {
-        this.knowledgeservice.getsearchresults(query).subscribe(res => {
-          if (res.results) {
-            if (res.results[0].label.toLowerCase().includes(query.toLowerCase())) {
-              this.initialresults = res.results;
-            } else {
-              this.initialresults = [];
-            }
-
-          } else {
-            this.initialresults = [];
-          }
-
-        });
-      }else {
-        this.initialresults = [];
-      }
     });
+
+
   }
 
   ngOnInit() {
