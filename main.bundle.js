@@ -1824,6 +1824,9 @@ var RelatedSearchComponent = (function () {
         this.ref = ref;
         this.resultsearch = '/search';
         this.query$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["b" /* getquery */]);
+        this.query$.subscribe(function (query) {
+            _this.keyword = query;
+        });
         this.resultscomponentchange$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getItems */]);
         this.resultscomponentchange$.subscribe(function (res) {
             _this.results = _this.initialresults;
