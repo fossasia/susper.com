@@ -3,6 +3,29 @@
     text-align: right;
   }
 }
+
+#top-line{
+  margin-bottom: 48px;
+  width: 200%;
+  margin-left: -5.5%;
+}
+
+.label-heading{
+  max-width: 23%;
+}
+.label-search{
+  cursor: default;
+  font-weight: 300;
+}
+.container{
+  padding-left: 3.5%;
+  float: left;
+  width: 70%;
+}
+.form-control{
+  width: 135%;
+  border-radius: 0px;
+}
 .navbar-nav > li > a{
   text-align: left;
 }
