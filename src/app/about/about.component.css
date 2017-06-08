@@ -12,6 +12,11 @@
   text-align: left;
 }
 
+.page-link{
+  padding-right: 0%;
+  color: #1a0dab;
+}
+
 .navbar-right{
   border-top:none;
 }
