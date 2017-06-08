@@ -31,6 +31,7 @@ import { AutoCompleteComponent } from './auto-complete/auto-complete.component';
 import { ThemeComponent } from './theme/theme.component';
 import { ThemeService } from './theme.service';
 import { SearchsettingsComponent } from './searchsettings/searchsettings.component';
+import {KnowledgeEffects} from "./effects/knowledge";
 
 
 const appRoutes: Routes = [
@@ -74,6 +75,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     StoreModule.provideStore(reducer),
     EffectsModule.run(ApiSearchEffects),
+    EffectsModule.run(KnowledgeEffects),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     Ng2Bs3ModalModule
 

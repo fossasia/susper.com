@@ -12,7 +12,7 @@ before_script:
   - ng build --prod
 
 script:
-  - ng test --watch=false
+  - ng test --single-run --code-coverage --reporters=coverage-istanbul
   - ng lint
 
 after_success:
