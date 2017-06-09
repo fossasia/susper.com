@@ -67,8 +67,29 @@ a {
 
 .page-link {
   cursor: pointer;
+  text-align: center;
+}
+.page-item2 span{
+  padding-top: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
+  border: 0px;
+  background-color: white;
+  text-align: center;
+  cursor: pointer;
+}
+.side-text{
+  color: #4285f4;
+  text-align: center;
+  font-weight: 500;
+  padding-top: 4px;
 }
 
+.arrow{
+  font-size: large;
+  font-weight: 900;
+  padding-bottom: 4%;
+}
 #progress-bar {
   margin-top: 1%;
   font-size: small;
@@ -99,6 +120,20 @@ a {
   left: -25px;
 }
 
+.page-text{
+  font-size: xx-large;
+  color: #1a0dab;
+  font-weight: 400;
+  font-family: "Bitstream Vera Sans Mono";
+}
+
+.prev, .next{
+  color: #7f7f7f;
+}
+.page-number{
+  font-size: smaller;
+}
+
 .dropdown-menu > li {
   font-size: small;
   padding: 3px;
@@ -126,9 +161,6 @@ a {
   position: relative;
 }
 
-.active_page {
-  background-color: #bdcdd4;
-}
 
 .active_view {
   color: #4285f4 !important;
@@ -194,7 +226,7 @@ a {
   padding: 28px 16px 12px;
   color: #777;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 11px;
   line-height: 15px;
   font-family: Arial, sans-serif;
 }
@@ -228,6 +260,7 @@ a {
 #pag-bar {
   padding-left: 60px;
   padding-top: 20px;
+  width: 100%;
 }
 
 .pagination-property {
@@ -235,13 +268,15 @@ a {
   padding-bottom: 30px;
 }
 
-.pagination li span
+.page-item span
  {
        background-color: white;
        border: 0px ;
-       font-size: 16px;
+       font-size: 13px;
  }
-
+.page-item span{
+  padding: 6px 0.4px ;
+}
  .active_page{
        color: black;
  }
