@@ -2016,7 +2016,7 @@ var ResultsComponent = (function () {
         return (this.resultDisplay === S);
     };
     ResultsComponent.prototype.videoClick = function () {
-        this.getPresentPage(0);
+        this.getPresentPage(1);
         this.resultDisplay = 'videos';
         this.searchdata.rows = 10;
         this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
@@ -2024,7 +2024,7 @@ var ResultsComponent = (function () {
         this.route.navigate(['/search'], { queryParams: this.searchdata });
     };
     ResultsComponent.prototype.imageClick = function () {
-        this.getPresentPage(0);
+        this.getPresentPage(1);
         this.resultDisplay = 'images';
         this.searchdata.rows = 100;
         this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
@@ -2032,7 +2032,7 @@ var ResultsComponent = (function () {
         this.route.navigate(['/search'], { queryParams: this.searchdata });
     };
     ResultsComponent.prototype.docClick = function () {
-        this.getPresentPage(0);
+        this.getPresentPage(1);
         this.resultDisplay = 'all';
         delete this.searchdata.fq;
         this.searchdata.rows = 10;

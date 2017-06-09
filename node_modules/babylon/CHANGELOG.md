@@ -15,6 +15,11 @@ _Note: Gaps between patch versions are faulty, broken or test releases._
 
 See the [Babel Changelog](https://github.com/babel/babel/blob/master/CHANGELOG.md) for the pre-6.8.0 version Changelog.
 
+## 6.17.3 (2017-06-09)
+
+ * Fix location info on FunctionTypeParam nodes (#565) (#571) (Michal Srb)
+ * Fix stmt value being the raw value (#557) (#558) (Daniel Tschinder)
+
 ## 6.17.2 (2017-05-31)
 
  * Fixed disappearing comments following a trailing comma on the last property of an object literal or the last argument of a call expression (#478) (aardito2)

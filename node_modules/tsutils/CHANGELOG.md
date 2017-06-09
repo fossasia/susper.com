@@ -1,5 +1,15 @@
 # Change Log
 
+## v2.4.0
+**Bugfixes:**
+* `getLineRanges`: `contentLength` now contains the correct line length when there are multiple consecutive line break characters
+* `getTokenAtPosition`: don't match tokens that end at the specified position (because that's already outside of their range)
+* deprecated the misnamed `isModfierFlagSet`, use the new `isModifierFlagSet` instead
+
+**Features:**
+* Added typeguard: `isJsDoc`
+* Added experimental scope and usage analysis (`getUsageDomain` and `collectVariableUsage`)
+
 ## v2.3.0
 **Bugfixes:**
 * `forEachComment` no longer omits some comments when callback returns a truthy value
