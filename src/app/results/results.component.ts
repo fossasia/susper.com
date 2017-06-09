@@ -81,7 +81,7 @@ export class ResultsComponent implements OnInit {
   }
 
   imageClick() {
-    this.getPresentPage(0);
+    this.getPresentPage(1);
     this.resultDisplay = 'images';
     this.searchdata.rows = 100;
     this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
