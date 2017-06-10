@@ -2146,6 +2146,7 @@ var SearchBarComponent = (function () {
     SearchBarComponent.prototype.hidebox = function (event) {
         if (event.which === 13) {
             this.displayStatus = 'hidebox';
+            event.target.blur();
         }
     };
     SearchBarComponent.prototype.hidesuggestions = function (data) {

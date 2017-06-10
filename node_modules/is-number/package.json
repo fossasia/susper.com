@@ -34,8 +34,7 @@
     "type": "range"
   },
   "_requiredBy": [
-    "/fill-range",
-    "/randomatic"
+    "/fill-range"
   ],
   "_resolved": "https://registry.npmjs.org/is-number/-/is-number-2.1.0.tgz",
   "_shasum": "01fcbbb393463a548f2f466cce16dece49db908f",
