@@ -42,6 +42,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   hidebox(event: any) {
     if (event.which === 13) {
       this.displayStatus = 'hidebox';
+      event.target.blur();
     }
   }
   hidesuggestions(data: number) {

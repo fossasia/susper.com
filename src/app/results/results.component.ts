@@ -72,7 +72,7 @@ export class ResultsComponent implements OnInit {
   }
 
   videoClick() {
-    this.getPresentPage(0);
+    this.getPresentPage(1);
     this.resultDisplay = 'videos';
     this.searchdata.rows = 10;
     this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
@@ -81,7 +81,7 @@ export class ResultsComponent implements OnInit {
   }
 
   imageClick() {
-    this.getPresentPage(0);
+    this.getPresentPage(1);
     this.resultDisplay = 'images';
     this.searchdata.rows = 100;
     this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
@@ -91,7 +91,7 @@ export class ResultsComponent implements OnInit {
   }
 
   docClick() {
-    this.getPresentPage(0);
+    this.getPresentPage(1);
     this.resultDisplay = 'all';
     delete this.searchdata.fq;
     this.searchdata.rows = 10;
