@@ -39,6 +39,7 @@ export class ResultsComponent implements OnInit {
   hidefooter = 1;
   querychange$: Observable<any>;
   resultscomponentchange$: Observable<any>;
+  knowledge$: Observable<any>;
   getNumber(N) {
     let result = Array.apply(null, { length: N }).map(Number.call, Number);
     if (result.length > 10) {
@@ -180,6 +181,11 @@ export class ResultsComponent implements OnInit {
     this.querychange$ = store.select(fromRoot.getquery);
     this.querychange$.subscribe(res => {
       this.searchdata.query = res;
+    });
+
+    this.knowledge$ = store.select(fromRoot.getKnowledge);
+    this.knowledge$.subscribe(response => {
+      this.route.navigate(['/search'], {queryParams: this.searchdata});
     });
   };
 
