@@ -852,14 +852,8 @@ var KnowledgeEffects = (function () {
                 .subscribe(function (response) {
                 if (response.results) {
                     if (response.results[0]) {
-                        if (response.results[0].label.toLowerCase().includes(querypay.query.toLowerCase())) {
-                            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_12__actions_knowledge__["a" /* SearchAction */](response));
-                            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
-                        }
-                        else {
-                            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_12__actions_knowledge__["a" /* SearchAction */]([]));
-                            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
-                        }
+                        _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_12__actions_knowledge__["a" /* SearchAction */](response));
+                        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
                     }
                     else {
                         _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_12__actions_knowledge__["a" /* SearchAction */]([]));
@@ -1209,13 +1203,29 @@ var InfoboxComponent = (function () {
         this.ref = ref;
         this.resultsearch = '/search';
         this.query$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["b" /* getquery */]);
+        this.query$.subscribe(function (query) {
+            _this.keyword = query;
+        });
         this.resultscomponentchange$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getItems */]);
         this.resultscomponentchange$.subscribe(function (res) {
             _this.results = _this.initialresults;
         });
         this.response$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["d" /* getKnowledge */]);
+        this.initialresults = [];
         this.response$.subscribe(function (res) {
-            _this.initialresults = res.results || [];
+            if (res.results) {
+                if (res.results[0]) {
+                    if (res.results[0].label.toLowerCase().includes(_this.keyword.toLowerCase())) {
+                        _this.initialresults = res.results;
+                    }
+                    else {
+                        _this.initialresults = [];
+                    }
+                }
+            }
+            else {
+                _this.initialresults = [];
+            }
         });
     }
     InfoboxComponent.prototype.ngOnInit = function () {
@@ -1827,6 +1837,7 @@ var RelatedSearchComponent = (function () {
         this.query$.subscribe(function (query) {
             _this.keyword = query;
         });
+        this.results = [];
         this.resultscomponentchange$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getItems */]);
         this.resultscomponentchange$.subscribe(function (res) {
             _this.results = _this.initialresults;
