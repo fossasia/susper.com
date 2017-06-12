@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./searchsettings.component.css']
 })
 export class SearchsettingsComponent implements OnInit {
-  noofresults = 10;
+  resultCount = 10;
   constructor() { }
 
   ngOnInit() {

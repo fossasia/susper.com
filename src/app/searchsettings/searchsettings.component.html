@@ -34,7 +34,7 @@
     </div>
     <div class="col-md-9">
         <div>
-          <h4><strong>SafeSearch Filters</strong>/</h4>
+          <h4><strong>SafeSearch Filters</strong></h4>
           <p>SafeSearch can help you block inappropriate or explicit images from your Google Search results. The SafeSearch filter isn’t 100% accurate, but it helps you avoid most violent and adult content.</p>
           <label for="safesearch">Turn On Safe Search</label>
           <input type="checkbox" id="safesearch">
@@ -51,8 +51,8 @@
       <div>
         <h4><strong>Results per page</strong></h4>
         <div class="range-slider">
-          <input class="range-slider__range" type="range" [(ngModel)]="noofresults" value="100" min="0" max="500">
-          <span class="range-slider__value">{{noofresults}}</span>
+          <input class="range-slider__range" type="range" [(ngModel)]="resultCount" value="100" min="0" max="500">
+          <span class="range-slider__value">{{resultCount}}</span>
         </div>
 
       </div>
