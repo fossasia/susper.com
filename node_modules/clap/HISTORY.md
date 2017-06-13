@@ -1,3 +1,7 @@
+## 1.2.0 (June 13, 2017)
+
+- Improved multi value option processing (@smelukov, #7)
+
 ## 1.1.3 (March 16, 2017)
 
 - Fixed `Command#normalize()` issue when set a value for option with argument and no default value

@@ -300,6 +300,9 @@ function processArgs(command, args, suggest){
 
       if (params.length < option.minArgsCount)
         throw new SyntaxError('Option ' + token + ' should be used with at least ' + option.minArgsCount + ' argument(s)\nUsage: ' + option.usage);
+
+      if (option.maxArgsCount == 1)
+        params = params[0];
     }
     else
     {
@@ -589,9 +592,8 @@ Command.prototype = {
       throw new SyntaxError('Option `' + name + '` is not defined');
 
     var option = this.options[name];
-    var newValue = Array.isArray(value)
-          ? option.normalize.apply(this, value)
-          : option.normalize.call(this, value);
+    var oldValue = this.values[name];
+    var newValue = option.normalize.call(this, value, oldValue);
 
     this.values[name] = option.maxArgsCount ? newValue : value;
 
@@ -719,13 +721,10 @@ Command.prototype = {
         prevCommand.delegate_(command);
 
       // apply beforeInit options
-      command.setOptions(
-        item.options.reduce(function(res, entry){
-          if (entry.option.beforeInit)
-            res[entry.option.camelName] = entry.value;
-          return res;
-        }, {})
-      );
+      item.options.forEach(function(entry){
+        if (entry.option.beforeInit)
+          command.setOption(entry.option.camelName, entry.value);
+      });
 
       command.init_(item.args);
 
@@ -733,13 +732,10 @@ Command.prototype = {
         command.args_(item.args);
 
       // apply regular options
-      command.setOptions(
-        item.options.reduce(function(res, entry){
-          if (!entry.option.beforeInit)
-            res[entry.option.camelName] = entry.value;
-          return res;
-        }, {})
-      );
+      item.options.forEach(function(entry){
+        if (!entry.option.beforeInit)
+          command.setOption(entry.option.camelName, entry.value);
+      });
 
       prevCommand = command;
     }
