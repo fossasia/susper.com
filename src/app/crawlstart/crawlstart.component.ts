@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CrawlstartService} from "../crawlstart.service";
-
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-crawlstart',
   templateUrl: './crawlstart.component.html',
@@ -38,13 +38,21 @@ export class CrawlstartComponent implements OnInit {
     "collection": "user",
     "agentName": ""
   };
-  constructor(private crawlstartservice: CrawlstartService) {
+  constructor(private crawlstartservice: CrawlstartService, private router: Router) {
     /*this.crawlstartservice.getcrawldefaults().subscribe(res => {
       this.crawlvalues = res;
     });*/
   };
+
   startCrawlJob() {
-    this.crawlstartservice.startCrawlJob(this.crawlvalues);
+    this.crawlstartservice.startCrawlJob(this.crawlvalues).subscribe(res => {
+      alert("Started Crawl Job");
+      this.router.navigate(['/']);
+    }, (err) => {
+      if (err === 'Unauthorized') {
+        alert("Authentication Error");
+      }
+    });
   };
 
   ngOnInit() {

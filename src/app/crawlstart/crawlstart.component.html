@@ -279,13 +279,7 @@
           index text: <input name="indexmedia" type="checkbox" [(ngModel)]="crawlvalues.indexMedia">index media
         </div>
       </div>
-      <div class="form-group">
-        <div class="col-md-4"><label>Do Remote Indexing</label></div>
-        <div class="col-md-6">Describe your intention to start this global crawl (optional):
-          <input name="crawlorder" type="checkbox" [(ngModel)]="crawlvalues.crawlOrder">
-          <input name="intention" type="text" [(ngModel)]="crawlvalues.intention" size="40" class="form-control" maxlength="100">
-        </div>
-      </div>
+
       <div class="form-group">
         <div class="col-md-4"><label>Add Crawl result to collection(s)</label></div>
         <div class="col-md-6"><input name="collection" type="text" [(ngModel)]="crawlvalues.collection" size="60" class="form-control" maxlength="100">

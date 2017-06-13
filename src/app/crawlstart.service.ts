@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Jsonp} from "@angular/http";
+import {Http, Jsonp, Headers, RequestOptions, URLSearchParams} from "@angular/http";
 import {Store} from "@ngrx/store";
 import * as fromRoot from './reducers';
 import {Observable} from "rxjs";
@@ -9,7 +9,7 @@ export class CrawlstartService {
   searchURL = 'http://' + this.server + '/solr/select?callback=?';
   constructor(private http: Http, private jsonp: Jsonp, private store: Store<fromRoot.State>) { }
   getcrawldefaults() {
-    return this.jsonp.get('http://yacygrid.com:8300/yacy/grid/crawler/defaultValues.json').map(res => {
+    return this.jsonp.get('http://yacygrid.com:8300/yacy/grid/crawler/defaultValues.json?CALLBACK=JSONP_CALLBACK').map(res => {
       res.json();
     });
   }
@@ -21,11 +21,19 @@ export class CrawlstartService {
     return Observable.throw(errMsg);
   }
   startCrawlJob(crawlvalues) {
-    this.http.post('http://yacy.searchlab.eu/Crawler_p.html', crawlvalues)
-      .subscribe(res => {
+    let params = new URLSearchParams();
+    for (let key in crawlvalues) {
+      if (crawlvalues.hasOwnProperty(key)) {
+        params.set(key, crawlvalues[key]);
+      }
 
-      });
     }
+    let headers = new Headers({ 'Content-Type': 'application/json' });
 
+    let options = new RequestOptions({ headers: headers, search: params });
+    return this.jsonp
+      .get('http://localhost:8090/Crawler_p.html?CALLBACK=JSONP_CALLBACK', options).catch(this.handleError);
+
+  }
 
 }
