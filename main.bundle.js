@@ -1564,11 +1564,12 @@ var _a, _b;
 /* unused harmony export getKnowledgeState */
 /* unused harmony export getSearchResults */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getItems; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getTotalResults; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getTotalResults; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getNavigation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getquery; });
 /* unused harmony export getwholequery */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getKnowledge; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getResponseTime; });
 
 
 /**
@@ -1636,6 +1637,7 @@ var getNavigation = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__
 var getquery = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getQueryState, __WEBPACK_IMPORTED_MODULE_6__query__["b" /* getpresentquery */]);
 var getwholequery = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getQueryState, __WEBPACK_IMPORTED_MODULE_6__query__["c" /* getpresentwholequery */]);
 var getKnowledge = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getKnowledgeState, __WEBPACK_IMPORTED_MODULE_7__knowledge__["b" /* getresponse */]);
+var getResponseTime = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(getSearchState, __WEBPACK_IMPORTED_MODULE_5__search__["f" /* getresponsetime */]);
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/index.js.map
 
 /***/ }),
@@ -1739,6 +1741,7 @@ var getpresentwholequery = function (state) { return state.wholequery; };
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getsearchresults; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getTotalResults; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getresponsetime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getNavigation; });
 
 var CHANGE = 'CHANGE';
@@ -1752,7 +1755,8 @@ var initialState = {
     searchresults: {},
     items: [],
     totalResults: 0,
-    navigation: []
+    navigation: [],
+    responsetime: 0
 };
 function reducer(state, action) {
     if (state === void 0) { state = initialState; }
@@ -1764,6 +1768,7 @@ function reducer(state, action) {
                 items: search_1.channels[0].items,
                 totalResults: Number(search_1.channels[0].totalResults) || 0,
                 navigation: search_1.channels[0].navigation,
+                responsetime: new Date()
             });
         }
         default: {
@@ -1774,6 +1779,7 @@ function reducer(state, action) {
 var getsearchresults = function (state) { return state.searchresults; };
 var getItems = function (state) { return state.items; };
 var getTotalResults = function (state) { return state.totalResults; };
+var getresponsetime = function (state) { return state.responsetime; };
 var getNavigation = function (state) { return state.navigation; };
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/search.js.map
 
@@ -1946,7 +1952,6 @@ var ResultsComponent = (function () {
         this.querylook = {};
         this.hidefooter = 1;
         this.activatedroute.queryParams.subscribe(function (query) {
-            _this.hidefooter = 1;
             if (query['fq']) {
                 if (query['fq'].includes('png')) {
                     _this.resultDisplay = 'images';
@@ -1985,11 +1990,12 @@ var ResultsComponent = (function () {
             _this.searchdata.rows = Number(query['rows']) || 10;
             _this.presentPage = Math.abs(query['start'] / _this.searchdata.rows) + 1;
         });
-        this.totalResults$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["f" /* getTotalResults */]);
+        this.responseTime$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["f" /* getResponseTime */]);
+        this.responseTime$.subscribe(function (responsetime) {
+            _this.hidefooter = 0;
+        });
+        this.totalResults$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["g" /* getTotalResults */]);
         this.totalResults$.subscribe(function (totalResults) {
-            if (totalResults) {
-                _this.hidefooter = 0;
-            }
             _this.end = Math.min(totalResults, _this.begin + _this.searchdata.rows - 1);
             _this.message = 'About ' + totalResults + ' results';
             _this.noOfPages = Math.ceil(totalResults / _this.searchdata.rows);
@@ -2002,6 +2008,7 @@ var ResultsComponent = (function () {
         this.querychange$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["b" /* getquery */]);
         this.querychange$.subscribe(function (res) {
             _this.searchdata.query = res;
+            _this.hidefooter = 1;
         });
     }
     ResultsComponent.prototype.getNumber = function (N) {
