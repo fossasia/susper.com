@@ -379,7 +379,8 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__auto_complete_auto_complete_component__ = __webpack_require__("../../../../../src/app/auto-complete/auto-complete.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__theme_theme_component__ = __webpack_require__("../../../../../src/app/theme/theme.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__theme_service__ = __webpack_require__("../../../../../src/app/theme.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__effects_knowledge__ = __webpack_require__("../../../../../src/app/effects/knowledge.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__searchsettings_searchsettings_component__ = __webpack_require__("../../../../../src/app/searchsettings/searchsettings.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__effects_knowledge__ = __webpack_require__("../../../../../src/app/effects/knowledge.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -387,6 +388,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -428,6 +430,7 @@ var appRoutes = [
     { path: 'contact', component: __WEBPACK_IMPORTED_MODULE_19__contact_contact_component__["a" /* ContactComponent */] },
     { path: '404', component: __WEBPACK_IMPORTED_MODULE_10__not_found_not_found_component__["a" /* NotFoundComponent */] },
     { path: 'advancedsearch', component: __WEBPACK_IMPORTED_MODULE_24__newadvancedsearch_newadvancedsearch_component__["a" /* NewadvancedsearchComponent */] },
+    { path: 'preferences', component: __WEBPACK_IMPORTED_MODULE_32__searchsettings_searchsettings_component__["a" /* SearchsettingsComponent */] },
     { path: '**', redirectTo: '/404' },
 ];
 var AppModule = (function () {
@@ -454,6 +457,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_27__related_search_related_search_component__["a" /* RelatedSearchComponent */],
             __WEBPACK_IMPORTED_MODULE_29__auto_complete_auto_complete_component__["a" /* AutoCompleteComponent */],
             __WEBPACK_IMPORTED_MODULE_30__theme_theme_component__["a" /* ThemeComponent */],
+            __WEBPACK_IMPORTED_MODULE_32__searchsettings_searchsettings_component__["a" /* SearchsettingsComponent */],
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -464,7 +468,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_8__angular_router__["a" /* RouterModule */].forRoot(appRoutes),
             __WEBPACK_IMPORTED_MODULE_14__ngrx_store__["a" /* StoreModule */].provideStore(__WEBPACK_IMPORTED_MODULE_15__reducers_index__["a" /* reducer */]),
             __WEBPACK_IMPORTED_MODULE_22__ngrx_effects__["a" /* EffectsModule */].run(__WEBPACK_IMPORTED_MODULE_23__effects_search_effects__["a" /* ApiSearchEffects */]),
-            __WEBPACK_IMPORTED_MODULE_22__ngrx_effects__["a" /* EffectsModule */].run(__WEBPACK_IMPORTED_MODULE_32__effects_knowledge__["a" /* KnowledgeEffects */]),
+            __WEBPACK_IMPORTED_MODULE_22__ngrx_effects__["a" /* EffectsModule */].run(__WEBPACK_IMPORTED_MODULE_33__effects_knowledge__["a" /* KnowledgeEffects */]),
             __WEBPACK_IMPORTED_MODULE_13__ngrx_store_devtools__["a" /* StoreDevtoolsModule */].instrumentOnlyWithExtension(),
             __WEBPACK_IMPORTED_MODULE_20_ng2_bs3_modal_ng2_bs3_modal__["Ng2Bs3ModalModule"]
         ],
@@ -1008,7 +1012,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/footer-navbar/footer-navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<footer>\n    <div class=\"footer-bar\">\n        <div class=\"left-side\">\n            <a routerLink=\"/about\" routerLinkActive=\"active\">About</a>\n            <a href=\"//blog.fossasia.org\" id=\"blog\">Blogs</a>\n            <a href=\"//github.com/fossasia/susper.com\" id=\"code\">Code</a>\n        </div>\n        <div class=\"right-side\">\n            <a routerLink=\"/advancedsearch\" routerLinkActive=\"active\">Advanced Search</a>\n            <a routerLink=\"/terms\" routerLinkActive=\"active\">Terms</a>\n            <a routerLink=\"/contact\" routerLinkActive=\"active\">Contact</a>\n        </div>\n    </div>\n</footer>\n"
+module.exports = "<footer>\n    <div class=\"footer-bar\">\n        <div class=\"left-side\">\n            <a routerLink=\"/about\" routerLinkActive=\"active\">About</a>\n            <a href=\"//blog.fossasia.org\" id=\"blog\">Blogs</a>\n            <a href=\"//github.com/fossasia/susper.com\" id=\"code\">Code</a>\n        </div>\n        <div class=\"right-side\">\n            <a routerLink=\"/advancedsearch\" routerLinkActive=\"active\">Advanced Search</a>\n            <a routerLink=\"/terms\" routerLinkActive=\"active\">Terms</a>\n            <a routerLink=\"/contact\" routerLinkActive=\"active\">Contact</a>\n          <a routerLink=\"/preferences\" routerLinkActive=\"active\">Settings</a>\n        </div>\n    </div>\n</footer>\n"
 
 /***/ }),
 
@@ -2088,7 +2092,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "#nav-group{\n  background-color: white;\n  width: 584px;\n  color: black;\n  height: 8px;\n  top: 3px;\n  border-radius: 0px;\n  border: none;\n  border-style: solid;\n  border-color:rgba(0, 0, 0, 0);\n  border-width: 1px;\n  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);\n}\n\n\n#nav-input{\n  font-size: 16px;\n  font-weight: 400;\n  top: 4px;\n  color: black;\n  width: 511px;\n  height: 34px !important;\n  line-height: 34px ;\n  border-radius: 0px;\n  border: none;\n  box-shadow: none;\n  padding-left: 16px;\n  font-family: Arial, sans-serif;\n  position: initial;\n  padding-bottom: 2px;\n}\n\n#nav-button{\n  border-radius: 0px;\n  height: 38px;\n  background-color: white;\n  color: #0066ff;\n  box-shadow: none;\n  border: none;\n  position: initial;\n}\n\n#nav-button:focus {\n  outline: none;\n}\n\n#nav-group{\n  top:3px;\n}\n\n.navbar-form{\n  border-color: transparent !important;\n}\n\n@media screen and (min-width:1920px) {\n  #nav-group{\n    top:6px;\n  }\n}\n\n@media screen and (max-width: 979px) and (min-width: 768px) {\n  .navbar-form{\n    padding-left: 4px;\n    width: 100px;\n   }\n}\n\n@media screen and (max-width: 992px) {\n  #nav-input{\n    width: 50vw;\n  }\n}\n\n@media screen and (max-width: 767px) {\n  #nav-group {\n    margin-left: -18.6%;\n  }\n  .align-search-btn{\n    left: -9%;\n  }\n}\n\n@media screen and (max-width: 601px) {\n  #nav-group {\n    width: 110%;\n  }\n}\n\n@media screen and (max-width:567px) {\n  #nav-group {\n    width: 120%;\n  }\n}\n\n@media screen and (max-width: 480px) {\n  .align-search-btn{\n    left: -6%;\n  }\n}\n\n@media screen and (max-width: 360px) {\n  .align-search-btn{\n    left: -5%;\n  }\n}\n\n@media screen and (max-width: 968px) {\n  #nav-input {\n    width: 50vw;\n  }\n}\n\n@media screen and (max-width: 503px) {\n  #nav-group {\n    width: 5px;\n  }\n  #nav-input {\n    width: 80vw;\n  }\n}\n\n@media screen and (max-width: 359px) {\n  #nav-input {\n    width: 80vw;\n  }\n}\n", ""]);
+exports.push([module.i, "#nav-group{\n  background-color: white;\n  width: 584px;\n  color: black;\n  height: 8px;\n  top: 3px;\n  border-radius: 0px;\n  border: none;\n  border-style: solid;\n  border-color:rgba(0, 0, 0, 0);\n  border-width: 1px;\n  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);\n}\n\n\n#nav-input{\n  font-size: 16px;\n  font-weight: 400;\n  top: 4px;\n  color: black;\n  width: 511px;\n  height: 34px !important;\n  line-height: 34px ;\n  border-radius: 0px;\n  border: none;\n  box-shadow: none;\n  padding-left: 16px;\n  font-family: Arial, sans-serif;\n  position: initial;\n  padding-bottom: 2px;\n}\n\n#nav-button{\n  border-radius: 0px;\n  height: 38px;\n  background-color: white;\n  color: #0066ff;\n  box-shadow: none;\n  border: none;\n  position: initial;\n}\n\n#nav-button:focus {\n  outline: none;\n}\n\n#nav-group{\n  top:3px;\n}\n\n.navbar-form{\n  border-color: transparent !important;\n}\n\n@media screen and (min-width:1920px) {\n  #nav-group{\n    top:6px;\n  }\n}\n\n@media screen and (max-width: 979px) and (min-width: 768px) {\n  .navbar-form{\n    padding-left: 4px;\n    width: 100px;\n   }\n}\n@media screen and (max-width: 992px) {\n  #nav-input{\n    width: 50vw;\n  }\n}\n\n@media screen and (max-width: 767px) {\n  #nav-group {\n    margin-left: -18.6%;\n  }\n  .align-search-btn{\n    left: -9%;\n  }\n}\n\n@media screen and (max-width: 601px) {\n  #nav-group {\n    width: 110%;\n  }\n}\n\n@media screen and (max-width:567px) {\n  #nav-group {\n    width: 120%;\n  }\n}\n\n@media screen and (max-width: 480px) {\n  .align-search-btn{\n    left: -6%;\n  }\n}\n\n@media screen and (max-width: 360px) {\n  .align-search-btn{\n    left: -5%;\n  }\n}\n\n@media screen and (max-width: 968px) {\n  #nav-input {\n    width: 50vw;\n  }\n}\n\n@media screen and (max-width: 503px) {\n  #nav-group {\n    width: 5px;\n  }\n  #nav-input {\n    width: 80vw;\n  }\n}\n\n@media screen and (max-width: 359px) {\n  #nav-input {\n    width: 80vw;\n  }\n}\n", ""]);
 
 // exports
 
@@ -2291,6 +2295,68 @@ SearchService = __decorate([
 
 var _a, _b, _c;
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/search.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/searchsettings/searchsettings.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "@media screen and (max-width:990px) {\n  .navbar-collapse.navbar-right {\n    text-align: right;\n  }\n}\n.navbar-nav > li > a{\n  text-align: left;\n}\n\n.navbar-right{\n  border-top:none;\n}\n\n.bold{\n  font-weight: 700;\n}\n\n.nav-terms {\n  padding: 0px;\n  clear: both;\n  margin: -57px 0 0 0\n}\n.advsearch-navbar{\n  position: relative;\n  top:-5px;\n}\n\n.nav-about {\n  clear: both;\n  margin: -57px 0 0 0\n}\n\n.navbar-logo {\n  height: 30px;\n  padding-left: 20px;\n  margin-top: -4%;\n}\n.btn-round-lg{\n  border-radius: 22.5px;\n}\n.btn-round{\n  border-radius: 11px;\n}\n\n.navbar-brand>img {\n  margin:-5px 0 0 0;\n}\n.navbar-logo {\n  height: 30px;\n  padding-left: 20px;\n}\n\n.navbar-text {\n  padding-right: 30px;\n  font-size: 20px;\n  position: relative;\n  top:-3px;\n}\n\n.text-center{\n  text-align: center;\n}\n\n.link{\n  margin-top:2px;\n  font-weight: 700;\n  line-height: 1.8;\n  color:#1565C0;\n}\n.link:hover{\n  text-decoration: underline;\n}\n\n#left{\n  width:22.6993866%;\n}\n\n#right{\n  width:67.7%;\n}\np{\n  line-height: 20px;\n  text-align: justify;\n}\nh2{\n  line-height: 1.8;\n}\ndiv{\n  margin-top: 0.5%;\n  font-family: Arial,SansSerif;\n}\n@media only screen and (max-width: 500px) {\n  #left{\n    width: 100%;\n  }\n\n  #right{\n    width: 100%;\n  }\n}\n@media only screen and (max-width: 768px) {\n  .navbar-logo{\n    margin-left: -77px;\n  }\n}\n\n.container {\n  min-height: 600px;\n}\nul li a {\n  text-decoration: none;\n}\nul {\n  list-style: none;\n}\nul li{\n  border-bottom: 1px solid transparent;\n  font-size: 13px;\n  line-height: 29px;\n}\n.active {\n  color:#dd4b39\n}\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/searchsettings/searchsettings.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<nav class=\"navbar navbar-default nav-about\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <button type = \"button\" class = \"navbar-toggle\"\n              data-toggle = \"collapse\" data-target = \"#dropmenu\">\n        <span class = \"icon-bar\"></span>\n        <span class = \"icon-bar\"></span>\n        <span class = \"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand advsearch-navbar\" href=\"//susper.com\">\n        <img alt=\"brand\" class=\"navbar-logo\" src=\"../../assets/images/susper.svg\">\n      </a>\n    </div>\n    <div class=\"collapse navbar-collapse\" id=\"dropmenu\">\n      <ul class=\"nav navbar-nav navbar-collapse navbar-right\">\n        <li><a routerLink=\"/terms\">Terms</a></li>\n        <li><a routerLink=\"/about\">About</a></li>\n        <li><a routerLink=\"/contact\">Contact</a></li>\n      </ul>\n    </div>\n  </div>\n</nav>\n\n\n\n<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"leftPane col-md-2\">\n        <ul>\n          <li ><a class=\"active\" href=\"#\">Search Results</a></li>\n          <li><a href=\"#\">Languages</a></li>\n          <li><a href=\"#\">Help</a></li>\n        </ul>\n    </div>\n    <div class=\"col-md-9\">\n        <div>\n          <h4><strong>SafeSearch Filters</strong></h4>\n          <p>SafeSearch can help you block inappropriate or explicit images from your Google Search results. The SafeSearch filter isn’t 100% accurate, but it helps you avoid most violent and adult content.</p>\n          <label for=\"safesearch\">Turn On Safe Search</label>\n          <input type=\"checkbox\" id=\"safesearch\">\n        </div>\n      <hr>\n        <div>\n          <h4><strong>Google Instant Predictions</strong></h4>\n          <p>When should we show you results as you type?</p>\n          <input type=\"radio\">Only when my computer is fast enough<br>\n          <input type=\"radio\">Always show instant results<br>\n          <input type=\"radio\">Never show instant results<br>\n        </div>\n      <hr>\n      <div>\n        <h4><strong>Results per page</strong></h4>\n        <div class=\"range-slider\">\n          <input class=\"range-slider__range\" type=\"range\" [(ngModel)]=\"resultCount\" value=\"100\" min=\"0\" max=\"500\">\n          <span class=\"range-slider__value\">{{resultCount}}</span>\n        </div>\n\n      </div>\n    </div>\n  </div>\n\n</div>\n\n<!--footer navigation bar goes here-->\n<footer>\n  <app-footer-navbar></app-footer-navbar>\n</footer>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/searchsettings/searchsettings.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchsettingsComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var SearchsettingsComponent = (function () {
+    function SearchsettingsComponent() {
+        this.resultCount = 10;
+    }
+    SearchsettingsComponent.prototype.ngOnInit = function () {
+    };
+    return SearchsettingsComponent;
+}());
+SearchsettingsComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-searchsettings',
+        template: __webpack_require__("../../../../../src/app/searchsettings/searchsettings.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/searchsettings/searchsettings.component.css")]
+    }),
+    __metadata("design:paramtypes", [])
+], SearchsettingsComponent);
+
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/searchsettings.component.js.map
 
 /***/ }),
 
