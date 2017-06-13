@@ -3,6 +3,7 @@
     <div class="container-fluid" id="search-options-field">
         <ul type="none" id="search-options">
             <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
+            <li [class.active_view]="Display('news')" (click)="newsClick()">News</li>
             <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
             <li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li>
           <li class="dropdown">
@@ -42,6 +43,13 @@
     </div>
 
   <app-infobox [hidden]="hidefooter" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
+  <!-- END -->
+  <!-- News section -->
+  <div class="news-result" *ngIf="Display('news')">
+      <div *ngFor="let item of items$|async">
+          <p> {{item.title}} </p>
+      </div>
+  </div>
   <!-- END -->
     <!-- Image section -->
     <div class="container">

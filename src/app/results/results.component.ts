@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';
 import { Store } from '@ngrx/store';
 import * as queryactions from '../actions/query';
+
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -34,11 +35,15 @@ export class ResultsComponent implements OnInit {
     prefermaskfilter: '',
     rows: 10,
     timezoneOffset: 0,
+    newsdata: {
+      _nav: 'author'
+    },
   };
   querylook = {};
   hidefooter = 1;
   querychange$: Observable<any>;
   resultscomponentchange$: Observable<any>;
+
   getNumber(N) {
     let result = Array.apply(null, { length: N }).map(Number.call, Number);
     if (result.length > 10) {
@@ -46,8 +51,6 @@ export class ResultsComponent implements OnInit {
     }
     return result;
   };
-  advancedsearch() {
-  }
 
   getPresentPage(N) {
     this.presentPage = N;
@@ -66,9 +69,7 @@ export class ResultsComponent implements OnInit {
   }
 
   Display(S) {
-
     return (this.resultDisplay === S);
-
   }
 
   videoClick() {
@@ -87,7 +88,14 @@ export class ResultsComponent implements OnInit {
     this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
     this.searchdata.resultDisplay = this.resultDisplay;
     this.route.navigate(['/search'], { queryParams: this.searchdata });
+  }
 
+  newsClick() {
+    this.getPresentPage(1);
+    this.resultDisplay = 'news';
+    this.searchdata.rows = 10;
+    this.searchdata.resultDisplay = this.resultDisplay;
+    this.route.navigate(['/search'], {queryParams: this.searchdata.newsdata._nav});
   }
 
   docClick() {
@@ -113,8 +121,14 @@ export class ResultsComponent implements OnInit {
     return ((this.presentPage) === page);
   }
 
-  constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
-              private store: Store<fromRoot.State>, private ref: ChangeDetectorRef, public themeService: ThemeService) {
+  constructor(
+    private searchservice: SearchService,
+    private route: Router,
+    private activatedroute: ActivatedRoute,
+    private store: Store<fromRoot.State>,
+    private ref: ChangeDetectorRef,
+    public themeService: ThemeService,
+  ) {
 
     this.activatedroute.queryParams.subscribe(query => {
       this.hidefooter = 1;
@@ -186,4 +200,5 @@ export class ResultsComponent implements OnInit {
   ngOnInit() {
 
   }
+
 }

@@ -32,7 +32,6 @@ import { ThemeComponent } from './theme/theme.component';
 import { ThemeService } from './theme.service';
 import {KnowledgeEffects} from "./effects/knowledge";
 
-
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
   {path: '', component: IndexComponent},
