@@ -1,0 +1,67 @@
+<nav class="navbar navbar-default nav-about">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type = "button" class = "navbar-toggle"
+              data-toggle = "collapse" data-target = "#dropmenu">
+        <span class = "icon-bar"></span>
+        <span class = "icon-bar"></span>
+        <span class = "icon-bar"></span>
+      </button>
+      <a class="navbar-brand advsearch-navbar" href="//susper.com">
+        <img alt="brand" class="navbar-logo" src="../../assets/images/susper.svg">
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="dropmenu">
+      <ul class="nav navbar-nav navbar-collapse navbar-right">
+        <li><a routerLink="/terms">Terms</a></li>
+        <li><a routerLink="/about">About</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="leftPane col-md-2">
+        <ul>
+          <li ><a class="active" href="#">Search Results</a></li>
+          <li><a href="#">Languages</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <div>
+          <h4><strong>SafeSearch Filters</strong></h4>
+          <p>SafeSearch can help you block inappropriate or explicit images from your Google Search results. The SafeSearch filter isn’t 100% accurate, but it helps you avoid most violent and adult content.</p>
+          <label for="safesearch">Turn On Safe Search</label>
+          <input type="checkbox" id="safesearch">
+        </div>
+      <hr>
+        <div>
+          <h4><strong>Google Instant Predictions</strong></h4>
+          <p>When should we show you results as you type?</p>
+          <input type="radio">Only when my computer is fast enough<br>
+          <input type="radio">Always show instant results<br>
+          <input type="radio">Never show instant results<br>
+        </div>
+      <hr>
+      <div>
+        <h4><strong>Results per page</strong></h4>
+        <div class="range-slider">
+          <input class="range-slider__range" type="range" [(ngModel)]="resultCount" value="100" min="0" max="500">
+          <span class="range-slider__value">{{resultCount}}</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!--footer navigation bar goes here-->
+<footer>
+  <app-footer-navbar></app-footer-navbar>
+</footer>

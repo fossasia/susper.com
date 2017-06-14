@@ -83,3 +83,4 @@ export const getNavigation = createSelector(getSearchState, fromSearch.getNaviga
 export const getquery = createSelector(getQueryState, fromQuery.getpresentquery);
 export const getwholequery = createSelector(getQueryState, fromQuery.getpresentwholequery);
 export const getKnowledge = createSelector(getKnowledgeState, fromKnowledge.getresponse);
+export const getResponseTime = createSelector(getSearchState, fromSearch.getresponsetime);
