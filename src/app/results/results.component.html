@@ -20,6 +20,7 @@
     </div>
     <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
     </div>
+  <div *ngIf="!hidefooter">
     <!-- Basic results 'All' -->
   <div class="text-result" *ngIf="Display('all')">
       <div class="container-fluid" id="progress-bar">
@@ -84,6 +85,7 @@
                 </div>
             </nav>
         </div>
+  </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <app-advancedsearch></app-advancedsearch>
 </div>
