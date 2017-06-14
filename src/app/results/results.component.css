@@ -165,6 +165,7 @@ a {
 .active_view {
   color: #4285f4 !important;
   font-weight: 900 !important;
+  padding-bottom: 12px;
   border-bottom: 3px solid #4285f4;
 }
 
@@ -204,6 +205,8 @@ a {
 #search-options {
   margin-top: 0.5%;
   margin-left: 9%;
+  font-size: 13px;
+  cursor: default;
 }
 
 #search-tools {
@@ -223,7 +226,10 @@ a {
 #search-options li {
   display: inline;
   cursor: pointer;
-  padding: 28px 16px 12px;
+  padding-top: 28px;
+  padding-right: 16px;
+  padding-left: 16px;
+  margin-left: 1px;
   color: #777;
   font-weight: 500;
   font-size: 11px;
