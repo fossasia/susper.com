@@ -5,8 +5,9 @@
   margin-bottom: 16px;
   padding: 22px 22px 18px 22px;
   transition: 0.3s;
-  width: 100%;
-  margin-left: 20px;
+  width: 434px;
+  margin-left: 11%;
+  margin-top: 3%;
 }
 
 /* Add some padding inside the card container */
@@ -39,7 +40,17 @@ a {
 }
 
 /** Screen Responsiveness **/
-@media screen and (max-width: 1143px) {
+@media screen and (max-width: 1280px) {
+  .card{
+    width: 368px;
+  }
+}
+@media screen and (max-width: 1180px) {
+  .card{
+    width: 268px;
+  }
+}
+  @media screen and (max-width: 998px) {
   .card {
     display: none;
   }

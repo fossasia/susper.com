@@ -31,7 +31,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   };
   querydata$: Observable<any>;
   constructor(private route: ActivatedRoute,
-    private router: Router, private store: Store<fromRoot.State>) {
+              private router: Router, private store: Store<fromRoot.State>) {
     this.query$ = store.select(fromRoot.getquery);
     this.query$.subscribe(query => {
       this.searchdata.query = query;
@@ -42,6 +42,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   hidebox(event: any) {
     if (event.which === 13) {
       this.displayStatus = 'hidebox';
+      event.target.blur();
     }
   }
   hidesuggestions(data: number) {
@@ -52,15 +53,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     }
   }
   onquery(event: any) {
-    this.store.dispatch(new query.QueryAction(event.target.value));
-    if (event.target.value.length > 0) {
-      this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query}));
-      this.displayStatus = 'showbox';
-      this.submit();
-      this.hidebox(event);
-    } else {
+    this.store.dispatch(new query.QueryAction(event));
+    this.store.dispatch(new queryactions.QueryServerAction({'query': event}));
+    this.displayStatus = 'showbox';
+    this.submit();
+    this.hidebox(event);
 
-    }
   }
   ShowAuto() {
     return (this.displayStatus === 'showbox');

@@ -32,6 +32,7 @@ import { ThemeComponent } from './theme/theme.component';
 import { ThemeService } from './theme.service';
 import { CrawlstartComponent } from './crawlstart/crawlstart.component';
 import {CrawlstartService} from "./crawlstart.service";
+import { SearchsettingsComponent } from './searchsettings/searchsettings.component';
 import {KnowledgeEffects} from "./effects/knowledge";
 
 
@@ -44,7 +45,9 @@ const appRoutes: Routes = [
   {path: '404', component: NotFoundComponent},
   {path: 'advancedsearch', component: NewadvancedsearchComponent},
   {path: 'crawlstartexpert', component: CrawlstartComponent},
+  {path: 'preferences', component: SearchsettingsComponent },
   {path: '**', redirectTo: '/404'},
+
 ];
 @NgModule({
   declarations: [
@@ -65,6 +68,7 @@ const appRoutes: Routes = [
     AutoCompleteComponent,
     ThemeComponent,
     CrawlstartComponent,
+    SearchsettingsComponent,
   ],
   imports: [
     BrowserModule,

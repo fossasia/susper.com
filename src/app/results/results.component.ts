@@ -14,6 +14,7 @@ import * as queryactions from '../actions/query';
 export class ResultsComponent implements OnInit {
   items$: Observable<any>;
   totalResults$: Observable<number>;
+  responseTime$: Observable<any>;
   resultDisplay: string;
   noOfPages: number;
   presentPage: number;
@@ -72,7 +73,7 @@ export class ResultsComponent implements OnInit {
   }
 
   videoClick() {
-    this.getPresentPage(0);
+    this.getPresentPage(1);
     this.resultDisplay = 'videos';
     this.searchdata.rows = 10;
     this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
@@ -81,7 +82,7 @@ export class ResultsComponent implements OnInit {
   }
 
   imageClick() {
-    this.getPresentPage(0);
+    this.getPresentPage(1);
     this.resultDisplay = 'images';
     this.searchdata.rows = 100;
     this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
@@ -91,7 +92,7 @@ export class ResultsComponent implements OnInit {
   }
 
   docClick() {
-    this.getPresentPage(0);
+    this.getPresentPage(1);
     this.resultDisplay = 'all';
     delete this.searchdata.fq;
     this.searchdata.rows = 10;
@@ -117,7 +118,6 @@ export class ResultsComponent implements OnInit {
               private store: Store<fromRoot.State>, private ref: ChangeDetectorRef, public themeService: ThemeService) {
 
     this.activatedroute.queryParams.subscribe(query => {
-      this.hidefooter = 1;
 
       if (query['fq']) {
 
@@ -161,12 +161,12 @@ export class ResultsComponent implements OnInit {
       this.presentPage = Math.abs(query['start'] / this.searchdata.rows) + 1;
 
     });
+    this.responseTime$ = store.select(fromRoot.getResponseTime);
+    this.responseTime$.subscribe(responsetime => {
+      this.hidefooter = 0;
+    });
     this.totalResults$ = store.select(fromRoot.getTotalResults);
     this.totalResults$.subscribe(totalResults => {
-      if (totalResults) {
-        this.hidefooter = 0;
-
-      }
 
       this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
       this.message = 'About ' + totalResults + ' results';
@@ -180,10 +180,10 @@ export class ResultsComponent implements OnInit {
     this.querychange$ = store.select(fromRoot.getquery);
     this.querychange$.subscribe(res => {
       this.searchdata.query = res;
+      this.hidefooter = 1;
     });
   };
 
   ngOnInit() {
-
   }
 }
