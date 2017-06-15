@@ -35,16 +35,20 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.query$ = store.select(fromRoot.getquery);
     this.query$.subscribe(query => {
       this.searchdata.query = query;
-
+      if (query === '') {
+        this.displayStatus = 'hidebox';
+      }
     });
 
   };
+
   hidebox(event: any) {
     if (event.which === 13) {
       this.displayStatus = 'hidebox';
       event.target.blur();
     }
   }
+
   hidesuggestions(data: number) {
     if (data === 1) {
       this.displayStatus = 'hidebox';
@@ -52,6 +56,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.displayStatus = 'showbox';
     }
   }
+
   onquery(event: any) {
     this.store.dispatch(new query.QueryAction(event));
     this.store.dispatch(new queryactions.QueryServerAction({'query': event}));
