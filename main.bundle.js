@@ -2112,7 +2112,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/search-bar/search-bar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n      <div class=\"input-text\">\n      <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" (keyup)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\" autocomplete=\"off\">\n      </div>\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n  <app-auto-complete (hidecomponent)=\"hidesuggestions($event)\" id=\"auto-box\" [hidden]=\"!ShowAuto()\"></app-auto-complete>\n</form>\n<script>\n  $(document).ready(function(){\n    var isFirefox = typeof InstallTrigger !== 'undefined';\n    if(isFirefox === false){\n      $(\".input-group-btn\").addClass(\"align-search-btn\");\n    }\n  }\n</script>\n"
+module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n      <div class=\"input-text\">\n      <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" (ngModelChange)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\" autocomplete=\"off\">\n      </div>\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n  <app-auto-complete (hidecomponent)=\"hidesuggestions($event)\" id=\"auto-box\" [hidden]=\"!ShowAuto()\"></app-auto-complete>\n</form>\n<script>\n  $(document).ready(function(){\n    var isFirefox = typeof InstallTrigger !== 'undefined';\n    if(isFirefox === false){\n      $(\".input-group-btn\").addClass(\"align-search-btn\");\n    }\n  }\n</script>\n"
 
 /***/ }),
 
@@ -2180,15 +2180,11 @@ var SearchBarComponent = (function () {
         }
     };
     SearchBarComponent.prototype.onquery = function (event) {
-        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryAction */](event.target.value));
-        if (event.target.value.length > 0) {
-            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["c" /* QueryServerAction */]({ 'query': this.searchdata.query }));
-            this.displayStatus = 'showbox';
-            this.submit();
-            this.hidebox(event);
-        }
-        else {
-        }
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryAction */](event));
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["c" /* QueryServerAction */]({ 'query': event }));
+        this.displayStatus = 'showbox';
+        this.submit();
+        this.hidebox(event);
     };
     SearchBarComponent.prototype.ShowAuto = function () {
         return (this.displayStatus === 'showbox');
