@@ -22,7 +22,7 @@ function lazyCache(fn) {
     name = name || camelcase(mod);
 
     // check both boolean and string in case `process.env` cases to string
-    if (process.env.UNLAZY === 'true' || process.env.UNLAZY === true) {
+    if (process.env.UNLAZY === 'true' || process.env.UNLAZY === true || process.env.TRAVIS) {
       cache[name] = fn(mod);
     }
 

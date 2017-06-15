@@ -4,27 +4,31 @@
  * Module dependenices
  */
 
-var utils = require('./utils');
+var isObject = require('is-plain-object');
+var clone = require('shallow-clone');
+var typeOf = require('kind-of');
+var forOwn = require('for-own');
 
 /**
  * Recursively clone native types.
  */
 
 function cloneDeep(val, instanceClone) {
-  switch (utils.typeOf(val)) {
+  switch (typeOf(val)) {
     case 'object':
       return cloneObjectDeep(val, instanceClone);
     case 'array':
       return cloneArrayDeep(val, instanceClone);
-    default:
-      return utils.clone(val);
+    default: {
+      return clone(val);
+    }
   }
 }
 
 function cloneObjectDeep(obj, instanceClone) {
-  if (utils.isObject(obj)) {
+  if (isObject(obj)) {
     var res = {};
-    utils.forOwn(obj, function(obj, key) {
+    forOwn(obj, function(obj, key) {
       this[key] = cloneDeep(obj, instanceClone);
     }, res);
     return res;

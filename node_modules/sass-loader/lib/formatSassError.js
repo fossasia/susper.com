@@ -62,7 +62,7 @@ function getFileExcerptIfPossible(err) {
 
         return os.EOL +
             content.split(os.EOL)[err.line - 1] + os.EOL +
-            new Array(Math.max(err.column - 1, 0)).join(" ") + "^" + os.EOL +
+            new Array(err.column - 1).join(" ") + "^" + os.EOL +
             "      ";
     } catch (err) {
         // If anything goes wrong here, we don't want any errors to be reported to the user

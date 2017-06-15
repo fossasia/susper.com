@@ -15,7 +15,7 @@
       src="https://webpack.js.org/assets/icon-square-big.svg">
   </a>
   <h1>SASS Loader</h1>
-  <p>Loads a SASS/SCSS file and and compiles it to CSS.</p>
+  <p>Loads a SASS/SCSS file and compiles it to CSS.</p>
 </div>
 
 Use the [css-loader](https://github.com/webpack-contrib/css-loader) or the [raw-loader](https://github.com/webpack-contrib/raw-loader) to turn it into a JS module and the [ExtractTextPlugin](https://github.com/webpack-contrib/extract-text-webpack-plugin) to extract it into a separate file.
@@ -227,11 +227,11 @@ If you want to prepend Sass code before the actual entry file, you can set the `
 [travis]: http://img.shields.io/travis/webpack-contrib/sass-loader.svg
 [travis-url]: https://travis-ci.org/webpack-contrib/sass-loader
 
-[appveyor-url]: https://ci.appveyor.com/project/jhnns/sass-loader/branch/master
-[appveyor]: https://ci.appveyor.com/api/projects/status/github/webpack-contrib/sass-loader?svg=true
+[appveyor-url]: https://ci.appveyor.com/project/webpack-contrib/sass-loader/branch/master
+[appveyor]: https://ci.appveyor.com/api/projects/status/rqpy1vaovh20ttxs/branch/master?svg=true
 
-[cover]: https://coveralls.io/repos/github/webpack-contrib/sass-loader/badge.svg
-[cover-url]: https://coveralls.io/github/webpack-contrib/sass-loader
+[cover]: https://codecov.io/gh/webpack-contrib/sass-loader/branch/master/graph/badge.svg
+[cover-url]: https://codecov.io/gh/webpack-contrib/sass-loader
 
 [chat]: https://badges.gitter.im/webpack/webpack.svg
 [chat-url]: https://gitter.im/webpack/webpack
