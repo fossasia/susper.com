@@ -3,7 +3,7 @@
 <!-- Stop ignoring BootLintBear -->
   <div class="input-group" id="nav-group">
       <div class="input-text">
-      <input #input type="text" name="query" class="form-control" id="nav-input" (keyup)="onquery($event)"
+      <input #input type="text" name="query" class="form-control" id="nav-input" (ngModelChange)="onquery($event)"
            [(ngModel)]="searchdata.query" autocomplete="off">
       </div>
     <div class="input-group-btn">
