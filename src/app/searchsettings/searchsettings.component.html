@@ -21,31 +21,32 @@
   </div>
 </nav>
 
-
+<div class="appbar">Search Settings</div>
 
 <div class="container">
   <div class="row">
     <div class="leftPane col-md-2">
-        <ul>
+        <ul class="left-list">
           <li ><a class="active" href="#">Search Results</a></li>
           <li><a href="#">Languages</a></li>
           <li><a href="#">Help</a></li>
         </ul>
     </div>
-    <div class="col-md-9">
+    <div class="rightPane col-md-9">
+      <div class="rightContent">
         <div>
           <h4><strong>SafeSearch Filters</strong></h4>
-          <p>SafeSearch can help you block inappropriate or explicit images from your Google Search results. The SafeSearch filter isn’t 100% accurate, but it helps you avoid most violent and adult content.</p>
-          <label for="safesearch">Turn On Safe Search</label>
+          <p>SafeSearch can help you block inappropriate or explicit images from your Susper Search results. The SafeSearch filter isn’t 100% accurate, but it helps you avoid most violent and adult content.</p>
           <input type="checkbox" id="safesearch">
+          <label for="safesearch">Turn On Safe Search</label>
         </div>
       <hr>
         <div>
-          <h4><strong>Google Instant Predictions</strong></h4>
+          <h4><strong>Susper Instant Predictions</strong></h4>
           <p>When should we show you results as you type?</p>
-          <input type="radio">Only when my computer is fast enough<br>
-          <input type="radio">Always show instant results<br>
-          <input type="radio">Never show instant results<br>
+          <input name="options" type="radio" id="op1"><label for="op1">Only when my computer is fast enough</label><br>
+          <input name="options" type="radio" id="op2"><label for="op2">Always show instant results</label><br>
+          <input name="options" type="radio" id="op3"><label for="op3">Never show instant results</label><br>
         </div>
       <hr>
       <div>
@@ -55,6 +56,11 @@
           <span class="range-slider__value">{{resultCount}}</span>
         </div>
 
+      </div>
+        <div >
+          <span><button class="cancbtn jfk-btn">Cancel</button></span>
+          <span><button class="savbtn jfk-btn">Save</button></span>
+        </div>
       </div>
     </div>
   </div>
