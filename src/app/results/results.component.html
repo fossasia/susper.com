@@ -20,7 +20,7 @@
     </div>
     <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
     </div>
-  <div *ngIf="!hidefooter">
+  <div [hidden]="hidefooter">
     <!-- Basic results 'All' -->
   <div class="text-result" *ngIf="Display('all')">
       <div class="container-fluid" id="progress-bar">
