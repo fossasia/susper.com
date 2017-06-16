@@ -33,7 +33,7 @@ export class CrawlstartService {
 
     let options = new RequestOptions({ search: params });
     return this.jsonp
-      .get('http://localhost:8090/Crawler_p.json', options).map(res => {
+      .get('http://yacy.searchlab.eu/Crawler_p.json', options).map(res => {
         res.json();
       });
 
