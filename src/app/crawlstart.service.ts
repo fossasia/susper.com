@@ -28,11 +28,14 @@ export class CrawlstartService {
       }
 
     }
-    let headers = new Headers({ 'Content-Type': 'application/json' });
+    params.set('callback', 'JSONP_CALLBACK');
 
-    let options = new RequestOptions({ headers: headers, search: params });
+
+    let options = new RequestOptions({ search: params });
     return this.jsonp
-      .get('http://localhost:8090/Crawler_p.html?CALLBACK=JSONP_CALLBACK', options).catch(this.handleError);
+      .get('http://localhost:8090/Crawler_p.json', options).map(res => {
+        res.json();
+      });
 
   }
 

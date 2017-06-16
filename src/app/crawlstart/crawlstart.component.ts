@@ -46,7 +46,7 @@ export class CrawlstartComponent implements OnInit {
 
   startCrawlJob() {
     this.crawlstartservice.startCrawlJob(this.crawlvalues).subscribe(res => {
-      alert("Started Crawl Job");
+      alert('Started Crawl Job');
       this.router.navigate(['/']);
     }, (err) => {
       if (err === 'Unauthorized') {
