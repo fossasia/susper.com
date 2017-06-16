@@ -12,7 +12,6 @@ import { WebpackConfigOptions } from '../webpack-config';
  * require('file-loader')
  */
 export declare function getCommonConfig(wco: WebpackConfigOptions): {
-    devtool: string | boolean;
     resolve: {
         extensions: string[];
         modules: string[];
