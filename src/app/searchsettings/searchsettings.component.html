@@ -44,22 +44,22 @@
         <div>
           <h4><strong>Susper Instant Predictions</strong></h4>
           <p>When should we show you results as you type?</p>
-          <input name="options" type="radio" id="op1"><label for="op1">Only when my computer is fast enough</label><br>
-          <input name="options" type="radio" id="op2"><label for="op2">Always show instant results</label><br>
-          <input name="options" type="radio" id="op3"><label for="op3">Never show instant results</label><br>
+          <input name="options" [(ngModel)]="instantresults" disabled value="#" type="radio" id="op1"><label for="op1">Only when my computer is fast enough</label><br>
+          <input name="options" [(ngModel)]="instantresults" [value]="true" type="radio" id="op2"><label for="op2">Always show instant results</label><br>
+          <input name="options" [(ngModel)]="instantresults" [value]="false" type="radio" id="op3"><label for="op3">Never show instant results</label><br>
         </div>
       <hr>
       <div>
         <h4><strong>Results per page</strong></h4>
         <div class="range-slider">
-          <input class="range-slider__range" type="range" [(ngModel)]="resultCount" value="100" min="0" max="500">
+          <input class="range-slider__range" type="range" [disabled]="instantresults" [(ngModel)]="resultCount" value="100" min="0" max="500">
           <span class="range-slider__value">{{resultCount}}</span>
         </div>
 
       </div>
         <div >
-          <span><button class="cancbtn jfk-btn">Cancel</button></span>
-          <span><button class="savbtn jfk-btn">Save</button></span>
+          <span><button class="cancbtn jfk-btn" (click)="onCancel()">Cancel</button></span>
+          <span><button class="savbtn jfk-btn" (click)="onSave()">Save</button></span>
         </div>
       </div>
     </div>
