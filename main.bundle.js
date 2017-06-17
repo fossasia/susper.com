@@ -240,7 +240,7 @@ var AdvancedsearchComponent = (function () {
         this.selectedelements = [];
         this.activatedroute.queryParams.subscribe(function (query) {
             _this.querylook = Object.assign({}, query);
-            _this.navigation$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["e" /* getNavigation */]);
+            _this.navigation$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["f" /* getNavigation */]);
         });
     }
     AdvancedsearchComponent.prototype.changeurl = function (modifier, element) {
@@ -301,6 +301,8 @@ module.exports = "<router-outlet></router-outlet>\n"
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__("../../../../@ngrx/store/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__("../../../../../src/app/reducers/index.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -313,10 +315,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
 var AppComponent = (function () {
-    function AppComponent(router) {
+    function AppComponent(router, store) {
+        var _this = this;
         this.router = router;
+        this.store = store;
         this.title = 'Susper';
+        this.searchdata = {
+            query: '',
+            rows: 10,
+            start: 0,
+        };
+        this.resultscomponentchange$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getItems */]);
+        this.resultscomponentchange$.subscribe(function (res) {
+            if (_this.searchdata.query.length > 0) {
+                _this.router.navigate(['/search'], { queryParams: _this.searchdata });
+            }
+        });
+        this.wholequery$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["e" /* getwholequery */]);
+        this.wholequery$.subscribe(function (data) {
+            _this.searchdata = data;
+        });
     }
     AppComponent.prototype.ngOnInit = function () {
         this.router.events.subscribe(function (evt) {
@@ -334,10 +355,10 @@ AppComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/app.component.html"),
         styles: [__webpack_require__("../../../../../src/app/app.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */]) === "function" && _b || Object])
 ], AppComponent);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/app.component.js.map
 
 /***/ }),
@@ -1115,22 +1136,12 @@ var IndexComponent = (function () {
         this.router = router;
         this.searchdata = {
             query: '',
-            verify: false,
-            nav: 'filetype,protocol,hosts,authors,collections,namespace,topics,date',
             start: 0,
-            indexof: 'off',
-            meanCount: '5',
-            resource: 'global',
-            prefermaskfilter: '',
-            maximumRecords: 10,
-            timezoneOffset: 0
+            rows: 10,
         };
     }
     IndexComponent.prototype.ngOnInit = function () {
         this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
-    };
-    IndexComponent.prototype.submit = function () {
-        this.router.navigate(['/search'], { queryParams: this.searchdata });
     };
     return IndexComponent;
 }());
@@ -1564,12 +1575,12 @@ var _a, _b;
 /* unused harmony export getKnowledgeState */
 /* unused harmony export getSearchResults */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getItems; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getTotalResults; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getNavigation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getTotalResults; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getNavigation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getquery; });
-/* unused harmony export getwholequery */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getwholequery; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getKnowledge; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getResponseTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getResponseTime; });
 
 
 /**
@@ -1701,6 +1712,8 @@ var initialState = {
     query: '',
     wholequery: {
         query: '',
+        rows: 10,
+        start: 0
     },
 };
 function reducer(state, action) {
@@ -1939,23 +1952,17 @@ var ResultsComponent = (function () {
         this.themeService = themeService;
         this.searchdata = {
             query: '',
-            verify: false,
-            nav: 'filetype,protocol,hosts,authors,collections,namespace,topics,date',
             start: 0,
-            indexof: 'off',
-            meanCount: '5',
-            resource: 'global',
-            prefermaskfilter: '',
             rows: 10,
-            timezoneOffset: 0,
         };
         this.querylook = {};
         this.hidefooter = 1;
         this.activatedroute.queryParams.subscribe(function (query) {
+            var urldata = Object.assign({}, _this.searchdata);
             if (query['fq']) {
                 if (query['fq'].includes('png')) {
                     _this.resultDisplay = 'images';
-                    _this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
+                    urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
                 }
                 else if (query['fq'].includes('avi')) {
                     _this.resultDisplay = 'videos';
@@ -1969,32 +1976,32 @@ var ResultsComponent = (function () {
             }
             if (query['resultDisplay']) {
                 _this.resultDisplay = query['resultDisplay'];
-                _this.searchdata.resultDisplay = _this.resultDisplay;
+                urldata.resultDisplay = _this.resultDisplay;
             }
             if (query['start']) {
-                _this.searchdata.start = query['start'];
+                urldata.start = query['start'];
             }
             else {
-                _this.searchdata.start = 0;
+                urldata.start = 0;
             }
-            _this.searchdata.query = query['query'];
+            urldata.query = query['query'];
             _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["b" /* QueryAction */](query['query']));
             _this.querylook = Object.assign({}, query);
-            _this.searchdata.sort = query['sort'];
             _this.begin = Number(query['start']) + 1;
             _this.message = '';
-            _this.start = (_this.presentPage - 1) * _this.searchdata.rows;
+            _this.start = (_this.presentPage - 1) * urldata.rows;
             _this.begin = _this.start + 1;
-            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](query));
-            _this.items$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["c" /* getItems */]);
-            _this.searchdata.rows = Number(query['rows']) || 10;
-            _this.presentPage = Math.abs(query['start'] / _this.searchdata.rows) + 1;
+            urldata.rows = Number(query['rows']) || 10;
+            _this.presentPage = Math.abs(query['start'] / urldata.rows) + 1;
+            var querydata = Object.assign({}, urldata);
+            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](querydata));
         });
-        this.responseTime$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["f" /* getResponseTime */]);
+        this.items$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["c" /* getItems */]);
+        this.responseTime$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["g" /* getResponseTime */]);
         this.responseTime$.subscribe(function (responsetime) {
             _this.hidefooter = 0;
         });
-        this.totalResults$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["g" /* getTotalResults */]);
+        this.totalResults$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["h" /* getTotalResults */]);
         this.totalResults$.subscribe(function (totalResults) {
             _this.end = Math.min(totalResults, _this.begin + _this.searchdata.rows - 1);
             _this.totalNumber = totalResults;
@@ -2002,14 +2009,13 @@ var ResultsComponent = (function () {
             _this.noOfPages = Math.ceil(totalResults / _this.searchdata.rows);
             _this.maxPage = Math.min(_this.searchdata.rows, _this.noOfPages);
         });
-        this.resultscomponentchange$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["c" /* getItems */]);
-        this.resultscomponentchange$.subscribe(function (res) {
-            _this.route.navigate(['/search'], { queryParams: _this.searchdata });
-        });
         this.querychange$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["b" /* getquery */]);
         this.querychange$.subscribe(function (res) {
-            _this.searchdata.query = res;
             _this.hidefooter = 1;
+        });
+        this.wholequery$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["e" /* getwholequery */]);
+        this.wholequery$.subscribe(function (data) {
+            _this.searchdata = data;
         });
     }
     ResultsComponent.prototype.getNumber = function (N) {
@@ -2024,43 +2030,49 @@ var ResultsComponent = (function () {
     };
     ResultsComponent.prototype.getPresentPage = function (N) {
         this.presentPage = N;
-        this.searchdata.start = (this.presentPage - 1) * this.searchdata.rows;
-        this.route.navigate(['/search'], { queryParams: this.searchdata });
+        var urldata = Object.assign({}, this.searchdata);
+        urldata.start = (this.presentPage - 1) * urldata.rows;
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](urldata));
     };
     ResultsComponent.prototype.filterByDate = function () {
-        this.searchdata.sort = 'last_modified desc';
-        this.route.navigate(['/search'], { queryParams: this.searchdata });
+        var urldata = Object.assign({}, this.searchdata);
+        urldata.sort = 'last_modified desc';
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](urldata));
     };
     ResultsComponent.prototype.filterByContext = function () {
-        delete this.searchdata.sort;
-        this.route.navigate(['/search'], { queryParams: this.searchdata });
+        var urldata = Object.assign({}, this.searchdata);
+        delete urldata.sort;
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](urldata));
     };
     ResultsComponent.prototype.Display = function (S) {
         return (this.resultDisplay === S);
     };
     ResultsComponent.prototype.videoClick = function () {
+        var urldata = Object.assign({}, this.searchdata);
         this.getPresentPage(1);
         this.resultDisplay = 'videos';
-        this.searchdata.rows = 10;
-        this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
-        this.searchdata.resultDisplay = this.resultDisplay;
-        this.route.navigate(['/search'], { queryParams: this.searchdata });
+        urldata.rows = 10;
+        urldata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
+        urldata.resultDisplay = this.resultDisplay;
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](urldata));
     };
     ResultsComponent.prototype.imageClick = function () {
+        var urldata = Object.assign({}, this.searchdata);
         this.getPresentPage(1);
         this.resultDisplay = 'images';
-        this.searchdata.rows = 100;
-        this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
-        this.searchdata.resultDisplay = this.resultDisplay;
-        this.route.navigate(['/search'], { queryParams: this.searchdata });
+        urldata.rows = 100;
+        urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
+        urldata.resultDisplay = this.resultDisplay;
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](urldata));
     };
     ResultsComponent.prototype.docClick = function () {
+        var urldata = Object.assign({}, this.searchdata);
         this.getPresentPage(1);
         this.resultDisplay = 'all';
-        delete this.searchdata.fq;
-        this.searchdata.rows = 10;
-        this.searchdata.resultDisplay = this.resultDisplay;
-        this.route.navigate(['/search'], { queryParams: this.searchdata });
+        delete urldata.fq;
+        urldata.rows = 10;
+        urldata.resultDisplay = this.resultDisplay;
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](urldata));
     };
     ResultsComponent.prototype.incPresentPage = function () {
         this.presentPage = Math.min(this.noOfPages, this.presentPage + 1);
@@ -2073,7 +2085,6 @@ var ResultsComponent = (function () {
     ResultsComponent.prototype.getStyle = function (page) {
         return ((this.presentPage) === page);
     };
-    ;
     ResultsComponent.prototype.ngOnInit = function () {
     };
     return ResultsComponent;
@@ -2150,19 +2161,12 @@ var SearchBarComponent = (function () {
         this.store = store;
         this.searchdata = {
             query: '',
-            verify: false,
-            nav: 'filetype,protocol,hosts,authors,collections,namespace,topics,date',
-            start: 0,
-            indexof: 'off',
-            meanCount: '5',
-            resource: 'global',
-            prefermaskfilter: '',
-            maximumRecords: 10,
-            timezoneOffset: 0,
+            rows: 10,
+            start: 0
         };
-        this.query$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["b" /* getquery */]);
-        this.query$.subscribe(function (query) {
-            _this.searchdata.query = query;
+        this.wholequery$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["e" /* getwholequery */]);
+        this.wholequery$.subscribe(function (data) {
+            _this.searchdata = data;
         });
     }
     ;
@@ -2170,6 +2174,7 @@ var SearchBarComponent = (function () {
         if (event.which === 13) {
             this.displayStatus = 'hidebox';
             event.target.blur();
+            this.submit();
         }
     };
     SearchBarComponent.prototype.hidesuggestions = function (data) {
@@ -2182,9 +2187,8 @@ var SearchBarComponent = (function () {
     };
     SearchBarComponent.prototype.onquery = function (event) {
         this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryAction */](event));
-        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["c" /* QueryServerAction */]({ 'query': event }));
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["c" /* QueryServerAction */]({ 'query': event, start: this.searchdata.start, rows: this.searchdata.rows }));
         this.displayStatus = 'showbox';
-        this.submit();
         this.hidebox(event);
     };
     SearchBarComponent.prototype.ShowAuto = function () {
