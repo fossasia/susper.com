@@ -25,6 +25,7 @@ export class RelatedSearchComponent implements OnInit {
     this.query$.subscribe(query => {
       this.keyword = query;
     });
+    this.results = [];
     this.resultscomponentchange$ = store.select(fromRoot.getItems);
     this.resultscomponentchange$.subscribe(res => {
       this.results = this.initialresults;

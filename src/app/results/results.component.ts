@@ -15,6 +15,7 @@ import * as queryactions from '../actions/query';
 export class ResultsComponent implements OnInit {
   items$: Observable<any>;
   totalResults$: Observable<number>;
+  responseTime$: Observable<any>;
   resultDisplay: string;
   noOfPages: number;
   presentPage: number;
@@ -26,22 +27,15 @@ export class ResultsComponent implements OnInit {
   query: any;
   searchdata: any = {
     query: '',
-    verify: false,
-    nav: 'filetype,protocol,hosts,authors,collections,namespace,topics,date',
     start: 0,
-    indexof: 'off',
-    meanCount: '5',
-    resource: 'global',
-    prefermaskfilter: '',
     rows: 10,
-    timezoneOffset: 0,
-    newsdata: {
-      _nav: 'author'
-    },
   };
+
   querylook = {};
   hidefooter = 1;
+  totalNumber: number;
   querychange$: Observable<any>;
+  wholequery$: Observable<any>;
   resultscomponentchange$: Observable<any>;
 
   getNumber(N) {
@@ -54,18 +48,22 @@ export class ResultsComponent implements OnInit {
 
   getPresentPage(N) {
     this.presentPage = N;
-    this.searchdata.start = (this.presentPage - 1) * this.searchdata.rows;
-    this.route.navigate(['/search'], { queryParams: this.searchdata });
+    let urldata = Object.assign({}, this.searchdata);
+    urldata.start = (this.presentPage - 1) * urldata.rows;
+    this.store.dispatch(new queryactions.QueryServerAction(urldata));
+
   }
 
   filterByDate() {
-    this.searchdata.sort = 'last_modified desc';
-    this.route.navigate(['/search'], { queryParams: this.searchdata });
+    let urldata = Object.assign({}, this.searchdata);
+    urldata.sort = 'last_modified desc';
+    this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
 
   filterByContext() {
-    delete this.searchdata.sort;
-    this.route.navigate(['/search'], { queryParams: this.searchdata });
+    let urldata = Object.assign({}, this.searchdata);
+    delete urldata.sort;
+    this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
 
   Display(S) {
@@ -73,38 +71,40 @@ export class ResultsComponent implements OnInit {
   }
 
   videoClick() {
+    let urldata = Object.assign({}, this.searchdata);
     this.getPresentPage(1);
     this.resultDisplay = 'videos';
-    this.searchdata.rows = 10;
-    this.searchdata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
-    this.searchdata.resultDisplay = this.resultDisplay;
-    this.route.navigate(['/search'], { queryParams: this.searchdata });
+    urldata.rows = 10;
+    urldata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
+    urldata.resultDisplay = this.resultDisplay;
+    this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
 
   imageClick() {
+    let urldata = Object.assign({}, this.searchdata);
     this.getPresentPage(1);
     this.resultDisplay = 'images';
-    this.searchdata.rows = 100;
-    this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
-    this.searchdata.resultDisplay = this.resultDisplay;
-    this.route.navigate(['/search'], { queryParams: this.searchdata });
+    urldata.rows = 100;
+    urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
+    urldata.resultDisplay = this.resultDisplay;
+    this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
 
   newsClick() {
+    let urldata = Object.assign({}, this.searchdata);
     this.getPresentPage(1);
     this.resultDisplay = 'news';
-    this.searchdata.rows = 10;
-    this.searchdata.resultDisplay = this.resultDisplay;
-    this.route.navigate(['/search'], {queryParams: this.searchdata.newsdata._nav});
+    urldata.rows = 10;
   }
 
   docClick() {
+    let urldata = Object.assign({}, this.searchdata);
     this.getPresentPage(1);
     this.resultDisplay = 'all';
-    delete this.searchdata.fq;
-    this.searchdata.rows = 10;
-    this.searchdata.resultDisplay = this.resultDisplay;
-    this.route.navigate(['/search'], { queryParams: this.searchdata });
+    delete urldata.fq;
+    urldata.rows = 10;
+    urldata.resultDisplay = this.resultDisplay;
+    this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
 
   incPresentPage() {
@@ -131,13 +131,11 @@ export class ResultsComponent implements OnInit {
   ) {
 
     this.activatedroute.queryParams.subscribe(query => {
-      this.hidefooter = 1;
-
+      let urldata = Object.assign({}, this.searchdata);
       if (query['fq']) {
-
         if (query['fq'].includes('png')) {
           this.resultDisplay = 'images';
-          this.searchdata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
+          urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
         } else if (query['fq'].includes('avi')) {
           this.resultDisplay = 'videos';
         } else {
@@ -148,57 +146,52 @@ export class ResultsComponent implements OnInit {
       }
       if (query['resultDisplay']) {
         this.resultDisplay = query['resultDisplay'];
-        this.searchdata.resultDisplay = this.resultDisplay;
-
+        urldata.resultDisplay = this.resultDisplay;
       }
-
-
-
       if (query['start']) {
-        this.searchdata.start = query['start'];
+        urldata.start = query['start'];
       } else {
-        this.searchdata.start = 0;
+        urldata.start = 0;
       }
 
-      this.searchdata.query = query['query'];
+      urldata.query = query['query'];
       this.store.dispatch(new queryactions.QueryAction(query['query']));
       this.querylook = Object.assign({}, query);
-      this.searchdata.sort = query['sort'];
       this.begin = Number(query['start']) + 1;
       this.message = '';
-      this.start = (this.presentPage - 1) * this.searchdata.rows;
+      this.start = (this.presentPage - 1) * urldata.rows;
       this.begin = this.start + 1;
+      urldata.rows = Number(query['rows']) || 10;
+      this.presentPage = Math.abs(query['start'] / urldata.rows) + 1;
+      let querydata = Object.assign({}, urldata);
+      this.store.dispatch(new queryactions.QueryServerAction(querydata));
+    });
 
-      this.store.dispatch(new queryactions.QueryServerAction(query));
-      this.items$ = store.select(fromRoot.getItems);
-      this.searchdata.rows = Number(query['rows']) || 10;
-      this.presentPage = Math.abs(query['start'] / this.searchdata.rows) + 1;
-
+    this.items$ = store.select(fromRoot.getItems);
+    this.responseTime$ = store.select(fromRoot.getResponseTime);
+    this.responseTime$.subscribe(responsetime => {
+      this.hidefooter = 0;
     });
     this.totalResults$ = store.select(fromRoot.getTotalResults);
     this.totalResults$.subscribe(totalResults => {
-      if (totalResults) {
-        this.hidefooter = 0;
-
-      }
 
       this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
-      this.message = 'About ' + totalResults + ' results';
+      this.totalNumber = totalResults;
+        this.message = 'About ' + totalResults + ' results';
       this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
       this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
     });
-    this.resultscomponentchange$ = store.select(fromRoot.getItems);
-    this.resultscomponentchange$.subscribe(res => {
-      this.route.navigate(['/search'], {queryParams: this.searchdata});
-    });
     this.querychange$ = store.select(fromRoot.getquery);
     this.querychange$.subscribe(res => {
-      this.searchdata.query = res;
+      this.hidefooter = 1;
     });
-  };
+    this.wholequery$ = store.select(fromRoot.getwholequery);
+    this.wholequery$.subscribe(data => {
+      this.searchdata = data;
+    });
+  }
 
   ngOnInit() {
-
   }
 
 }

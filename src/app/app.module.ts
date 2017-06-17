@@ -30,6 +30,7 @@ import {AutocompleteService} from "./autocomplete.service";
 import { AutoCompleteComponent } from './auto-complete/auto-complete.component';
 import { ThemeComponent } from './theme/theme.component';
 import { ThemeService } from './theme.service';
+import { SearchsettingsComponent } from './searchsettings/searchsettings.component';
 import {KnowledgeEffects} from "./effects/knowledge";
 
 const appRoutes: Routes = [
@@ -40,7 +41,9 @@ const appRoutes: Routes = [
   {path: 'contact', component: ContactComponent},
   {path: '404', component: NotFoundComponent},
   {path: 'advancedsearch', component: NewadvancedsearchComponent},
+  {path: 'preferences', component: SearchsettingsComponent },
   {path: '**', redirectTo: '/404'},
+
 ];
 @NgModule({
   declarations: [
@@ -60,6 +63,7 @@ const appRoutes: Routes = [
     RelatedSearchComponent,
     AutoCompleteComponent,
     ThemeComponent,
+    SearchsettingsComponent,
   ],
   imports: [
     BrowserModule,

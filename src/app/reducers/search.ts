@@ -9,6 +9,7 @@ export interface State {
   items: any;
   totalResults: any;
   navigation: any;
+  responsetime: any;
 }
 /**
  * There is always a need of initial state to be passed onto the store.
@@ -20,7 +21,8 @@ const initialState: State = {
   searchresults: {},
   items: [],
   totalResults: 0,
-  navigation: []
+  navigation: [],
+  responsetime: 0
 };
 export function reducer(state: State = initialState, action: search.Actions): State {
   switch (action.type) {
@@ -31,6 +33,7 @@ export function reducer(state: State = initialState, action: search.Actions): St
         items: search.channels[0].items,
         totalResults: Number(search.channels[0].totalResults) || 0,
         navigation: search.channels[0].navigation,
+        responsetime: new Date()
       });
     }
     default: {
@@ -42,6 +45,6 @@ export const getsearchresults = (state: State) => state.searchresults;
 export const getItems = (state: State) => state.items;
 
 export const getTotalResults = (state: State) => state.totalResults;
-
+export const getresponsetime = (state: State) => state.responsetime;
 export const getNavigation = (state: State) => state.navigation;
 
