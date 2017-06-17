@@ -55,7 +55,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   onquery(event: any) {
     this.store.dispatch(new query.QueryAction(event));
     let instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
-    if (instantsearch.value) {
+
+    if (instantsearch && instantsearch.value) {
       this.store.dispatch(new queryactions.QueryServerAction({'query': event}));
       this.displayStatus = 'showbox';
       this.submit();
