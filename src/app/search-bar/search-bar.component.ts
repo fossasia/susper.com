@@ -8,6 +8,8 @@ import * as fromRoot from '../reducers';
 import { Observable } from 'rxjs';
 import * as query from '../actions/query';
 import * as queryactions from '../actions/query';
+import { SpeechService } from '../speech.service';
+
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -23,14 +25,23 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     start: 0
   };
   wholequery$: Observable<any>;
-  constructor(private route: ActivatedRoute,
-              private router: Router, private store: Store<fromRoot.State>) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<fromRoot.State>,
+    private speech: SpeechService
+  ) {
     this.wholequery$ = store.select(fromRoot.getwholequery);
     this.wholequery$.subscribe(data => {
       this.searchdata = data;
     });
 
   };
+
+  speechRecognition() {
+    this.speech.record('en_US').subscribe(voice => this.onquery(voice));
+  }
+
   hidebox(event: any) {
     if (event.which === 13) {
       this.displayStatus = 'hidebox';

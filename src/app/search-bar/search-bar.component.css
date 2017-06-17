@@ -52,6 +52,17 @@
   border-color: transparent !important;
 }
 
+.microphone {
+  height: 25px;
+  width: 25px;
+}
+
+@-moz-document url-prefix() {
+  .microphone {
+    display: none;
+  }
+}
+
 @media screen and (min-width:1920px) {
   #nav-group{
     top:6px;
