@@ -38,6 +38,7 @@ export class ResultsComponent implements OnInit {
   };
   querylook = {};
   hidefooter = 1;
+  totalNumber: number;
   querychange$: Observable<any>;
   resultscomponentchange$: Observable<any>;
   getNumber(N) {
@@ -169,7 +170,8 @@ export class ResultsComponent implements OnInit {
     this.totalResults$.subscribe(totalResults => {
 
       this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
-      this.message = 'About ' + totalResults + ' results';
+      this.totalNumber = totalResults;
+        this.message = 'About ' + totalResults + ' results';
       this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
       this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
     });

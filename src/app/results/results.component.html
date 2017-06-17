@@ -23,9 +23,20 @@
   <div [hidden]="hidefooter">
     <!-- Basic results 'All' -->
   <div class="text-result" *ngIf="Display('all')">
-      <div class="container-fluid" id="progress-bar">
+      <div class="container-fluid" *ngIf="totalNumber > 0" id="progress-bar">
           {{message}}
       </div>
+    <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+      <div class="noResults">
+      <p>Your search - <em>{{searchdata.query}}</em> - did not match any documents.</p>
+      <p>Suggestions:</p>
+      <ul>
+        <li>Make sure that all words are spelled correctly.</li>
+        <li>Try different keywords.</li>
+        <li>Try more general keywords.</li>
+      </ul>
+      </div>
+    </div>
     <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
@@ -47,6 +58,17 @@
     <!-- Image section -->
     <div class="container">
         <div class="grid" *ngIf="Display('images')">
+          <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+            <div class="noResults">
+              <p>Your search - <em>{{searchdata.query}}</em> - did not match any images.</p>
+              <p>Suggestions:</p>
+              <ul>
+                <li>Make sure that all words are spelled correctly.</li>
+                <li>Try different keywords.</li>
+                <li>Try more general keywords.</li>
+              </ul>
+            </div>
+          </div>
             <div class="cell" *ngFor="let item of items$|async">
                 <a class="image-pointer" href="{{item.link}}"><img class="responsive-image" src="{{item.link}}"></a>
             </div>
@@ -54,9 +76,20 @@
     </div>
     <!-- END -->
         <div class="video-result" *ngIf="Display('videos')">
-            <div class="container-fluid" id="progress-bar">
-                {{message}}
+          <div class="container-fluid" *ngIf="totalNumber > 0" id="progress-bar">
+            {{message}}
+          </div>
+          <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+            <div class="noResults">
+              <p>Your search - <em>{{searchdata.query}}</em> - did not match any videos.</p>
+              <p>Suggestions:</p>
+              <ul>
+                <li>Make sure that all words are spelled correctly.</li>
+                <li>Try different keywords.</li>
+                <li>Try more general keywords.</li>
+              </ul>
             </div>
+          </div>
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
                     <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
