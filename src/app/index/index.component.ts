@@ -6,25 +6,18 @@ import {Router, ActivatedRoute} from '@angular/router';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  searchdata = {
-    query : '',
-    verify: false,
-    nav: 'filetype,protocol,hosts,authors,collections,namespace,topics,date',
+  searchdata: any = {
+    query: '',
     start: 0,
-    indexof: 'off',
-    meanCount: '5',
-    resource: 'global',
-    prefermaskfilter: '',
-    maximumRecords: 10,
-    timezoneOffset: 0
+    rows: 10,
+
   };
+
   constructor(private route: ActivatedRoute,
               private router: Router ) { }
 
   ngOnInit() {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
   }
-  submit() {
-    this.router.navigate(['/search'], {queryParams: this.searchdata});
-  }
+
 }
