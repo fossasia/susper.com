@@ -23,10 +23,11 @@
   <div *ngIf="!hidefooter">
     <!-- Basic results 'All' -->
   <div class="text-result" *ngIf="Display('all')">
-      <div class="container-fluid" id="progress-bar">
-          {{message}}
-      </div>
+
     <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+      <div class="result message-bar">
+        {{message}}
+      </div>
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
                     <a class="title-pointer" href="{{item.link}}" [style.color]="themeService.titleColor">{{item.title}}</a>
@@ -54,7 +55,7 @@
     </div>
     <!-- END -->
         <div class="video-result" *ngIf="Display('videos')">
-            <div class="container-fluid" id="progress-bar">
+            <div class="result message-bar">
                 {{message}}
             </div>
             <div *ngFor="let item of items$|async" class="result">
