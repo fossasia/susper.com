@@ -150,7 +150,6 @@ export class ResultsComponent implements OnInit {
       this.store.dispatch(new queryactions.QueryAction(query['query']));
       this.querylook = Object.assign({}, query);
       this.begin = Number(query['start']) + 1;
-      this.message = '';
       this.start = (this.presentPage - 1) * urldata.rows;
       this.begin = this.start + 1;
       urldata.rows = Number(query['rows']) || 10;
