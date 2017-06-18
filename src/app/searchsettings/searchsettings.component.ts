@@ -8,9 +8,15 @@ import {Router} from "@angular/router";
 })
 export class SearchsettingsComponent implements OnInit {
   resultCount = 10;
-  instantresults: boolean = JSON.parse(localStorage.getItem('instantsearch')).value;
+  instantresults: boolean;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    if(localStorage.getItem('instantsearch')) {
+      this.instantresults = JSON.parse(localStorage.getItem('instantsearch')).value ||false;
+    } else {
+      this.instantresults = false
+    }
+  }
 
   ngOnInit() {
   }
