@@ -11,10 +11,10 @@ export class SearchsettingsComponent implements OnInit {
   instantresults: boolean;
 
   constructor(private router: Router) {
-    if(localStorage.getItem('instantsearch')) {
-      this.instantresults = JSON.parse(localStorage.getItem('instantsearch')).value ||false;
+    if (localStorage.getItem('instantsearch')) {
+      this.instantresults = JSON.parse(localStorage.getItem('instantsearch')).value || false;
     } else {
-      this.instantresults = false
+      this.instantresults = false;
     }
   }
 
