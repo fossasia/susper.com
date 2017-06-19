@@ -26,6 +26,7 @@ import {RelatedSearchComponent} from "../related-search/related-search.component
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import {AutocompleteService} from "../autocomplete.service";
 import { ThemeComponent } from '../theme/theme.component';
+import { SpeechService } from '../speech.service';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -61,7 +62,8 @@ describe('NotFoundComponent', () => {
         ThemeComponent
       ],
       providers: [
-        AutocompleteService
+        AutocompleteService,
+        SpeechService
       ]
     })
       .compileComponents();
