@@ -1308,6 +1308,8 @@ module.exports = "<div class=\"container-fluid\">\n    <div class=\"starter-temp
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__("../../../../@ngrx/store/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions_query__ = __webpack_require__("../../../../../src/app/actions/query.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IndexComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1320,15 +1322,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
 var IndexComponent = (function () {
-    function IndexComponent(route, router) {
+    function IndexComponent(route, router, store) {
         this.route = route;
         this.router = router;
+        this.store = store;
         this.searchdata = {
             query: '',
             start: 0,
             rows: 10,
         };
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_3__actions_query__["b" /* QueryAction */](''));
     }
     IndexComponent.prototype.ngOnInit = function () {
         this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
@@ -1341,10 +1347,10 @@ IndexComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/index/index.component.html"),
         styles: [__webpack_require__("../../../../../src/app/index/index.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */]) === "function" && _c || Object])
 ], IndexComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/index.component.js.map
 
 /***/ }),
