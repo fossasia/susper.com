@@ -30,6 +30,8 @@ import { AutocompleteService } from "./autocomplete.service";
 import { AutoCompleteComponent } from './auto-complete/auto-complete.component';
 import { ThemeComponent } from './theme/theme.component';
 import { ThemeService } from './theme.service';
+import { CrawlstartComponent } from './crawlstart/crawlstart.component';
+import { CrawlstartService } from "./crawlstart.service";
 import { SearchsettingsComponent } from './searchsettings/searchsettings.component';
 import { KnowledgeEffects } from "./effects/knowledge";
 import { SpeechService } from './speech.service';
@@ -42,6 +44,7 @@ const appRoutes: Routes = [
   {path: 'contact', component: ContactComponent},
   {path: '404', component: NotFoundComponent},
   {path: 'advancedsearch', component: NewadvancedsearchComponent},
+  {path: 'crawlstartexpert', component: CrawlstartComponent},
   {path: 'preferences', component: SearchsettingsComponent },
   {path: '**', redirectTo: '/404'},
 ];
@@ -64,6 +67,7 @@ const appRoutes: Routes = [
     RelatedSearchComponent,
     AutoCompleteComponent,
     ThemeComponent,
+    CrawlstartComponent,
     SearchsettingsComponent,
   ],
 
@@ -86,9 +90,9 @@ const appRoutes: Routes = [
     KnowledgeapiService,
     AutocompleteService,
     ThemeService,
-    SpeechService
+    SpeechService,
+    CrawlstartService
   ],
-
 
   bootstrap: [AppComponent]
 

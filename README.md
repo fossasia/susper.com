@@ -2,7 +2,7 @@
 
 Susper is a decentralized Search Engine that uses the peer to peer system yacy and Apache Solr to crawl and index search results.
 
-[![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=angular)](https://travis-ci.org/fossasia/susper.com?branch=angular)
+[![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=master)](https://travis-ci.org/fossasia/susper.com)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ba119419e7444b3b505bb37b4525deb)](https://www.codacy.com/app/shiven15094/susper-com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fossasia/susper.com&amp;utm_campaign=Badge_Grade)
 [![Code Climate](https://codeclimate.com/github/fossasia/susper.com/badges/gpa.svg?branch=gh-pages)](https://codeclimate.com/github/fossasia/susper.com)
 [![codecov](https://codecov.io/gh/fossasia/susper.com/branch/master/graph/badge.svg)](https://codecov.io/gh/fossasia/susper.com)
@@ -65,7 +65,7 @@ $ npm install
 #### For deploying with [Github Pages](https://pages.github.com/):
 With these very simple steps you can have susper deployed:
 * **Step 1:** Fork susper repository and clone it to your desktop
-* **Step 2:** Then checkout to your master branch `$ git checkout angular`
+* **Step 2:** Then checkout to your master branch `$ git checkout master`
 * **Step 3:** Deploy running this : ```$ ng github-pages:deploy --message "Optional commit message" --base-href="/susper/"```
 * **Step 4:** Visit `https://yourusername.github.io/susper` and you should see the search running
 * **Step 5:** As you search you might see that that it cant find anything, to resolve this, on search you will see there is a red shield on search bar, click on it and allow to load scripts
@@ -73,7 +73,7 @@ With these very simple steps you can have susper deployed:
 
 ## Contributions, Bug Reports, Feature Requests
 
-This is an Open Source project and we would be happy to see contributors who report bugs and file feature requests submitting pull requests as well. Please report issues here https://github.com/fossasia/susper.com/issues .Presently active work is being done on moving susper to angular2 framework , on a separate branch 'angular' .
+This is an Open Source project and we would be happy to see contributors who report bugs and file feature requests submitting pull requests as well. Please report issues here https://github.com/fossasia/susper.com/issues .Presently active work is being done on moving susper to angular2 framework , on a separate branch 'master' .
 
 
 ## Issue and Branch Policy
@@ -83,9 +83,9 @@ Before making a pull request, please file an issue. So, other developers have th
 We have the following branches
  * **gh-pages**
    This contains shipped code. After significant features/bugfixes are accumulated on development, we make a version update, and make a release.
- * **angular**
- This contains the code that is related to angular2 version of susper, where all the development of converting susper to angular2 framework is being done.If you're making a contribution related to angular issues,
-    you are supposed to make a pull request to _angular_.
+ * **master**
+ This contains the code that is related to Angular2 version of susper, where all the development of converting susper to Angular2 framework is being done.If you're making a contribution related to angular issues,
+    you are supposed to make a pull request to _master_.
     PRs must pass a build check and unit-tests check on Travis
 
 ## LICENSE
