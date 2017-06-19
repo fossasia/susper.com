@@ -34,3 +34,10 @@ div a {
   }
 }
 
+.dropup{
+  cursor: pointer;
+}
+
+.dropdown-menu > li > a{
+  text-align: center;
+}

@@ -26,6 +26,7 @@ import {RelatedSearchComponent} from "../related-search/related-search.component
 import {AutocompleteService} from "../autocomplete.service";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import { ThemeComponent } from '../theme/theme.component';
+import { SpeechService } from '../speech.service';
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -62,7 +63,8 @@ describe('SearchBarComponent', () => {
         ThemeComponent
       ],
       providers: [
-        AutocompleteService
+        AutocompleteService,
+        SpeechService
       ],
     })
       .compileComponents();

@@ -1,6 +1,6 @@
 /** Basic results 'All' **/
 .result {
-  margin-left: 5.9%;
+  margin-left: 6.4%;
   padding-top: 10px;
 }
 
@@ -42,7 +42,12 @@ a {
 }
 
 .feed {
-  width: 49%;
+  left: 0.3%;
+}
+
+.feed.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.col-lg-10.col-lg-offset-1 {
+  width: 53%;
+  left: 1px !important;
 }
 
 .title-pointer:hover {
@@ -69,6 +74,7 @@ a {
   cursor: pointer;
   text-align: center;
 }
+
 .page-item2 span{
   padding-top: 2%;
   padding-left: 2%;
@@ -90,11 +96,12 @@ a {
   font-weight: 900;
   padding-bottom: 4%;
 }
+
 .message-bar {
   margin-top: 1%;
   font-size: small;
   color: #808080;
-
+  margin-left: 6.3%;
 }
 
 .text-result {
@@ -117,7 +124,6 @@ a {
 
 .container-fluid li a{
   position: relative;
-  left: -25px;
 }
 
 .page-text{
@@ -145,7 +151,7 @@ a {
   padding: 10px;
   padding-right: 20px;
   padding-left: 20px;
-  background-color: #f5f5f5;
+  background-color: rgba(0,0,0,0.1);
 }
 
 .dropdown-menu > li:active {
@@ -155,12 +161,6 @@ a {
   background-color: #1c65ba;
   color: white;
 }
-
-#tools{
-  left: 140px;
-  position: relative;
-}
-
 
 .active_view {
   color: #4285f4 !important;
@@ -206,6 +206,7 @@ a {
   margin-top: 0.5%;
   margin-left: 9%;
   font-size: 13px;
+  max-width: 630px;
   cursor: default;
 }
 
@@ -232,7 +233,6 @@ a {
   margin-left: 1px;
   color: #777;
   font-weight: 500;
-  font-size: 11px;
   line-height: 15px;
   font-family: Arial, sans-serif;
 }
@@ -244,16 +244,34 @@ a {
 #tools {
   text-decoration: none;
   color: #777;
-  margin-left: 15%;
+  position: relative;
+  left: 8%;
 }
 
 #tools:hover {
   color: #222;
 }
 
-.dropdown-menu {
-  left:100%;
+#settings {
+  text-decoration: none;
+  color: #777;
+  position: relative;
+  left: 8%;
+}
 
+#settings:hover {
+  color: #222;
+}
+
+.dropdown-menu {
+  float: right;
+
+}
+
+.dropdown{
+  left: 40%;
+  width: 0px;
+  padding: 0;
 }
 
 #tool-dropdown li {
@@ -263,6 +281,19 @@ a {
   padding-bottom: 24px;
 }
 
+#setting-dropdown li {
+  text-align: left;
+  color: #000000;
+  display: block;
+  padding-top: 8px;
+  padding-bottom: 22px;
+}
+
+#setting-dropdown{
+  margin-top: 8%;
+  margin-left: 15%;
+  border-radius: 0px;
+}
 #pag-bar {
   padding-left: 60px;
   padding-top: 20px;
@@ -325,9 +356,6 @@ a {
 }
 
 @media screen and (max-width:1365px) {
-  #tools {
-    margin-left: 16%;
-  }
   .feed {
     width: 49%;
   }
@@ -342,9 +370,6 @@ a {
 @media screen and (max-width:1279px) {
   #search-options {
     margin-left: 9.1%;
-  }
-  #tools {
-    margin-left: 17%;
   }
 }
 
@@ -366,17 +391,6 @@ a {
   }
 }
 
-@media screen and (max-width:1105px) {
-  #tools {
-    margin-left: 18%;
-  }
-}
-
-@media screen and (max-width:991px) {
-  #tools {
-    margin-left: 20%;
-  }
-}
 
 @media screen and (max-width:979px) {
   #search-options {
@@ -424,17 +438,11 @@ a {
     padding-left: 50px;
   }
   #search-options li {
-    padding: 0px 8.3% 12px;
-  }
-  #tools {
-    margin-left: -19%;
+    padding: 0px 2.3% 12px;
   }
 }
 
 @media screen and (max-width:741px) {
-  #tools {
-    margin-left: -26%;
-  }
   .result {
     margin-left: 13.5%;
   }
@@ -452,7 +460,7 @@ a {
 
 @media screen and (max-width:639px) {
   #search-options li {
-    padding: 0px 7.5% 12px;
+    padding: 0px 1.5% 12px;
   }
 }
 
@@ -472,19 +480,13 @@ a {
     margin-left: 7%;
   }
   #search-options li {
-    padding: 0px 7% 12px;
+    padding: 0px 0.5% 12px;
   }
 }
 
 @media screen and (max-width:379px) {
   #search-options li {
     padding: 0px 6.2% 12px;
-  }
-}
-
-@media screen and (max-width:408px) {
-  #tools {
-    left: 20%;
   }
 }
 

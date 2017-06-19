@@ -1,6 +1,8 @@
 .navbar-brand{
     width: 140px;
     height: auto;
+    padding: 15px 15px 0px 15px;
+    margin-right: 26px;
 }
 
 .menu-image{
