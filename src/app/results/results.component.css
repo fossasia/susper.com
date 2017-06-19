@@ -90,11 +90,11 @@ a {
   font-weight: 900;
   padding-bottom: 4%;
 }
-#progress-bar {
+.message-bar {
   margin-top: 1%;
   font-size: small;
   color: #808080;
-  margin-left: 11.2%;
+
 }
 
 .text-result {
@@ -349,9 +349,6 @@ a {
 }
 
 @media screen and (max-width:1139px) {
-  #progress-bar {
-    margin-left: 13%;
-  }
   #search-options {
     margin-left: 10.2%;
   }
@@ -363,9 +360,6 @@ a {
 @media screen and (max-width:1077px) {
   #search-options {
     margin-left: 9%;
-  }
-  #progress-bar {
-    margin-left: 12.1%;
   }
   .result {
     margin-left: 6.2%;
@@ -388,9 +382,6 @@ a {
   #search-options {
     margin-left: 8.8%;
   }
-  #progress-bar {
-    margin-left: 12.3%;
-  }
   .result {
     margin-left: 6.2%;
   }
@@ -406,9 +397,6 @@ a {
   #search-options {
     margin-left: 9.8%;
   }
-  #progress-bar {
-    margin-left: 14%;
-  }
   .result {
     margin-left: 7.7%;
   }
@@ -422,8 +410,7 @@ a {
     margin-left: 16%;
     padding-right: 30px;
   }
-  #progress-bar {
-    margin-left: 13.4%;
+  .message-bar {
     margin-bottom: -10px;
   }
   #search-options {
@@ -460,9 +447,7 @@ a {
   .result {
     margin-left: 13%;
   }
-  #progress-bar {
-    margin-left: 12.3%;
-  }
+
 }
 
 @media screen and (max-width:639px) {
@@ -476,9 +461,7 @@ a {
     margin-left: 12%;
     padding-right: 20px;
   }
-  #progress-bar {
-    margin-left: 11%;
-  }
+
   #pag-bar {
     padding-left: 30px;
   }

@@ -30,6 +30,8 @@ import {AutocompleteService} from "./autocomplete.service";
 import { AutoCompleteComponent } from './auto-complete/auto-complete.component';
 import { ThemeComponent } from './theme/theme.component';
 import { ThemeService } from './theme.service';
+import { CrawlstartComponent } from './crawlstart/crawlstart.component';
+import {CrawlstartService} from "./crawlstart.service";
 import { SearchsettingsComponent } from './searchsettings/searchsettings.component';
 import {KnowledgeEffects} from "./effects/knowledge";
 
@@ -41,6 +43,7 @@ const appRoutes: Routes = [
   {path: 'contact', component: ContactComponent},
   {path: '404', component: NotFoundComponent},
   {path: 'advancedsearch', component: NewadvancedsearchComponent},
+  {path: 'crawlstartexpert', component: CrawlstartComponent},
   {path: 'preferences', component: SearchsettingsComponent },
   {path: '**', redirectTo: '/404'},
 
@@ -63,6 +66,7 @@ const appRoutes: Routes = [
     RelatedSearchComponent,
     AutoCompleteComponent,
     ThemeComponent,
+    CrawlstartComponent,
     SearchsettingsComponent,
   ],
   imports: [
@@ -79,7 +83,7 @@ const appRoutes: Routes = [
     Ng2Bs3ModalModule
 
   ],
-  providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService],
+  providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, CrawlstartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
