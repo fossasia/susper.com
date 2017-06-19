@@ -400,8 +400,10 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__auto_complete_auto_complete_component__ = __webpack_require__("../../../../../src/app/auto-complete/auto-complete.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__theme_theme_component__ = __webpack_require__("../../../../../src/app/theme/theme.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__theme_service__ = __webpack_require__("../../../../../src/app/theme.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__searchsettings_searchsettings_component__ = __webpack_require__("../../../../../src/app/searchsettings/searchsettings.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__effects_knowledge__ = __webpack_require__("../../../../../src/app/effects/knowledge.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__crawlstart_crawlstart_component__ = __webpack_require__("../../../../../src/app/crawlstart/crawlstart.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__crawlstart_service__ = __webpack_require__("../../../../../src/app/crawlstart.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__searchsettings_searchsettings_component__ = __webpack_require__("../../../../../src/app/searchsettings/searchsettings.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__effects_knowledge__ = __webpack_require__("../../../../../src/app/effects/knowledge.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -409,6 +411,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -451,7 +455,8 @@ var appRoutes = [
     { path: 'contact', component: __WEBPACK_IMPORTED_MODULE_19__contact_contact_component__["a" /* ContactComponent */] },
     { path: '404', component: __WEBPACK_IMPORTED_MODULE_10__not_found_not_found_component__["a" /* NotFoundComponent */] },
     { path: 'advancedsearch', component: __WEBPACK_IMPORTED_MODULE_24__newadvancedsearch_newadvancedsearch_component__["a" /* NewadvancedsearchComponent */] },
-    { path: 'preferences', component: __WEBPACK_IMPORTED_MODULE_32__searchsettings_searchsettings_component__["a" /* SearchsettingsComponent */] },
+    { path: 'crawlstartexpert', component: __WEBPACK_IMPORTED_MODULE_32__crawlstart_crawlstart_component__["a" /* CrawlstartComponent */] },
+    { path: 'preferences', component: __WEBPACK_IMPORTED_MODULE_34__searchsettings_searchsettings_component__["a" /* SearchsettingsComponent */] },
     { path: '**', redirectTo: '/404' },
 ];
 var AppModule = (function () {
@@ -478,7 +483,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_27__related_search_related_search_component__["a" /* RelatedSearchComponent */],
             __WEBPACK_IMPORTED_MODULE_29__auto_complete_auto_complete_component__["a" /* AutoCompleteComponent */],
             __WEBPACK_IMPORTED_MODULE_30__theme_theme_component__["a" /* ThemeComponent */],
-            __WEBPACK_IMPORTED_MODULE_32__searchsettings_searchsettings_component__["a" /* SearchsettingsComponent */],
+            __WEBPACK_IMPORTED_MODULE_32__crawlstart_crawlstart_component__["a" /* CrawlstartComponent */],
+            __WEBPACK_IMPORTED_MODULE_34__searchsettings_searchsettings_component__["a" /* SearchsettingsComponent */],
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -489,11 +495,11 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_8__angular_router__["a" /* RouterModule */].forRoot(appRoutes),
             __WEBPACK_IMPORTED_MODULE_14__ngrx_store__["a" /* StoreModule */].provideStore(__WEBPACK_IMPORTED_MODULE_15__reducers_index__["a" /* reducer */]),
             __WEBPACK_IMPORTED_MODULE_22__ngrx_effects__["a" /* EffectsModule */].run(__WEBPACK_IMPORTED_MODULE_23__effects_search_effects__["a" /* ApiSearchEffects */]),
-            __WEBPACK_IMPORTED_MODULE_22__ngrx_effects__["a" /* EffectsModule */].run(__WEBPACK_IMPORTED_MODULE_33__effects_knowledge__["a" /* KnowledgeEffects */]),
+            __WEBPACK_IMPORTED_MODULE_22__ngrx_effects__["a" /* EffectsModule */].run(__WEBPACK_IMPORTED_MODULE_35__effects_knowledge__["a" /* KnowledgeEffects */]),
             __WEBPACK_IMPORTED_MODULE_13__ngrx_store_devtools__["a" /* StoreDevtoolsModule */].instrumentOnlyWithExtension(),
             __WEBPACK_IMPORTED_MODULE_20_ng2_bs3_modal_ng2_bs3_modal__["Ng2Bs3ModalModule"]
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_9__search_service__["a" /* SearchService */], __WEBPACK_IMPORTED_MODULE_26__knowledgeapi_service__["a" /* KnowledgeapiService */], __WEBPACK_IMPORTED_MODULE_28__autocomplete_service__["a" /* AutocompleteService */], __WEBPACK_IMPORTED_MODULE_31__theme_service__["a" /* ThemeService */]],
+        providers: [__WEBPACK_IMPORTED_MODULE_9__search_service__["a" /* SearchService */], __WEBPACK_IMPORTED_MODULE_26__knowledgeapi_service__["a" /* KnowledgeapiService */], __WEBPACK_IMPORTED_MODULE_28__autocomplete_service__["a" /* AutocompleteService */], __WEBPACK_IMPORTED_MODULE_31__theme_service__["a" /* ThemeService */], __WEBPACK_IMPORTED_MODULE_33__crawlstart_service__["a" /* CrawlstartService */]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
@@ -666,8 +672,8 @@ var AutocompleteService = (function () {
         params.append('facet.field', 'url_protocol_s');
         params.append('facet.field', 'author_sxt');
         params.append('facet.field', 'collection_sxt');
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Headers */]({ 'Accept': 'application/json' });
-        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* RequestOptions */]({ headers: headers, search: params });
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["g" /* Headers */]({ 'Accept': 'application/json' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers, search: params });
         return this.jsonp
             .get('http://yacy.searchlab.eu/suggest.json', { search: params }).map(function (res) {
             return res.json()[0];
@@ -684,7 +690,7 @@ var AutocompleteService = (function () {
 }());
 AutocompleteService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["g" /* Jsonp */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["g" /* Jsonp */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Jsonp */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Jsonp */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */]) === "function" && _c || Object])
 ], AutocompleteService);
 
 var _a, _b, _c;
@@ -788,6 +794,190 @@ ContactComponent = __decorate([
 
 var _a;
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/contact.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/crawlstart.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__("../../../../@ngrx/store/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CrawlstartService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var CrawlstartService = (function () {
+    function CrawlstartService(http, jsonp, store) {
+        this.http = http;
+        this.jsonp = jsonp;
+        this.store = store;
+        this.server = 'yacy.searchlab.eu';
+        this.searchURL = 'http://' + this.server + '/solr/select?callback=?';
+    }
+    CrawlstartService.prototype.getcrawldefaults = function () {
+        return this.jsonp.get('http://yacygrid.com:8300/yacy/grid/crawler/defaultValues.json?CALLBACK=JSONP_CALLBACK').map(function (res) {
+            res.json();
+        });
+    };
+    CrawlstartService.prototype.handleError = function (error) {
+        // In some advance version we can include a remote logging of errors
+        var errMsg = (error.message) ? error.message :
+            error.status ? error.status + " - " + error.statusText : 'Server error';
+        console.error(errMsg); // Right now we are logging to console itself
+        return __WEBPACK_IMPORTED_MODULE_3_rxjs__["Observable"].throw(errMsg);
+    };
+    CrawlstartService.prototype.startCrawlJob = function (crawlvalues) {
+        var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* URLSearchParams */]();
+        for (var key in crawlvalues) {
+            if (crawlvalues.hasOwnProperty(key)) {
+                params.set(key, crawlvalues[key]);
+            }
+        }
+        params.set('callback', 'JSONP_CALLBACK');
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ search: params });
+        return this.jsonp
+            .get('http://yacy.searchlab.eu/Crawler_p.json', options).map(function (res) {
+            res.json();
+        });
+    };
+    return CrawlstartService;
+}());
+CrawlstartService = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Jsonp */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Jsonp */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */]) === "function" && _c || Object])
+], CrawlstartService);
+
+var _a, _b, _c;
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/crawlstart.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/crawlstart/crawlstart.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "@media screen and (max-width:990px) {\n  .navbar-collapse.navbar-right {\n    text-align: right;\n  }\n}\n.navbar-nav > li > a{\n  text-align: left;\n}\n\n.navbar-right{\n  border-top:none;\n}\n\n.bold{\n  font-weight: 700;\n}\n.crawlstartbutton{\n  border-color: white;\n  background-color: #4d90fe;\n  border: 1px solid #3079ed\n}\n\n.nav-terms {\n  padding: 0px;\n  clear: both;\n  margin: -57px 0 0 0\n}\n.advsearch-navbar{\n  position: relative;\n  top:-5px;\n}\n\n\n.nav-about {\n  clear: both;\n  margin: -57px 0 0 0\n}\n\n.navbar-logo {\n  height: 30px;\n  padding-left: 20px;\n  margin-top: -4%;\n}\n.btn-round-lg{\n  border-radius: 22.5px;\n}\n.btn-round{\n  border-radius: 11px;\n}\n\n.navbar-brand>img {\n  margin:-5px 0 0 0;\n}\n.navbar-logo {\n  height: 30px;\n  padding-left: 20px;\n}\n\n.navbar-text {\n  padding-right: 30px;\n  font-size: 20px;\n  position: relative;\n  top:-3px;\n}\n\n.text-center{\n  text-align: center;\n}\n\n.link{\n  margin-top:2px;\n  font-weight: 700;\n  line-height: 1.8;\n  color:#1565C0;\n\n}\n.link:hover{\n  text-decoration: underline;\n}\n\n#left{\n  width:22.6993866%;\n}\n\n#right{\n  width:67.7%;\n}\np{\n  line-height: 20px;\n  text-align: justify;\n}\nh2{\n  line-height: 1.8;\n}\ndiv{\n  margin-top: 0.5%;\n  font-family: Arial,SansSerif;\n}\n@media only screen and (max-width: 500px) {\n  #left{\n    width: 100%;\n  }\n\n  #right{\n    width: 100%;\n  }\n}\n@media only screen and (max-width: 768px) {\n  .navbar-logo{\n    margin-left: -77px;\n  }\n}\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/crawlstart/crawlstart.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<nav class=\"navbar navbar-default nav-about\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <button type = \"button\" class = \"navbar-toggle\"\n              data-toggle = \"collapse\" data-target = \"#dropmenu\">\n        <span class = \"icon-bar\"></span>\n        <span class = \"icon-bar\"></span>\n        <span class = \"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand advsearch-navbar\" href=\"//susper.com\">\n        <img alt=\"brand\" class=\"navbar-logo\" src=\"../../assets/images/susper.svg\">\n      </a>\n    </div>\n    <div class=\"collapse navbar-collapse\" id=\"dropmenu\">\n      <ul class=\"nav navbar-nav navbar-collapse navbar-right\">\n        <li><a routerLink=\"/terms\">Terms</a></li>\n        <li><a routerLink=\"/about\">About</a></li>\n        <li><a routerLink=\"/contact\">Contact</a></li>\n      </ul>\n    </div>\n  </div>\n</nav>\n\n\n\n<div class=\"container\">\n  <h3 style=\"color: #dd4b39;font-family: Arial,SansSerif\">Expert Crawl Start</h3>\n  <p>\n    You can define URLs as start points for Web page crawling and start crawling here.\n    \"Crawling\" implies that YaCy will download the given website, extract all links in it and then download the content behind these links.\n    This is repeated as long as specified under \"Crawling Depth\".\n    A crawl can also be started using wget and the <a href=\"http://www.yacy-websearch.net/wiki/index.php/Dev:APICrawler\" target=\"_blank\">post arguments</a> for this web page.\n  </p>\n  <hr>\n  <h3>Crawl Job</h3>\n  <p>A Crawl Job consist of one or more start points, crawl limitations and document freshness rules.</p>\n  <h4>Start Point</h4>\n  <form>\n    <div class=\"row\">\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label for=\"words\">One Start URL or a list of URLs:\n          (must start with http:// https:// ftp:// smb:// file://):</label>\n        </div>\n        <div class=\"col-md-6\"><input [(ngModel)]=\"crawlvalues.crawlingMode\" name=\"crawlingMode\" value=\"url\" type=\"radio\">\n          <textarea [(ngModel)]=\"crawlvalues.crawlingURL\" type=\"text\" name=\"crawlingURL\" class=\"form-control\" id=\"words\"></textarea>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\">\n          <label>From Link-List of URL</label>\n        </div>\n        <div class=\"col-md-6\">\n          <input type=\"radio\" [(ngModel)]=\"crawlvalues.crawlingMode\" value=\"sitelist\" name=\"crawlingMode\">\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label for=\"any\">from site-map</label></div>\n        <div class=\"col-md-6\">\n          <input type=\"radio\" [(ngModel)]=\"crawlvalues.crawlingMode\" value=\"sitemap\" name=\"crawlingMode\">\n          <input type=\"text\" class=\"form-control\" id=\"any\" [(ngModel)]=\"crawlvalues.sitemapURL\" maxlength=\"256\" name=\"sitemapURL\">\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\">\n          <label for=\"none\">From File (enter a path\n          within your local file system)</label>\n        </div>\n        <div class=\"col-md-6\">\n          <input type=\"radio\" [(ngModel)]=\"crawlvalues.crawlingMode\" value=\"file\" name=\"crawlingMode\">\n          <input type=\"text\" class=\"form-control\" id=\"none\" [(ngModel)]=\"crawlvalues.crawlingFile\" size=\"71\" maxlength=\"256\" name=\"crawlingFile\">\n        </div>\n      </div>\n\n    </div>\n  </form>\n  <hr>\n\n  <h4>\n    Crawler Filter\n  </h4>\n  <p>These are limitations on the crawl stacker. The filters will be applied before a web page is loaded.</p>\n  <form>\n    <div class=\"row\">\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label for=\"language\">Crawling Depth</label></div>\n        <div class=\"col-md-6\"><input type=\"text\" class=\"form-control\" id=\"language\" name=\"crawlingDepth\" [(ngModel)]=\"crawlvalues.crawlingDepth\" size=\"2\" maxlength=\"2\">\n          <input type=\"checkbox\" [(ngModel)]=\"crawlvalues.directDocByURL\" name=\"directDocByURL\">also all linked non-parsable documents</div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label for=\"region\">Unlimited crawl depth for URLs matching with</label></div>\n        <div class=\"col-md-6\"><input type=\"text\" name=\"crawlingDepthExtension\" class=\"form-control\" id=\"region\" [(ngModel)]=\"crawlvalues.crawlingDepthExtension\" size=\"40\" maxlength=\"100\">\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label for=\"last update\">Maximum Pages per Domain</label></div>\n        <div class=\"col-md-6\">Use:<input type=\"checkbox\" name=\"DomMaxCheck\" [(ngModel)]=\"crawlvalues.crawlingDomMaxCheck\">Page Count:\n          <input type=\"text\" class=\"form-control\" id=\"last update\" name=\"DomMaxPages\" [(ngModel)]=\"crawlvalues.crawlingDomMaxPages\" size=\"6\" maxlength=\"6\">\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\">\n          <label for=\"site\">Miscelleneous contraints</label>\n        </div>\n        <div class=\"col-md-6\"><input type=\"checkbox\" [(ngModel)]=\"crawlvalues.crawlingQ\" name=\"crawlingQ\" id=\"site\">Accept URLs with query-part ('?'):\n          <input type=\"checkbox\" [(ngModel)]=\"crawlvalues.obeyHtmlRobotsNoIndex\" name=\"obeyhtml\"> Obey html-robots-noindex:\n          <input type=\"checkbox\" [(ngModel)]=\"crawlvalues.obeyHtmlRobotsNoFollow\" name=\"obeyhtml\"> Obey html-robots-nofollow:\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label for=\"terms appearing\">Load Filter on URLs\n          info</label>\n        </div>\n        <div class=\"col-md-6\">\n          <img src=\"http://yacy.searchlab.eu/env/grafics/plus.gif\">\n          must-match\n          <input type=\"radio\" [(ngModel)]=\"crawlvalues.range\" id=\"terms appearing\" value=\"domain\" name=\"range\">Restrict to start domain(s)\n          <input type=\"radio\" [(ngModel)]=\"crawlvalues.range\" value=\"subpath\" name=\"range\">Restrict to sub-path(s)\n          <input [(ngModel)]=\"crawlvalues.range\" type=\"radio\" name=\"range\">Use Filter\n          <input [(ngModel)]=\"crawlvalues.mustmatch\" type=\"text\" name=\"mustmatch\" class=\"form-control\" size=\"55\" maxlength=\"100000\" value=\".*\" onblur=\"if(this.value=='')this.value='.*;\">\n          <img src=\"http://yacy.searchlab.eu/env/grafics/minus.gif\"> must-not-match\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"crawlvalues.mustnotmatch\" name=\"mustnotmatch\" size=\"55\" maxlength=\"100000\">\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label for=\"terms appearing\">Load Filter on IPs</label>\n        </div>\n        <div class=\"col-md-6\">\n          <img src=\"http://yacy.searchlab.eu/env/grafics/plus.gif\">\n          must-match\n          <input [(ngModel)]=\"crawlvalues.ipMustmatch\" name=\"ipMustmatch\" type=\"text\" class=\"form-control\" size=\"55\" maxlength=\"100000\" value=\".*\" onblur=\"if(this.value=='')this.value='.*;\">\n          <img src=\"http://yacy.searchlab.eu/env/grafics/minus.gif\"> must-not-match\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"crawlvalues.ipMustnotmatch\" size=\"55\" name=\"ipmustnotmatch\" maxlength=\"100000\">\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label for=\"safe search\">Must-Match List for Country Codes\n          info </label>\n        </div>\n        <div class=\"col-md-6\">\n          <input name=\"country\" [(ngModel)]=\"crawlvalues.countryMustMatchSwitch\" type=\"radio\" id=\"safe search\">\n          no country code restriction\n          <input name=\"country\" [(ngModel)]=\"crawlvalues.countryMustMatchSwitch\" type=\"radio\">Use filter\n          <input name=\"country\" [(ngModel)]=\"crawlvalues.countryMustMatchList\" class=\"form-control\" type=\"text\" size=\"60\" maxlength=\"256\">\n        </div>\n      </div>\n    </div>\n  </form>\n  <hr>\n  <h3>Document Filter</h3>\n  <p>These are limitations on index feeder. The filters will be applied after a web page was loaded.<p>\n  <form>\n    <div class=\"row\">\n      <div class=\"form-group\">\n        <div class=\"col-md-4\">\n          <label>Filter On URLs</label>\n        </div>\n        <div class=\"col-md-6\">\n          <img src=\"http://yacy.searchlab.eu/env/grafics/plus.gif\">\n           must match\n          <input name=\"index\" [(ngModel)]=\"crawlvalues.indexmustmatch\" type=\"text\" class=\"form-control\">\n          <img src=\"http://yacy.searchlab.eu/env/grafics/minus.gif\"> must-not-match\n          <input name=\"index\" [(ngModel)]=\"crawlvalues.indexmustnotmatch\" type=\"text\" class=\"form-control\">\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label>Filter on Content of Document\n          (all visible text, including camel-case-tokenized url and title)</label></div>\n        <div class=\"col-md-6\">\n          <img src=\"http://yacy.searchlab.eu/env/grafics/plus.gif\"> must match\n          <input name=\"index\" [(ngModel)]=\"crawlvalues.indexcontentmustmatch\" type=\"text\" size=\"55\" class=\"form-control\" maxlength=\"100000\">\n          <img src=\"http://yacy.searchlab.eu/env/grafics/minus.gif\"> must-not-match\n          <input name=\"index\" [(ngModel)]=\"crawlvalues.indexcontentmustnotmatch\" type=\"text\" class=\"form-control\"></div >\n      </div>\n    </div>\n</form>\n  <hr>\n  <h3>Clean-Up before Crawl Start</h3>\n  <form>\n    <div class=\"row\">\n      <div class=\"form-group\">\n        <div class=\"col-md-4\">\n          <label>No Deletion</label>\n        </div>\n        <div class=\"col-md-6\">\n          <input name=\"deleteold\" [(ngModel)]=\"crawlvalues.deleteold\" value=\"off\" type=\"radio\">Do not delete any document before the crawl is started.\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label>Delete sub-path</label></div>\n        <div class=\"col-md-6\">\n          <input name=\"deleteold\" [(ngModel)]=\"crawlvalues.deleteold\" value=\"on\" type=\"radio\">For each host in the start url list, delete all documents (in the given subpath) from that host.\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label>Delete only old</label></div>\n        <div class=\"col-md-6\">\n          <input name=\"deleteold\" [(ngModel)]=\"crawlvalues.deleteold\" value=\"age\" type=\"radio\">Treat documents that were loaded before as stale and delete them before the crawl is started.\n        </div>\n      </div>\n  </div>\n  </form>\n  <hr>\n  <h3>Double-Check Rules</h3>\n  <form>\n    <div class=\"row\">\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label>No Doubles</label></div>\n        <div class=\"col-md-6\">\n          <input name=\"recrawl\" [(ngModel)]=\"crawlvalues.recrawl\" value=\"nodoubles\" type=\"radio\">Never load any page that is already known. Only the start-url may be loaded again\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label>Reload</label></div>\n        <div class=\"col-md-6\">\n          <input name=\"recrawl\" [(ngModel)]=\"crawlvalues.recrawl\" value=\"nodobles\" type=\"radio\">Treat documents that were loaded before as stale and load them again. If they are younger, they are ignored.\n        </div>\n      </div>\n    </div>\n  </form>\n  <hr>\n  <h3>Document Cache</h3>\n  <form>\n    <div class=\"row\">\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label>Store to Web Cache</label></div>\n        <div class=\"col-md-6\">\n          <input name=\"storeHT\" [(ngModel)]=\"crawlvalues.storeHTCache\" type=\"checkbox\">\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label>Policy for usage of Web Cache</label></div>\n        <div class=\"col-md-6\">\n          <input name=\"cache\" [(ngModel)]=\"crawlvalues.cachePolicy\" type=\"radio\" value=\"nocache\">no cache\n          <input name=\"cachepolicy\" type=\"radio\" [(ngModel)]=\"crawlvalues.cachePolicy\" value=\"iffresh\">if fresh\n          <input name=\"cachepolicy\" type=\"radio\" [(ngModel)]=\"crawlvalues.cachePolicy\" value=\"ifexist\">if exist\n          <input name=\"cachepolicy\" type=\"radio\" [(ngModel)]=\"crawlvalues.cachePolicy\" value=\"cacheonly\">cache only\n        </div>\n      </div>\n    </div>\n  </form>\n  <hr>\n  <h3>Snapshot Creation</h3>\n  <form>\n    <div class=\"row\">\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label>Max Depth for Snapshots</label></div>\n        <div class=\"col-md-6\">\n          <input type=\"text\" name=\"snapshotsmaxdepth\" class=\"form-control\" [(ngModel)]=\"crawlvalues.snapshotsMaxDepth\" size=\"2\" maxlength=\"2\" value=\"-1\">\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label>Multiple Snapshot Versions</label></div>\n        <div class=\"col-md-6\"><input name=\"replaceold\" [(ngModel)]=\"crawlvalues.snapshotsReplaceOld\" value=\"on\" type=\"radio\">replace old snapshots with new ones\n        <div class=\"col-md-6\"><input name=\"replaceold\" [(ngModel)]=\"crawlvalues.snapshotsReplaceOld\" value=\"on\" type=\"radio\">replace old snapshots with new ones\n          <input name=\"replaceold\" type=\"radio\" value=\"off\" [(ngModel)]=\"crawlvalues.snapshotsReplaceOld\">add new versions for each crawl\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\">\n          <label>\n            <img src=\"http://yacy.searchlab.eu/env/grafics/minus.gif\">must-not-match filter for snapshot generation\n          </label>\n        </div>\n        <div class=\"col-md-6\">\n          <input name=\"mustnotmatch\" type=\"text\" [(ngModel)]=\"crawlvalues.snapshotsMustnotmatch\" size=\"55\" class=\"form-control\" maxlength=\"100000\">\n        </div>\n      </div>\n    </div>\n    </div>\n  </form>\n  <hr>\n  <h3>Index Attributes</h3>\n  <form>\n    <div class=\"row\">\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label>Indexing</label></div>\n        <div class=\"col-md-6\"><input name=\"indextext\" type=\"checkbox\" [(ngModel)]=\"crawlvalues.indexText\">\n          index text: <input name=\"indexmedia\" type=\"checkbox\" [(ngModel)]=\"crawlvalues.indexMedia\">index media\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label>Add Crawl result to collection(s)</label></div>\n        <div class=\"col-md-6\"><input name=\"collection\" type=\"text\" [(ngModel)]=\"crawlvalues.collection\" size=\"60\" class=\"form-control\" maxlength=\"100\">\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <div class=\"col-md-4\"><label>Time Zone Offset info </label></div>\n        <div class=\"col-md-6\"><input name=\"timezoneoffset\" type=\"text\" [(ngModel)]=\"crawlvalues.timezoneOffset\" size=\"4\" maxlength=\"4\" class=\"form-control\">\n        </div>\n      </div>\n    </div>\n  </form>\n\n  <div>\n    <button class=\"crawlstartbutton\" (click)=\"startCrawlJob()\"><span style=\"color: white\">Start New Crawl Job</span></button>\n  </div>\n\n</div>\n\n<!--footer navigation bar goes here-->\n<app-footer-navbar></app-footer-navbar>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/crawlstart/crawlstart.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__crawlstart_service__ = __webpack_require__("../../../../../src/app/crawlstart.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CrawlstartComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var CrawlstartComponent = (function () {
+    function CrawlstartComponent(crawlstartservice, router) {
+        this.crawlstartservice = crawlstartservice;
+        this.router = router;
+        this.crawlvalues = {
+            "crawlingMode": "url",
+            "crawlingURL": "",
+            "sitemapURL": "",
+            "crawlingFile": "",
+            "crawlingDepth": 3,
+            "crawlingDepthExtension": "",
+            "range": "domain",
+            "mustmatch": ".*",
+            "mustnotmatch": "",
+            "ipMustmatch": ".*",
+            "ipMustnotmatch": "",
+            "indexmustmatch": ".*",
+            "indexmustnotmatch": "",
+            "deleteold": "off",
+            "deleteIfOlderNumber": 0,
+            "deleteIfOlderUnit": "day",
+            "recrawl": "nodoubles",
+            "reloadIfOlderNumber": 0,
+            "reloadIfOlderUnit": "day",
+            "crawlingDomMaxCheck": "off",
+            "crawlingDomMaxPages": 1000,
+            "crawlingQ": "off",
+            "directDocByURL": "off",
+            "storeHTCache": "off",
+            "cachePolicy": "if fresh",
+            "indexText": "on",
+            "indexMedia": "off",
+            "collection": "user",
+            "agentName": ""
+        };
+        /*this.crawlstartservice.getcrawldefaults().subscribe(res => {
+          this.crawlvalues = res;
+        });*/
+    }
+    ;
+    CrawlstartComponent.prototype.startCrawlJob = function () {
+        var _this = this;
+        this.crawlstartservice.startCrawlJob(this.crawlvalues).subscribe(function (res) {
+            alert('Started Crawl Job');
+            _this.router.navigate(['/']);
+        }, function (err) {
+            if (err === 'Unauthorized') {
+                alert("Authentication Error");
+            }
+        });
+    };
+    ;
+    CrawlstartComponent.prototype.ngOnInit = function () {
+    };
+    return CrawlstartComponent;
+}());
+CrawlstartComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-crawlstart',
+        template: __webpack_require__("../../../../../src/app/crawlstart/crawlstart.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/crawlstart/crawlstart.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__crawlstart_service__["a" /* CrawlstartService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__crawlstart_service__["a" /* CrawlstartService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object])
+], CrawlstartComponent);
+
+var _a, _b;
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/crawlstart.component.js.map
 
 /***/ }),
 
@@ -1033,7 +1223,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/footer-navbar/footer-navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<footer>\n    <div class=\"footer-bar\">\n        <div class=\"left-side\">\n            <a routerLink=\"/about\" routerLinkActive=\"active\">About</a>\n            <a href=\"//blog.fossasia.org\" id=\"blog\">Blogs</a>\n            <a href=\"//github.com/fossasia/susper.com\" id=\"code\">Code</a>\n        </div>\n        <div class=\"right-side\">\n            <a routerLink=\"/advancedsearch\" routerLinkActive=\"active\">Advanced Search</a>\n            <a routerLink=\"/terms\" routerLinkActive=\"active\">Terms</a>\n            <a routerLink=\"/contact\" routerLinkActive=\"active\">Contact</a>\n          <a routerLink=\"/preferences\" routerLinkActive=\"active\">Settings</a>\n        </div>\n    </div>\n</footer>\n"
+module.exports = "<footer>\n    <div class=\"footer-bar\">\n        <div class=\"left-side\">\n            <a routerLink=\"/about\" routerLinkActive=\"active\">About</a>\n            <a href=\"//blog.fossasia.org\" id=\"blog\">Blogs</a>\n            <a href=\"//github.com/fossasia/susper.com\" id=\"code\">Code</a>\n        </div>\n        <div class=\"right-side\">\n            <a routerLink=\"/advancedsearch\" routerLinkActive=\"active\">Advanced Search</a>\n            <a routerLink=\"/terms\" routerLinkActive=\"active\">Terms</a>\n            <a routerLink=\"/contact\" routerLinkActive=\"active\">Contact</a>\n          <a routerLink=\"/crawlstartexpert\" routerLinkActive=\"active\">Crawl Job</a>\n          <a routerLink=\"/preferences\" routerLinkActive=\"active\">Settings</a>\n        </div>\n    </div>\n</footer>\n"
 
 /***/ }),
 
@@ -1303,8 +1493,8 @@ var KnowledgeapiService = (function () {
     KnowledgeapiService.prototype.getsearchresults = function (searchquery) {
         var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* URLSearchParams */]();
         params.set('QueryString', searchquery);
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Headers */]({ 'Accept': 'application/json' });
-        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* RequestOptions */]({ headers: headers, search: params });
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["g" /* Headers */]({ 'Accept': 'application/json' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers, search: params });
         return this.http
             .get(this.searchURL, options).map(function (res) {
             return res.json();
@@ -1321,7 +1511,7 @@ var KnowledgeapiService = (function () {
 }());
 KnowledgeapiService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["g" /* Jsonp */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["g" /* Jsonp */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Jsonp */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Jsonp */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */]) === "function" && _c || Object])
 ], KnowledgeapiService);
 
 var _a, _b, _c;
@@ -2307,7 +2497,7 @@ var SearchService = (function () {
 }());
 SearchService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["g" /* Jsonp */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["g" /* Jsonp */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Jsonp */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["f" /* Jsonp */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["b" /* Store */]) === "function" && _c || Object])
 ], SearchService);
 
 var _a, _b, _c;
