@@ -404,6 +404,7 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__crawlstart_service__ = __webpack_require__("../../../../../src/app/crawlstart.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__searchsettings_searchsettings_component__ = __webpack_require__("../../../../../src/app/searchsettings/searchsettings.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__effects_knowledge__ = __webpack_require__("../../../../../src/app/effects/knowledge.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__speech_service__ = __webpack_require__("../../../../../src/app/speech.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -411,6 +412,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -499,7 +501,14 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_13__ngrx_store_devtools__["a" /* StoreDevtoolsModule */].instrumentOnlyWithExtension(),
             __WEBPACK_IMPORTED_MODULE_20_ng2_bs3_modal_ng2_bs3_modal__["Ng2Bs3ModalModule"]
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_9__search_service__["a" /* SearchService */], __WEBPACK_IMPORTED_MODULE_26__knowledgeapi_service__["a" /* KnowledgeapiService */], __WEBPACK_IMPORTED_MODULE_28__autocomplete_service__["a" /* AutocompleteService */], __WEBPACK_IMPORTED_MODULE_31__theme_service__["a" /* ThemeService */], __WEBPACK_IMPORTED_MODULE_33__crawlstart_service__["a" /* CrawlstartService */]],
+        providers: [
+            __WEBPACK_IMPORTED_MODULE_9__search_service__["a" /* SearchService */],
+            __WEBPACK_IMPORTED_MODULE_26__knowledgeapi_service__["a" /* KnowledgeapiService */],
+            __WEBPACK_IMPORTED_MODULE_28__autocomplete_service__["a" /* AutocompleteService */],
+            __WEBPACK_IMPORTED_MODULE_31__theme_service__["a" /* ThemeService */],
+            __WEBPACK_IMPORTED_MODULE_36__speech_service__["a" /* SpeechService */],
+            __WEBPACK_IMPORTED_MODULE_33__crawlstart_service__["a" /* CrawlstartService */]
+        ],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
@@ -2306,7 +2315,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "#nav-group{\n  background-color: white;\n  width: 584px;\n  color: black;\n  height: 8px;\n  top: 3px;\n  border-radius: 0px;\n  border: none;\n  border-style: solid;\n  border-color:rgba(0, 0, 0, 0);\n  border-width: 1px;\n  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);\n}\n\n\n#nav-input{\n  font-size: 16px;\n  font-weight: 400;\n  top: 4px;\n  color: black;\n  width: 511px;\n  height: 34px !important;\n  line-height: 34px ;\n  border-radius: 0px;\n  border: none;\n  box-shadow: none;\n  padding-left: 16px;\n  font-family: Arial, sans-serif;\n  position: initial;\n  padding-bottom: 2px;\n}\n\n#nav-button{\n  border-radius: 0px;\n  height: 38px;\n  background-color: white;\n  color: #0066ff;\n  box-shadow: none;\n  border: none;\n  position: initial;\n}\n\n#nav-button:focus {\n  outline: none;\n}\n\n#nav-group{\n  top:3px;\n}\n\n.navbar-form{\n  border-color: transparent !important;\n}\n\n@media screen and (min-width:1920px) {\n  #nav-group{\n    top:6px;\n  }\n}\n\n@media screen and (max-width: 979px) and (min-width: 768px) {\n  .navbar-form{\n    padding-left: 4px;\n    width: 100px;\n   }\n}\n@media screen and (max-width: 992px) {\n  #nav-input{\n    width: 50vw;\n  }\n}\n\n@media screen and (max-width: 767px) {\n  #nav-group {\n    margin-left: -18.6%;\n  }\n  .align-search-btn{\n    left: -9%;\n  }\n}\n\n@media screen and (max-width: 601px) {\n  #nav-group {\n    width: 110%;\n  }\n}\n\n@media screen and (max-width:567px) {\n  #nav-group {\n    width: 120%;\n  }\n}\n\n@media screen and (max-width: 480px) {\n  .align-search-btn{\n    left: -6%;\n  }\n}\n\n@media screen and (max-width: 360px) {\n  .align-search-btn{\n    left: -5%;\n  }\n}\n\n@media screen and (max-width: 968px) {\n  #nav-input {\n    width: 50vw;\n  }\n}\n\n@media screen and (max-width: 503px) {\n  #nav-group {\n    width: 5px;\n  }\n  #nav-input {\n    width: 80vw;\n  }\n}\n\n@media screen and (max-width: 359px) {\n  #nav-input {\n    width: 80vw;\n  }\n}\n", ""]);
+exports.push([module.i, "#nav-group{\n  background-color: white;\n  width: 584px;\n  color: black;\n  height: 8px;\n  top: 3px;\n  border-radius: 0px;\n  border: none;\n  border-style: solid;\n  border-color:rgba(0, 0, 0, 0);\n  border-width: 1px;\n  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);\n}\n\n\n#nav-input{\n  font-size: 16px;\n  font-weight: 400;\n  top: 4px;\n  color: black;\n  width: 511px;\n  height: 34px !important;\n  line-height: 34px ;\n  border-radius: 0px;\n  border: none;\n  box-shadow: none;\n  padding-left: 16px;\n  font-family: Arial, sans-serif;\n  position: initial;\n  padding-bottom: 2px;\n}\n\n#nav-button{\n  border-radius: 0px;\n  height: 38px;\n  background-color: white;\n  color: #0066ff;\n  box-shadow: none;\n  border: none;\n  position: initial;\n}\n\n#nav-button:focus {\n  outline: none;\n}\n\n#nav-group{\n  top:3px;\n}\n\n.navbar-form{\n  border-color: transparent !important;\n}\n\n.microphone {\n  height: 25px;\n  width: 25px;\n}\n\n@-moz-document url-prefix() {\n  .microphone {\n    display: none;\n  }\n}\n\n@media screen and (min-width:1920px) {\n  #nav-group{\n    top:6px;\n  }\n}\n\n@media screen and (max-width: 979px) and (min-width: 768px) {\n  .navbar-form{\n    padding-left: 4px;\n    width: 100px;\n   }\n}\n@media screen and (max-width: 992px) {\n  #nav-input{\n    width: 50vw;\n  }\n}\n\n@media screen and (max-width: 767px) {\n  #nav-group {\n    margin-left: -18.6%;\n  }\n  .align-search-btn{\n    left: -9%;\n  }\n}\n\n@media screen and (max-width: 601px) {\n  #nav-group {\n    width: 110%;\n  }\n}\n\n@media screen and (max-width:567px) {\n  #nav-group {\n    width: 120%;\n  }\n}\n\n@media screen and (max-width: 480px) {\n  .align-search-btn{\n    left: -6%;\n  }\n}\n\n@media screen and (max-width: 360px) {\n  .align-search-btn{\n    left: -5%;\n  }\n}\n\n@media screen and (max-width: 968px) {\n  #nav-input {\n    width: 50vw;\n  }\n}\n\n@media screen and (max-width: 503px) {\n  #nav-group {\n    width: 5px;\n  }\n  #nav-input {\n    width: 80vw;\n  }\n}\n\n@media screen and (max-width: 359px) {\n  #nav-input {\n    width: 80vw;\n  }\n}\n", ""]);
 
 // exports
 
@@ -2319,7 +2328,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/search-bar/search-bar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n      <div class=\"input-text\">\n      <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" (ngModelChange)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\" autocomplete=\"off\">\n      </div>\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n  <app-auto-complete (hidecomponent)=\"hidesuggestions($event)\" id=\"auto-box\" [hidden]=\"!ShowAuto()\"></app-auto-complete>\n</form>\n<script>\n  $(document).ready(function(){\n    var isFirefox = typeof InstallTrigger !== 'undefined';\n    if(isFirefox === false){\n      $(\".input-group-btn\").addClass(\"align-search-btn\");\n    }\n  }\n</script>\n"
+module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n      <div class=\"input-text\">\n      <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" (ngModelChange)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\" autocomplete=\"off\">\n      </div>\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <img src=\"../../assets/images/microphone.png\" class=\"microphone\" (click)=\"speechRecognition()\"/>\n      </button>\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n  <app-auto-complete (hidecomponent)=\"hidesuggestions($event)\" id=\"auto-box\" [hidden]=\"!ShowAuto()\"></app-auto-complete>\n</form>\n<script>\n  $(document).ready(function(){\n    var isFirefox = typeof InstallTrigger !== 'undefined';\n    if(isFirefox === false){\n      $(\".input-group-btn\").addClass(\"align-search-btn\");\n    }\n  })\n</script>\n"
 
 /***/ }),
 
@@ -2332,6 +2341,7 @@ module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-for
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__("../../../../@ngrx/store/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__("../../../../../src/app/reducers/index.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_query__ = __webpack_require__("../../../../../src/app/actions/query.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__speech_service__ = __webpack_require__("../../../../../src/app/speech.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchBarComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2348,12 +2358,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var SearchBarComponent = (function () {
-    function SearchBarComponent(route, router, store) {
+    function SearchBarComponent(route, router, store, speech) {
         var _this = this;
         this.route = route;
         this.router = router;
         this.store = store;
+        this.speech = speech;
         this.searchdata = {
             query: '',
             rows: 10,
@@ -2365,6 +2377,10 @@ var SearchBarComponent = (function () {
         });
     }
     ;
+    SearchBarComponent.prototype.speechRecognition = function () {
+        var _this = this;
+        this.speech.record('en_US').subscribe(function (voice) { return _this.onquery(voice); });
+    };
     SearchBarComponent.prototype.hidebox = function (event) {
         if (event.which === 13) {
             this.displayStatus = 'hidebox';
@@ -2424,10 +2440,10 @@ SearchBarComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/search-bar/search-bar.component.html"),
         styles: [__webpack_require__("../../../../../src/app/search-bar/search-bar.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__speech_service__["a" /* SpeechService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__speech_service__["a" /* SpeechService */]) === "function" && _d || Object])
 ], SearchBarComponent);
 
-var _a, _b, _c;
+var _a, _b, _c, _d;
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/search-bar.component.js.map
 
 /***/ }),
@@ -2593,6 +2609,57 @@ SearchsettingsComponent = __decorate([
 
 var _a;
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/searchsettings.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/speech.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SpeechService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var SpeechService = (function () {
+    function SpeechService(zone) {
+        this.zone = zone;
+    }
+    SpeechService.prototype.record = function (lang) {
+        var _this = this;
+        return __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__["Observable"].create(function (observe) {
+            var webkitSpeechRecognition = window.webkitSpeechRecognition;
+            var recognition = new webkitSpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.onresult = function (take) { return _this.zone.run(function () {
+                return observe.next(take.results.item(take.results.length - 1).item(0).transcript);
+            }); };
+            recognition.onerror = function (err) { return observe.error(err); };
+            recognition.onend = function () { return observe.complete(); };
+            recognition.lang = lang;
+            recognition.start();
+        });
+    };
+    return SpeechService;
+}());
+SpeechService = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]) === "function" && _a || Object])
+], SpeechService);
+
+var _a;
+//# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/speech.service.js.map
 
 /***/ }),
 
