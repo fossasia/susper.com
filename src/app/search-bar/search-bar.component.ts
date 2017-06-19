@@ -19,23 +19,15 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   displayStatus: any;
   searchdata = {
     query: '',
-    verify: false,
-    nav: 'filetype,protocol,hosts,authors,collections,namespace,topics,date',
-    start: 0,
-    indexof: 'off',
-    meanCount: '5',
-    resource: 'global',
-    prefermaskfilter: '',
-    maximumRecords: 10,
-    timezoneOffset: 0,
+    rows: 10,
+    start: 0
   };
-  querydata$: Observable<any>;
+  wholequery$: Observable<any>;
   constructor(private route: ActivatedRoute,
-    private router: Router, private store: Store<fromRoot.State>) {
-    this.query$ = store.select(fromRoot.getquery);
-    this.query$.subscribe(query => {
-      this.searchdata.query = query;
-
+              private router: Router, private store: Store<fromRoot.State>) {
+    this.wholequery$ = store.select(fromRoot.getwholequery);
+    this.wholequery$.subscribe(data => {
+      this.searchdata = data;
     });
 
   };
@@ -43,6 +35,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     if (event.which === 13) {
       this.displayStatus = 'hidebox';
       event.target.blur();
+      this.submit();
     }
   }
   hidesuggestions(data: number) {
@@ -53,16 +46,22 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     }
   }
   onquery(event: any) {
-    this.store.dispatch(new query.QueryAction(event.target.value));
-    if (event.target.value.length > 0) {
-      this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query}));
+    this.store.dispatch(new query.QueryAction(event));
+    let instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
+
+    if (instantsearch && instantsearch.value) {
+      this.store.dispatch(new queryactions.QueryServerAction({'query': event, start: this.searchdata.start, rows: this.searchdata.rows}));
       this.displayStatus = 'showbox';
-      this.submit();
       this.hidebox(event);
     } else {
-
+      if (event.which === 13) {
+        this.store.dispatch(new queryactions.QueryServerAction({'query': event, start: this.searchdata.start, rows: this.searchdata.rows}));
+        this.displayStatus = 'showbox';
+        this.hidebox(event);
+      }
     }
   }
+
   ShowAuto() {
     return (this.displayStatus === 'showbox');
   }

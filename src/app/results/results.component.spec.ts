@@ -90,11 +90,4 @@ describe('ResultsComponent', () => {
     expect(compiled.querySelector('app-advancedsearch')).toBeTruthy();
   });
 
-  it('should display all the search results', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let textResult = compiled.querySelector('div.text-result');
-
-    expect(textResult).toBeTruthy();
-  });
-
 });
