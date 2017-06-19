@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';
 import { Store } from '@ngrx/store';
 import * as queryactions from '../actions/query';
+
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -28,7 +29,6 @@ export class ResultsComponent implements OnInit {
     query: '',
     start: 0,
     rows: 10,
-
   };
 
   querylook = {};
@@ -45,8 +45,6 @@ export class ResultsComponent implements OnInit {
     }
     return result;
   };
-  advancedsearch() {
-  }
 
   getPresentPage(N) {
     this.presentPage = N;
@@ -69,9 +67,7 @@ export class ResultsComponent implements OnInit {
   }
 
   Display(S) {
-
     return (this.resultDisplay === S);
-
   }
 
   videoClick() {
@@ -92,7 +88,13 @@ export class ResultsComponent implements OnInit {
     urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
+  }
 
+  newsClick() {
+    let urldata = Object.assign({}, this.searchdata);
+    this.getPresentPage(1);
+    this.resultDisplay = 'news';
+    urldata.rows = 10;
   }
 
   docClick() {
@@ -119,8 +121,14 @@ export class ResultsComponent implements OnInit {
     return ((this.presentPage) === page);
   }
 
-  constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
-              private store: Store<fromRoot.State>, private ref: ChangeDetectorRef, public themeService: ThemeService) {
+  constructor(
+    private searchservice: SearchService,
+    private route: Router,
+    private activatedroute: ActivatedRoute,
+    private store: Store<fromRoot.State>,
+    private ref: ChangeDetectorRef,
+    public themeService: ThemeService,
+  ) {
 
     this.activatedroute.queryParams.subscribe(query => {
       let urldata = Object.assign({}, this.searchdata);
@@ -184,4 +192,5 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit() {
   }
+
 }

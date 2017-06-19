@@ -326,7 +326,7 @@ a {
 
 @media screen and (max-width:1365px) {
   #tools {
-    margin-left: 16%;
+    margin-left: 9%;
   }
   .feed {
     width: 49%;
@@ -344,7 +344,7 @@ a {
     margin-left: 9.1%;
   }
   #tools {
-    margin-left: 17%;
+    margin-left: 10%;
   }
 }
 
@@ -368,13 +368,13 @@ a {
 
 @media screen and (max-width:1105px) {
   #tools {
-    margin-left: 18%;
+    margin-left: 12%;
   }
 }
 
 @media screen and (max-width:991px) {
   #tools {
-    margin-left: 20%;
+    margin-left: 14%;
   }
 }
 
@@ -427,7 +427,7 @@ a {
     padding: 0px 8.3% 12px;
   }
   #tools {
-    margin-left: -19%;
+    margin-left: -27%;
   }
 }
 

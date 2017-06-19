@@ -35,7 +35,6 @@ import {CrawlstartService} from "./crawlstart.service";
 import { SearchsettingsComponent } from './searchsettings/searchsettings.component';
 import {KnowledgeEffects} from "./effects/knowledge";
 
-
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
   {path: '', component: IndexComponent},
