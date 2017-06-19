@@ -8,6 +8,9 @@
       </div>
     <div class="input-group-btn">
       <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()">
+        <img src="../../assets/images/microphone.png" class="microphone" (click)="speechRecognition()"/>
+      </button>
+      <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()">
         <i class="glyphicon glyphicon-search"></i>
       </button>
     </div>
@@ -20,5 +23,5 @@
     if(isFirefox === false){
       $(".input-group-btn").addClass("align-search-btn");
     }
-  }
+  })
 </script>

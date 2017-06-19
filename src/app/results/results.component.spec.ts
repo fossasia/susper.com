@@ -29,6 +29,7 @@ import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import {AutocompleteService} from "../autocomplete.service";
 import { ThemeComponent } from '../theme/theme.component';
 import { ThemeService } from '../theme.service';
+import { SpeechService } from '../speech.service';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -63,7 +64,7 @@ describe('ResultsComponent', () => {
         AutoCompleteComponent,
         ThemeComponent
       ],
-      providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService]
+      providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService]
     })
       .compileComponents();
   }));

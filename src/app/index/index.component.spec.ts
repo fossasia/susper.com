@@ -27,6 +27,7 @@ import {AutocompleteService} from "../autocomplete.service";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import { ThemeComponent } from '../theme/theme.component';
 import { ThemeService } from '../theme.service';
+import { SpeechService } from '../speech.service';
 
 describe('IndexComponent', () => {
   let component: IndexComponent;
@@ -63,7 +64,8 @@ describe('IndexComponent', () => {
       ],
       providers: [
         AutocompleteService,
-        ThemeService
+        ThemeService,
+        SpeechService
       ],
     })
       .compileComponents();

@@ -6,6 +6,7 @@ import { NavbarComponent } from './navbar.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { AutocompleteService } from '../autocomplete.service';
+import { SpeechService } from '../speech.service';
 /**
  * import HttpModule to avoid error -
  * No provider for Http!
@@ -42,7 +43,8 @@ describe('Component: Navbar', () => {
         AutoCompleteComponent
       ],
       providers: [
-        AutocompleteService
+        AutocompleteService,
+        SpeechService
       ]
     })
       .compileComponents();
