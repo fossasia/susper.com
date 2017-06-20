@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { NavbarComponent } from './navbar.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { AutocompleteService } from '../autocomplete.service';
 import { SpeechService } from '../speech.service';
@@ -40,7 +41,8 @@ describe('Component: Navbar', () => {
       declarations: [
         NavbarComponent,
         SearchBarComponent,
-        AutoCompleteComponent
+        AutoCompleteComponent,
+        DropdownComponent
       ],
       providers: [
         AutocompleteService,
@@ -68,41 +70,12 @@ describe('Component: Navbar', () => {
     expect(compiled.querySelector('app-search-bar')).toBeTruthy();
   });
 
-  it('should have a dropdown menu', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('li.dropdown')).toBeTruthy();
-  });
-
   it('should have alt text property as brand', () => {
     let compiled = fixture.debugElement.nativeElement;
     let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
 
     expect(image).toBeTruthy();
     expect(image.alt).toBe('brand');
-  });
-
-  it('should have correct link to fossasia blogs site', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let blogUrl: HTMLLinkElement = compiled.querySelector('div #header-download a');
-
-    expect(blogUrl).toBeTruthy();
-    expect(blogUrl.href).toBe('http://blog.fossasia.org/');
-  });
-
-  it('should have correct link to Susper repository on GitHub', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let repoUrl: HTMLLinkElement = compiled.querySelector('div #header-code a');
-
-    expect(repoUrl).toBeTruthy();
-    expect(repoUrl.href).toBe('http://github.com/fossasia/susper.com');
-  });
-
-  it('should have correct link to Susper bug-tracker/issues', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let issueUrl: HTMLLinkElement = compiled.querySelector('div #header-bugs a');
-
-    expect(issueUrl).toBeTruthy();
-    expect(issueUrl.href).toBe('http://github.com/fossasia/susper.com/issues');
   });
 
   it('should have an app-auto-complete element', () => {

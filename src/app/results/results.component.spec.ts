@@ -30,6 +30,7 @@ import {AutocompleteService} from "../autocomplete.service";
 import { ThemeComponent } from '../theme/theme.component';
 import { ThemeService } from '../theme.service';
 import { SpeechService } from '../speech.service';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -62,7 +63,8 @@ describe('ResultsComponent', () => {
         InfoboxComponent,
         RelatedSearchComponent,
         AutoCompleteComponent,
-        ThemeComponent
+        ThemeComponent,
+        DropdownComponent
       ],
       providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService]
     })
