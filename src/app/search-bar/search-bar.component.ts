@@ -42,19 +42,23 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.speech.record('en_US').subscribe(voice => this.onquery(voice));
   }
 
-  hidebox(event: any) {
-    if (event.which === 13) {
-      this.displayStatus = 'hidebox';
-      event.target.blur();
-      this.submit();
-    }
-  }
   hidesuggestions(data: number) {
     if (data === 1) {
       this.displayStatus = 'hidebox';
     } else {
       this.displayStatus = 'showbox';
     }
+  }
+  onEnter(event: any) {
+    if (event.which === 13) {
+      this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: this.searchdata.start, rows: this.searchdata.rows}));
+      this.displayStatus = 'hidebox';
+      event.target.blur();
+      this.submit();
+
+    }
+
+
   }
   onquery(event: any) {
     this.store.dispatch(new query.QueryAction(event));
