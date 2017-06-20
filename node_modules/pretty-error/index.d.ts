@@ -1,8 +1,8 @@
 declare module 'pretty-error' {
 
     namespace PrettyError {
-        function start();
-        function stop();
+        function start(): any;
+        function stop(): any;
 
         class ParsedError {
             constructor( error:Error );

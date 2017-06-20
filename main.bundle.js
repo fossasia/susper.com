@@ -103,8 +103,8 @@ var SearchAction = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__("../../../../../src/app/utils.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ActionTypes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return QueryAction; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return QueryServerAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return QueryAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return QueryServerAction; });
 
 var ActionTypes = {
     QUERYCHANGE: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* type */])('[Query] Change'),
@@ -1343,7 +1343,7 @@ var IndexComponent = (function () {
             start: 0,
             rows: 10,
         };
-        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_3__actions_query__["b" /* QueryAction */](''));
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_3__actions_query__["c" /* QueryAction */](''));
     }
     IndexComponent.prototype.ngOnInit = function () {
         this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
@@ -2101,7 +2101,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/** Basic results 'All' **/\n.result {\n  margin-left: 5.9%;\n  padding-top: 10px;\n}\n\n.row{\n  min-height: 84vh;\n}\n\n.title {\n  font-size: large;\n  text-decoration: none;\n  white-space: nowrap;\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n}\n\n.link > p {\n  color: #006621;\n  text-decoration: none;\n  word-wrap: break-word;\n  font-size: 14px;\n  font-style: normal;\n  font-family: Arial, sans-serif;\n  text-overflow: ellipsis;\n  overflow: hidden !important;\n  white-space: nowrap;\n  line-height: 1.2;\n}\n\na {\n  text-decoration: none;\n}\n\n.description {\n  text-align: justify;\n  color: #808080;\n  line-height: 1.4;\n  word-wrap: break-word;\n  margin-top: -8px;\n}\n\n.feed {\n  width: 49%;\n}\n\n.title-pointer:hover {\n  text-decoration: underline;\n}\n\n.title-pointer {\n  text-overflow: ellipsis;\n  overflow: hidden !important;\n  white-space: nowrap;\n  color: #1a0dab;\n  font-family: Arial, sans-serif;\n}\n/** END **/\n/** Screen responsiveness for result feed **/\n@media screen and (max-width:571px) {\n  .feed {\n    max-width: 100%;\n  }\n}\n/** END **/\n\n.page-link {\n  cursor: pointer;\n  text-align: center;\n}\n.page-item2 span{\n  padding-top: 2%;\n  padding-left: 2%;\n  padding-right: 2%;\n  border: 0px;\n  background-color: white;\n  text-align: center;\n  cursor: pointer;\n}\n.side-text{\n  color: #4285f4;\n  text-align: center;\n  font-weight: 500;\n  padding-top: 4px;\n}\n\n.arrow{\n  font-size: large;\n  font-weight: 900;\n  padding-bottom: 4%;\n}\n.message-bar {\n  margin-top: 1%;\n  font-size: small;\n  color: #808080;\n\n}\n\n.text-result {\n  margin-left: 2%;\n}\n\n.container-fluid{\n  position: relative;\n}\n\n.container-fluid ul{\n  padding-top: 6px;\n}\n\n.container-fluid li{\n  height: 15px;\n  line-height: 15px;\n  padding-top: 28px;\n}\n\n.container-fluid li a{\n  position: relative;\n}\n\n.page-text{\n  font-size: xx-large;\n  color: #1a0dab;\n  font-weight: 400;\n  font-family: \"Bitstream Vera Sans Mono\";\n}\n\n.prev, .next{\n  color: #7f7f7f;\n}\n.page-number{\n  font-size: smaller;\n}\n\n.dropdown-menu > li {\n  font-size: small;\n  padding: 3px;\n  text-align: center;\n  text-decoration: none;\n}\n\n.dropdown-menu > li:hover {\n  padding: 10px;\n  padding-right: 20px;\n  padding-left: 20px;\n  background-color: rgba(0,0,0,0.1);\n}\n\n.dropdown-menu > li:active {\n  padding: 5px;\n  padding-right: 20px;\n  padding-left: 20px;\n  background-color: #1c65ba;\n  color: white;\n}\n\n.active_view {\n  color: #4285f4 !important;\n  font-weight: 900 !important;\n  padding-bottom: 12px;\n  border-bottom: 3px solid #4285f4;\n}\n\n/** Rendered image properties **/\n.container {\n  width: 100%;\n  margin: 0;\n  top: 0;\n  bottom: 0;\n  padding: 0;\n}\n\n.grid {\n  padding-left: 30px;\n  padding-right: 30px;\n}\n\n.responsive-image {\n  max-width: 100%;\n  height: 200px;\n  padding-top: 20px;\n  padding: 0.6%;\n  display: inline-block;\n  float: left;\n}\n\n.image-pointer {\n  cursor: pointer;\n}\n/** END **/\n\n#search-options-field {\n  background-color: #f8f8f8;\n  padding-bottom: 3px;\n}\n\n#search-options {\n  margin-top: 0.5%;\n  margin-left: 9%;\n  font-size: 13px;\n  max-width: 630px;\n  cursor: default;\n}\n\n#search-tools {\n  margin-left: 11.5%;\n}\n\n#search-tools {\n  padding-left: 60px;\n}\n\n#search-tools .btn {\n  border: none;\n  background: none;\n  font-size: small;\n}\n\n#search-options li {\n  display: inline;\n  cursor: pointer;\n  padding-top: 28px;\n  padding-right: 16px;\n  padding-left: 16px;\n  margin-left: 1px;\n  color: #777;\n  font-weight: 500;\n  line-height: 15px;\n  font-family: Arial, sans-serif;\n}\n\n#search-options li:hover {\n  color: #222;\n}\n\n#tools {\n  text-decoration: none;\n  color: #777;\n  position: relative;\n}\n\n#tools:hover {\n  color: #222;\n}\n\n#settings {\n  text-decoration: none;\n  color: #777;\n  position: relative;\n}\n\n#settings:hover {\n  color: #222;\n}\n\n.dropdown-menu {\n  float: right;\n\n}\n\n.dropdown{\n  left: 40%;\n  width: 0px;\n  padding: 0;\n}\n\n#tool-dropdown li {\n  text-align: left;\n  display: block;\n  padding-top: 16px;\n  padding-bottom: 24px;\n}\n\n#setting-dropdown li {\n  text-align: left;\n  color: #000000;\n  display: block;\n  padding-top: 8px;\n  padding-bottom: 22px;\n}\n\n#setting-dropdown{\n  margin-top: 8%;\n  margin-left: 15%;\n  border-radius: 0px;\n}\n#pag-bar {\n  padding-left: 60px;\n  padding-top: 20px;\n  width: 100%;\n}\n\n.pagination-property {\n  max-width: 100%;\n  padding-bottom: 30px;\n}\n\n.page-item span\n {\n       background-color: white;\n       border: 0px ;\n       font-size: 13px;\n }\n.page-item span{\n  padding: 6px 0.4px ;\n}\n .active_page{\n       color: black;\n }\n\n.clean {\n  clear: both;\n}\n\n.noResults{\n  margin-left: 3%;\n  margin-top: 7%;\n  font-size: medium;\n  font-weight: normal;\n}\n.noResults >p{\n  margin-top: 10px;\n  margin-bottom: 15px;\n}\n.noResults >ul{\n  padding-left: 16px;\n}\n.noResults >ul> li {\n  padding-top: 0;\n  padding-bottom: 18px;\n}\n.noResults em{\n  font-weight: bold;\n  font-style: normal;\n}\n@media screen and (min-width:1920px) {\n  #tools {\n    margin-left: 27%;\n  }\n}\n\n@media screen and (max-width: 1440px) {\n  .feed {\n    width: 43%;\n  }\n}\n\n@media screen and (max-width:1365px) {\n  .feed {\n    width: 49%;\n  }\n}\n\n@media screen and (max-width:1175px) {\n  .feed {\n    width: 56%;\n  }\n}\n\n@media screen and (max-width:1279px) {\n  #search-options {\n    margin-left: 9.1%;\n  }\n}\n\n@media screen and (max-width:1139px) {\n  #search-options {\n    margin-left: 10.2%;\n  }\n  .result {\n    margin-left: 8.2%;\n  }\n}\n\n@media screen and (max-width:1077px) {\n  #search-options {\n    margin-left: 9%;\n  }\n  .result {\n    margin-left: 6.2%;\n  }\n}\n\n\n@media screen and (max-width:979px) {\n  #search-options {\n    margin-left: 8.8%;\n  }\n  .result {\n    margin-left: 6.2%;\n  }\n}\n\n@media screen and (max-width:950px) {\n  .feed {\n    width: 66.3%;\n  }\n}\n\n@media screen and (max-width:882px) {\n  #search-options {\n    margin-left: 9.8%;\n  }\n  .result {\n    margin-left: 7.7%;\n  }\n  .feed {\n    width: 77%;\n  }\n}\n\n@media screen and (max-width:767px) {\n  .result {\n    margin-left: 16%;\n    padding-right: 30px;\n  }\n  .message-bar {\n    margin-bottom: -10px;\n  }\n  #search-options {\n    padding-left: 0px;\n    margin-left: 8%;\n  }\n  #pag-bar {\n    padding-left: 50px;\n  }\n  #search-tools {\n    padding-left: 50px;\n  }\n  #search-options li {\n    padding: 0px 2.3% 12px;\n  }\n}\n\n@media screen and (max-width:741px) {\n  .result {\n    margin-left: 13.5%;\n  }\n  .feed {\n    width: 87%;\n  }\n}\n\n@media screen and (max-width:546px) {\n  .result {\n    margin-left: 13%;\n  }\n\n}\n\n@media screen and (max-width:639px) {\n  #search-options li {\n    padding: 0px 1.5% 12px;\n  }\n}\n\n@media screen and (max-width:479px) {\n  .result {\n    margin-left: 12%;\n    padding-right: 20px;\n  }\n\n  #pag-bar {\n    padding-left: 30px;\n  }\n  #search-tools {\n    padding-left: 30px;\n  }\n  #search-options {\n    margin-left: 7%;\n  }\n  #search-options li {\n    padding: 0px 0.5% 12px;\n  }\n}\n\n@media screen and (max-width:379px) {\n  #search-options li {\n    padding: 0px 6.2% 12px;\n  }\n}\n\n@media screen and (max-width:320px) {\n  #search-options li {\n    padding: 0px 5.6% 12px;\n  }\n}\n\n", ""]);
+exports.push([module.i, "/** Basic results 'All' **/\n.result {\n  margin-left: 5.9%;\n  padding-top: 10px;\n}\n\n.row{\n  min-height: 84vh;\n}\n\n.title {\n  font-size: large;\n  text-decoration: none;\n  white-space: nowrap;\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n}\n\n.link > p {\n  color: #006621;\n  text-decoration: none;\n  word-wrap: break-word;\n  font-size: 14px;\n  font-style: normal;\n  font-family: Arial, sans-serif;\n  text-overflow: ellipsis;\n  overflow: hidden !important;\n  white-space: nowrap;\n  line-height: 1.2;\n}\n\na {\n  text-decoration: none;\n}\n\n.description {\n  text-align: justify;\n  color: #808080;\n  line-height: 1.4;\n  word-wrap: break-word;\n  margin-top: -8px;\n}\n\n.feed {\n  width: 49%;\n}\n\n.title-pointer:hover {\n  text-decoration: underline;\n}\n\n.title-pointer {\n  text-overflow: ellipsis;\n  overflow: hidden !important;\n  white-space: nowrap;\n  color: #1a0dab;\n  font-family: Arial, sans-serif;\n}\n/** END **/\n/** Screen responsiveness for result feed **/\n@media screen and (max-width:571px) {\n  .feed {\n    max-width: 100%;\n  }\n}\n/** END **/\n\n.page-link {\n  cursor: pointer;\n  text-align: center;\n}\n.page-item2 span{\n  padding-top: 2%;\n  padding-left: 2%;\n  padding-right: 2%;\n  border: 0px;\n  background-color: white;\n  text-align: center;\n  cursor: pointer;\n}\n.side-text{\n  color: #4285f4;\n  text-align: center;\n  font-weight: 500;\n  padding-top: 4px;\n}\n\n.arrow{\n  font-size: large;\n  font-weight: 900;\n  padding-bottom: 4%;\n}\n.message-bar {\n  margin-top: 1%;\n  font-size: small;\n  color: #808080;\n\n}\n\n.text-result {\n  margin-left: 2%;\n}\n\n.container-fluid{\n  position: relative;\n}\n\n.container-fluid ul{\n  padding-top: 6px;\n}\n\n.container-fluid li{\n  height: 15px;\n  line-height: 15px;\n  padding-top: 28px;\n}\n\n.container-fluid li a{\n  position: relative;\n}\n\n.page-text{\n  font-size: xx-large;\n  color: #1a0dab;\n  font-weight: 400;\n  font-family: \"Bitstream Vera Sans Mono\";\n}\n\n.prev, .next{\n  color: #7f7f7f;\n}\n.page-number{\n  font-size: smaller;\n}\n\n.dropdown-menu > li {\n  font-size: small;\n  padding: 3px;\n  text-align: center;\n  text-decoration: none;\n}\n\n.dropdown-menu > li:hover {\n  padding: 10px;\n  padding-right: 20px;\n  padding-left: 20px;\n  background-color: rgba(0,0,0,0.1);\n}\n\n.dropdown-menu > li:active {\n  padding: 5px;\n  padding-right: 20px;\n  padding-left: 20px;\n  background-color: #1c65ba;\n  color: white;\n}\n\n.active_view {\n  color: #4285f4 !important;\n  font-weight: 900 !important;\n  padding-bottom: 12px;\n  border-bottom: 3px solid #4285f4;\n}\n\n/** Rendered image properties **/\n.container {\n  width: 100%;\n  margin: 0;\n  top: 0;\n  bottom: 0;\n  padding: 0;\n}\n\n.grid {\n  padding-left: 30px;\n  padding-right: 30px;\n}\n\n.responsive-image {\n  max-width: 100%;\n  height: 200px;\n  padding-top: 20px;\n  padding: 0.6%;\n  display: inline-block;\n  float: left;\n}\n\n.image-pointer {\n  cursor: pointer;\n}\n/** END **/\n\n#search-options-field {\n  background-color: #f8f8f8;\n  padding-bottom: 3px;\n}\n\n#search-options {\n  margin-top: 0.5%;\n  margin-left: 9%;\n  font-size: 13px;\n  max-width: 630px;\n  cursor: default;\n}\n\n#search-tools {\n  margin-left: 11.5%;\n}\n\n#search-tools {\n  padding-left: 60px;\n}\n\n#search-tools .btn {\n  border: none;\n  background: none;\n  font-size: small;\n}\n\n#search-options li {\n  display: inline;\n  cursor: pointer;\n  padding-top: 28px;\n  padding-right: 16px;\n  padding-left: 16px;\n  margin-left: 1px;\n  color: #777;\n  font-weight: 500;\n  line-height: 15px;\n  font-family: Arial, sans-serif;\n}\n\n#search-options li:hover {\n  color: #222;\n}\n\n#tools {\n  text-decoration: none;\n  color: #777;\n  position: relative;\n}\n\n#tools:hover {\n  color: #222;\n}\n\n#settings {\n  text-decoration: none;\n  color: #777;\n  position: relative;\n}\n\n#settings:hover {\n  color: #222;\n}\n\n.dropdown-menu {\n  float: right;\n\n}\n\n.dropdown{\n  left: 40%;\n  width: 0px;\n  padding: 0;\n}\n\n#tool-dropdown li {\n  text-align: left;\n  color: #000000;\n  display: block;\n  padding-top: 8px;\n  padding-bottom: 22px;\n}\n\n#setting-dropdown li {\n  text-align: left;\n  color: #000000;\n  display: block;\n  padding-top: 8px;\n  padding-bottom: 22px;\n}\n\n#setting-dropdown{\n  margin-top: 8%;\n  margin-left: 15%;\n  border-radius: 0px;\n}\n\n#tool-dropdown{\n  margin-top: 8%;\n  margin-left: 15%;\n  border-radius: 0px;\n}\n\n#pag-bar {\n  padding-left: 60px;\n  padding-top: 20px;\n  width: 100%;\n}\n\n.pagination-property {\n  max-width: 100%;\n  padding-bottom: 30px;\n}\n\n.page-item span\n {\n       background-color: white;\n       border: 0px ;\n       font-size: 13px;\n }\n.page-item span{\n  padding: 6px 0.4px ;\n}\n .active_page{\n       color: black;\n }\n\n.clean {\n  clear: both;\n}\n\n.noResults{\n  margin-left: 3%;\n  margin-top: 7%;\n  font-size: medium;\n  font-weight: normal;\n}\n.noResults >p{\n  margin-top: 10px;\n  margin-bottom: 15px;\n}\n.noResults >ul{\n  padding-left: 16px;\n}\n.noResults >ul> li {\n  padding-top: 0;\n  padding-bottom: 18px;\n}\n.noResults em{\n  font-weight: bold;\n  font-style: normal;\n}\n@media screen and (min-width:1920px) {\n  #tools {\n    margin-left: 27%;\n  }\n}\n\n@media screen and (max-width: 1440px) {\n  .feed {\n    width: 43%;\n  }\n}\n\n@media screen and (max-width:1365px) {\n  .feed {\n    width: 49%;\n  }\n}\n\n@media screen and (max-width:1175px) {\n  .feed {\n    width: 56%;\n  }\n}\n\n@media screen and (max-width:1279px) {\n  #search-options {\n    margin-left: 9.1%;\n  }\n}\n\n@media screen and (max-width:1139px) {\n  #search-options {\n    margin-left: 10.2%;\n  }\n  .result {\n    margin-left: 8.2%;\n  }\n}\n\n@media screen and (max-width:1077px) {\n  #search-options {\n    margin-left: 9%;\n  }\n  .result {\n    margin-left: 6.2%;\n  }\n}\n\n\n@media screen and (max-width:979px) {\n  #search-options {\n    margin-left: 8.8%;\n  }\n  .result {\n    margin-left: 6.2%;\n  }\n}\n\n@media screen and (max-width:950px) {\n  .feed {\n    width: 66.3%;\n  }\n}\n\n@media screen and (max-width:882px) {\n  #search-options {\n    margin-left: 9.8%;\n  }\n  .result {\n    margin-left: 7.7%;\n  }\n  .feed {\n    width: 77%;\n  }\n}\n\n@media screen and (max-width:767px) {\n  .result {\n    margin-left: 16%;\n    padding-right: 30px;\n  }\n  .message-bar {\n    margin-bottom: -10px;\n  }\n  #search-options {\n    padding-left: 0px;\n    margin-left: 8%;\n  }\n  #pag-bar {\n    padding-left: 50px;\n  }\n  #search-tools {\n    padding-left: 50px;\n  }\n  #search-options li {\n    padding: 0px 2.3% 12px;\n  }\n}\n\n@media screen and (max-width:741px) {\n  .result {\n    margin-left: 13.5%;\n  }\n  .feed {\n    width: 87%;\n  }\n}\n\n@media screen and (max-width:546px) {\n  .result {\n    margin-left: 13%;\n  }\n\n}\n\n@media screen and (max-width:639px) {\n  #search-options li {\n    padding: 0px 1.5% 12px;\n  }\n}\n\n@media screen and (max-width:479px) {\n  .result {\n    margin-left: 12%;\n    padding-right: 20px;\n  }\n\n  #pag-bar {\n    padding-left: 30px;\n  }\n  #search-tools {\n    padding-left: 30px;\n  }\n  #search-options {\n    margin-left: 7%;\n  }\n  #search-options li {\n    padding: 0px 0.5% 12px;\n  }\n}\n\n@media screen and (max-width:379px) {\n  #search-options li {\n    padding: 0px 6.2% 12px;\n  }\n}\n\n@media screen and (max-width:320px) {\n  #search-options li {\n    padding: 0px 5.6% 12px;\n  }\n}\n\n", ""]);
 
 // exports
 
@@ -2190,7 +2190,7 @@ var ResultsComponent = (function () {
                 urldata.start = 0;
             }
             urldata.query = query['query'];
-            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["b" /* QueryAction */](query['query']));
+            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryAction */](query['query']));
             _this.querylook = Object.assign({}, query);
             _this.begin = Number(query['start']) + 1;
             _this.start = (_this.presentPage - 1) * urldata.rows;
@@ -2198,7 +2198,7 @@ var ResultsComponent = (function () {
             urldata.rows = Number(query['rows']) || 10;
             _this.presentPage = Math.abs(query['start'] / urldata.rows) + 1;
             var querydata = Object.assign({}, urldata);
-            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](querydata));
+            _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["b" /* QueryServerAction */](querydata));
         });
         this.items$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["c" /* getItems */]);
         this.responseTime$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["g" /* getResponseTime */]);
@@ -2236,17 +2236,17 @@ var ResultsComponent = (function () {
         this.presentPage = N;
         var urldata = Object.assign({}, this.searchdata);
         urldata.start = (this.presentPage - 1) * urldata.rows;
-        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](urldata));
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["b" /* QueryServerAction */](urldata));
     };
     ResultsComponent.prototype.filterByDate = function () {
         var urldata = Object.assign({}, this.searchdata);
         urldata.sort = 'last_modified desc';
-        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](urldata));
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["b" /* QueryServerAction */](urldata));
     };
     ResultsComponent.prototype.filterByContext = function () {
         var urldata = Object.assign({}, this.searchdata);
         delete urldata.sort;
-        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](urldata));
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["b" /* QueryServerAction */](urldata));
     };
     ResultsComponent.prototype.Display = function (S) {
         return (this.resultDisplay === S);
@@ -2258,7 +2258,7 @@ var ResultsComponent = (function () {
         urldata.rows = 10;
         urldata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
         urldata.resultDisplay = this.resultDisplay;
-        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](urldata));
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["b" /* QueryServerAction */](urldata));
     };
     ResultsComponent.prototype.imageClick = function () {
         var urldata = Object.assign({}, this.searchdata);
@@ -2267,7 +2267,7 @@ var ResultsComponent = (function () {
         urldata.rows = 100;
         urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
         urldata.resultDisplay = this.resultDisplay;
-        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](urldata));
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["b" /* QueryServerAction */](urldata));
     };
     ResultsComponent.prototype.docClick = function () {
         var urldata = Object.assign({}, this.searchdata);
@@ -2276,7 +2276,7 @@ var ResultsComponent = (function () {
         delete urldata.fq;
         urldata.rows = 10;
         urldata.resultDisplay = this.resultDisplay;
-        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["c" /* QueryServerAction */](urldata));
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["b" /* QueryServerAction */](urldata));
     };
     ResultsComponent.prototype.incPresentPage = function () {
         this.presentPage = Math.min(this.noOfPages, this.presentPage + 1);
@@ -2328,7 +2328,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/search-bar/search-bar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n      <div class=\"input-text\">\n      <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" (ngModelChange)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\" autocomplete=\"off\">\n      </div>\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <img src=\"../../assets/images/microphone.png\" class=\"microphone\" (click)=\"speechRecognition()\"/>\n      </button>\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n  <app-auto-complete (hidecomponent)=\"hidesuggestions($event)\" id=\"auto-box\" [hidden]=\"!ShowAuto()\"></app-auto-complete>\n</form>\n<script>\n  $(document).ready(function(){\n    var isFirefox = typeof InstallTrigger !== 'undefined';\n    if(isFirefox === false){\n      $(\".input-group-btn\").addClass(\"align-search-btn\");\n    }\n  })\n</script>\n"
+module.exports = "<!-- Start ignoring BootLintBear -->\n<form class=\"navbar-form navbar-left\">\n<!-- Stop ignoring BootLintBear -->\n  <div class=\"input-group\" id=\"nav-group\">\n      <div class=\"input-text\">\n      <input #input type=\"text\" name=\"query\" class=\"form-control\" id=\"nav-input\" (ngModelChange)=\"onquery($event)\"\n           [(ngModel)]=\"searchdata.query\" autocomplete=\"off\" (keypress)=\"onEnter($event)\">\n      </div>\n    <div class=\"input-group-btn\">\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <img src=\"../../assets/images/microphone.png\" class=\"microphone\" (click)=\"speechRecognition()\"/>\n      </button>\n      <button class=\"btn btn-default\" id=\"nav-button\" type=\"submit\" (click)=\"submit()\">\n        <i class=\"glyphicon glyphicon-search\"></i>\n      </button>\n    </div>\n  </div>\n  <app-auto-complete (hidecomponent)=\"hidesuggestions($event)\" id=\"auto-box\" [hidden]=\"!ShowAuto()\"></app-auto-complete>\n</form>\n<script>\n  $(document).ready(function(){\n    var isFirefox = typeof InstallTrigger !== 'undefined';\n    if(isFirefox === false){\n      $(\".input-group-btn\").addClass(\"align-search-btn\");\n    }\n  })\n</script>\n"
 
 /***/ }),
 
@@ -2381,13 +2381,6 @@ var SearchBarComponent = (function () {
         var _this = this;
         this.speech.record('en_US').subscribe(function (voice) { return _this.onquery(voice); });
     };
-    SearchBarComponent.prototype.hidebox = function (event) {
-        if (event.which === 13) {
-            this.displayStatus = 'hidebox';
-            event.target.blur();
-            this.submit();
-        }
-    };
     SearchBarComponent.prototype.hidesuggestions = function (data) {
         if (data === 1) {
             this.displayStatus = 'hidebox';
@@ -2396,20 +2389,20 @@ var SearchBarComponent = (function () {
             this.displayStatus = 'showbox';
         }
     };
+    SearchBarComponent.prototype.onEnter = function (event) {
+        if (event.which === 13) {
+            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': event.target.value, start: this.searchdata.start, rows: this.searchdata.rows }));
+            this.displayStatus = 'hidebox';
+            event.target.blur();
+            this.submit();
+        }
+    };
     SearchBarComponent.prototype.onquery = function (event) {
-        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryAction */](event));
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["c" /* QueryAction */](event));
         var instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
         if (instantsearch && instantsearch.value) {
-            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["c" /* QueryServerAction */]({ 'query': event, start: this.searchdata.start, rows: this.searchdata.rows }));
+            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': event, start: this.searchdata.start, rows: this.searchdata.rows }));
             this.displayStatus = 'showbox';
-            this.hidebox(event);
-        }
-        else {
-            if (event.which === 13) {
-                this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["c" /* QueryServerAction */]({ 'query': event, start: this.searchdata.start, rows: this.searchdata.rows }));
-                this.displayStatus = 'showbox';
-                this.hidebox(event);
-            }
         }
     };
     SearchBarComponent.prototype.ShowAuto = function () {
