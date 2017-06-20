@@ -51,7 +51,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
   onEnter(event: any) {
     if (event.which === 13) {
-      this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: this.searchdata.start, rows: this.searchdata.rows}));
+      this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: 0, rows: this.searchdata.rows}));
       this.displayStatus = 'hidebox';
       event.target.blur();
       this.submit();
@@ -65,7 +65,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     let instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
 
     if (instantsearch && instantsearch.value) {
-      this.store.dispatch(new queryactions.QueryServerAction({'query': event, start: this.searchdata.start, rows: this.searchdata.rows}));
+      this.store.dispatch(new queryactions.QueryServerAction({'query': event, start: 0, rows: this.searchdata.rows}));
       this.displayStatus = 'showbox';
     }
   }
