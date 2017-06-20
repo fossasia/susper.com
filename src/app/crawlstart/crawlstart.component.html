@@ -133,14 +133,13 @@
         </div>
       </div>
       <div class="form-group">
-        <div class="col-md-4"><label for="safe search">Must-Match List for Country Codes
-          info </label>
+        <div class="col-md-4">Must-Match List for Country Codes
         </div>
         <div class="col-md-6">
-          <input name="country" [(ngModel)]="crawlvalues.countryMustMatchSwitch" type="radio" id="safe search">
+          <input name="countryMustMatchSwitch" type="radio" [(ngModel)]="crawlvalues.countryMustMatchSwitch" value="0" [checked]="crawlvalues.countryMustMatchSwitch==='0'">
           no country code restriction
-          <input name="country" [(ngModel)]="crawlvalues.countryMustMatchSwitch" type="radio">Use filter
-          <input name="country" [(ngModel)]="crawlvalues.countryMustMatchList" class="form-control" type="text" size="60" maxlength="256">
+          <input name="countryMustMatchSwitch" [(ngModel)]="crawlvalues.countryMustMatchSwitch" id="countryMustMatchSwitch" value="1" type="radio" >Use filter
+          <input name="countryMustMatchList" [(ngModel)]="crawlvalues.countryMustMatchList" id="countryMustMatchList" type="text" size="60" maxlength="256">
         </div>
       </div>
     </div>
@@ -252,9 +251,7 @@
       <div class="form-group">
         <div class="col-md-4"><label>Multiple Snapshot Versions</label></div>
         <div class="col-md-6"><input name="replaceold" [(ngModel)]="crawlvalues.snapshotsReplaceOld" value="on" type="radio">replace old snapshots with new ones
-        <div class="col-md-6"><input name="replaceold" [(ngModel)]="crawlvalues.snapshotsReplaceOld" value="on" type="radio">replace old snapshots with new ones
           <input name="replaceold" type="radio" value="off" [(ngModel)]="crawlvalues.snapshotsReplaceOld">add new versions for each crawl
-        </div>
       </div>
       <div class="form-group">
         <div class="col-md-4">
