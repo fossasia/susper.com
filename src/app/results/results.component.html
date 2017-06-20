@@ -84,8 +84,6 @@
     </div>
     <!-- END -->
         <div class="video-result" *ngIf="Display('videos')">
-            <div class="result message-bar" *ngIf="totalNumber > 0">
-                {{message}}
           <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
             <div class="noResults">
               <p>Your search - <em>{{searchdata.query}}</em> - did not match any videos.</p>
@@ -97,6 +95,9 @@
               </ul>
             </div>
           </div>
+            <div class="result message-bar" *ngIf="totalNumber > 0">
+                {{message}}
+            </div>
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
                     <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
@@ -105,7 +106,6 @@
                     <p>{{item.link}}</p>
                 </div>
             </div>
-
         </div>
 
         <br>
@@ -128,7 +128,6 @@
                 </div>
             </nav>
         </div>
-  </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <app-advancedsearch></app-advancedsearch>
 </div>
