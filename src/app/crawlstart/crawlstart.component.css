@@ -14,11 +14,13 @@
 .bold{
   font-weight: 700;
 }
-.crawlstartbutton{
-  border-color: white;
-  background-color: #4d90fe;
-  border: 1px solid #3079ed
+.btn-text {
+  color: white;
+  font-size: 11px;
+  text-align: center;
+  font-weight: bold;
 }
+
 
 .nav-terms {
   padding: 0px;
@@ -28,6 +30,35 @@
 .advsearch-navbar{
   position: relative;
   top:-5px;
+}
+.adv-submit{
+  float: right;
+  margin: 14px 0;
+
+}
+.container{
+  padding-left: 3.5%;
+  float: left;
+  width: 70%;
+  margin-bottom: 5%;
+}
+.form-control {
+  width:135%;
+  border-radius:0px
+}
+
+.adv-btn{
+  border-color: white;
+  height: 30px;
+  min-width: 120px;
+  padding: 0 12px;
+  line-height: 100%;
+  background-color: #3079ed;
+  background-image: -webkit-linear-gradient(top,#4d90fe,#4787ed);
+  box-shadow: none;
+  cursor: default;
+  border: 1px solid #3079ed;
+  border-radius: 2px;
 }
 
 

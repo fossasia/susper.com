@@ -37,6 +37,7 @@ export class ResultsComponent implements OnInit {
   querychange$: Observable<any>;
   wholequery$: Observable<any>;
   resultscomponentchange$: Observable<any>;
+  totalResults: number;
 
   getNumber(N) {
     let result = Array.apply(null, { length: N }).map(Number.call, Number);
@@ -165,7 +166,7 @@ export class ResultsComponent implements OnInit {
     });
     this.totalResults$ = store.select(fromRoot.getTotalResults);
     this.totalResults$.subscribe(totalResults => {
-
+      this.totalResults = totalResults;
       this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
       this.totalNumber = totalResults;
         this.message = 'About ' + totalResults + ' results';
@@ -179,6 +180,9 @@ export class ResultsComponent implements OnInit {
     this.wholequery$ = store.select(fromRoot.getwholequery);
     this.wholequery$.subscribe(data => {
       this.searchdata = data;
+      this.start = (this.presentPage - 1) * data.rows;
+      this.begin = this.start + 1;
+
     });
   }
 
