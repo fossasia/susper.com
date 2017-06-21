@@ -43,9 +43,13 @@ function WriteReq(chunk, encoding, cb) {
 // It seems a linked list but it is not
 // there will be only 2 of these for each stream
 function CorkedRequest(state) {
+  var _this = this;
+
   this.next = null;
   this.entry = null;
-  this.finish = onCorkedFinish.bind(undefined, this, state);
+  this.finish = function () {
+    onCorkedFinish(_this, state);
+  };
 }
 /* </replacement> */
 
