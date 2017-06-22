@@ -25,6 +25,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     start: 0
   };
   wholequery$: Observable<any>;
+  resultspage: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -35,6 +36,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.wholequery$.subscribe(data => {
       this.searchdata = data;
     });
+    this.resultspage = this.router.url.toString().includes('/search');
 
   };
 
@@ -81,7 +83,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
   submit() {
     if (this.searchdata.query.toString().length !== 0) {
-      if (!this.router.url.toString().includes('/search')) {
+      if (!this.resultspage) {
         this.router.navigate(['/search'], {queryParams: this.searchdata});
       }
 
