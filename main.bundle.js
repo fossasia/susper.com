@@ -2460,7 +2460,7 @@ var SearchBarComponent = (function () {
     };
     SearchBarComponent.prototype.onEnter = function (event) {
         if (event.which === 13) {
-            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': event.target.value, start: this.searchdata.start, rows: this.searchdata.rows }));
+            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': event.target.value, start: 0, rows: this.searchdata.rows }));
             this.displayStatus = 'hidebox';
             event.target.blur();
             this.submit();
@@ -2470,7 +2470,7 @@ var SearchBarComponent = (function () {
         this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["c" /* QueryAction */](event));
         var instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
         if (instantsearch && instantsearch.value) {
-            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': event, start: this.searchdata.start, rows: this.searchdata.rows }));
+            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': event, start: 0, rows: this.searchdata.rows }));
             this.displayStatus = 'showbox';
         }
     };
