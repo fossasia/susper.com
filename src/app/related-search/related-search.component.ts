@@ -26,15 +26,11 @@ export class RelatedSearchComponent implements OnInit {
       this.keyword = query;
     });
     this.results = [];
-    this.resultscomponentchange$ = store.select(fromRoot.getItems);
-    this.resultscomponentchange$.subscribe(res => {
-      this.results = this.initialresults;
-    });
 
 
     this.response$ = store.select(fromRoot.getKnowledge);
     this.response$.subscribe(res => {
-      this.initialresults = res.results || [];
+      this.results = res.results || [];
 
     });
   }
