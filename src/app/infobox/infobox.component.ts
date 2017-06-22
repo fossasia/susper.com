@@ -24,23 +24,18 @@ export class InfoboxComponent implements OnInit {
     this.query$.subscribe(query => {
       this.keyword = query;
     });
-    this.resultscomponentchange$ = store.select(fromRoot.getItems);
-    this.resultscomponentchange$.subscribe(res => {
-      this.results = this.initialresults;
-    });
     this.response$ = store.select(fromRoot.getKnowledge);
-    this.initialresults = [];
     this.response$.subscribe(res => {
       if (res.results) {
         if (res.results[0]) {
           if (res.results[0].label.toLowerCase().includes(this.keyword.toLowerCase())) {
-            this.initialresults = res.results;
+            this.results = res.results;
           } else {
-              this.initialresults = [];
+              this.results = [];
             }
         }
       } else {
-          this.initialresults = [];
+          this.results = [];
         }
 
     });
