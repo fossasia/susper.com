@@ -1,0 +1,83 @@
+li.dropdown-menu-box {
+    left: 450px;
+    top: -50px;
+}
+
+.dropdown-menu {
+    height: 500px;
+    width: 327px;
+    padding: 28px;
+}
+
+div.block:hover {
+    border: 1px solid rgba(150,150,150,0.3);
+}
+
+p {
+    padding: 10px;
+}
+
+.loklak {
+    width: 41px;
+    height: 47.8px;
+}
+
+div#loklak-logo {
+    padding-left: 16px;
+}
+
+img.eventyay {
+    width: 98px;
+    height: 28.2px;
+}
+
+div#eventyay {
+    padding-left: 5px;
+}
+
+p.eventyay-text {
+    padding-left: 20px;
+}
+
+div#labs {
+    padding-left: 64px;
+    margin-top: -18px;
+}
+
+.lab-link {
+    color: #737373;
+}
+
+p.fossasia-text {
+    margin-left: -11px;
+}
+
+p.loklak-text {
+    margin-left: -5px;
+}
+
+p.search-text {
+    margin-left: -5px;
+}
+
+p.center-align-text {
+    margin-top: -30px;
+    margin-left: 1px;
+}
+
+p.bug {
+    margin-left: 7px;
+}
+
+
+div#text-bug {
+    margin-left: -5px;
+}
+
+p.contact-text {
+    margin-left: -8.5px;
+}
+
+hr {
+    padding-top: 10px;
+}

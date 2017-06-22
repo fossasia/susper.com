@@ -10,68 +10,10 @@
                 <li id="navbar-search">
                     <app-search-bar></app-search-bar>
                 </li>
-            </ul>
-        </div>
-
-        <div class="navbar-collapse collapse" style="display:none" id="side-menu">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle" data-proofer-ignore><i class="fa fa-bars" aria-hidden="true" style="font-size: 2em"></i></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <div class="header" id="header-download">
-                                <a href="//blog.fossasia.org" target="_blank">
-                                    <i class="fa fa-newspaper-o" aria-hidden="true" style="font-size: 2em" id="blog-icon"></i>
-                                    <p class="header-text">Blog</p>
-                                </a>
-                            </div>
-                            <div class="header" id="header-code">
-                                <a href="//github.com/fossasia/susper.com" target="_blank">
-                                    <i class="fa fa-code" aria-hidden="true" style="font-size: 2em" id="code-icon"></i>
-                                    <p class="header-text">Code</p>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="header" id="header-git">
-                                <a href="//github.com/fossasia/susper.com" target="_blank">
-                                    <i class="fa fa-github" aria-hidden="true" style="font-size: 2em" id="github-icon"></i>
-                                </a>
-                                <p class="header-text">Github</p>
-                            </div>
-                            <div class="header" id="header-bugs">
-                                <a href="//github.com/fossasia/susper.com/issues" target="_blank">
-                                    <i class="fa fa-bug" aria-hidden="true" style="font-size: 2em" id="bug-icon"></i>
-                                </a>
-                                <p class="header-text">Bug Reports</p>
-                            </div>
-                        </li>
-                      <li>
-                          <div class="header" id="header-contact">
-                            <a routerLink="/contact" routerLinkActive="active">
-                              <i class="fa fa-phone" aria-hidden="true" style="font-size: 2em" id="contact-icon"></i>
-                            </a>
-                            <p class="header-text">Contact</p>
-                          </div>
-                          <div class="header" id="header-search">
-                            <a routerLink="/advancedsearch" routerLinkActive="active">
-                              <i class="fa fa-search" aria-hidden="true" style="font-size: 2em" id="search-icon"></i>
-                            </a>
-                            <p class="header-text">Advanced Search</p>
-                          </div>
-                        </li>
-                    </ul>
+                <li id="navbar-dropdown-box">
+                    <app-dropdown></app-dropdown>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-
-<script>
-    $(document).ready(function () {
-        var isFirefox = typeof InstallTrigger !== 'undefined';
-        if (isFirefox === false) {
-            $("#navbar-search").addClass("align-navsearch-btn");
-        }
-    }
-</script>

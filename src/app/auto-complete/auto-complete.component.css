@@ -5,17 +5,21 @@ a {
 .suggestions {
   font-family: Arial, sans-serif;
   font-size: 17px;
-  margin-left: 4px;
+  margin-left: 2.4%;
+}
+
+.query-suggestions:hover {
+  background: #E3E3E3;
 }
 
 .suggestion-box{
-  width: 585.2px;
+  width: 635.2px;
   max-width: 100%;
   border: 1px solid rgba(150,150,150,0.3);
   background-color: white;
-  padding: 1%;
-  margin-left: -0.7px;
+  margin-left: -25.7px;
   position: absolute;
+  box-shadow: 0px 0.2px 0px;
 }
 
 @media screen and (max-width: 961px) {

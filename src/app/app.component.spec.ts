@@ -25,6 +25,7 @@ import {InfoboxComponent} from "./infobox/infobox.component";
 import {RelatedSearchComponent} from "./related-search/related-search.component";
 import {AutoCompleteComponent} from "./auto-complete/auto-complete.component";
 import { ThemeComponent } from './theme/theme.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -54,7 +55,8 @@ describe('AppComponent', () => {
         InfoboxComponent,
         RelatedSearchComponent,
         AutoCompleteComponent,
-        ThemeComponent
+        ThemeComponent,
+        DropdownComponent
       ]
     });
     TestBed.compileComponents();

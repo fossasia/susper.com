@@ -24,6 +24,7 @@ import {CommonModule} from "@angular/common";
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterTestingModule} from "@angular/router/testing";
 import { ThemeComponent } from '../theme/theme.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 describe('AutoCompleteComponent', () => {
   let component: AutoCompleteComponent;
@@ -56,7 +57,8 @@ describe('AutoCompleteComponent', () => {
         InfoboxComponent,
         RelatedSearchComponent,
         AutoCompleteComponent,
-        ThemeComponent
+        ThemeComponent,
+        DropdownComponent
       ],
       providers: [
        AutocompleteService ]
