@@ -240,7 +240,7 @@ var AdvancedsearchComponent = (function () {
         this.selectedelements = [];
         this.activatedroute.queryParams.subscribe(function (query) {
             _this.querylook = Object.assign({}, query);
-            _this.navigation$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["f" /* getNavigation */]);
+            _this.navigation$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["e" /* getNavigation */]);
         });
     }
     AdvancedsearchComponent.prototype.changeurl = function (modifier, element) {
@@ -328,13 +328,13 @@ var AppComponent = (function () {
             rows: 10,
             start: 0,
         };
-        this.resultscomponentchange$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getItems */]);
+        this.resultscomponentchange$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["f" /* getItems */]);
         this.resultscomponentchange$.subscribe(function (res) {
             if (_this.searchdata.query.length > 0) {
                 _this.router.navigate(['/search'], { queryParams: _this.searchdata });
             }
         });
-        this.wholequery$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["e" /* getwholequery */]);
+        this.wholequery$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["d" /* getwholequery */]);
         this.wholequery$.subscribe(function (data) {
             _this.searchdata = data;
         });
@@ -1492,25 +1492,20 @@ var InfoboxComponent = (function () {
         this.query$.subscribe(function (query) {
             _this.keyword = query;
         });
-        this.resultscomponentchange$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getItems */]);
-        this.resultscomponentchange$.subscribe(function (res) {
-            _this.results = _this.initialresults;
-        });
-        this.response$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["d" /* getKnowledge */]);
-        this.initialresults = [];
+        this.response$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getKnowledge */]);
         this.response$.subscribe(function (res) {
             if (res.results) {
                 if (res.results[0]) {
                     if (res.results[0].label.toLowerCase().includes(_this.keyword.toLowerCase())) {
-                        _this.initialresults = res.results;
+                        _this.results = res.results;
                     }
                     else {
-                        _this.initialresults = [];
+                        _this.results = [];
                     }
                 }
             }
             else {
-                _this.initialresults = [];
+                _this.results = [];
             }
         });
     }
@@ -1845,12 +1840,12 @@ var _a, _b;
 /* unused harmony export getQueryState */
 /* unused harmony export getKnowledgeState */
 /* unused harmony export getSearchResults */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getItems; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getTotalResults; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getNavigation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getNavigation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getquery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getwholequery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getKnowledge; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getwholequery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getKnowledge; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getResponseTime; });
 
 
@@ -2132,13 +2127,9 @@ var RelatedSearchComponent = (function () {
             _this.keyword = query;
         });
         this.results = [];
-        this.resultscomponentchange$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getItems */]);
-        this.resultscomponentchange$.subscribe(function (res) {
-            _this.results = _this.initialresults;
-        });
-        this.response$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["d" /* getKnowledge */]);
+        this.response$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["c" /* getKnowledge */]);
         this.response$.subscribe(function (res) {
-            _this.initialresults = res.results || [];
+            _this.results = res.results || [];
         });
     }
     RelatedSearchComponent.prototype.ngOnInit = function () {
@@ -2266,7 +2257,7 @@ var ResultsComponent = (function () {
             var querydata = Object.assign({}, urldata);
             _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_6__actions_query__["b" /* QueryServerAction */](querydata));
         });
-        this.items$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["c" /* getItems */]);
+        this.items$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["f" /* getItems */]);
         this.responseTime$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["g" /* getResponseTime */]);
         this.responseTime$.subscribe(function (responsetime) {
             _this.hidefooter = 0;
@@ -2284,7 +2275,7 @@ var ResultsComponent = (function () {
         this.querychange$.subscribe(function (res) {
             _this.hidefooter = 1;
         });
-        this.wholequery$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["e" /* getwholequery */]);
+        this.wholequery$ = store.select(__WEBPACK_IMPORTED_MODULE_4__reducers__["d" /* getwholequery */]);
         this.wholequery$.subscribe(function (data) {
             _this.searchdata = data;
             _this.start = (_this.presentPage - 1) * data.rows;
@@ -2440,7 +2431,7 @@ var SearchBarComponent = (function () {
             rows: 10,
             start: 0
         };
-        this.wholequery$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["e" /* getwholequery */]);
+        this.wholequery$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["d" /* getwholequery */]);
         this.wholequery$.subscribe(function (data) {
             _this.searchdata = data;
         });
@@ -2650,7 +2641,7 @@ var SearchsettingsComponent = (function () {
             localStorage.setItem('instantsearch', JSON.stringify({ value: true }));
         }
         else {
-            localStorage.setItem('instantsearch', JSON.stringify({ value: false }));
+            localStorage.removeItem('instantsearch');
             localStorage.setItem('resultscount', JSON.stringify({ value: this.resultCount }));
         }
         this.router.navigate(['/']);
