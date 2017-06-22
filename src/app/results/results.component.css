@@ -1,6 +1,6 @@
 /** Basic results 'All' **/
 .result {
-  margin-left: 5.9%;
+  margin-left: 6.3%;
   padding-top: 10px;
 }
 
@@ -42,7 +42,12 @@ a {
 }
 
 .feed {
-  width: 49%;
+  left: 0.3%;
+}
+
+.feed.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.col-lg-10.col-lg-offset-1 {
+  width: 53%;
+  left: -1.5px;
 }
 
 .title-pointer:hover {
@@ -69,6 +74,7 @@ a {
   cursor: pointer;
   text-align: center;
 }
+
 .page-item2 span{
   padding-top: 2%;
   padding-left: 2%;
@@ -78,6 +84,7 @@ a {
   text-align: center;
   cursor: pointer;
 }
+
 .side-text{
   color: #4285f4;
   text-align: center;
@@ -90,11 +97,12 @@ a {
   font-weight: 900;
   padding-bottom: 4%;
 }
+
 .message-bar {
   margin-top: 1%;
   font-size: small;
   color: #808080;
-
+  margin-left: 6.1%;
 }
 
 .text-result {
@@ -238,6 +246,7 @@ a {
   text-decoration: none;
   color: #777;
   position: relative;
+  left: 8%;
 }
 
 #tools:hover {
@@ -248,6 +257,7 @@ a {
   text-decoration: none;
   color: #777;
   position: relative;
+  left: 8%;
 }
 
 #settings:hover {
@@ -256,11 +266,10 @@ a {
 
 .dropdown-menu {
   float: right;
-
 }
 
 .dropdown{
-  left: 40%;
+  left: 38%;
   width: 0px;
   padding: 0;
 }

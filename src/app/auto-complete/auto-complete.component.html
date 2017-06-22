@@ -1,5 +1,5 @@
 <div class="suggestion-box" *ngIf="results">
-  <div *ngFor="let result of results">
+  <div *ngFor="let result of results" class="query-suggestions">
     <a [routerLink]="resultsearch" [queryParams]="{query: result}" class="suggestions">{{result}}</a>
   </div>
 </div>
