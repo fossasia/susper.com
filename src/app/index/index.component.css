@@ -19,6 +19,11 @@
   display:none;
 }
 
+.dropdown-menu-box-homepage {
+  padding-right: 500px;
+  margin-top: -16%;
+}
+
 @media screen and (max-width: 480px) {
   #set-susper-default h3{
     font-size: 14px;

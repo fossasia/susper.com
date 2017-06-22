@@ -28,6 +28,7 @@ import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import { ThemeComponent } from '../theme/theme.component';
 import { ThemeService } from '../theme.service';
 import { SpeechService } from '../speech.service';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 describe('IndexComponent', () => {
   let component: IndexComponent;
@@ -60,7 +61,8 @@ describe('IndexComponent', () => {
         InfoboxComponent,
         RelatedSearchComponent,
         AutoCompleteComponent,
-        ThemeComponent
+        ThemeComponent,
+        DropdownComponent
       ],
       providers: [
         AutocompleteService,
