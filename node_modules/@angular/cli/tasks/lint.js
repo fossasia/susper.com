@@ -144,4 +144,4 @@ function getFileContents(file, program) {
     }
     return contents;
 }
-//# sourceMappingURL=/users/hans/sources/angular-cli/tasks/lint.js.map
+//# sourceMappingURL=/users/hansl/sources/angular-cli/tasks/lint.js.map

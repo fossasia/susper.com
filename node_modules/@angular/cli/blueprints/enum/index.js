@@ -49,4 +49,4 @@ exports.default = Blueprint.extend({
         };
     }
 });
-//# sourceMappingURL=/users/hans/sources/angular-cli/blueprints/enum/index.js.map
+//# sourceMappingURL=/users/hansl/sources/angular-cli/blueprints/enum/index.js.map

@@ -105,4 +105,4 @@ class ModuleResolver {
     }
 }
 exports.ModuleResolver = ModuleResolver;
-//# sourceMappingURL=/users/hans/sources/angular-cli/utilities/module-resolver.js.map
+//# sourceMappingURL=/users/hansl/sources/angular-cli/utilities/module-resolver.js.map

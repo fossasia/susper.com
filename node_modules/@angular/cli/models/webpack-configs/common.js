@@ -103,4 +103,4 @@ function getCommonConfig(wco) {
     };
 }
 exports.getCommonConfig = getCommonConfig;
-//# sourceMappingURL=/users/hans/sources/angular-cli/models/webpack-configs/common.js.map
+//# sourceMappingURL=/users/hansl/sources/angular-cli/models/webpack-configs/common.js.map

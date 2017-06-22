@@ -157,4 +157,4 @@ exports.default = Blueprint.extend({
         return Promise.all(returns);
     }
 });
-//# sourceMappingURL=/users/hans/sources/angular-cli/blueprints/directive/index.js.map
+//# sourceMappingURL=/users/hansl/sources/angular-cli/blueprints/directive/index.js.map

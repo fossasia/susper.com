@@ -118,7 +118,7 @@ class ExtractI18nPlugin {
                 program: this._program,
                 host: this._compilerHost,
                 angularCompilerOptions: this._angularCompilerOptions,
-                i18nFormat: this._i18nFormat,
+                i18nFormat: this._i18nFormat || '',
                 locale: this._locale,
                 outFile: this._outFile,
                 readResource: (path) => this._resourceLoader.get(path)

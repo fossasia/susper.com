@@ -13,11 +13,11 @@ export declare class TypeScriptFileRefactor {
     readonly fileName: string;
     readonly sourceFile: ts.SourceFile;
     readonly sourceText: any;
-    constructor(fileName: string, _host: ts.CompilerHost, _program?: ts.Program);
+    constructor(fileName: string, _host: ts.CompilerHost, _program?: ts.Program, source?: string | null);
     /**
      * Collates the diagnostic messages for the current source file
      */
-    getDiagnostics(): ts.Diagnostic[];
+    getDiagnostics(typeCheck?: boolean): ts.Diagnostic[];
     /**
      * Find all nodes from the AST in the subtree of node of SyntaxKind kind.
      * @param node The root node to check, or null if the whole tree should be searched.

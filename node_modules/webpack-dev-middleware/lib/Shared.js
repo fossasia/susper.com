@@ -1,3 +1,4 @@
+var mime = require("mime");
 var parseRange = require("range-parser");
 var pathIsAbsolute = require("path-is-absolute");
 var MemoryFileSystem = require("memory-fs");
@@ -28,6 +29,9 @@ module.exports = function Shared(context) {
 					options.filename = new RegExp("^[\/]{0,1}" + str + "$");
 				}
 			}
+			// defining custom MIME type
+			if(options.mimeTypes) mime.define(options.mimeTypes);
+
 			context.options = options;
 		},
 		defaultReporter: function(reporterOptions) {
@@ -41,15 +45,21 @@ module.exports = function Shared(context) {
 					options.noInfo)
 					displayStats = false;
 				if(displayStats) {
-					options.log(stats.toString(options.stats));
+					if(stats.hasErrors()) {
+						options.error(stats.toString(options.stats));
+					} else if(stats.hasWarnings()) {
+						options.warn(stats.toString(options.stats));
+					} else {
+						options.log(stats.toString(options.stats));
+					}
 				}
 				if(!options.noInfo && !options.quiet) {
 					var msg = "Compiled successfully.";
 					if(stats.hasErrors()) {
 						msg = "Failed to compile.";
-					} else if(stats.hasWarnings()) {
+					  } else if(stats.hasWarnings()) {
 						msg = "Compiled with warnings.";
-					}
+					  }
 					options.log("webpack: " + msg);
 				}
 			} else {
