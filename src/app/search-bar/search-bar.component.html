@@ -6,7 +6,7 @@
       <input #input type="text" name="query" class="form-control" id="nav-input" (ngModelChange)="onquery($event)"
            [(ngModel)]="searchdata.query" autocomplete="off" (keypress)="onEnter($event)">
       </div>
-    <div class="input-group-btn"z>
+    <div class="input-group-btn">
       <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()">
         <img src="../../assets/images/microphone.png" class="microphone" (click)="speechRecognition()"/>
       </button>
