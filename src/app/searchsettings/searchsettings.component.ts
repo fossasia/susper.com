@@ -24,7 +24,7 @@ export class SearchsettingsComponent implements OnInit {
     if (this.instantresults) {
       localStorage.setItem('instantsearch', JSON.stringify({value: true}));
     } else {
-      localStorage.setItem('instantsearch', JSON.stringify({ value: false }));
+      localStorage.removeItem('instantsearch');
       localStorage.setItem('resultscount', JSON.stringify({ value: this.resultCount }));
     }
     this.router.navigate(['/']);
