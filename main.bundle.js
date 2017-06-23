@@ -303,6 +303,7 @@ module.exports = "<router-outlet></router-outlet>\n"
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__("../../../../@ngrx/store/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__("../../../../../src/app/reducers/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_query__ = __webpack_require__("../../../../../src/app/actions/query.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -313,6 +314,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -338,6 +340,9 @@ var AppComponent = (function () {
         this.wholequery$.subscribe(function (data) {
             _this.searchdata = data;
         });
+        if (localStorage.getItem('resultscount')) {
+            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': '', start: 0, rows: 10, search: false }));
+        }
     }
     AppComponent.prototype.ngOnInit = function () {
         this.router.events.subscribe(function (evt) {
@@ -1252,13 +1257,18 @@ var ApiSearchEffects = (function () {
                 return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
             }
             var nextSearch$ = _this.actions$.ofType(__WEBPACK_IMPORTED_MODULE_11__actions_query__["a" /* ActionTypes */].QUERYSERVER).skip(1);
-            _this.searchService.getsearchresults(querypay)
-                .takeUntil(nextSearch$)
-                .subscribe(function (response) {
-                _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_12__actions_search__["a" /* SearchAction */](response));
+            if (querypay.search !== false) {
+                _this.searchService.getsearchresults(querypay)
+                    .takeUntil(nextSearch$)
+                    .subscribe(function (response) {
+                    _this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_12__actions_search__["a" /* SearchAction */](response));
+                    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
+                });
                 return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
-            });
-            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
+            }
+            else {
+                return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_empty__["empty"])();
+            }
         });
     }
     return ApiSearchEffects;
@@ -2601,7 +2611,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/searchsettings/searchsettings.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default nav-about\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <button type = \"button\" class = \"navbar-toggle\"\n              data-toggle = \"collapse\" data-target = \"#dropmenu\">\n        <span class = \"icon-bar\"></span>\n        <span class = \"icon-bar\"></span>\n        <span class = \"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand advsearch-navbar\" href=\"//susper.com\">\n        <img alt=\"brand\" class=\"navbar-logo\" src=\"../../assets/images/susper.svg\">\n      </a>\n    </div>\n    <div class=\"collapse navbar-collapse\" id=\"dropmenu\">\n      <ul class=\"nav navbar-nav navbar-collapse navbar-right\">\n        <li><a routerLink=\"/terms\">Terms</a></li>\n        <li><a routerLink=\"/about\">About</a></li>\n        <li><a routerLink=\"/contact\">Contact</a></li>\n      </ul>\n    </div>\n  </div>\n</nav>\n\n<div class=\"appbar\">Search Settings</div>\n\n<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"leftPane col-md-2\">\n        <ul class=\"left-list\">\n          <li ><a class=\"active\" href=\"#\">Search Results</a></li>\n          <li><a href=\"#\">Languages</a></li>\n          <li><a href=\"#\">Help</a></li>\n        </ul>\n    </div>\n    <div class=\"rightPane col-md-9\">\n      <div class=\"rightContent\">\n        <div>\n          <h4><strong>SafeSearch Filters</strong></h4>\n          <p>SafeSearch can help you block inappropriate or explicit images from your Susper Search results. The SafeSearch filter isn’t 100% accurate, but it helps you avoid most violent and adult content.</p>\n          <input type=\"checkbox\" id=\"safesearch\">\n          <label for=\"safesearch\">Turn On Safe Search</label>\n        </div>\n      <hr>\n        <div>\n          <h4><strong>Susper Instant Predictions</strong></h4>\n          <p>When should we show you results as you type?</p>\n          <input name=\"options\" [(ngModel)]=\"instantresults\" disabled value=\"#\" type=\"radio\" id=\"op1\"><label for=\"op1\">Only when my computer is fast enough</label><br>\n          <input name=\"options\" [(ngModel)]=\"instantresults\" [value]=\"true\" type=\"radio\" id=\"op2\"><label for=\"op2\">Always show instant results</label><br>\n          <input name=\"options\" [(ngModel)]=\"instantresults\" [value]=\"false\" type=\"radio\" id=\"op3\"><label for=\"op3\">Never show instant results</label><br>\n        </div>\n      <hr>\n      <div>\n        <h4><strong>Results per page</strong></h4>\n        <div class=\"range-slider\">\n          <input class=\"range-slider__range\" type=\"range\" [disabled]=\"instantresults\" [(ngModel)]=\"resultCount\" value=\"100\" min=\"0\" max=\"500\">\n          <span class=\"range-slider__value\">{{resultCount}}</span>\n        </div>\n\n      </div>\n        <div >\n          <span><button class=\"cancbtn jfk-btn\" (click)=\"onCancel()\">Cancel</button></span>\n          <span><button class=\"savbtn jfk-btn\" (click)=\"onSave()\">Save</button></span>\n        </div>\n      </div>\n    </div>\n  </div>\n\n</div>\n\n<!--footer navigation bar goes here-->\n<footer>\n  <app-footer-navbar></app-footer-navbar>\n</footer>\n"
+module.exports = "<nav class=\"navbar navbar-default nav-about\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <button type = \"button\" class = \"navbar-toggle\"\n              data-toggle = \"collapse\" data-target = \"#dropmenu\">\n        <span class = \"icon-bar\"></span>\n        <span class = \"icon-bar\"></span>\n        <span class = \"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand advsearch-navbar\" href=\"//susper.com\">\n        <img alt=\"brand\" class=\"navbar-logo\" src=\"../../assets/images/susper.svg\">\n      </a>\n    </div>\n    <div class=\"collapse navbar-collapse\" id=\"dropmenu\">\n      <ul class=\"nav navbar-nav navbar-collapse navbar-right\">\n        <li><a routerLink=\"/terms\">Terms</a></li>\n        <li><a routerLink=\"/about\">About</a></li>\n        <li><a routerLink=\"/contact\">Contact</a></li>\n      </ul>\n    </div>\n  </div>\n</nav>\n\n<div class=\"appbar\">Search Settings</div>\n\n<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"leftPane col-md-2\">\n        <ul class=\"left-list\">\n          <li ><a class=\"active\" href=\"#\">Search Results</a></li>\n          <li><a href=\"#\">Languages</a></li>\n          <li><a href=\"#\">Help</a></li>\n        </ul>\n    </div>\n    <div class=\"rightPane col-md-9\">\n      <div class=\"rightContent\">\n        <div>\n          <h4><strong>SafeSearch Filters</strong></h4>\n          <p>SafeSearch can help you block inappropriate or explicit images from your Susper Search results. The SafeSearch filter isn’t 100% accurate, but it helps you avoid most violent and adult content.</p>\n          <input type=\"checkbox\" id=\"safesearch\">\n          <label for=\"safesearch\">Turn On Safe Search</label>\n        </div>\n      <hr>\n        <div>\n          <h4><strong>Susper Instant Predictions</strong></h4>\n          <p>When should we show you results as you type?</p>\n          <input name=\"options\" [(ngModel)]=\"instantresults\" disabled value=\"#\" type=\"radio\" id=\"op1\"><label for=\"op1\">Only when my computer is fast enough</label><br>\n          <input name=\"options\" [(ngModel)]=\"instantresults\" [value]=\"true\" type=\"radio\" id=\"op2\"><label for=\"op2\">Always show instant results</label><br>\n          <input name=\"options\" [(ngModel)]=\"instantresults\" [value]=\"false\" type=\"radio\" id=\"op3\"><label for=\"op3\">Never show instant results</label><br>\n        </div>\n      <hr>\n      <div>\n        <h4><strong>Results per page</strong></h4>\n        <div class=\"range-slider\">\n          <input class=\"range-slider__range\" type=\"range\" [disabled]=\"instantresults\" [(ngModel)]=\"resultCount\" value=\"100\" min=\"0\" max=\"100\">\n          <span class=\"range-slider__value\">{{resultCount}}</span>\n        </div>\n\n      </div>\n        <div >\n          <span><button class=\"cancbtn jfk-btn\" (click)=\"onCancel()\">Cancel</button></span>\n          <span><button class=\"savbtn jfk-btn\" (click)=\"onSave()\">Save</button></span>\n        </div>\n      </div>\n    </div>\n  </div>\n\n</div>\n\n<!--footer navigation bar goes here-->\n<footer>\n  <app-footer-navbar></app-footer-navbar>\n</footer>\n"
 
 /***/ }),
 
@@ -2611,6 +2621,9 @@ module.exports = "<nav class=\"navbar navbar-default nav-about\">\n  <div class=
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__("../../../../@ngrx/store/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__("../../../../../src/app/reducers/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_query__ = __webpack_require__("../../../../../src/app/actions/query.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchsettingsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2623,26 +2636,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
+
 var SearchsettingsComponent = (function () {
-    function SearchsettingsComponent(router) {
+    function SearchsettingsComponent(router, store) {
+        var _this = this;
         this.router = router;
+        this.store = store;
         this.resultCount = 10;
+        this.searchdata = [];
         if (localStorage.getItem('instantsearch')) {
             this.instantresults = JSON.parse(localStorage.getItem('instantsearch')).value || false;
         }
         else {
             this.instantresults = false;
         }
+        if (localStorage.getItem('resultscount')) {
+            this.resultCount = JSON.parse(localStorage.getItem('resultscount')).value || false;
+        }
+        else {
+            this.resultCount = 10;
+        }
+        this.wholequery$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["d" /* getwholequery */]);
+        this.wholequery$.subscribe(function (data) {
+            _this.searchdata = data;
+        });
     }
     SearchsettingsComponent.prototype.ngOnInit = function () {
     };
     SearchsettingsComponent.prototype.onSave = function () {
         if (this.instantresults) {
             localStorage.setItem('instantsearch', JSON.stringify({ value: true }));
+            localStorage.setItem('resultscount', JSON.stringify({ value: 10 }));
+            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': '', start: 0, rows: 10, search: false }));
         }
         else {
             localStorage.removeItem('instantsearch');
             localStorage.setItem('resultscount', JSON.stringify({ value: this.resultCount }));
+            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': '', start: 0, rows: this.resultCount, search: false }));
         }
         this.router.navigate(['/']);
     };
@@ -2657,10 +2689,10 @@ SearchsettingsComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/searchsettings/searchsettings.component.html"),
         styles: [__webpack_require__("../../../../../src/app/searchsettings/searchsettings.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["b" /* Store */]) === "function" && _b || Object])
 ], SearchsettingsComponent);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=/home/travis/build/fossasia/susper.com/repo/src/searchsettings.component.js.map
 
 /***/ }),
