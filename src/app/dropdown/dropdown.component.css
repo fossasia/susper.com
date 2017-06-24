@@ -1,6 +1,6 @@
 li.dropdown-menu-box {
     left: 450px;
-    top: -50px;
+    top: 10px;
 }
 
 .dropdown-menu {
@@ -69,6 +69,10 @@ p.bug {
     margin-left: 7px;
 }
 
+#side-menu{
+  width:0;
+  float: right;
+}
 
 div#text-bug {
     margin-left: -5px;
