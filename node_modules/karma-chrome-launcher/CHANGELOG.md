@@ -1,3 +1,13 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/karma-runner/karma-chrome-launcher/compare/v2.1.1...v2.2.0) (2017-06-23)
+
+
+### Features
+
+* add ChromiumHeadless ([7a12021](https://github.com/karma-runner/karma-chrome-launcher/commit/7a12021))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/karma-runner/karma-chrome-launcher/compare/v2.1.0...v2.1.1) (2017-05-05)
 
