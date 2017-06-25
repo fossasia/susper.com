@@ -3,6 +3,7 @@ import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import {Store} from "@ngrx/store";
 import * as fromRoot from './reducers';
 import {Observable} from "rxjs";
+import * as queryactions from './actions/query';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -29,6 +30,9 @@ export class AppComponent implements OnInit {
     this.wholequery$.subscribe(data => {
       this.searchdata = data;
     });
+    if (localStorage.getItem('resultscount')) {
+      this.store.dispatch(new queryactions.QueryServerAction({'query': '', start: 0, rows: 10, search: false}));
+    }
   }
 
   ngOnInit() {
