@@ -1420,6 +1420,7 @@ var IndexComponent = (function () {
             rows: 10,
         };
         this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_3__actions_query__["c" /* QueryAction */](''));
+        this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_3__actions_query__["b" /* QueryServerAction */](''));
     }
     IndexComponent.prototype.ngOnInit = function () {
         this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
