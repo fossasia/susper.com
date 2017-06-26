@@ -17,6 +17,7 @@ export class IndexComponent implements OnInit {
   };
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<fromRoot.State> ) {
     this.store.dispatch(new queryactions.QueryAction(''));
+    this.store.dispatch(new queryactions.QueryServerAction(''));
   }
 
   ngOnInit() {
