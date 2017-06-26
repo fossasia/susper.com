@@ -110,6 +110,7 @@
 
         <br>
         <div class="clean"></div>
+    <div class="pagination-bar">
         <div class="pagination-property" *ngIf="noOfPages>1">
             <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
                 <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
@@ -127,6 +128,7 @@
                 </div>
             </nav>
         </div>
+    </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <app-advancedsearch></app-advancedsearch>
 </div>
