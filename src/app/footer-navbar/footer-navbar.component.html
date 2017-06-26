@@ -2,13 +2,20 @@
     <div class="footer-bar">
         <div class="left-side">
             <a routerLink="/about" routerLinkActive="active">About</a>
-            <a href="//blog.fossasia.org">Blogs</a>
-            <a href="//github.com/fossasia/susper.com">Code</a>
+            <a href="//blog.fossasia.org" id="blog">Blogs</a>
+            <a href="//github.com/fossasia/susper.com" id="code">Code</a>
         </div>
         <div class="right-side">
-          <a routerLink="/advancedsearch" routerLinkActive="active">Advanced Search</a>
-            <a routerLink="/terms" routerLinkActive="active">Terms</a>
-            <a routerLink="/contact" routerLinkActive="active">Contact</a>
+          <span class="dropup">
+            <a class="dropdown-toggle" data-toggle="dropdown">Settings</a>
+            <ul class="dropdown-menu" id="fsett">
+              <li><a routerLink="/preferences">Search settings</a></li>
+              <li><a routerLink="/advancedsearch">Advanced Search</a></li>
+              <li><a routerLink="/crawlstartexpert" routerLinkActive="active">Crawl Job</a></li>
+            </ul>
+          </span>
+          <a routerLink="/terms" routerLinkActive="active">Terms</a>
+          <a routerLink="/contact" routerLinkActive="active">Contact</a>
         </div>
     </div>
 </footer>

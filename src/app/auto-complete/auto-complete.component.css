@@ -1,0 +1,67 @@
+a {
+  text-decoration: none;
+}
+
+.suggestions {
+  font-family: Arial, sans-serif;
+  font-size: 17px;
+  margin-left: 2.4%;
+}
+
+.query-suggestions:hover {
+  background: #E3E3E3;
+}
+
+.suggestion-box{
+  width: 635.2px;
+  max-width: 100%;
+  border: 1px solid rgba(150,150,150,0.3);
+  background-color: white;
+  margin-left: -25.7px;
+  position: absolute;
+  box-shadow: 0px 0.2px 0px;
+}
+
+@media screen and (max-width: 961px) {
+  .suggestion-box {
+    margin-left: -10.6px;
+  }
+}
+
+@media screen and (max-width: 764px) {
+  .suggestion-box {
+    margin-left: -15.7%;
+    width: 652px;
+  }
+}
+
+@media screen and (max-width: 712px) {
+  .suggestion-box {
+    margin-left: -15.7%;
+    width: 609.8px;
+  }
+}
+
+@media screen and (max-width: 645px) {
+  .suggestion-box {
+    width: 557px;
+  }
+}
+
+@media screen and (max-width: 598px) {
+  .suggestion-box {
+    width: 519px;
+  }
+}
+
+@media screen and (max-width: 548px) {
+  .suggestion-box {
+    width: 479px;
+  }
+}
+
+@media screen and (max-width: 436px) {
+  .suggestion-box {
+    display: none;
+  }
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Injectable } from '@angular/core';
-import {Http, URLSearchParams, Jsonp, Response} from '@angular/http';
+import {Http, URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Store} from '@ngrx/store';
@@ -10,38 +10,45 @@ import * as search from './actions/search';
 import * as fromRoot from './reducers';
 
 @Injectable()
-export class AutocompleteService implements OnInit {
+export class AutocompleteService {
   server = 'yacy.searchlab.eu';
   suggestUrl = 'http://' + this.server + '/suggest.json?callback=?';
-  data: Observable<any>;
-  search: any = {
-    query: '',
-    verify: false,
-    nav: 'filetype,protocol,hosts,authors,collections,namespace,topics,date',
-    start: 0,
-    indexof: 'off',
-    meanCount: '5',
-    resource: 'global',
-    prefermaskfilter: '',
-    timezoneOffset: 0,
-  };
+  homepage = 'http://susper.com';
+  logo = '../images/susper.svg';
+  constructor(private http: Http, private jsonp: Jsonp, private store: Store<fromRoot.State>) {
+  }
+  getsearchresults(searchquery) {
 
-  private searchTerms = new Subject<string>();
+    let params = new URLSearchParams();
+    params.set('q', searchquery);
+   // params.set('QueryClass', 'MaxHits=5');
 
-  onquery(term: string): void {
-    this.searchTerms.next(term);
+    params.set('wt', 'yjson');
+    params.set('callback', 'JSONP_CALLBACK');
+
+    params.set('facet', 'true');
+    params.set('facet.mincount', '1');
+    params.append('facet.field', 'host_s');
+    params.append('facet.field', 'url_protocol_s');
+    params.append('facet.field', 'author_sxt');
+    params.append('facet.field', 'collection_sxt');
+    let headers = new Headers({ 'Accept': 'application/json' });
+    let options = new RequestOptions({ headers: headers, search: params });
+    return this.jsonp
+      .get('http://yacy.searchlab.eu/suggest.json', {search: params}).map(res =>
+
+        res.json()[0]
+
+      ).catch(this.handleError);
+
+  }
+  private handleError (error: any) {
+    // In some advance version we can include a remote logging of errors
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // Right now we are logging to console itself
+    return Observable.throw(errMsg);
   }
 
-  constructor(private searchService: AutocompleteService) { }
 
-  ngOnInit(): void {
-    this.data = this.searchTerms
-      .debounceTime(300) // pause in events
-      .distinctUntilChanged() // ignore if search term not changed
-      .switchMap(term => term // switch to new observable each time
-        // http service to retrieve data
-        ? this.searchService.search(term)
-        : Observable.of<any>([])
-      );
-  }
 }

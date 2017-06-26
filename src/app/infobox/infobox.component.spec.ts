@@ -21,6 +21,10 @@ import {KnowledgeapiService} from "../knowledgeapi.service";
 import {reducer} from "../reducers/index";
 import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {RelatedSearchComponent} from "../related-search/related-search.component";
+import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
+import { ThemeComponent } from '../theme/theme.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 describe('InfoboxComponent', () => {
   let component: InfoboxComponent;
@@ -50,7 +54,12 @@ describe('InfoboxComponent', () => {
         AboutComponent,
         ContactComponent,
         ModalComponent,
-        InfoboxComponent, ],
+        InfoboxComponent,
+        RelatedSearchComponent,
+        AutoCompleteComponent,
+        ThemeComponent,
+        DropdownComponent
+      ],
       providers: [
         KnowledgeapiService
       ],

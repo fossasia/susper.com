@@ -1,29 +1,31 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By, BrowserModule } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { NavbarComponent } from './navbar.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AppComponent } from '../app.component';
-import { IndexComponent } from '../index/index.component';
-import { ResultsComponent } from '../results/results.component';
-import { NotFoundComponent } from '../not-found/not-found.component';
-import { AdvancedsearchComponent } from '../advancedsearch/advancedsearch.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
+import { AutocompleteService } from '../autocomplete.service';
+import { SpeechService } from '../speech.service';
+/**
+ * import HttpModule to avoid error -
+ * No provider for Http!
+ */
+import { HttpModule, JsonpModule } from '@angular/http';
+/**
+ * import StoreModule and reducer to avoid error -
+ * No provider for Store!
+ */
+import { StoreModule } from '@ngrx/store';
 import { reducer } from '../reducers/index';
-import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
-import { AboutComponent } from '../about/about.component';
-import { Ng2Bs3ModalModule, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
-import { ContactComponent } from '../contact/contact.component';
-import {InfoboxComponent} from "../infobox/infobox.component";
+/**
+ * import 'FormsModule' to avoid
+ * "Can't bind to 'ngModel' since it isn't a known property of 'input'" error
+ */
+import { FormsModule } from '@angular/forms';
 
-describe('NavbarComponent', () => {
+describe('Component: Navbar', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
 
@@ -31,27 +33,20 @@ describe('NavbarComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        BrowserModule,
-        CommonModule,
         FormsModule,
         HttpModule,
         JsonpModule,
-        StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension()
+        StoreModule.provideStore(reducer)
       ],
       declarations: [
-        AppComponent,
         NavbarComponent,
-        IndexComponent,
-        ResultsComponent,
-        NotFoundComponent,
-        AdvancedsearchComponent,
         SearchBarComponent,
-        FooterNavbarComponent,
-        AboutComponent,
-        ContactComponent,
-        ModalComponent,
-        InfoboxComponent,
+        AutoCompleteComponent,
+        DropdownComponent
+      ],
+      providers: [
+        AutocompleteService,
+        SpeechService
       ]
     })
       .compileComponents();
@@ -63,9 +58,11 @@ describe('NavbarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create an instance', () => {
-    expect(component).toBeTruthy();
-  });
+  /**
+   * No need to add 'create NavbarComponent' test-suite as it will require
+   * to pass parameters :
+   * router : Router, route: ActivatedRoute
+   */
 
   it('should have an app-search-bar element', () => {
     let compiled = fixture.debugElement.nativeElement;
@@ -73,16 +70,18 @@ describe('NavbarComponent', () => {
     expect(compiled.querySelector('app-search-bar')).toBeTruthy();
   });
 
-  it('should have a dropdown menu', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('li.dropdown')).toBeTruthy();
-  });
-
-  it('should have susper logo', () => {
+  it('should have alt text property as brand', () => {
     let compiled = fixture.debugElement.nativeElement;
     let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
 
     expect(image).toBeTruthy();
+    expect(image.alt).toBe('brand');
+  });
+
+  it('should have an app-auto-complete element', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('app-auto-complete')).toBeTruthy();
   });
 
 });

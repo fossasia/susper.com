@@ -3,8 +3,10 @@
 }
 
 #search-bar{
-  position: absolute;
-  left: 28%;
+  position: fixed;
+  left: 50%;
+  margin-left: -275px;
+
 }
 
 .footer-fixed{
@@ -15,6 +17,11 @@
 
 #set-susper-default{
   display:none;
+}
+
+.dropdown-menu-box-homepage {
+  padding-right: 500px;
+  margin-top: -20%;
 }
 
 @media screen and (max-width: 480px) {

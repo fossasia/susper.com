@@ -1,56 +1,33 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, Input, Output } from '@angular/core';
+import { HttpModule } from '@angular/http';
 
-import { ContactComponent } from './contact.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+/**
+ * import 'FormsModule' to avoid
+ * "Can't bind to 'ngModel' since it isn't a known property of 'input'" error
+ */
 import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
-import { reducer } from '../reducers/search';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AppComponent } from '../app.component';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { IndexComponent } from '../index/index.component';
-import { ResultsComponent } from '../results/results.component';
-import { NotFoundComponent } from '../not-found/not-found.component';
-import { AdvancedsearchComponent } from '../advancedsearch/advancedsearch.component';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
-import { AboutComponent } from '../about/about.component';
-import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
-import {InfoboxComponent} from "../infobox/infobox.component";
 
-describe('ContactComponent', () => {
+import { RouterTestingModule } from '@angular/router/testing';
+import { ContactComponent } from '../contact/contact.component';
+import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+
+describe('Component: Contact', () => {
   let component: ContactComponent;
   let fixture: ComponentFixture<ContactComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        BrowserModule,
-        CommonModule,
-        FormsModule,
         HttpModule,
-        JsonpModule,
-        StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension()
+        RouterTestingModule,
+        FormsModule
       ],
       declarations: [
-        AppComponent,
-        NavbarComponent,
-        IndexComponent,
-        ResultsComponent,
-        NotFoundComponent,
-        AdvancedsearchComponent,
-        SearchBarComponent,
         FooterNavbarComponent,
-        AboutComponent,
-        ModalComponent,
         ContactComponent,
-        InfoboxComponent,
-
+        ModalComponent,
       ]
     })
       .compileComponents();
@@ -62,7 +39,28 @@ describe('ContactComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create a Contact Component', () => {
+    const contactComponent = new ContactComponent();
+    expect(contactComponent).toBeTruthy();
   });
+
+  it('should have alt text property as brand', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
+    expect(image).toBeTruthy();
+    expect(image.alt).toBe('brand');
+  });
+
+  it('should have a FooterNavbar Component', () => {
+    const footerNavbar = new FooterNavbarComponent();
+    expect(footerNavbar).toBeTruthy();
+  });
+
+  it('should have an element app-footer-navbar', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
+  });
+
 });

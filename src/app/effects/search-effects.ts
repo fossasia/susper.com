@@ -50,14 +50,18 @@ export class ApiSearchEffects {
       }
 
       const nextSearch$ = this.actions$.ofType(query.ActionTypes.QUERYSERVER).skip(1);
+      if (querypay.search !== false) {
+        this.searchService.getsearchresults(querypay)
+          .takeUntil(nextSearch$)
+          .subscribe((response) => {
+            this.store.dispatch(new search.SearchAction(response));
+            return empty();
+          });
+        return empty();
 
-      this.searchService.getsearchresults(querypay)
-        .takeUntil(nextSearch$)
-        .subscribe((response) => {
-          this.store.dispatch(new search.SearchAction(response));
-          return empty();
-        });
-      return empty();
+      }else {
+        return empty();
+      }
 
 
 

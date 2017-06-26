@@ -1,16 +1,16 @@
 # susper.com
 
-Susper is a decentral Search Engine that uses the peer to peer system yacy and Apache Solr to crawl and index search results.
+Susper is a decentralized Search Engine that uses the peer to peer system yacy and Apache Solr to crawl and index search results.
 
-[![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=angular)](https://travis-ci.org/fossasia/susper.com?branch=angular)
+[![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=master)](https://travis-ci.org/fossasia/susper.com)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ba119419e7444b3b505bb37b4525deb)](https://www.codacy.com/app/shiven15094/susper-com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fossasia/susper.com&amp;utm_campaign=Badge_Grade)
 [![Code Climate](https://codeclimate.com/github/fossasia/susper.com/badges/gpa.svg?branch=gh-pages)](https://codeclimate.com/github/fossasia/susper.com)
-[![codecov](https://codecov.io/gh/fossasia/susper.com/branch/gh-pages/graph/badge.svg)](https://codecov.io/gh/fossasia/gh-pages)
+[![codecov](https://codecov.io/gh/fossasia/susper.com/branch/master/graph/badge.svg)](https://codecov.io/gh/fossasia/susper.com)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fossasia/susper.com?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Communication
 
-Our chat channel is on gitter here: https://gitter.im/fossasia/susper.com
+Our chat channel is on gitter : https://gitter.im/fossasia/susper.com
 
 ## Components and Technology
 
@@ -35,7 +35,7 @@ Search results are displayed using Solr server which is embedded into YaCy. All 
 ## Installation
 First we will need to install angular-cli by using the following command:
 ```sh
-$ npm install -g angular-cli
+$ npm install -g @angular/cli@latest
 ```
 After installing angular-cli we need to install our required node modules, so we will do that by using the following command:
 ```sh
@@ -45,11 +45,11 @@ $ npm install
 ##### Running on localhost:
 * **Step 1:** Fork susper repository and clone it to your desktop
 * **Step 2:** Then cd into that cloned folder
-* **Step 3:** Then checkout to your master branch `$ git checkout angular`
-* **Step 4:** Deploy locally by running this :```$ ng serve```
+* **Step 3:** Deploy locally by running this :```$ ng serve```
 
 #### For deploying with [Github Pages](https://pages.github.com/):
 With these very simple steps you can have susper deployed:
+
 * **Step 1:** Fork susper repository and clone it to your desktop.
 * **Step 2:** Then checkout to your master branch `$ git checkout angular`
 * **Step 3:** Deploy running this : ```ng build``` and then ```npm run deploy```

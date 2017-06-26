@@ -22,6 +22,13 @@ import { AboutComponent } from '../about/about.component';
 import { Ng2Bs3ModalModule, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ContactComponent } from '../contact/contact.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
+import {RelatedSearchComponent} from "../related-search/related-search.component";
+import {AutocompleteService} from "../autocomplete.service";
+import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
+import { ThemeComponent } from '../theme/theme.component';
+import { ThemeService } from '../theme.service';
+import { SpeechService } from '../speech.service';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 describe('IndexComponent', () => {
   let component: IndexComponent;
@@ -52,7 +59,16 @@ describe('IndexComponent', () => {
         ContactComponent,
         ModalComponent,
         InfoboxComponent,
-      ]
+        RelatedSearchComponent,
+        AutoCompleteComponent,
+        ThemeComponent,
+        DropdownComponent
+      ],
+      providers: [
+        AutocompleteService,
+        ThemeService,
+        SpeechService
+      ],
     })
       .compileComponents();
   }));

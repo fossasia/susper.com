@@ -34,3 +34,32 @@ div a {
   }
 }
 
+.dropup{
+  cursor: pointer;
+}
+
+#fsett {
+  background: #fff;
+  border: 1px solid #999;
+  bottom: 30px;
+  padding: 10px 0;
+  position: absolute;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  z-index: 104;
+  margin-left: -85%;
+  margin-bottom: -9%;
+}
+
+#fsett a {
+  display: block;
+  line-height: 44px;
+  padding: 0 20px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+#fsett a:hover {
+  text-decoration: underline;
+  background-color: white;
+}

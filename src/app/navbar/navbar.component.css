@@ -1,12 +1,10 @@
 .navbar-brand{
     width: 140px;
     height: auto;
+    padding: 15px 15px 0px 15px;
+    margin-right: 26px;
 }
 
-.menu-image{
-  width: 60px;
-  height: 50px;
-}
 .navbar-default{
   border-bottom: none;
 }
@@ -17,31 +15,8 @@
   padding-top: 0.4%;
 }
 
-.menu-drop-image{
-  width: 25px;
-  height: auto;
-}
-
-.header{
-  display: inline-block;
-  width: 70px;
-  padding: 4%;
-  text-align: center;
-}
-
-.header-text{
-  font-size: small;
-  width: inherit;
-  text-align: center;
-}
-
-.dropdown-menu{
-  width: 100px;
-}
-
-.dropdown {
-  position: relative;
-  margin-left: -10px;
+#navcontainer {
+  height: 65px;
 }
 
 #navcontainer ul {
@@ -147,8 +122,4 @@
   .navbar-brand{
     margin-left: 30%;
   }
-}
-
-.fa {
-  color: #808080;
 }

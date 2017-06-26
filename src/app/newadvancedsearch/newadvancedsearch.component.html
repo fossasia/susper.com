@@ -1,7 +1,3 @@
-<!-- Start ignoring BootLintBear-->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
-<!-- Stop ignoring BootLintBear-->
 <nav class="navbar navbar-default nav-about">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -11,7 +7,7 @@
         <span class = "icon-bar"></span>
         <span class = "icon-bar"></span>
       </button>
-      <a class="navbar-brand advsearch-navbar" href="//susper.com">
+      <a class="navbar-brand advsearch-navbar" routerLink="/">
         <img alt="brand" class="navbar-logo" src="../../assets/images/susper.svg">
       </a>
     </div>
@@ -28,32 +24,34 @@
 
 
 <div class="container">
-  <h3 style="color: #dd4b39;font-family: Arial,SansSerif">Advanced Search</h3>
-  <hr>
-    <h4>Find pages with</h4>
+  <h3 class="advanced-search-heading">Advanced Search</h3>
+  <hr id="top-line">
+    <h3 class="label-heading">Find pages with...</h3>
     <form>
       <div class="row">
         <div class="form-group">
-          <div class="col-md-4"><label for="words">all these words:</label></div>
+          <div class="col-md-4"><label class="label-search" for="words">all these words:</label></div>
           <div class="col-md-6"><input type="text" class="form-control" id="words"></div>
         </div>
         <div class="form-group">
-          <div class="col-md-4"><label for="exact">this exact word or phrase</label></div>
+          <div class="col-md-4"><label class="label-search" for="exact">this exact word or phrase:</label></div>
           <div class="col-md-6"><input type="text" class="form-control" id="exact"></div>
         </div>
         <div class="form-group">
-          <div class="col-md-4"><label for="any">any of these words</label></div>
+          <div class="col-md-4"><label class="label-search" for="any">any of these words:</label></div>
           <div class="col-md-6"><input type="text" class="form-control" id="any"></div>
         </div>
         <div class="form-group">
-          <div class="col-md-4"><label for="none">none of these words</label></div>
+          <div class="col-md-4"><label class="label-search" for="none">none of these words:</label></div>
           <div class="col-md-6"><input type="text" class="form-control" id="none"></div>
         </div>
         <div class="form-group">
-          <div class="col-md-4"><label for="number">numbers ranging from</label></div>
+          <div class="col-md-4"><label class="label-search" for="number">numbers ranging from:</label></div>
           <div class="col-md-2"><input type="text" class="form-control" id="number"></div>
 
-          <div class="col-md-2" style="text-align: center"><label for="to">to</label></div>
+          <div class="col-md-2" style="text-align: center">
+            <label for="to" class="to-word-alignment">to</label>
+          </div>
           <div class="col-md-2"><input type="text" class="form-control" id="to"></div>
         </div>
 
@@ -61,47 +59,45 @@
     </form>
   <hr>
 
-    <h4>
-      Then narrow your results by...
-    </h4>
+    <h3  class="label-heading">Then narrow your results by...</h3>
     <form>
       <div class="row">
       <div class="form-group">
-        <div class="col-md-4"><label for="language">language</label></div>
-        <div class="col-md-6"><input type="text" class="form-control" id="language"></div>
+        <div class="col-md-4"><label class="label-search" for="language">language:</label></div>
+        <div class="col-md-6"><input type="text" class="form-control" id="language" value="English" disabled></div>
       </div>
       <div class="form-group">
-        <div class="col-md-4"><label for="region">region</label></div>
+        <div class="col-md-4"><label class="label-search" for="region">region:</label></div>
         <div class="col-md-6"><input type="text" class="form-control" id="region"></div>
       </div>
       <div class="form-group">
-        <div class="col-md-4"><label for="last update">last update</label></div>
+        <div class="col-md-4"><label class="label-search" for="last update">last update:</label></div>
         <div class="col-md-6"><input type="text" class="form-control" id="last update"></div>
       </div>
       <div class="form-group">
-        <div class="col-md-4"><label for="site">site</label></div>
+        <div class="col-md-4"><label class="label-search" for="site">site or domain:</label></div>
         <div class="col-md-6"><input type="text" class="form-control" id="site"></div>
       </div>
       <div class="form-group">
-        <div class="col-md-4"><label for="terms appearing">terms appearing</label></div>
+        <div class="col-md-4"><label class="label-search" for="terms appearing">terms appearing:</label></div>
         <div class="col-md-6"><input type="text" class="form-control" id="terms appearing"></div>
       </div>
       <div class="form-group">
-        <div class="col-md-4"><label for="safe search">safe search</label></div>
+        <div class="col-md-4"><label class="label-search" for="safe search">safe search:</label></div>
         <div class="col-md-6"><input type="text" class="form-control" id="safe search"></div>
       </div>
       <div class="form-group">
-        <div class="col-md-4"><label for="file type">file type</label></div>
+        <div class="col-md-4"><label class="label-search" for="file type">file type:</label></div>
         <div class="col-md-6"><input type="text" class="form-control" id="file type"></div>
       </div>
       <div class="form-group">
-        <div class="col-md-4"><label for="usage rights">usage rights</label></div>
+        <div class="col-md-4"><label class="label-search" for="usage rights">usage rights:</label></div>
         <div class="col-md-6"><input type="text" class="form-control" id="usage rights"></div>
       </div>
     </div>
     </form>
-  <div>
-    <button style="border-color: white;background-color: #4d90fe;border: 1px solid #3079ed"><span style="color: white">Advanced Search</span></button>
+  <div class="adv-submit">
+    <button class="adv-btn btn"><span class="btn-text">Advanced Search</span></button>
   </div>
 
 </div>

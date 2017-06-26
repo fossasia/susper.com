@@ -24,6 +24,13 @@ import { ModalComponent, Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ContactComponent } from '../contact/contact.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import {KnowledgeapiService} from "../knowledgeapi.service";
+import {RelatedSearchComponent} from "../related-search/related-search.component";
+import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
+import {AutocompleteService} from "../autocomplete.service";
+import { ThemeComponent } from '../theme/theme.component';
+import { ThemeService } from '../theme.service';
+import { SpeechService } from '../speech.service';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -54,8 +61,12 @@ describe('ResultsComponent', () => {
         ContactComponent,
         ModalComponent,
         InfoboxComponent,
+        RelatedSearchComponent,
+        AutoCompleteComponent,
+        ThemeComponent,
+        DropdownComponent
       ],
-      providers: [SearchService, KnowledgeapiService]
+      providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService]
     })
       .compileComponents();
   }));
@@ -82,18 +93,4 @@ describe('ResultsComponent', () => {
     expect(compiled.querySelector('app-advancedsearch')).toBeTruthy();
   });
 
-  it('should display all the search results', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let textResult = compiled.querySelector('div.text-result');
-
-    expect(textResult).toBeTruthy();
-  });
-
-
-  it('should have pagination property', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let pagination = compiled.querySelector('div.pagination-property');
-
-    expect(pagination).toBeTruthy();
-  });
 });
