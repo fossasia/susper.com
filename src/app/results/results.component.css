@@ -131,7 +131,7 @@ a {
   font-size: xx-large;
   color: #1a0dab;
   font-weight: 400;
-  font-family: "Bitstream Vera Sans Mono";
+  font-family: 'Roboto', sans-serif;
 }
 
 .prev, .next{
