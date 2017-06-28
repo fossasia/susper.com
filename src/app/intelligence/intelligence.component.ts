@@ -17,7 +17,6 @@ export class IntelligenceComponent implements OnInit {
     this.wholequery$ = store.select(fromRoot.getwholequery);
     this.wholequery$.subscribe(data => {
       this.intelligence.getintelligentresponse(data.query).subscribe(res => {
-        console.log(res, res.answers , res.answers[0]);
         if (res && res.answers && res.answers[0].actions) {
           this.actions = res.answers[0].actions;
           for (let action of this.actions){

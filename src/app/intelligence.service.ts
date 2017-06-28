@@ -13,10 +13,7 @@ export class IntelligenceService {
   getintelligentresponse(searchquery) {
     let params = new URLSearchParams();
     params.set('q', searchquery);
-    // params.set('QueryClass', 'MaxHits=5');
-
     params.set('callback', 'JSONP_CALLBACK');
-
     return this.jsonp
       .get('http://api.asksusi.com/susi/chat.json', {search: params}).map(res =>
         res.json()
