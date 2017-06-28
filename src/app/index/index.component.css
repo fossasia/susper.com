@@ -91,6 +91,10 @@
 .navbar-fixed-bottom{
   z-index: -1;
 }
+#biglogo{
+  margin: auto;
+  display: block
+}
 
 .navbar-brand
 {
