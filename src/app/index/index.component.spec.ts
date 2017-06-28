@@ -85,9 +85,9 @@ describe('IndexComponent', () => {
 
   it('should have logo with correct alt text property', () => {
     let compiled = fixture.debugElement.nativeElement;
-    let image: HTMLImageElement = compiled.querySelector('h2.yacy img');
+    let image: HTMLImageElement = compiled.querySelector('div img');
     expect(image).toBeTruthy();
-    expect(image.alt).toBe('YaCy');
+    expect(image.alt).toBe('Susper');
   });
 
   it('should have an element app-search-bar', () => {
