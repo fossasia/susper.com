@@ -1,24 +1,28 @@
 <div class="container-fluid">
     <div class="starter-template">
-        <h2 class="yacy">
-            <img src="assets/images/susper.svg" alt="YaCy" id="biglogo" style="margin: auto;"></h2>
-        <h2 class="yacy" id="greeting"></h2>
-        <div id="set-susper-default">
-            <h3>Set Susper as your default search engine on Mozilla!</h3>
-            <ol>
-                <!-- Start ignoring BootLintBear -->
-                <li><button id="install-susper">Install susper</button></li>
-                <li>Mark the checkbox to set Susper as your default search engine</li>
-                <li>Start searching!</li>
-            </ol>
-            <button id="cancel-installation">Cancel</button>
-        </div>
+
+
         <!-- Stop ignoring BootLintBear -->
         <div id="search-bar">
+          <div style="margin: auto">
+            <img src="assets/images/susper.svg" alt="YaCy" id="biglogo">
+          </div>
+          <h2 class="yacy" id="greeting"></h2>
             <app-search-bar></app-search-bar>
         </div>
     </div>
-    <!--starter-template ends here-->
+  <div id="set-susper-default">
+    <h3>Set Susper as your default search engine on Mozilla!</h3>
+    <ol>
+      <!-- Start ignoring BootLintBear -->
+      <li><button id="install-susper">Install susper</button></li>
+      <li>Mark the checkbox to set Susper as your default search engine</li>
+      <li>Start searching!</li>
+    </ol>
+    <button id="cancel-installation">Cancel</button>
+  </div>
+
+  <!--starter-template ends here-->
 </div>
 <!--container-fluid ends here-->
 
