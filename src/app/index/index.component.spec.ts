@@ -87,7 +87,7 @@ describe('IndexComponent', () => {
     let compiled = fixture.debugElement.nativeElement;
     let image: HTMLImageElement = compiled.querySelector('div img');
     expect(image).toBeTruthy();
-    expect(image.alt).toBe('YaCy');
+    expect(image.alt).toBe('Susper');
   });
 
   it('should have an element app-search-bar', () => {
