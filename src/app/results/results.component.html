@@ -109,7 +109,12 @@
             </div>
         </div>
 
-        <br>
+    <div class="social-result" *ngIf="Display('social')">
+        <app-socialmedia></app-socialmedia>
+    </div>
+
+
+    <br>
         <div class="clean"></div>
         <div class="pagination-property" *ngIf="noOfPages>1">
             <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
