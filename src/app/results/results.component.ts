@@ -105,6 +105,15 @@ export class ResultsComponent implements OnInit {
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
+  socialClick() {
+    let urldata = Object.assign({}, this.searchdata);
+    this.getPresentPage(1);
+    this.resultDisplay = 'all';
+    delete urldata.fq;
+    urldata.rows = 10;
+    urldata.resultDisplay = this.resultDisplay;
+    this.store.dispatch(new queryactions.QueryServerAction(urldata));
+  }
 
   incPresentPage() {
     this.presentPage = Math.min(this.noOfPages, this.presentPage + 1);

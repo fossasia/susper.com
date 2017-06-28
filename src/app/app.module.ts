@@ -36,6 +36,7 @@ import { SearchsettingsComponent } from './searchsettings/searchsettings.compone
 import { KnowledgeEffects } from "./effects/knowledge";
 import { SpeechService } from './speech.service';
 import { DropdownComponent } from './dropdown/dropdown.component';
+import { SocialmediaComponent } from './socialmedia/socialmedia.component';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -71,6 +72,7 @@ const appRoutes: Routes = [
     CrawlstartComponent,
     SearchsettingsComponent,
     DropdownComponent,
+    SocialmediaComponent,
   ],
 
   imports: [
