@@ -3,6 +3,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { reducer } from '../reducers/index';
 import { StoreModule } from '@ngrx/store';
 import { InfoboxComponent } from './infobox.component';
+
 import { RouterTestingModule } from "@angular/router/testing";
 import { KnowledgeapiService } from "../knowledgeapi.service";
 

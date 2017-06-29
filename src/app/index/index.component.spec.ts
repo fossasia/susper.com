@@ -13,6 +13,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import {IntelligenceComponent} from "../intelligence/intelligence.component";
 
 import { AutocompleteService } from '../autocomplete.service';
 import { SpeechService } from '../speech.service';
@@ -57,9 +58,9 @@ describe('IndexComponent', () => {
 
   it('should have logo with correct alt text property', () => {
     let compiled = fixture.debugElement.nativeElement;
-    let image: HTMLImageElement = compiled.querySelector('h2.yacy img');
+    let image: HTMLImageElement = compiled.querySelector('div img');
     expect(image).toBeTruthy();
-    expect(image.alt).toBe('YaCy');
+    expect(image.alt).toBe('Susper');
   });
 
   it('should have an element app-search-bar', () => {
