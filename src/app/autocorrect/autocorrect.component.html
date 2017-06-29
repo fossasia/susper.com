@@ -1,0 +1,3 @@
+<p class="sug" *ngIf="sugflag === true">
+  Did you mean: <a [routerLink]="resultsearch" [queryParams]="{query: suggestion}">{{suggestion}}</a>
+</p>

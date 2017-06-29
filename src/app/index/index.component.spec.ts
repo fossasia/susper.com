@@ -30,6 +30,7 @@ import { ThemeService } from '../theme.service';
 import { SpeechService } from '../speech.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
+import {AutocorrectComponent} from "../autocorrect/autocorrect.component";
 
 describe('IndexComponent', () => {
   let component: IndexComponent;
@@ -64,6 +65,7 @@ describe('IndexComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
+        AutocorrectComponent,
         IntelligenceComponent
       ],
       providers: [

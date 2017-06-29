@@ -29,6 +29,7 @@ import { ThemeComponent } from '../theme/theme.component';
 import { SpeechService } from '../speech.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
+import {AutocorrectComponent} from "../autocorrect/autocorrect.component";
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -64,6 +65,7 @@ describe('SearchBarComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
+        AutocorrectComponent,
         IntelligenceComponent
       ],
       providers: [

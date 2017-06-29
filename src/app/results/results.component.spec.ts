@@ -33,6 +33,8 @@ import { SpeechService } from '../speech.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {IntelligenceService} from "../intelligence.service";
+import {AutocorrectComponent} from "../autocorrect/autocorrect.component";
+import {AutoCorrectService} from "../autocorrect.service";
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -67,9 +69,10 @@ describe('ResultsComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
+        AutocorrectComponent,
         IntelligenceComponent
       ],
-      providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService, IntelligenceService]
+      providers: [SearchService, KnowledgeapiService, AutocompleteService, AutoCorrectService, ThemeService, SpeechService, IntelligenceService]
     })
       .compileComponents();
   }));
