@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfoboxComponent } from './infobox.component';
+
 import {AppComponent} from "../app.component";
 import {NavbarComponent} from "../navbar/navbar.component";
 import {IndexComponent} from "../index/index.component";
@@ -26,10 +26,12 @@ import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import { ThemeComponent } from '../theme/theme.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
+import {IntelligenceService} from "../intelligence.service";
+import {InfoboxComponent} from "../infobox/infobox.component";
 
-describe('InfoboxComponent', () => {
-  let component: InfoboxComponent;
-  let fixture: ComponentFixture<InfoboxComponent>;
+describe('IntelligenceComponent', () => {
+  let component: IntelligenceComponent;
+  let fixture: ComponentFixture<IntelligenceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -63,14 +65,15 @@ describe('InfoboxComponent', () => {
         IntelligenceComponent
       ],
       providers: [
-        KnowledgeapiService
+        IntelligenceService
       ],
+
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InfoboxComponent);
+    fixture = TestBed.createComponent(IntelligenceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
