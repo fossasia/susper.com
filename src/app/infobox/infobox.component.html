@@ -1,10 +1,10 @@
 <div *ngIf="results?.length > 0" class="card">
 <div>
-  <h2><b>{{this.results[0].label}}</b></h2>
-  <p>{{this.results[0].description}}</p>
+  <h2 class="heading"><b>{{this.results[0].label}}</b></h2>
+  <p class="description">{{this.results[0].description}}</p>
 </div>
 <div class="card-container">
-  <h3><b>Related Searches</b></h3>
+  <h3 class="related-searches"><b>Related Searches</b></h3>
 
   <div *ngFor="let result of results">
     <a [routerLink]="resultsearch" [queryParams]="{query: result.label}">{{result.label}}</a>
