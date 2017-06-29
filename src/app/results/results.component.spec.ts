@@ -31,6 +31,8 @@ import { ThemeComponent } from '../theme/theme.component';
 import { ThemeService } from '../theme.service';
 import { SpeechService } from '../speech.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import {IntelligenceComponent} from "../intelligence/intelligence.component";
+import {IntelligenceService} from "../intelligence.service";
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -64,9 +66,10 @@ describe('ResultsComponent', () => {
         RelatedSearchComponent,
         AutoCompleteComponent,
         ThemeComponent,
-        DropdownComponent
+        DropdownComponent,
+        IntelligenceComponent
       ],
-      providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService]
+      providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService, IntelligenceService]
     })
       .compileComponents();
   }));
