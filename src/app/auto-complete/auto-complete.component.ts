@@ -9,11 +9,14 @@ import * as fromRoot from '../reducers';
   templateUrl: './auto-complete.component.html',
   styleUrls: ['./auto-complete.component.css']
 })
+
 export class AutoCompleteComponent implements OnInit {
   results: Array<any>;
   query$: any;
   resultsearch = '/search';
+
   @Output() hidecomponent: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(private autocompleteservice: AutocompleteService, private route: Router, private activatedroute: ActivatedRoute,
               private store: Store<fromRoot.State>, private ref: ChangeDetectorRef) {
     this.query$ = store.select(fromRoot.getquery);
