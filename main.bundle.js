@@ -2623,6 +2623,7 @@ var SearchBarComponent = (function () {
             this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': event.target.value, start: 0, rows: this.searchdata.rows }));
             this.displayStatus = 'hidebox';
             event.target.blur();
+            event.preventDefault();
             this.submit();
         }
     };
