@@ -38,7 +38,7 @@ describe('IndexComponent', () => {
         FooterNavbarComponent,
         DropdownComponent,
         AutocorrectComponent,
-        IntelligenceComponent
+        IntelligenceComponent,
         AutoCompleteComponent
       ],
       providers: [
