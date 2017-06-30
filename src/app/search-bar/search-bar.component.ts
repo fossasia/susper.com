@@ -51,17 +51,17 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.displayStatus = 'showbox';
     }
   }
+
   onEnter(event: any) {
     if (event.which === 13) {
       this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: 0, rows: this.searchdata.rows}));
       this.displayStatus = 'hidebox';
       event.target.blur();
+      event.preventDefault();
       this.submit();
-
     }
-
-
   }
+
   onquery(event: any) {
     this.store.dispatch(new query.QueryAction(event));
     let instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
