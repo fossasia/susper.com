@@ -11,7 +11,6 @@ import {Observable} from 'rxjs';
 export class SearchService {
   server = 'yacy.searchlab.eu';
   searchURL = 'http://' + this.server + '/solr/select?callback=?';
-  suggestUrl = 'http://' + this.server + '/suggest.json?callback=?';
   homepage = 'http://susper.com';
   logo = '../images/susper.svg';
   Items: any;
