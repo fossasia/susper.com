@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule, JsonpModule } from '@angular/http';
-import { reducer } from '../reducers/index';
-import { StoreModule } from '@ngrx/store';
 import { InfoboxComponent } from './infobox.component';
-
 import { RouterTestingModule } from "@angular/router/testing";
+
 import { KnowledgeapiService } from "../knowledgeapi.service";
+import { reducer } from "../reducers/index";
+import { StoreModule } from "@ngrx/store";
 
 describe('Component: InfoboxComponent', () => {
   let component: InfoboxComponent;
@@ -17,16 +17,16 @@ describe('Component: InfoboxComponent', () => {
         RouterTestingModule,
         HttpModule,
         JsonpModule,
-        StoreModule.provideStore(reducer)
+        StoreModule.provideStore(reducer),
       ],
       declarations: [
-        InfoboxComponent
+        InfoboxComponent,
       ],
       providers: [
         KnowledgeapiService,
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -35,8 +35,34 @@ describe('Component: InfoboxComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create an InfoboxComponent', () => {
+  it('should create Infobox component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have infobox heading same as query', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('h2.heading')).toBeTruthy();
+  });
+
+  it('should have infobox description related to query', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('p.description')).toBeTruthy();
+  });
+
+  it('should have related searches', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('.card div#relate')).toBeTruthy();
+  });
+
+  it('should have results variable declared as Array<any>', () => {
+    expect(component.results).toBeTruthy();
+  });
+
+  it('should have response$ observables', () => {
+    expect(component.response$).toBeTruthy();
   });
 
 });
