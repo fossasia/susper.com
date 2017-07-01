@@ -10,7 +10,7 @@
       <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()">
         <img src="../../assets/images/microphone.png" class="microphone" (click)="speechRecognition()"/>
       </button>
-      <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()">
+      <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()" *ngIf="this.resultspage">
         <i class="glyphicon glyphicon-search"></i>
       </button>
     </div>

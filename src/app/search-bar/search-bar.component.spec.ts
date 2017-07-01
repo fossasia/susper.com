@@ -10,7 +10,6 @@ import { AutocompleteService } from "../autocomplete.service";
 import { AutoCompleteComponent } from "../auto-complete/auto-complete.component";
 import { SpeechService } from '../speech.service';
 
-
 describe('Component: SearchBarComponent', () => {
   let component: SearchBarComponent;
   let fixture: ComponentFixture<SearchBarComponent>;

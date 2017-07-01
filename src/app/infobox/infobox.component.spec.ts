@@ -1,13 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpModule, JsonpModule } from '@angular/http';
 import { InfoboxComponent } from './infobox.component';
-
 import { RouterTestingModule } from "@angular/router/testing";
-import { HttpModule, JsonpModule } from "@angular/http";
+
 import { KnowledgeapiService } from "../knowledgeapi.service";
 import { reducer } from "../reducers/index";
 import { StoreModule } from "@ngrx/store";
-
 
 describe('Component: InfoboxComponent', () => {
   let component: InfoboxComponent;
@@ -25,7 +23,7 @@ describe('Component: InfoboxComponent', () => {
         InfoboxComponent,
       ],
       providers: [
-        KnowledgeapiService
+        KnowledgeapiService,
       ],
     })
       .compileComponents();
