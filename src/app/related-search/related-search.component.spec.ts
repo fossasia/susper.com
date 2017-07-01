@@ -30,6 +30,7 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
 import {SocialmediaComponent} from "../socialmedia/socialmedia.component";
 import {MediaWallComponent} from "../media-wall/media-wall.component";
 import {MediaWallLinkerComponent} from "../wall-linker/wall-linker.component";
+import {IntelligenceComponent} from "../intelligence/intelligence.component";
 
 describe('RelatedSearchComponent', () => {
   let component: RelatedSearchComponent;
@@ -67,6 +68,7 @@ describe('RelatedSearchComponent', () => {
         SocialmediaComponent,
         MediaWallComponent,
         MediaWallLinkerComponent
+        IntelligenceComponent
       ],
       providers: [
         KnowledgeapiService

@@ -40,7 +40,8 @@ import { SocialmediaComponent } from './socialmedia/socialmedia.component';
 import {SocialmediaService} from "./socialmedia.service";
 import { MediaWallComponent } from './media-wall/media-wall.component';
 import { MediaWallLinkerComponent } from './wall-linker/wall-linker.component';
-
+import { IntelligenceComponent } from './intelligence/intelligence.component';
+import {IntelligenceService} from "./intelligence.service";
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -79,7 +80,7 @@ const appRoutes: Routes = [
     SocialmediaComponent,
     MediaWallComponent,
     MediaWallLinkerComponent
-
+    IntelligenceComponent,
   ],
 
   imports: [
@@ -104,6 +105,7 @@ const appRoutes: Routes = [
     SpeechService,
     CrawlstartService,
     SocialmediaService
+    IntelligenceService
   ],
 
   bootstrap: [AppComponent]

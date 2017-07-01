@@ -31,6 +31,7 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
 import {SocialmediaComponent} from "../socialmedia/socialmedia.component";
 import {MediaWallComponent} from "../media-wall/media-wall.component";
 import {MediaWallLinkerComponent} from "../wall-linker/wall-linker.component";
+import {IntelligenceComponent} from "../intelligence/intelligence.component";
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -69,6 +70,7 @@ describe('SearchBarComponent', () => {
         SocialmediaComponent,
         MediaWallComponent,
         MediaWallLinkerComponent
+        IntelligenceComponent
       ],
       providers: [
         AutocompleteService,
