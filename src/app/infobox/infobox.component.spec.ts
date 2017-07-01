@@ -25,6 +25,9 @@ import {RelatedSearchComponent} from "../related-search/related-search.component
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import { ThemeComponent } from '../theme/theme.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import {SocialmediaComponent} from "../socialmedia/socialmedia.component";
+import {MediaWallComponent} from "../media-wall/media-wall.component";
+import {MediaWallLinkerComponent} from "../wall-linker/wall-linker.component";
 
 describe('InfoboxComponent', () => {
   let component: InfoboxComponent;
@@ -58,7 +61,10 @@ describe('InfoboxComponent', () => {
         RelatedSearchComponent,
         AutoCompleteComponent,
         ThemeComponent,
-        DropdownComponent
+        DropdownComponent,
+        SocialmediaComponent,
+        MediaWallComponent,
+        MediaWallLinkerComponent
       ],
       providers: [
         KnowledgeapiService

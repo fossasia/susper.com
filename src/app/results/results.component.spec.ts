@@ -31,6 +31,9 @@ import { ThemeComponent } from '../theme/theme.component';
 import { ThemeService } from '../theme.service';
 import { SpeechService } from '../speech.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import {SocialmediaComponent} from "../socialmedia/socialmedia.component";
+import {MediaWallLinkerComponent} from "../wall-linker/wall-linker.component";
+import {MediaWallComponent} from "../media-wall/media-wall.component";
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -64,7 +67,10 @@ describe('ResultsComponent', () => {
         RelatedSearchComponent,
         AutoCompleteComponent,
         ThemeComponent,
-        DropdownComponent
+        DropdownComponent,
+        SocialmediaComponent,
+        MediaWallComponent,
+        MediaWallLinkerComponent
       ],
       providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService]
     })

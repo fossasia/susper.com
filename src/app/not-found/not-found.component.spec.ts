@@ -28,6 +28,9 @@ import {AutocompleteService} from "../autocomplete.service";
 import { ThemeComponent } from '../theme/theme.component';
 import { SpeechService } from '../speech.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import {SocialmediaComponent} from "../socialmedia/socialmedia.component";
+import {MediaWallLinkerComponent} from "../wall-linker/wall-linker.component";
+import {MediaWallComponent} from "../media-wall/media-wall.component";
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -61,7 +64,10 @@ describe('NotFoundComponent', () => {
         RelatedSearchComponent,
         AutoCompleteComponent,
         ThemeComponent,
-        DropdownComponent
+        DropdownComponent,
+        SocialmediaComponent,
+        MediaWallComponent,
+        MediaWallLinkerComponent
       ],
       providers: [
         AutocompleteService,

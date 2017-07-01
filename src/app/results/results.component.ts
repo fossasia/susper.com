@@ -99,7 +99,7 @@ export class ResultsComponent implements OnInit {
   docClick() {
     let urldata = Object.assign({}, this.searchdata);
     this.getPresentPage(1);
-    this.resultDisplay = 'social';
+    this.resultDisplay = 'all';
     delete urldata.fq;
     urldata.rows = 10;
     urldata.resultDisplay = this.resultDisplay;
@@ -108,7 +108,7 @@ export class ResultsComponent implements OnInit {
   socialClick() {
     let urldata = Object.assign({}, this.searchdata);
     this.getPresentPage(1);
-    this.resultDisplay = 'all';
+    this.resultDisplay = 'social';
     delete urldata.fq;
     urldata.rows = 10;
     urldata.resultDisplay = this.resultDisplay;

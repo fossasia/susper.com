@@ -25,6 +25,9 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterTestingModule} from "@angular/router/testing";
 import { ThemeComponent } from '../theme/theme.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import {SocialmediaComponent} from "../socialmedia/socialmedia.component";
+import {MediaWallComponent} from "../media-wall/media-wall.component";
+import {MediaWallLinkerComponent} from "../wall-linker/wall-linker.component";
 
 describe('AutoCompleteComponent', () => {
   let component: AutoCompleteComponent;
@@ -58,7 +61,10 @@ describe('AutoCompleteComponent', () => {
         RelatedSearchComponent,
         AutoCompleteComponent,
         ThemeComponent,
-        DropdownComponent
+        DropdownComponent,
+        SocialmediaComponent,
+        MediaWallComponent,
+        MediaWallLinkerComponent
       ],
       providers: [
        AutocompleteService ]
