@@ -1,5 +1,23 @@
 # Change Log
 
+## v2.5.0
+**Bugfixes:**
+* `isFunctionWithBody` handles constructor overload correctly.
+
+**Features:**
+* Implemented `isExpressionValueUsed` to check whether the result of an expression is actually used.
+* Implemented `getDeclarationDomain` to determine if a given declaration introduces a new symbol in the value or type domain.
+
+**`collectVariableUses` is now usable**
+* no longer ignores signatures and its parameters
+* don't merge declarations and uses across domains
+* no longer marks exceptions in catch clause or parameter properties as exported
+* fixed exports of namespaces
+* fixed scoping of ClassExpression name
+* correcly handle ambient namespaces and module augmentations
+* fixed how `: typeof foo` is handled for parameters and function return type
+* **still WIP**: `export {Foo as Bar}` inside ambient namespaces and modules
+
 ## v2.4.0
 **Bugfixes:**
 * `getLineRanges`: `contentLength` now contains the correct line length when there are multiple consecutive line break characters

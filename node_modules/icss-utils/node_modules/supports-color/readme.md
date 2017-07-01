@@ -37,16 +37,16 @@ The returned object specifies a level of support for color through a `.level` pr
 
 - `.level = 1` and `.hasBasic = true`: Basic color support (16 colors)
 - `.level = 2` and `.has256 = true`: 256 color support
-- `.level = 3` and `.has16m = true`: 16 million (truecolor) support
+- `.level = 3` and `.has16m = true`: Truecolor support (16 million colors)
 
 
 ## Info
 
 It obeys the `--color` and `--no-color` CLI flags.
 
-For situations where using `--color` is not possible, add an environment variable `FORCE_COLOR=1` to forcefully enable color and `FORCE_COLOR=0` forcefully disable. The use of `FORCE_COLOR` overrides all other color checks performed by this module.
+Can be overridden by the user with the flags `--color` and `--no-color`. For situations where using `--color` is not possible, add the environment variable `FORCE_COLOR=1` to forcefully enable color or `FORCE_COLOR=0` to forcefully disable. The use of `FORCE_COLOR` overrides all other color support checks.
 
-Explicit 256/truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively.
+Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively.
 
 
 ## Related

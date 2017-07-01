@@ -1,8 +1,8 @@
 /*!
  * isobject <https://github.com/jonschlinkert/isobject>
  *
- * Copyright (c) 2014-2015, Jon Schlinkert.
- * Licensed under the MIT License.
+ * Copyright (c) 2014-2017, Jon Schlinkert.
+ * Released under the MIT License.
  */
 
 'use strict';

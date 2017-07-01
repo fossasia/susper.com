@@ -5,17 +5,10 @@ const common_tags_1 = require("common-tags");
 const chalk = require("chalk");
 const fs = require("fs");
 const path = require("path");
+const os_1 = require("os");
 const find_up_1 = require("../utilities/find-up");
 exports.CLI_CONFIG_FILE_NAME = '.angular-cli.json';
 const CLI_CONFIG_FILE_NAME_ALT = 'angular-cli.json';
-function getUserHome() {
-    const envHomeName = (process.platform.startsWith('win')) ? 'USERPROFILE' : 'HOME';
-    const env = process.env[envHomeName];
-    if (env == null) {
-        throw new Error('Missing environment variable ' + envHomeName);
-    }
-    return env;
-}
 const configCacheMap = new Map();
 class CliConfig extends config_1.CliConfig {
     static configFilePath(projectPath) {
@@ -41,9 +34,12 @@ class CliConfig extends config_1.CliConfig {
         return value;
     }
     static globalConfigFilePath() {
-        let globalConfigPath = path.join(getUserHome(), exports.CLI_CONFIG_FILE_NAME);
-        const altGlobalConfigPath = path.join(getUserHome(), CLI_CONFIG_FILE_NAME_ALT);
-        if (!fs.existsSync(globalConfigPath) && fs.existsSync(altGlobalConfigPath)) {
+        const globalConfigPath = path.join(os_1.homedir(), exports.CLI_CONFIG_FILE_NAME);
+        if (fs.existsSync(globalConfigPath)) {
+            return globalConfigPath;
+        }
+        const altGlobalConfigPath = path.join(os_1.homedir(), CLI_CONFIG_FILE_NAME_ALT);
+        if (fs.existsSync(altGlobalConfigPath)) {
             return altGlobalConfigPath;
         }
         return globalConfigPath;
@@ -88,11 +84,7 @@ class CliConfig extends config_1.CliConfig {
         if (configCacheMap.has(configPath)) {
             return configCacheMap.get(configPath);
         }
-        let globalConfigPath = path.join(getUserHome(), exports.CLI_CONFIG_FILE_NAME);
-        const altGlobalConfigPath = path.join(getUserHome(), CLI_CONFIG_FILE_NAME_ALT);
-        if (!fs.existsSync(globalConfigPath) && fs.existsSync(altGlobalConfigPath)) {
-            globalConfigPath = altGlobalConfigPath;
-        }
+        const globalConfigPath = CliConfig.globalConfigFilePath();
         const cliConfig = config_1.CliConfig.fromConfigPath(configPath, [globalConfigPath]);
         const aliases = [
             cliConfig.alias('apps.0.root', 'defaults.sourceDir'),

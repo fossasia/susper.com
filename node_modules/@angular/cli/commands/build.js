@@ -94,7 +94,8 @@ exports.baseBuildCommandOptions = [
     },
     {
         name: 'watch',
-        type: Boolean, default: false,
+        type: Boolean,
+        default: false,
         aliases: ['w'],
         description: 'Run build when files change.'
     },
@@ -123,6 +124,18 @@ exports.baseBuildCommandOptions = [
         default: true,
         aliases: ['dop'],
         description: 'Delete output path before build.'
+    },
+    {
+        name: 'preserve-symlinks',
+        type: Boolean,
+        default: false,
+        description: 'Do not use the real path when resolving modules.'
+    },
+    {
+        name: 'extract-licenses',
+        type: Boolean,
+        default: true,
+        description: 'Extract all licenses in a separate file, in the case of production builds only.'
     }
 ];
 const BuildCommand = Command.extend({

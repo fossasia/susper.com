@@ -1,3 +1,8 @@
+3.0.0 / 2017-04-25
+------------------
+
+- Changed behavior of `throws` option for `readFileSync`; now does not throw filesystem errors when `throws` is `false`
+
 2.4.0 / 2016-09-15
 ------------------
 ### Changed

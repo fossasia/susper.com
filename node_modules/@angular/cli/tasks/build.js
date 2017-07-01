@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const rimraf = require("rimraf");
+const fs = require("fs-extra");
 const path = require("path");
 const webpack = require("webpack");
 const app_utils_1 = require("../utilities/app-utils");
 const webpack_config_1 = require("../models/webpack-config");
 const utils_1 = require("../models/webpack-configs/utils");
 const config_1 = require("../models/config");
-const fs = require('fs');
 const Task = require('../ember-cli/lib/models/task');
 const SilentError = require('silent-error');
 exports.default = Task.extend({
@@ -22,7 +21,7 @@ exports.default = Task.extend({
             throw new SilentError('An ejected project cannot use the build command anymore.');
         }
         if (runTaskOptions.deleteOutputPath) {
-            rimraf.sync(path.resolve(this.project.root, outputPath));
+            fs.removeSync(path.resolve(this.project.root, outputPath));
         }
         const webpackConfig = new webpack_config_1.NgCliWebpackConfig(runTaskOptions, app).buildConfig();
         const webpackCompiler = webpack(webpackConfig);
