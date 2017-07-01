@@ -72,7 +72,7 @@ describe('ResultsComponent', () => {
         DropdownComponent,
         SocialmediaComponent,
         MediaWallComponent,
-        MediaWallLinkerComponent
+        MediaWallLinkerComponent,
         IntelligenceComponent
       ],
       providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService, IntelligenceService]

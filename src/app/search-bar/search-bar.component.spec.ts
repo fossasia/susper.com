@@ -69,7 +69,7 @@ describe('SearchBarComponent', () => {
         DropdownComponent,
         SocialmediaComponent,
         MediaWallComponent,
-        MediaWallLinkerComponent
+        MediaWallLinkerComponent,
         IntelligenceComponent
       ],
       providers: [
