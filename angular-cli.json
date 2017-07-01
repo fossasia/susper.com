@@ -20,9 +20,7 @@
       "styles": [
         "styles.css"
       ],
-      "scripts": [
-        "../node_modules/jquery/dist/jquery.min.js"
-      ],
+      "scripts": [],
       "environmentSource":"environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
