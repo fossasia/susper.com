@@ -28,6 +28,9 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {IntelligenceService} from "../intelligence.service";
 import {InfoboxComponent} from "../infobox/infobox.component";
+import {SocialmediaComponent} from "../socialmedia/socialmedia.component";
+import {MediaWallComponent} from "../media-wall/media-wall.component";
+import {MediaWallLinkerComponent} from "../wall-linker/wall-linker.component";
 
 describe('IntelligenceComponent', () => {
   let component: IntelligenceComponent;
@@ -62,7 +65,10 @@ describe('IntelligenceComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
-        IntelligenceComponent
+        IntelligenceComponent,
+        SocialmediaComponent,
+        MediaWallComponent,
+        MediaWallLinkerComponent
       ],
       providers: [
         IntelligenceService

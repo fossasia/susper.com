@@ -79,7 +79,7 @@ const appRoutes: Routes = [
     DropdownComponent,
     SocialmediaComponent,
     MediaWallComponent,
-    MediaWallLinkerComponent
+    MediaWallLinkerComponent,
     IntelligenceComponent,
   ],
 
@@ -104,7 +104,7 @@ const appRoutes: Routes = [
     ThemeService,
     SpeechService,
     CrawlstartService,
-    SocialmediaService
+    SocialmediaService,
     IntelligenceService
   ],
 
