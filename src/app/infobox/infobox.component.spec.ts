@@ -6,6 +6,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { KnowledgeapiService } from "../knowledgeapi.service";
 import { reducer } from "../reducers/index";
 import { StoreModule } from "@ngrx/store";
+import {MockKnowledgeApi} from "../shared/mock-backend/knowledge.mock";
 
 describe('Component: InfoboxComponent', () => {
   let component: InfoboxComponent;
@@ -23,7 +24,7 @@ describe('Component: InfoboxComponent', () => {
         InfoboxComponent,
       ],
       providers: [
-        KnowledgeapiService,
+        { provide: KnowledgeapiService, useValue: MockKnowledgeApi}
       ],
     })
       .compileComponents();
@@ -32,6 +33,7 @@ describe('Component: InfoboxComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(InfoboxComponent);
     component = fixture.componentInstance;
+    component.results = MockKnowledgeApi.results;
     fixture.detectChanges();
   });
 
