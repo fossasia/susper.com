@@ -67,7 +67,7 @@ describe('RelatedSearchComponent', () => {
         DropdownComponent,
         SocialmediaComponent,
         MediaWallComponent,
-        MediaWallLinkerComponent
+        MediaWallLinkerComponent,
         IntelligenceComponent
       ],
       providers: [
