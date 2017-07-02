@@ -33,6 +33,8 @@ import { SpeechService } from '../speech.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {IntelligenceService} from "../intelligence.service";
+import { MapService } from '../map.service';
+import { GeocodingService } from '../geocoding.service';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -69,7 +71,16 @@ describe('ResultsComponent', () => {
         DropdownComponent,
         IntelligenceComponent
       ],
-      providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService, IntelligenceService]
+      providers: [
+        SearchService,
+        KnowledgeapiService,
+        AutocompleteService,
+        ThemeService,
+        SpeechService,
+        IntelligenceService,
+        GeocodingService,
+        MapService
+      ]
     })
       .compileComponents();
   }));

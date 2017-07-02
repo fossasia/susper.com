@@ -6,6 +6,11 @@ import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';
 import { Store } from '@ngrx/store';
 import * as queryactions from '../actions/query';
+import { MapService } from '../map.service';
+import { GeocodingService } from '../geocoding.service';
+import { Location } from '../shared/maps/location.class';
+import L from 'leaflet';
+
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -28,7 +33,6 @@ export class ResultsComponent implements OnInit {
     query: '',
     start: 0,
     rows: 10,
-
   };
 
   querylook = {};
@@ -70,9 +74,7 @@ export class ResultsComponent implements OnInit {
   }
 
   Display(S) {
-
     return (this.resultDisplay === S);
-
   }
 
   videoClick() {
@@ -120,8 +122,20 @@ export class ResultsComponent implements OnInit {
     return ((this.presentPage) === page);
   }
 
-  constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
-              private store: Store<fromRoot.State>, private ref: ChangeDetectorRef, public themeService: ThemeService) {
+  mapsClick() {
+
+  }
+
+  constructor(
+    private searchservice: SearchService,
+    private route: Router,
+    private activatedroute: ActivatedRoute,
+    private store: Store<fromRoot.State>,
+    private ref: ChangeDetectorRef,
+    public themeService: ThemeService,
+    private mapService: MapService,
+    private geocoder: GeocodingService
+  ) {
 
     this.activatedroute.queryParams.subscribe(query => {
       let urldata = Object.assign({}, this.searchdata);
@@ -169,7 +183,7 @@ export class ResultsComponent implements OnInit {
       this.totalResults = totalResults;
       this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
       this.totalNumber = totalResults;
-        this.message = 'About ' + totalResults + ' results';
+      this.message = 'About ' + totalResults + ' results';
       this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
       this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
     });
@@ -187,5 +201,26 @@ export class ResultsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    let map = L.map("map", {
+      zoomControl: false,
+      center: L.latLng(40.731253, -73.996139),
+      zoom: 12,
+      minZoom: 4,
+      maxZoom: 19,
+      layers: [this.mapService.baseMaps.OpenStreetMap]
+    });
+
+    L.control.zoom({ position: "topright" }).addTo(map);
+    L.control.layers(this.mapService.baseMaps).addTo(map);
+    L.control.scale().addTo(map);
+
+    this.mapService.map = map;
+    this.geocoder.getCurrentLocation()
+      .subscribe(
+      location => map.panTo([location.latitude, location.longitude]),
+      err => console.error(err)
+      );
   }
+
 }

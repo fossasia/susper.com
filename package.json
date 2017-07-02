@@ -63,6 +63,7 @@
     "karma-jasmine": "^1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-remap-istanbul": "^0.6.0",
+    "leaflet": "^1.1.0",
     "protractor": "5.1.2",
     "ts-node": "3.0.4",
     "tslint": "^5.4.0",

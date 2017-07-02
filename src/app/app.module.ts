@@ -38,6 +38,8 @@ import { SpeechService } from './speech.service';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { IntelligenceComponent } from './intelligence/intelligence.component';
 import {IntelligenceService} from "./intelligence.service";
+import { MapService } from './map.service';
+import { GeocodingService } from './geocoding.service';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -97,7 +99,9 @@ const appRoutes: Routes = [
     ThemeService,
     SpeechService,
     CrawlstartService,
-    IntelligenceService
+    IntelligenceService,
+    MapService,
+    GeocodingService
   ],
 
   bootstrap: [AppComponent]
