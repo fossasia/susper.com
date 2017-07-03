@@ -8,7 +8,9 @@ describe('MapService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpModule
+        HttpModule,
+        Map,
+        L
       ],
       providers: [
         MapService
