@@ -29,6 +29,7 @@
     "@ngrx/router-store": "^1.2.6",
     "@ngrx/store": "^2.2.2",
     "@ngrx/store-devtools": "^3.2.4",
+    "@types/leaflet": "^1.0.63",
     "codecov.io": "^0.1.6",
     "core-js": "^2.4.1",
     "express": "^4.15.3",
@@ -37,11 +38,11 @@
     "reselect": "^3.0.1",
     "rxjs": "5.4.0",
     "ts-helpers": "^1.1.2",
-    "zone.js": "^0.8.11",
     "ts-node": "3.0.4",
     "tslint": "^5.4.0",
     "typescript": "~2.3.4",
-    "webdriver-manager": "12.0.6"
+    "webdriver-manager": "12.0.6",
+    "zone.js": "^0.8.11"
   },
   "devDependencies": {
     "@angular/cli": "^1.1.0",
