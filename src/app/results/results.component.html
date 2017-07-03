@@ -3,6 +3,7 @@
     <div class="container-fluid" id="search-options-field">
         <ul type="none" id="search-options">
             <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
+            <li [class.active_view]="Display('maps')" (click)="mapsClick()">Maps</li>
             <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
             <li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li>
           <li class="dropdown">
@@ -67,6 +68,9 @@
 
   <app-infobox [hidden]="hidefooter" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
   <!-- END -->
+  <div id="map">
+    <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
+  </div>
     <!-- Image section -->
     <div class="container">
         <div class="grid" *ngIf="Display('images')">
