@@ -1,25 +1,41 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "commonjs": true
+  'env': {
+    'browser': true,
+    'commonjs': true,
+    'node': true,
+    'es6': true
   },
-  "extends": "eslint:recommended",
-  "rules": {
-    "indent": [
-      "error",
-      2
+  'parserOptions': {
+    'ecmaVersion': 8
+  },
+  'extends': 'eslint:recommended',
+  'rules': {
+    'indent': [
+      'error',
+      2,
+      {
+        'FunctionDeclaration': {
+          'parameters': 'first'
+        },
+        'FunctionExpression': {
+          'parameters': 'first'
+        },
+        'CallExpression': {
+          'arguments': 'first'
+        }
+      }
     ],
-    "linebreak-style": [
-      "error",
-      "unix"
+    'linebreak-style': [
+      'error',
+      'unix'
     ],
-    "quotes": [
-      "error",
-      "single"
+    'quotes': [
+      'error',
+      'single'
     ],
-    "semi": [
-      "error",
-      "always"
+    'semi': [
+      'error',
+      'always'
     ]
   }
 };

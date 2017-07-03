@@ -2597,7 +2597,8 @@ var SearchBarComponent = (function () {
         this.searchdata = {
             query: '',
             rows: 10,
-            start: 0
+            start: 0,
+            fq: ''
         };
         this.wholequery$ = store.select(__WEBPACK_IMPORTED_MODULE_3__reducers__["b" /* getwholequery */]);
         this.wholequery$.subscribe(function (data) {
@@ -2620,7 +2621,16 @@ var SearchBarComponent = (function () {
     };
     SearchBarComponent.prototype.onEnter = function (event) {
         if (event.which === 13) {
-            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': event.target.value, start: 0, rows: this.searchdata.rows }));
+            if (this.searchdata.fq !== '') {
+                this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': event.target.value, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq }));
+            }
+            else {
+                this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({
+                    'query': event.target.value,
+                    start: 0,
+                    rows: this.searchdata.rows
+                }));
+            }
             this.displayStatus = 'hidebox';
             event.target.blur();
             event.preventDefault();
@@ -2631,7 +2641,16 @@ var SearchBarComponent = (function () {
         this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["c" /* QueryAction */](event));
         var instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
         if (instantsearch && instantsearch.value) {
-            this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': event, start: 0, rows: this.searchdata.rows }));
+            if (this.searchdata.fq !== '') {
+                this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({ 'query': event, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq }));
+            }
+            else {
+                this.store.dispatch(new __WEBPACK_IMPORTED_MODULE_4__actions_query__["b" /* QueryServerAction */]({
+                    'query': event,
+                    start: 0,
+                    rows: this.searchdata.rows
+                }));
+            }
             this.displayStatus = 'showbox';
         }
     };

@@ -38,14 +38,8 @@ Resolver.prototype.resolve = function resolve(context, path, request, callback) 
 		request: request
 	};
 
-	var localMissing = [];
-	var missing = callback.missing ? {
-		push: function(item) {
-			callback.missing.push(item);
-			localMissing.push(item);
-		}
-	} : localMissing;
-	var log = [];
+	var localMissing;
+	var log;
 	var message = "resolve '" + request + "' in '" + path + "'";
 
 	function writeLog(msg) {
@@ -56,26 +50,40 @@ Resolver.prototype.resolve = function resolve(context, path, request, callback) 
 		return log.join("\n");
 	}
 
-	function onResolved(err, result) {
+	function onError(err, result) {
 		if(callback.log) {
 			for(var i = 0; i < log.length; i++)
 				callback.log(log[i]);
 		}
+
 		if(err) return callback(err);
-		if(!result) {
-			var error = new Error("Can't " + message);
-			error.details = logAsString();
-			error.missing = localMissing;
-			resolver.applyPlugins("no-resolve", obj, error);
-			return callback(error);
-		}
-		return callback(null, result.path === false ? false : result.path + (result.query || ""), result);
+
+		var error = new Error("Can't " + message);
+		error.details = logAsString();
+		error.missing = localMissing;
+		resolver.applyPlugins("no-resolve", obj, error);
+		return callback(error);
 	}
-	return this.doResolve("resolve", obj, message, createInnerCallback(onResolved, {
-		log: writeLog,
-		missing: missing,
-		stack: callback.stack
-	}, null));
+
+	function onResolve(err, result) {
+		if(!err && result) {
+			return callback(null, result.path === false ? false : result.path + (result.query || ""), result);
+		}
+
+		localMissing = [];
+		log = [];
+
+		return resolver.doResolve("resolve", obj, message, createInnerCallback(onError, {
+			log: writeLog,
+			missing: localMissing,
+			stack: callback.stack
+		}));
+	}
+
+	onResolve.missing = callback.missing;
+	onResolve.stack = callback.stack;
+
+	return this.doResolve("resolve", obj, message, onResolve);
 };
 
 Resolver.prototype.doResolve = function doResolve(type, request, message, callback) {

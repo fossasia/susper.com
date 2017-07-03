@@ -1,5 +1,9 @@
 # Change Log
 
+## v2.5.1
+**Bugfixes:**
+* `collectVariableUsage` ignore jump labels as in `break label;`
+
 ## v2.5.0
 **Bugfixes:**
 * `isFunctionWithBody` handles constructor overload correctly.
