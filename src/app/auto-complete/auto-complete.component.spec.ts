@@ -28,7 +28,7 @@ describe('AutoCompleteComponent', () => {
         AutocompleteService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

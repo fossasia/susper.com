@@ -24,6 +24,7 @@ import { reducer } from '../reducers/index';
  * "Can't bind to 'ngModel' since it isn't a known property of 'input'" error
  */
 import { FormsModule } from '@angular/forms';
+import {AutocorrectComponent} from "../autocorrect/autocorrect.component";
 
 describe('Component: Navbar', () => {
   let component: NavbarComponent;
@@ -42,6 +43,7 @@ describe('Component: Navbar', () => {
         NavbarComponent,
         SearchBarComponent,
         AutoCompleteComponent,
+        AutocorrectComponent,
         DropdownComponent
       ],
       providers: [

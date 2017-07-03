@@ -9,6 +9,9 @@ import { reducer } from '../reducers/index';
 import { AutocompleteService } from "../autocomplete.service";
 import { AutoCompleteComponent } from "../auto-complete/auto-complete.component";
 import { SpeechService } from '../speech.service';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import {IntelligenceComponent} from "../intelligence/intelligence.component";
+import {AutocorrectComponent} from "../autocorrect/autocorrect.component";
 
 describe('Component: SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -27,6 +30,10 @@ describe('Component: SearchBarComponent', () => {
       declarations: [
         SearchBarComponent,
         AutoCompleteComponent,
+        ThemeComponent,
+        DropdownComponent,
+        AutocorrectComponent,
+        IntelligenceComponent
       ],
       providers: [
         AutocompleteService,
