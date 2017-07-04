@@ -8,7 +8,7 @@ import { reducer } from './reducers/index';
 
 import { KnowledgeapiService } from './knowledgeapi.service';
 
-import { MockKnowledgeApi } from './shared/mock-backend/knowledge.mock';
+import { MockKnowledgeApi } from './shared/mocks/knowledge.mock';
 
 const mockHttp_provider = {
   provide: Http,

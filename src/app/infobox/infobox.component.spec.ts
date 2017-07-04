@@ -6,7 +6,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { KnowledgeapiService } from "../knowledgeapi.service";
 import { reducer } from "../reducers/index";
 import { StoreModule } from "@ngrx/store";
-import {MockKnowledgeApi} from "../shared/mock-backend/knowledge.mock";
+import { MockKnowledgeApi } from "../shared/mocks/knowledge.mock";
 
 describe('Component: InfoboxComponent', () => {
   let component: InfoboxComponent;
