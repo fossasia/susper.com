@@ -34,6 +34,7 @@
     "codecov.io": "^0.1.6",
     "core-js": "^2.4.1",
     "express": "^4.15.3",
+    "leaflet": "^1.1.0",
     "ng2-bs3-modal": "^0.10.4",
     "ngrx-store-freeze": "^0.1.9",
     "reselect": "^3.0.1",
