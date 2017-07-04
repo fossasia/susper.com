@@ -16,7 +16,7 @@ export class KnowledgeapiService {
   logo = '../images/susper.svg';
   constructor(private http: Http, private jsonp: Jsonp, private store: Store<fromRoot.State>) {
   }
-  getsearchresults(searchquery) {
+  public getsearchresults(searchquery) {
 
     let params = new URLSearchParams();
     params.set('QueryString', searchquery);
