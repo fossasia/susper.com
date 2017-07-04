@@ -27,6 +27,8 @@ import {AutoCompleteComponent} from "./auto-complete/auto-complete.component";
 import { ThemeComponent } from './theme/theme.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import {IntelligenceComponent} from "./intelligence/intelligence.component";
+import {MapsComponent} from "./maps/maps.component";
+import { LeafletModule } from '@asymmetrik/angular2-leaflet';
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -40,6 +42,7 @@ describe('AppComponent', () => {
         JsonpModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
+        LeafletModule
     ],
       declarations: [
         AppComponent,
@@ -58,7 +61,8 @@ describe('AppComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
-        IntelligenceComponent
+        IntelligenceComponent,
+        MapsComponent
       ]
     });
     TestBed.compileComponents();

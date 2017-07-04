@@ -29,7 +29,8 @@ import { ThemeComponent } from '../theme/theme.component';
 import { SpeechService } from '../speech.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
-
+import {MapsComponent} from "../maps/maps.component";
+import { LeafletModule } from '@asymmetrik/angular2-leaflet';
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
   let fixture: ComponentFixture<NotFoundComponent>;
@@ -44,7 +45,8 @@ describe('NotFoundComponent', () => {
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension()
+        StoreDevtoolsModule.instrumentOnlyWithExtension(),
+        LeafletModule
       ],
       declarations: [
         AppComponent,
@@ -63,7 +65,9 @@ describe('NotFoundComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
-        IntelligenceComponent
+        IntelligenceComponent,
+        MapsComponent,
+
       ],
       providers: [
         AutocompleteService,

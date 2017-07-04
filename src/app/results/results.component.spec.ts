@@ -33,6 +33,9 @@ import { SpeechService } from '../speech.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {IntelligenceService} from "../intelligence.service";
+import {MapsComponent} from "../maps/maps.component";
+import { LeafletModule } from '@asymmetrik/angular2-leaflet';
+import {MapService} from "../map.service";
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -48,7 +51,8 @@ describe('ResultsComponent', () => {
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension()
+        StoreDevtoolsModule.instrumentOnlyWithExtension(),
+        LeafletModule
       ],
       declarations: [
         AppComponent,
@@ -67,9 +71,11 @@ describe('ResultsComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
-        IntelligenceComponent
+        IntelligenceComponent,
+        MapsComponent,
+
       ],
-      providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService, IntelligenceService]
+      providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService, IntelligenceService, MapService]
     })
       .compileComponents();
   }));

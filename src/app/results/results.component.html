@@ -5,6 +5,7 @@
             <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
             <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
             <li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li>
+          <li [class.active_view]="Display('maps')" (click)="mapClick()">Maps</li>
           <li class="dropdown">
             <a href="#" id="settings" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Settings
@@ -111,10 +112,12 @@
                 </div>
             </div>
         </div>
-
+    <div *ngIf="Display('maps')">
+      <app-maps></app-maps>
+    </div>
         <br>
         <div class="clean"></div>
-    <div class="pagination-bar">
+    <div class="pagination-bar" *ngIf="!notdisplaypagination">
         <div class="pagination-property" *ngIf="noOfPages>1">
             <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
                 <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
@@ -144,3 +147,4 @@
 </div>
 </div>
 <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
+

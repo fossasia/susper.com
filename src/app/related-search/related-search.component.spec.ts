@@ -28,6 +28,8 @@ import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import { ThemeComponent } from '../theme/theme.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
+import {MapsComponent} from "../maps/maps.component";
+import { LeafletModule } from '@asymmetrik/angular2-leaflet';
 
 describe('RelatedSearchComponent', () => {
   let component: RelatedSearchComponent;
@@ -44,6 +46,7 @@ describe('RelatedSearchComponent', () => {
         JsonpModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
+        LeafletModule
       ],
       declarations: [
         AppComponent,
@@ -62,7 +65,9 @@ describe('RelatedSearchComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
-        IntelligenceComponent
+        IntelligenceComponent,
+        MapsComponent,
+
       ],
       providers: [
         KnowledgeapiService
