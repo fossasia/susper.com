@@ -28,6 +28,7 @@ import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import { ThemeComponent } from '../theme/theme.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
+import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
 
 describe('RelatedSearchComponent', () => {
   let component: RelatedSearchComponent;
@@ -62,7 +63,8 @@ describe('RelatedSearchComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
-        IntelligenceComponent
+        IntelligenceComponent,
+        AutoCorrectComponent
       ],
       providers: [
         KnowledgeapiService

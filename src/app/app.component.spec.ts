@@ -27,6 +27,7 @@ import {AutoCompleteComponent} from "./auto-complete/auto-complete.component";
 import { ThemeComponent } from './theme/theme.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import {IntelligenceComponent} from "./intelligence/intelligence.component";
+import {AutoCorrectComponent} from "./auto-correct/auto-correct.component";
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -58,7 +59,8 @@ describe('AppComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
-        IntelligenceComponent
+        IntelligenceComponent,
+        AutoCorrectComponent
       ]
     });
     TestBed.compileComponents();
