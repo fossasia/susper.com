@@ -75,7 +75,15 @@ describe('ResultsComponent', () => {
         MapsComponent,
 
       ],
-      providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService, IntelligenceService, MapService]
+      providers: [
+         SearchService,
+         KnowledgeapiService,
+         AutocompleteService,
+         ThemeService,
+         SpeechService,
+         IntelligenceService,
+         MapService
+      ]
     })
       .compileComponents();
   }));
