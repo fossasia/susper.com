@@ -85,7 +85,7 @@
 
 @media screen and (max-width: 767px) {
   #nav-group {
-    margin-left: -18.6%;
+    margin-left: 19%;
     width: 120%;
   }
   .align-search-btn{
@@ -105,9 +105,18 @@
   }
 }
 
+@media screen and (max-width:517px) {
+  #nav-group {
+    left: 5%;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .align-search-btn{
     left: -6%;
+  }
+  #nav-group {
+    margin-left: 15%;
   }
 }
 
