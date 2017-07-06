@@ -21,9 +21,7 @@ export class IntelligenceService {
       );
   }
 
-
-
-  private handleError (error: any) {
+  private handleError(error: any) {
     // In some advance version we can include a remote logging of errors
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
