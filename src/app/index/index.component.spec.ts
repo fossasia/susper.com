@@ -14,7 +14,6 @@ import { AutoCompleteComponent } from '../auto-complete/auto-complete.component'
 import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
-
 import { AutocompleteService } from '../autocomplete.service';
 import { SpeechService } from '../speech.service';
 

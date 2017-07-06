@@ -9,6 +9,12 @@ import { reducer } from '../reducers/index';
 import { AutocompleteService } from "../autocomplete.service";
 import { AutoCompleteComponent } from "../auto-complete/auto-complete.component";
 import { SpeechService } from '../speech.service';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import {SocialmediaComponent} from "../socialmedia/socialmedia.component";
+import {MediaWallComponent} from "../media-wall/media-wall.component";
+import {MediaWallLinkerComponent} from "../wall-linker/wall-linker.component";
+import {IntelligenceComponent} from "../intelligence/intelligence.component";
+import {ThemeComponent} from "../theme/theme.component";
 
 describe('Component: SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -27,6 +33,12 @@ describe('Component: SearchBarComponent', () => {
       declarations: [
         SearchBarComponent,
         AutoCompleteComponent,
+        ThemeComponent,
+        DropdownComponent,
+        SocialmediaComponent,
+        MediaWallComponent,
+        MediaWallLinkerComponent,
+        IntelligenceComponent
       ],
       providers: [
         AutocompleteService,

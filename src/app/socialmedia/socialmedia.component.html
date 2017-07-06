@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <div class="wall-wrapper" >
+    <div class="masonry">
+      <div class="masonry-panel" *ngFor="let item of results">
+        <div class="masonry-content">
+          <app-media-wall [feedItem]="item"></app-media-wall>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -26,7 +26,10 @@ import {RelatedSearchComponent} from "./related-search/related-search.component"
 import {AutoCompleteComponent} from "./auto-complete/auto-complete.component";
 import { ThemeComponent } from './theme/theme.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
+import {MediaWallComponent} from "./media-wall/media-wall.component";
+import {MediaWallLinkerComponent} from "./wall-linker/wall-linker.component";
 import {IntelligenceComponent} from "./intelligence/intelligence.component";
+import {SocialmediaComponent} from "./socialmedia/socialmedia.component";
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -58,6 +61,9 @@ describe('AppComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
+        SocialmediaComponent,
+        MediaWallComponent,
+        MediaWallLinkerComponent,
         IntelligenceComponent
       ]
     });

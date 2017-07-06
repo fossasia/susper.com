@@ -36,6 +36,10 @@ import { SearchsettingsComponent } from './searchsettings/searchsettings.compone
 import { KnowledgeEffects } from "./effects/knowledge";
 import { SpeechService } from './speech.service';
 import { DropdownComponent } from './dropdown/dropdown.component';
+import { SocialmediaComponent } from './socialmedia/socialmedia.component';
+import {SocialmediaService} from "./socialmedia.service";
+import { MediaWallComponent } from './media-wall/media-wall.component';
+import { MediaWallLinkerComponent } from './wall-linker/wall-linker.component';
 import { IntelligenceComponent } from './intelligence/intelligence.component';
 import {IntelligenceService} from "./intelligence.service";
 
@@ -73,6 +77,9 @@ const appRoutes: Routes = [
     CrawlstartComponent,
     SearchsettingsComponent,
     DropdownComponent,
+    SocialmediaComponent,
+    MediaWallComponent,
+    MediaWallLinkerComponent,
     IntelligenceComponent,
   ],
 
@@ -97,6 +104,7 @@ const appRoutes: Routes = [
     ThemeService,
     SpeechService,
     CrawlstartService,
+    SocialmediaService,
     IntelligenceService
   ],
 

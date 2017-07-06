@@ -31,6 +31,9 @@ import { ThemeComponent } from '../theme/theme.component';
 import { ThemeService } from '../theme.service';
 import { SpeechService } from '../speech.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import {SocialmediaComponent} from "../socialmedia/socialmedia.component";
+import {MediaWallLinkerComponent} from "../wall-linker/wall-linker.component";
+import {MediaWallComponent} from "../media-wall/media-wall.component";
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {IntelligenceService} from "../intelligence.service";
 
@@ -67,6 +70,9 @@ describe('ResultsComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
+        SocialmediaComponent,
+        MediaWallComponent,
+        MediaWallLinkerComponent,
         IntelligenceComponent
       ],
       providers: [
