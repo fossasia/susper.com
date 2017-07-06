@@ -72,9 +72,6 @@ describe('Service: Search', () => {
       );
     });
 
-    service.getsearchresults(searchquery).subscribe((res) => {
-      expect(res).toEqual(MockSearchApi);
-    });
 
   });
 
