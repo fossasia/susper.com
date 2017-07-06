@@ -75,7 +75,14 @@ describe('ResultsComponent', () => {
         MediaWallLinkerComponent,
         IntelligenceComponent
       ],
-      providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService, IntelligenceService]
+      providers: [
+         SearchService,
+         KnowledgeapiService,
+         AutocompleteService,
+         ThemeService,
+         SpeechService,
+         IntelligenceService,
+      ]
     })
       .compileComponents();
   }));

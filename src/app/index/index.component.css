@@ -5,8 +5,8 @@
 #search-bar{
   position: fixed;
   left: 50%;
-  margin-left: -275px;
-
+  margin-left: -295px;
+  margin-top: 30px;
 }
 
 .footer-fixed{
@@ -21,7 +21,7 @@
 
 .dropdown-menu-box-homepage {
   padding-right: 500px;
-  margin-top: -20%;
+  margin-top: -160px;
 }
 
 @media screen and (max-width: 480px) {
@@ -36,6 +36,9 @@
   }
   #cancel-installation{
     font-size: 12px;
+  }
+  div#susper-logo-fix {
+    margin-left: -40%;
   }
 }
 
@@ -93,29 +96,54 @@
   }
 }
 
+@media screen and (max-width: 517px) {
+  #search-bar {
+    left: 37%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #search-bar {
+    margin-left: -48%;
+  }
+}
+
+@media screen and (max-width: 896px) {
+  .dropdown-menu-box-homepage {
+    margin-top: -13%;
+  }
+}
+
+@media screen and (max-width: 978px) {
+  #biglogo {
+    padding-left: 28%;
+  }
+}
+
 .navbar-fixed-bottom{
   z-index: -1;
 }
-#biglogo{
-  margin: auto;
-  display: block
+
+#biglogo {
+  display: block;
+  margin-left: 33%;
 }
 
-.navbar-brand
-{
-    position: absolute;
-    width: 100%;
-    left: 0;
-    text-align: center;
-    margin:0 auto;
+.navbar-brand {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  margin:0 auto;
 }
 
 .navbar-toggle {
-    z-index:3;
+  z-index:3;
 }
-footer{
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    width:100%;
+
+footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width:100%;
 }
