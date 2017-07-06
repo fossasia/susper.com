@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';
 import { Store } from '@ngrx/store';
 import * as queryactions from '../actions/query';
+import {MapService} from "../map.service";
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -30,7 +31,8 @@ export class ResultsComponent implements OnInit {
     rows: 10,
 
   };
-
+  notdisplaypagination = 0;
+  mapoptions: any;
   querylook = {};
   hidefooter = 1;
   totalNumber: number;
@@ -84,6 +86,15 @@ export class ResultsComponent implements OnInit {
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
+  mapClick() {
+    let urldata = Object.assign({}, this.searchdata);
+    this.getPresentPage(1);
+    this.resultDisplay = 'maps';
+    urldata.rows = 10;
+    urldata.resultDisplay = this.resultDisplay;
+    this.store.dispatch(new queryactions.QueryServerAction(urldata));
+    this.notdisplaypagination = 1;
+  }
 
   imageClick() {
     let urldata = Object.assign({}, this.searchdata);
@@ -121,7 +132,7 @@ export class ResultsComponent implements OnInit {
   }
 
   constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
-              private store: Store<fromRoot.State>, private ref: ChangeDetectorRef, public themeService: ThemeService) {
+              private store: Store<fromRoot.State>, private ref: ChangeDetectorRef, public themeService: ThemeService, private mapService: MapService) {
 
     this.activatedroute.queryParams.subscribe(query => {
       let urldata = Object.assign({}, this.searchdata);
@@ -184,8 +195,11 @@ export class ResultsComponent implements OnInit {
       this.begin = this.start + 1;
 
     });
+
   }
 
   ngOnInit() {
+
+
   }
 }

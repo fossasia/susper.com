@@ -28,7 +28,8 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {IntelligenceService} from "../intelligence.service";
 import {InfoboxComponent} from "../infobox/infobox.component";
-
+import {MapsComponent} from "../maps/maps.component";
+import { LeafletModule } from '@asymmetrik/angular2-leaflet';
 describe('IntelligenceComponent', () => {
   let component: IntelligenceComponent;
   let fixture: ComponentFixture<IntelligenceComponent>;
@@ -44,6 +45,7 @@ describe('IntelligenceComponent', () => {
         JsonpModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
+        LeafletModule
       ],
       declarations: [
         AppComponent,
@@ -62,7 +64,9 @@ describe('IntelligenceComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
-        IntelligenceComponent
+        IntelligenceComponent,
+        MapsComponent,
+
       ],
       providers: [
         IntelligenceService

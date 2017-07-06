@@ -38,6 +38,9 @@ import { SpeechService } from './speech.service';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { IntelligenceComponent } from './intelligence/intelligence.component';
 import {IntelligenceService} from "./intelligence.service";
+import { LeafletModule } from '@asymmetrik/angular2-leaflet';
+import {MapService} from "./map.service";
+import { MapsComponent } from './maps/maps.component';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -74,6 +77,7 @@ const appRoutes: Routes = [
     SearchsettingsComponent,
     DropdownComponent,
     IntelligenceComponent,
+    MapsComponent,
   ],
 
   imports: [
@@ -87,7 +91,8 @@ const appRoutes: Routes = [
     EffectsModule.run(ApiSearchEffects),
     EffectsModule.run(KnowledgeEffects),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    Ng2Bs3ModalModule
+    Ng2Bs3ModalModule,
+    LeafletModule
   ],
 
   providers: [
@@ -97,7 +102,8 @@ const appRoutes: Routes = [
     ThemeService,
     SpeechService,
     CrawlstartService,
-    IntelligenceService
+    IntelligenceService,
+    MapService
   ],
 
   bootstrap: [AppComponent]
