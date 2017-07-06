@@ -78,10 +78,10 @@ describe('Component: Navbar', () => {
     expect(image.alt).toBe('brand');
   });
 
-  it('should have an app-auto-complete element', () => {
+  it('should have an app-dropdown element', () => {
     let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-auto-complete')).toBeTruthy();
+    expect(compiled.querySelector('app-dropdown')).toBeTruthy();
   });
 
 });

@@ -13,6 +13,8 @@ import { AppComponent } from '../app.component';
 import { reducer } from '../reducers/index';
 import { RelatedSearchComponent } from './related-search.component';
 import {KnowledgeapiService} from "../knowledgeapi.service";
+import {IntelligenceComponent} from "../intelligence/intelligence.component";
+
 
 describe('RelatedSearchComponent', () => {
   let component: RelatedSearchComponent;

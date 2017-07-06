@@ -22,9 +22,11 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   searchdata = {
     query: '',
     rows: 10,
-    start: 0
+    start: 0,
+    fq: ''
   };
   wholequery$: Observable<any>;
+  resultspage: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -35,6 +37,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.wholequery$.subscribe(data => {
       this.searchdata = data;
     });
+    this.resultspage = this.router.url.toString().includes('/search');
 
   };
 
@@ -49,24 +52,39 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.displayStatus = 'showbox';
     }
   }
+
   onEnter(event: any) {
     if (event.which === 13) {
-      this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: 0, rows: this.searchdata.rows}));
+      if (this.searchdata.fq !== '') {
+        this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq}));
+      } else {
+        this.store.dispatch(new queryactions.QueryServerAction({
+          'query': event.target.value,
+          start: 0,
+          rows: this.searchdata.rows
+        }));
+      }
       this.displayStatus = 'hidebox';
       event.target.blur();
+      event.preventDefault();
       this.submit();
-
     }
-
-
   }
+
   onquery(event: any) {
     this.store.dispatch(new query.QueryAction(event));
     let instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
 
     if (instantsearch && instantsearch.value) {
-      this.store.dispatch(new queryactions.QueryServerAction({'query': event, start: 0, rows: this.searchdata.rows}));
-      this.displayStatus = 'showbox';
+      if (this.searchdata.fq !== '') {
+        this.store.dispatch(new queryactions.QueryServerAction({'query': event, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq}));
+      } else {
+        this.store.dispatch(new queryactions.QueryServerAction({
+          'query': event,
+          start: 0,
+          rows: this.searchdata.rows
+        }));
+      }      this.displayStatus = 'showbox';
     }
   }
 
@@ -81,7 +99,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
   submit() {
     if (this.searchdata.query.toString().length !== 0) {
-      if (!this.router.url.toString().includes('/search')) {
+      if (!this.resultspage) {
         this.router.navigate(['/search'], {queryParams: this.searchdata});
       }
 
