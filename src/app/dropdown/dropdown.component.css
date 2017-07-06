@@ -33,6 +33,9 @@ li.dropdown-menu-box {
 div.block:hover {
     border: 1px solid rgba(150,150,150,0.3);
 }
+div.block{
+  text-align: center;
+}
 
 p {
     padding: 10px;
@@ -44,7 +47,15 @@ p {
 }
 
 div#loklak-logo {
-    padding-left: 16px;
+    padding-top: 6px;
+}
+
+div#fossasia-logo {
+  padding-top: 6px;
+}
+
+div#susi-logo {
+  padding-top: 6px;
 }
 
 img.eventyay {
