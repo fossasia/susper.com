@@ -20,8 +20,9 @@
 }
 
 .dropdown-menu-box-homepage {
-  padding-right: 500px;
+  margin-left: 64%;
   margin-top: -160px;
+  max-width: 50px;
 }
 
 @media screen and (max-width: 480px) {
@@ -100,11 +101,17 @@
   #search-bar {
     left: 37%;
   }
+  .dropdown-menu-box-homepage {
+    margin-top: -13%;
+  }
 }
 
 @media screen and (max-width: 767px) {
   #search-bar {
     margin-left: -48%;
+  }
+  .dropdown-menu-box-homepage {
+    margin-top: -13%;
   }
 }
 
@@ -117,6 +124,9 @@
 @media screen and (max-width: 978px) {
   #biglogo {
     padding-left: 28%;
+  }
+  div.dropdown-menu-box-homepage{
+    margin-left: 19%;
   }
 }
 
