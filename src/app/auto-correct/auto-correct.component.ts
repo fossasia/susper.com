@@ -24,11 +24,14 @@ export class AutoCorrectComponent implements OnInit {
       if (query) {
             this.sugflag = false;
             this.autocorrectservice.getsearchresults(query).subscribe(res => {
+              this.sugflag = false;
                 if (res) {
                     if (res['original'].toLocaleLowerCase() !== res['suggestion'].toLocaleLowerCase()) {
                         this.sugflag = true;
                         this.suggestion = res['suggestion'];
-                      }
+                      } else {
+                      this.sugflag = false;
+                    }
                     }
               });
           }
