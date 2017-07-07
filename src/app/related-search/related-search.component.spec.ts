@@ -14,6 +14,7 @@ import { reducer } from '../reducers/index';
 import { RelatedSearchComponent } from './related-search.component';
 import {KnowledgeapiService} from "../knowledgeapi.service";
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
+import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
 
 
 describe('RelatedSearchComponent', () => {
