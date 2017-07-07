@@ -64,7 +64,7 @@ let supportLevel = (() => {
 	}
 
 	if ('CI' in env) {
-		if ('TRAVIS' in env || env.CI === 'Travis') {
+		if ('TRAVIS' in env || env.CI === 'Travis' || 'CIRCLECI' in env) {
 			return 1;
 		}
 
