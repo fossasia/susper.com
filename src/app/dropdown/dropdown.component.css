@@ -1,5 +1,5 @@
 li.dropdown-menu-box {
-    left: 450px;
+    left: 33vw;
     top: 10px;
 }
 .dropdown-menu{
@@ -105,4 +105,28 @@ p.contact-text {
 
 hr {
     padding-top: 10px;
+}
+
+@media screen and (max-width:1230px) {
+  li.dropdown-menu-box{
+    left: 29vw;
+  }
+}
+
+@media screen and (max-width:1160px) {
+  li.dropdown-menu-box{
+    left: 24vw;
+  }
+}
+
+@media screen and (max-width:1050px) {
+  li.dropdown-menu-box{
+    left: 17vw;
+  }
+}
+
+@media screen and (max-width:1000px) {
+  li.dropdown-menu-box{
+    left: 72vw;
+  }
 }
