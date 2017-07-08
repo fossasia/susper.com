@@ -1,28 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Susper</title>
-  <base href="/">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/bootstrap-base.css">
-  <!-- jQuery library -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet">
-
-  <!-- Latest compiled JavaScript -->
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="search" href="//susper.com/susper.xml" type="application/opensearchdescription+xml" title="susper.com"/>
-</head>
-<body>
-<!--<div id="set-susper-default">
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Susper</title><base href="/"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><link rel="stylesheet" href="assets/css/base.css"><link rel="stylesheet" href="assets/css/bootstrap-base.css"><!-- jQuery library --><script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><!-- Latest compiled JavaScript --><script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/x-icon" href="favicon.ico"><link rel="search" href="//susper.com/susper.xml" type="application/opensearchdescription+xml" title="susper.com"/><link href="styles.d41d8cd98f00b204e980.bundle.css" rel="stylesheet"/></head><body><!--<div id="set-susper-default">
   <h3>Set Susper as your default search engine on Mozilla!</h3>
   <ol>
     <li><button id="install-susper">Install susper</button></li>
@@ -31,9 +7,7 @@
   </ol>
   <button id="cancel-installation">Cancel</button>
 </div>
--->
-<script>
-  $(document).ready(function () {
+--><script>$(document).ready(function () {
     var isFirefox = typeof InstallTrigger !== 'undefined';
 
     if (isFirefox === false) {
@@ -57,17 +31,10 @@
     $("#cancel-installation").on("click", function () {
         $("#set-susper-default").remove();
     });
-});
-</script>
-<script>
-  (function(){
+});</script><script>(function(){
     var redirect = sessionStorage.redirect;
     delete sessionStorage.redirect;
     if (redirect && redirect != location.href) {
       history.replaceState(null, null, redirect);
     }
-  })();
-</script>
-<app-root></app-root>
-<script type="text/javascript" src="inline.bundle.js"></script><script type="text/javascript" src="styles.bundle.js"></script><script type="text/javascript" src="vendor.bundle.js"></script><script type="text/javascript" src="main.bundle.js"></script></body>
-</html>
+  })();</script><app-root></app-root><script type="text/javascript" src="inline.9e373a78770d31716a19.bundle.js"></script><script type="text/javascript" src="sw-register.c349237a6b1ad2a30c8d.bundle.js"></script><script type="text/javascript" src="vendor.57928f89aca56f9f9085.bundle.js"></script><script type="text/javascript" src="main.d5afbe0f3968489b3ca5.bundle.js"></script></body></html>

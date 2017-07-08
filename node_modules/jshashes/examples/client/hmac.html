@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jsHashes - HMAC salt key enconding example</title>
+<script type="text/javascript" src="../../hashes.js"></script>
+<script type="text/javascript">
+
+// sample string 
+var str = 'This is a sample text!';
+// salt key
+var key = 'th!$-!S-@-k3Y';
+
+// new MD5 instance
+var MD5 = new Hashes.MD5;
+// new SHA1 instance
+var SHA1 = new Hashes.SHA1;
+// new SHA256 instance
+var SHA256 =  new Hashes.SHA256;
+// new SHA512 instace
+var SHA512 = new Hashes.SHA512;
+// new RIPEMD160 instace
+var RMD160 = new Hashes.RMD160;
+
+// output into DOM
+document.write('<h2>jsHashes</h2>');
+document.write('<h3>HMAC salt key encoding example</h3>');
+
+// hexadecimal
+document.write('<h3>Hexadecimal</h3>');
+document.write('<p>MD5: <b>' + MD5.hex_hmac(str,key) + '</b></p>');
+document.write('<p>SHA1: <b>' + SHA1.hex_hmac(str,key) + '</b></p>');
+document.write('<p>SHA256: <b>' + SHA256.hex_hmac(str,key) + '</b></p>');
+document.write('<p>SHA512: <b>' + SHA512.hex_hmac(str,key) + '</b></p>');
+document.write('<p>RIPEMD-160: <b>' + RMD160.hex_hmac(str,key) + '</b></p>');
+
+// base64
+document.write('<h3>Base64</h3>');
+document.write('<p>MD5: <b>' + MD5.b64_hmac(str,key) + '</b></p>');
+document.write('<p>SHA1: <b>' + SHA1.b64_hmac(str,key) + '</b></p>');
+document.write('<p>SHA256: <b>' + SHA256.b64_hmac(str,key) + '</b></p>');
+document.write('<p>SHA512: <b>' + SHA512.b64_hmac(str,key) + '</b></p>');
+document.write('<p>RIPEMD-160: <b>' + RMD160.b64_hmac(str,key) + '</b></p>');
+
+// custom string values for hash encoding 
+var custom = 'abc123';
+
+document.write('<h3>Custom encoding</h3>');
+document.write('<p>MD5: <b>' + MD5.any_hmac(str,key,custom) + '</b></p>');
+document.write('<p>SHA1: <b>' + SHA1.any_hmac(str,key,custom) + '</b></p>');
+document.write('<p>SHA256: <b>' + SHA256.any_hmac(str,key,custom) + '</b></p>');
+document.write('<p>SHA512: <b>' + SHA512.any_hmac(str,key,custom) + '</b></p>');
+document.write('<p>RIPEMD-160: <b>' + RMD160.any_hmac(str,key,custom) + '</b></p>');
+
+</script>
+</head>
+<body>
+</body>
+</html>
