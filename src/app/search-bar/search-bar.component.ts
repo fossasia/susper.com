@@ -27,6 +27,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   };
   wholequery$: Observable<any>;
   resultspage: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -55,6 +56,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   onEnter(event: any) {
     if (event.which === 13) {
+
       if (this.searchdata.fq !== '') {
         this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq}));
       } else {
@@ -84,27 +86,28 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
           start: 0,
           rows: this.searchdata.rows
         }));
-      }      this.displayStatus = 'showbox';
+      }
+      this.displayStatus = 'showbox';
     }
   }
 
   ShowAuto() {
     return (this.displayStatus === 'showbox');
   }
+
   ngOnInit() {
     this.displayStatus = 'hidebox';
   }
+
   ngAfterViewInit() {
     this.vc.first.nativeElement.focus();
   }
+
   submit() {
     if (this.searchdata.query.toString().length !== 0) {
       if (!this.resultspage) {
         this.router.navigate(['/search'], {queryParams: this.searchdata});
       }
-
     }
   }
-
 }
-
