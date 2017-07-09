@@ -12,6 +12,7 @@ import * as fromRoot from '../reducers';
 
 export class AutoCorrectComponent implements OnInit {
   query$: any;
+  wholequery$: any;
   suggestion: any;
   sugflag: boolean;
   resultsearch = '/search';
