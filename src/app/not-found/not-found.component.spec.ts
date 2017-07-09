@@ -29,6 +29,7 @@ import { ThemeComponent } from '../theme/theme.component';
 import { SpeechService } from '../speech.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
+import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -63,7 +64,8 @@ describe('NotFoundComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
-        IntelligenceComponent
+        IntelligenceComponent,
+        SpeechtotextComponent
       ],
       providers: [
         AutocompleteService,

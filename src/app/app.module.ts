@@ -38,6 +38,7 @@ import { SpeechService } from './speech.service';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { IntelligenceComponent } from './intelligence/intelligence.component';
 import {IntelligenceService} from "./intelligence.service";
+import { SpeechtotextComponent } from './speechtotext/speechtotext.component';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -74,6 +75,7 @@ const appRoutes: Routes = [
     SearchsettingsComponent,
     DropdownComponent,
     IntelligenceComponent,
+    SpeechtotextComponent,
   ],
 
   imports: [
