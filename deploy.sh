@@ -44,7 +44,7 @@ git checkout $SOURCE_BRANCH
 
 # Actual building and setup of current push or PR.
 npm install
-ng build
+ng build --prod --aot
 mv susper.xml dist/
 mv 404.html dist/
 

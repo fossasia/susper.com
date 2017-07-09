@@ -357,6 +357,10 @@ a {
   font-style: normal;
 }
 
+div.video-result {
+  margin-left: 8.6%;
+}
+
 @media screen and (min-width:1920px) {
   #tools {
     margin-left: 27%;

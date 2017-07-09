@@ -193,5 +193,6 @@ export class ResultsComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.getElementById('nav-group').style.width = '632px';
   }
 }
