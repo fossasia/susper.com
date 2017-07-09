@@ -39,6 +39,8 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { IntelligenceComponent } from './intelligence/intelligence.component';
 import {IntelligenceService} from "./intelligence.service";
 import { SpeechtotextComponent } from './speechtotext/speechtotext.component';
+import { AutoCorrectComponent } from './auto-correct/auto-correct.component';
+import {AutocorrectService} from "./autocorrect.service";
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -76,6 +78,7 @@ const appRoutes: Routes = [
     DropdownComponent,
     IntelligenceComponent,
     SpeechtotextComponent,
+    AutoCorrectComponent,
   ],
 
   imports: [
@@ -99,7 +102,8 @@ const appRoutes: Routes = [
     ThemeService,
     SpeechService,
     CrawlstartService,
-    IntelligenceService
+    IntelligenceService,
+    AutocorrectService
   ],
 
   bootstrap: [AppComponent]

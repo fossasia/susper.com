@@ -28,6 +28,7 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {IntelligenceService} from "../intelligence.service";
 import {InfoboxComponent} from "../infobox/infobox.component";
+import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
 
 describe('IntelligenceComponent', () => {
   let component: IntelligenceComponent;

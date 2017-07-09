@@ -29,6 +29,7 @@ import { ThemeComponent } from '../theme/theme.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
+import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
 
 describe('RelatedSearchComponent', () => {
   let component: RelatedSearchComponent;
@@ -65,6 +66,7 @@ describe('RelatedSearchComponent', () => {
         DropdownComponent,
         IntelligenceComponent,
         SpeechtotextComponent
+        AutoCorrectComponent
       ],
       providers: [
         KnowledgeapiService
