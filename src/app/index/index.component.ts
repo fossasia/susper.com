@@ -23,7 +23,7 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
+    document.getElementById('nav-group').style.width = '584px';
   }
 
 }
