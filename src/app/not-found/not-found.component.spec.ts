@@ -66,7 +66,7 @@ describe('NotFoundComponent', () => {
         ThemeComponent,
         DropdownComponent,
         IntelligenceComponent,
-        SpeechtotextComponent
+        SpeechtotextComponent,
         AutoCorrectComponent
       ],
       providers: [

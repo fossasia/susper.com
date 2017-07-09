@@ -65,7 +65,7 @@ describe('RelatedSearchComponent', () => {
         ThemeComponent,
         DropdownComponent,
         IntelligenceComponent,
-        SpeechtotextComponent
+        SpeechtotextComponent,
         AutoCorrectComponent
       ],
       providers: [

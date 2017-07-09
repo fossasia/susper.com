@@ -61,7 +61,7 @@ describe('AppComponent', () => {
         ThemeComponent,
         DropdownComponent,
         IntelligenceComponent,
-        SpeechtotextComponent
+        SpeechtotextComponent,
         AutoCorrectComponent
       ]
     });

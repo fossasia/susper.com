@@ -71,7 +71,7 @@ describe('ResultsComponent', () => {
         ThemeComponent,
         DropdownComponent,
         IntelligenceComponent,
-        SpeechtotextComponent
+        SpeechtotextComponent,
         AutoCorrectComponent
       ],
       providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService, IntelligenceService, AutocorrectService]
