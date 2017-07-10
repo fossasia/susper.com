@@ -158,13 +158,12 @@ export class ResultsComponent implements OnInit {
       this.presentPage = Math.abs(query['start'] / urldata.rows) + 1;
       let querydata = Object.assign({}, urldata);
       this.store.dispatch(new queryactions.QueryServerAction(querydata));
-    });
       if (this.presentPage === 1) {
         this.hideAutoCorrect = 0;
       } else {
         this.hideAutoCorrect = 1;
       }
-
+    });
     this.items$ = store.select(fromRoot.getItems);
     this.responseTime$ = store.select(fromRoot.getResponseTime);
     this.responseTime$.subscribe(responsetime => {
