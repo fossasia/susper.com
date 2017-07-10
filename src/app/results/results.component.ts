@@ -39,6 +39,7 @@ export class ResultsComponent implements OnInit {
   wholequery$: Observable<any>;
   resultscomponentchange$: Observable<any>;
   totalResults: number;
+  hideIntelligence: boolean;
 
   getNumber(N) {
     let result = Array.apply(null, { length: N }).map(Number.call, Number);
@@ -122,7 +123,7 @@ export class ResultsComponent implements OnInit {
   }
 
   constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
-              private store: Store<fromRoot.State>, private ref: ChangeDetectorRef, public themeService: ThemeService) {
+    private store: Store<fromRoot.State>, private ref: ChangeDetectorRef, public themeService: ThemeService) {
 
     this.activatedroute.queryParams.subscribe(query => {
       let urldata = Object.assign({}, this.searchdata);
@@ -176,7 +177,7 @@ export class ResultsComponent implements OnInit {
       this.totalResults = totalResults;
       this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
       this.totalNumber = totalResults;
-        this.message = 'About ' + totalResults + ' results';
+      this.message = 'About ' + totalResults + ' results';
       this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
       this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
     });
@@ -187,10 +188,16 @@ export class ResultsComponent implements OnInit {
     this.wholequery$ = store.select(fromRoot.getwholequery);
     this.wholequery$.subscribe(data => {
       this.searchdata = data;
+      if (this.searchdata.query === '') {
+        this.hideIntelligence = true;
+      } else {
+        this.hideIntelligence = false;
+      }
       this.start = (this.presentPage - 1) * data.rows;
       this.begin = this.start + 1;
 
     });
+
   }
 
   ngOnInit() {

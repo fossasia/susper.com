@@ -52,7 +52,7 @@
               <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
             </div>
       <div class="result">
-      <app-intelligence></app-intelligence>
+      <app-intelligence [hidden]="hideIntelligence"></app-intelligence>
       </div>
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
