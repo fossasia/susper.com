@@ -69,7 +69,7 @@
         </div>
     </div>
 
-  <app-infobox [hidden]="hidefooter" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
+  <app-infobox [hidden]="hidefooter || hideAutoCorrect" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
   <!-- END -->
     <!-- Image section -->
     <div class="container">
