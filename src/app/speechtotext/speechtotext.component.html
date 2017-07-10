@@ -1,5 +1,5 @@
-<div class="spch s2fp" id="spch" (click)="hidespeech()">
-  <div class="spchc" id="spchc">
+<div class="spch" id="spch" (click)="hidespeech()" [ngClass]="{'s2fp':!resultspage,'s2tb':resultspage}">
+  <div class="spchc" id="spchc" >
     <div class="_o3">
       <div class="_AM">
         <span class="_CMb" id="spchl" [style.transform]="'scale(' + borderheight + ')'"></span>

@@ -4,6 +4,7 @@ import { SpeechtotextComponent } from './speechtotext.component';
 import {SpeechService} from "../speech.service";
 import {StoreModule} from "@ngrx/store";
 import {reducer} from "../reducers/index";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('SpeechtotextComponent', () => {
   let component: SpeechtotextComponent;
@@ -12,6 +13,7 @@ describe('SpeechtotextComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
         StoreModule.provideStore(reducer),
       ],
       declarations: [ SpeechtotextComponent ],

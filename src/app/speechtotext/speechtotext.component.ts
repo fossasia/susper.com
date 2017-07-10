@@ -6,6 +6,7 @@ import * as query from '../actions/query';
 import * as queryactions from '../actions/query';
 import * as speechactions from '../actions/speech';
 import {Observable} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-speechtotext',
@@ -22,8 +23,10 @@ export class SpeechtotextComponent implements OnInit {
   borderwidth = 0;
   buttoncolor = '#fff';
   miccolor = '#f44';
+  resultspage: boolean;
   constructor(private speech: SpeechService, private store: Store<fromRoot.State>,
-  ) {
+  private router: Router) {
+    this.resultspage = this.router.url.toString().includes('/search');
     this.speechRecognition();
   }
   speechRecognition() {
@@ -31,7 +34,6 @@ export class SpeechtotextComponent implements OnInit {
   }
   onquery(event: any) {
     this.resettimer();
-    console.log(event);
     this.store.dispatch(new queryactions.QueryServerAction({'query': event, start: 0, rows: 10, search: true}));
     this.message = event;
     let instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
@@ -81,7 +83,7 @@ export class SpeechtotextComponent implements OnInit {
     this.timer = Observable.timer(5000, 1000);
     this.subscription = this.timer.subscribe(t => {
       this.ticks = t;
-      console.log(t);
+
       if (t === 5) {
         this.subscription.unsubscribe();
         this.store.dispatch(new speechactions.SearchAction(false));

@@ -66,6 +66,44 @@
   position: relative;
   transition: transform 0.218s,opacity 0.218s ease-in;
 }
+.s2tb.spch {
+  background: rgba(255,255,255,0);
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.s2tb .spchc, .s2tb-h .spchc {
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  margin: 0;
+  min-width: 100%;
+  overflow: hidden;
+  padding: 51px 0 85px 126px;
+  position: absolute;
+}
+.s2tb-h ._o3, .s2tb ._o3 {
+  height: 100%;
+  width: 572px;
+  transition: opacity .318s ease-in;
+}
+.s2tb-h ._AM, .s2tb ._AM {
+  height: 95px;
+  right: -31px;
+  top: -27px;
+  width: 95px;
+}
+.s2fp .button, .s2tb .button {
+  opacity: 1;
+  pointer-events: auto;
+  position: absolute;
+  transform: scale(1);
+  transition-delay: 0;
+}
+.s2tb-h ._wPb, .s2tb ._wPb {
+  left: 17px;
+  top: 7px;
+  transform: scale(.53);
+}
 ._CMb {
   background-color: #dbdbdb;
   border-radius: 100%;
@@ -161,4 +199,13 @@
   left: -44px;
   top: -.2em;
   width: 460px;
+}
+.s2tb-h .spcht, .s2tb .spcht {
+  font-size: 27px;
+  left: 7px;
+  top: .2em;
+  width: 490px;
+}
+.s2tb-h ._gjb, .s2tb ._gjb {
+  position: relative;
 }
