@@ -19,11 +19,11 @@ export class IndexComponent implements OnInit {
   };
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<fromRoot.State> ) {
     this.store.dispatch(new queryactions.QueryAction(''));
-    this.store.dispatch(new queryactions.QueryServerAction(''));
+    this.store.dispatch(new queryactions.QueryServerAction(this.searchdata));
   }
 
   ngOnInit() {
-    this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
+
   }
 
 }
