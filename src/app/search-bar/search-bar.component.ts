@@ -27,6 +27,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   };
   wholequery$: Observable<any>;
   resultspage: any;
+  navbarWidth: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +40,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.searchdata = data;
     });
     this.resultspage = this.router.url.toString().includes('/search');
+
+    if (this.router.url.toString().includes('/search')) {
+      this.navbarWidth = '536px';
+    }
 
   };
 

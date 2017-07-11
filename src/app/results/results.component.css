@@ -400,12 +400,24 @@ div.video-result {
   }
 }
 
+@media screen and (max-width: 1133px) {
+  div.result.message-bar {
+    margin-left: 9.7%;
+  }
+}
+
 @media screen and (max-width:1077px) {
   #search-options {
     margin-left: 9%;
   }
   .result {
     margin-left: 6.2%;
+  }
+}
+
+@media screen and (max-width: 1022px) {
+  div.result.message-bar {
+    margin-left: 8.7%;
   }
 }
 
@@ -421,6 +433,12 @@ div.video-result {
 @media screen and (max-width:950px) {
   .feed {
     width: 66.3%;
+  }
+}
+
+@media screen and (max-width: 845px) {
+  div.result.message-bar {
+    margin-left: 12%;
   }
 }
 
@@ -456,6 +474,12 @@ div.video-result {
   }
   #search-options li {
     padding: 0px 2.3% 12px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  div.result.message-bar {
+    margin-left: 16%;
   }
 }
 
@@ -496,6 +520,15 @@ div.video-result {
   }
   #search-options li {
     padding: 0px 0.5% 12px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .feed.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.col-lg-10.col-lg-offset-1 {
+    width: 100%;
+  }
+  div.result.message-bar {
+    margin-left: 12%;
   }
 }
 
