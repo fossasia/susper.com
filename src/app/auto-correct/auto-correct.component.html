@@ -1,3 +1,3 @@
-<p class="sug" *ngIf="sugflag === true">
-    Did you mean: <a [routerLink]="resultsearch" [queryParams]="{query: suggestion}">{{suggestion}}</a>
-  </p>
+<div class="sug" *ngIf="sugflag === true">
+    <p class="mean"> Did you mean: <a [routerLink]="resultsearch" [queryParams]="{query: suggestion}" class="suggest-auto-correct">{{suggestion}}</a></p>
+</div>
