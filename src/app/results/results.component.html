@@ -52,7 +52,7 @@
         {{message}}
       </div>
       <div class="result">
-      <app-intelligence></app-intelligence>
+      <app-intelligence [hidden]="hideIntelligence"></app-intelligence>
       </div>
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-  <app-infobox [hidden]="hidefooter" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
+  <app-infobox [hidden]="hidefooter || hideAutoCorrect" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
   <!-- END -->
     <!-- Image section -->
     <div class="container">

@@ -17,7 +17,7 @@
   font-weight: 400;
   top: 4px;
   color: black;
-  width: 511px;
+  width: 528px;
   height: 34px !important;
   line-height: 34px ;
   border-radius: 0px;
@@ -26,9 +26,9 @@
   padding-left: 16px;
   font-family: Arial, sans-serif;
   position: initial;
-  padding-bottom: 3px;
-  padding-top: 11px;
-  padding-right: 6px;
+  padding-top: 8px;
+  padding-bottom: 0px;
+  padding-right: 9px;
 }
 
 #nav-button{
