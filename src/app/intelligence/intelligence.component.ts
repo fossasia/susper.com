@@ -13,6 +13,7 @@ export class IntelligenceComponent implements OnInit {
   wholequery$: Observable<any>;
   actions: Array<any> = [];
   answer: any;
+
   constructor(private store: Store<fromRoot.State>, private intelligence: IntelligenceService) {
     this.wholequery$ = store.select(fromRoot.getwholequery);
     this.wholequery$.subscribe(data => {
