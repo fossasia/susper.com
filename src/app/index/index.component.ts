@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as fromRoot from '../reducers';
 import {Store} from "@ngrx/store";
 import * as queryactions from '../actions/query';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-index',
@@ -17,8 +18,10 @@ export class IndexComponent implements OnInit {
     rows: 10,
 
   };
+  hidespeech: Observable<boolean>;
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<fromRoot.State> ) {
     this.store.dispatch(new queryactions.QueryAction(''));
+    this.hidespeech = store.select(fromRoot.getSpeechMode);
     this.store.dispatch(new queryactions.QueryServerAction(this.searchdata));
   }
 

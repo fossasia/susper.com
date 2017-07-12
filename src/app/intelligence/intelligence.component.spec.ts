@@ -44,27 +44,10 @@ describe('IntelligenceComponent', () => {
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
+
       ],
       declarations: [
-        AppComponent,
-        NavbarComponent,
-        IndexComponent,
-        ResultsComponent,
-        NotFoundComponent,
-        AdvancedsearchComponent,
-        SearchBarComponent,
-        FooterNavbarComponent,
-        AboutComponent,
-        ContactComponent,
-        ModalComponent,
-        InfoboxComponent,
-        RelatedSearchComponent,
-        AutoCompleteComponent,
-        ThemeComponent,
-        DropdownComponent,
-        IntelligenceComponent,
-        AutoCorrectComponent
+        IntelligenceComponent
       ],
       providers: [
         IntelligenceService

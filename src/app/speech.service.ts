@@ -21,7 +21,6 @@ export class SpeechService {
         observe.next(take.results.item(take.results.length - 1).item(0).transcript)
       );
 
-      recognition.onerror = err => observe.error(err);
       recognition.onend = () => observe.complete();
       recognition.lang = lang;
       recognition.start();

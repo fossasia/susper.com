@@ -18,7 +18,9 @@ export class AppComponent implements OnInit {
     start: 0,
   };
   wholequery$: Observable<any>;
+  hidespeech: Observable<any>;
   constructor(private router: Router, private store: Store<fromRoot.State>) {
+    this.hidespeech = store.select(fromRoot.getSpeechMode);
     this.resultscomponentchange$ = store.select(fromRoot.getItems);
     this.resultscomponentchange$.subscribe(res => {
       if (this.searchdata.query.length > 0) {

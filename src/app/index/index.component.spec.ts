@@ -17,6 +17,7 @@ import {IntelligenceComponent} from "../intelligence/intelligence.component";
 
 import { AutocompleteService } from '../autocomplete.service';
 import { SpeechService } from '../speech.service';
+import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 
 describe('IndexComponent', () => {
   let component: IndexComponent;
@@ -36,7 +37,8 @@ describe('IndexComponent', () => {
         SearchBarComponent,
         FooterNavbarComponent,
         DropdownComponent,
-        AutoCompleteComponent
+        AutoCompleteComponent,
+        SpeechtotextComponent
       ],
       providers: [
         AutocompleteService,
