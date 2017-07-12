@@ -1,6 +1,6 @@
 #nav-group{
   background-color: white;
-  width: 584px;
+  width: 632px;
   color: black;
   height: 44px;
   border-radius: 2px;
@@ -82,41 +82,27 @@
     width: 50vw;
   }
 }
-
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 862px) and (min-width: 768px){
   #nav-group {
-    margin-left: 19%;
-    width: 120%;
+    left: -26%
+  }
+}
+  @media screen and (max-width: 767px) {
+  #nav-group {
+    margin-left: -15vw;
+    width: 95vw;
+    margin-top: 11%;
+
   }
   .align-search-btn{
     left: -9%;
   }
 }
 
-@media screen and (max-width: 601px) {
-  #nav-group {
-    width: 123%;
-  }
-}
-
-@media screen and (max-width:567px) {
-  #nav-group {
-    width: 120%;
-  }
-}
-
-@media screen and (max-width:517px) {
-  #nav-group {
-    left: 5%;
-  }
-}
 
 @media screen and (max-width: 480px) {
   .align-search-btn{
     left: -6%;
-  }
-  #nav-group {
-    margin-left: 15%;
   }
 }
 
@@ -133,11 +119,8 @@
 }
 
 @media screen and (max-width: 503px) {
-  #nav-group {
-    width: 5px;
-  }
   #nav-input {
-    width: 80vw;
+    width: 80%;
   }
 }
 

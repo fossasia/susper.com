@@ -23,7 +23,7 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    document.getElementById('nav-group').style.width = '584px';
   }
 
 }
