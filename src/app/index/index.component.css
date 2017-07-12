@@ -20,10 +20,17 @@
 }
 
 .dropdown-menu-box-homepage {
-  margin-left: 64%;
-  margin-top: -160px;
+  margin-left: 58%;
+  margin-top: -186px;
   max-width: 50px;
 }
+
+@media screen and (max-width: 1208px) {
+  div.dropdown-menu-box-homepage {
+    margin-left: 60%;
+  }
+}
+
 
 @media screen and (max-width: 480px) {
   #set-susper-default h3{
@@ -110,8 +117,9 @@
   #search-bar {
     margin-left: -48%;
   }
-  .dropdown-menu-box-homepage {
+  div.dropdown-menu-box-homepage {
     margin-top: -13%;
+    margin-left: 10%;
   }
 }
 
@@ -127,6 +135,39 @@
   }
   div.dropdown-menu-box-homepage{
     margin-left: 19%;
+  }
+}
+
+@media screen and (max-width: 1140px) {
+  div.dropdown-menu-box-homepage {
+    margin-left: 67%;
+    margin-top: -160px;
+  }
+}
+
+@media screen and (max-width: 1149px) {
+  div.dropdown-menu-box-homepage {
+    margin-top: -160px;
+    margin-left: 10%;
+  }
+}
+
+@media screen and (max-width: 1158px) {
+  div.dropdown-menu-box-homepage {
+    margin-top: -160px;
+  }
+}
+
+@media screen and (max-width: 1216px) {
+  div.dropdown-menu-box-homepage {
+    margin-left: 62%;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  div.dropdown-menu-box-homepage {
+    margin-left: 16%;
+    margin-top: -15%;
   }
 }
 
