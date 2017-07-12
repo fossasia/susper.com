@@ -5,3 +5,62 @@
   padding-top: 3%;
   padding-left: 5.9%;
 }
+
+.mean {
+  font-size: 18px;
+  color: #dd4b39;
+  font-weight: normal;
+  padding-left: 2px;
+  margin-bottom: -2px;
+}
+
+.suggest-auto-correct {
+  font-style: italic;
+  font-weight: bold;
+  text-decoration: none;
+  color: #1a0dab;
+  font-family: Arial, sans-serif;
+}
+
+.suggest-auto-correct:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1133px) {
+  p.mean {
+    margin-left: 3.5%;
+  }
+}
+
+@media screen and (max-width: 1022px) {
+  p.mean {
+    margin-left: 2.3%;
+  }
+}
+
+@media screen and (max-width: 845px) {
+  p.mean {
+    margin-left: 6%;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  p.mean {
+    margin-left: 9.8%;
+    margin-top: 3%;
+  }
+}
+
+@media screen and (max-width: 547px) {
+  p.mean {
+    margin-top: 6%;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  p.mean {
+    margin-top: 2%;
+    margin-left: 6%;
+  }
+}
