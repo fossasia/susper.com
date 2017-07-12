@@ -1,5 +1,16 @@
 # Change Log
 
+## v2.6.0
+**Bugfixes:**
+* `collectVariableUsage`:
+  * don't merge imports with global declarations
+  * treat everything in a declaration file as exported if there is no explicit `export {};`
+* `isExpressionValueUsed`: handle destructuring in `for...of`
+
+**Features:**
+* Added `getModifier` utility
+* Added `DeclarationDomain.Import` to distinguish imports from other declarations
+
 ## v2.5.1
 **Bugfixes:**
 * `collectVariableUsage` ignore jump labels as in `break label;`
@@ -72,7 +83,7 @@
 
 **Features**:
 * Added typeguards for types
-* Added utilities for flag checking: `isNodeFlagSet`, `isTypeFlagSet`, `isSymbolFlagSet`,`isObjectFlagSet`, `isModifierFlagSet` 
+* Added utilities for flag checking: `isNodeFlagSet`, `isTypeFlagSet`, `isSymbolFlagSet`,`isObjectFlagSet`, `isModifierFlagSet`
 
 ## v1.8.0
 **Features:**
