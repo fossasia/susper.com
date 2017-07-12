@@ -24,6 +24,7 @@ import {InfoboxComponent} from "../infobox/infobox.component";
 import { RelatedSearchComponent } from './related-search.component';
 import {KnowledgeapiService} from "../knowledgeapi.service";
 import {AutocompleteService} from "../autocomplete.service";
+import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import { ThemeComponent } from '../theme/theme.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
@@ -64,7 +65,8 @@ describe('RelatedSearchComponent', () => {
         ThemeComponent,
         DropdownComponent,
         IntelligenceComponent,
-        AutoCorrectComponent
+        AutoCorrectComponent,
+        SpeechtotextComponent
       ],
       providers: [
         KnowledgeapiService

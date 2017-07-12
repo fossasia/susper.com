@@ -35,6 +35,8 @@ import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {IntelligenceService} from "../intelligence.service";
 import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
 import {AutocorrectService} from "../autocorrect.service";
+import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
+
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -70,7 +72,8 @@ describe('ResultsComponent', () => {
         ThemeComponent,
         DropdownComponent,
         IntelligenceComponent,
-        AutoCorrectComponent
+        AutoCorrectComponent,
+        SpeechtotextComponent
       ],
       providers: [SearchService, KnowledgeapiService, AutocompleteService, ThemeService, SpeechService, IntelligenceService, AutocorrectService]
     })
