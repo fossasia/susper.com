@@ -31,9 +31,12 @@
     </div>
   <div [hidden]="hidefooter">
     <!-- Basic results 'All' -->
+    <div class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+    <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
+    </div>
   <div class="text-result" *ngIf="Display('all')">
     <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-      <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
+
       <div class="noResults">
       <p>Your search - <em>{{searchdata.query}}</em> - did not match any documents.</p>
       <p>Suggestions:</p>
@@ -48,9 +51,6 @@
       <div class="result message-bar" *ngIf="totalNumber > 0">
         {{message}}
       </div>
-      <div *ngIf="totalNumber > 0">
-              <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
-            </div>
       <div class="result">
       <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
       </div>
@@ -75,7 +75,6 @@
     <div class="container">
         <div class="grid" *ngIf="Display('images')">
           <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-            <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
             <div class="noResults">
               <p>Your search - <em>{{searchdata.query}}</em> - did not match any images.</p>
               <p>Suggestions:</p>
@@ -87,7 +86,6 @@
             </div>
           </div>
           <div *ngIf="totalNumber > 0">
-                    <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
             <div class="cell" *ngFor="let item of items$|async">
                 <a class="image-pointer" href="{{item.link}}"><img class="responsive-image" src="{{item.link}}"></a>
             </div>
@@ -97,7 +95,6 @@
     <!-- END -->
         <div class="video-result" *ngIf="Display('videos')">
           <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-            <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
             <div class="noResults">
               <p>Your search - <em>{{searchdata.query}}</em> - did not match any videos.</p>
               <p>Suggestions:</p>
@@ -111,9 +108,6 @@
             <div class="result message-bar" *ngIf="totalNumber > 0">
                 {{message}}
             </div>
-          <div *ngIf="totalNumber > 0">
-                    <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
-                    </div>
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
                     <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
@@ -156,3 +150,4 @@
 </div>
 </div>
 <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
+
