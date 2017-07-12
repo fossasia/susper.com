@@ -165,8 +165,6 @@ export class ResultsComponent implements OnInit {
         this.hideAutoCorrect = 1;
       }
     });
-
-
     this.items$ = store.select(fromRoot.getItems);
     this.responseTime$ = store.select(fromRoot.getResponseTime);
     this.responseTime$.subscribe(responsetime => {
