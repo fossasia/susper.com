@@ -1,5 +1,10 @@
 # Change Log
 
+## v2.6.1
+**Bugfixes:**
+* `getDeclarationDomain` now returns `undefined` for Parameter in IndexSignature
+* `collectVariableUsage` ignores Parameter in IndexSignature
+
 ## v2.6.0
 **Bugfixes:**
 * `collectVariableUsage`:

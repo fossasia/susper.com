@@ -7,9 +7,6 @@ const denodeify = require("denodeify");
 const execPromise = denodeify(child_process_1.exec);
 const packageManager = config_1.CliConfig.fromGlobal().get('packageManager');
 function checkYarnOrCNPM() {
-    if (packageManager !== 'default') {
-        return Promise.resolve();
-    }
     return Promise
         .all([checkYarn(), checkCNPM()])
         .then((data) => {
@@ -23,6 +20,12 @@ function checkYarnOrCNPM() {
         }
         else if (isCNPMInstalled) {
             console.log(chalk.yellow('You can `ng set --global packageManager=cnpm`.'));
+        }
+        else {
+            if (packageManager !== 'default' && packageManager !== 'npm') {
+                console.log(chalk.yellow(`Seems that ${packageManager} is not installed.`));
+                console.log(chalk.yellow('You can `ng set --global packageManager=npm`.'));
+            }
         }
     });
 }
