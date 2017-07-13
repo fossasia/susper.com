@@ -36,7 +36,8 @@ describe('RelatedSearchComponent', () => {
       ],
       declarations: [
         AppComponent,
-        RelatedSearchComponent
+        RelatedSearchComponent,
+        SpeechtotextComponent,
       ],
       providers: [
         KnowledgeapiService
