@@ -42,10 +42,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     });
     this.resultspage = this.router.url.toString().includes('/search');
 
-    if (this.router.url.toString().includes('/search')) {
-      this.navbarWidth = '536px';
-    }
-
   };
 
   speechRecognition() {
