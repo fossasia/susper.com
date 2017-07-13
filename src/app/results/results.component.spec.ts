@@ -36,7 +36,6 @@ import {IntelligenceService} from "../intelligence.service";
 import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
 import {AutocorrectService} from "../autocorrect.service";
-import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 
 
 describe('ResultsComponent', () => {
