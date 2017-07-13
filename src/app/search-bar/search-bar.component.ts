@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import * as query from '../actions/query';
 import * as queryactions from '../actions/query';
 import { SpeechService } from '../speech.service';
-
+import * as speechactions from '../actions/speech';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -25,6 +25,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     start: 0,
     fq: ''
   };
+  showspeech: boolean = false;
   wholequery$: Observable<any>;
   resultspage: any;
   navbarWidth: any;
@@ -44,7 +45,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   };
 
   speechRecognition() {
-    this.speech.record('en_US').subscribe(voice => this.onquery(voice));
+    this.store.dispatch(new speechactions.SearchAction(true));
   }
 
   hidesuggestions(data: number) {

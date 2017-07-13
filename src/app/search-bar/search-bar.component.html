@@ -7,7 +7,7 @@
            [(ngModel)]="searchdata.query" autocomplete="off" (keypress)="onEnter($event)" [style.width]="navbarWidth">
       </div>
     <div class="input-group-btn">
-      <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()">
+      <button class="btn btn-default" id="nav-button" type="submit">
         <img src="../../assets/images/microphone.png" class="microphone" (click)="speechRecognition()"/>
       </button>
       <button class="btn btn-default" id="nav-button" type="submit" (click)="submit()" *ngIf="this.resultspage">
