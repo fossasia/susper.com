@@ -36,7 +36,7 @@ export class AutoCorrectComponent implements OnInit {
             this.sugflag = false;
 
             if (res) {
-              if ( res['original'].replace(/[.,?!]/g , "").toLocaleLowerCase() !== res['suggestion'].replace(/[.,?!]/g , "").toLocaleLowerCase()) {
+              if ( res['original'].replace(/[.,?!]/g , "").toLocaleLowerCase() !== res['suggestion'].replace(/[.,?!]/g , "").toLocaleLowerCase() && res['suggestion'] !== '') {
                 this.sugflag = true;
                 this.suggestion = this.isQues === true ? res['suggestion'] + '?' : res['suggestion'];
               } else {
