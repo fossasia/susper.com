@@ -70,12 +70,6 @@ describe('Component: SearchBarComponent', () => {
     expect(compiled.querySelector('app-auto-complete')).toBeTruthy();
   });
 
-  it('should have search button', () => {
-    let compiled = fixture.debugElement.nativeElement;
-
-    expect(compiled.querySelector('button#nav-button')).toBeTruthy();
-  });
-
   it('should have microphone icon', () => {
     let compiled = fixture.debugElement.nativeElement;
 
