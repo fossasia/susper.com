@@ -44,7 +44,6 @@ export class SpeechtotextComponent implements OnInit {
         start: 0,
         rows: 10,
       }));
-
     }
   }
   hidespeech() {
@@ -75,6 +74,7 @@ export class SpeechtotextComponent implements OnInit {
       if (t === 30) {
         this.subscription.unsubscribe();
         this.store.dispatch(new speechactions.SearchAction(false));
+        this.speech.stoprecord();
       }
     });
   }
@@ -87,6 +87,7 @@ export class SpeechtotextComponent implements OnInit {
       if (t === 5) {
         this.subscription.unsubscribe();
         this.store.dispatch(new speechactions.SearchAction(false));
+        this.speech.stoprecord();
       }
     });
   }
