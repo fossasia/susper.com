@@ -24,9 +24,15 @@ export class SpeechtotextComponent implements OnInit {
   buttoncolor = '#fff';
   miccolor = '#f44';
   resultspage: boolean;
+  shadowleft: any = '-69px';
+  shadowtop: any = '-68px';
   constructor(private speech: SpeechService, private store: Store<fromRoot.State>,
   private router: Router) {
     this.resultspage = this.router.url.toString().includes('/search');
+    if(this.resultspage) {
+      this.shadowleft = '-103px';
+      this.shadowtop = '-102px';
+    }
     this.speechRecognition();
   }
   speechRecognition() {
@@ -65,6 +71,9 @@ export class SpeechtotextComponent implements OnInit {
         this.buttoncolor = "#f44";
         this.miccolor = "#fff";
         this.borderheight = this.randomize(0.7, 1);
+        if(this.resultspage) {
+          this.borderheight = this.randomize(0.35, 0.5);
+        }
         if (!recheck) {
           this.resettimer(true);
         }
