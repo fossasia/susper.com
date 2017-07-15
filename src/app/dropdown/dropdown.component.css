@@ -138,6 +138,18 @@ hr {
 
 @media screen and (max-width:1000px) {
   li.dropdown-menu-box{
-    left: 72vw;
+    left: 12vw;
   }
+}
+
+@media screen and (max-width: 861px) {
+    li.dropdown-menu-box {
+        left: 4vw;
+    }
+}
+
+@media screen and (max-width: 823px) {
+    li.dropdown-menu-box {
+        display: none;
+    }
 }
