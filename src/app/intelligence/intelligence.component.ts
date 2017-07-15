@@ -25,6 +25,7 @@ export class IntelligenceComponent implements OnInit {
             for (let action of this.actions) {
               if (action.type === 'answer' && action.mood !== 'sabta') {
                 this.answer = action.expression;
+                this.answer = this.answer.toString().replace(/ Susi/gi , " Susper");
               } else {
                 this.answer = '';
               }
