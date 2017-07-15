@@ -32,7 +32,10 @@
   <div [hidden]="hidefooter">
     <!-- Basic results 'All' -->
     <div class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-    <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
+      <div class="result message-bar" *ngIf="totalNumber > 0 && !Display('images')">
+        {{message}}
+      </div>
+      <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
     </div>
   <div class="text-result" *ngIf="Display('all')">
     <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
@@ -48,9 +51,6 @@
       </div>
     </div>
     <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-      <div class="result message-bar" *ngIf="totalNumber > 0">
-        {{message}}
-      </div>
       <div class="result">
       <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
       </div>
@@ -105,9 +105,6 @@
               </ul>
             </div>
           </div>
-            <div class="result message-bar" *ngIf="totalNumber > 0">
-                {{message}}
-            </div>
             <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
                     <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
