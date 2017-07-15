@@ -58,6 +58,7 @@ export class SpeechtotextComponent implements OnInit {
   }
   resettimer(recheck: boolean = false) {
     this.subscription.unsubscribe();
+    this.message = "Listening...";
     this.timer = Observable.timer(0, 100);
     this.subscription = this.timer.subscribe(t => {
       this.ticks = t;
