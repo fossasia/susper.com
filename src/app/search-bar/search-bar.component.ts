@@ -75,6 +75,20 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onClick() {
+    if (this.searchdata.fq !== '') {
+      this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq}));
+    } else {
+      this.store.dispatch(new queryactions.QueryServerAction({
+        'query': this.searchdata.query,
+        start: 0,
+        rows: this.searchdata.rows
+      }));
+    }
+    this.displayStatus = 'hidebox';
+    this.submit();
+  }
+
   onquery(event: any) {
     this.store.dispatch(new query.QueryAction(event));
     let instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
