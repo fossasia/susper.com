@@ -20,9 +20,8 @@
 }
 
 .dropdown-menu-box-homepage {
-  margin-left: 64%;
-  margin-top: -160px;
-  max-width: 50px;
+  margin-top: -28vh;
+  width: 100vw;
 }
 
 @media screen and (max-width: 480px) {
@@ -97,46 +96,17 @@
   }
 }
 
-@media screen and (max-width: 517px) {
-  #search-bar {
-    left: 37%;
-  }
-  .dropdown-menu-box-homepage {
-    margin-top: -13%;
-  }
+#dropdown-icon{
+  float: left;
+  margin-left: 99vw;
 }
-
-@media screen and (max-width: 767px) {
-  #search-bar {
-    margin-left: -48%;
-  }
-  .dropdown-menu-box-homepage {
-    margin-top: -13%;
-  }
-}
-
-@media screen and (max-width: 896px) {
-  .dropdown-menu-box-homepage {
-    margin-top: -13%;
-  }
-}
-
-@media screen and (max-width: 978px) {
-  #biglogo {
-    padding-left: 28%;
-  }
-  div.dropdown-menu-box-homepage{
-    margin-left: 19%;
-  }
-}
-
 .navbar-fixed-bottom{
   z-index: -1;
 }
 
 #biglogo {
   display: block;
-  margin-left: 33%;
+  margin-left: 35%;
 }
 
 .navbar-brand {
@@ -156,5 +126,54 @@ footer {
   bottom: 0px;
   left: 0px;
   width:100%;
+}
+
+
+@media screen and (max-width: 1107px) {
+  .dropdown-menu-box-homepage {
+    margin-top: -15%;
+  }
+  }
+
+@media screen and (max-width: 823px) {
+  img#biglogo{
+    margin-left: 61%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #search-bar {
+    margin-left: -48%;
+  }
+  .dropdown-menu-box-homepage {
+    margin-top: -17%;
+  }
+  img#biglogo{
+    margin-left: 37%;
+  }
+  #dropdown-icon {
+    margin-left: 95vw;
+  }
+  }
+
+@media screen and (max-width: 635px) {
+  .dropdown-menu-box-homepage {
+    margin-top: -18%;
+  }
+}
+
+@media screen and (max-width: 435px) {
+  .dropdown-menu-box-homepage {
+    margin-top: -22%;
+  }
+  #dropdown-icon {
+    margin-left: 94vw;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  img#biglogo{
+    margin-left: 52%;
+  }
 }
 
