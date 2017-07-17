@@ -34,6 +34,10 @@ export class SpeechtotextComponent implements OnInit {
       this.shadowtop = '-102px';
     }
     this.speechRecognition();
+    let call_timer = Observable.timer(1500);
+    call_timer.subscribe(change => {
+      this.message = "Listening...";
+    })
   }
   speechRecognition() {
     this.speech.record('en_US').subscribe(voice => this.onquery(voice));
@@ -66,6 +70,7 @@ export class SpeechtotextComponent implements OnInit {
     this.timer = Observable.timer(0, 100);
     this.subscription = this.timer.subscribe(t => {
       this.ticks = t;
+
       if (t % 10 === 0 && t <= 20) {
         this.buttoncolor = "#f44";
         this.miccolor = "#fff";
@@ -77,6 +82,7 @@ export class SpeechtotextComponent implements OnInit {
           this.resettimer(true);
         }
       }
+
       if (t === 20) {
         this.borderheight = 0;
       }
