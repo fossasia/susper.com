@@ -33,7 +33,7 @@
 }
 
 #nav-button{
-  border-radius: 0px;
+  border-radius: 0;
   height: 38px;
   background-color: white;
   color: #0066ff;
@@ -43,6 +43,20 @@
 }
 
 #nav-button:focus {
+  outline: none;
+}
+
+#speech-button{
+  border-radius: 0;
+  height: 38px;
+  background-color: white;
+  color: #0066ff;
+  box-shadow: none;
+  border: none;
+  position: initial;
+}
+
+#speech-button:focus {
   outline: none;
 }
 
