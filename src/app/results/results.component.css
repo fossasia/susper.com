@@ -402,7 +402,10 @@ div.video-result {
 
 @media screen and (max-width: 1133px) {
   div.result.message-bar {
-    margin-left: 9.7%;
+    margin-left: 8.2%;
+  }
+  div.autocorrect {
+    margin-left: 2%;
   }
 }
 
@@ -424,6 +427,9 @@ div.video-result {
 @media screen and (max-width: 1022px) {
   div.result.message-bar {
     margin-left: 8.7%;
+  }
+  div.autocorrect {
+    margin-left: 2.7%;
   }
 }
 
@@ -451,7 +457,7 @@ div.video-result {
 
 @media screen and (max-width: 845px) {
   div.result.message-bar {
-    margin-left: 12%;
+    margin-left: 9%;
   }
 }
 
@@ -474,8 +480,8 @@ div.video-result {
 }
 
 @media screen and (max-width:767px) {
-  .result {
-    margin-left: 16%;
+  div.result {
+    margin-left: 1%;
     padding-right: 30px;
   }
   .message-bar {
@@ -507,12 +513,12 @@ div.video-result {
 }
 
 @media screen and (max-width: 760px) {
-  div.result.message-bar {
-    margin-left: 16%;
-  }
-}
 
-@media screen and (max-width: 759px) {
+  div.result {
+    margin-left: 10%;
+    padding-right: 30px;
+  }
+
   div.result.message-bar {
     margin-left: 10%
   }
@@ -520,11 +526,17 @@ div.video-result {
     width: 100%;
     margin-left: -2%;
   }
+  div.autocorrect{
+    margin-left: 4%;
+  }
 }
 
 @media screen and (max-width:741px) {
-  .result {
-    margin-left: 13.5%;
+  div.result {
+    margin-left: 10.5%;
+  }
+  div.autocorrect {
+    margin-left: 3.5%;
   }
   .feed {
     width: 87%;
@@ -535,25 +547,8 @@ div.video-result {
   div.result.message-bar {
     margin-left: 10%;
   }
-  .feed.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.col-lg-10.col-lg-offset-1 {
-    width: 100%;
-    margin-left: -2%;
-  }
-}
-
-@media screen and (max-width: 719px) {
-  div.result.message-bar {
-    margin-left: 10%;
-  }
-  .feed.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.col-lg-10.col-lg-offset-1 {
-    width: 100%;
-    margin-left: -2%;
-  }
-}
-
-@media screen and (max-width: 708px) {
-  div.result.message-bar {
-    margin-left: 10%;
+  div.autocorrect {
+    margin-left: 3.3%;
   }
   .feed.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.col-lg-10.col-lg-offset-1 {
     width: 100%;
@@ -611,6 +606,13 @@ div.video-result {
   div.result.message-bar {
     margin-left: 12%;
   }
+  div.autocorrect{
+    margin-left: 5%;
+    top: 2%;
+  }
+    div.result {
+      margin-left: 12.5%;
+    }
 }
 
 @media screen and (max-width:379px) {
