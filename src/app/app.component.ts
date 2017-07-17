@@ -4,6 +4,7 @@ import {Store} from "@ngrx/store";
 import * as fromRoot from './reducers';
 import {Observable} from "rxjs";
 import * as queryactions from './actions/query';
+import {SpeechService} from "./speech.service";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,8 +20,13 @@ export class AppComponent implements OnInit {
   };
   wholequery$: Observable<any>;
   hidespeech: Observable<any>;
-  constructor(private router: Router, private store: Store<fromRoot.State>) {
+  constructor(private router: Router, private store: Store<fromRoot.State>, private speech: SpeechService) {
     this.hidespeech = store.select(fromRoot.getSpeechMode);
+    this.hidespeech.subscribe(hidespeech => {
+      if (!hidespeech) {
+        this.speech.stoprecord();
+      }
+    });
     this.resultscomponentchange$ = store.select(fromRoot.getItems);
     this.resultscomponentchange$.subscribe(res => {
       if (this.searchdata.query.length > 0) {
