@@ -29,6 +29,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import {IntelligenceComponent} from "./intelligence/intelligence.component";
 import {SpeechtotextComponent} from "./speechtotext/speechtotext.component";
 import {AutoCorrectComponent} from "./auto-correct/auto-correct.component";
+import {SpeechService} from "./speech.service";
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -63,6 +64,9 @@ describe('AppComponent', () => {
         IntelligenceComponent,
         SpeechtotextComponent,
         AutoCorrectComponent
+      ],
+      providers: [
+        SpeechService
       ]
     });
     TestBed.compileComponents();

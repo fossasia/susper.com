@@ -50,7 +50,6 @@ export class SpeechtotextComponent implements OnInit {
         start: 0,
         rows: 10,
       }));
-
     }
   }
   hidespeech() {
