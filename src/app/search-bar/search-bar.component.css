@@ -17,7 +17,7 @@
   font-weight: 400;
   top: 4px;
   color: black;
-  width: 528px;
+  width: 536px;
   height: 34px !important;
   line-height: 34px ;
   border-radius: 0px;
@@ -32,7 +32,7 @@
 }
 
 #nav-button{
-  border-radius: 0px;
+  border-radius: 0;
   height: 38px;
   background-color: white;
   color: #0066ff;
@@ -42,6 +42,20 @@
 }
 
 #nav-button:focus {
+  outline: none;
+}
+
+#speech-button{
+  border-radius: 0;
+  height: 38px;
+  background-color: white;
+  color: #0066ff;
+  box-shadow: none;
+  border: none;
+  position: initial;
+}
+
+#speech-button:focus {
   outline: none;
 }
 
@@ -71,20 +85,12 @@
   }
 }
 
-@media screen and (max-width: 979px) and (min-width: 768px) {
-  .navbar-form{
-    padding-left: 4px;
-    width: 100px;
-   }
-}
-@media screen and (max-width: 992px) {
-  #nav-input{
-    width: 50vw;
+@media screen and (max-width: 823px) and (min-width: 768px) {
+  .navbar-form {
+  width: 100px;
   }
-}
-@media screen and (max-width: 862px) and (min-width: 768px){
-  #nav-group {
-    left: -26%
+  #nav-group{
+    left: -56%
   }
 }
   @media screen and (max-width: 767px) {
@@ -112,20 +118,9 @@
   }
 }
 
-@media screen and (max-width: 968px) {
-  #nav-input {
-    width: 50vw;
-  }
-}
 
-@media screen and (max-width: 503px) {
+@media screen and (max-width: 652px) {
   #nav-input {
-    width: 80%;
-  }
-}
-
-@media screen and (max-width: 359px) {
-  #nav-input {
-    width: 80vw;
+    width: 83vw;
   }
 }

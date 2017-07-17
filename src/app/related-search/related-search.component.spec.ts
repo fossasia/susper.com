@@ -36,6 +36,7 @@ describe('RelatedSearchComponent', () => {
       ],
       declarations: [
         AppComponent,
+        SpeechtotextComponent,
         RelatedSearchComponent
       ],
       providers: [

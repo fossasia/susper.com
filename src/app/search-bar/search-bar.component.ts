@@ -42,10 +42,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     });
     this.resultspage = this.router.url.toString().includes('/search');
 
-    if (this.router.url.toString().includes('/search')) {
-      this.navbarWidth = '536px';
-    }
-
   };
 
   speechRecognition() {
@@ -77,6 +73,20 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       event.preventDefault();
       this.submit();
     }
+  }
+
+  onClick() {
+    if (this.searchdata.fq !== '') {
+      this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq}));
+    } else {
+      this.store.dispatch(new queryactions.QueryServerAction({
+        'query': this.searchdata.query,
+        start: 0,
+        rows: this.searchdata.rows
+      }));
+    }
+    this.displayStatus = 'hidebox';
+    this.submit();
   }
 
   onquery(event: any) {

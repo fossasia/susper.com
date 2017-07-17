@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {SpeechService} from "../speech.service";
-import {Store} from "@ngrx/store";
+import { SpeechService } from "../speech.service";
+import { Store } from "@ngrx/store";
 import * as fromRoot from '../reducers';
 import * as query from '../actions/query';
 import * as queryactions from '../actions/query';
 import * as speechactions from '../actions/speech';
-import {Observable} from "rxjs";
-import {Router} from "@angular/router";
+import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-speechtotext',
@@ -24,9 +24,15 @@ export class SpeechtotextComponent implements OnInit {
   buttoncolor = '#fff';
   miccolor = '#f44';
   resultspage: boolean;
+  shadowleft: any = '-69px';
+  shadowtop: any = '-68px';
   constructor(private speech: SpeechService, private store: Store<fromRoot.State>,
-  private router: Router) {
+    private router: Router) {
     this.resultspage = this.router.url.toString().includes('/search');
+    if (this.resultspage) {
+      this.shadowleft = '-103px';
+      this.shadowtop = '-102px';
+    }
     this.speechRecognition();
   }
   speechRecognition() {
@@ -34,7 +40,7 @@ export class SpeechtotextComponent implements OnInit {
   }
   onquery(event: any) {
     this.resettimer();
-    this.store.dispatch(new queryactions.QueryServerAction({'query': event, start: 0, rows: 10, search: true}));
+    this.store.dispatch(new queryactions.QueryServerAction({ 'query': event, start: 0, rows: 10, search: true }));
     this.message = event;
     let instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
 
@@ -52,7 +58,7 @@ export class SpeechtotextComponent implements OnInit {
   randomize(min, max) {
     let x;
 
-    x = ( Math.random() * (max - min) + min);
+    x = (Math.random() * (max - min) + min);
     return x;
   }
   resettimer(recheck: boolean = false) {
@@ -64,6 +70,9 @@ export class SpeechtotextComponent implements OnInit {
         this.buttoncolor = "#f44";
         this.miccolor = "#fff";
         this.borderheight = this.randomize(0.7, 1);
+        if (this.resultspage) {
+          this.borderheight = this.randomize(0.35, 0.5);
+        }
         if (!recheck) {
           this.resettimer(true);
         }
@@ -83,7 +92,11 @@ export class SpeechtotextComponent implements OnInit {
     this.subscription = this.timer.subscribe(t => {
       this.ticks = t;
 
-      if (t === 5) {
+      if (t === 4) {
+        this.message = "Please check your microphone and audio levels.";
+        this.miccolor = '#C2C2C2';
+      }
+      if (t === 6) {
         this.subscription.unsubscribe();
         this.store.dispatch(new speechactions.SearchAction(false));
       }
