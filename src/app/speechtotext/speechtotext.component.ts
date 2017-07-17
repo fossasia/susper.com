@@ -63,6 +63,7 @@ export class SpeechtotextComponent implements OnInit {
   }
   resettimer(recheck: boolean = false) {
     this.subscription.unsubscribe();
+    this.message = 'Listening...';
     this.timer = Observable.timer(0, 100);
     this.subscription = this.timer.subscribe(t => {
       this.ticks = t;
@@ -77,6 +78,11 @@ export class SpeechtotextComponent implements OnInit {
           this.resettimer(true);
         }
       }
+
+      if (t === 10) {
+        this.message = 'Listening...';
+      }
+
       if (t === 20) {
         this.borderheight = 0;
       }
