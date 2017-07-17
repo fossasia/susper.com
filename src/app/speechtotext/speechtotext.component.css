@@ -185,6 +185,8 @@
   width: 38px;
   z-index: 0;
 }
+
+@-webkit-keyframes typing {from {width:0;}}
 .spcht {
   font-weight: normal;
   line-height: 1.2;
@@ -193,7 +195,12 @@
   text-align: left;
   -webkit-font-smoothing: antialiased;
   transition: opacity .1s ease-in,margin-left .5s ease-in,top 0s linear 0.218s;
+  -webkit-animation: typing 2s steps(21,end), blink-caret .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  animation-delay: 3.5s;
 }
+
 .s2fp-h .spcht, .s2fp .spcht {
   font-size: 32px;
   left: -44px;
