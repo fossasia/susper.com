@@ -1,5 +1,4 @@
 li.dropdown-menu-box {
-    left: 33vw;
     top: 10px;
 }
 .dropdown-menu{
@@ -118,38 +117,3 @@ hr {
     padding-top: 10px;
 }
 
-@media screen and (max-width:1230px) {
-  li.dropdown-menu-box{
-    left: 29vw;
-  }
-}
-
-@media screen and (max-width:1160px) {
-  li.dropdown-menu-box{
-    left: 24vw;
-  }
-}
-
-@media screen and (max-width:1050px) {
-  li.dropdown-menu-box{
-    left: 17vw;
-  }
-}
-
-@media screen and (max-width:1000px) {
-  li.dropdown-menu-box{
-    left: 12vw;
-  }
-}
-
-@media screen and (max-width: 861px) {
-    li.dropdown-menu-box {
-        left: 4vw;
-    }
-}
-
-@media screen and (max-width: 823px) {
-    li.dropdown-menu-box {
-        display: none;
-    }
-}

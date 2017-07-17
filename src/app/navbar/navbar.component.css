@@ -5,9 +5,25 @@
     margin-right: 26px;
 }
 
+#navbar-header{
+  display: inline;
+  float: left;
+}
+
+#navbar-search{
+  display: inline;
+  float:left;
+  margin-left: -2%;
+}
+
+#navbar-dropdown-box{
+  float: right;
+  min-width: 45px;
+}
 .navbar-default{
   border-bottom: none;
 }
+
 
 .top-nav{
   margin-bottom: 0px;
@@ -17,6 +33,7 @@
 
 #navcontainer {
   height: 65px;
+  width: 100vw;
 }
 
 #navcontainer ul {
@@ -24,6 +41,7 @@
   padding: 0;
   list-style-type: none;
 }
+
 
 @media screen and (min-width:1920px) {
   .navbar-brand{
@@ -49,6 +67,18 @@
   }
 }
 
+@media screen and (max-width:1219px) {
+  #navbar-search {
+    margin-left: -4%;
+  }
+}
+
+@media screen and (min-width:1920px) {
+  #navbar-search{
+    top:6px;
+  }
+}
+
 @media screen and (max-width:1079px) {
   .navbar-brand{
       margin-top: 2px;
@@ -65,6 +95,15 @@
   }
 }
 
+@media screen and (max-width:819px) {
+  #navbar-search {
+    margin-left: -5%;
+  }
+  #navbar-dropdown-box{
+    display: none;
+  }
+}
+
 @media screen and (max-width:768px) {
   .top-nav{
     margin-top: -8%;
@@ -74,8 +113,7 @@
       height: auto;
   }
   #navbar-search {
-    margin-left: 21%;
-    margin-right: 8%;
+    margin-left: 2%;
   }
   .align-navsearch-btn {
     margin-right: 1% !important;
@@ -110,8 +148,7 @@
       margin-left: 33%;
   }
   #navbar-search {
-    margin-left: 20%;
-    margin-right: 9%;
+    margin-left: 2%;
   }
   .align-navsearch-btn {
     margin-right: 3% !important;

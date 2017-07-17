@@ -17,18 +17,12 @@ a {
   max-width: 100%;
   border: 1px solid rgba(150,150,150,0.3);
   background-color: white;
-  margin-left: -25.7px;
+  margin-top: 47px;
   position: absolute;
-}
-@media screen and (max-width: 823px) and (min-width: 768px){
-  .suggestion-box {
-    margin-left: -4.9%;
-  }
 }
 
 @media screen and (max-width: 767px) {
   .suggestion-box {
-    margin-left: -18%;
     width: 95.2vw;
   }
 }
