@@ -29,7 +29,7 @@ export class SpeechtotextComponent implements OnInit {
   constructor(private speech: SpeechService, private store: Store<fromRoot.State>,
     private router: Router) {
     this.resultspage = this.router.url.toString().includes('/search');
-    if(this.resultspage) {
+    if (this.resultspage) {
       this.shadowleft = '-103px';
       this.shadowtop = '-102px';
     }
@@ -50,7 +50,6 @@ export class SpeechtotextComponent implements OnInit {
         start: 0,
         rows: 10,
       }));
-
     }
   }
   hidespeech() {
@@ -71,7 +70,7 @@ export class SpeechtotextComponent implements OnInit {
         this.buttoncolor = "#f44";
         this.miccolor = "#fff";
         this.borderheight = this.randomize(0.7, 1);
-        if(this.resultspage) {
+        if (this.resultspage) {
           this.borderheight = this.randomize(0.35, 0.5);
         }
         if (!recheck) {
