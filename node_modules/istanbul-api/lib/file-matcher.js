@@ -26,7 +26,7 @@ function filesFor(options, callback) {
     includes = includes && Array.isArray(includes) ? includes : [ '**/*.js' ];
     excludes = excludes && Array.isArray(excludes) ? excludes : [ '**/node_modules/**' ];
 
-    opts = { cwd: root, nodir: true, ignore: [] };
+    opts = { cwd: root, nodir: true, ignore: excludes };
     seq += 1;
     opts['x' + seq + new Date().getTime()] = true; //cache buster for minimatch cache bug
     fileset(includes.join(' '), excludes.join(' '), opts, function (err, files) {

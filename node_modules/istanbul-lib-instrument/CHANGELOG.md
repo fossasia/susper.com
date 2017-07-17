@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.7.4"></a>
+## [1.7.4](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-instrument@1.7.3...istanbul-lib-instrument@1.7.4) (2017-07-16)
+
+
+### Bug Fixes
+
+* update increment operator to appropriate expression type ([#74](https://github.com/istanbuljs/istanbuljs/issues/74)) ([dc69e66](https://github.com/istanbuljs/istanbuljs/commit/dc69e66))
+
+
+
+
 <a name="1.7.3"></a>
 ## [1.7.3](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-instrument@1.7.2...istanbul-lib-instrument@1.7.3) (2017-06-25)
 
