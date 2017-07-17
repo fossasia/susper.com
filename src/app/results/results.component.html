@@ -35,7 +35,9 @@
       <div class="result message-bar" *ngIf="totalNumber > 0 && !Display('images')">
         {{message}}
       </div>
+      <div class="autocorrect">
       <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
+      </div>
     </div>
   <div class="text-result" *ngIf="Display('all')">
     <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
