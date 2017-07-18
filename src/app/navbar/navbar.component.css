@@ -19,6 +19,7 @@
 #navbar-dropdown-box{
   float: right;
   min-width: 45px;
+  margin-right: 7px;
 }
 .navbar-default{
   border-bottom: none;
@@ -50,20 +51,6 @@
   }
   .top-nav {
     margin-top: -5%;
-  }
-}
-
-@media screen and (min-width:768px) {
-  #navcontainer ul li {
-    display: inline;
-  }
-  .navbar-right {
-    padding-right: 20px;
-    font-size: 14px;
-    left: 92%;
-  }
-  #navcontainer, #side-menu {
-    margin-top: 8px;
   }
 }
 
