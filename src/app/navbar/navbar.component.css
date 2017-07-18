@@ -19,7 +19,7 @@
 #navbar-dropdown-box{
   float: right;
   min-width: 45px;
-  margin-right: 7px;
+  margin-right: 20px;
 }
 .navbar-default{
   border-bottom: none;
@@ -86,12 +86,14 @@
   #navbar-search {
     margin-left: -5%;
   }
-  #navbar-dropdown-box{
-    display: none;
+
+}
+@media screen and (max-width:800px) {
+  #navbar-dropdown-box {
+    margin-top: -36px;
   }
 }
-
-@media screen and (max-width:768px) {
+@media screen and (max-width:767px) {
   .top-nav{
     margin-top: -8%;
   }
@@ -104,6 +106,10 @@
   }
   .align-navsearch-btn {
     margin-right: 1% !important;
+  }
+  #navbar-dropdown-box{
+    margin-right: 32px;
+    margin-top: -116px;
   }
 }
 
