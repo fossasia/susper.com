@@ -40,7 +40,7 @@ export class SpeechtotextComponent implements OnInit {
   }
   onquery(event: any) {
     this.resettimer();
-    this.store.dispatch(new queryactions.QueryServerAction({ 'query': event, start: 0, rows: 10, search: true }));
+    this.store.dispatch(new queryactions.QueryServerAction({ 'query': event, start: 0, rows: 10, search: true, mode: 'speech' }));
     this.message = event;
     let instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
 

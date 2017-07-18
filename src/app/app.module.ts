@@ -41,6 +41,7 @@ import {IntelligenceService} from "./intelligence.service";
 import { SpeechtotextComponent } from './speechtotext/speechtotext.component';
 import { AutoCorrectComponent } from './auto-correct/auto-correct.component';
 import {AutocorrectService} from "./autocorrect.service";
+import { SpeechSynthesisService } from './speech-synthesis.service';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -103,7 +104,8 @@ const appRoutes: Routes = [
     SpeechService,
     CrawlstartService,
     IntelligenceService,
-    AutocorrectService
+    AutocorrectService,
+    SpeechSynthesisService
   ],
 
   bootstrap: [AppComponent]

@@ -28,9 +28,7 @@ export class ResultsComponent implements OnInit {
     query: '',
     start: 0,
     rows: 10,
-
   };
-
   querylook = {};
   hidefooter = 1;
   hideAutoCorrect = 1;
@@ -72,9 +70,7 @@ export class ResultsComponent implements OnInit {
   }
 
   Display(S) {
-
     return (this.resultDisplay === S);
-
   }
 
   videoClick() {
@@ -95,7 +91,6 @@ export class ResultsComponent implements OnInit {
     urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
-
   }
 
   docClick() {
