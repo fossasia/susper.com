@@ -89,20 +89,33 @@
     width: 95vw!important;
   }
   .align-search-btn{
-    left: -9%;
+    left: -1%;
+  }
+    #nav-input {
+      width: 83vw;
+    }
+}
+@media screen and (max-width: 573px){
+  .align-search-btn{
+    left: -5%;
+  }
+  #nav-input {
+    width: 73vw;
   }
 }
 
-
 @media screen and (max-width: 480px) {
   .align-search-btn{
-    left: -6%;
+    left: -10%;
   }
 }
 
 @media screen and (max-width: 360px) {
   .align-search-btn{
-    left: -5%;
+    left: -15%;
+  }
+  #nav-input {
+    width: 63vw;
   }
 }
 
