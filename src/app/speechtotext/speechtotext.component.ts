@@ -88,10 +88,13 @@ export class SpeechtotextComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.timer = Observable.timer(5000, 1000);
+    this.timer = Observable.timer(1500, 2000);
     this.subscription = this.timer.subscribe(t => {
       this.ticks = t;
 
+      if (t === 1) {
+        this.message = "Listening...";
+      }
       if (t === 4) {
         this.message = "Please check your microphone and audio levels.";
         this.miccolor = '#C2C2C2';
