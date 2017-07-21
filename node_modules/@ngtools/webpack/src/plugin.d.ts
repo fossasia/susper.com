@@ -67,6 +67,7 @@ export declare class AotPlugin implements Tapable {
     readonly firstRun: boolean;
     private _setupOptions(options);
     private _findLazyRoutesInAst();
+    private _getLazyRoutesFromNgtools();
     apply(compiler: any): void;
     private _translateSourceMap(sourceText, fileName, {line, character});
     diagnose(fileName: string): void;

@@ -25,7 +25,7 @@ class CliConfig extends config_1.CliConfig {
         if (projectConfig) {
             value = projectConfig.get(jsonPath);
         }
-        else {
+        else if (CliConfig.globalConfigFilePath() !== CliConfig.configFilePath()) {
             const globalConfig = CliConfig.fromGlobal();
             if (globalConfig) {
                 value = globalConfig.get(jsonPath);

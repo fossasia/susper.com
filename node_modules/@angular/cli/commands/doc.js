@@ -4,7 +4,7 @@ const Command = require('../ember-cli/lib/models/command');
 const doc_1 = require("../tasks/doc");
 const DocCommand = Command.extend({
     name: 'doc',
-    description: 'Opens the official Angular documentation for a given keyword.',
+    description: 'Opens the official Angular API documentation for a given keyword.',
     works: 'everywhere',
     availableOptions: [
         {
@@ -12,7 +12,7 @@ const DocCommand = Command.extend({
             aliases: ['s'],
             type: Boolean,
             default: false,
-            description: 'Search docs instead of api.'
+            description: 'Search whole angular.io instead of just api.'
         }
     ],
     anonymousOptions: [

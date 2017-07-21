@@ -7,6 +7,10 @@ const denodeify = require("denodeify");
 const execPromise = denodeify(child_process_1.exec);
 const packageManager = config_1.CliConfig.fromGlobal().get('packageManager');
 function checkYarnOrCNPM() {
+    // Don't show messages if user has already changed the default.
+    if (packageManager !== 'default') {
+        return Promise.resolve();
+    }
     return Promise
         .all([checkYarn(), checkCNPM()])
         .then((data) => {

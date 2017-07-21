@@ -76,7 +76,7 @@ exports.default = Task.extend({
         return installBlueprint.run(blueprintOpts)
             .then(function () {
             if (!commandOptions.skipInstall) {
-                return npmInstall.run();
+                return check_package_manager_1.checkYarnOrCNPM().then(() => npmInstall.run());
             }
         })
             .then(function () {
@@ -87,11 +87,6 @@ exports.default = Task.extend({
             .then(function () {
             if (commandOptions.linkCli) {
                 return linkCli.run();
-            }
-        })
-            .then(() => {
-            if (!commandOptions.skipInstall || commandOptions.linkCli) {
-                return check_package_manager_1.checkYarnOrCNPM();
             }
         })
             .then(() => {

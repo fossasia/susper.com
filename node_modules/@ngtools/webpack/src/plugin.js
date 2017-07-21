@@ -176,6 +176,26 @@ class AotPlugin {
         }
         return result;
     }
+    _getLazyRoutesFromNgtools() {
+        try {
+            return __NGTOOLS_PRIVATE_API_2.listLazyRoutes({
+                program: this._program,
+                host: this._compilerHost,
+                angularCompilerOptions: this._angularCompilerOptions,
+                entryModule: this._entryModule
+            });
+        }
+        catch (err) {
+            // We silence the error that the @angular/router could not be found. In that case, there is
+            // basically no route supported by the app itself.
+            if (err.message.startsWith('Could not resolve module @angular/router')) {
+                return {};
+            }
+            else {
+                throw err;
+            }
+        }
+    }
     // registration hook for webpack plugin
     apply(compiler) {
         this._compiler = compiler;
@@ -373,13 +393,8 @@ class AotPlugin {
             .then(() => {
             // We need to run the `listLazyRoutes` the first time because it also navigates libraries
             // and other things that we might miss using the findLazyRoutesInAst.
-            let discoveredLazyRoutes = this.firstRun ?
-                __NGTOOLS_PRIVATE_API_2.listLazyRoutes({
-                    program: this._program,
-                    host: this._compilerHost,
-                    angularCompilerOptions: this._angularCompilerOptions,
-                    entryModule: this._entryModule
-                })
+            let discoveredLazyRoutes = this.firstRun
+                ? this._getLazyRoutesFromNgtools()
                 : this._findLazyRoutesInAst();
             // Process the lazy routes discovered.
             Object.keys(discoveredLazyRoutes)
