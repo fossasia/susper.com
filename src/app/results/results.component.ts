@@ -40,6 +40,7 @@ export class ResultsComponent implements OnInit {
   resultscomponentchange$: Observable<any>;
   totalResults: number;
   hideIntelligence: boolean;
+  expand: boolean = false;
 
   getNumber(N) {
     let result = Array.apply(null, { length: N }).map(Number.call, Number);
@@ -72,9 +73,11 @@ export class ResultsComponent implements OnInit {
   }
 
   Display(S) {
-
     return (this.resultDisplay === S);
+  }
 
+  expandImage(key) {
+    this.expand = !this.expand;
   }
 
   videoClick() {

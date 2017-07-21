@@ -171,30 +171,43 @@ a {
 }
 
 /** Rendered image properties **/
+/*clearfix*/
 .container {
-  width: 100%;
-  margin: 0;
-  top: 0;
-  bottom: 0;
-  padding: 0;
+  min-width: 100%;
+  margin-top: 10px;
 }
 
-.grid {
-  padding-left: 30px;
-  padding-right: 30px;
+.container:before,
+.container:after {
+  content: "";
+  display: table;
 }
 
-.responsive-image {
-  max-width: 100%;
-  height: 200px;
-  padding-top: 20px;
-  padding: 0.6%;
-  display: inline-block;
+.container:after {
+  clear: both;
+}
+
+.item {
   float: left;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  cursor: pointer;
 }
 
-.image-pointer {
-  cursor: pointer;
+.item img {
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: bottom;
+}
+
+.content {
+  height: 200px;
+  background-color: #000;
+  position: relative;
+  box-sizing: content-box;
+  transition: max-height .3s ease-in-out,
+              margin-bottom .1s .2s;
+  width: 500%;
 }
 /** END **/
 
