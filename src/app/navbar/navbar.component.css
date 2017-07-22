@@ -136,6 +136,13 @@
   }
 }
 
+@media screen and (max-width:539px) {
+  .top-nav{
+    margin-top: -11%;
+  }
+}
+
+
 @media screen and (max-width:479px) {
   .navbar-brand{
       margin-left: 33%;
@@ -146,10 +153,16 @@
   .align-navsearch-btn {
     margin-right: 3% !important;
   }
+  .top-nav{
+    margin-top: -13%;
+  }
 }
 
-@media screen and (max-width:359px) {
+@media screen and (max-width:379px) {
   .navbar-brand{
     margin-left: 30%;
+  }
+  .top-nav{
+    margin-top: -16%;
   }
 }
