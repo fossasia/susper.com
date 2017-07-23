@@ -53,7 +53,7 @@ let supportLevel = (() => {
 		// release that supports 256 colors.
 		const osRelease = os.release().split('.');
 		if (
-			Number(process.version.split('.')[0]) >= 8 &&
+			Number(process.versions.node.split('.')[0]) >= 8 &&
 			Number(osRelease[0]) >= 10 &&
 			Number(osRelease[2]) >= 10586
 		) {
