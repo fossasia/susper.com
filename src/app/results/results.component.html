@@ -1,158 +1,159 @@
 <app-navbar></app-navbar>
 <div class="row" [style.background-color]="themeService.backgroundColor">
-    <div class="container-fluid" id="search-options-field">
-        <ul type="none" id="search-options">
-            <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
-            <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
-            <li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li>
-            <li class="dropdown">
-                <a href="#" id="settings" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Settings
-            </a>
-                <ul class="dropdown-menu" aria-labelledby="settings" id="setting-dropdown">
-                    <li routerLink="/preferences">Search settings</li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" id="tools" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Tools
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="tools" id="tool-dropdown">
-                    <li (click)="filterByContext()">Context Ranking</li>
-                    <li (click)="filterByDate()">Sort by Date</li>
-                    <li data-toggle="modal" data-target="#myModal">Advanced Search</li>
-                    <li data-toggle="modal" data-target="#customization">Customization</li>
-                </ul>
-            </li>
+  <div class="container-fluid" id="search-options-field">
+    <ul type="none" id="search-options">
+      <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
+      <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
+      <li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li>
+      <li class="dropdown">
+        <a href="#" id="settings" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Settings
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="settings" id="setting-dropdown">
+          <li routerLink="/preferences">Search settings</li>
         </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" id="tools" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Tools
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="tools" id="tool-dropdown">
+          <li (click)="filterByContext()">Context Ranking</li>
+          <li (click)="filterByDate()">Sort by Date</li>
+          <li data-toggle="modal" data-target="#myModal">Advanced Search</li>
+          <li data-toggle="modal" data-target="#customization">Customization</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+  </div>
+  <div [hidden]="hidefooter">
+    <!-- Basic results 'All' -->
+    <div class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+      <div class="result message-bar" *ngIf="totalNumber > 0 && !Display('images')">
+        {{message}}
+      </div>
+      <div class="autocorrect">
+        <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
+      </div>
+    </div>
+    <div class="text-result" *ngIf="Display('all')">
+      <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+
+        <div class="noResults">
+          <p>Your search - <em>{{searchdata.query}}</em> - did not match any documents.</p>
+          <p>Suggestions:</p>
+          <ul>
+            <li>Make sure that all words are spelled correctly.</li>
+            <li>Try different keywords.</li>
+            <li>Try more general keywords.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+        <div class="result">
+          <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
+        </div>
+        <div *ngFor="let item of items$|async" class="result">
+          <div class="title">
+            <a class="title-pointer" href="{{item.link}}" [style.color]="themeService.titleColor">{{item.title}}</a>
+          </div>
+          <div class="link">
+            <p [style.color]="themeService.linkColor">{{item.link}}</p>
+          </div>
+          <div class="description">
+            <p [style.color]="themeService.descriptionColor">{{item.pubDate|date:'MMMM d, yyyy'}} - {{item.description}}</p>
+          </div>
+        </div>
+        <app-related-search [hidden]="hidefooter"></app-related-search>
+      </div>
     </div>
 
-    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+    <app-infobox [hidden]="hidefooter || hideAutoCorrect" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
+    <!-- END -->
+    <!-- Image section -->
+    <div *ngIf="Display('images')">
+      <div class="container">
+        <div *ngIf="totalNumber < 1">
+          <div class="noResults">
+            <p>Your search - <em>{{searchdata.query}}</em> - did not match any images.</p>
+            <p>Suggestions:</p>
+            <ul>
+              <li>Make sure that all words are spelled correctly.</li>
+              <li>Try different keywords.</li>
+              <li>Try more general keywords.</li>
+            </ul>
+          </div>
+        </div>
+        <div *ngIf="totalNumber > 0">
+          <div *ngFor="let item of items;let i = index">
+            <div class="item">
+              <img src="{{item.link}}" height="200px" (click)="expandImage(i)" [ngClass]="'image'+i">
+            </div>
+            <div class=" item image-viewer" *ngIf="expand && expandedrow === i">
+              <img [src]="items[expandedkey].link" height="200px" style="position:absolute;left: 0;right: 0">
+            </div>
+
+          </div>
+
+        </div>
+      </div>
     </div>
-    <div [hidden]="hidefooter">
-        <!-- Basic results 'All' -->
-        <div class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-            <div class="result message-bar" *ngIf="totalNumber > 0 && !Display('images')">
-                {{message}}
-            </div>
-            <div class="autocorrect">
-                <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
-            </div>
+    <!-- END -->
+    <div class="video-result" *ngIf="Display('videos')">
+      <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+        <div class="noResults">
+          <p>Your search - <em>{{searchdata.query}}</em> - did not match any videos.</p>
+          <p>Suggestions:</p>
+          <ul>
+            <li>Make sure that all words are spelled correctly.</li>
+            <li>Try different keywords.</li>
+            <li>Try more general keywords.</li>
+          </ul>
         </div>
-        <div class="text-result" *ngIf="Display('all')">
-            <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-
-                <div class="noResults">
-                    <p>Your search - <em>{{searchdata.query}}</em> - did not match any documents.</p>
-                    <p>Suggestions:</p>
-                    <ul>
-                        <li>Make sure that all words are spelled correctly.</li>
-                        <li>Try different keywords.</li>
-                        <li>Try more general keywords.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-                <div class="result">
-                    <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
-                </div>
-                <div *ngFor="let item of items$|async" class="result">
-                    <div class="title">
-                        <a class="title-pointer" href="{{item.link}}" [style.color]="themeService.titleColor">{{item.title}}</a>
-                    </div>
-                    <div class="link">
-                        <p [style.color]="themeService.linkColor">{{item.link}}</p>
-                    </div>
-                    <div class="description">
-                        <p [style.color]="themeService.descriptionColor">{{item.pubDate|date:'MMMM d, yyyy'}} - {{item.description}}</p>
-                    </div>
-                </div>
-                <app-related-search [hidden]="hidefooter"></app-related-search>
-            </div>
+      </div>
+      <div *ngFor="let item of items$|async" class="result">
+        <div class="title">
+          <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
         </div>
-
-        <app-infobox [hidden]="hidefooter || hideAutoCorrect" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
-        <!-- END -->
-        <!-- Image section -->
-        <div *ngIf="Display('images')">
-            <div class="container">
-                <div *ngIf="totalNumber < 1">
-                    <div class="noResults">
-                        <p>Your search - <em>{{searchdata.query}}</em> - did not match any images.</p>
-                        <p>Suggestions:</p>
-                        <ul>
-                            <li>Make sure that all words are spelled correctly.</li>
-                            <li>Try different keywords.</li>
-                            <li>Try more general keywords.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div *ngIf="totalNumber > 0">
-                    <div *ngFor="let item of items$|async">
-                        <div class="item">
-                            <img src="{{item.link}}" height="200px" (click)="expandImage(item.$key)">
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="content" [ngClass]="{'content': expand}">
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="link">
+          <p>{{item.link}}</p>
         </div>
-            <!-- END -->
-            <div class="video-result" *ngIf="Display('videos')">
-                <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-                    <div class="noResults">
-                        <p>Your search - <em>{{searchdata.query}}</em> - did not match any videos.</p>
-                        <p>Suggestions:</p>
-                        <ul>
-                            <li>Make sure that all words are spelled correctly.</li>
-                            <li>Try different keywords.</li>
-                            <li>Try more general keywords.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div *ngFor="let item of items$|async" class="result">
-                    <div class="title">
-                        <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
-                    </div>
-                    <div class="link">
-                        <p>{{item.link}}</p>
-                    </div>
-                </div>
-            </div>
-
-            <br>
-            <div class="clean"></div>
-            <div class="pagination-bar">
-                <div class="pagination-property" *ngIf="noOfPages>1">
-                    <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
-                        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-                            <ul class="pagination" id="pag-bar">
-                                <li class="page-item2" *ngIf="!getStyle(1)"><span class="spl" (click)="decPresentPage()"><div class="arrow">< </div><div class="side-text">Previous</div></span></li>
-                                <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()"><div class="page-text prev">S</div><br/></span></li>
-                                <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link" *ngIf="presentPage>=4 && presentPage-3+num<=noOfPages" [class.active_page]="getStyle(presentPage-3+num)"
-                                        (click)="getPresentPage(presentPage-3+num)" href="#"><div [class.active_page]="getStyle(presentPage-3+num)" class="page-text">U</div><span class="page-number">{{presentPage-3+num}}</span></span>
-                                    <span class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="num+1 == presentPage" (click)="getPresentPage(num+1)"
-                                        href="#"><div [class.active_page]="num+1 == presentPage" class="page-text">U</div><span class="page-number">{{num+1}}</span></span>
-                                </li>
-                                <li class="page-item"><span class="page-link" (click)="incPresentPage()"><div class="page-text next">SPER</div></span></li>
-                                <li class="page-item2" *ngIf="!getStyle(maxPage)"><span class="spl" (click)="incPresentPage()"><div class="arrow">></div><div class="side-text">Next</div></span></li>
-
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <app-advancedsearch></app-advancedsearch>
-            </div>
-            <div class="modal fade" id="customization" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <app-theme></app-theme>
-            </div>
-
-            <!--footer navigation bar goes here-->
-        </div>
+      </div>
     </div>
-    <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
+
+    <br>
+    <div class="clean"></div>
+    <div class="pagination-bar">
+      <div class="pagination-property" *ngIf="noOfPages>1">
+        <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
+          <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+            <ul class="pagination" id="pag-bar">
+              <li class="page-item2" *ngIf="!getStyle(1)"><span class="spl" (click)="decPresentPage()"><div class="arrow">< </div><div class="side-text">Previous</div></span></li>
+              <li class="page-item"><span class="page-link" href="#" (click)="decPresentPage()"><div class="page-text prev">S</div><br/></span></li>
+              <li class="page-item" *ngFor="let num of getNumber(maxPage)"><span class="page-link" *ngIf="presentPage>=4 && presentPage-3+num<=noOfPages" [class.active_page]="getStyle(presentPage-3+num)"
+                                                                                 (click)="getPresentPage(presentPage-3+num)" href="#"><div [class.active_page]="getStyle(presentPage-3+num)" class="page-text">U</div><span class="page-number">{{presentPage-3+num}}</span></span>
+                <span class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="num+1 == presentPage" (click)="getPresentPage(num+1)"
+                      href="#"><div [class.active_page]="num+1 == presentPage" class="page-text">U</div><span class="page-number">{{num+1}}</span></span>
+              </li>
+              <li class="page-item"><span class="page-link" (click)="incPresentPage()"><div class="page-text next">SPER</div></span></li>
+              <li class="page-item2" *ngIf="!getStyle(maxPage)"><span class="spl" (click)="incPresentPage()"><div class="arrow">></div><div class="side-text">Next</div></span></li>
+
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <app-advancedsearch></app-advancedsearch>
+    </div>
+    <div class="modal fade" id="customization" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <app-theme></app-theme>
+    </div>
+
+    <!--footer navigation bar goes here-->
+  </div>
+</div>
+<app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>

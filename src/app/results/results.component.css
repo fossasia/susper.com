@@ -177,15 +177,6 @@ a {
   margin-top: 10px;
 }
 
-.container:before,
-.container:after {
-  content: "";
-  display: table;
-}
-
-.container:after {
-  clear: both;
-}
 
 .item {
   float: left;
@@ -200,13 +191,10 @@ a {
   vertical-align: bottom;
 }
 
-.content {
+.image-viewer {
   height: 200px;
   background-color: #000;
   position: relative;
-  box-sizing: content-box;
-  transition: max-height .3s ease-in-out,
-              margin-bottom .1s .2s;
   width: 500%;
 }
 /** END **/
