@@ -80,10 +80,11 @@ export class ResultsComponent implements OnInit {
   }
 
   expandImage(key) {
-
+    if(key == this.expandedkey || this.expand == false) {
+      this.expand = !this.expand;
+    }
     this.expandedkey = key;
     console.log(key);
-    this.expand = !this.expand;
     let i = key;
     let previouselementleft = 0;
     while ( $('.image' + i) && $('.image' + i).offset().left > previouselementleft) {
