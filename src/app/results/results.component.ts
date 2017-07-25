@@ -80,7 +80,7 @@ export class ResultsComponent implements OnInit {
   }
 
   expandImage(key) {
-    if(key == this.expandedkey || this.expand == false) {
+    if (key === this.expandedkey || this.expand === false) {
       this.expand = !this.expand;
     }
     this.expandedkey = key;
