@@ -1,20 +1,19 @@
 'use strict';
-var path = require('path');
-var childProcess = require('child_process');
-var objectAssign = require('object-assign');
-var Promise = require('pinkie-promise');
+const path = require('path');
+const childProcess = require('child_process');
+const isWsl = require('is-wsl');
 
-module.exports = function (target, opts) {
+module.exports = (target, opts) => {
 	if (typeof target !== 'string') {
 		return Promise.reject(new Error('Expected a `target`'));
 	}
 
-	opts = objectAssign({wait: true}, opts);
+	opts = Object.assign({wait: true}, opts);
 
-	var cmd;
-	var appArgs = [];
-	var args = [];
-	var cpOpts = {};
+	let cmd;
+	let appArgs = [];
+	let args = [];
+	const cpOpts = {};
 
 	if (Array.isArray(opts.app)) {
 		appArgs = opts.app.slice(1);
@@ -31,8 +30,8 @@ module.exports = function (target, opts) {
 		if (opts.app) {
 			args.push('-a', opts.app);
 		}
-	} else if (process.platform === 'win32') {
-		cmd = 'cmd';
+	} else if (process.platform === 'win32' || isWsl) {
+		cmd = 'cmd' + (isWsl ? '.exe' : '');
 		args.push('/c', 'start', '""');
 		target = target.replace(/&/g, '^&');
 
@@ -59,7 +58,7 @@ module.exports = function (target, opts) {
 		}
 
 		if (!opts.wait) {
-			// xdg-open will block the process unless
+			// `xdg-open` will block the process unless
 			// stdio is ignored even if it's unref'd
 			cpOpts.stdio = 'ignore';
 		}
@@ -72,13 +71,13 @@ module.exports = function (target, opts) {
 		args = args.concat(appArgs);
 	}
 
-	var cp = childProcess.spawn(cmd, args, cpOpts);
+	const cp = childProcess.spawn(cmd, args, cpOpts);
 
 	if (opts.wait) {
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject) => {
 			cp.once('error', reject);
 
-			cp.once('close', function (code) {
+			cp.once('close', code => {
 				if (code > 0) {
 					reject(new Error('Exited with code ' + code));
 					return;

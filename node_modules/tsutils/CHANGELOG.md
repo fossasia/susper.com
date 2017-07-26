@@ -1,5 +1,9 @@
 # Change Log
 
+## v2.8.0
+* Compatibility with the latest typescript nightly
+* Added `getIdentifierText` to unescape identifiers across typescript versions
+
 ## v2.7.1
 **Bugfixes:**
 * `isReassignmentTarget` don't return `true` for right side of assignment
