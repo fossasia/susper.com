@@ -27,11 +27,9 @@
         </ul>
     </div>
 
-    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-    </div>
   <div [hidden]="hidefooter">
     <!-- Basic results 'All' -->
-    <div class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+    <div class="container-fluid">
       <div class="result message-bar" *ngIf="totalNumber > 0 && !Display('images')">
         {{message}}
       </div>
@@ -39,7 +37,7 @@
       <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
       </div>
     </div>
-  <div class="text-result" *ngIf="Display('all')">
+  <div class="container-fluid text-result" *ngIf="Display('all')">
     <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
 
       <div class="noResults">
@@ -52,7 +50,7 @@
       </ul>
       </div>
     </div>
-    <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+    <div class="feed">
       <div class="result">
       <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
       </div>
@@ -69,9 +67,9 @@
             </div>
       <app-related-search [hidden]="hidefooter"></app-related-search>
         </div>
-    </div>
+    <app-infobox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
+  </div>
 
-  <app-infobox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
   <!-- END -->
     <!-- Image section -->
     <div class="container">
