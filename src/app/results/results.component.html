@@ -92,7 +92,7 @@
               <img src="{{item.link}}" height="200px" (click)="expandImage(i)" [ngClass]="'image'+i">
             </div>
             <div class=" item image-viewer" *ngIf="expand && expandedrow === i">
-              <img [src]="items[expandedkey].link" height="200px" style="position:absolute;left: 0;right: 0">
+              <span class="helper"></span> <img [src]="items[expandedkey].link" height="200px" style="vertical-align: middle;">
             </div>
 
           </div>

@@ -84,7 +84,6 @@ export class ResultsComponent implements OnInit {
       this.expand = !this.expand;
     }
     this.expandedkey = key;
-    console.log(key);
     let i = key;
     let previouselementleft = 0;
     while ( $('.image' + i) && $('.image' + i).offset().left > previouselementleft) {

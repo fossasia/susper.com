@@ -192,10 +192,11 @@ a {
 }
 
 .image-viewer {
-  height: 200px;
+  height: 400px;
   background-color: #000;
   position: relative;
-  width: 500%;
+  width: 100%;
+  text-align: center
 }
 /** END **/
 
@@ -203,7 +204,11 @@ a {
   background-color: #f8f8f8;
   padding-bottom: 3px;
 }
-
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
 #search-options {
   margin-top: 0.5%;
   margin-left: 9%;
