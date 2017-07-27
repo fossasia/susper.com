@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';
 import { Store } from '@ngrx/store';
 import * as queryactions from '../actions/query';
+declare var $: any;
+
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -29,6 +31,7 @@ export class ResultsComponent implements OnInit {
     start: 0,
     rows: 10,
   };
+  expandedkey: number;
   querylook = {};
   hidefooter = 1;
   hideAutoCorrect = 1;
@@ -38,7 +41,9 @@ export class ResultsComponent implements OnInit {
   resultscomponentchange$: Observable<any>;
   totalResults: number;
   hideIntelligence: boolean;
-
+  expand: boolean = false;
+  items: Array<any>;
+  expandedrow: number;
   getNumber(N) {
     let result = Array.apply(null, { length: N }).map(Number.call, Number);
     if (result.length > 10) {
@@ -46,15 +51,12 @@ export class ResultsComponent implements OnInit {
     }
     return result;
   };
-  advancedsearch() {
-  }
 
   getPresentPage(N) {
     this.presentPage = N;
     let urldata = Object.assign({}, this.searchdata);
     urldata.start = (this.presentPage - 1) * urldata.rows;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
-
   }
 
   filterByDate() {
@@ -71,6 +73,21 @@ export class ResultsComponent implements OnInit {
 
   Display(S) {
     return (this.resultDisplay === S);
+  }
+
+  expandImage(key) {
+    if (key === this.expandedkey || this.expand === false) {
+      this.expand = !this.expand;
+    }
+    this.expandedkey = key;
+    let i = key;
+    let previouselementleft = 0;
+    while ( $('.image' + i) && $('.image' + i).offset().left > previouselementleft) {
+      this.expandedrow = i;
+      previouselementleft = $('.image' + i).offset().left;
+      i = i + 1;
+
+    }
   }
 
   videoClick() {
@@ -161,6 +178,9 @@ export class ResultsComponent implements OnInit {
       }
     });
     this.items$ = store.select(fromRoot.getItems);
+    this.items$.subscribe(items => {
+      this.items = items;
+    });
     this.responseTime$ = store.select(fromRoot.getResponseTime);
     this.responseTime$.subscribe(responsetime => {
       this.hidefooter = 0;

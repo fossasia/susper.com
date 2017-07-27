@@ -171,30 +171,32 @@ a {
 }
 
 /** Rendered image properties **/
+/*clearfix*/
 .container {
-  width: 100%;
-  margin: 0;
-  top: 0;
-  bottom: 0;
-  padding: 0;
+  min-width: 100%;
+  margin-top: 10px;
 }
 
-.grid {
-  padding-left: 30px;
-  padding-right: 30px;
-}
 
-.responsive-image {
-  max-width: 100%;
-  height: 200px;
-  padding-top: 20px;
-  padding: 0.6%;
-  display: inline-block;
+.item {
   float: left;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  cursor: pointer;
 }
 
-.image-pointer {
-  cursor: pointer;
+.item img {
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: bottom;
+}
+
+.image-viewer {
+  height: 400px;
+  background-color: #000;
+  position: relative;
+  width: 100%;
+  text-align: center
 }
 /** END **/
 
@@ -202,7 +204,11 @@ a {
   background-color: #f8f8f8;
   padding-bottom: 3px;
 }
-
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
 #search-options {
   margin-top: 0.5%;
   margin-left: 9%;
@@ -293,7 +299,7 @@ a {
 #setting-dropdown{
   margin-top: 8%;
   margin-left: 15%;
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 #tool-dropdown{
@@ -361,6 +367,10 @@ div.video-result {
   margin-left: 8.6%;
 }
 
+div.autocorrect{
+  margin-left: 6%;
+}
+
 @media screen and (min-width:1920px) {
   #tools {
     margin-left: 27%;
@@ -405,7 +415,7 @@ div.video-result {
     margin-left: 8.2%;
   }
   div.autocorrect {
-    margin-left: 2%;
+    margin-left: 8.2%;
   }
 }
 
@@ -429,7 +439,7 @@ div.video-result {
     margin-left: 8.7%;
   }
   div.autocorrect {
-    margin-left: 2.7%;
+    margin-left: 8.7%;
   }
 }
 
@@ -459,6 +469,9 @@ div.video-result {
   div.result.message-bar {
     margin-left: 9%;
   }
+  div.autocorrect{
+    margin-left: 9%;
+  }
 }
 
 @media screen and (max-width:882px) {
@@ -481,7 +494,7 @@ div.video-result {
 
 @media screen and (max-width:767px) {
   div.result {
-    margin-left: 1%;
+    margin-left: 4%;
     padding-right: 30px;
   }
   .message-bar {
@@ -494,6 +507,7 @@ div.video-result {
   }
   #pag-bar {
     padding-left: 50px;
+    margin-left: 0;
   }
   #search-tools {
     padding-left: 50px;
@@ -510,46 +524,42 @@ div.video-result {
   #tools{
     left: 4.5%;
   }
+  #setting-dropdown{
+    min-width: 100px;
+    margin-left: 0;
+  }
+  #setting-dropdown li{
+    padding-left: 0;
+  }
+  div.result.message-bar{
+    margin-left: 4%;
+  }
+  div.autocorrect{
+    margin-left: 4%;
+    padding-left: 0;
+  }
+  #tool-dropdown{
+    right: 0;
+    margin-left: -58%;
+    min-width: 123px;
+  }
 }
 
 @media screen and (max-width: 760px) {
 
-  div.result {
-    margin-left: 10%;
-    padding-right: 30px;
-  }
-
-  div.result.message-bar {
-    margin-left: 10%
-  }
   .feed.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.col-lg-10.col-lg-offset-1 {
     width: 100%;
     margin-left: -2%;
   }
-  div.autocorrect{
-    margin-left: 4%;
-  }
 }
 
 @media screen and (max-width:741px) {
-  div.result {
-    margin-left: 10.5%;
-  }
-  div.autocorrect {
-    margin-left: 3.5%;
-  }
   .feed {
     width: 87%;
   }
 }
 
 @media screen and (max-width: 730px) {
-  div.result.message-bar {
-    margin-left: 10%;
-  }
-  div.autocorrect {
-    margin-left: 3.3%;
-  }
   .feed.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.col-lg-10.col-lg-offset-1 {
     width: 100%;
     margin-left: -2%;
@@ -559,6 +569,10 @@ div.video-result {
 @media screen and (max-width:639px) {
   #search-options li {
     padding: 0px 1.5% 12px;
+  }
+  #tool-dropdown li{
+    padding-left: 0!important;
+    padding-right: 0!important;
   }
 }
 
@@ -579,14 +593,21 @@ div.video-result {
     padding-left: 5vw;
     padding-right: 5vw;
   }
+  #setting-dropdown li{
+    padding-left: 0!important;
+    padding-right: 0!important;
+  }
+  #tool-dropdown li{
+    padding-left: 0!important;
+    padding-right: 0!important;
+  }
 }
 @media screen and (max-width:495px) {
   .result {
-    margin-left: 12%;
     padding-right: 20px;
   }
   #pag-bar {
-    padding-left: 30px;
+    padding-left: 10px;
   }
   #search-tools {
     padding-left: 30px;
@@ -603,18 +624,24 @@ div.video-result {
   .feed.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.col-lg-10.col-lg-offset-1 {
     width: 100%;
   }
-  div.result.message-bar {
-    margin-left: 12%;
-  }
   div.autocorrect{
-    margin-left: 5%;
     top: 2%;
   }
-    div.result {
-      margin-left: 12.5%;
-    }
 }
-
+@media screen and (max-width:423px) {
+  #pag-bar {
+    padding-left: 0;
+  }
+  .page-text {
+    font-size: x-large;
+  }
+  .page-item span{
+    font-size: 10px;
+  }
+  .arrow {
+    font-size: small;
+  }
+}
 @media screen and (max-width:379px) {
   #search-options li {
     padding: 0px 3vw 12px;

@@ -1,6 +1,16 @@
 li.dropdown-menu-box {
     top: 10px;
 }
+.menu-row{
+  width: 267px;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: white;
+}
+
+.menu-item{
+  display: inline-block;
+  width: 86px;
+}
 .dropdown-menu{
   height: 500px;
   width: 327px;
@@ -117,3 +127,16 @@ hr {
     padding-top: 10px;
 }
 
+@media screen and (max-width: 767px) {
+  #small-drop{
+    position: absolute;
+    background-color: white;
+    border: 1px solid #cccccc;
+    right: -38px;
+    left: auto;
+  }
+  .nav > li > a{
+    padding-left: 11px;
+    padding-right: 28px;
+  }
+}
