@@ -20,8 +20,8 @@ var db = require('mime-db')
  * @private
  */
 
-var compressibleTypeRegExp = /^text\/|\+json$|\+text$|\+xml$/i
-var extractTypeRegExp = /^\s*([^;\s]*)(?:;|\s|$)/
+var COMPRESSIBLE_TYPE_REGEXP = /^text\/|\+(?:json|text|xml)$/i
+var EXTRACT_TYPE_REGEXP = /^\s*([^;\s]*)(?:;|\s|$)/
 
 /**
  * Module exports.
@@ -44,7 +44,7 @@ function compressible (type) {
   }
 
   // strip parameters
-  var match = extractTypeRegExp.exec(type)
+  var match = EXTRACT_TYPE_REGEXP.exec(type)
   var mime = match && match[1].toLowerCase()
   var data = db[mime]
 
@@ -54,5 +54,5 @@ function compressible (type) {
   }
 
   // fallback to regexp or unknown
-  return compressibleTypeRegExp.test(mime) || undefined
+  return COMPRESSIBLE_TYPE_REGEXP.test(mime) || undefined
 }

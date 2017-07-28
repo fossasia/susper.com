@@ -325,3 +325,25 @@ test('async: #121 - treating an existing file as a dir when no basedir', functio
 
     t.end();
 });
+
+test('async dot main', function (t) {
+    var start = new Date();
+    t.plan(3);
+    resolve('./resolver/dot_main', function (err, ret) {
+        t.notOk(err);
+        t.equal(ret, path.join(__dirname, 'resolver/dot_main/index.js'));
+        t.ok(new Date() - start < 50, 'resolve.sync timedout');
+        t.end();
+    });
+});
+
+test('async dot slash main', function (t) {
+    var start = new Date();
+    t.plan(3);
+    resolve('./resolver/dot_slash_main', function (err, ret) {
+        t.notOk(err);
+        t.equal(ret, path.join(__dirname, 'resolver/dot_slash_main/index.js'));
+        t.ok(new Date() - start < 50, 'resolve.sync timedout');
+        t.end();
+    });
+});

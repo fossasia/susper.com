@@ -50,10 +50,14 @@ function ConsoleReporter() {
     }
   };
 
-  this.jasmineStarted = function() {
+  this.jasmineStarted = function(options) {
     specCount = 0;
     executableSpecCount = 0;
     failureCount = 0;
+    if (options && options.order && options.order.random) {
+      print('Randomized with seed ' + options.order.seed);
+      printNewline();
+    }
     print('Started');
     printNewline();
     timer.start();

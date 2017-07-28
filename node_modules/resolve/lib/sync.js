@@ -57,14 +57,18 @@ module.exports = function (x, options) {
     function loadAsDirectorySync(x) {
         var pkgfile = path.join(x, '/package.json');
         if (isFile(pkgfile)) {
-            var body = readFileSync(pkgfile, 'utf8');
             try {
+                var body = readFileSync(pkgfile, 'UTF8');
                 var pkg = JSON.parse(body);
+
                 if (opts.packageFilter) {
                     pkg = opts.packageFilter(pkg, x);
                 }
 
                 if (pkg.main) {
+                    if (pkg.main === '.' || pkg.main === './') {
+                        pkg.main = 'index';
+                    }
                     var m = loadAsFileSync(path.resolve(x, pkg.main));
                     if (m) return m;
                     var n = loadAsDirectorySync(path.resolve(x, pkg.main));

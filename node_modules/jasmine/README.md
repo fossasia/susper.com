@@ -47,8 +47,10 @@ More information on the format of `jasmine.json` can be found in [the documentat
 
 Alternatively, you may specify the path to your `jasmine.json` by setting an environment variable or an option:
 
-`jasmine JASMINE_CONFIG_PATH=relative/path/to/your/jasmine.json`
-`jasmine --config=relative/path/to/your/jasmine.json`
+```shell
+jasmine JASMINE_CONFIG_PATH=relative/path/to/your/jasmine.json
+jasmine --config=relative/path/to/your/jasmine.json
+```
 
 ## Support
 

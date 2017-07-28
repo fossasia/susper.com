@@ -1,15 +1,25 @@
 var path = require('path');
+var fs = require('fs');
 var parse = path.parse || require('path-parse');
 
 module.exports = function nodeModulesPaths(start, opts) {
     var modules = opts && opts.moduleDirectory
         ? [].concat(opts.moduleDirectory)
-        : ['node_modules']
-    ;
+        : ['node_modules'];
 
     // ensure that `start` is an absolute path at this point,
     // resolving against the process' current working directory
     var absoluteStart = path.resolve(start);
+
+    if (opts && opts.preserveSymlinks === false) {
+        try {
+            absoluteStart = fs.realpathSync(absoluteStart);
+        } catch (err) {
+            if (err.code !== 'ENOENT') {
+                throw err;
+            }
+        }
+    }
 
     var prefix = '/';
     if (/^([A-Za-z]:)/.test(absoluteStart)) {
