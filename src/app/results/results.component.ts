@@ -30,7 +30,6 @@ export class ResultsComponent implements OnInit {
     query: '',
     start: 0,
     rows: 10,
-
   };
   expandedkey: number;
   querylook = {};
@@ -52,15 +51,12 @@ export class ResultsComponent implements OnInit {
     }
     return result;
   };
-  advancedsearch() {
-  }
 
   getPresentPage(N) {
     this.presentPage = N;
     let urldata = Object.assign({}, this.searchdata);
     urldata.start = (this.presentPage - 1) * urldata.rows;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
-
   }
 
   filterByDate() {
@@ -112,7 +108,6 @@ export class ResultsComponent implements OnInit {
     urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
-
   }
 
   docClick() {

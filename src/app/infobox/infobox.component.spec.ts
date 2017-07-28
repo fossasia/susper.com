@@ -4,6 +4,7 @@ import { InfoboxComponent } from './infobox.component';
 import { RouterTestingModule } from "@angular/router/testing";
 
 import { KnowledgeapiService } from "../knowledgeapi.service";
+import { SpeechSynthesisService } from "../speech-synthesis.service";
 import { reducer } from "../reducers/index";
 import { StoreModule } from "@ngrx/store";
 import { MockKnowledgeApi } from "../shared/mocks/knowledge.mock";
@@ -24,7 +25,8 @@ describe('Component: InfoboxComponent', () => {
         InfoboxComponent,
       ],
       providers: [
-        { provide: KnowledgeapiService, useValue: MockKnowledgeApi}
+        { provide: KnowledgeapiService, useValue: MockKnowledgeApi},
+        { provide: SpeechSynthesisService, useValue: MockKnowledgeApi}
       ],
     })
       .compileComponents();
