@@ -27,14 +27,27 @@ const initialState: State = {
 export function reducer(state: State = initialState, action: search.Actions): State {
   switch (action.type) {
     case search.ActionTypes.CHANGE: {
-      const search = action.payload;
-      return Object.assign({}, state, {
-        searchresults: search,
-        items: search.channels[0].items,
-        totalResults: Number(search.channels[0].totalResults) || 0,
-        navigation: search.channels[0].navigation,
-        responsetime: new Date()
-      });
+      const search = action.payload.response;
+      const append = action.payload.append;
+      if (append) {
+        const newitems = state.items.concat(search.channels[0].items);
+        return Object.assign({}, state, {
+          searchresults: search,
+          items: newitems,
+          totalResults: Number(search.channels[0].totalResults) || 0,
+          navigation: search.channels[0].navigation,
+          responsetime: new Date()
+        });
+      } else {
+        return Object.assign({}, state, {
+          searchresults: search,
+          items: search.channels[0].items,
+          totalResults: Number(search.channels[0].totalResults) || 0,
+          navigation: search.channels[0].navigation,
+          responsetime: new Date()
+        });
+      }
+
     }
     default: {
       return state;

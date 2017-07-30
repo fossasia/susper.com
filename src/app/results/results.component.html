@@ -92,6 +92,12 @@
                 <a class="image-pointer" href="{{item.link}}"><img class="responsive-image" src="{{item.link}}"></a>
             </div>
         </div>
+          <div class="search-results"
+               infiniteScroll
+               [infiniteScrollDistance]="2"
+               [infiniteScrollThrottle]="300"
+               (scrolled)="onScroll()">
+          </div>
           </div>
     </div>
     <!-- END -->
@@ -119,7 +125,7 @@
 
         <br>
         <div class="clean"></div>
-    <div class="pagination-bar">
+    <div class="pagination-bar" *ngIf="!Display('images')">
         <div class="pagination-property" *ngIf="noOfPages>1">
             <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
                 <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
