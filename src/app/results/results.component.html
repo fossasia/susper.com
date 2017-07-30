@@ -53,7 +53,6 @@
       <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
       <div class="feed">
         <div class="result">
-          <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
         <div *ngFor="let item of items$|async" class="result">
           <div class="title">
             <a class="title-pointer" href="{{item.link}}" [style.color]="themeService.titleColor">{{item.title}}</a>
@@ -65,11 +64,11 @@
             <p [style.color]="themeService.descriptionColor">{{item.pubDate|date:'MMMM d, yyyy'}} - {{item.description}}</p>
           </div>
         </div>
+      </div>
         <app-related-search [hidden]="hidefooter"></app-related-search>
       </div>
-    </div>
+    <app-infobox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" class="infobox" *ngIf="Display('all')"></app-infobox>
   </div>
-    <app-infobox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
     <!-- Image section -->
     <div *ngIf="Display('images')">
       <div class="container">
