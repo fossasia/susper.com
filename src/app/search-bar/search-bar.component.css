@@ -85,6 +85,9 @@
   }
 }
   @media screen and (max-width: 767px) {
+    .microphone {
+      display: none;
+    }
   #nav-group {
     width: 95vw!important;
   }
