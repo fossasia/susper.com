@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { SearchService } from '../search.service';
-import { ThemeService } from '../theme.service';
+import { SearchService } from '../services/search.service';
+import { ThemeService } from '../services/theme.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';

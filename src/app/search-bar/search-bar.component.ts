@@ -8,7 +8,7 @@ import * as fromRoot from '../reducers';
 import { Observable } from 'rxjs';
 import * as query from '../actions/query';
 import * as queryactions from '../actions/query';
-import { SpeechService } from '../speech.service';
+import { SpeechService } from '../services/speech.service';
 import * as speechactions from '../actions/speech';
 @Component({
   selector: 'app-search-bar',

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Http, URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@angular/http';
 import {Store} from "@ngrx/store";
-import * as fromRoot from './reducers';
+import * as fromRoot from '../reducers';
 
 
 @Injectable()

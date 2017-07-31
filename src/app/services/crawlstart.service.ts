@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http, Jsonp, Headers, RequestOptions, URLSearchParams} from "@angular/http";
 import {Store} from "@ngrx/store";
-import * as fromRoot from './reducers';
+import * as fromRoot from '../reducers';
 import {Observable} from "rxjs";
 @Injectable()
 export class CrawlstartService {
