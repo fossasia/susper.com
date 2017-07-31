@@ -19,7 +19,8 @@ const initialState: State = {
   wholequery: {
     query: '',
     rows: 10,
-    start: 0
+    start: 0,
+    mode: 'text'
   },
 };
 export function reducer(state: State = initialState, action: query.Actions): State {
