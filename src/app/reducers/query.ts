@@ -42,7 +42,7 @@ export function reducer(state: State = initialState, action: query.Actions): Sta
       if (instantsearch && instantsearch.value) {
         resultCount = 10;
       }
-      query.rows =resultCount;
+      query.rows = resultCount;
       return Object.assign({}, state, {
         wholequery: query,
         query: state.query
