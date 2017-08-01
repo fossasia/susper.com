@@ -19,7 +19,7 @@
 module.exports = function(pattern, date) {
   if (typeof pattern !== 'string') {
     date = pattern;
-    pattern = 'YYYY:MM:DD';
+    pattern = 'YYYY-MM-DD';
   }
 
   if (!date) date = new Date();

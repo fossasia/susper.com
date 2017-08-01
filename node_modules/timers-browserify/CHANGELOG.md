@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.3 - 2017-07-31
+
+### Fixed
+
+* `setImmediate` and `clearImmediate` are indirected through the `global` module
+  for better coverage of esoteric environments.
+
 ## 2.0.2 - 2016-10-19
 
 ### Added
