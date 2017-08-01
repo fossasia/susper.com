@@ -31,6 +31,7 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -45,6 +46,7 @@ describe('NotFoundComponent', () => {
         FormsModule,
         HttpModule,
         JsonpModule,
+        InfiniteScrollModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension()
       ],

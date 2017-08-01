@@ -54,8 +54,15 @@ export class ApiSearchEffects {
         this.searchService.getsearchresults(querypay)
           .takeUntil(nextSearch$)
           .subscribe((response) => {
-            this.store.dispatch(new search.SearchAction(response));
+          if (querypay.append) {
+            this.store.dispatch(new search.SearchAction({response: response, append: true}));
             return empty();
+
+          } else {
+            this.store.dispatch(new search.SearchAction({response: response}));
+            return empty();
+          }
+
           });
         return empty();
 
