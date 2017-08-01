@@ -6,8 +6,8 @@ import { NavbarComponent } from './navbar.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
-import { AutocompleteService } from '../autocomplete.service';
-import { SpeechService } from '../speech.service';
+import { AutocompleteService } from '../services/autocomplete.service';
+import { SpeechService } from '../services/speech.service';
 /**
  * import HttpModule to avoid error -
  * No provider for Http!

@@ -6,9 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from '../reducers/index';
-import { AutocompleteService } from "../autocomplete.service";
+import { AutocompleteService } from "../services/autocomplete.service";
 import { AutoCompleteComponent } from "../auto-complete/auto-complete.component";
-import { SpeechService } from '../speech.service';
+import { SpeechService } from '../services/speech.service';
 
 describe('Component: SearchBarComponent', () => {
   let component: SearchBarComponent;

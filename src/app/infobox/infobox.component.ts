@@ -2,9 +2,9 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../reducers';
-import { KnowledgeapiService } from '../knowledgeapi.service';
+import { KnowledgeapiService } from '../services/knowledgeapi.service';
 import { Observable } from "rxjs";
-import { SpeechSynthesisService } from '../speech-synthesis.service';
+import { SpeechSynthesisService } from '../services/speech-synthesis.service';
 
 @Component({
   selector: 'app-infobox',

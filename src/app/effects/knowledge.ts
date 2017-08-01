@@ -15,8 +15,8 @@ import * as query from '../actions/query';
 export const CHANGE = 'CHANGE';
 import * as fromRoot from '../reducers';
 import * as knowledge from '../actions/knowledge';
-import {SearchService} from '../search.service';
-import {KnowledgeapiService} from "../knowledgeapi.service";
+import {SearchService} from '../services/search.service';
+import {KnowledgeapiService} from "../services/knowledgeapi.service";
 export interface State {
   query: string;
 }

@@ -8,7 +8,7 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {BrowserModule} from "@angular/platform-browser";
-import {AutocorrectService} from "../autocorrect.service";
+import {AutocorrectService} from "../services/autocorrect.service";
 import {reducer} from "../reducers/index";
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 
