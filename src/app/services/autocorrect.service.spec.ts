@@ -1,12 +1,12 @@
 import { TestBed, inject } from '@angular/core/testing';
-
-import { IntelligenceService } from './intelligence.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import {HttpModule, JsonpModule} from "@angular/http";
 import {StoreModule} from "@ngrx/store";
-import {reducer} from "./reducers/index";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {reducer} from "../reducers/index";
+import {AutocorrectService} from "./autocorrect.service";
 
-describe('IntelligenceService', () => {
+describe('AutocorrectService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -15,11 +15,11 @@ describe('IntelligenceService', () => {
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
       ],
-      providers: [IntelligenceService]
+      providers: [AutocorrectService]
     });
   });
 
-  it('should ...', inject([IntelligenceService], (service: IntelligenceService) => {
+  it('should be created', inject([AutocorrectService], (service: AutocorrectService) => {
     expect(service).toBeTruthy();
   }));
 });

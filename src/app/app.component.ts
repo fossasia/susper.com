@@ -4,7 +4,7 @@ import {Store} from "@ngrx/store";
 import * as fromRoot from './reducers';
 import {Observable} from "rxjs";
 import * as queryactions from './actions/query';
-import {SpeechService} from "./speech.service";
+import {SpeechService} from "./services/speech.service";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -15,7 +15,7 @@ import * as query from '../actions/query';
 export const CHANGE = 'CHANGE';
 import * as fromRoot from '../reducers';
 import * as search from '../actions/search';
-import {SearchService} from '../search.service';
+import {SearchService} from '../services/search.service';
 export interface State {
   query: string;
 }

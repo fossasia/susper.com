@@ -1,5 +1,5 @@
 import {Component, OnInit, ChangeDetectorRef, Output, EventEmitter} from '@angular/core';
-import {AutocorrectService} from "../autocorrect.service";
+import {AutocorrectService} from "../services/autocorrect.service";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
