@@ -42,6 +42,7 @@ import { SpeechtotextComponent } from './speechtotext/speechtotext.component';
 import { AutoCorrectComponent } from './auto-correct/auto-correct.component';
 import {AutocorrectService} from "./services/autocorrect.service";
 import { SpeechSynthesisService } from './services/speech-synthesis.service';
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -84,6 +85,7 @@ const appRoutes: Routes = [
 
   imports: [
     BrowserModule,
+    InfiniteScrollModule,
     CommonModule,
     FormsModule,
     HttpModule,

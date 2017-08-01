@@ -37,6 +37,7 @@ import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
 import {AutocorrectService} from "../services/autocorrect.service";
 import { SpeechSynthesisService } from "../services/speech-synthesis.service";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -50,6 +51,7 @@ describe('ResultsComponent', () => {
         CommonModule,
         FormsModule,
         HttpModule,
+        InfiniteScrollModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension()

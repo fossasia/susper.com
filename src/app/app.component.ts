@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
     query: '',
     rows: 10,
     start: 0,
+    nopagechange: false
   };
   wholequery$: Observable<any>;
   hidespeech: Observable<any>;
@@ -30,7 +31,10 @@ export class AppComponent implements OnInit {
     this.resultscomponentchange$ = store.select(fromRoot.getItems);
     this.resultscomponentchange$.subscribe(res => {
       if (this.searchdata.query.length > 0) {
-        this.router.navigate(['/search'], {queryParams: this.searchdata});
+        if (!this.searchdata.nopagechange) {
+          this.router.navigate(['/search'], {queryParams: this.searchdata});
+        }
+
       }
 
     });
