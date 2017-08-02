@@ -1,14 +1,12 @@
-/* tslint:disable:no-unused-variable */
-
 import { TestBed, inject } from '@angular/core/testing';
-import { AutocompleteService } from './autocomplete.service';
-import { RouterTestingModule } from '@angular/router/testing';
+
+import { IntelligenceService } from './intelligence.service';
 import {HttpModule, JsonpModule} from "@angular/http";
 import {StoreModule} from "@ngrx/store";
+import {reducer} from "../reducers/index";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import {reducer} from "./reducers/index";
 
-describe('AutocompleteService', () => {
+describe('IntelligenceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -17,11 +15,11 @@ describe('AutocompleteService', () => {
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
       ],
-      providers: [AutocompleteService]
+      providers: [IntelligenceService]
     });
   });
 
-  it('should ...', inject([AutocompleteService], (service: AutocompleteService) => {
+  it('should ...', inject([IntelligenceService], (service: IntelligenceService) => {
     expect(service).toBeTruthy();
   }));
 });

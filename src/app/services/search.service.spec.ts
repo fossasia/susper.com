@@ -4,11 +4,10 @@ import { TestBed, inject, async, fakeAsync, tick } from '@angular/core/testing';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { Http, Jsonp, BaseRequestOptions, RequestMethod, Response, ResponseOptions, HttpModule, JsonpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
-import { reducer } from './reducers/index';
+import { reducer } from '../reducers/index';
 
-import { KnowledgeapiService } from './knowledgeapi.service';
-
-import { MockKnowledgeApi } from './shared/mocks/knowledge.mock';
+import { SearchService } from './search.service';
+import { MockSearchApi } from '../shared/mocks/search.mock';
 
 const mockHttp_provider = {
   provide: Http,
@@ -18,36 +17,37 @@ const mockHttp_provider = {
   }
 };
 
-describe('Service: KnowledgeapiService', () => {
-  let service: KnowledgeapiService = null;
+describe('Service: Search', () => {
+  let service: SearchService = null;
   let backend: MockBackend = null;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        KnowledgeapiService,
-        MockBackend,
-        BaseRequestOptions,
-        mockHttp_provider,
-      ],
       imports: [
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer)
+      ],
+      providers: [
+        SearchService,
+        mockHttp_provider,
+        BaseRequestOptions,
+        MockBackend
       ]
     });
   });
 
-  beforeEach(inject([KnowledgeapiService, MockBackend], (knowledgeService: KnowledgeapiService, mockBackend: MockBackend) => {
-    service = knowledgeService;
+  beforeEach(inject([SearchService, MockBackend], (searchService: SearchService, mockBackend: MockBackend) => {
+    service = searchService;
     backend = mockBackend;
   }));
 
-  const searchquery = 'Berlin';
-  const _queryResult = MockKnowledgeApi;
+  const searchquery = 'India';
 
-  it('should create an instance KnowledgeapiService',
-    inject([KnowledgeapiService, MockBackend], () => {
+  const _queryResult = MockSearchApi;
+
+  it('should create an instance SearchService',
+    inject([SearchService, MockBackend], () => {
       expect(service).toBeTruthy();
     })
   );
@@ -55,20 +55,23 @@ describe('Service: KnowledgeapiService', () => {
   it('should call knowledge service API and return the result', () => {
     backend.connections.subscribe((connection: MockConnection) => {
       const options = new ResponseOptions({
-        body: JSON.stringify(MockKnowledgeApi)
+        body: JSON.stringify(MockSearchApi)
       });
 
       connection.mockRespond(new Response(options));
       expect(connection.request.method).toEqual(RequestMethod.Get);
       expect(connection.request.url).toBe(
-        `http://lookup.dbpedia.org/api/search/KeywordSearch` +
-                    `?&QueryString=${searchquery}`
+        `http://yacy.searchlab.eu/solr/select` +
+                      `?0=I&1=n&2=d&3=i&4=a&wt=yjson` +
+                      `&callback=JSONP_CALLBACK` +
+                      `&facet=true` +
+                      `&facet.mincount=1&facet.field=host_s` +
+                      `&facet.field=url_protocol_s` +
+                      `&facet.field=author_sxt` +
+                      `&facet.field=collection_sxt`
       );
     });
 
-    service.getsearchresults(searchquery).subscribe((res) => {
-      expect(res).toEqual(MockKnowledgeApi);
-    });
 
   });
 

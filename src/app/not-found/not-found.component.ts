@@ -18,11 +18,16 @@ export class NotFoundComponent implements OnInit {
     maximumRecords: 10,
     timezoneOffset: 0,
   };
+  errorNumber: any;
+  errorMsg: any;
+
   constructor(private route: ActivatedRoute,
               private router: Router ) { }
 
   ngOnInit() {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
+    this.errorNumber = '404';
+    this.errorMsg = 'Page not found';
   }
   submit() {
     this.router.navigate(['/search', this.searchdata]);

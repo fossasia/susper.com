@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SpeechService } from "../speech.service";
+import { SpeechService } from "../services/speech.service";
 import { Store } from "@ngrx/store";
 import * as fromRoot from '../reducers';
 import * as query from '../actions/query';
