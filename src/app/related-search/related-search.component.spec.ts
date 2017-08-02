@@ -12,7 +12,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent } from '../app.component';
 import { reducer } from '../reducers/index';
 import { RelatedSearchComponent } from './related-search.component';
-import {KnowledgeapiService} from "../knowledgeapi.service";
+import {KnowledgeapiService} from "../services/knowledgeapi.service";
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";

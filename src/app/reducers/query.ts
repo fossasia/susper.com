@@ -19,7 +19,8 @@ const initialState: State = {
   wholequery: {
     query: '',
     rows: 10,
-    start: 0
+    start: 0,
+    mode: 'text'
   },
 };
 export function reducer(state: State = initialState, action: query.Actions): State {
@@ -33,8 +34,16 @@ export function reducer(state: State = initialState, action: query.Actions): Sta
       });
     }
     case query.ActionTypes.QUERYSERVER: {
-      const query = action.payload;
-
+      let query = Object.assign({}, action.payload);
+      let resultCount = 10;
+      if (localStorage.getItem('resultscount')) {
+        resultCount = JSON.parse(localStorage.getItem('resultscount')).value || 10;
+      }
+      let instantsearch = JSON.parse(localStorage.getItem('instantsearch'));
+      if (instantsearch && instantsearch.value) {
+        resultCount = 10;
+      }
+      query.rows = resultCount;
       return Object.assign({}, state, {
         wholequery: query,
         query: state.query

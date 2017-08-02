@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ThemeComponent } from './theme.component';
-import { ThemeService } from '../theme.service';
+import { ThemeService } from '../services/theme.service';
 
 describe('ThemeComponent', () => {
   let component: ThemeComponent;

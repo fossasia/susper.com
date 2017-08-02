@@ -15,8 +15,8 @@ import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component'
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 
-import { AutocompleteService } from '../autocomplete.service';
-import { SpeechService } from '../speech.service';
+import { AutocompleteService } from '../services/autocomplete.service';
+import { SpeechService } from '../services/speech.service';
 import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 
 describe('IndexComponent', () => {

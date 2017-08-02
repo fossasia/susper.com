@@ -1,11 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { SearchService } from '../search.service';
-import { ThemeService } from '../theme.service';
+import { SearchService } from '../services/search.service';
+import { ThemeService } from '../services/theme.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';
 import { Store } from '@ngrx/store';
 import * as queryactions from '../actions/query';
+declare var $: any;
+
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -28,18 +30,22 @@ export class ResultsComponent implements OnInit {
     query: '',
     start: 0,
     rows: 10,
-
   };
-
+  expandedkey: number;
   querylook = {};
   hidefooter = 1;
   hideAutoCorrect = 1;
   totalNumber: number;
   querychange$: Observable<any>;
   wholequery$: Observable<any>;
+  searchresults$: Observable<any>;
   resultscomponentchange$: Observable<any>;
   totalResults: number;
   hideIntelligence: boolean;
+  startindex: number;
+  expand: boolean = false;
+  items: Array<any>;
+  expandedrow: number;
 
   getNumber(N) {
     let result = Array.apply(null, { length: N }).map(Number.call, Number);
@@ -48,15 +54,12 @@ export class ResultsComponent implements OnInit {
     }
     return result;
   };
-  advancedsearch() {
-  }
 
   getPresentPage(N) {
     this.presentPage = N;
     let urldata = Object.assign({}, this.searchdata);
     urldata.start = (this.presentPage - 1) * urldata.rows;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
-
   }
 
   filterByDate() {
@@ -72,16 +75,29 @@ export class ResultsComponent implements OnInit {
   }
 
   Display(S) {
-
     return (this.resultDisplay === S);
+  }
 
+  expandImage(key) {
+    if (key === this.expandedkey || this.expand === false) {
+      this.expand = !this.expand;
+    }
+    this.expandedkey = key;
+    let i = key;
+    let previouselementleft = 0;
+    while ( $('.image' + i) && $('.image' + i).offset().left > previouselementleft) {
+      this.expandedrow = i;
+      previouselementleft = $('.image' + i).offset().left;
+      i = i + 1;
+
+    }
   }
 
   videoClick() {
     let urldata = Object.assign({}, this.searchdata);
     this.getPresentPage(1);
     this.resultDisplay = 'videos';
-    urldata.rows = 10;
+    urldata.rows = 100;
     urldata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
@@ -91,11 +107,10 @@ export class ResultsComponent implements OnInit {
     let urldata = Object.assign({}, this.searchdata);
     this.getPresentPage(1);
     this.resultDisplay = 'images';
-    urldata.rows = 100;
+    urldata.rows = 10;
     urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
-
   }
 
   docClick() {
@@ -166,9 +181,19 @@ export class ResultsComponent implements OnInit {
       }
     });
     this.items$ = store.select(fromRoot.getItems);
+    this.items$.subscribe(items => {
+      this.items = items;
+    });
     this.responseTime$ = store.select(fromRoot.getResponseTime);
     this.responseTime$.subscribe(responsetime => {
       this.hidefooter = 0;
+    });
+    this.searchresults$ = store.select(fromRoot.getSearchResults);
+    this.searchresults$.subscribe( searchresults => {
+      if (searchresults && searchresults.channels && searchresults.channels[0]) {
+        this.startindex = parseInt(searchresults.channels[0].startIndex, 10);
+      }
+
     });
     this.totalResults$ = store.select(fromRoot.getTotalResults);
     this.totalResults$.subscribe(totalResults => {
@@ -197,7 +222,18 @@ export class ResultsComponent implements OnInit {
     });
 
   }
+  onScroll () {
+    let urldata = Object.assign({}, this.searchdata);
+    this.getPresentPage(1);
+    this.resultDisplay = 'images';
+    urldata.start = (this.startindex) + urldata.rows;
+    urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
+    urldata.resultDisplay = this.resultDisplay;
+    urldata.append = true;
+    urldata.nopagechange = true;
+    this.store.dispatch(new queryactions.QueryServerAction(urldata));
 
+  };
   ngOnInit() {
   }
 }

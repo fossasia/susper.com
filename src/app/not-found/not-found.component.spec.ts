@@ -24,14 +24,15 @@ import { ContactComponent } from '../contact/contact.component';
 import {InfoboxComponent} from "../infobox/infobox.component";
 import {RelatedSearchComponent} from "../related-search/related-search.component";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
-import {AutocompleteService} from "../autocomplete.service";
+import {AutocompleteService} from "../services/autocomplete.service";
 import { ThemeComponent } from '../theme/theme.component';
-import { SpeechService } from '../speech.service';
+import { SpeechService } from '../services/speech.service';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
 import {StatsboxComponent} from "../statsbox/statsbox.component";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -46,6 +47,7 @@ describe('NotFoundComponent', () => {
         FormsModule,
         HttpModule,
         JsonpModule,
+        InfiniteScrollModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension()
       ],

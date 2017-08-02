@@ -6,8 +6,8 @@ import 'rxjs/add/operator/toPromise';
 import {Store} from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Rx';
-import * as search from './actions/search';
-import * as fromRoot from './reducers';
+import * as search from '../actions/search';
+import * as fromRoot from '../reducers';
 
 @Injectable()
 export class AutocompleteService {
