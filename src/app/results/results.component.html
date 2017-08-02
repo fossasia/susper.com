@@ -72,6 +72,8 @@
     </div>
 
   <app-infobox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
+    <app-statsbox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" class="infobox col-md-4" *ngIf="Display('all')"></app-statsbox>
+
   <!-- END -->
     <!-- Image section -->
     <div class="container">

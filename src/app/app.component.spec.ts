@@ -30,6 +30,7 @@ import {IntelligenceComponent} from "./intelligence/intelligence.component";
 import {SpeechtotextComponent} from "./speechtotext/speechtotext.component";
 import {AutoCorrectComponent} from "./auto-correct/auto-correct.component";
 import {SpeechService} from "./speech.service";
+import {StatsboxComponent} from "./statsbox/statsbox.component";
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -63,7 +64,8 @@ describe('AppComponent', () => {
         DropdownComponent,
         IntelligenceComponent,
         SpeechtotextComponent,
-        AutoCorrectComponent
+        AutoCorrectComponent,
+        StatsboxComponent
       ],
       providers: [
         SpeechService

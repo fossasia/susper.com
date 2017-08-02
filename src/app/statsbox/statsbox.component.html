@@ -1,0 +1,15 @@
+<div class="card">
+    <div id="filtersearch" *ngFor="let nav of navigation$|async">
+      <ul class="nav nav-sidebar" style="display: inline">
+        <li style="cursor:pointer;cursor: hand;" data-toggle="collapse" [attr.data-target]="'#'+nav.facetname">
+          <h3><b>Top {{nav.displayname}}</b></h3></li>
+        <li style="display: block" *ngFor="let element of nav.elements| slice:0:10">
+          <a (click)="changeurl(element.modifier,element)" class="menu-item-link">
+            {{element.name}} <span class="badge">{{element.count}}</span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+</div>
