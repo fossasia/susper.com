@@ -3,7 +3,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AutoCompleteComponent } from './auto-complete.component';
-import { AutocompleteService } from '../autocomplete.service';
+import { AutocompleteService } from '../services/autocomplete.service';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { reducer } from '../reducers/index';
 import { StoreModule } from '@ngrx/store';

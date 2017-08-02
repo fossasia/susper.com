@@ -15,7 +15,7 @@ import * as query from '../actions/query';
 export const CHANGE = 'CHANGE';
 import * as fromRoot from '../reducers';
 import * as search from '../actions/search';
-import {SearchService} from '../search.service';
+import {SearchService} from '../services/search.service';
 export interface State {
   query: string;
 }
@@ -54,8 +54,15 @@ export class ApiSearchEffects {
         this.searchService.getsearchresults(querypay)
           .takeUntil(nextSearch$)
           .subscribe((response) => {
-            this.store.dispatch(new search.SearchAction(response));
+          if (querypay.append) {
+            this.store.dispatch(new search.SearchAction({response: response, append: true}));
             return empty();
+
+          } else {
+            this.store.dispatch(new search.SearchAction({response: response}));
+            return empty();
+          }
+
           });
         return empty();
 

@@ -4,7 +4,7 @@ import {Store} from "@ngrx/store";
 import * as fromRoot from './reducers';
 import {Observable} from "rxjs";
 import * as queryactions from './actions/query';
-import {SpeechService} from "./speech.service";
+import {SpeechService} from "./services/speech.service";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
     query: '',
     rows: 10,
     start: 0,
+    nopagechange: false
   };
   wholequery$: Observable<any>;
   hidespeech: Observable<any>;
@@ -30,7 +31,10 @@ export class AppComponent implements OnInit {
     this.resultscomponentchange$ = store.select(fromRoot.getItems);
     this.resultscomponentchange$.subscribe(res => {
       if (this.searchdata.query.length > 0) {
-        this.router.navigate(['/search'], {queryParams: this.searchdata});
+        if (!this.searchdata.nopagechange) {
+          this.router.navigate(['/search'], {queryParams: this.searchdata});
+        }
+
       }
 
     });

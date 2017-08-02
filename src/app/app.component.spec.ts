@@ -29,13 +29,15 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import {IntelligenceComponent} from "./intelligence/intelligence.component";
 import {SpeechtotextComponent} from "./speechtotext/speechtotext.component";
 import {AutoCorrectComponent} from "./auto-correct/auto-correct.component";
-import {SpeechService} from "./speech.service";
+import {SpeechService} from "./services/speech.service";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        InfiniteScrollModule,
         BrowserModule,
         CommonModule,
         FormsModule,

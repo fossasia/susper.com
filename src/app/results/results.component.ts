@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { SearchService } from '../search.service';
-import { ThemeService } from '../theme.service';
+import { SearchService } from '../services/search.service';
+import { ThemeService } from '../services/theme.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';
@@ -30,7 +30,6 @@ export class ResultsComponent implements OnInit {
     query: '',
     start: 0,
     rows: 10,
-
   };
   expandedkey: number;
   querylook = {};
@@ -39,12 +38,15 @@ export class ResultsComponent implements OnInit {
   totalNumber: number;
   querychange$: Observable<any>;
   wholequery$: Observable<any>;
+  searchresults$: Observable<any>;
   resultscomponentchange$: Observable<any>;
   totalResults: number;
   hideIntelligence: boolean;
+  startindex: number;
   expand: boolean = false;
   items: Array<any>;
   expandedrow: number;
+
   getNumber(N) {
     let result = Array.apply(null, { length: N }).map(Number.call, Number);
     if (result.length > 10) {
@@ -52,15 +54,12 @@ export class ResultsComponent implements OnInit {
     }
     return result;
   };
-  advancedsearch() {
-  }
 
   getPresentPage(N) {
     this.presentPage = N;
     let urldata = Object.assign({}, this.searchdata);
     urldata.start = (this.presentPage - 1) * urldata.rows;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
-
   }
 
   filterByDate() {
@@ -98,7 +97,7 @@ export class ResultsComponent implements OnInit {
     let urldata = Object.assign({}, this.searchdata);
     this.getPresentPage(1);
     this.resultDisplay = 'videos';
-    urldata.rows = 10;
+    urldata.rows = 100;
     urldata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
@@ -108,11 +107,10 @@ export class ResultsComponent implements OnInit {
     let urldata = Object.assign({}, this.searchdata);
     this.getPresentPage(1);
     this.resultDisplay = 'images';
-    urldata.rows = 100;
+    urldata.rows = 10;
     urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
-
   }
 
   docClick() {
@@ -190,6 +188,13 @@ export class ResultsComponent implements OnInit {
     this.responseTime$.subscribe(responsetime => {
       this.hidefooter = 0;
     });
+    this.searchresults$ = store.select(fromRoot.getSearchResults);
+    this.searchresults$.subscribe( searchresults => {
+      if (searchresults && searchresults.channels && searchresults.channels[0]) {
+        this.startindex = parseInt(searchresults.channels[0].startIndex, 10);
+      }
+
+    });
     this.totalResults$ = store.select(fromRoot.getTotalResults);
     this.totalResults$.subscribe(totalResults => {
       this.totalResults = totalResults;
@@ -217,7 +222,18 @@ export class ResultsComponent implements OnInit {
     });
 
   }
+  onScroll () {
+    let urldata = Object.assign({}, this.searchdata);
+    this.getPresentPage(1);
+    this.resultDisplay = 'images';
+    urldata.start = (this.startindex) + urldata.rows;
+    urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
+    urldata.resultDisplay = this.resultDisplay;
+    urldata.append = true;
+    urldata.nopagechange = true;
+    this.store.dispatch(new queryactions.QueryServerAction(urldata));
 
+  };
   ngOnInit() {
   }
 }
