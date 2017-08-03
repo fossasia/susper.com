@@ -106,22 +106,15 @@
 
 @media screen and (max-width: 480px) {
   .align-search-btn{
-    left: -10%;
+    left: -1%;
   }
 }
 
 @media screen and (max-width: 360px) {
   .align-search-btn{
-    left: -15%;
+    left: -1%;
   }
   #nav-input {
     width: 63vw;
-  }
-}
-
-
-@media screen and (max-width: 652px) {
-  #nav-input {
-    width: 83vw;
   }
 }
