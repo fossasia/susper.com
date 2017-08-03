@@ -13,3 +13,46 @@
 .card-container {
   padding: 2px 16px;
 }
+
+/* Heading */
+h2 {
+  font-size: 2.6em;
+}
+
+/* Description */
+p {
+  line-height: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+
+/* Points of interest */
+h3 {
+  font-size: 1.3em;
+  margin-left: -15px;
+}
+
+a {
+  color: #1a0dab;
+  text-decoration: none;
+  margin-left: -14px;
+  font-size: 13px;
+  font-family: Arial, sans-serif;
+}
+
+/** Screen Responsiveness **/
+@media screen and (max-width: 1280px) {
+  .card{
+    width: 368px;
+  }
+}
+@media screen and (max-width: 1180px) {
+  .card{
+    width: 268px;
+  }
+}
+@media screen and (max-width: 998px) {
+  .card {
+    display: none;
+  }
+}
