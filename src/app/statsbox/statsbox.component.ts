@@ -14,14 +14,12 @@ export class StatsboxComponent implements OnInit {
   navigation$: Observable<any>;
   selectedelements: Array<any> = [];
   changeurl(modifier, element) {
-
     this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
     this.selectedelements.push(element);
     this.route.navigate(['/search'], {queryParams: this.querylook});
   }
   removeurl(modifier) {
     this.querylook['query'] = this.querylook['query'].replace('+' + decodeURIComponent(modifier), '');
-
     this.route.navigate(['/search'], {queryParams: this.querylook});
   }
   constructor(private route: Router, private activatedroute: ActivatedRoute, private store: Store<fromRoot.State>) {
@@ -29,10 +27,8 @@ export class StatsboxComponent implements OnInit {
       this.querylook = Object.assign({}, query);
       this.navigation$ = store.select(fromRoot.getNavigation);
     });
-
   }
   ngOnInit() {
-
   }
 
 }

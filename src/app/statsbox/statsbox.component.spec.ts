@@ -20,10 +20,7 @@ describe('StatsboxComponent', () => {
       ],
       declarations: [
         StatsboxComponent,
-      ],
-      providers: [
-
-      ],
+      ]
     })
       .compileComponents();
   }));

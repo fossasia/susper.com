@@ -40,7 +40,6 @@ import { IntelligenceComponent } from './intelligence/intelligence.component';
 import {IntelligenceService} from "./services/intelligence.service";
 import { SpeechtotextComponent } from './speechtotext/speechtotext.component';
 import { AutoCorrectComponent } from './auto-correct/auto-correct.component';
-import {AutocorrectService} from "./autocorrect.service";
 import { StatsboxComponent } from './statsbox/statsbox.component';
 import {AutocorrectService} from "./services/autocorrect.service";
 import { SpeechSynthesisService } from './services/speech-synthesis.service';
