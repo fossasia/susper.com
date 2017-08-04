@@ -171,9 +171,9 @@ footer {
   }
 }
 
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 320px) {
   img#biglogo{
-    margin-left: 52%;
+    margin-left: 49%;
   }
 }
 

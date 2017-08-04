@@ -515,9 +515,6 @@ div.autocorrect{
   #search-options li {
     padding: 0px 2.3% 12px;
   }
-  #search-options-field{
-    padding-top: 8%;
-  }
   #settings{
     left: 4.5%;
   }
@@ -530,9 +527,6 @@ div.autocorrect{
   }
   #setting-dropdown li{
     padding-left: 0;
-  }
-  div.result.message-bar{
-    margin-left: 4%;
   }
   div.autocorrect{
     margin-left: 4%;
@@ -612,26 +606,17 @@ div.autocorrect{
   #search-tools {
     padding-left: 30px;
   }
-  #search-options {
-    margin-left: 7%;
-  }
   #search-options li {
     padding: 0px 4vw 12px;
   }
 }
 
 @media screen and (max-width: 460px) {
-  .feed.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.col-lg-10.col-lg-offset-1 {
-    width: 100%;
-  }
   div.autocorrect{
     top: 2%;
   }
 }
 @media screen and (max-width:423px) {
-  #pag-bar {
-    padding-left: 0;
-  }
   .page-text {
     font-size: x-large;
   }
@@ -651,5 +636,25 @@ div.autocorrect{
 @media screen and (max-width:330px) {
   #search-options li {
     padding: 0px 2vw 12px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #search-options {
+    margin-left: 0.3%;
+  }
+  .feed.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.col-lg-10.col-lg-offset-1 {
+    width: 100%;
+    margin-left: 2%;
+  }
+  div.result.message-bar{
+    margin-left: 7%;
+  }
+  #search-options-field{
+    padding-top: 8%;
+    width: 91.5%;
+  }
+  #pag-bar {
+    margin-left: 5%;
   }
 }

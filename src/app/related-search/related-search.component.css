@@ -35,3 +35,12 @@
 .rellink:hover{
   text-decoration: underline;
 }
+
+@media screen and (max-width: 320px) {
+  h3.heading {
+    margin-left: -11%;
+  }
+  div.related {
+    margin-left: -11%;
+  }
+}
