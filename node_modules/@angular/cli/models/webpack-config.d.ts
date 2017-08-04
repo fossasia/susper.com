@@ -12,8 +12,8 @@ export declare class NgCliWebpackConfig {
     getTargetConfig(webpackConfigOptions: WebpackConfigOptions): any;
     validateBuildOptions(buildOptions: BuildOptions): void;
     addTargetDefaults(buildOptions: BuildOptions): BuildOptions;
-    mergeConfigs(buildOptions: BuildOptions, appConfig: any): {
-        outputPath: any;
+    mergeConfigs(buildOptions: BuildOptions, appConfig: any, projectRoot: string): {
+        outputPath: string;
         deployUrl: any;
         baseHref: any;
     } & BuildOptions;

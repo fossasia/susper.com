@@ -39,10 +39,8 @@
   },
   "_requiredBy": [
     "/body-parser/debug",
-    "/connect/debug",
     "/debug",
     "/express/debug",
-    "/finalhandler/debug",
     "/send",
     "/send/debug"
   ],

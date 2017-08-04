@@ -2,6 +2,8 @@ var fs = require('fs');
 var codecov = require("../lib/codecov");
 var execSync = require('child_process').execSync;
 
+var isWindows = process.platform.match(/win32/) || process.platform.match(/win64/);
+var pathSeparator = !isWindows ? '/' : '\\';
 
 describe("Codecov", function(){
   beforeEach(function(){
@@ -17,6 +19,7 @@ describe("Codecov", function(){
   });
 
   it("can get a token passed via env variable", function(){
+    this.timeout(10000);
     process.env.codecov_token = 'abc123';
     expect(codecov.upload({options: {dump: true}}).query.token).to.eql('abc123');
     delete process.env.codecov_token;
@@ -30,13 +33,13 @@ describe("Codecov", function(){
 
   it("can auto detect reports", function(){
     var res = codecov.upload({options: {dump: true}});
-    expect(res.files[0].split('/').pop()).to.eql('example.coverage.txt');
+    expect(res.files[0].split(pathSeparator).pop()).to.eql('example.coverage.txt');
     expect(res.body).to.contain('this file is intentionally left blank');
   });
 
   it("can specify report in cli", function(){
-    var res = codecov.upload({options: {dump: true, file: 'test/example.coverage.txt'}});
-    expect(res.files[0].split('/').pop()).to.eql('example.coverage.txt');
+    var res = codecov.upload({options: {dump: true, file: 'test' + pathSeparator + 'example.coverage.txt'}});
+    expect(res.files[0].split(pathSeparator).pop()).to.eql('example.coverage.txt');
     expect(res.body).to.contain('this file is intentionally left blank');
   });
 
@@ -54,7 +57,7 @@ describe("Codecov", function(){
   it("can detect .bowerrc without directory", function(){
     fs.writeFileSync('.bowerrc', '{"key": "value"}');
     var res = codecov.upload({options: {dump: true}});
-    expect(res.files[0].split('/').pop()).to.eql('example.coverage.txt');
+    expect(res.files[0].split(pathSeparator).pop()).to.eql('example.coverage.txt');
     expect(res.body).to.contain('this file is intentionally left blank');
   });
 
@@ -122,7 +125,11 @@ describe("Codecov", function(){
                                         'gcov-glob': 'ignore/this/folder',
                                         'gcov-exec': 'llvm-gcov',
                                         'gcov-args': '-o'}});
-    expect(res.debug).to.contain('find folder/path -type f -name \'*.gcno\' -not -path \'ignore/this/folder\' -exec llvm-gcov -o {} +');
+    if(!isWindows) {
+      expect(res.debug).to.contain('find folder/path -type f -name \'*.gcno\' -not -path \'ignore/this/folder\' -exec llvm-gcov -o {} +');
+    } else {
+      expect(res.debug).to.contain('for /f "delims=" %g in (\'dir /a-d /b /s *.gcno ^| findstr /i /v ignore/this/folder\') do llvm-gcov -o %g');
+    }
   });
 
   it('should have the correct version number', function() {
