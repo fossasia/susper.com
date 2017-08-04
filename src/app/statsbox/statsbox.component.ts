@@ -13,10 +13,17 @@ export class StatsboxComponent implements OnInit {
   querylook = {};
   navigation$: Observable<any>;
   selectedelements: Array<any> = [];
+  selectedelement: number = -1;
   changeurl(modifier, element) {
     this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
     this.selectedelements.push(element);
     this.route.navigate(['/search'], {queryParams: this.querylook});
+  }
+  selectelement(element) {
+    this.selectedelement = element;
+  }
+  deselectelement(element) {
+    this.selectedelement = -1;
   }
   removeurl(modifier) {
     this.querylook['query'] = this.querylook['query'].replace('+' + decodeURIComponent(modifier), '');

@@ -6,8 +6,16 @@
   padding: 22px 22px 18px 22px;
   transition: 0.3s;
   width: 434px;
-  margin-top: 10%
+
 }
+.badge-info {
+  background-color: #468847;
+}
+.badge-info:hover {
+  background-color: #356635;
+}
+
+
 
 /* Add some padding inside the card container */
 .card-container {
