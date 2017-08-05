@@ -1,12 +1,10 @@
 .card{
-  padding-left: 50px;
   padding-top: 10px;
   max-width: 850px;
 }
 
 .container {
   margin-right: 0px;
-  margin-left: -7px;
   padding-left: 0px;
   padding-right: 0px;
 }
