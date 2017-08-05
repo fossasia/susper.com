@@ -71,3 +71,9 @@ div a:active{
   text-decoration: underline;
   background-color: white;
 }
+
+@media screen and (max-width: 320px) {
+  div.footer-bar {
+    width: 102%;
+  }
+}
