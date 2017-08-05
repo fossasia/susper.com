@@ -2,10 +2,10 @@
   "static": {
     "urls": {
       "/not-found-bg.8f346a53ee078b98deb0.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
-      "/main.88ac0bef1f1586a07673.bundle.js": "3eb5d7fbfc92056ba2e1514cf725e7836b342818",
+      "/main.cffff807aaf20a85e6f6.bundle.js": "0b3265bd6527e56a88a27cbcc478c0eefc335812",
       "/sw-register.c349237a6b1ad2a30c8d.bundle.js": "a39b838701bf5562335e3d28ac86f9ca27f83c52",
       "/vendor.28cb9fd57df7a3f18fbb.bundle.js": "2fd8bbb4835ef86dfbf73085e4949abfa80b18b4",
-      "/inline.606b0c032e4dddcec9ff.bundle.js": "5845d390147e8804c0a807e899267ea9f2afb466",
+      "/inline.4279124ddff839e084d4.bundle.js": "b1d037668591e5437c4b4f0c5495eb2a652a8444",
       "/styles.d41d8cd98f00b204e980.bundle.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "/assets/css/base.css": "f33d855f3fd7c059981974cf51853ae776db7e24",
       "/assets/css/bootstrap-base.css": "04286a6357f4cf16b53b800f72e0c13a2d293d22",
@@ -38,7 +38,7 @@
       "/assets/images/terminal.png": "2aa0054d6e388a6cd5630e3eca2350cfb289955b",
       "/assets/images/YaCyLogo2011_60.png": "954f9d626d69a7861e9e84735c44b0a8bc759c97",
       "/favicon.ico": "1214df2ad2bb72333b2cf64a4e5e101b25c321e2",
-      "/index.html": "5ee7f78399ac3cee42f1f9ea6527b639b5720308"
+      "/index.html": "342dfd267e4faa2e68711f4bce23939bc4715186"
     },
     "_generatedFromWebpack": true
   }
