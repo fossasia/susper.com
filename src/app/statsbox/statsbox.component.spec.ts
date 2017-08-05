@@ -5,6 +5,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {HttpModule, JsonpModule} from "@angular/http";
 import {StoreModule} from "@ngrx/store";
 import {reducer} from "../reducers/index";
+import {ChartsModule} from "ng2-charts";
 
 describe('StatsboxComponent', () => {
   let component: StatsboxComponent;
@@ -16,6 +17,7 @@ describe('StatsboxComponent', () => {
         RouterTestingModule,
         HttpModule,
         JsonpModule,
+        ChartsModule,
         StoreModule.provideStore(reducer),
       ],
       declarations: [

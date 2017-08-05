@@ -32,6 +32,7 @@ import {AutoCorrectComponent} from "./auto-correct/auto-correct.component";
 import {StatsboxComponent} from "./statsbox/statsbox.component";
 import {SpeechService} from "./services/speech.service";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {ChartsModule} from "ng2-charts";
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -44,6 +45,7 @@ describe('AppComponent', () => {
         FormsModule,
         HttpModule,
         JsonpModule,
+        ChartsModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
     ],

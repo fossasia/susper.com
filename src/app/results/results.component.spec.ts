@@ -39,6 +39,7 @@ import {StatsboxComponent} from "../statsbox/statsbox.component";
 import {AutocorrectService} from "../services/autocorrect.service";
 import { SpeechSynthesisService } from "../services/speech-synthesis.service";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {ChartsModule} from "ng2-charts";
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -54,6 +55,7 @@ describe('ResultsComponent', () => {
         HttpModule,
         InfiniteScrollModule,
         JsonpModule,
+        ChartsModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension()
       ],

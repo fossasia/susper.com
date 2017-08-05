@@ -33,6 +33,7 @@ import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
 import {StatsboxComponent} from "../statsbox/statsbox.component";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {ChartsModule} from "ng2-charts";
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -48,6 +49,7 @@ describe('NotFoundComponent', () => {
         HttpModule,
         JsonpModule,
         InfiniteScrollModule,
+        ChartsModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension()
       ],
