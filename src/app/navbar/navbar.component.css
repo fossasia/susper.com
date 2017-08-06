@@ -57,11 +57,6 @@
   }
 }
 
-@media screen and (min-width:1555px) {
-  .top-nav{
-    padding-top: 1.4%;
-  }
-}
 @media screen and (max-width:1079px) {
   .navbar-brand{
       margin-top: 2px;

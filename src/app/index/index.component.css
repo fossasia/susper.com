@@ -133,28 +133,22 @@ footer {
   .dropdown-menu-box-homepage {
     margin-top: -15%;
   }
-  }
-
-@media screen and (max-width: 823px) {
-  img#biglogo{
-    margin-left: 61%;
-  }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   #search-bar {
-    margin-left: -48%;
+    margin-left: -40%;
   }
   .dropdown-menu-box-homepage {
     margin-top: -17%;
   }
   img#biglogo{
-    margin-left: 37%;
+    margin-left: 85%;
   }
   #dropdown-icon {
     margin-left: 93vw;
   }
-  }
+}
 
 @media screen and (max-width: 635px) {
   .dropdown-menu-box-homepage {
@@ -162,18 +156,11 @@ footer {
   }
 }
 
-@media screen and (max-width: 435px) {
-  .dropdown-menu-box-homepage {
-    margin-top: -22%;
+@media screen and (max-width: 425px) {
+  img#biglogo {
+    margin-left: 51%;
   }
-  #dropdown-icon {
-    margin-left: 94vw;
-  }
-}
-
-@media screen and (max-width: 479px) {
-  img#biglogo{
-    margin-left: 52%;
+  #search-bar {
+    margin-left: -47%;
   }
 }
-
