@@ -7,3 +7,9 @@
   transition: 0.3s;
   width: 434px;
 }
+
+@media screen and (max-width: 450px) {
+  div.card{
+    width: 92vw;
+  }
+}

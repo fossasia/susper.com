@@ -64,13 +64,13 @@ export class ResultsComponent implements OnInit {
 
   filterByDate() {
     let urldata = Object.assign({}, this.searchdata);
-    urldata.sort = 'last_modified desc';
+    urldata.query += ' /date';
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
 
   filterByContext() {
     let urldata = Object.assign({}, this.searchdata);
-    delete urldata.sort;
+    urldata.query = urldata.query.replace("/date", "");
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
 
