@@ -11,9 +11,7 @@
 
 [![Build Status](https://travis-ci.org/chalk/chalk.svg?branch=master)](https://travis-ci.org/chalk/chalk) [![Coverage Status](https://coveralls.io/repos/github/chalk/chalk/badge.svg?branch=master)](https://coveralls.io/github/chalk/chalk?branch=master) [![](https://img.shields.io/badge/unicorn-approved-ff69b4.svg)](https://www.youtube.com/watch?v=9auOCbH5Ns4) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
-[colors.js](https://github.com/Marak/colors.js) used to be the most popular string styling module, but it has serious deficiencies like extending `String.prototype` which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68). Although there are other ones, they either do too much or not enough.
-
-**Chalk is a clean and focused alternative.**
+### [See what's new in Chalk 2](https://github.com/chalk/chalk/releases/tag/v2.0.0)
 
 ![](https://github.com/chalk/ansi-styles/raw/master/screenshot.png)
 
@@ -183,8 +181,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 - `magenta`
 - `cyan`
 - `white`
-- `gray`
-- `blackBright`
+- `gray` ("bright black")
 - `redBright`
 - `greenBright`
 - `yellowBright`
@@ -278,6 +275,11 @@ The following color models can be used:
 If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) instead of `cmd.exe`.
 
 
+## Origin story
+
+[colors.js](https://github.com/Marak/colors.js) used to be the most popular string styling module, but it has serious deficiencies like extending `String.prototype` which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68) and the package is unmaintained. Although there are other packages, they either do too much or not enough. Chalk is a clean and focused alternative.
+
+
 ## Related
 
 - [chalk-cli](https://github.com/chalk/chalk-cli) - CLI for this module
@@ -289,6 +291,8 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) i
 - [wrap-ansi](https://github.com/chalk/wrap-ansi) - Wordwrap a string with ANSI escape codes
 - [slice-ansi](https://github.com/chalk/slice-ansi) - Slice a string with ANSI escape codes
 - [color-convert](https://github.com/qix-/color-convert) - Converts colors between different models
+- [chalk-animation](https://github.com/bokub/chalk-animation) - Animate strings in the terminal
+- [gradient-string](https://github.com/bokub/gradient-string) - Apply color gradients to strings
 
 
 ## Maintainers

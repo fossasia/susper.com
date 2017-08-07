@@ -39,7 +39,6 @@
   },
   "_requiredBy": [
     "/body-parser",
-    "/express",
     "/request"
   ],
   "_resolved": "https://registry.npmjs.org/qs/-/qs-6.4.0.tgz",

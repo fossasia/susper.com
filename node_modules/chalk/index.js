@@ -19,13 +19,14 @@ function applyOptions(obj, options) {
 	options = options || {};
 
 	// Detect level if not set manually
-	obj.level = options.level === undefined ? supportsColor.level : options.level;
+	const scLevel = supportsColor ? supportsColor.level : 0;
+	obj.level = options.level === undefined ? scLevel : options.level;
 	obj.enabled = 'enabled' in options ? options.enabled : obj.level > 0;
 }
 
 function Chalk(options) {
-	// We check for this.template here since calling chalk.constructor()
-	// by itself will have a `this` of a previously constructed chalk object.
+	// We check for this.template here since calling `chalk.constructor()`
+	// by itself will have a `this` of a previously constructed chalk object
 	if (!this || !(this instanceof Chalk) || this.template) {
 		const chalk = {};
 		applyOptions(chalk, options);
@@ -142,7 +143,7 @@ function build(_styles, key) {
 	builder.hasGrey = this.hasGrey || key === 'gray' || key === 'grey';
 
 	// `__proto__` is used because we must return a function, but there is
-	// no way to create a function with a different prototype.
+	// no way to create a function with a different prototype
 	builder.__proto__ = proto; // eslint-disable-line no-proto
 
 	return builder;
@@ -152,7 +153,11 @@ function applyStyle() {
 	// Support varags, but simply cast to string in case there's only one arg
 	const args = arguments;
 	const argsLen = args.length;
-	let str = argsLen !== 0 && String(arguments[0]);
+	let str = String(arguments[0]);
+
+	if (argsLen === 0) {
+		return '';
+	}
 
 	if (argsLen > 1) {
 		// Don't slice `arguments`, it prevents V8 optimizations
@@ -192,17 +197,18 @@ function applyStyle() {
 }
 
 function chalkTag(chalk, strings) {
-	const args = [].slice.call(arguments, 2);
-
 	if (!Array.isArray(strings)) {
-		return strings.toString();
+		// If chalk() was called by itself or with a string,
+		// return the string itself as a string.
+		return [].slice.call(arguments, 1).join(' ');
 	}
 
+	const args = [].slice.call(arguments, 2);
 	const parts = [strings.raw[0]];
 
 	for (let i = 1; i < strings.length; i++) {
-		parts.push(args[i - 1].toString().replace(/[{}]/g, '\\$&'));
-		parts.push(strings.raw[i]);
+		parts.push(String(args[i - 1]).replace(/[{}\\]/g, '\\$&'));
+		parts.push(String(strings.raw[i]));
 	}
 
 	return template(chalk, parts.join(''));
