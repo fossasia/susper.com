@@ -1,5 +1,8 @@
 /** Basic results 'All' **/
 
+.resultContainer{
+  margin-top: -57px;
+}
 .result {
   padding-top: 10px;
 }
