@@ -34,22 +34,13 @@ export class StatsboxComponent implements OnInit {
   };
   public barChartLabels: string[] = ['0'];
   public barChartType = 'bar';
-  public barChartLegend = true;
   public barChartData: any[] = [{ data: [0], label: 'Protocol Frequency' }];
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
   };
 
-  public lineChartLegend: boolean = true;
   public lineChartType: string = 'line';
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
-
-  public chartHovered(e: any): void {
-    console.log(e);
-  }
   changeurl(modifier, element) {
     this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
     this.selectedelements.push(element);

@@ -3,21 +3,21 @@
   <div id="filtersearch" *ngFor="let nav of navigation$|async; let i = index">
     <div class="card-container" id="relate" *ngIf="nav.displayname =='Provider' || nav.displayname =='Authors'">
       <h3  class="related-searches"><b>Top {{nav.displayname}}</b></h3>
-    <div style="display: block;cursor:pointer;cursor: hand;" *ngFor="let element of ((i != selectedelement)? (nav.elements| slice:0:5) :nav.elements )">
-      <a (click)="changeurl(element.modifier,element)" *ngIf="element.name">
-        {{element.name}} <span class="badge badge-info">{{element.count}}</span>
-      </a>
-      <a (click)="changeurl(element.modifier,element)" *ngIf="!element.name">
-        Undefined Author <span class="badge badge-info">{{element.count}}</span>
-      </a>
-    </div>
+      <div style="display: block;cursor:pointer;cursor: hand;" *ngFor="let element of ((i != selectedelement)? (nav.elements| slice:0:5) :nav.elements )">
+        <a (click)="changeurl(element.modifier,element)" *ngIf="element.name">
+          {{element.name}} <span class="badge badge-info">{{element.count}}</span>
+        </a>
+        <a (click)="changeurl(element.modifier,element)" *ngIf="!element.name">
+          Undefined Author <span class="badge badge-info">{{element.count}}</span>
+        </a>
+      </div>
       <a style="display: block;cursor:pointer;cursor: hand;" (click)="selectelement(i)" *ngIf="selectedelement!=i">
         more..
       </a>
       <a style="display: block;cursor:pointer;cursor: hand;" (click)="deselectelement(i)" *ngIf="selectedelement===i">
         less..
       </a>
-  </div>
+    </div>
   </div>
   <div style="display: block;">
     <canvas baseChart
@@ -26,7 +26,7 @@
             [options]="lineChartOptions"
             [chartType]="lineChartType"
             [colors]="lineChartColors"
-            ></canvas>
+    ></canvas>
   </div>
   <div style="display: block;">
     <canvas baseChart
