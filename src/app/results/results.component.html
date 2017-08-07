@@ -117,6 +117,7 @@
           </ul>
         </div>
       </div>
+      <div class="feed container">
       <div *ngFor="let item of items$|async" class="result">
         <div class="title">
           <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
@@ -125,6 +126,7 @@
           <p>{{item.link}}</p>
         </div>
       </div>
+    </div>
     </div>
     <br>
     <div class="clean"></div>
