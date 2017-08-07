@@ -27,8 +27,6 @@
 
 .top-nav{
   margin-bottom: 0px;
-  margin-top: -5%;
-  padding-top: 0.4%;
 }
 
 #navcontainer {
@@ -48,36 +46,19 @@
       width: 160px;
       height: auto;
   }
-  .top-nav {
-    padding-top: 2.4%;
-  }
 
   #navbar-search{
     top:6px;
   }
 }
 
-@media screen and (min-width:1555px) {
-  .top-nav{
-    padding-top: 1.4%;
-  }
-}
 @media screen and (max-width:1079px) {
   .navbar-brand{
       margin-top: 2px;
       width: 120px;
   }
-  .top-nav{
-    margin-top: -6%;
-  }
   #navbar-search{
     margin-left: -44px;
-  }
-}
-
-@media screen and (max-width:850px) {
-  .top-nav{
-    margin-top: -7%;
   }
 }
 
@@ -87,9 +68,6 @@
   }
 }
 @media screen and (max-width:767px) {
-  .top-nav{
-    margin-top: -8%;
-  }
   .navbar-brand{
       margin-left: 38%;
       height: auto;
@@ -124,17 +102,7 @@
   .align-navsearch-btn {
     margin-right: 2% !important;
   }
-  .top-nav{
-    margin-top: -9%;
-  }
 }
-
-@media screen and (max-width:539px) {
-  .top-nav{
-    margin-top: -11%;
-  }
-}
-
 
 @media screen and (max-width:479px) {
   .navbar-brand{
@@ -146,16 +114,10 @@
   .align-navsearch-btn {
     margin-right: 3% !important;
   }
-  .top-nav{
-    margin-top: -13%;
-  }
 }
 
 @media screen and (max-width:379px) {
   .navbar-brand{
     margin-left: 30%;
-  }
-  .top-nav{
-    margin-top: -16%;
   }
 }
