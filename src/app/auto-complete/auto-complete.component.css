@@ -12,6 +12,9 @@ a {
   background: #E3E3E3;
 }
 
+#indexSug{
+  width: 586px;
+}
 .suggestion-box{
   width: 634px;
   max-width: 100%;
