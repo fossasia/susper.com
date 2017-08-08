@@ -1,3 +1,4 @@
+<div class="resultContainer">
 <app-navbar></app-navbar>
 <div class="row" [style.background-color]="themeService.backgroundColor">
   <div class="container-fluid" id="search-options-field">
@@ -27,11 +28,9 @@
     </ul>
   </div>
 
-  <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
-  </div>
   <div [hidden]="hidefooter">
     <!-- Basic results 'All' -->
-    <div class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+    <div class="container-fluid">
       <div class="result message-bar" *ngIf="totalNumber > 0 && !Display('images')">
         {{message}}
       </div>
@@ -39,23 +38,22 @@
         <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
       </div>
     </div>
-    <div class="text-result" *ngIf="Display('all')">
-      <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+  <div class="container-fluid text-result" *ngIf="Display('all')">
+    <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
 
-        <div class="noResults">
-          <p>Your search - <em>{{searchdata.query}}</em> - did not match any documents.</p>
-          <p>Suggestions:</p>
-          <ul>
-            <li>Make sure that all words are spelled correctly.</li>
-            <li>Try different keywords.</li>
-            <li>Try more general keywords.</li>
-          </ul>
-        </div>
+      <div class="noResults">
+      <p>Your search - <em>{{searchdata.query}}</em> - did not match any documents.</p>
+      <p>Suggestions:</p>
+      <ul>
+        <li>Make sure that all words are spelled correctly.</li>
+        <li>Try different keywords.</li>
+        <li>Try more general keywords.</li>
+      </ul>
       </div>
-      <div class="feed col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+    </div>
+      <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
+      <div class="feed">
         <div class="result">
-          <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
-        </div>
         <div *ngFor="let item of items$|async" class="result">
           <div class="title">
             <a class="title-pointer" href="{{item.link}}" [style.color]="themeService.titleColor">{{item.title}}</a>
@@ -67,6 +65,7 @@
             <p [style.color]="themeService.descriptionColor">{{item.pubDate|date:'MMMM d, yyyy'}} - {{item.description}}</p>
           </div>
         </div>
+      </div>
         <app-related-search [hidden]="hidefooter"></app-related-search>
       </div>
     </div>
@@ -120,6 +119,7 @@
           </ul>
         </div>
       </div>
+      <div class="feed container">
       <div *ngFor="let item of items$|async" class="result">
         <div class="title">
           <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
@@ -128,6 +128,7 @@
           <p>{{item.link}}</p>
         </div>
       </div>
+    </div>
     </div>
     <br>
     <div class="clean"></div>
@@ -162,3 +163,4 @@
   </div>
 </div>
 <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
+</div>

@@ -46,12 +46,12 @@ a {
     width: 368px;
   }
 }
-@media screen and (max-width: 1180px) {
+@media screen and (max-width: 1200px) {
   .card{
     width: 268px;
   }
 }
-  @media screen and (max-width: 998px) {
+  @media screen and (max-width: 1034px) {
   .card {
     display: none;
   }
