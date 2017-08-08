@@ -13,6 +13,7 @@ import * as fromRoot from '../reducers';
 export class AutoCompleteComponent implements OnInit {
   results: Array<any>;
   query$: any;
+  id: string;
   resultsearch = '/search';
 
   @Output() hidecomponent: EventEmitter<any> = new EventEmitter<any>();
@@ -49,6 +50,14 @@ export class AutoCompleteComponent implements OnInit {
         });
       }
     });
+  }
+
+  getID() {
+    if ( this.route.url.toString() === '/') {
+      return 'index-sug-box';
+    } else {
+      return 'sug-box'
+    }
   }
 
   ngOnInit() {
