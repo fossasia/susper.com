@@ -71,3 +71,16 @@ div a:active{
   text-decoration: underline;
   background-color: white;
 }
+
+@media screen and (min-width: 320px) {
+  div.right-side {
+    margin-left: -9%;
+  }
+  div.left-side {
+    margin-left: -5%;
+  }
+  .footer-bar {
+    padding-left: 6%;
+    padding-right: 1%;
+  }
+}
