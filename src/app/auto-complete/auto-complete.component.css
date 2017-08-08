@@ -12,12 +12,16 @@ a {
   background: #E3E3E3;
 }
 
+#indexSug{
+  width: 586px;
+}
 .suggestion-box{
   width: 634px;
   max-width: 100%;
   border: 1px solid rgba(150,150,150,0.3);
   background-color: white;
   margin-top: 47px;
+  margin-left: -1px;
   position: absolute;
 }
 
