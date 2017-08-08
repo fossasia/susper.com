@@ -8,6 +8,10 @@ a {
   margin-left: 2.4%;
 }
 
+#index-sug-box{
+  width: 586px;
+}
+
 .query-suggestions:hover {
   background: #E3E3E3;
 }
@@ -18,6 +22,7 @@ a {
   border: 1px solid rgba(150,150,150,0.3);
   background-color: white;
   margin-top: 47px;
+  margin-left: -1px;
   position: absolute;
 }
 

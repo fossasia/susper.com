@@ -3,7 +3,7 @@
   width: 632px;
   color: black;
   height: 44px;
-  border-radius: 2px;
+  border-radius: 0;
   border: none;
   border-style: solid;
   border-color:rgba(0, 0, 0, 0);
@@ -21,7 +21,7 @@
   width: 536px;
   height: 34px !important;
   line-height: 34px ;
-  border-radius: 0px;
+  border-radius: 0;
   border: none;
   box-shadow: none;
   padding-left: 16px;

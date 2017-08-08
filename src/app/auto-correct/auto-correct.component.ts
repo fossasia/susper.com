@@ -27,7 +27,7 @@ export class AutoCorrectComponent implements OnInit {
     this.resultscomponentchange$ = store.select(fromRoot.getItems);
     this.resultscomponentchange$.subscribe(resp => {
       this.query$.subscribe(query => {
-        if (query) {
+        if (query && !query.includes('/date')) {
           this.sugflag = false;
 
           this.isQues = false;

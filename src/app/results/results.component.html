@@ -1,3 +1,4 @@
+<div class="resultContainer">
 <app-navbar></app-navbar>
 <div class="row" [style.background-color]="themeService.backgroundColor">
   <div class="container-fluid" id="search-options-field">
@@ -116,6 +117,7 @@
           </ul>
         </div>
       </div>
+      <div class="feed container">
       <div *ngFor="let item of items$|async" class="result">
         <div class="title">
           <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
@@ -124,6 +126,7 @@
           <p>{{item.link}}</p>
         </div>
       </div>
+    </div>
     </div>
     <br>
     <div class="clean"></div>
@@ -158,3 +161,4 @@
   </div>
 </div>
 <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
+</div>
