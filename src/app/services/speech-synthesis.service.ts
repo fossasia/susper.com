@@ -29,6 +29,7 @@ export class SpeechSynthesisService {
 
   pause(): void {
     const { speechSynthesis }: IWindow = <IWindow>window;
+    const { SpeechSynthesisUtterance }: IWindow = <IWindow>window;
 
     this.utterence = new SpeechSynthesisUtterance();
     (window as any).speechSynthesis.pause();

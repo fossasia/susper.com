@@ -2,11 +2,21 @@
   /* Add shadows to create the "card" effect */
   border: 1px solid rgba(150,150,150,0.3);
   border-bottom-color: rgba(125,125,125,0.3);
+  margin-bottom: 16px;
   padding: 22px 22px 18px 22px;
   transition: 0.3s;
   width: 434px;
-  margin-top: 3%
+  margin-top: 10px;
+
 }
+.badge-info {
+  background-color: #468847;
+  padding: 0.25em;
+}
+.badge-info:hover {
+  background-color: #356635;
+}
+
 
 
 /* Add some padding inside the card container */
@@ -16,7 +26,7 @@
 
 /* Heading */
 h2 {
-  font-size: 2.6em;
+  font-size: 2.4em;
 }
 
 /* Description */
@@ -46,12 +56,12 @@ a {
     width: 368px;
   }
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1180px) {
   .card{
     width: 268px;
   }
 }
-  @media screen and (max-width: 1034px) {
+@media screen and (max-width: 998px) {
   .card {
     display: none;
   }
