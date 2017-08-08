@@ -1,4 +1,4 @@
-<div id="sug-box" class="suggestion-box">
+<div [id]="getID()" class="suggestion-box">
   <div *ngFor="let result of results" class="query-suggestions">
     <a [routerLink]="resultsearch" [queryParams]="{query: result}" class="suggestions">{{result}}</a>
   </div>

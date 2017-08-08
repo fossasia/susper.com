@@ -28,7 +28,6 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     document.getElementById('nav-group').style.width = '584px';
     document.getElementById('nav-input').style.width = '528px';
-    document.getElementById('sug-box').id = 'indexSug';
   }
 
 }
