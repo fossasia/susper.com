@@ -399,6 +399,7 @@ div.autocorrect{
     margin-left: 118px;
   }
 }
+
 @media screen and (max-width:767px) {
   div.result {
     padding-right: 30px;

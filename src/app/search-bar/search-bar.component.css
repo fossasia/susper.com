@@ -12,7 +12,6 @@
   float: left;
 }
 
-
 #nav-input{
   font-size: 16px;
   font-weight: 400;
@@ -84,16 +83,17 @@
   width: 100px;
   }
 }
-  @media screen and (max-width: 767px) {
+
+@media screen and (max-width: 767px) {
   #nav-group {
     width: 95vw!important;
   }
   .align-search-btn{
     left: -1%;
   }
-    #nav-input {
-      width: 83vw;
-    }
+  #nav-input {
+    width: 83vw;
+  }
 }
 @media screen and (max-width: 573px){
   .align-search-btn{
