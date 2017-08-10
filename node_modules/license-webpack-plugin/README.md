@@ -23,10 +23,14 @@ under the pattern property.
 To use the plugin, simply add it to your webpack config's plugin list.
 
 The below example matches MIT, ISC, and any license starting with BSD.
+This example will also throw an error and terminate your build if it finds a
+license containing GPL in it.
 
 ```javascript
 new LicenseWebpackPlugin({
-  pattern: /^(MIT|ISC|BSD.*)$/
+  pattern: /^(MIT|ISC|BSD.*)$/,
+  unacceptablePattern: /GPL/,
+  abortOnUnacceptableLicense: true
 });
 ```
 
@@ -35,6 +39,11 @@ Below are all options that can be passed to the plugin:
 * `pattern` A regular expression of license names to match. The license is read
   from the `license` property in `package.json` for each module used in your
   webpack output.
+* `unacceptablePattern` A regular expression of license names that are
+   unacceptable for the build.
+* `abortOnUnacceptableLicense` Used only in conjunction with the
+  `unacceptablePattern` option, setting this to `true` will cause the plugin to
+  throw an error and abort the build if an unacceptable license is found.
 * `filename` This is the output filename which gets written your webpack build
   directory. The default is `3rdpartylicenses.txt`.
 * `includeUndefined` whether include packages without license or not. The default is `false`

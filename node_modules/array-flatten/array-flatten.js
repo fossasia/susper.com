@@ -3,43 +3,78 @@
 /**
  * Expose `arrayFlatten`.
  */
-module.exports = arrayFlatten
+module.exports = flatten
+module.exports.from = flattenFrom
+module.exports.depth = flattenDepth
+module.exports.fromDepth = flattenFromDepth
 
 /**
- * Recursive flatten function with depth.
+ * Flatten an array.
  *
- * @param  {Array}  array
- * @param  {Array}  result
- * @param  {Number} depth
+ * @param  {Array} array
  * @return {Array}
  */
-function flattenWithDepth (array, result, depth) {
-  for (var i = 0; i < array.length; i++) {
-    var value = array[i]
-
-    if (depth > 0 && Array.isArray(value)) {
-      flattenWithDepth(value, result, depth - 1)
-    } else {
-      result.push(value)
-    }
+function flatten (array) {
+  if (!Array.isArray(array)) {
+    throw new TypeError('Expected value to be an array')
   }
 
-  return result
+  return flattenFrom(array)
 }
 
 /**
- * Recursive flatten function. Omitting depth is slightly faster.
+ * Flatten an array-like structure.
+ *
+ * @param  {Array} array
+ * @return {Array}
+ */
+function flattenFrom (array) {
+  return flattenDown(array, [])
+}
+
+/**
+ * Flatten an array-like structure with depth.
+ *
+ * @param  {Array}  array
+ * @param  {number} depth
+ * @return {Array}
+ */
+function flattenDepth (array, depth) {
+  if (!Array.isArray(array)) {
+    throw new TypeError('Expected value to be an array')
+  }
+
+  return flattenFromDepth(array, depth)
+}
+
+/**
+ * Flatten an array-like structure with depth.
+ *
+ * @param  {Array}  array
+ * @param  {number} depth
+ * @return {Array}
+ */
+function flattenFromDepth (array, depth) {
+  if (typeof depth !== 'number') {
+    throw new TypeError('Expected the depth to be a number')
+  }
+
+  return flattenDownDepth(array, [], depth)
+}
+
+/**
+ * Flatten an array indefinitely.
  *
  * @param  {Array} array
  * @param  {Array} result
  * @return {Array}
  */
-function flattenForever (array, result) {
+function flattenDown (array, result) {
   for (var i = 0; i < array.length; i++) {
     var value = array[i]
 
     if (Array.isArray(value)) {
-      flattenForever(value, result)
+      flattenDown(value, result)
     } else {
       result.push(value)
     }
@@ -49,16 +84,25 @@ function flattenForever (array, result) {
 }
 
 /**
- * Flatten an array, with the ability to define a depth.
+ * Flatten an array with depth.
  *
  * @param  {Array}  array
- * @param  {Number} depth
+ * @param  {Array}  result
+ * @param  {number} depth
  * @return {Array}
  */
-function arrayFlatten (array, depth) {
-  if (depth == null) {
-    return flattenForever(array, [])
+function flattenDownDepth (array, result, depth) {
+  depth--
+
+  for (var i = 0; i < array.length; i++) {
+    var value = array[i]
+
+    if (depth > -1 && Array.isArray(value)) {
+      flattenDownDepth(value, result, depth)
+    } else {
+      result.push(value)
+    }
   }
 
-  return flattenWithDepth(array, [], depth)
+  return result
 }

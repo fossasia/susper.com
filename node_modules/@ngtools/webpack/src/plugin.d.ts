@@ -1,6 +1,7 @@
 import * as ts from 'typescript';
 import { WebpackCompilerHost } from './compiler_host';
 import { Tapable } from './webpack';
+import { LazyRouteMap } from './lazy_routes';
 /**
  * Option Constants
  */
@@ -11,6 +12,7 @@ export interface AotPluginOptions {
     mainPath?: string;
     typeChecking?: boolean;
     skipCodeGeneration?: boolean;
+    replaceExport?: boolean;
     hostOverrideFileSystem?: {
         [path: string]: string;
     };
@@ -31,6 +33,7 @@ export declare class AotPlugin implements Tapable {
     private _rootFilePath;
     private _compilerHost;
     private _resourceLoader;
+    private _discoveredLazyRoutes;
     private _lazyRoutes;
     private _tsConfigPath;
     private _entryModule;
@@ -39,6 +42,7 @@ export declare class AotPlugin implements Tapable {
     private _compilation;
     private _typeCheck;
     private _skipCodeGeneration;
+    private _replaceExport;
     private _basePath;
     private _genDir;
     private _i18nFile;
@@ -60,11 +64,14 @@ export declare class AotPlugin implements Tapable {
     readonly genDir: string;
     readonly program: ts.Program;
     readonly skipCodeGeneration: boolean;
+    readonly replaceExport: boolean;
     readonly typeCheck: boolean;
     readonly i18nFile: string;
     readonly i18nFormat: string;
     readonly locale: string;
     readonly firstRun: boolean;
+    readonly lazyRoutes: LazyRouteMap;
+    readonly discoveredLazyRoutes: LazyRouteMap;
     private _setupOptions(options);
     private _findLazyRoutesInAst();
     private _getLazyRoutesFromNgtools();

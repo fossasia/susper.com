@@ -11,6 +11,9 @@ export declare class CliConfig<JsonType> {
     isDefined(jsonPath: string): boolean;
     deletePath(jsonPath: string): void;
     set(jsonPath: string, value: any): void;
+    getPaths(baseJsonPath: string, keys: string[]): {
+        [k: string]: any;
+    };
     static fromJson<ConfigType>(content: ConfigType, ...global: ConfigType[]): CliConfig<ConfigType>;
     static fromConfigPath<T>(configPath: string, otherPath?: string[]): CliConfig<T>;
 }

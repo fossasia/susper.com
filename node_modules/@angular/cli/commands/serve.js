@@ -7,11 +7,10 @@ const check_port_1 = require("../utilities/check-port");
 const override_options_1 = require("../utilities/override-options");
 const Command = require('../ember-cli/lib/models/command');
 const config = config_1.CliConfig.fromProject() || config_1.CliConfig.fromGlobal();
-const defaultPort = process.env.PORT || config.get('defaults.serve.port');
-const defaultHost = config.get('defaults.serve.host');
-const defaultSsl = config.get('defaults.serve.ssl');
-const defaultSslKey = config.get('defaults.serve.sslKey');
-const defaultSslCert = config.get('defaults.serve.sslCert');
+const serveConfigDefaults = config.getPaths('defaults.serve', [
+    'port', 'host', 'ssl', 'sslKey', 'sslCert', 'proxyConfig'
+]);
+const defaultPort = process.env.PORT || serveConfigDefaults['port'];
 // Expose options unrelated to live-reload to other commands that need to run serve
 exports.baseServeCommandOptions = override_options_1.overrideOptions([
     ...build_1.baseBuildCommandOptions,
@@ -25,32 +24,33 @@ exports.baseServeCommandOptions = override_options_1.overrideOptions([
     {
         name: 'host',
         type: String,
-        default: defaultHost,
+        default: serveConfigDefaults['host'],
         aliases: ['H'],
-        description: `Listens only on ${defaultHost} by default.`
+        description: `Listens only on ${serveConfigDefaults['host']} by default.`
     },
     {
         name: 'proxy-config',
         type: 'Path',
+        default: serveConfigDefaults['proxyConfig'],
         aliases: ['pc'],
         description: 'Proxy configuration file.'
     },
     {
         name: 'ssl',
         type: Boolean,
-        default: defaultSsl,
+        default: serveConfigDefaults['ssl'],
         description: 'Serve using HTTPS.'
     },
     {
         name: 'ssl-key',
         type: String,
-        default: defaultSslKey,
+        default: serveConfigDefaults['sslKey'],
         description: 'SSL key to use for serving HTTPS.'
     },
     {
         name: 'ssl-cert',
         type: String,
-        default: defaultSslCert,
+        default: serveConfigDefaults['sslCert'],
         description: 'SSL certificate to use for serving HTTPS.'
     },
     {
@@ -100,6 +100,10 @@ const ServeCommand = Command.extend({
     run: function (commandOptions) {
         const ServeTask = require('../tasks/serve').default;
         version_1.Version.assertAngularVersionIs2_3_1OrHigher(this.project.root);
+        // Default vendor chunk to false when build optimizer is on.
+        if (commandOptions.vendorChunk === undefined) {
+            commandOptions.vendorChunk = !commandOptions.buildOptimizer;
+        }
         return check_port_1.checkPort(commandOptions.port, commandOptions.host, defaultPort)
             .then(port => {
             commandOptions.port = port;

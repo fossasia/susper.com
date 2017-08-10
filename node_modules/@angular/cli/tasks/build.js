@@ -7,6 +7,7 @@ const app_utils_1 = require("../utilities/app-utils");
 const webpack_config_1 = require("../models/webpack-config");
 const utils_1 = require("../models/webpack-configs/utils");
 const config_1 = require("../models/config");
+const stats_1 = require("../utilities/stats");
 const Task = require('../ember-cli/lib/models/task');
 const SilentError = require('silent-error');
 exports.default = Task.extend({
@@ -31,13 +32,24 @@ exports.default = Task.extend({
                 if (err) {
                     return reject(err);
                 }
-                this.ui.writeLine(stats.toString(statsConfig));
+                const json = stats.toJson('verbose');
+                if (runTaskOptions.verbose) {
+                    this.ui.writeLine(stats.toString(statsConfig));
+                }
+                else {
+                    this.ui.writeLine(stats_1.statsToString(json, statsConfig));
+                }
+                if (stats.hasWarnings()) {
+                    this.ui.writeLine(stats_1.statsWarningsToString(json, statsConfig));
+                }
+                if (stats.hasErrors()) {
+                    this.ui.writeError(stats_1.statsErrorsToString(json, statsConfig));
+                }
                 if (runTaskOptions.watch) {
                     return;
                 }
-                if (!runTaskOptions.watch && runTaskOptions.statsJson) {
-                    const jsonStats = stats.toJson('verbose');
-                    fs.writeFileSync(path.resolve(this.project.root, outputPath, 'stats.json'), JSON.stringify(jsonStats, null, 2));
+                else if (runTaskOptions.statsJson) {
+                    fs.writeFileSync(path.resolve(this.project.root, outputPath, 'stats.json'), JSON.stringify(stats.toJson(), null, 2));
                 }
                 if (stats.hasErrors()) {
                     reject();

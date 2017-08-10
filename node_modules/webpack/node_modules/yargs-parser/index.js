@@ -17,11 +17,14 @@ function parse (args, opts) {
     'parse-numbers': true,
     'boolean-negation': true,
     'duplicate-arguments-array': true,
-    'flatten-duplicate-arrays': true
+    'flatten-duplicate-arrays': true,
+    'populate--': false
   }, opts.configuration)
   var defaults = opts.default || {}
   var configObjects = opts.configObjects || []
   var envPrefix = opts.envPrefix
+  var notFlagsOption = configuration['populate--']
+  var notFlagsArgv = notFlagsOption ? '--' : '_'
   var newAliases = {}
   // allow a i18n handler to be passed in, default to a fake one (util.format).
   var __ = opts.__ || function (str) {
@@ -273,14 +276,14 @@ function parse (args, opts) {
 
   // order of precedence:
   // 1. command line arg
-  // 2. value from config file
-  // 3. value from config objects
-  // 4. value from env var
+  // 2. value from env var
+  // 3. value from config file
+  // 4. value from config objects
   // 5. configured default value
   applyEnvVars(argv, true) // special case: check env vars that point to config file
+  applyEnvVars(argv, false)
   setConfig(argv)
   setConfigObjects()
-  applyEnvVars(argv, false)
   applyDefaultsAndAliases(argv, flags.aliases, defaults)
   applyCoercions(argv)
 
@@ -289,8 +292,10 @@ function parse (args, opts) {
     if (!hasKey(argv, key.split('.'))) setArg(key, 0)
   })
 
+  // '--' defaults to undefined.
+  if (notFlagsOption && notFlags.length) argv[notFlagsArgv] = []
   notFlags.forEach(function (key) {
-    argv._.push(key)
+    argv[notFlagsArgv].push(key)
   })
 
   // how many arguments should we consume, based
@@ -558,7 +563,7 @@ function parse (args, opts) {
 
     var key = keys[keys.length - 1]
 
-    var isTypeArray = checkAllAliases(key, flags.arrays)
+    var isTypeArray = checkAllAliases(keys.join('.'), flags.arrays)
     var isValueArray = Array.isArray(value)
     var duplicate = configuration['duplicate-arguments-array']
 

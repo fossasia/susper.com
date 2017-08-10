@@ -13,7 +13,7 @@ export declare const getAotConfig: (wco: WebpackConfigOptions) => {
     module: {
         rules: {
             test: RegExp;
-            loader: string;
+            use: any[];
         }[];
     };
     plugins: AotPlugin[];

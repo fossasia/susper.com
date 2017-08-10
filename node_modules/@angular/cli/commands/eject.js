@@ -22,6 +22,10 @@ const EjectCommand = Command.extend({
     description: 'Ejects your app and output the proper webpack configuration and scripts.',
     availableOptions: exports.baseEjectCommandOptions,
     run: function (commandOptions) {
+        // Default vendor chunk to false when build optimizer is on.
+        if (commandOptions.vendorChunk === undefined) {
+            commandOptions.vendorChunk = !commandOptions.buildOptimizer;
+        }
         const EjectTask = require('../tasks/eject').default;
         const ejectTask = new EjectTask({
             project: this.project,

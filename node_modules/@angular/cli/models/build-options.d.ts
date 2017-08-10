@@ -5,6 +5,7 @@ export interface BuildOptions {
     aot?: boolean;
     sourcemaps?: boolean;
     vendorChunk?: boolean;
+    commonChunk?: boolean;
     baseHref?: string;
     deployUrl?: string;
     verbose?: boolean;
@@ -20,4 +21,7 @@ export interface BuildOptions {
     deleteOutputPath?: boolean;
     preserveSymlinks?: boolean;
     extractLicenses?: boolean;
+    showCircularDependencies?: boolean;
+    buildOptimizer?: boolean;
+    namedChunks?: boolean;
 }

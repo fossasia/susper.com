@@ -11,7 +11,7 @@ The mighty option parser used by [yargs](https://github.com/yargs/yargs).
 
 visit the [yargs website](http://yargs.js.org/) for more examples, and thorough usage instructions.
 
-<img width="250" src="yargs-logo.png">
+<img width="250" src="https://raw.githubusercontent.com/yargs/yargs-parser/master/yargs-logo.png">
 
 ## Example
 
@@ -72,12 +72,14 @@ Parses command line arguments returning a simple mapping of keys and values.
   * `opts.string`: keys should be treated as strings (even if they resemble a number `-x 33`).
   * `opts.configuration`: provide configuration options to the yargs-parser (see: [configuration](#configuration)).
   * `opts.number`: keys should be treated as numbers.
+  * `opts['--']`: arguments after the end-of-options flag `--` will be set to the `argv.['--']` array instead of being set to the `argv._` array.
 
 **returns:**
 
 * `obj`: an object representing the parsed value of `args`
   * `key/value`: key value pairs for each argument and their aliases.
   * `_`: an array representing the positional arguments.
+  * [optional] `--`:  an array with arguments after the end-of-options flag `--`.
 
 ### require('yargs-parser').detailed(args, opts={})
 
@@ -100,6 +102,7 @@ yargs engine.
 * `configuration`: the configuration loaded from the `yargs` stanza in package.json.
 
 <a name="configuration"></a>
+
 ### Configuration
 
 The yargs-parser applies several automated transformations on the keys provided
@@ -245,6 +248,27 @@ _if disabled:_
 ```sh
 node example.js -x 1 2 -x 3 4
 { _: [], x: [[1, 2], [3, 4]] }
+```
+
+### populate --
+
+* default: `false`.
+* key: `populate--`
+
+Should unparsed flags be stored in `--` or `_`.
+
+_If disabled:_
+
+```sh
+node example.js a -b -- x y
+{ _: [ 'a', 'x', 'y' ], b: true }
+```
+
+_If enabled:_
+
+```sh
+node example.js a -b -- x y
+{ _: [ 'a' ], '--': [ 'x', 'y' ], b: true }
 ```
 
 ## Special Thanks

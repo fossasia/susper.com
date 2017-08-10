@@ -1,4 +1,5 @@
 const objFilter = require('./obj-filter')
+const specialKeys = ['$0', '--', '_']
 
 // validation-type-stuff, missing params,
 // bad implications, custom checks.
@@ -89,7 +90,7 @@ module.exports = function (yargs, usage, y18n) {
     var missing = null
 
     Object.keys(demandedOptions).forEach(function (key) {
-      if (!argv.hasOwnProperty(key)) {
+      if (!argv.hasOwnProperty(key) || typeof argv[key] === 'undefined') {
         missing = missing || {}
         missing[key] = demandedOptions[key]
       }
@@ -98,7 +99,7 @@ module.exports = function (yargs, usage, y18n) {
     if (missing) {
       const customMsgs = []
       Object.keys(missing).forEach(function (key) {
-        const msg = missing[key].msg
+        const msg = missing[key]
         if (msg && customMsgs.indexOf(msg) < 0) {
           customMsgs.push(msg)
         }
@@ -116,7 +117,7 @@ module.exports = function (yargs, usage, y18n) {
   }
 
   // check for unknown arguments (strict-mode).
-  self.unknownArguments = function (argv, aliases) {
+  self.unknownArguments = function (argv, aliases, positionalMap) {
     const aliasLookup = {}
     const descriptions = usage.getDescriptions()
     const demandedOptions = yargs.getDemandedOptions()
@@ -131,9 +132,11 @@ module.exports = function (yargs, usage, y18n) {
     })
 
     Object.keys(argv).forEach(function (key) {
-      if (key !== '$0' && key !== '_' &&
+      if (specialKeys.indexOf(key) === -1 &&
         !descriptions.hasOwnProperty(key) &&
         !demandedOptions.hasOwnProperty(key) &&
+        !positionalMap.hasOwnProperty(key) &&
+        !yargs._getParseContext().hasOwnProperty(key) &&
         !aliasLookup.hasOwnProperty(key)) {
         unknown.push(key)
       }
@@ -165,7 +168,7 @@ module.exports = function (yargs, usage, y18n) {
     if (!Object.keys(options.choices).length) return
 
     Object.keys(argv).forEach(function (key) {
-      if (key !== '$0' && key !== '_' &&
+      if (specialKeys.indexOf(key) === -1 &&
         options.choices.hasOwnProperty(key)) {
         [].concat(argv[key]).forEach(function (value) {
           // TODO case-insensitive configurability
@@ -194,22 +197,26 @@ module.exports = function (yargs, usage, y18n) {
 
   // custom checks, added using the `check` option on yargs.
   var checks = []
-  self.check = function (f) {
-    checks.push(f)
+  self.check = function (f, global) {
+    checks.push({
+      func: f,
+      global: global
+    })
   }
 
   self.customChecks = function (argv, aliases) {
     for (var i = 0, f; (f = checks[i]) !== undefined; i++) {
+      var func = f.func
       var result = null
       try {
-        result = f(argv, aliases)
+        result = func(argv, aliases)
       } catch (err) {
         usage.fail(err.message ? err.message : err, err)
         continue
       }
 
       if (!result) {
-        usage.fail(__('Argument check failed: %s', f.toString()))
+        usage.fail(__('Argument check failed: %s', func.toString()))
       } else if (typeof result === 'string' || result instanceof Error) {
         usage.fail(result.toString(), result)
       }
@@ -224,6 +231,7 @@ module.exports = function (yargs, usage, y18n) {
         self.implies(k, key[k])
       })
     } else {
+      yargs.global(key)
       implied[key] = value
     }
   }
@@ -290,6 +298,7 @@ module.exports = function (yargs, usage, y18n) {
         self.conflicts(k, key[k])
       })
     } else {
+      yargs.global(key)
       conflicting[key] = value
     }
   }
@@ -324,12 +333,16 @@ module.exports = function (yargs, usage, y18n) {
     if (recommended) usage.fail(__('Did you mean %s?', recommended))
   }
 
-  self.reset = function (globalLookup) {
+  self.reset = function (localLookup) {
     implied = objFilter(implied, function (k, v) {
-      return globalLookup[k]
+      return !localLookup[k]
     })
-    checks = []
-    conflicting = {}
+    conflicting = objFilter(conflicting, function (k, v) {
+      return !localLookup[k]
+    })
+    checks = checks.filter(function (c) {
+      return c.global
+    })
     return self
   }
 

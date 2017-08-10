@@ -11,6 +11,7 @@ export interface TestOptions {
     progress?: boolean;
     config: string;
     poll?: number;
+    environment?: string;
     app?: string;
 }
 declare const TestCommand: any;
