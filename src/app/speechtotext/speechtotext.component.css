@@ -218,6 +218,7 @@
   -webkit-animation: typing 2s steps(21,end), blink-caret .5s step-end infinite alternate;
   overflow: hidden;
   animation-delay: 3.5s;
+  animation-duration: 1s;
 }
 
 .s2fp-h .spcht, .s2fp .spcht {
