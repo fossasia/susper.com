@@ -50,18 +50,17 @@ a {
   font-family: Arial, sans-serif;
 }
 
-/** Screen Responsiveness **/
 @media screen and (max-width: 1280px) {
   .card{
-    width: 368px;
+    width: 366px;
   }
 }
-@media screen and (max-width: 1180px) {
+@media screen and (max-width: 1190px) {
   .card{
-    width: 268px;
+    width: 278px;
   }
 }
-@media screen and (max-width: 998px) {
+@media screen and (max-width: 1100px) {
   .card {
     display: none;
   }
