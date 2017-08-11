@@ -97,6 +97,9 @@
   #navcontainer, #side-menu {
     margin-top: 8px;
   }
+  .top-nav {
+    width: 101.2%;
+  }
 }
 @media screen and (max-width:639px) {
   .align-navsearch-btn {
