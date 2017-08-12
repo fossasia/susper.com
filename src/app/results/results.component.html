@@ -68,8 +68,12 @@
       </div>
         <app-related-search [hidden]="hidefooter"></app-related-search>
       </div>
-    <app-infobox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" class="infobox" *ngIf="Display('all')"></app-infobox>
+    <div class="infobox">
+      <app-infobox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" *ngIf="Display('all')"></app-infobox>
+      <app-statsbox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" *ngIf="Display('all')"></app-statsbox>
+    </div>
   </div>
+
     <!-- Image section -->
     <div *ngIf="Display('images')">
       <div class="container">

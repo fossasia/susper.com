@@ -1,6 +1,7 @@
 li.dropdown-menu-box {
     top: 10px;
 }
+
 .menu-row{
   width: 267px;
   grid-template-columns: 1fr 1fr 1fr;
@@ -11,6 +12,7 @@ li.dropdown-menu-box {
   display: inline-block;
   width: 86px;
 }
+
 .dropdown-menu{
   height: 500px;
   width: 327px;
@@ -39,11 +41,13 @@ li.dropdown-menu-box {
   border-left: 6px solid transparent;
   content: '';
 }
+
 div.block:hover {
     border: 1px solid rgba(150,150,150,0.3);
 }
+
 div.block{
-  text-align: center;
+    text-align: center;
 }
 
 p {
@@ -125,6 +129,13 @@ p.contact-text {
 
 hr {
     padding-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .dropdown-menu-box {
+        margin-left: 60%;
+        margin-top: 60%;
+    }
 }
 
 @media screen and (max-width: 767px) {
