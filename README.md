@@ -42,12 +42,12 @@ After installing angular-cli we need to install our required node modules, so we
 $ npm install
 ```
 ## How to deploy?
-##### Running on localhost:
+### Running on localhost:
 * **Step 1:** Fork susper repository and clone it to your desktop
 * **Step 2:** Then cd into that cloned folder
 * **Step 3:** Deploy locally by running this :```$ ng serve```
 
-#### For deploying with [Github Pages](https://pages.github.com/):
+### For deploying with [Github Pages](https://pages.github.com/):
 With these very simple steps you can have susper deployed:
 
 * **Step 1:** Fork susper repository and clone it to your desktop.
