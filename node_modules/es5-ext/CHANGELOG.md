@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.10.27"></a>
+## [0.10.27](https://github.com/medikoo/es5-ext/compare/v0.10.26...v0.10.27) (2017-08-11)
+
+
+### Bug Fixes
+
+* isNumberValue should not crash on non-coercible values ([0db765e](https://github.com/medikoo/es5-ext/commit/0db765e))
+
+
+### Features
+
+* add Object.ensureFiniteNumber util ([11c67f5](https://github.com/medikoo/es5-ext/commit/11c67f5))
+* add Object.isFiniteNumber util ([fe5b55a](https://github.com/medikoo/es5-ext/commit/fe5b55a))
+
+
+
 <a name="0.10.26"></a>
 ## [0.10.26](https://github.com/medikoo/es5-ext/compare/v0.10.25...v0.10.26) (2017-08-02)
 

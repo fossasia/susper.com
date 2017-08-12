@@ -10,7 +10,7 @@ export interface Subscribable<T> {
 export declare type SubscribableOrPromise<T> = Subscribable<T> | PromiseLike<T>;
 export declare type ObservableInput<T> = SubscribableOrPromise<T> | ArrayLike<T>;
 /**
- * A representation of any set of values over any amount of time. This the most basic building block
+ * A representation of any set of values over any amount of time. This is the most basic building block
  * of RxJS.
  *
  * @class Observable<T>
@@ -21,7 +21,7 @@ export declare class Observable<T> implements Subscribable<T> {
     protected operator: Operator<any, T>;
     /**
      * @constructor
-     * @param {Function} subscribe the function that is  called when the Observable is
+     * @param {Function} subscribe the function that is called when the Observable is
      * initially subscribed to. This function is given a Subscriber, to which new values
      * can be `next`ed, or an `error` method can be called to raise an error, or
      * `complete` can be called to notify of a successful completion.

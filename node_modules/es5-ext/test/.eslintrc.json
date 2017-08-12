@@ -1,4 +1,7 @@
 {
+	"globals": {
+		"Symbol": true
+	},
 	"rules": {
 		"consistent-this": "off",
 		"id-length": "off",

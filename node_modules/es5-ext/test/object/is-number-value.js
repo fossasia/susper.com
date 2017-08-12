@@ -12,4 +12,7 @@ module.exports = function (t, a) {
 	a(t(new Number(2)), true, "Number object");
 	a(t("asdfaf"), false, "String");
 	a(t(""), true, "Empty String");
+	if (typeof Symbol === "function") {
+		a(t(Symbol("test")), false, "Symbol");
+	}
 };

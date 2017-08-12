@@ -1,6 +1,6 @@
-import { raceStatic } from '../../operator/race';
+import { race as staticRace } from '../../observable/race';
 declare module '../../Observable' {
     namespace Observable {
-        let race: typeof raceStatic;
+        let race: typeof staticRace;
     }
 }
