@@ -49,8 +49,13 @@ export class SearchsettingsComponent implements OnInit {
     }
     this.router.navigate(['/']);
   }
+
   onCancel() {
     this.router.navigate(['/']);
+  }
+
+  defaultCount() {
+    this.resultCount = 10;
   }
 
 }

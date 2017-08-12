@@ -45,7 +45,7 @@
           <h4><strong>Susper Instant Predictions</strong></h4>
           <p>When should we show you results as you type?</p>
           <input name="options" [(ngModel)]="instantresults" disabled value="#" type="radio" id="op1"><label for="op1">Only when my computer is fast enough</label><br>
-          <input name="options" [(ngModel)]="instantresults" [value]="true" type="radio" id="op2"><label for="op2">Always show instant results</label><br>
+          <input name="options" [(ngModel)]="instantresults" [value]="true" type="radio" id="op2" (click)="defaultCount()"><label for="op2">Always show instant results</label><br>
           <input name="options" [(ngModel)]="instantresults" [value]="false" type="radio" id="op3"><label for="op3">Never show instant results</label><br>
         </div>
       <hr>
