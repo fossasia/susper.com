@@ -51,8 +51,8 @@
       </ul>
       </div>
     </div>
-      <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
       <div class="feed">
+        <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
         <div class="result">
         <div *ngFor="let item of items$|async" class="result">
           <div class="title">
