@@ -56,8 +56,9 @@ export class InfoboxComponent implements OnInit {
   }
 
   startSpeaking(description) {
-    this.synthesis.speak(description);
-    this.synthesis.pause();
+    let msg = new SpeechSynthesisUtterance(description);
+    window.speechSynthesis.resume();
+    window.speechSynthesis.speak(msg);
   }
 
   ngOnInit() {
