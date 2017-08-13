@@ -41,13 +41,16 @@ a {
   color: #808080;
   line-height: 1.4;
   word-wrap: break-word;
+  font-size: small;
   margin-top: -8px;
 }
 
 .feed{
+  float: left;
   margin-left: 172px;
   width: 616px;
   display: inline-block;
+  margin-right: 36px;
 }
 
 .title-pointer:hover {
@@ -177,8 +180,7 @@ a {
 
 .infobox{
   display: inline-block;
-  float: right;
-  margin-right: 3.5%;
+  float: left;
 }
 
 .item img {
@@ -379,12 +381,7 @@ div.autocorrect{
     margin-left: 174px;
   }
 }
-@media screen and (max-width:1200px) {
-  .infobox{
-    margin-right: 1.3%;
-  }
 
-}
 @media screen and (max-width:1079px) {
   div.autocorrect{
     margin-left: 134px;
