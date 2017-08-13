@@ -34,7 +34,7 @@ export class StatsboxComponent implements OnInit {
   };
   public barChartLabels: string[] = ['0'];
   public barChartType = 'bar';
-  public barChartData: any[] = [{ data: [0], label: 'Protocol Frequency' }];
+  public barChartData: any[] = [{ data: [0], label: 'Protocol Distribution' }];
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
