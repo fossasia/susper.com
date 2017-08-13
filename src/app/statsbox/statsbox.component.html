@@ -7,7 +7,7 @@
         <a (click)="changeurl(element.modifier,element)" *ngIf="element.name">
           {{element.name}} <span class="badge badge-info">{{element.count}}</span>
         </a>
-        <a (click)="changeurl(element.modifier,element)" *ngIf="!element.name">
+        <a  *ngIf="!element.name" style="color: black;cursor: default">
           Undefined Author <span class="badge badge-info">{{element.count}}</span>
         </a>
       </div>
