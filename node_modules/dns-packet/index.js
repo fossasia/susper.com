@@ -325,6 +325,62 @@ rsrv.encodingLength = function (data) {
   return 8 + name.encodingLength(data.target)
 }
 
+var rcaa = exports.caa = {}
+
+rcaa.ISSUER_CRITICAL = 1 << 7
+
+rcaa.encode = function (data, buf, offset) {
+  var len = rcaa.encodingLength(data)
+
+  if (!buf) buf = Buffer.allocUnsafe(rcaa.encodingLength(data))
+  if (!offset) offset = 0
+
+  if (data.issuerCritical) {
+    data.flags = rcaa.ISSUER_CRITICAL
+  }
+
+  buf.writeUInt16BE(len - 2, offset)
+  offset += 2
+  buf.writeUInt8(data.flags || 0, offset)
+  offset += 1
+  string.encode(data.tag, buf, offset)
+  offset += string.encode.bytes
+  buf.write(data.value, offset)
+  offset += Buffer.byteLength(data.value)
+
+  rcaa.encode.bytes = len
+  return buf
+}
+
+rcaa.encode.bytes = 0
+
+rcaa.decode = function (buf, offset) {
+  if (!offset) offset = 0
+
+  var len = buf.readUInt16BE(offset)
+  offset += 2
+
+  var oldOffset = offset
+  var data = {}
+  data.flags = buf.readUInt8(offset)
+  offset += 1
+  data.tag = string.decode(buf, offset)
+  offset += string.decode.bytes
+  data.value = buf.toString('utf-8', offset, oldOffset + len)
+
+  data.issuerCritical = !!(data.flags & rcaa.ISSUER_CRITICAL)
+
+  rcaa.decode.bytes = len + 2
+
+  return data
+}
+
+rcaa.decode.bytes = 0
+
+rcaa.encodingLength = function (data) {
+  return string.encodingLength(data.tag) + string.encodingLength(data.value) + 2
+}
+
 var ra = exports.a = {}
 
 ra.encode = function (host, buf, offset) {
@@ -396,6 +452,7 @@ var renc = exports.record = function (type) {
     case 'AAAA': return raaaa
     case 'SRV': return rsrv
     case 'HINFO': return rhinfo
+    case 'CAA': return rcaa
   }
   return runknown
 }

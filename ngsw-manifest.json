@@ -2,10 +2,10 @@
   "static": {
     "urls": {
       "/not-found-bg.8f346a53ee078b98deb0.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
-      "/main.ff671f47f1d60f8c7530.bundle.js": "d32e3deaab08f949a14a503b8673b6edec8cbbf4",
+      "/main.f64f735cae4bd60d4b36.bundle.js": "8abf72a8276764bfe29dc025f9f7b1d90a4108b7",
       "/sw-register.e8ad119c04e6f7da649e.bundle.js": "5bccf39eedc381fd3ce6e9cd588c6fcfa8fcbf31",
       "/vendor.39abfcd45f62ae307ad8.bundle.js": "37bb8392a43cac2f0fe95169a6bd579ffaa85d9e",
-      "/inline.b8ba20bb60c423515fea.bundle.js": "3826e2c0c60b32bfd2afe6d20c96d0071d124619",
+      "/inline.286b606900733b4aa4af.bundle.js": "4eecd9974b4bff06c5a88bf8327939cb4acda479",
       "/styles.d41d8cd98f00b204e980.bundle.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "/assets/chart.js": "990d101393bbf1d9826ede90113989256bf1756b",
       "/assets/css/base.css": "f33d855f3fd7c059981974cf51853ae776db7e24",
@@ -39,7 +39,7 @@
       "/assets/images/terminal.png": "2aa0054d6e388a6cd5630e3eca2350cfb289955b",
       "/assets/images/YaCyLogo2011_60.png": "954f9d626d69a7861e9e84735c44b0a8bc759c97",
       "/favicon.ico": "1214df2ad2bb72333b2cf64a4e5e101b25c321e2",
-      "/index.html": "15e3b1ea9ea73e60ed697e0af0952df0fbac282e"
+      "/index.html": "8e42e5d32619db83682a963a02567bb66f3d0eb8"
     },
     "_generatedFromWebpack": true
   }

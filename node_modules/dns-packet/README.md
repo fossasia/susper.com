@@ -189,9 +189,18 @@ Currently the different available records are
 }
 ```
 
+#### `CAA`
+
+``` js
+{
+  flags: 128, // octet
+  tag: 'issue|issuewild|iodef',
+  value: 'ca.example.net'
+}
+```
+
 If you need another one, open an issue and we'll try to add it.
 
 ## License
 
 MIT
-
