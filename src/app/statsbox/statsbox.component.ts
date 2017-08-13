@@ -18,12 +18,12 @@ export class StatsboxComponent implements OnInit {
   searchresults$: Observable<any>;
   public lineChartColors: Array<any> = [
     { // grey
-      backgroundColor: 'rgba(26, 13, 171, 0.4)',
-      borderColor: '#1a0dab',
-      pointBackgroundColor: '#1a0dab',
-      pointBorderColor: '#1a0dab',
-      pointHoverBackgroundColor: '#1a0dab',
-      pointHoverBorderColor: '#1a0dab'
+      backgroundColor: 'rgba(66, 133, 244, 0.4)',
+      borderColor: '#4285f4',
+      pointBackgroundColor: '#4285f4',
+      pointBorderColor: '#4285f4',
+      pointHoverBackgroundColor: '#4285f4',
+      pointHoverBorderColor: '#4285f4'
     }];
   public lineChartData: any[] = [{ data: [0], label: 'Results Frequency' }];
   public lineChartLabels = [2015, 2016, 2017];
