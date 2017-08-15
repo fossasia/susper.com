@@ -5,7 +5,7 @@
   margin-bottom: 16px;
   padding: 22px 22px 18px 22px;
   transition: 0.3s;
-  width: 434px;
+  width: 454px;
   margin-top: 10px;
 
 }
@@ -50,11 +50,20 @@ a {
   font-family: Arial, sans-serif;
 }
 
+/** Screen Responsiveness **/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @media screen and (max-width: 1300px) {
+    .card {
+      width: 366px;
+    }
+  }
+}
 @media screen and (max-width: 1280px) {
-  .card{
+  .card {
     width: 366px;
   }
 }
+
 @media screen and (max-width: 1190px) {
   .card{
     width: 278px;
