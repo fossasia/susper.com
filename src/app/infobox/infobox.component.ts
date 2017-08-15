@@ -58,7 +58,7 @@ export class InfoboxComponent implements OnInit {
   startSpeaking(description) {
     let msg = new SpeechSynthesisUtterance(description);
     window.speechSynthesis.cancel();
-    window.speechSynthesis.cancel();
+    window.speechSynthesis.resume();
     window.speechSynthesis.speak(msg);
   }
 

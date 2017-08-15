@@ -23,7 +23,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     query: '',
     rows: 10,
     start: 0,
-    fq: ''
+    fq: '',
+    mode: 'text'
   };
   showspeech: boolean = false;
   wholequery$: Observable<any>;
@@ -60,12 +61,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     if (event.which === 13) {
 
       if (this.searchdata.fq !== '') {
-        this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq}));
+        this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq,mode: this.searchdata.mode}));
       } else {
         this.store.dispatch(new queryactions.QueryServerAction({
           'query': event.target.value,
           start: 0,
-          rows: this.searchdata.rows
+          rows: this.searchdata.rows,
+          mode: this.searchdata.mode
         }));
       }
       this.displayStatus = 'hidebox';
