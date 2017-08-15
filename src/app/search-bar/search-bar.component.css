@@ -95,6 +95,7 @@
     width: 83vw;
   }
 }
+
 @media screen and (max-width: 573px){
   .align-search-btn{
     left: -5%;
