@@ -49,6 +49,5 @@ exports._unrefActive = exports.active = function(item) {
 
 // setimmediate attaches itself to the global object
 require("setimmediate");
-var global = require("global");
-exports.setImmediate = global.setImmediate;
-exports.clearImmediate = global.clearImmediate;
+exports.setImmediate = setImmediate;
+exports.clearImmediate = clearImmediate;
