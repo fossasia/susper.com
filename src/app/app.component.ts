@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
       this.searchdata = data;
     });
     if (localStorage.getItem('resultscount')) {
-      this.store.dispatch(new queryactions.QueryServerAction({'query': '', start: 0, rows: 10, search: false}));
+      this.store.dispatch(new queryactions.QueryServerAction({'query': '', start: 0, rows: 10, search: false,mode:'text'}));
     }
   }
 

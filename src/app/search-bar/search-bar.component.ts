@@ -79,12 +79,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   onClick() {
     if (this.searchdata.fq !== '') {
-      this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq}));
+      this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq,mode:this.searchdata.mode}));
     } else {
       this.store.dispatch(new queryactions.QueryServerAction({
         'query': this.searchdata.query,
         start: 0,
-        rows: this.searchdata.rows
+        rows: this.searchdata.rows,
+        mode:this.searchdata.mode
       }));
     }
     this.displayStatus = 'hidebox';
@@ -97,12 +98,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
     if (instantsearch && instantsearch.value) {
       if (this.searchdata.fq !== '') {
-        this.store.dispatch(new queryactions.QueryServerAction({'query': event, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq}));
+        this.store.dispatch(new queryactions.QueryServerAction({'query': event, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq,mode:this.searchdata.mode}));
       } else {
         this.store.dispatch(new queryactions.QueryServerAction({
           'query': event,
           start: 0,
-          rows: this.searchdata.rows
+          rows: this.searchdata.rows,
+          mode:this.searchdata.mode
         }));
       }
       this.displayStatus = 'showbox';
