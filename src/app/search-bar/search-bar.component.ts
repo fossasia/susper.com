@@ -61,7 +61,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     if (event.which === 13) {
 
       if (this.searchdata.fq !== '') {
-        this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq,mode: this.searchdata.mode}));
+        this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq, mode: this.searchdata.mode}));
       } else {
         this.store.dispatch(new queryactions.QueryServerAction({
           'query': event.target.value,
@@ -79,13 +79,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   onClick() {
     if (this.searchdata.fq !== '') {
-      this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq,mode:this.searchdata.mode}));
+      this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq, mode: this.searchdata.mode}));
     } else {
       this.store.dispatch(new queryactions.QueryServerAction({
         'query': this.searchdata.query,
         start: 0,
         rows: this.searchdata.rows,
-        mode:this.searchdata.mode
+        mode: this.searchdata.mode
       }));
     }
     this.displayStatus = 'hidebox';
@@ -98,13 +98,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
     if (instantsearch && instantsearch.value) {
       if (this.searchdata.fq !== '') {
-        this.store.dispatch(new queryactions.QueryServerAction({'query': event, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq,mode:this.searchdata.mode}));
+        this.store.dispatch(new queryactions.QueryServerAction({'query': event, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq, mode: this.searchdata.mode}));
       } else {
         this.store.dispatch(new queryactions.QueryServerAction({
           'query': event,
           start: 0,
           rows: this.searchdata.rows,
-          mode:this.searchdata.mode
+          mode: this.searchdata.mode
         }));
       }
       this.displayStatus = 'showbox';

@@ -6,7 +6,7 @@ import { KnowledgeapiService } from '../services/knowledgeapi.service';
 import { Observable } from "rxjs";
 import { SpeechSynthesisService } from '../services/speech-synthesis.service';
 declare var window: any;
-declare var SpeechSynthesisUtterance:any;
+declare var SpeechSynthesisUtterance: any;
 
 @Component({
   selector: 'app-infobox',

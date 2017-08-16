@@ -14,7 +14,6 @@ export class SpeechSynthesisService {
   constructor(private zone: NgZone) { }
 
   speak(text: string): void {
-    console.log("bro I am speaking")
     const { SpeechSynthesisUtterance }: IWindow = <IWindow>window;
     const { speechSynthesis }: IWindow = <IWindow>window;
 
