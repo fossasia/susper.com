@@ -5,13 +5,14 @@ import * as fromRoot from '../reducers';
 import { KnowledgeapiService } from '../services/knowledgeapi.service';
 import { Observable } from "rxjs";
 import { SpeechSynthesisService } from '../services/speech-synthesis.service';
+declare var window: any;
+declare var SpeechSynthesisUtterance:any;
 
 @Component({
   selector: 'app-infobox',
   templateUrl: './infobox.component.html',
   styleUrls: ['./infobox.component.css']
 })
-
 export class InfoboxComponent implements OnInit {
   results: Array<any>;
   query$: any;
