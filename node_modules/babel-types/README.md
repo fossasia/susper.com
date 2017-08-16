@@ -407,6 +407,21 @@ Aliases: `Flow`, `FlowDeclaration`, `Statement`, `Declaration`
 
 ---
 
+### declareExportDeclaration
+```javascript
+t.declareExportDeclaration(declaration, specifiers, source)
+```
+
+See also `t.isDeclareExportDeclaration(node, opts)` and `t.assertDeclareExportDeclaration(node, opts)`.
+
+Aliases: `Flow`, `FlowDeclaration`, `Statement`, `Declaration`
+
+ - `declaration` (required)
+ - `specifiers` (required)
+ - `source` (required)
+
+---
+
 ### declareFunction
 ```javascript
 t.declareFunction(id)
@@ -460,6 +475,21 @@ See also `t.isDeclareModuleExports(node, opts)` and `t.assertDeclareModuleExport
 Aliases: `Flow`, `FlowDeclaration`, `Statement`, `Declaration`
 
  - `typeAnnotation` (required)
+
+---
+
+### declareOpaqueType
+```javascript
+t.declareOpaqueType(id, typeParameters, supertype)
+```
+
+See also `t.isDeclareOpaqueType(node, opts)` and `t.assertDeclareOpaqueType(node, opts)`.
+
+Aliases: `Flow`, `FlowDeclaration`, `Statement`, `Declaration`
+
+ - `id` (required)
+ - `typeParameters` (required)
+ - `supertype` (required)
 
 ---
 
@@ -1442,6 +1472,22 @@ See also `t.isObjectTypeSpreadProperty(node, opts)` and `t.assertObjectTypeSprea
 Aliases: `Flow`, `UserWhitespacable`
 
  - `argument` (required)
+
+---
+
+### opaqueType
+```javascript
+t.opaqueType(id, typeParameters, impltype, supertype)
+```
+
+See also `t.isOpaqueType(node, opts)` and `t.assertOpaqueType(node, opts)`.
+
+Aliases: `Flow`, `FlowDeclaration`, `Statement`, `Declaration`
+
+ - `id` (required)
+ - `typeParameters` (required)
+ - `impltype` (required)
+ - `supertype` (required)
 
 ---
 

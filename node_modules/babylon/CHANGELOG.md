@@ -15,6 +15,11 @@ _Note: Gaps between patch versions are faulty, broken or test releases._
 
 See the [Babel Changelog](https://github.com/babel/babel/blob/master/CHANGELOG.md) for the pre-6.8.0 version Changelog.
 
+## 6.17.4 (2017-06-18)
+
+ * Fix comment attachment for call expressions (#575) (aardito2)
+ * Correctly put typeParameters on FunctionExpression (#585) (Daniel Tschinder)
+
 ## 6.17.3 (2017-06-09)
 
  * Fix location info on FunctionTypeParam nodes (#565) (#571) (Michal Srb)

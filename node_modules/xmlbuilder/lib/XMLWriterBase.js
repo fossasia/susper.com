@@ -5,7 +5,7 @@
 
   module.exports = XMLWriterBase = (function() {
     function XMLWriterBase(options) {
-      var key, ref, ref1, ref2, ref3, ref4, ref5, value;
+      var key, ref, ref1, ref2, ref3, ref4, ref5, ref6, value;
       options || (options = {});
       this.pretty = options.pretty || false;
       this.allowEmpty = (ref = options.allowEmpty) != null ? ref : false;
@@ -20,12 +20,16 @@
         this.offset = 0;
         this.dontprettytextnodes = 0;
       }
+      this.spacebeforeslash = (ref5 = options.spacebeforeslash) != null ? ref5 : '';
+      if (this.spacebeforeslash === true) {
+        this.spacebeforeslash = ' ';
+      }
       this.newlinedefault = this.newline;
       this.prettydefault = this.pretty;
-      ref5 = options.writer || {};
-      for (key in ref5) {
-        if (!hasProp.call(ref5, key)) continue;
-        value = ref5[key];
+      ref6 = options.writer || {};
+      for (key in ref6) {
+        if (!hasProp.call(ref6, key)) continue;
+        value = ref6[key];
         this[key] = value;
       }
     }
@@ -49,6 +53,10 @@
         this.newline = '';
         this.offset = 0;
         this.dontprettytextnodes = 0;
+      }
+      this.spacebeforeslash = "spacebeforeslash" in options ? options.spacebeforeslash : '';
+      if (this.spacebeforeslash === true) {
+        this.spacebeforeslash = ' ';
       }
       this.newlinedefault = this.newline;
       this.prettydefault = this.pretty;

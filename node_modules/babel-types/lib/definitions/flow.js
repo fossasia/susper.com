@@ -86,8 +86,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   fields: {}
 });
 
+(0, _index2.default)("DeclareOpaqueType", {
+  visitor: ["id", "typeParameters", "supertype"],
+  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+  fields: {}
+});
+
 (0, _index2.default)("DeclareVariable", {
   visitor: ["id"],
+  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+  fields: {}
+});
+
+(0, _index2.default)("DeclareExportDeclaration", {
+  visitor: ["declaration", "specifiers", "source"],
   aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
   fields: {}
 });
@@ -185,6 +197,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (0, _index2.default)("TypeAlias", {
   visitor: ["id", "typeParameters", "right"],
+  aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
+  fields: {}
+});
+
+(0, _index2.default)("OpaqueType", {
+  visitor: ["id", "typeParameters", "impltype", "supertype"],
   aliases: ["Flow", "FlowDeclaration", "Statement", "Declaration"],
   fields: {}
 });

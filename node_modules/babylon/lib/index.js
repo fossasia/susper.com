@@ -1878,7 +1878,7 @@ pp$1.parseStatement = function (declaration, topLevel) {
         }
 
         if (!this.inModule) {
-          this.raise(this.state.start, "'import' and 'export' may appear only with 'sourceType: module'");
+          this.raise(this.state.start, "'import' and 'export' may appear only with 'sourceType: \"module\"'");
         }
       }
       return starttype === types._import ? this.parseImport(node) : this.parseExport(node);
@@ -5087,11 +5087,28 @@ pp$8.flowParseDeclare = function (node) {
     }
   } else if (this.isContextual("type")) {
     return this.flowParseDeclareTypeAlias(node);
+  } else if (this.isContextual("opaque")) {
+    return this.flowParseDeclareOpaqueType(node);
   } else if (this.isContextual("interface")) {
     return this.flowParseDeclareInterface(node);
+  } else if (this.match(types._export)) {
+    return this.flowParseDeclareExportDeclaration(node);
   } else {
     this.unexpected();
   }
+};
+
+pp$8.flowParseDeclareExportDeclaration = function (node) {
+  this.expect(types._export);
+  if (this.isContextual("opaque") // declare export opaque ...
+  ) {
+      node.declaration = this.flowParseDeclare(this.startNode());
+      node.default = false;
+
+      return this.finishNode(node, "DeclareExportDeclaration");
+    }
+
+  throw this.unexpected();
 };
 
 pp$8.flowParseDeclareVariable = function (node) {
@@ -5151,6 +5168,12 @@ pp$8.flowParseDeclareTypeAlias = function (node) {
   this.next();
   this.flowParseTypeAlias(node);
   return this.finishNode(node, "DeclareTypeAlias");
+};
+
+pp$8.flowParseDeclareOpaqueType = function (node) {
+  this.next();
+  this.flowParseOpaqueType(node, true);
+  return this.finishNode(node, "DeclareOpaqueType");
 };
 
 pp$8.flowParseDeclareInterface = function (node) {
@@ -5230,6 +5253,33 @@ pp$8.flowParseTypeAlias = function (node) {
   this.semicolon();
 
   return this.finishNode(node, "TypeAlias");
+};
+
+// Opaque type aliases
+
+pp$8.flowParseOpaqueType = function (node, declare) {
+  this.expectContextual("type");
+  node.id = this.flowParseRestrictedIdentifier();
+
+  if (this.isRelational("<")) {
+    node.typeParameters = this.flowParseTypeParameterDeclaration();
+  } else {
+    node.typeParameters = null;
+  }
+
+  // Parse the supertype
+  node.supertype = null;
+  if (this.match(types.colon)) {
+    node.supertype = this.flowParseTypeInitialiser(types.colon);
+  }
+
+  node.impltype = null;
+  if (!declare) {
+    node.impltype = this.flowParseTypeInitialiser(types.eq);
+  }
+  this.semicolon();
+
+  return this.finishNode(node, "OpaqueType");
 };
 
 // Type annotations
@@ -5867,7 +5917,7 @@ var flowPlugin = function (instance) {
     return function (node, expr) {
       if (expr.type === "Identifier") {
         if (expr.name === "declare") {
-          if (this.match(types._class) || this.match(types.name) || this.match(types._function) || this.match(types._var)) {
+          if (this.match(types._class) || this.match(types.name) || this.match(types._function) || this.match(types._var) || this.match(types._export)) {
             return this.flowParseDeclare(node);
           }
         } else if (this.match(types.name)) {
@@ -5875,6 +5925,8 @@ var flowPlugin = function (instance) {
             return this.flowParseInterface(node);
           } else if (expr.name === "type") {
             return this.flowParseTypeAlias(node);
+          } else if (expr.name === "opaque") {
+            return this.flowParseOpaqueType(node, false);
           }
         }
       }
@@ -5886,13 +5938,13 @@ var flowPlugin = function (instance) {
   // export type
   instance.extend("shouldParseExportDeclaration", function (inner) {
     return function () {
-      return this.isContextual("type") || this.isContextual("interface") || inner.call(this);
+      return this.isContextual("type") || this.isContextual("interface") || this.isContextual("opaque") || inner.call(this);
     };
   });
 
   instance.extend("isExportDefaultSpecifier", function (inner) {
     return function () {
-      if (this.match(types.name) && (this.state.value === "type" || this.state.value === "interface")) {
+      if (this.match(types.name) && (this.state.value === "type" || this.state.value === "interface" || this.state.value === "opaque")) {
         return false;
       }
 
@@ -5970,11 +6022,18 @@ var flowPlugin = function (instance) {
           // export type Foo = Bar;
           return this.flowParseTypeAlias(declarationNode);
         }
-      } else if (this.isContextual("interface")) {
+      } else if (this.isContextual("opaque")) {
         node.exportKind = "type";
+
         var _declarationNode = this.startNode();
         this.next();
-        return this.flowParseInterface(_declarationNode);
+        // export opaque type Foo = Bar;
+        return this.flowParseOpaqueType(_declarationNode, false);
+      } else if (this.isContextual("interface")) {
+        node.exportKind = "type";
+        var _declarationNode2 = this.startNode();
+        this.next();
+        return this.flowParseInterface(_declarationNode2);
       } else {
         return inner.call(this, node);
       }

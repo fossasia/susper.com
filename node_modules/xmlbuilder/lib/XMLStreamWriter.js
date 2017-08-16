@@ -91,7 +91,7 @@
       if (node.standalone != null) {
         this.stream.write(' standalone="' + node.standalone + '"');
       }
-      this.stream.write('?>');
+      this.stream.write(this.spacebeforeslash + '?>');
       return this.stream.write(this.endline(node));
     };
 
@@ -139,7 +139,7 @@
         }
         this.stream.write(']');
       }
-      this.stream.write('>');
+      this.stream.write(this.spacebeforeslash + '>');
       return this.stream.write(this.endline(node));
     };
 
@@ -160,7 +160,7 @@
         if (this.allowEmpty) {
           this.stream.write('></' + node.name + '>');
         } else {
-          this.stream.write('/>');
+          this.stream.write(this.spacebeforeslash + '/>');
         }
       } else if (this.pretty && node.children.length === 1 && (node.children[0].value != null)) {
         this.stream.write('>');
@@ -204,7 +204,7 @@
       if (node.value) {
         this.stream.write(' ' + node.value);
       }
-      return this.stream.write('?>' + this.endline(node));
+      return this.stream.write(this.spacebeforeslash + '?>' + this.endline(node));
     };
 
     XMLStreamWriter.prototype.raw = function(node, level) {
@@ -223,11 +223,12 @@
       if (node.defaultValue) {
         this.stream.write(' "' + node.defaultValue + '"');
       }
-      return this.stream.write('>' + this.endline(node));
+      return this.stream.write(this.spacebeforeslash + '>' + this.endline(node));
     };
 
     XMLStreamWriter.prototype.dtdElement = function(node, level) {
-      return this.stream.write(this.space(level) + '<!ELEMENT ' + node.name + ' ' + node.value + '>' + this.endline(node));
+      this.stream.write(this.space(level) + '<!ELEMENT ' + node.name + ' ' + node.value);
+      return this.stream.write(this.spacebeforeslash + '>' + this.endline(node));
     };
 
     XMLStreamWriter.prototype.dtdEntity = function(node, level) {
@@ -248,7 +249,7 @@
           this.stream.write(' NDATA ' + node.nData);
         }
       }
-      return this.stream.write('>' + this.endline(node));
+      return this.stream.write(this.spacebeforeslash + '>' + this.endline(node));
     };
 
     XMLStreamWriter.prototype.dtdNotation = function(node, level) {
@@ -260,7 +261,7 @@
       } else if (node.sysID) {
         this.stream.write(' SYSTEM "' + node.sysID + '"');
       }
-      return this.stream.write('>' + this.endline(node));
+      return this.stream.write(this.spacebeforeslash + '>' + this.endline(node));
     };
 
     XMLStreamWriter.prototype.endline = function(node) {

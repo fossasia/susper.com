@@ -87,7 +87,7 @@
       if (node.standalone != null) {
         r += ' standalone="' + node.standalone + '"';
       }
-      r += '?>';
+      r += this.spacebeforeslash + '?>';
       r += this.newline;
       return r;
     };
@@ -131,7 +131,7 @@
         }
         r += ']';
       }
-      r += '>';
+      r += this.spacebeforeslash + '>';
       r += this.newline;
       return r;
     };
@@ -162,7 +162,7 @@
         if (this.allowEmpty) {
           r += '></' + node.name + '>' + this.newline;
         } else {
-          r += '/>' + this.newline;
+          r += this.spacebeforeslash + '/>' + this.newline;
         }
       } else if (this.pretty && node.children.length === 1 && (node.children[0].value != null)) {
         r += '>';
@@ -226,7 +226,7 @@
       if (node.value) {
         r += ' ' + node.value;
       }
-      r += '?>' + this.newline;
+      r += this.spacebeforeslash + '?>' + this.newline;
       return r;
     };
 
@@ -247,12 +247,12 @@
       if (node.defaultValue) {
         r += ' "' + node.defaultValue + '"';
       }
-      r += '>' + this.newline;
+      r += this.spacebeforeslash + '>' + this.newline;
       return r;
     };
 
     XMLStringWriter.prototype.dtdElement = function(node, level) {
-      return this.space(level) + '<!ELEMENT ' + node.name + ' ' + node.value + '>' + this.newline;
+      return this.space(level) + '<!ELEMENT ' + node.name + ' ' + node.value + this.spacebeforeslash + '>' + this.newline;
     };
 
     XMLStringWriter.prototype.dtdEntity = function(node, level) {
@@ -274,7 +274,7 @@
           r += ' NDATA ' + node.nData;
         }
       }
-      r += '>' + this.newline;
+      r += this.spacebeforeslash + '>' + this.newline;
       return r;
     };
 
@@ -288,7 +288,7 @@
       } else if (node.sysID) {
         r += ' SYSTEM "' + node.sysID + '"';
       }
-      r += '>' + this.newline;
+      r += this.spacebeforeslash + '>' + this.newline;
       return r;
     };
 
