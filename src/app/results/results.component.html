@@ -51,6 +51,13 @@
       </ul>
       </div>
     </div>
+    <div class="combo-box">
+      <app-infobox></app-infobox>
+      <button class="btn" id="toggle-button" (click)="BoxToggle()" type="button" data-toggle="collapse" data-target="#statbox" aria-expanded="false" aria-controls="collapseExample">
+        {{boxMessage}} Analytics
+      </button>
+      <app-statsbox class="collapse" id="statbox"></app-statsbox>
+    </div>
       <div class="feed">
         <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
         <div class="result">
