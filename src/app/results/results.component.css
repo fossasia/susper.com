@@ -367,6 +367,12 @@ div.autocorrect{
 }
  /*Responsiveness*/
 
+@media screen and (min-width: 426px) and (max-width: 2560px) {
+  .next-page-mobile {
+    display: none;
+  }
+}
+
 @media screen and (min-width:1920px) {
   div.autocorrect{
     margin-left: 191px;
@@ -509,28 +515,78 @@ div.autocorrect{
     top: 2%;
   }
 }
-@media screen and (max-width:423px) {
+@media screen and (max-width:425px) {
   #pag-bar {
     padding-left: 0;
   }
   .page-text {
     font-size: x-large;
+    display: none;
   }
   .page-item span{
     font-size: 10px;
   }
   .arrow {
-    font-size: small;
+    font-size: 25px;
+    color: #c8c4c3;
+  }
+  .page-number {
+    display: none;
+  }
+  #pag-bar {
+    margin-bottom: -13%;
+    margin-left: 12%;
+  }
+  .card {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    margin-bottom: 16px;
+    padding: 0px 46px 12px 22px;
+    width: 380px;
+    height: 50px;
+    margin-left: 8%;
+    margin-top: 2%;
+    background-color: #ffffff;
+  }
+  .side-text {
+    display: none;
+  }
+  .page-item2 span {
+    background-color: #ffffff;
+    margin-top: -13%;
+  }
+  .spl {
+    margin-left: 60%;
+  }
+  div.next-page-mobile {
+    margin-left: 32%;
+    margin-top: 6%;
+    font-size: 16px;
+    font-family: Helvetica;
+  }
+  #left-arrow {
+    margin-top: 1.1%;
   }
 }
 @media screen and (max-width:379px) {
   #search-options li {
     padding: 0 3vw 12px;
   }
+  .card {
+    margin-left: 4%;
+  }
+  .side-text {
+    margin-left: -50%;
+  }
 }
 
 @media screen and (max-width:330px) {
   #search-options li {
     padding: 0 2vw 12px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .side-text {
+    margin-left: -50%;
   }
 }

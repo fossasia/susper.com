@@ -26,6 +26,7 @@ export class ResultsComponent implements OnInit {
   begin: number;
   message: string;
   query: any;
+  count: number = 1;
   searchdata: any = {
     query: '',
     start: 0,
@@ -234,6 +235,15 @@ export class ResultsComponent implements OnInit {
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
 
   };
+
+  increasePage() {
+    this.count += 1;
+  }
+
+  decreasePage() {
+    this.count -= 1;
+  }
+
   ngOnInit() {
   }
 }
