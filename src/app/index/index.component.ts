@@ -16,6 +16,7 @@ export class IndexComponent implements OnInit {
     query: '',
     start: 0,
     rows: 10,
+    mode: 'text',
 
   };
   hidespeech: Observable<boolean>;

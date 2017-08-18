@@ -163,6 +163,9 @@ export class ResultsComponent implements OnInit {
       } else {
         urldata.start = 0;
       }
+      if (query['mode']) {
+        urldata.mode = query['mode'];
+      }
 
       urldata.query = query['query'];
       this.store.dispatch(new queryactions.QueryAction(query['query']));
@@ -173,6 +176,7 @@ export class ResultsComponent implements OnInit {
       urldata.rows = Number(query['rows']) || 10;
       this.presentPage = Math.abs(query['start'] / urldata.rows) + 1;
       let querydata = Object.assign({}, urldata);
+      console.log(querydata);
       this.store.dispatch(new queryactions.QueryServerAction(querydata));
       if (this.presentPage === 1) {
         this.hideAutoCorrect = 0;
