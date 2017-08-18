@@ -243,8 +243,7 @@ class AotPlugin {
                     return callback(null, result);
                 }
                 this.done.then(() => {
-                    result.resource = this.skipCodeGeneration ? this.basePath : this.genDir;
-                    result.recursive = true;
+                    result.resource = this.genDir;
                     result.dependencies.forEach((d) => d.critical = false);
                     result.resolveDependencies = (_fs, _resource, _recursive, _regExp, cb) => {
                         const dependencies = Object.keys(this._lazyRoutes)

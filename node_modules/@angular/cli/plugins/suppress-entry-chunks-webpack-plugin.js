@@ -11,7 +11,10 @@ class SuppressExtractedTextChunksWebpackPlugin {
             const entryPoints = compilation.options.entry;
             // determine which entry points are composed entirely of css files
             for (let entryPoint of Object.keys(entryPoints)) {
-                if (entryPoints[entryPoint].every((el) => el.match(/\.(css|scss|sass|less|styl)$/))) {
+                let entryFiles = entryPoints[entryPoint];
+                // when type of entryFiles is not array, make it as an array
+                entryFiles = entryFiles instanceof Array ? entryFiles : [entryFiles];
+                if (entryFiles.every((el) => el.match(/\.(css|scss|sass|less|styl)$/) !== null)) {
                     cssOnlyChunks.push(entryPoint);
                 }
             }

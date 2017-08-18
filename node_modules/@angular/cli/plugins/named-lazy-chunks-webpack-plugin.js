@@ -10,13 +10,13 @@ class NamedLazyChunksWebpackPlugin extends webpack.NamedChunksPlugin {
     constructor() {
         // Append a dot and number if the name already exists.
         const nameMap = new Map();
-        function getUniqueName(baseName) {
+        function getUniqueName(baseName, request) {
             let name = baseName;
             let num = 0;
-            while (nameMap.has(name)) {
+            while (nameMap.has(name) && nameMap.get(name) !== request) {
                 name = `${baseName}.${num++}`;
             }
-            nameMap.set(name, true);
+            nameMap.set(name, request);
             return name;
         }
         const nameResolver = (chunk) => {
@@ -32,13 +32,13 @@ class NamedLazyChunksWebpackPlugin extends webpack.NamedChunksPlugin {
                 && (chunk.blocks[0].dependencies[0] instanceof ContextElementDependency
                     || chunk.blocks[0].dependencies[0] instanceof ImportDependency)) {
                 // Create chunkname from file request, stripping ngfactory and extension.
-                const req = chunk.blocks[0].dependencies[0].request;
-                const chunkName = path_1.basename(req).replace(/(\.ngfactory)?\.(js|ts)$/, '');
+                const request = chunk.blocks[0].dependencies[0].request;
+                const chunkName = path_1.basename(request).replace(/(\.ngfactory)?\.(js|ts)$/, '');
                 if (!chunkName || chunkName === '') {
                     // Bail out if something went wrong with the name.
                     return null;
                 }
-                return getUniqueName(chunkName);
+                return getUniqueName(chunkName, request);
             }
             return null;
         };
