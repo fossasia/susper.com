@@ -9,6 +9,7 @@ module.exports = {
 	copyDeep: require("./copy-deep"),
 	count: require("./count"),
 	create: require("./create"),
+	ensureArray: require("./ensure-array"),
 	ensureFiniteNumber: require("./ensure-finite-number"),
 	ensureNaturalNumber: require("./ensure-natural-number"),
 	ensureNaturalNumberValue: require("./ensure-natural-number-value"),

@@ -4,6 +4,7 @@ module.exports = {
 	global: require("./global"),
 	optionalChaining: require("./optional-chaining"),
 	safeToString: require("./safe-to-string"),
+	toShortStringRepresentation: require("./to-short-string-representation"),
 
 	array: require("./array"),
 	boolean: require("./boolean"),

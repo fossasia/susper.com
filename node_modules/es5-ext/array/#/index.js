@@ -26,6 +26,7 @@ module.exports = {
 	"indexesOf": require("./indexes-of"),
 	"intersection": require("./intersection"),
 	"isCopy": require("./is-copy"),
+	"isEmpty": require("./is-empty"),
 	"isUniq": require("./is-uniq"),
 	"last": require("./last"),
 	"lastIndex": require("./last-index"),

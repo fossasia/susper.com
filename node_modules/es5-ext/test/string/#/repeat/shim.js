@@ -8,4 +8,5 @@ module.exports = function (t, a) {
 	a(t.call("raz", 3), "razrazraz", "Many chars");
 	a(t.call("raz", 3), "razrazraz", "Many chars");
 	a(t.call("razfoobar", 5), "razfoobarrazfoobarrazfoobarrazfoobarrazfoobar", "Many chars");
+	a(t.call("a", 300).length, 300);
 };

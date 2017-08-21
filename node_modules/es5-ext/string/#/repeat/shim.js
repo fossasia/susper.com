@@ -1,6 +1,6 @@
-/* eslint no-bitwise: "off" */
-
-// Thanks: http://www.2ality.com/2014/01/efficient-string-repeat.html
+// Thanks
+// @rauchma http://www.2ality.com/2014/01/efficient-string-repeat.html
+// @mathiasbynens https://github.com/mathiasbynens/String.prototype.repeat/blob/4a4b567def/repeat.js
 
 "use strict";
 
@@ -12,11 +12,13 @@ module.exports = function (count) {
 	count = toInteger(count);
 	if (count < 0) throw new RangeError("Count must be >= 0");
 	if (!isFinite(count)) throw new RangeError("Count must be < ∞");
-	if (!count) return "";
-	if (count === 1) return str;
 
 	result = "";
-	if (count & 1) result += str;
-	while ((count >>>= 1)) str += str;
-	return result + str;
+	while (count) {
+		if (count % 2) result += str;
+		if (count > 1) str += str;
+		// eslint-disable-next-line no-bitwise
+		count >>= 1;
+	}
+	return result;
 };
