@@ -42,7 +42,6 @@
     "/browserify-sign",
     "/create-hmac",
     "/crypto-browserify",
-    "/evp_bytestokey",
     "/parse-asn1",
     "/pbkdf2",
     "/public-encrypt"
