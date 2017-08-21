@@ -26,6 +26,7 @@ export class ResultsComponent implements OnInit {
   begin: number;
   message: string;
   query: any;
+  boxMessage = 'Show';
   searchdata: any = {
     query: '',
     start: 0,
@@ -238,6 +239,15 @@ export class ResultsComponent implements OnInit {
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
 
   };
+
+  BoxToggle() {
+    if (this.boxMessage === 'Show') {
+      this.boxMessage = 'Hide';
+    } else {
+      this.boxMessage = 'Show';
+    }
+
+  }
   ngOnInit() {
   }
 }

@@ -59,8 +59,14 @@ a {
     width: 278px;
   }
 }
-  @media screen and (max-width: 1100px) {
-  .card {
+
+@media screen and (max-width: 767px) {
+  .card{
+    width: 95vw;
+    margin-left: 2vw;
+
+  }
+  #relate{
     display: none;
   }
 }
