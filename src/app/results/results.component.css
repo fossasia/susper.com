@@ -417,6 +417,16 @@ div.autocorrect{
   }
 }
 
+@media screen and (max-width: 768px) {
+  #search-options-field {
+    width: 98.5%;
+    margin-top: -0.2%;
+  }
+  ul#search-options {
+    margin-left: 14.5%;
+  }
+}
+
 @media screen and (max-width:767px) {
   div.result {
     padding-right: 30px;
@@ -470,6 +480,9 @@ div.autocorrect{
   div.feed{
     margin-left: 4%;
     width: 98%;
+  }
+  ul#search-options {
+    margin-left: 5%;
   }
 }
 
@@ -529,6 +542,16 @@ div.autocorrect{
     top: 2%;
   }
 }
+
+@media screen and (max-width: 425px) {
+  #search-options-field {
+    width: 93.5%;
+  }
+  ul#search-options {
+    margin-left: 1%;
+  }
+}
+
 @media screen and (max-width:423px) {
   #pag-bar {
     padding-left: 0;
@@ -543,9 +566,22 @@ div.autocorrect{
     font-size: small;
   }
 }
+
+@media screen and (max-width: 397px) {
+  ul#search-options {
+    margin-left: 5%;
+  }
+}
+
 @media screen and (max-width:379px) {
   #search-options li {
     padding: 0 3vw 12px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  #search-options-field {
+    width: 92%;
   }
 }
 
