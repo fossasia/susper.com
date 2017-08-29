@@ -56,7 +56,7 @@ export class AutoCompleteComponent implements OnInit {
     if ( this.route.url.toString() === '/') {
       return 'index-sug-box';
     } else {
-      return 'sug-box'
+      return 'sug-box';
     }
   }
 

@@ -49,6 +49,7 @@ export class SpeechtotextComponent implements OnInit {
         'query': event,
         start: 0,
         rows: 10,
+        mode: 'speech'
       }));
     }
   }

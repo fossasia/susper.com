@@ -52,7 +52,11 @@ export class StatsboxComponent implements OnInit {
   deselectelement(element) {
     this.selectedelement = -1;
   }
-
+  changequerylook(modifier, element) {
+    let querylook = Object.assign({}, this.querylook);
+    querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
+    return querylook;
+  }
   removeurl(modifier) {
     this.querylook['query'] = this.querylook['query'].replace('+' + decodeURIComponent(modifier), '');
     this.route.navigate(['/search'], {queryParams: this.querylook});

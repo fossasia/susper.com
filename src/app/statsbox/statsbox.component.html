@@ -4,10 +4,10 @@
     <div class="card-container" id="relate" *ngIf="nav.displayname =='Provider' || nav.displayname =='Authors'">
       <h3  class="related-searches"><b>Top {{nav.displayname}}</b></h3>
       <div style="display: block;cursor:pointer;cursor: hand;" *ngFor="let element of ((i != selectedelement)? (nav.elements| slice:0:5) :nav.elements )">
-        <a (click)="changeurl(element.modifier,element)" *ngIf="element.name">
+        <a [routerLink]="['/search']" [queryParams]="changequerylook(element.modifier,element)" *ngIf="element.name" href="#">
           {{element.name}} <span class="badge badge-info">{{element.count}}</span>
         </a>
-        <a (click)="changeurl(element.modifier,element)" *ngIf="!element.name">
+        <a  *ngIf="!element.name" style="color: black;cursor: default" href="#">
           Undefined Author <span class="badge badge-info">{{element.count}}</span>
         </a>
       </div>
