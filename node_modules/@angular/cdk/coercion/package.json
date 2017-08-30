@@ -1,0 +1,7 @@
+{
+  "name": "@angular/cdk/coercion",
+  "typings": "../coercion.d.ts",
+  "main": "../bundles/cdk-coercion.umd.js",
+  "module": "../@angular/cdk/coercion.es5.js",
+  "es2015": "../@angular/cdk/coercion.js"
+}

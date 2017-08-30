@@ -57,13 +57,12 @@ function annotateStatements(fileCoverage, structuredText) {
 
         if (type === 'no' && structuredText[startLine]) {
             if (endLine !== startLine) {
-                endLine = startLine;
                 endCol = structuredText[startLine].text.originalLength();
             }
             text = structuredText[startLine].text;
             text.wrap(startCol,
                 openSpan,
-                startLine === endLine ? endCol : text.originalLength(),
+                startCol < endCol ? endCol : text.originalLength(),
                 closeSpan);
         }
     });
@@ -90,13 +89,12 @@ function annotateFunctions(fileCoverage, structuredText) {
 
         if (type === 'no' && structuredText[startLine]) {
             if (endLine !== startLine) {
-                endLine = startLine;
                 endCol = structuredText[startLine].text.originalLength();
             }
             text = structuredText[startLine].text;
             text.wrap(startCol,
                 openSpan,
-                startLine === endLine ? endCol : text.originalLength(),
+                startCol < endCol ? endCol : text.originalLength(),
                 closeSpan);
         }
     });
@@ -145,7 +143,6 @@ function annotateBranches(fileCoverage, structuredText) {
 
                 if (count === 0 && structuredText[startLine]) { //skip branches taken
                     if (endLine !== startLine) {
-                        endLine = startLine;
                         endCol = structuredText[startLine].text.originalLength();
                     }
                     text = structuredText[startLine].text;
@@ -159,7 +156,7 @@ function annotateBranches(fileCoverage, structuredText) {
                     } else {
                         text.wrap(startCol,
                             openSpan,
-                            startLine === endLine ? endCol : text.originalLength(),
+                            startCol < endCol ? endCol : text.originalLength(),
                             closeSpan);
                     }
                 }

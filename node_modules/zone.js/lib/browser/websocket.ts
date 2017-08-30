@@ -15,7 +15,7 @@ export function apply(api: _ZonePrivate, _global: any) {
   // On Safari window.EventTarget doesn't exist so need to patch WS add/removeEventListener
   // On older Chrome, no need since EventTarget was already patched
   if (!(<any>_global).EventTarget) {
-    patchEventTarget(api, _global, [WS.prototype]);
+    patchEventTarget(_global, [WS.prototype]);
   }
   (<any>_global).WebSocket = function(a: any, b: any) {
     const socket = arguments.length > 1 ? new WS(a, b) : new WS(a);
@@ -33,7 +33,15 @@ export function apply(api: _ZonePrivate, _global: any) {
       proxySocketProto = socket;
       ['addEventListener', 'removeEventListener', 'send', 'close'].forEach(function(propName) {
         proxySocket[propName] = function() {
-          return socket[propName].apply(socket, arguments);
+          const args = Array.prototype.slice.call(arguments);
+          if (propName === 'addEventListener' || propName === 'removeEventListener') {
+            const eventName = args.length > 0 ? args[0] : undefined;
+            if (eventName) {
+              const propertySymbol = Zone.__symbol__('ON_PROPERTY' + eventName);
+              socket[propertySymbol] = proxySocket[propertySymbol];
+            }
+          }
+          return socket[propName].apply(socket, args);
         };
       });
     } else {
@@ -42,10 +50,11 @@ export function apply(api: _ZonePrivate, _global: any) {
     }
 
     patchOnProperties(proxySocket, ['close', 'error', 'message', 'open'], proxySocketProto);
-
     return proxySocket;
   };
+
+  const globalWebSocket = _global['WebSocket'];
   for (const prop in WS) {
-    _global['WebSocket'][prop] = WS[prop];
+    globalWebSocket[prop] = WS[prop];
   }
 }

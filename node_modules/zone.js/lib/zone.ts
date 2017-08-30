@@ -624,6 +624,8 @@ type AmbientZone = Zone;
 type AmbientZoneDelegate = ZoneDelegate;
 
 const Zone: ZoneType = (function(global: any) {
+  const FUNCTION = 'function';
+
   const performance: {mark(name: string): void; measure(name: string, label: string): void;} =
       global['performance'];
   function mark(name: string) {
@@ -720,7 +722,7 @@ const Zone: ZoneType = (function(global: any) {
     }
 
     public wrap<T extends Function>(callback: T, source: string): T {
-      if (typeof callback !== 'function') {
+      if (typeof callback !== FUNCTION) {
         throw new Error('Expecting function got: ' + callback);
       }
       const _callback = this._zoneDelegate.intercept(this, callback, source);
@@ -1121,16 +1123,16 @@ const Zone: ZoneType = (function(global: any) {
 
     _updateTaskCount(type: TaskType, count: number) {
       const counts = this._taskCounts;
-      const prev = (counts as any)[type];
-      const next = (counts as any)[type] = prev + count;
+      const prev = counts[type];
+      const next = counts[type] = prev + count;
       if (next < 0) {
         throw new Error('More tasks executed then were scheduled.');
       }
       if (prev == 0 || next == 0) {
         const isEmpty: HasTaskState = {
-          microTask: counts.microTask > 0,
-          macroTask: counts.macroTask > 0,
-          eventTask: counts.eventTask > 0,
+          microTask: counts['microTask'] > 0,
+          macroTask: counts['macroTask'] > 0,
+          eventTask: counts['eventTask'] > 0,
           change: type
         };
         this.hasTask(this.zone, isEmpty);
@@ -1249,14 +1251,20 @@ const Zone: ZoneType = (function(global: any) {
   const symbolThen = __symbol__('then');
   let _microTaskQueue: Task[] = [];
   let _isDrainingMicrotaskQueue: boolean = false;
+  let nativeMicroTaskQueuePromise: any;
 
   function scheduleMicroTask(task?: MicroTask) {
     // if we are not running in any task, and there has not been anything scheduled
     // we must bootstrap the initial task creation by manually scheduling the drain
     if (_numberOfNestedTaskFrames === 0 && _microTaskQueue.length === 0) {
       // We are not running in Task, so we need to kickstart the microtask queue.
-      if (global[symbolPromise]) {
-        global[symbolPromise].resolve(0)[symbolThen](drainMicroTaskQueue);
+      if (!nativeMicroTaskQueuePromise) {
+        if (global[symbolPromise]) {
+          nativeMicroTaskQueuePromise = global[symbolPromise].resolve(0);
+        }
+      }
+      if (nativeMicroTaskQueuePromise) {
+        nativeMicroTaskQueuePromise[symbolThen](drainMicroTaskQueue);
       } else {
         global[symbolSetTimeout](drainMicroTaskQueue, 0);
       }

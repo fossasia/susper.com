@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.7.5"></a>
+## [1.7.5](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-instrument@1.7.4...istanbul-lib-instrument@1.7.5) (2017-08-23)
+
+
+### Bug Fixes
+
+* name of function is now preserved or named exports ([#79](https://github.com/istanbuljs/istanbuljs/issues/79)) ([2ce8974](https://github.com/istanbuljs/istanbuljs/commit/2ce8974))
+
+
+
+
 <a name="1.7.4"></a>
 ## [1.7.4](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-instrument@1.7.3...istanbul-lib-instrument@1.7.4) (2017-07-16)
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/istanbuljs/istanbuljs/compare/istanbul-reports@1.1.1...istanbul-reports@1.1.2) (2017-08-26)
+
+
+### Bug Fixes
+
+* prevent branch highlighting from extending pass the end of a line ([#80](https://github.com/istanbuljs/istanbuljs/issues/80)) ([f490377](https://github.com/istanbuljs/istanbuljs/commit/f490377))
+
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/istanbuljs/istanbuljs/compare/istanbul-reports@1.1.0...istanbul-reports@1.1.1) (2017-05-27)
 

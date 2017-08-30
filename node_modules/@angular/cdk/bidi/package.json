@@ -1,0 +1,7 @@
+{
+  "name": "@angular/cdk/bidi",
+  "typings": "../bidi.d.ts",
+  "main": "../bundles/cdk-bidi.umd.js",
+  "module": "../@angular/cdk/bidi.es5.js",
+  "es2015": "../@angular/cdk/bidi.js"
+}

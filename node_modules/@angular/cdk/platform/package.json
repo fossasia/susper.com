@@ -1,0 +1,7 @@
+{
+  "name": "@angular/cdk/platform",
+  "typings": "../platform.d.ts",
+  "main": "../bundles/cdk-platform.umd.js",
+  "module": "../@angular/cdk/platform.es5.js",
+  "es2015": "../@angular/cdk/platform.js"
+}

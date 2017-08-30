@@ -1,0 +1,7 @@
+{
+  "name": "@angular/cdk/observers",
+  "typings": "../observers.d.ts",
+  "main": "../bundles/cdk-observers.umd.js",
+  "module": "../@angular/cdk/observers.es5.js",
+  "es2015": "../@angular/cdk/observers.js"
+}

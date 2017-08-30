@@ -8,7 +8,7 @@
 /**
  * Suppress closure compiler errors about unknown 'Zone' variable
  * @fileoverview
- * @suppress {undefinedVars,globalThis}
+ * @suppress {undefinedVars,globalThis,missingRequire}
  */
 
 // Hack since TypeScript isn't compiling this for a worker.
@@ -18,9 +18,13 @@ export const zoneSymbol = Zone.__symbol__;
 const _global: any =
     typeof window === 'object' && window || typeof self === 'object' && self || global;
 
+const FUNCTION = 'function';
+const UNDEFINED = 'undefined';
+const REMOVE_ATTRIBUTE = 'removeAttribute';
+
 export function bindArguments(args: any[], source: string): any[] {
   for (let i = args.length - 1; i >= 0; i--) {
-    if (typeof args[i] === 'function') {
+    if (typeof args[i] === FUNCTION) {
       args[i] = Zone.current.wrap(args[i], source + '_' + i);
     }
   }
@@ -33,6 +37,10 @@ export function patchPrototype(prototype: any, fnNames: string[]) {
     const name = fnNames[i];
     const delegate = prototype[name];
     if (delegate) {
+      const prototypeDesc = Object.getOwnPropertyDescriptor(prototype, name);
+      if (!isPropertyWritable(prototypeDesc)) {
+        continue;
+      }
       prototype[name] = ((delegate: Function) => {
         const patched: any = function() {
           return delegate.apply(this, bindArguments(<any>arguments, source + '.' + name));
@@ -42,6 +50,22 @@ export function patchPrototype(prototype: any, fnNames: string[]) {
       })(delegate);
     }
   }
+}
+
+export function isPropertyWritable(propertyDesc: any) {
+  if (!propertyDesc) {
+    return true;
+  }
+
+  if (propertyDesc.writable === false) {
+    return false;
+  }
+
+  if (typeof propertyDesc.get === FUNCTION && typeof propertyDesc.set === UNDEFINED) {
+    return false;
+  }
+
+  return true;
 }
 
 export const isWebWorker: boolean =
@@ -62,6 +86,22 @@ export const isBrowser: boolean =
 export const isMix: boolean = typeof _global.process !== 'undefined' &&
     {}.toString.call(_global.process) === '[object process]' && !isWebWorker &&
     !!(typeof window !== 'undefined' && (window as any)['HTMLElement']);
+
+const ON_PROPERTY_HANDLER_SYMBOL = zoneSymbol('onPropertyHandler');
+const zoneSymbolEventNames: {[eventName: string]: string} = {};
+const wrapFn = function(event: Event) {
+  let eventNameSymbol = zoneSymbolEventNames[event.type];
+  if (!eventNameSymbol) {
+    eventNameSymbol = zoneSymbolEventNames[event.type] = zoneSymbol('ON_PROPERTY' + event.type);
+  }
+  const listener = this[eventNameSymbol];
+  let result = listener && listener.apply(this, arguments);
+
+  if (result != undefined && !result) {
+    event.preventDefault();
+  }
+  return result;
+};
 
 export function patchProperty(obj: any, prop: string, prototype?: any) {
   let desc = Object.getOwnPropertyDescriptor(obj, prop);
@@ -89,7 +129,11 @@ export function patchProperty(obj: any, prop: string, prototype?: any) {
 
   // substr(2) cuz 'onclick' -> 'click', etc
   const eventName = prop.substr(2);
-  const _prop = zoneSymbol('_' + prop);
+
+  let eventNameSymbol = zoneSymbolEventNames[eventName];
+  if (!eventNameSymbol) {
+    eventNameSymbol = zoneSymbolEventNames[eventName] = zoneSymbol('ON_PROPERTY' + eventName);
+  }
 
   desc.set = function(newValue) {
     // in some of windows's onproperty callback, this is undefined
@@ -101,25 +145,16 @@ export function patchProperty(obj: any, prop: string, prototype?: any) {
     if (!target) {
       return;
     }
-    let previousValue = target[_prop];
+    let previousValue = target[eventNameSymbol];
     if (previousValue) {
-      target.removeEventListener(eventName, previousValue);
+      target.removeEventListener(eventName, wrapFn);
     }
 
     if (typeof newValue === 'function') {
-      const wrapFn = function(event: Event) {
-        let result = newValue.apply(this, arguments);
-
-        if (result != undefined && !result) {
-          event.preventDefault();
-        }
-        return result;
-      };
-
-      target[_prop] = wrapFn;
+      target[eventNameSymbol] = newValue;
       target.addEventListener(eventName, wrapFn, false);
     } else {
-      target[_prop] = null;
+      target[eventNameSymbol] = null;
     }
   };
 
@@ -135,8 +170,8 @@ export function patchProperty(obj: any, prop: string, prototype?: any) {
     if (!target) {
       return null;
     }
-    if (target.hasOwnProperty(_prop)) {
-      return target[_prop];
+    if (target[eventNameSymbol]) {
+      return wrapFn;
     } else if (originalDescGet) {
       // result will be null when use inline event attribute,
       // such as <button onclick="func();">OK</button>
@@ -147,7 +182,7 @@ export function patchProperty(obj: any, prop: string, prototype?: any) {
       let value = originalDescGet && originalDescGet.apply(this);
       if (value) {
         desc.set.apply(this, [value]);
-        if (typeof target['removeAttribute'] === 'function') {
+        if (typeof target[REMOVE_ATTRIBUTE] === FUNCTION) {
           target.removeAttribute(prop);
         }
         return value;
@@ -263,15 +298,21 @@ export function patchMethod(
     // somehow we did not find it, but we can see it. This happens on IE for Window properties.
     proto = target;
   }
+
   const delegateName = zoneSymbol(name);
   let delegate: Function;
   if (proto && !(delegate = proto[delegateName])) {
     delegate = proto[delegateName] = proto[name];
-    const patchDelegate = patchFn(delegate, delegateName, name);
-    proto[name] = function() {
-      return patchDelegate(this, arguments as any);
-    };
-    attachOriginToPatched(proto[name], delegate);
+    // check whether proto[name] is writable
+    // some property is readonly in safari, such as HtmlCanvasElement.prototype.toBlob
+    const desc = proto && Object.getOwnPropertyDescriptor(proto, name);
+    if (isPropertyWritable(desc)) {
+      const patchDelegate = patchFn(delegate, delegateName, name);
+      proto[name] = function() {
+        return patchDelegate(this, arguments as any);
+      };
+      attachOriginToPatched(proto[name], delegate);
+    }
   }
   return delegate;
 }

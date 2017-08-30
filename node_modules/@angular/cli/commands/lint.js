@@ -29,7 +29,7 @@ exports.default = Command.extend({
         },
         {
             name: 'format',
-            alias: 't',
+            aliases: ['t'],
             type: String,
             default: 'prose',
             description: common_tags_1.oneLine `

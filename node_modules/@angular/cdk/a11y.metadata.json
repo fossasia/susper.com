@@ -1,0 +1,11 @@
+{
+  "__symbolic": "module",
+  "version": 3,
+  "metadata": {},
+  "exports": [
+    {
+      "from": "./a11y/index"
+    }
+  ],
+  "flatModuleIndexRedirect": true
+}

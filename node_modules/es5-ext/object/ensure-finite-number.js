@@ -5,5 +5,5 @@ var isFiniteNumber = require("./is-finite-number")
 
 module.exports = function (value) {
 	if (isFiniteNumber(value)) return Number(value);
-	throw new TypeError(safeToString + " does not represent a finite number value");
+	throw new TypeError(safeToString(value) + " does not represent a finite number value");
 };

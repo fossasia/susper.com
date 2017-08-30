@@ -63,6 +63,7 @@ var getJasmineRequireObj = (function (jasmineGlobal) {
     j$.matchersUtil = jRequire.matchersUtil(j$);
     j$.ObjectContaining = jRequire.ObjectContaining(j$);
     j$.ArrayContaining = jRequire.ArrayContaining(j$);
+    j$.ArrayWithExactContents = jRequire.ArrayWithExactContents(j$);
     j$.pp = jRequire.pp(j$);
     j$.QueueRunner = jRequire.QueueRunner(j$);
     j$.ReportDispatcher = jRequire.ReportDispatcher();
@@ -92,6 +93,7 @@ var getJasmineRequireObj = (function (jasmineGlobal) {
 
 getJasmineRequireObj().requireMatchers = function(jRequire, j$) {
   var availableMatchers = [
+      'nothing',
       'toBe',
       'toBeCloseTo',
       'toBeDefined',
@@ -191,6 +193,18 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
     return j$.isA_('AsyncFunction', value);
   };
 
+  j$.isTypedArray_ = function(value) {
+    return j$.isA_('Float32Array', value) ||
+      j$.isA_('Float64Array', value) ||
+      j$.isA_('Int16Array', value) ||
+      j$.isA_('Int32Array', value) ||
+      j$.isA_('Int8Array', value) ||
+      j$.isA_('Uint16Array', value) ||
+      j$.isA_('Uint32Array', value) ||
+      j$.isA_('Uint8Array', value) ||
+      j$.isA_('Uint8ClampedArray', value);
+  };
+
   j$.isA_ = function(typeName, value) {
     return j$.getType_(value) === '[object ' + typeName + ']';
   };
@@ -208,7 +222,9 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
       return func.name;
     }
 
-    var matches = func.toString().match(/^\s*function\s*(\w*)\s*\(/);
+    var matches = func.toString().match(/^\s*function\s*(\w*)\s*\(/) ||
+      func.toString().match(/^\s*\[object\s*(\w*)Constructor\]/);
+
     return matches ? matches[1] : '<anonymous>';
   };
 
@@ -264,6 +280,17 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
    */
   j$.arrayContaining = function(sample) {
     return new j$.ArrayContaining(sample);
+  };
+
+  /**
+   * Get a matcher, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
+   * that will succeed if the actual value is an `Array` that contains all of the elements in the sample in any order.
+   * @name jasmine.arrayWithExactContents
+   * @function
+   * @param {Array} sample
+   */
+  j$.arrayWithExactContents = function(sample) {
+    return new j$.ArrayWithExactContents(sample);
   };
 
   /**
@@ -436,6 +463,16 @@ getJasmineRequireObj().Spec = function(j$) {
       this.pend();
     }
 
+    /**
+     * @typedef SpecResult
+     * @property {Int} id - The unique id of this spec.
+     * @property {String} description - The description passed to the {@link it} that created this spec.
+     * @property {String} fullName - The full description including all ancestors of this spec.
+     * @property {Expectation[]} failedExpectations - The list of expectations that failed during execution of this spec.
+     * @property {Expectation[]} passedExpectations - The list of expectations that passed during execution of this spec.
+     * @property {String} pendingReason - If the spec is {@link pending}, this will be the reason.
+     * @property {String} status - Once the spec has completed, this string represents the pass/fail status of this spec.
+     */
     this.result = {
       id: this.id,
       description: this.description,
@@ -664,12 +701,56 @@ getJasmineRequireObj().Env = function(j$) {
       return currentSpec || currentSuite();
     };
 
+    /**
+     * This represents the available reporter callback for an object passed to {@link Env#addReporter}.
+     * @interface Reporter
+     */
     var reporter = new j$.ReportDispatcher([
+      /**
+       * `jasmineStarted` is called after all of the specs have been loaded, but just before execution starts.
+       * @function
+       * @name Reporter#jasmineStarted
+       * @param {JasmineStartedInfo} suiteInfo Information about the full Jasmine suite that is being run
+       */
       'jasmineStarted',
+      /**
+       * When the entire suite has finished execution `jasmineDone` is called
+       * @function
+       * @name Reporter#jasmineDone
+       * @param {JasmineDoneInfo} suiteInfo Information about the full Jasmine suite that just finished running.
+       */
       'jasmineDone',
+      /**
+       * `suiteStarted` is invoked when a `describe` starts to run
+       * @function
+       * @name Reporter#suiteStarted
+       * @param {SuiteResult} result Information about the individual {@link describe} being run
+       */
       'suiteStarted',
+      /**
+       * `suiteDone` is invoked when all of the child specs and suites for a given suite have been run
+       *
+       * While jasmine doesn't require any specific functions, not defining a `suiteDone` will make it impossible for a reporter to know when a suite has failures in an `afterAll`.
+       * @function
+       * @name Reporter#suiteDone
+       * @param {SuiteResult} result
+       */
       'suiteDone',
+      /**
+       * `specStarted` is invoked when an `it` starts to run (including associated `beforeEach` functions)
+       * @function
+       * @name Reporter#specStarted
+       * @param {SpecResult} result Information about the individual {@link it} being run
+       */
       'specStarted',
+      /**
+       * `specDone` is invoked when an `it` and its associated `beforeEach` and `afterEach` functions have been run.
+       *
+       * While jasmine doesn't require any specific functions, not defining a `specDone` will make it impossible for a reporter to know when a spec has failed.
+       * @function
+       * @name Reporter#specDone
+       * @param {SpecResult} result
+       */
       'specDone'
     ]);
 
@@ -885,6 +966,12 @@ getJasmineRequireObj().Env = function(j$) {
         throw new Error('Invalid order: would cause a beforeAll or afterAll to be run multiple times');
       }
 
+      /**
+       * Information passed to the {@link Reporter#jasmineStarted} event.
+       * @typedef JasmineStartedInfo
+       * @property {Int} totalSpecsDefined - The total number of specs defined in this suite.
+       * @property {Order} order - Information about the ordering (random or not) of this execution of the suite.
+       */
       reporter.jasmineStarted({
         totalSpecsDefined: totalSpecsDefined,
         order: order
@@ -898,6 +985,12 @@ getJasmineRequireObj().Env = function(j$) {
         currentlyExecutingSuites.pop();
         globalErrors.uninstall();
 
+        /**
+         * Information passed to the {@link Reporter#jasmineDone} event.
+         * @typedef JasmineDoneInfo
+         * @property {Order} order - Information about the ordering (random or not) of this execution of the suite.
+         * @property {Expectation[]} failedExpectations - List of expectations that failed in an {@link afterAll} at the global level.
+         */
         reporter.jasmineDone({
           order: order,
           failedExpectations: topSuite.result.failedExpectations
@@ -909,6 +1002,7 @@ getJasmineRequireObj().Env = function(j$) {
      * Add a custom reporter to the Jasmine environment.
      * @name Env#addReporter
      * @function
+     * @param {Reporter} reporterToAdd The reporter to be added.
      * @see custom_reporter
      */
     this.addReporter = function(reporterToAdd) {
@@ -1215,11 +1309,10 @@ getJasmineRequireObj().JsApiReporter = function() {
   };
 
   /**
-   * _Note:_ Do not construct this directly, use the global `jsApiReporter` to retrieve the instantiated object.
-   *
    * @name jsApiReporter
-   * @classdesc Reporter added by default in `boot.js` to record results for retrieval in javascript code.
+   * @classdesc {@link Reporter} added by default in `boot.js` to record results for retrieval in javascript code. An instance is made available as `jsApiReporter` on the global object.
    * @class
+   * @hideconstructor
    */
   function JsApiReporter(options) {
     var timer = options.timer || noopTimer,
@@ -1273,7 +1366,7 @@ getJasmineRequireObj().JsApiReporter = function() {
      * @function
      * @param {Number} index - The position in the suites list to start from.
      * @param {Number} length - Maximum number of suite results to return.
-     * @return {Object[]}
+     * @return {SuiteResult[]}
      */
     this.suiteResults = function(index, length) {
       return suites.slice(index, index + length);
@@ -1288,7 +1381,7 @@ getJasmineRequireObj().JsApiReporter = function() {
      * Get all of the suites in a single object, with their `id` as the key.
      * @name jsApiReporter#suites
      * @function
-     * @return {Object}
+     * @return {Object} - Map of suite id to {@link SuiteResult}
      */
     this.suites = function() {
       return suites_hash;
@@ -1308,7 +1401,7 @@ getJasmineRequireObj().JsApiReporter = function() {
      * @function
      * @param {Number} index - The position in the specs list to start from.
      * @param {Number} length - Maximum number of specs results to return.
-     * @return {Object[]}
+     * @return {SpecResult[]}
      */
     this.specResults = function(index, length) {
       return specs.slice(index, index + length);
@@ -1318,7 +1411,7 @@ getJasmineRequireObj().JsApiReporter = function() {
      * Get all spec results.
      * @name jsApiReporter#specs
      * @function
-     * @return {Object[]}
+     * @return {SpecResult[]}
      */
     this.specs = function() {
       return specs;
@@ -1403,8 +1496,9 @@ getJasmineRequireObj().ArrayContaining = function(j$) {
   }
 
   ArrayContaining.prototype.asymmetricMatch = function(other, customTesters) {
-    var className = Object.prototype.toString.call(this.sample);
-    if (className !== '[object Array]') { throw new Error('You must provide an array to arrayContaining, not \'' + this.sample + '\'.'); }
+    if (!j$.isArray_(this.sample)) {
+      throw new Error('You must provide an array to arrayContaining, not ' + j$.pp(this.sample) + '.');
+    }
 
     for (var i = 0; i < this.sample.length; i++) {
       var item = this.sample[i];
@@ -1421,6 +1515,38 @@ getJasmineRequireObj().ArrayContaining = function(j$) {
   };
 
   return ArrayContaining;
+};
+
+getJasmineRequireObj().ArrayWithExactContents = function(j$) {
+
+  function ArrayWithExactContents(sample) {
+    this.sample = sample;
+  }
+
+  ArrayWithExactContents.prototype.asymmetricMatch = function(other, customTesters) {
+    if (!j$.isArray_(this.sample)) {
+      throw new Error('You must provide an array to arrayWithExactContents, not ' + j$.pp(this.sample) + '.');
+    }
+
+    if (this.sample.length !== other.length) {
+      return false;
+    }
+
+    for (var i = 0; i < this.sample.length; i++) {
+      var item = this.sample[i];
+      if (!j$.matchersUtil.contains(other, item, customTesters)) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  ArrayWithExactContents.prototype.jasmineToString = function() {
+    return '<jasmine.arrayWithExactContents ' + j$.pp(this.sample) + '>';
+  };
+
+  return ArrayWithExactContents;
 };
 
 getJasmineRequireObj().ObjectContaining = function(j$) {
@@ -1507,10 +1633,13 @@ getJasmineRequireObj().CallTracker = function(j$) {
       var clonedArgs = [];
       var argsAsArray = j$.util.argsToArray(context.args);
       for(var i = 0; i < argsAsArray.length; i++) {
-        if(Object.prototype.toString.apply(argsAsArray[i]).match(/^\[object/)) {
-          clonedArgs.push(j$.util.clone(argsAsArray[i]));
-        } else {
+        var str = Object.prototype.toString.apply(argsAsArray[i]),
+          primitives = /^\[object (Boolean|String|RegExp|Number)/;
+
+        if (argsAsArray[i] == null || str.match(primitives)) {
           clonedArgs.push(argsAsArray[i]);
+        } else {
+          clonedArgs.push(j$.util.clone(argsAsArray[i]));
         }
       }
       context.args = clonedArgs;
@@ -2164,6 +2293,15 @@ getJasmineRequireObj().buildExpectationResult = function() {
     var messageFormatter = options.messageFormatter || function() {},
       stackFormatter = options.stackFormatter || function() {};
 
+    /**
+     * @typedef Expectation
+     * @property {String} matcherName - The name of the matcher that was executed for this expectation.
+     * @property {String} message - The failure message for the expectation.
+     * @property {String} stack - The stack trace for the failure if available.
+     * @property {Boolean} passed - Whether the expectation passed or failed.
+     * @property {Object} expected - If the expectation failed, what was the expected value.
+     * @property {Object} actual - If the expectation failed, what actual value was produced.
+     */
     var result = {
       matcherName: options.matcherName,
       message: message(),
@@ -2374,13 +2512,17 @@ getJasmineRequireObj().matchersUtil = function(j$) {
 
     if (asymmetricA) {
       result = a.asymmetricMatch(b, customTesters);
-      diffBuilder.record(a, b);
+      if (!result) {
+        diffBuilder.record(a, b);
+      }
       return result;
     }
 
     if (asymmetricB) {
       result = b.asymmetricMatch(a, customTesters);
-      diffBuilder.record(a, b);
+      if (!result) {
+        diffBuilder.record(a, b);
+      }
       return result;
     }
   }
@@ -2533,35 +2675,84 @@ getJasmineRequireObj().matchersUtil = function(j$) {
     // Recursively compare objects and arrays.
     // Compare array lengths to determine if a deep comparison is necessary.
     if (className == '[object Array]') {
-      size = a.length;
-      if (size !== b.length) {
-        diffBuilder.record(a, b);
-        return false;
-      }
+      var aLength = a.length;
+      var bLength = b.length;
 
-      for (i = 0; i < size; i++) {
+      diffBuilder.withPath('length', function() {
+        if (aLength !== bLength) {
+          diffBuilder.record(aLength, bLength);
+          result = false;
+        }
+      });
+
+      for (i = 0; i < aLength || i < bLength; i++) {
         diffBuilder.withPath(i, function() {
-          result = eq(a[i], b[i], aStack, bStack, customTesters, diffBuilder) && result;
+          result = eq(i < aLength ? a[i] : void 0, i < bLength ? b[i] : void 0, aStack, bStack, customTesters, diffBuilder) && result;
         });
       }
       if (!result) {
         return false;
       }
-    } else if (className == '[object Set]' || className == '[object Map]') {
+    } else if (className == '[object Map]') {
       if (a.size != b.size) {
         diffBuilder.record(a, b);
         return false;
       }
-      var iterA = a.entries(), iterB = b.entries();
-      var valA, valB;
-      do {
-        valA = iterA.next();
-        valB = iterB.next();
-        if (!eq(valA.value, valB.value, aStack, bStack, customTesters, j$.NullDiffBuilder())) {
-          diffBuilder.record(a, b);
-          return false;
+
+      // For both sets of keys, check they map to equal values in both maps
+      var mapKeys = [a.keys(), b.keys()];
+      var mapIter, mapKeyIt, mapKey;
+      for (i = 0; result && i < mapKeys.length; i++) {
+        mapIter = mapKeys[i];
+        mapKeyIt = mapIter.next();
+        while (result && !mapKeyIt.done) {
+          mapKey = mapKeyIt.value;
+          result = eq(a.get(mapKey), b.get(mapKey), aStack, bStack, customTesters, j$.NullDiffBuilder());
+          mapKeyIt = mapIter.next();
         }
-      } while (!valA.done && !valB.done);
+      }
+
+      if (!result) {
+        diffBuilder.record(a, b);
+        return false;
+      }
+    } else if (className == '[object Set]') {
+      if (a.size != b.size) {
+        diffBuilder.record(a, b);
+        return false;
+      }
+
+      // For both sets, check they are all contained in the other set
+      var setPairs = [[a, b], [b, a]];
+      var baseIter, baseValueIt, baseValue;
+      var otherSet, otherIter, otherValueIt, otherValue, found;
+      for (i = 0; result && i < setPairs.length; i++) {
+        baseIter = setPairs[i][0].values();
+        otherSet = setPairs[i][1];
+        // For each value in the base set...
+        baseValueIt = baseIter.next();
+        while (result && !baseValueIt.done) {
+          baseValue = baseValueIt.value;
+          // ... test that it is present in the other set
+          otherIter = otherSet.values();
+          otherValueIt = otherIter.next();
+          // Optimisation: start looking for value by object identity
+          found = otherSet.has(baseValue);
+          // If not found, compare by value equality
+          while (!found && !otherValueIt.done) {
+            otherValue = otherValueIt.value;
+            found = eq(baseValue, otherValue, aStack, bStack, customTesters, j$.NullDiffBuilder());
+            otherValueIt = otherIter.next();
+          }
+          result = result && found;
+          baseValueIt = baseIter.next();
+        }
+      }
+
+      if (!result) {
+        diffBuilder.record(a, b);
+        return false;
+      }
     } else {
 
       // Objects with different constructors are not equivalent, but `Object`s
@@ -2692,6 +2883,27 @@ getJasmineRequireObj().matchersUtil = function(j$) {
     }
     return formatted;
   }
+};
+
+getJasmineRequireObj().nothing = function() {
+  /**
+   * {@link expect} nothing explicitly.
+   * @function
+   * @name matchers#nothing
+   * @example
+   * expect().nothing();
+   */
+  function nothing() {
+    return {
+      compare: function() {
+        return {
+          pass: true
+        };
+      }
+    };
+  }
+
+  return nothing;
 };
 
 getJasmineRequireObj().NullDiffBuilder = function(j$) {
@@ -3716,6 +3928,8 @@ getJasmineRequireObj().pp = function(j$) {
         this.emitSet(value);
       } else if (j$.getType_(value) == '[object Map]') {
         this.emitMap(value);
+      } else if (j$.isTypedArray_(value)) {
+        this.emitTypedArray(value);
       } else if (value.toString && typeof value === 'object' && !j$.isArray_(value) && hasCustomToString(value)) {
         this.emitScalar(value.toString());
       } else if (j$.util.arrayContains(this.seen, value)) {
@@ -3884,6 +4098,18 @@ getJasmineRequireObj().pp = function(j$) {
     if (truncated) { this.append(', ...'); }
 
     this.append(' })');
+  };
+
+  StringPrettyPrinter.prototype.emitTypedArray = function(arr) {
+    var constructorName = j$.fnNameFor(arr.constructor),
+      limitedArray = Array.prototype.slice.call(arr, 0, j$.MAX_PRETTY_PRINT_ARRAY_LENGTH),
+      itemsString = Array.prototype.join.call(limitedArray, ', ');
+
+    if (limitedArray.length !== arr.length) {
+      itemsString += ', ...';
+    }
+
+    this.append(constructorName + ' [ ' + itemsString + ' ]');
   };
 
   StringPrettyPrinter.prototype.formatProperty = function(obj, property, isGetter) {
@@ -4150,6 +4376,16 @@ getJasmineRequireObj().ReportDispatcher = function() {
 getJasmineRequireObj().interface = function(jasmine, env) {
   var jasmineInterface = {
     /**
+     * Callback passed to parts of the Jasmine base interface.
+     *
+     * By default Jasmine assumes this function completes synchronously.
+     * If you have code that you need to test asynchronously, you can declare that you receive a `done` callback, return a Promise, or use the `async` keyword if it is supported in your environment.
+     * @callback implementationCallback
+     * @param {Function} [done] Used to specify to Jasmine that this callback is asynchronous and Jasmine should wait until it has been called before moving on.
+     * @returns {} Optionally return a Promise instead of using `done` to cause Jasmine to wait for completion.
+     */
+
+    /**
      * Create a group of specs (often called a suite).
      *
      * Calls to `describe` can be nested within other calls to compose your suite as a tree.
@@ -4157,7 +4393,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @function
      * @global
      * @param {String} description Textual description of the group
-     * @param {Function} specDefinitions Function for Jasmine to invoke that will define inner suites a specs
+     * @param {Function} specDefinitions Function for Jasmine to invoke that will define inner suites and specs
      */
     describe: function(description, specDefinitions) {
       return env.describe(description, specDefinitions);
@@ -4171,7 +4407,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @function
      * @global
      * @param {String} description Textual description of the group
-     * @param {Function} specDefinitions Function for Jasmine to invoke that will define inner suites a specs
+     * @param {Function} specDefinitions Function for Jasmine to invoke that will define inner suites and specs
      */
     xdescribe: function(description, specDefinitions) {
       return env.xdescribe(description, specDefinitions);
@@ -4186,7 +4422,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @function
      * @global
      * @param {String} description Textual description of the group
-     * @param {Function} specDefinitions Function for Jasmine to invoke that will define inner suites a specs
+     * @param {Function} specDefinitions Function for Jasmine to invoke that will define inner suites and specs
      */
     fdescribe: function(description, specDefinitions) {
       return env.fdescribe(description, specDefinitions);
@@ -4200,7 +4436,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @function
      * @global
      * @param {String} description Textual description of what this spec is checking
-     * @param {Function} [testFunction] Function that contains the code of your test. If not provided the test will be `pending`.
+     * @param {implementationCallback} [testFunction] Function that contains the code of your test. If not provided the test will be `pending`.
      * @param {Int} [timeout={@link jasmine.DEFAULT_TIMEOUT_INTERVAL}] Custom timeout for an async spec.
      */
     it: function() {
@@ -4215,7 +4451,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @function
      * @global
      * @param {String} description Textual description of what this spec is checking.
-     * @param {Function} [testFunction] Function that contains the code of your test. Will not be executed.
+     * @param {implementationCallback} [testFunction] Function that contains the code of your test. Will not be executed.
      */
     xit: function() {
       return env.xit.apply(env, arguments);
@@ -4229,7 +4465,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @function
      * @global
      * @param {String} description Textual description of what this spec is checking.
-     * @param {Function} testFunction Function that contains the code of your test.
+     * @param {implementationCallback} testFunction Function that contains the code of your test.
      * @param {Int} [timeout={@link jasmine.DEFAULT_TIMEOUT_INTERVAL}] Custom timeout for an async spec.
      */
     fit: function() {
@@ -4241,7 +4477,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @name beforeEach
      * @function
      * @global
-     * @param {Function} [function] Function that contains the code to setup your specs.
+     * @param {implementationCallback} [function] Function that contains the code to setup your specs.
      * @param {Int} [timeout={@link jasmine.DEFAULT_TIMEOUT_INTERVAL}] Custom timeout for an async beforeEach.
      */
     beforeEach: function() {
@@ -4253,7 +4489,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @name afterEach
      * @function
      * @global
-     * @param {Function} [function] Function that contains the code to teardown your specs.
+     * @param {implementationCallback} [function] Function that contains the code to teardown your specs.
      * @param {Int} [timeout={@link jasmine.DEFAULT_TIMEOUT_INTERVAL}] Custom timeout for an async afterEach.
      */
     afterEach: function() {
@@ -4267,7 +4503,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @name beforeAll
      * @function
      * @global
-     * @param {Function} [function] Function that contains the code to setup your specs.
+     * @param {implementationCallback} [function] Function that contains the code to setup your specs.
      * @param {Int} [timeout={@link jasmine.DEFAULT_TIMEOUT_INTERVAL}] Custom timeout for an async beforeAll.
      */
     beforeAll: function() {
@@ -4275,13 +4511,13 @@ getJasmineRequireObj().interface = function(jasmine, env) {
     },
 
     /**
-     * Run some shared teardown once before all of the specs in the {@link describe} are run.
+     * Run some shared teardown once after all of the specs in the {@link describe} are run.
      *
      * _Note:_ Be careful, sharing the teardown from a afterAll makes it easy to accidentally leak state between your specs so that they erroneously pass or fail.
      * @name afterAll
      * @function
      * @global
-     * @param {Function} [function] Function that contains the code to teardown your specs.
+     * @param {implementationCallback} [function] Function that contains the code to teardown your specs.
      * @param {Int} [timeout={@link jasmine.DEFAULT_TIMEOUT_INTERVAL}] Custom timeout for an async afterAll.
      */
     afterAll: function() {
@@ -4748,6 +4984,14 @@ getJasmineRequireObj().Suite = function(j$) {
 
     this.children = [];
 
+    /**
+     * @typedef SuiteResult
+     * @property {Int} id - The unique id of this suite.
+     * @property {String} description - The description text passed to the {@link describe} that made this suite.
+     * @property {String} fullName - The full description including all ancestors of this suite.
+     * @property {Expectation[]} failedExpectations - The list of expectations that failed in an {@link afterAll} for this suite.
+     * @property {String} status - Once the suite has completed, this string represents the pass/fail status of this suite.
+     */
     this.result = {
       id: this.id,
       description: this.description,
@@ -5137,5 +5381,5 @@ getJasmineRequireObj().UserContext = function(j$) {
 };
 
 getJasmineRequireObj().version = function() {
-  return '2.7.0';
+  return '2.8.0';
 };

@@ -1,0 +1,7 @@
+{
+  "name": "@angular/cdk/rxjs",
+  "typings": "../rxjs.d.ts",
+  "main": "../bundles/cdk-rxjs.umd.js",
+  "module": "../@angular/cdk/rxjs.es5.js",
+  "es2015": "../@angular/cdk/rxjs.js"
+}
