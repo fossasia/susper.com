@@ -1,31 +1,32 @@
-.navbar-brand{
+.navbar-brand {
     width: 140px;
     height: auto;
     padding: 15px 15px 0px 15px;
     margin-right: 26px;
 }
 
-#navbar-header{
+#navbar-header {
   display: inline;
   float: left;
 }
 
-#navbar-search{
+#navbar-search {
   display: inline;
   float:left;
   margin-left: -25px;
 }
 
-#navbar-dropdown-box{
+#navbar-dropdown-box {
   float: right;
   min-width: 45px;
   margin-right: 20px;
 }
-.navbar-default{
+
+.navbar-default {
   border-bottom: none;
 }
 
-.top-nav{
+.top-nav {
   margin-bottom: 0px;
 }
 
@@ -40,14 +41,13 @@
   list-style-type: none;
 }
 
-
 @media screen and (min-width:1920px) {
   .navbar-brand{
       width: 160px;
       height: auto;
   }
 
-  #navbar-search{
+  #navbar-search {
     top:6px;
   }
 }
@@ -57,6 +57,7 @@
       margin-top: 2px;
       width: 120px;
   }
+
   #navbar-search{
     margin-left: -44px;
   }
@@ -67,37 +68,44 @@
     margin-top: -36px;
   }
 }
+
 @media screen and (max-width:767px) {
   .navbar-brand{
       margin-left: 38%;
       height: auto;
   }
+
   #navbar-search {
     margin-left: 2%;
   }
+
   .align-navsearch-btn {
     margin-right: 1% !important;
   }
+
   #navbar-dropdown-box{
     margin-right: 32px;
     margin-top: -116px;
   }
 }
 
-@media screen and (min-width:768px) {
+@media screen and (min-width:768px) { 
   #navcontainer ul li {
     display: inline;
   }
+
   .navbar-right {
     padding-right: 20px;
     font-size: 14px;
     left: 95%;
     position: absolute;
   }
+
   #navcontainer, #side-menu {
     margin-top: 8px;
   }
 }
+
 @media screen and (max-width:639px) {
   .align-navsearch-btn {
     margin-right: 2% !important;
@@ -108,9 +116,11 @@
   .navbar-brand{
       margin-left: 33%;
   }
+
   #navbar-search {
     margin-left: 2%;
   }
+
   .align-navsearch-btn {
     margin-right: 3% !important;
   }

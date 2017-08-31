@@ -1,20 +1,20 @@
-#index-page{
+#index-page {
   margin-top: -57px;
 }
-#search-bar{
+#search-bar {
   position: fixed;
   left: 50%;
   margin-left: -290px;
   margin-top: 27vh;
 }
 
-.footer-fixed{
+.footer-fixed {
   position: fixed;
   bottom: 0px;
   width: 100%;
 }
 
-#set-susper-default{
+#set-susper-default {
   display:none;
 }
 
@@ -23,82 +23,99 @@
 }
 
 @media screen and (max-width: 480px) {
-  #set-susper-default h3{
+  #set-susper-default h3 {
     font-size: 14px;
   }
-  #set-susper-default ol{
+
+  #set-susper-default ol {
     font-size: 12px;
   }
-  #install-susper{
+
+  #install-susper {
     font-size: 12px;
   }
-  #cancel-installation{
+
+  #cancel-installation {
     font-size: 12px;
   }
+
   div#susper-logo-fix {
     margin-left: -40%;
   }
 }
 
 @media screen and (max-width: 281px) {
-  #set-susper-default{
+  #set-susper-default {
     bottom: 80px;
   }
-  #set-susper-default h3{
+
+  #set-susper-default h3 {
     font-size: 14px;
   }
-  #set-susper-default ol{
+
+  #set-susper-default ol {
     font-size: 12px;
   }
-  #install-susper{
+
+  #install-susper {
     font-size: 12px;
   }
-  #cancel-installation{
+
+  #cancel-installation {
     font-size: 12px;
   }
 }
 
 @media screen and (max-height: 584px) {
-  #set-susper-default{
+  #set-susper-default {
     bottom: 75px;
   }
-  #set-susper-default h3{
+
+  #set-susper-default h3 {
     font-size: 14px;
   }
-  #set-susper-default ol{
+
+  #set-susper-default ol {
     font-size: 12px;
   }
-  #install-susper{
+
+  #install-susper {
     font-size: 12px;
   }
-  #cancel-installation{
+
+  #cancel-installation {
     font-size: 12px;
   }
 }
 
 @media screen and (max-height: 530px) {
-  #set-susper-default{
+  #set-susper-default {
     bottom: 75px;
   }
-  #set-susper-default h3{
+
+  #set-susper-default h3 {
     font-size: 12px;
   }
-  #set-susper-default ol{
+
+  #set-susper-default ol {
     font-size: 10px;
   }
-  #install-susper{
+
+  #install-susper {
     font-size: 10px;
   }
-  #cancel-installation{
+
+  #cancel-installation  {
     font-size: 10px;
   }
 }
 
-#dropdown-icon{
+#dropdown-icon {
   float: left;
   margin-left: 99vw;
 }
-.navbar-fixed-bottom{
+
+.navbar-fixed-bottom {
   z-index: -1;
 }
 
@@ -126,27 +143,27 @@ footer {
   width:100%;
 }
 
-
 @media screen and (max-width: 823px) {
   img#biglogo{
     margin-left: 61%;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 767px) { 
   #search-bar {
     margin-left: -48%;
   }
+
   img#biglogo{
     margin-left: 37%;
   }
+
   #dropdown-icon {
     margin-left: 93vw;
   }
-  }
+}
 
-
-@media screen and (max-width: 435px) {
+@media screen and (max-width: 435px) { 
   #dropdown-icon {
     margin-left: 94vw;
   }
@@ -157,4 +174,3 @@ footer {
     margin-left: 52%;
   }
 }
-

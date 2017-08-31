@@ -16,10 +16,10 @@ export const CHANGE = 'CHANGE';
 import * as fromRoot from '../reducers';
 import * as search from '../actions/search';
 import {SearchService} from '../services/search.service';
+
 export interface State {
   query: string;
 }
-
 
 /**
  * Effects offer a way to isolate and easily test side-effects within your
@@ -50,35 +50,29 @@ export class ApiSearchEffects {
       }
 
       const nextSearch$ = this.actions$.ofType(query.ActionTypes.QUERYSERVER).skip(1);
+
       if (querypay.search !== false) {
         this.searchService.getsearchresults(querypay)
           .takeUntil(nextSearch$)
           .subscribe((response) => {
-          if (querypay.append) {
-            this.store.dispatch(new search.SearchAction({response: response, append: true}));
-            return empty();
-
-          } else {
-            this.store.dispatch(new search.SearchAction({response: response}));
-            return empty();
-          }
-
+            if (querypay.append) {
+              this.store.dispatch(new search.SearchAction({response: response, append: true}));
+              return empty();
+            } else {
+              this.store.dispatch(new search.SearchAction({response: response}));
+              return empty();
+            }
           });
         return empty();
-
-      }else {
+      } else {
         return empty();
       }
-
-
-
-
     });
+
   constructor(
     private actions$: Actions,
     private searchService: SearchService,
     private store: Store<fromRoot.State>
   ) { }
-
 
 }

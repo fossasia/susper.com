@@ -64,7 +64,4 @@ describe('RelatedSearchComponent', () => {
       expect(component.keyword).not.toBeNull('Keyword has not been initialized');
     }
   });
-
 });
-
-

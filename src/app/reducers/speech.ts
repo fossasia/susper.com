@@ -3,7 +3,9 @@ import { combineReducers } from '@ngrx/store';
 import { ActionReducer, Action } from '@ngrx/store';
 import { createSelector } from 'reselect';
 import * as speech from '../actions/speech';
+
 export const CHANGE = 'CHANGE';
+
 export interface State {
   speechmode: boolean;
 }
@@ -16,6 +18,7 @@ export interface State {
 const initialState: State = {
   speechmode: false
 };
+
 export function reducer(state: State = initialState, action: speech.Actions): State {
   switch (action.type) {
     case speech.ActionTypes.CHANGE: {
@@ -29,4 +32,5 @@ export function reducer(state: State = initialState, action: speech.Actions): St
     }
   }
 }
+
 export const getspeechmode = (state: State) => state.speechmode;

@@ -10,6 +10,7 @@ import * as query from '../actions/query';
 import * as queryactions from '../actions/query';
 import { SpeechService } from '../services/speech.service';
 import * as speechactions from '../actions/speech';
+
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -17,8 +18,10 @@ import * as speechactions from '../actions/speech';
 })
 export class SearchBarComponent implements OnInit, AfterViewInit {
   @ViewChildren('input') vc;
+
   query$: Observable<any>;
   displayStatus: any;
+
   searchdata = {
     query: '',
     rows: 10,
@@ -26,6 +29,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     fq: '',
     mode: 'text'
   };
+
   showspeech: boolean = false;
   wholequery$: Observable<any>;
   resultspage: any;
@@ -38,11 +42,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     private speech: SpeechService
   ) {
     this.wholequery$ = store.select(fromRoot.getwholequery);
+
     this.wholequery$.subscribe(data => {
       this.searchdata = data;
     });
-    this.resultspage = this.router.url.toString().includes('/search');
 
+    this.resultspage = this.router.url.toString().includes('/search');
   };
 
   speechRecognition() {
@@ -59,7 +64,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   onEnter(event: any) {
     if (event.which === 13) {
-
       if (this.searchdata.fq !== '') {
         this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq, mode: this.searchdata.mode}));
       } else {
@@ -70,6 +74,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
           mode: this.searchdata.mode
         }));
       }
+
       this.displayStatus = 'hidebox';
       event.target.blur();
       event.preventDefault();
@@ -88,6 +93,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
         mode: this.searchdata.mode
       }));
     }
+
     this.displayStatus = 'hidebox';
     this.submit();
   }
@@ -107,6 +113,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
           mode: this.searchdata.mode
         }));
       }
+
       this.displayStatus = 'showbox';
     }
   }

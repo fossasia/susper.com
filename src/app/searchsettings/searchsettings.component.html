@@ -1,5 +1,6 @@
 <nav class="navbar navbar-default nav-about">
   <div class="container-fluid">
+
     <div class="navbar-header">
       <button type = "button" class = "navbar-toggle"
               data-toggle = "collapse" data-target = "#dropmenu">
@@ -11,6 +12,7 @@
         <img alt="brand" class="navbar-logo" src="../../assets/images/susper.svg">
       </a>
     </div>
+
     <div class="collapse navbar-collapse" id="dropmenu">
       <ul class="nav navbar-nav navbar-collapse navbar-right">
         <li><a routerLink="/terms">Terms</a></li>
@@ -18,6 +20,7 @@
         <li><a routerLink="/contact">Contact</a></li>
       </ul>
     </div>
+
   </div>
 </nav>
 
@@ -25,6 +28,7 @@
 
 <div class="container">
   <div class="row">
+
     <div class="leftPane col-md-2">
         <ul class="left-list">
           <li ><a class="active" href="#">Search Results</a></li>
@@ -32,15 +36,18 @@
           <li><a href="#">Help</a></li>
         </ul>
     </div>
+
     <div class="rightPane col-md-9">
       <div class="rightContent">
+
         <div>
           <h4><strong>SafeSearch Filters</strong></h4>
           <p>SafeSearch can help you block inappropriate or explicit images from your Susper Search results. The SafeSearch filter isn’t 100% accurate, but it helps you avoid most violent and adult content.</p>
           <input type="checkbox" id="safesearch">
           <label for="safesearch">Turn On Safe Search</label>
         </div>
-      <hr>
+
+        <hr>
         <div>
           <h4><strong>Susper Instant Predictions</strong></h4>
           <p>When should we show you results as you type?</p>
@@ -48,25 +55,26 @@
           <input name="options" [(ngModel)]="instantresults" [value]="true" type="radio" id="op2" (click)="defaultCount()"><label for="op2">Always show instant results</label><br>
           <input name="options" [(ngModel)]="instantresults" [value]="false" type="radio" id="op3"><label for="op3">Never show instant results</label><br>
         </div>
-      <hr>
-      <div>
-        <h4><strong>Results per page</strong></h4>
-        <div class="range-slider">
-          <input class="range-slider__range" type="range" [disabled]="instantresults" [(ngModel)]="resultCount" value="100" min="0" max="100">
-          <span class="range-slider__value">{{resultCount}}</span>
+
+        <hr>
+        <div>
+          <h4><strong>Results per page</strong></h4>
+          <div class="range-slider">
+            <input class="range-slider__range" type="range" [disabled]="instantresults" [(ngModel)]="resultCount" value="100" min="0" max="100">
+            <span class="range-slider__value">{{resultCount}}</span>
+          </div>
         </div>
-      </div>
-        <div >
+
+        <div>
           <span><button class="cancbtn jfk-btn" (click)="onCancel()">Cancel</button></span>
           <span><button class="savbtn jfk-btn" (click)="onSave()">Save</button></span>
         </div>
+
       </div>
     </div>
   </div>
-
 </div>
 
-<!--footer navigation bar goes here-->
 <footer>
   <app-footer-navbar></app-footer-navbar>
 </footer>

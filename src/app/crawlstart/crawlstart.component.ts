@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CrawlstartService} from "../services/crawlstart.service";
 import {Router} from "@angular/router";
+
 @Component({
   selector: 'app-crawlstart',
   templateUrl: './crawlstart.component.html',
@@ -40,7 +41,11 @@ export class CrawlstartComponent implements OnInit {
     "collection": "user",
     "agentName": ""
   };
-  constructor(private crawlstartservice: CrawlstartService, private router: Router) {
+
+  constructor(
+    private crawlstartservice: CrawlstartService,
+    private router: Router
+  ) {
     /*this.crawlstartservice.getcrawldefaults().subscribe(res => {
       this.crawlvalues = res;
     });*/

@@ -14,14 +14,21 @@ export class IntelligenceComponent implements OnInit {
   actions: Array<any> = [];
   answer: any;
   resultscomponentchange$: Observable<any>;
-  constructor(private store: Store<fromRoot.State>, private intelligence: IntelligenceService) {
+
+  constructor(
+    private store: Store<fromRoot.State>,
+    private intelligence: IntelligenceService
+  ) {
     this.resultscomponentchange$ = store.select(fromRoot.getItems);
+
     this.resultscomponentchange$.subscribe(resp => {
       this.wholequery$ = store.select(fromRoot.getwholequery);
+
       this.wholequery$.subscribe(data => {
         this.intelligence.getintelligentresponse(data.query).subscribe(res => {
           if (res && res.answers && res.answers[0].actions) {
             this.actions = res.answers[0].actions;
+
             for (let action of this.actions) {
               if (action.type === 'answer' && action.mood !== 'sabta') {
                 this.answer = action.expression;
@@ -34,12 +41,11 @@ export class IntelligenceComponent implements OnInit {
           }
         });
       }).unsubscribe();
+
     });
   }
 
   ngOnInit() {
-
   }
-
 
 }

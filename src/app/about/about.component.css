@@ -8,16 +8,16 @@
     overflow: hidden;
 }
 
-.navbar-nav > li > a{
+.navbar-nav > li > a {
   text-align: left;
 }
 
-.page-link{
+.page-link {
   padding-right: 0%;
   color: #1a0dab;
 }
 
-.navbar-right{
+.navbar-right {
   border-top:none;
 }
 
@@ -44,18 +44,6 @@
 
 .bold {
     font-weight: 700;
-}
-
-@media screen and (max-width:990px) {
-    .image-banner {
-        height: 190px;
-    }
-    .banner {
-        top: 0;
-    }
-    .navbar-collapse.navbar-right {
-        text-align: right;
-    }
 }
 
 .about-navbar {
@@ -115,6 +103,7 @@
     font-weight: 500;
     font-size: 24px;
 }
+
 .navbar-fixed-bottom, .navbar-fixed-top{
     position: relative !important;
 }
@@ -141,8 +130,23 @@ a:hover {
 .navbar-brand {
     padding-left: 100px;
 }
+
+@media screen and (max-width:990px) {
+    .image-banner {
+        height: 190px;
+    }
+
+    .banner {
+        top: 0;
+    }
+
+    .navbar-collapse.navbar-right {
+        text-align: right;
+    }
+}
+
 @media only screen and (max-width: 768px) {
-  .navbar-logo{
-    margin-left: -77px;
-  }
+    .navbar-logo{
+        margin-left: -77px;
+    }
 }

@@ -3,7 +3,9 @@ import { combineReducers } from '@ngrx/store';
 import { ActionReducer, Action } from '@ngrx/store';
 import { createSelector } from 'reselect';
 import * as knowledge from '../actions/knowledge';
+
 export const CHANGE = 'CHANGE';
+
 export interface State {
   response: any;
 }
@@ -16,6 +18,7 @@ export interface State {
 const initialState: State = {
   response: {}
 };
+
 export function reducer(state: State = initialState, action: knowledge.Actions): State {
   switch (action.type) {
     case knowledge.ActionTypes.CHANGE: {
@@ -29,4 +32,5 @@ export function reducer(state: State = initialState, action: knowledge.Actions):
     }
   }
 }
+
 export const getresponse = (state: State) => state.response;

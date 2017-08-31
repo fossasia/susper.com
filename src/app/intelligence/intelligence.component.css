@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-width: 450px) {
-  div.card{
+  div.card {
     width: 92vw;
   }
 }

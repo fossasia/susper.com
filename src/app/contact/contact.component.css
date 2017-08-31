@@ -1,13 +1,16 @@
 @media screen and (max-width:990px) {
+    
     .navbar-collapse.navbar-right {
         text-align: right;
     }
+
 }
-.navbar-nav > li > a{
+
+.navbar-nav > li > a {
   text-align: left;
 }
 
-.navbar-right{
+.navbar-right {
   border-top:none;
 }
 
@@ -48,12 +51,15 @@
 }
 
 @media screen and (max-width:990px) {
+    
     .image-banner {
         height: 190px;
     }
+
     .banner {
         top: 0;
     }
+
 }
 
 .about-navbar {
@@ -106,27 +112,34 @@
     margin-bottom: 40px;
     line-height: 12px;
 }
+
 .contact-sub-details p{
     line-height: 20px;
 }
+
 .contact-sub-details .row h2 {
     font-family: "Quicksand", sans-serif;
     padding: 5px 10px;
     font-weight: 500;
     font-size: 24px;
 }
+
 .navbar-fixed-bottom, .navbar-fixed-top{
     position: relative !important;
 }
+
 .contact-title{
     border-bottom: 1px solid #eee;
 }
+
 .form-horizontal{
     margin: 20px;
 }
+
 .sub-btn{
     width: 100%;
 }
+
 .close-btn{
     padding: 10px;
     position: relative;
@@ -146,10 +159,10 @@ a:hover {
     color: rgb(51,51,51);
     text-decoration: none;
 }
+
 a {
   color: #1a0dab;
   text-decoration: none;
-
 }
 
 .navbar-brand {
@@ -157,8 +170,7 @@ a {
 }
 
 @media only screen and (max-width: 768px) {
-  .navbar-logo{
-    margin-left: -77px;
-  }
+    .navbar-logo {
+        margin-left: -77px;
+    }
 }
-

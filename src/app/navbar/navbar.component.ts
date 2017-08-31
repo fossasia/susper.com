@@ -20,15 +20,17 @@ export class NavbarComponent implements OnInit {
     maximumRecords: 10,
     timezoneOffset: 0
   };
-  constructor(private route: ActivatedRoute,
-              private router: Router ) { }
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
   }
+
   submit() {
     this.router.navigate(['/search'], {queryParams: this.searchdata});
   }
 
 }
-

@@ -17,11 +17,17 @@ export class IndexComponent implements OnInit {
     start: 0,
     rows: 10,
     mode: 'text',
-
   };
+
   hidespeech: Observable<boolean>;
-  constructor(private route: ActivatedRoute, private router: Router, private store: Store<fromRoot.State> ) {
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<fromRoot.State>
+  ) {
     this.store.dispatch(new queryactions.QueryAction(''));
+
     this.hidespeech = store.select(fromRoot.getSpeechMode);
     this.store.dispatch(new queryactions.QueryServerAction(this.searchdata));
   }
@@ -29,7 +35,6 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     document.getElementById('nav-group').style.width = '584px';
     document.getElementById('nav-input').style.width = '528px';
-
   }
 
 }

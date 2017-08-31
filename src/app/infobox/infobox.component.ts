@@ -32,32 +32,37 @@ export class InfoboxComponent implements OnInit {
     private synthesis: SpeechSynthesisService
     ) {
     this.query$ = store.select(fromRoot.getwholequery);
+
     this.query$.subscribe(query => {
       this.keyword = query.query;
       this.speechMode = query.mode;
     });
+
     this.response$ = store.select(fromRoot.getKnowledge);
+
     this.response$.subscribe(res => {
       if (res.results) {
         if (res.results[0]) {
           if (res.results[0].label.toLowerCase().includes(this.keyword.toLowerCase())) {
             this.results = res.results;
+
             if (this.speechMode === 'speech') {
               this.startSpeaking(this.results[0].description);
             }
           } else {
               this.results = [];
-            }
+          }
         }
       } else {
           this.results = [];
-        }
-
+      }
     });
+
   }
 
   startSpeaking(description) {
     let msg = new SpeechSynthesisUtterance(description);
+
     window.speechSynthesis.cancel();
     window.speechSynthesis.resume();
     window.speechSynthesis.speak(msg);

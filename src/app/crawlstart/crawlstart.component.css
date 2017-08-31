@@ -1,19 +1,23 @@
 @media screen and (max-width:990px) {
+  
   .navbar-collapse.navbar-right {
     text-align: right;
   }
+
 }
-.navbar-nav > li > a{
+
+.navbar-nav > li > a {
   text-align: left;
 }
 
-.navbar-right{
+.navbar-right {
   border-top:none;
 }
 
-.bold{
+.bold {
   font-weight: 700;
 }
+
 .btn-text {
   color: white;
   font-size: 11px;
@@ -21,33 +25,35 @@
   font-weight: bold;
 }
 
-
 .nav-terms {
   padding: 0px;
   clear: both;
   margin: -57px 0 0 0
 }
-.advsearch-navbar{
+
+.advsearch-navbar {
   position: relative;
   top:-5px;
 }
-.adv-submit{
+
+.adv-submit {
   float: right;
   margin: 14px 0;
-
 }
-.container{
+
+.container {
   padding-left: 3.5%;
   float: left;
   width: 70%;
   margin-bottom: 5%;
 }
+
 .form-control {
   width:135%;
   border-radius:0px
 }
 
-.adv-btn{
+.adv-btn {
   border-color: white;
   height: 30px;
   min-width: 120px;
@@ -61,7 +67,6 @@
   border-radius: 2px;
 }
 
-
 .nav-about {
   clear: both;
   margin: -57px 0 0 0
@@ -72,16 +77,19 @@
   padding-left: 20px;
   margin-top: -4%;
 }
-.btn-round-lg{
+
+.btn-round-lg {
   border-radius: 22.5px;
 }
-.btn-round{
+
+.btn-round {
   border-radius: 11px;
 }
 
 .navbar-brand>img {
   margin:-5px 0 0 0;
 }
+
 .navbar-logo {
   height: 30px;
   padding-left: 20px;
@@ -94,39 +102,43 @@
   top:-3px;
 }
 
-.text-center{
+.text-center {
   text-align: center;
 }
 
-.link{
+.link {
   margin-top:2px;
   font-weight: 700;
   line-height: 1.8;
   color:#1565C0;
-
 }
-.link:hover{
+
+.link:hover {
   text-decoration: underline;
 }
 
-#left{
+#left {
   width:22.6993866%;
 }
 
-#right{
+#right {
   width:67.7%;
 }
-p{
+
+p {
   line-height: 20px;
   text-align: justify;
 }
-h2{
+
+h2 {
   line-height: 1.8;
 }
-div{
+
+div {
   margin-top: 0.5%;
   font-family: Arial,SansSerif;
 }
+
 @media only screen and (max-width: 500px) {
   #left{
     width: 100%;
@@ -136,6 +148,7 @@ div{
     width: 100%;
   }
 }
+
 @media only screen and (max-width: 768px) {
   .navbar-logo{
     margin-left: -77px;

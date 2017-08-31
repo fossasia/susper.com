@@ -18,11 +18,11 @@ div a {
   text-decoration: none;
 }
 
-div a:hover{
+div a:hover {
   text-decoration: underline;
 }
 
-div a:active{
+div a:active {
   color: blue;
 }
 
@@ -30,11 +30,13 @@ div a:active{
   footer{
     justify-content: center;
   }
+
   .left-side {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .right-side {
     display: flex;
     flex-wrap: wrap;
@@ -42,7 +44,7 @@ div a:active{
   }
 }
 
-.dropup{
+.dropup {
   cursor: pointer;
 }
 
@@ -76,9 +78,11 @@ div a:active{
   div.right-side {
     margin-left: -9%;
   }
+
   div.left-side {
     margin-left: -5%;
   }
+
   .footer-bar {
     padding-left: 6%;
     padding-right: 1%;
