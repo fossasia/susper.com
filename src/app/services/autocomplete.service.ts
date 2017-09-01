@@ -15,13 +15,18 @@ export class AutocompleteService {
   suggestUrl = 'http://' + this.server + '/suggest.json?callback=?';
   homepage = 'http://susper.com';
   logo = '../images/susper.svg';
-  constructor(private http: Http, private jsonp: Jsonp, private store: Store<fromRoot.State>) {
-  }
+
+  constructor(
+    private http: Http,
+    private jsonp: Jsonp,
+    private store: Store<fromRoot.State>
+  ) { }
+
   getsearchresults(searchquery) {
 
     let params = new URLSearchParams();
     params.set('q', searchquery);
-   // params.set('QueryClass', 'MaxHits=5');
+    // params.set('QueryClass', 'MaxHits=5');
 
     params.set('wt', 'yjson');
     params.set('callback', 'JSONP_CALLBACK');
@@ -32,6 +37,7 @@ export class AutocompleteService {
     params.append('facet.field', 'url_protocol_s');
     params.append('facet.field', 'author_sxt');
     params.append('facet.field', 'collection_sxt');
+
     let headers = new Headers({ 'Accept': 'application/json' });
     let options = new RequestOptions({ headers: headers, search: params });
     return this.jsonp
@@ -40,15 +46,14 @@ export class AutocompleteService {
         res.json()[0]
 
       ).catch(this.handleError);
-
   }
-  private handleError (error: any) {
+
+  private handleError(error: any) {
     // In some advance version we can include a remote logging of errors
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // Right now we are logging to console itself
     return Observable.throw(errMsg);
   }
-
 
 }

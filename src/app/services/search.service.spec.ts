@@ -72,7 +72,6 @@ describe('Service: Search', () => {
       );
     });
 
-
   });
 
 });

@@ -14,23 +14,29 @@ export class KnowledgeapiService {
   searchURL = this.server + '/api/search/KeywordSearch?';
   homepage = 'http://susper.com';
   logo = '../images/susper.svg';
-  constructor(private http: Http, private jsonp: Jsonp, private store: Store<fromRoot.State>) {
-  }
-  public getsearchresults(searchquery) {
 
+  constructor(
+    private http: Http,
+    private jsonp: Jsonp,
+    private store: Store<fromRoot.State>
+  ) {}
+
+  public getsearchresults(searchquery) {
     let params = new URLSearchParams();
+
     params.set('QueryString', searchquery);
 
     let headers = new Headers({ 'Accept': 'application/json' });
     let options = new RequestOptions({ headers: headers, search: params });
-  return this.http
+
+    return this.http
       .get(this.searchURL, options).map(res =>
 
         res.json()
 
       ).catch(this.handleError);
-
   }
+
   private handleError (error: any) {
     // In some advance version we can include a remote logging of errors
     let errMsg = (error.message) ? error.message :
@@ -38,6 +44,4 @@ export class KnowledgeapiService {
     console.error(errMsg); // Right now we are logging to console itself
     return Observable.throw(errMsg);
   }
-
-
 }

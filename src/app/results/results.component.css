@@ -1,13 +1,13 @@
 /** Basic results 'All' **/
-
-.resultContainer{
+.resultContainer {
   margin-top: -57px;
 }
+
 .result {
   padding-top: 10px;
 }
 
-.row{
+.row {
   min-height: 96vh;
 }
 
@@ -45,7 +45,7 @@ a {
   margin-top: -8px;
 }
 
-.feed{
+.feed {
   float: left;
   margin-left: 172px;
   width: 616px;
@@ -66,13 +66,12 @@ a {
 }
 /** END **/
 
-
 .page-link {
   cursor: pointer;
   text-align: center;
 }
 
-.page-item2 span{
+.page-item2 span {
   padding-top: 2%;
   padding-left: 2%;
   padding-right: 2%;
@@ -82,14 +81,14 @@ a {
   cursor: pointer;
 }
 
-.side-text{
+.side-text {
   color: #4285f4;
   text-align: center;
   font-weight: 500;
   padding-top: 4px;
 }
 
-.arrow{
+.arrow {
   font-size: large;
   font-weight: 900;
   padding-bottom: 4%;
@@ -102,35 +101,35 @@ a {
   margin-left: 172px;
 }
 
-.container-fluid{
+.container-fluid {
   position: relative;
 }
 
-.container-fluid ul{
+.container-fluid ul {
   padding-top: 6px;
 }
 
-.container-fluid li{
+.container-fluid li {
   height: 15px;
   line-height: 15px;
   padding-top: 28px;
 }
 
-.container-fluid li a{
+.container-fluid li a {
   position: relative;
 }
 
-.page-text{
+.page-text {
   font-size: xx-large;
   color: #1a0dab;
   font-weight: 400;
   font-family: 'Roboto', sans-serif;
 }
 
-.prev, .next{
+.prev, .next {
   color: #7f7f7f;
 }
-.page-number{
+.page-number {
   font-size: smaller;
 }
 
@@ -170,7 +169,6 @@ a {
   margin-top: 10px;
 }
 
-
 .item {
   float: left;
   margin-bottom: 10px;
@@ -178,7 +176,7 @@ a {
   cursor: pointer;
 }
 
-.infobox{
+.infobox {
   display: inline-block;
   float: left;
 }
@@ -202,11 +200,13 @@ a {
   background-color: #f8f8f8;
   padding-bottom: 3px;
 }
+
 .helper {
   display: inline-block;
   height: 100%;
   vertical-align: middle;
 }
+
 #search-options {
   margin-top: 0.5%;
   margin-left: 155px;
@@ -273,7 +273,7 @@ a {
   float: right;
 }
 
-.dropdown{
+.dropdown {
   left: 38%;
   width: 0;
   padding: 0;
@@ -295,13 +295,13 @@ a {
   padding-bottom: 22px;
 }
 
-#setting-dropdown{
+#setting-dropdown {
   margin-top: 8%;
   margin-left: 15%;
   border-radius: 0;
 }
 
-#tool-dropdown{
+#tool-dropdown {
   margin-top: 8%;
   margin-left: 15%;
   border-radius: 0;
@@ -323,13 +323,15 @@ a {
    background-color: white;
    border: 0 ;
    font-size: 13px;
- }
-.page-item span{
+}
+
+.page-item span {
   padding: 6px 0.4px ;
 }
- .active_page{
+
+ .active_page {
        color: black;
- }
+}
 
 .clean {
   clear: both;
@@ -344,19 +346,20 @@ a {
   border-radius: 0;
   box-shadow: 1px 1px lightgrey;
 }
-.noResults{
+
+.noResults {
   margin-left: 3%;
   margin-top: 7%;
   font-size: medium;
   font-weight: normal;
 }
 
-.noResults >p{
+.noResults >p {
   margin-top: 10px;
   margin-bottom: 15px;
 }
 
-.noResults >ul{
+.noResults >ul {
   padding-left: 16px;
 }
 
@@ -365,19 +368,17 @@ a {
   padding-bottom: 18px;
 }
 
-.noResults em{
+.noResults em {
   font-weight: bold;
   font-style: normal;
 }
 
-div.autocorrect{
+div.autocorrect {
   margin-bottom: 7px;
   margin-left: 172px;
 }
 
-
  /*Responsiveness*/
-
 @media screen and (min-width: 426px) and (max-width: 2560px) {
   .next-page-mobile {
     display: none;
@@ -385,38 +386,46 @@ div.autocorrect{
 }
 
 @media screen and (min-width:1920px) {
-  div.autocorrect{
+  div.autocorrect {
     margin-left: 191px;
   }
+
   div.feed{
     margin-left: 191px;
   }
+
   div.message-bar {
     margin-left: 191px;
   }
+
   #search-options{
     margin-left: 174px;
   }
 }
 @media screen and (max-width:1100px){
-  .infobox{
+  .infobox {
     display: none;
   }
 }
+
 @media screen and (max-width:1079px) {
-  div.autocorrect{
+  div.autocorrect {
     margin-left: 134px;
   }
-  div.feed{
+
+  div.feed {
     margin-left: 134px;
   }
+
   div.message-bar {
     margin-left: 134px;
   }
-  #search-options{
+
+  #search-options {
     margin-left: 118px;
   }
 }
+
 @media screen and (min-width:768px) {
   div.combo-box {
     display: none;
@@ -427,53 +436,67 @@ div.autocorrect{
   div.result {
     padding-right: 30px;
   }
+
   .message-bar {
     margin-bottom: -10px;
   }
+
   #search-options {
     padding-left: 0;
     margin-left: 8%;
     margin-top: -5.5%;
   }
+
   #pag-bar {
     padding-left: 50px;
     margin-left: 0;
   }
+
   #search-tools {
     padding-left: 50px;
   }
+
   #search-options li {
     padding: 0 2.3% 12px;
   }
-  #search-options-field{
+
+  #search-options-field {
     padding-top: 8%;
   }
-  #settings{
+
+  #settings {
     left: 4.5%;
   }
-  #tools{
+
+  #tools {
     left: 4.5%;
   }
-  #setting-dropdown{
+
+  #setting-dropdown {
     min-width: 100px;
     margin-left: 0;
   }
-  #setting-dropdown li{
+
+  #setting-dropdown li {
     padding-left: 0;
   }
-  div.result.message-bar{
+
+  div.result.message-bar {
     margin-left: 4%;
   }
-  div.autocorrect{
+
+  div.autocorrect {
     margin-left: 4%;
     padding-left: 0;
   }
-  #tool-dropdown{
+
+  #tool-dropdown {
     right: 0;
     margin-left: -58%;
     min-width: 123px;
   }
-  div.feed{
+
+  div.feed {
     margin-left: 4%;
     width: 98%;
   }
@@ -483,80 +506,98 @@ div.autocorrect{
   #search-options li {
     padding: 0 1.5% 12px;
   }
-  #tool-dropdown li{
+
+  #tool-dropdown li {
     padding-left: 0!important;
     padding-right: 0!important;
   }
 }
 
 @media screen and (max-width:560px) {
-  li.dropdown{
+  li.dropdown {
     left:0;
   }
-  #settings{
+
+  #settings {
     left:0;
   }
-  #tools{
+
+  #tools {
     left:0;
   }
-  #search-options li{
+
+  #search-options li {
     padding-left: 5vw;
     padding-right: 5vw;
   }
-  #setting-dropdown li{
+
+  #setting-dropdown li {
     padding-left: 0!important;
     padding-right: 0!important;
   }
-  #tool-dropdown li{
+
+  #tool-dropdown li {
     padding-left: 0!important;
     padding-right: 0!important;
   }
 }
+
 @media screen and (max-width:495px) {
   .result {
     padding-right: 20px;
   }
+
   #pag-bar {
     padding-left: 10px;
   }
+
   #search-tools {
     padding-left: 30px;
   }
+
   #search-options {
     margin-left: 7%;
   }
+
   #search-options li {
     padding: 0 4vw 12px;
   }
 }
 
 @media screen and (max-width: 460px) {
-  div.autocorrect{
+  div.autocorrect {
     top: 2%;
   }
 }
+
 @media screen and (max-width:425px) {
   #pag-bar {
     padding-left: 0;
   }
+
   .page-text {
     font-size: x-large;
     display: none;
   }
-  .page-item span{
+
+  .page-item span {
     font-size: 10px;
   }
+
   .arrow {
     font-size: 25px;
     color: #c8c4c3;
   }
+
   .page-number {
     display: none;
   }
+
   #pag-bar {
     margin-bottom: -13%;
     margin-left: 12%;
   }
+
   .card {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     margin-bottom: 16px;
@@ -567,22 +608,27 @@ div.autocorrect{
     margin-top: 2%;
     background-color: #ffffff;
   }
+
   .side-text {
     display: none;
   }
+
   .page-item2 span {
     background-color: #ffffff;
     margin-top: -13%;
   }
+
   .spl {
     margin-left: 60%;
   }
+
   div.next-page-mobile {
     margin-left: 32%;
     margin-top: 6%;
     font-size: 16px;
     font-family: Helvetica;
   }
+
   #left-arrow {
     margin-top: 1.1%;
   }
@@ -591,9 +637,11 @@ div.autocorrect{
   #search-options li {
     padding: 0 3vw 12px;
   }
+
   .card {
     margin-left: 4%;
   }
+
   .side-text {
     margin-left: -50%;
   }
