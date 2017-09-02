@@ -99,7 +99,10 @@ export class ResultsComponent implements OnInit {
     let urldata = Object.assign({}, this.searchdata);
     this.getPresentPage(1);
     this.resultDisplay = 'videos';
+    urldata.start = 0;
     urldata.rows = 100;
+    urldata.nopagechange = false;
+    urldata.append = false;
     urldata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
@@ -121,6 +124,8 @@ export class ResultsComponent implements OnInit {
     this.resultDisplay = 'all';
     delete urldata.fq;
     urldata.rows = 10;
+    urldata.nopagechange = false;
+    urldata.append = false;
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
@@ -238,7 +243,6 @@ export class ResultsComponent implements OnInit {
     urldata.append = true;
     urldata.nopagechange = true;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
-
   };
 
   increasePage() {
