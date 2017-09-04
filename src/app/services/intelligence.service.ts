@@ -8,16 +8,22 @@ import {Observable} from "rxjs";
 export class IntelligenceService {
   server = 'http://api.susi.ai';
   searchURL = 'http://' + this.server + '/susi/chat.json';
-  constructor(private http: Http, private jsonp: Jsonp, private store: Store<fromRoot.State>) {
-  }
+
+  constructor(
+    private http: Http,
+    private jsonp: Jsonp,
+    private store: Store<fromRoot.State>
+  ) {}
+
   getintelligentresponse(searchquery) {
     let params = new URLSearchParams();
+
     params.set('q', searchquery);
     params.set('callback', 'JSONP_CALLBACK');
+
     return this.jsonp
       .get('http://api.asksusi.com/susi/chat.json', {search: params}).map(res =>
         res.json()
-
       );
   }
 

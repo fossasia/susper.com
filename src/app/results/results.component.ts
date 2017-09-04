@@ -28,11 +28,13 @@ export class ResultsComponent implements OnInit {
   query: any;
   count: number = 1;
   boxMessage = 'Show';
+
   searchdata: any = {
     query: '',
     start: 0,
     rows: 10,
   };
+
   expandedkey: number;
   querylook = {};
   hidefooter = 1;
@@ -84,14 +86,15 @@ export class ResultsComponent implements OnInit {
     if (key === this.expandedkey || this.expand === false) {
       this.expand = !this.expand;
     }
+
     this.expandedkey = key;
     let i = key;
     let previouselementleft = 0;
+
     while ( $('.image' + i) && $('.image' + i).offset().left > previouselementleft) {
       this.expandedrow = i;
       previouselementleft = $('.image' + i).offset().left;
       i = i + 1;
-
     }
   }
 
@@ -144,11 +147,17 @@ export class ResultsComponent implements OnInit {
     return ((this.presentPage) === page);
   }
 
-  constructor(private searchservice: SearchService, private route: Router, private activatedroute: ActivatedRoute,
-    private store: Store<fromRoot.State>, private ref: ChangeDetectorRef, public themeService: ThemeService) {
-
+  constructor(
+    private searchservice: SearchService,
+    private route: Router,
+    private activatedroute: ActivatedRoute,
+    private store: Store<fromRoot.State>,
+    private ref: ChangeDetectorRef,
+    public themeService: ThemeService
+  ) {
     this.activatedroute.queryParams.subscribe(query => {
       let urldata = Object.assign({}, this.searchdata);
+
       if (query['fq']) {
         if (query['fq'].includes('png')) {
           this.resultDisplay = 'images';
@@ -161,15 +170,18 @@ export class ResultsComponent implements OnInit {
       } else {
         this.resultDisplay = 'all';
       }
+
       if (query['resultDisplay']) {
         this.resultDisplay = query['resultDisplay'];
         urldata.resultDisplay = this.resultDisplay;
       }
+
       if (query['start']) {
         urldata.start = query['start'];
       } else {
         urldata.start = 0;
       }
+
       if (query['mode']) {
         urldata.mode = query['mode'];
       }
@@ -185,28 +197,36 @@ export class ResultsComponent implements OnInit {
       let querydata = Object.assign({}, urldata);
       console.log(querydata);
       this.store.dispatch(new queryactions.QueryServerAction(querydata));
+
       if (this.presentPage === 1) {
         this.hideAutoCorrect = 0;
       } else {
         this.hideAutoCorrect = 1;
       }
     });
+
     this.items$ = store.select(fromRoot.getItems);
+
     this.items$.subscribe(items => {
       this.items = items;
     });
+
     this.responseTime$ = store.select(fromRoot.getResponseTime);
+
     this.responseTime$.subscribe(responsetime => {
       this.hidefooter = 0;
     });
+
     this.searchresults$ = store.select(fromRoot.getSearchResults);
+
     this.searchresults$.subscribe( searchresults => {
       if (searchresults && searchresults.channels && searchresults.channels[0]) {
         this.startindex = parseInt(searchresults.channels[0].startIndex, 10);
       }
-
     });
+
     this.totalResults$ = store.select(fromRoot.getTotalResults);
+
     this.totalResults$.subscribe(totalResults => {
       this.totalResults = totalResults;
       this.end = Math.min(totalResults, this.begin + this.searchdata.rows - 1);
@@ -215,11 +235,15 @@ export class ResultsComponent implements OnInit {
       this.noOfPages = Math.ceil(totalResults / this.searchdata.rows);
       this.maxPage = Math.min(this.searchdata.rows, this.noOfPages);
     });
+
     this.querychange$ = store.select(fromRoot.getquery);
+
     this.querychange$.subscribe(res => {
       this.hidefooter = 1;
     });
+
     this.wholequery$ = store.select(fromRoot.getwholequery);
+
     this.wholequery$.subscribe(data => {
       this.searchdata = data;
       if (this.searchdata.query === '') {
@@ -229,12 +253,12 @@ export class ResultsComponent implements OnInit {
       }
       this.start = (this.presentPage - 1) * data.rows;
       this.begin = this.start + 1;
-
     });
-
   }
+
   onScroll () {
     let urldata = Object.assign({}, this.searchdata);
+
     this.getPresentPage(1);
     this.resultDisplay = 'images';
     urldata.start = (this.startindex) + urldata.rows;
@@ -259,9 +283,9 @@ export class ResultsComponent implements OnInit {
     } else {
       this.boxMessage = 'Show';
     }
-
   }
 
   ngOnInit() {
   }
+
 }
