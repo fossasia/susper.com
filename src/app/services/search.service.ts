@@ -18,17 +18,22 @@ export class SearchService {
   headline: string;
   greeting: string;
   queryplaceholder: string;
-  constructor(private http: Http, private jsonp: Jsonp, private store: Store<fromRoot.State>) {
-  }
-  getsearchresults(searchquery) {
 
+  constructor(
+    private http: Http,
+    private jsonp: Jsonp,
+    private store: Store<fromRoot.State>
+  ) {}
+
+  getsearchresults(searchquery) {
     let params = new URLSearchParams();
+
     for (let key in searchquery) {
       if (searchquery.hasOwnProperty(key)) {
         params.set(key, searchquery[key]);
       }
-
     }
+
     params.set('wt', 'yjson');
     params.set('callback', 'JSONP_CALLBACK');
 
@@ -45,8 +50,8 @@ export class SearchService {
         res.json()[0]
 
       ).catch(this.handleError);
-
   }
+
   private handleError (error: any) {
     // In some advance version we can include a remote logging of errors
     let errMsg = (error.message) ? error.message :
@@ -54,6 +59,5 @@ export class SearchService {
     console.error(errMsg); // Right now we are logging to console itself
     return Observable.throw(errMsg);
   }
-
 
 }
