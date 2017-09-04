@@ -2,10 +2,12 @@
 <form class="navbar-form navbar-left">
 <!-- Stop ignoring BootLintBear -->
   <div class="input-group" id="nav-group">
-      <div class="input-text">
+
+    <div class="input-text">
       <input #input type="text" name="query" class="form-control" id="nav-input" (ngModelChange)="onquery($event)"
            [(ngModel)]="searchdata.query" autocomplete="off" (keypress)="onEnter($event)" [style.width]="navbarWidth">
-      </div>
+    </div>
+
     <div class="input-group-btn">
       <button class="btn btn-default" id="speech-button" type="submit">
         <img src="../../assets/images/microphone.png" class="microphone" (click)="speechRecognition()"/>
@@ -14,12 +16,16 @@
         <i class="glyphicon glyphicon-search"></i>
       </button>
     </div>
+
   </div>
+
   <app-auto-complete (hidecomponent)="hidesuggestions($event)" id="auto-box" [hidden]="!ShowAuto()"></app-auto-complete>
 </form>
+
 <script>
-  $(document).ready(function(){
+  $(document).ready(function() {
     var isFirefox = typeof InstallTrigger !== 'undefined';
+
     if(isFirefox === false){
       $(".input-group-btn").addClass("align-search-btn");
     }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+
 @Component({
   selector: 'app-not-found',
   templateUrl: './not-found.component.html',
@@ -18,18 +19,23 @@ export class NotFoundComponent implements OnInit {
     maximumRecords: 10,
     timezoneOffset: 0,
   };
+
   errorNumber: any;
   errorMsg: any;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router ) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
     this.errorNumber = '404';
     this.errorMsg = 'Page not found';
   }
+
   submit() {
     this.router.navigate(['/search', this.searchdata]);
   }
+
 }

@@ -3,11 +3,12 @@
     text-align: right;
   }
 }
-.navbar-nav > li > a{
+
+.navbar-nav > li > a {
   text-align: left;
 }
 
-.appbar{
+.appbar {
   border-bottom: 1px solid #dedede;
   color: #dd4b39;
   font-size: 20px;
@@ -16,11 +17,12 @@
   padding-left: 46px;
   position: relative;
 }
-.navbar-right{
+
+.navbar-right {
   border-top:none;
 }
 
-.bold{
+.bold {
   font-weight: 700;
 }
 
@@ -29,7 +31,8 @@
   clear: both;
   margin: -57px 0 0 0
 }
-.advsearch-navbar{
+
+.advsearch-navbar {
   position: relative;
   top:-5px;
 }
@@ -44,16 +47,19 @@
   padding-left: 20px;
   margin-top: -4%;
 }
-.btn-round-lg{
+
+.btn-round-lg {
   border-radius: 22.5px;
 }
-.btn-round{
+
+.btn-round {
   border-radius: 11px;
 }
 
 .navbar-brand>img {
   margin:-5px 0 0 0;
 }
+
 .navbar-logo {
   height: 30px;
   padding-left: 20px;
@@ -66,10 +72,11 @@
   top:-3px;
 }
 
-.text-center{
+.text-center {
   text-align: center;
 }
-.savbtn{
+
+.savbtn {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -81,7 +88,8 @@
   border: 1px solid #3079ed;
   color: #fff;
 }
-.cancbtn{
+
+.cancbtn {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -93,7 +101,8 @@
   color: #444;
   border: 1px solid #dcdcdc;
 }
-.jfk-btn{
+
+.jfk-btn {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
@@ -110,57 +119,68 @@
   height: 29px;
   float: right;
 }
-.container{
+
+.container {
   margin-left: 0px;
   padding-left: 0px;
 }
-.left-list{
+
+.left-list {
   padding-left: 48px;
 }
-.rightPane{
+
+.rightPane {
   margin-left: 2%;
 }
-.rightContent{
+
+.rightContent {
   max-width: 640px;
   font: small arial,sans-serif;
 }
-.link{
+
+.link {
   margin-top:2px;
   font-weight: 700;
   line-height: 1.8;
   color:#1565C0;
 }
-.link:hover{
+
+.link:hover {
   text-decoration: underline;
 }
 
-#left{
+#left {
   width:22.6993866%;
 }
 
-#right{
+#right {
   width:67.7%;
 }
-p{
+
+p {
   line-height: 20px;
   text-align: justify;
 }
-h2{
+
+h2 {
   line-height: 1.8;
 }
-div{
+
+div {
   margin-top: 0.5%;
   font-family: Arial,SansSerif;
 }
+
 @media only screen and (max-width: 500px) {
-  #left{
+  #left {
     width: 100%;
   }
 
-  #right{
+  #right {
     width: 100%;
   }
 }
+
 @media only screen and (max-width: 768px) {
   .navbar-logo{
     margin-left: -77px;
@@ -170,17 +190,21 @@ div{
 .container {
   min-height: 600px;
 }
+
 ul li a {
   text-decoration: none;
 }
+
 ul {
   list-style: none;
 }
+
 ul li{
   border-bottom: 1px solid transparent;
   font-size: 13px;
   line-height: 29px;
 }
+
 .active {
   color:#dd4b39
 }

@@ -17,6 +17,7 @@ import * as fromRoot from '../reducers';
 import * as knowledge from '../actions/knowledge';
 import {SearchService} from '../services/search.service';
 import {KnowledgeapiService} from "../services/knowledgeapi.service";
+
 export interface State {
   query: string;
 }
@@ -56,31 +57,24 @@ export class KnowledgeEffects {
       this.knowledgeservice.getsearchresults(querypay.query)
         .takeUntil(nextSearch$)
         .subscribe((response) => {
-        if (response.results) {
-          if (response.results[0]) {
+          if (response.results) {
+            if (response.results[0]) {
               this.store.dispatch(new knowledge.SearchAction(response));
               return empty();
+            } else {
+              this.store.dispatch(new knowledge.SearchAction([]));
+            }
           } else {
             this.store.dispatch(new knowledge.SearchAction([]));
           }
-
-        } else {
-          this.store.dispatch(new knowledge.SearchAction([]));
-        }
-
-
         });
       return empty();
-
-
-
-
     });
+
   constructor(
     private actions$: Actions,
     private knowledgeservice: KnowledgeapiService,
     private store: Store<fromRoot.State>
   ) { }
-
 
 }

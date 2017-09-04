@@ -15,23 +15,29 @@ export class SearchsettingsComponent implements OnInit {
   instantresults: boolean;
   wholequery$: Observable<any>;
   searchdata: Array<any> = [];
-  constructor(private router: Router, private store: Store<fromRoot.State>) {
+
+  constructor(
+    private router: Router,
+    private store: Store<fromRoot.State>
+  ) {
     if (localStorage.getItem('instantsearch')) {
       this.instantresults = JSON.parse(localStorage.getItem('instantsearch')).value || false;
     } else {
       this.instantresults = false;
     }
+
     if (localStorage.getItem('resultscount')) {
       this.resultCount = JSON.parse(localStorage.getItem('resultscount')).value || false;
     } else {
       this.resultCount = 10;
     }
+
     this.wholequery$ = store.select(fromRoot.getwholequery);
+
     this.wholequery$.subscribe(data => {
       this.searchdata = data;
     });
   }
-
 
   ngOnInit() {
   }
@@ -41,12 +47,12 @@ export class SearchsettingsComponent implements OnInit {
       localStorage.setItem('instantsearch', JSON.stringify({value: true}));
       localStorage.setItem('resultscount', JSON.stringify({ value: 10 }));
       this.store.dispatch(new queryactions.QueryServerAction({'query': '', start: 0, rows: 10, search: false}));
-
     } else {
       localStorage.removeItem('instantsearch');
       localStorage.setItem('resultscount', JSON.stringify({ value: this.resultCount }));
       this.store.dispatch(new queryactions.QueryServerAction({'query': '', start: 0, rows: this.resultCount, search: false}));
     }
+
     this.router.navigate(['/']);
   }
 
@@ -57,5 +63,4 @@ export class SearchsettingsComponent implements OnInit {
   defaultCount() {
     this.resultCount = 10;
   }
-
 }

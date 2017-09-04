@@ -1,4 +1,4 @@
-#nav-group{
+#nav-group {
   background-color: white;
   width: 632px;
   color: black;
@@ -12,7 +12,7 @@
   float: left;
 }
 
-#nav-input{
+#nav-input {
   font-size: 16px;
   font-weight: 400;
   top: 4px;
@@ -31,7 +31,7 @@
   padding-right: 9px;
 }
 
-#nav-button{
+#nav-button {
   border-radius: 0;
   height: 38px;
   background-color: white;
@@ -45,7 +45,7 @@
   outline: none;
 }
 
-#speech-button{
+#speech-button {
   border-radius: 0;
   height: 38px;
   background-color: white;
@@ -59,11 +59,11 @@
   outline: none;
 }
 
-#nav-group{
+#nav-group {
   top:3px;
 }
 
-.navbar-form{
+.navbar-form {
   border-color: transparent !important;
 }
 
@@ -72,7 +72,7 @@
   width: 25px;
 }
 
-@-moz-document url-prefix() {
+@-moz-document url-prefix() { 
   .microphone {
     display: none;
   }
@@ -80,7 +80,7 @@
 
 @media screen and (max-width: 823px) and (min-width: 768px) {
   .navbar-form {
-  width: 100px;
+    width: 100px;
   }
 }
 
@@ -88,9 +88,11 @@
   #nav-group {
     width: 95vw!important;
   }
+
   .align-search-btn{
     left: -1%;
   }
+
   #nav-input {
     width: 83vw;
   }
@@ -100,6 +102,7 @@
   .align-search-btn{
     left: -5%;
   }
+
   #nav-input {
     width: 73vw;
   }
@@ -115,6 +118,7 @@
   .align-search-btn{
     left: -1%;
   }
+
   #nav-input {
     width: 63vw;
   }

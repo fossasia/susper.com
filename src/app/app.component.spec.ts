@@ -48,7 +48,7 @@ describe('AppComponent', () => {
         ChartsModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    ],
+      ],
       declarations: [
         AppComponent,
         NavbarComponent,
@@ -89,6 +89,5 @@ describe('AppComponent', () => {
     let app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Susper');
   }));
-
 
 });

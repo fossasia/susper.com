@@ -16,7 +16,6 @@ describe('Component: SearchBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-
       imports: [
         RouterTestingModule,
         FormsModule,

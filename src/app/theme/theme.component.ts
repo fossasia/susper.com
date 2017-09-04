@@ -44,10 +44,9 @@ export class ThemeComponent implements OnInit {
   }
 
   terminalTheme() {
-  this.themeService.backgroundColor = '#000000';
-  this.themeService.titleColor = '#00ff00';
-  this.themeService.linkColor = '#FFFFFF  ';
-  this.themeService.descriptionColor = '#F1C40F';
-}
-
+    this.themeService.backgroundColor = '#000000';
+    this.themeService.titleColor = '#00ff00';
+    this.themeService.linkColor = '#FFFFFF  ';
+    this.themeService.descriptionColor = '#F1C40F';
+  }
 }

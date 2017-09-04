@@ -75,4 +75,5 @@ describe('IndexComponent', () => {
     let compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('div #set-susper-default')).toBeTruthy();
   });
+
 });

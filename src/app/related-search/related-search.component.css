@@ -1,4 +1,4 @@
-.card{
+.card {
   padding-top: 10px;
   max-width: 850px;
 }
@@ -15,14 +15,14 @@
   font-family: Arial, sans-serif;
 }
 
-.related{
+.related {
   margin-top: 10px;
   display: inline-block;
   width: 380px;
   float: left;
 }
 
-.rellink{
+.rellink {
   color: #1a0dab;
   text-decoration: none;
   font-family: Arial, sans-serif;
@@ -30,6 +30,6 @@
   white-space: nowrap;
 }
 
-.rellink:hover{
+.rellink:hover {
   text-decoration: underline;
 }

@@ -76,6 +76,7 @@ export function reducer(state: any, action: any) {
     return developmentReducer(state, action);
   }
 }
+
 export const getSearchState = (state: State) => state.search;
 export const getQueryState = (state: State) => state.query;
 export const getSpeechState = (state: State) => state.speech;
@@ -89,4 +90,3 @@ export const getwholequery = createSelector(getQueryState, fromQuery.getpresentw
 export const getKnowledge = createSelector(getKnowledgeState, fromKnowledge.getresponse);
 export const getResponseTime = createSelector(getSearchState, fromSearch.getresponsetime);
 export const getSpeechMode = createSelector(getSpeechState, fromSpeech.getspeechmode);
-

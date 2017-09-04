@@ -1,6 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-
 import {AppComponent} from "../app.component";
 import {NavbarComponent} from "../navbar/navbar.component";
 import {IndexComponent} from "../index/index.component";
@@ -44,7 +42,6 @@ describe('IntelligenceComponent', () => {
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
-
       ],
       declarations: [
         IntelligenceComponent
@@ -52,7 +49,6 @@ describe('IntelligenceComponent', () => {
       providers: [
         IntelligenceService
       ],
-
     })
     .compileComponents();
   }));

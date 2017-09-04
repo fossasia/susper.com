@@ -3,7 +3,9 @@ import { combineReducers } from '@ngrx/store';
 import { ActionReducer, Action } from '@ngrx/store';
 import { createSelector } from 'reselect';
 import * as search from '../actions/search';
+
 export const CHANGE = 'CHANGE';
+
 export interface State {
   searchresults: any;
   items: any;
@@ -24,6 +26,7 @@ const initialState: State = {
   navigation: [],
   responsetime: 0
 };
+
 export function reducer(state: State = initialState, action: search.Actions): State {
   switch (action.type) {
     case search.ActionTypes.CHANGE: {
@@ -47,17 +50,15 @@ export function reducer(state: State = initialState, action: search.Actions): St
           responsetime: new Date()
         });
       }
-
     }
     default: {
       return state;
     }
   }
 }
+
 export const getsearchresults = (state: State) => state.searchresults;
 export const getItems = (state: State) => state.items;
-
 export const getTotalResults = (state: State) => state.totalResults;
 export const getresponsetime = (state: State) => state.responsetime;
 export const getNavigation = (state: State) => state.navigation;
-

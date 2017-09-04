@@ -8,7 +8,6 @@
   margin-top: 3%
 }
 
-
 /* Add some padding inside the card container */
 .card-container {
   padding: 2px 16px;
@@ -48,25 +47,26 @@ a {
     }
   }
 }
-@media screen and (max-width: 1280px) {
-    .card {
+
+@media screen and (max-width: 1280px) {    
+  .card {
       width: 366px;
-    }
+  }
 }
 
 @media screen and (max-width: 1190px) {
-  .card{
+  .card {
     width: 278px;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .card{
+  .card {
     width: 95vw;
     margin-left: 2vw;
-
   }
-  #relate{
+
+  #relate {
     display: none;
   }
 }

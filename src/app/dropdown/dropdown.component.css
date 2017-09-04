@@ -8,12 +8,12 @@ li.dropdown-menu-box {
   background-color: white;
 }
 
-.menu-item{
+.menu-item {
   display: inline-block;
   width: 86px;
 }
 
-.dropdown-menu{
+.dropdown-menu {
   height: 500px;
   width: 327px;
   padding: 28px;
@@ -46,7 +46,7 @@ div.block:hover {
     border: 1px solid rgba(150,150,150,0.3);
 }
 
-div.block{
+div.block {
     text-align: center;
 }
 
@@ -149,7 +149,7 @@ hr {
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {   
     .dropdown-menu-box {
         margin-left: 60%;
         margin-top: 60%;
@@ -157,17 +157,19 @@ hr {
 }
 
 @media screen and (max-width: 767px) {
-  #small-drop{
+    #small-drop {
     position: absolute;
     background-color: white;
     border: 1px solid #cccccc;
     right: -18px;
     left: auto;
   }
-  .nav > li > a{
+
+  .nav > li > a {
     padding-left: 11px;
     padding-right: 28px;
   }
+
   .dropdown-menu-box {
       margin-left: -210%;
   }

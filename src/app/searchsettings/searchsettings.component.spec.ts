@@ -80,5 +80,4 @@ describe('SearchsettingsComponent', () => {
     expect(image.alt).toBe('brand');
   });
 
-
 });

@@ -4,15 +4,15 @@
 	}
 }
 
-.bold{
+.bold {
 	font-weight: 700;
 }
 
-.navbar-nav > li > a{
+.navbar-nav > li > a {
   text-align: left;
 }
 
-.navbar-right{
+.navbar-right {
   border-top:none;
 }
 .nav-terms {
@@ -24,68 +24,70 @@
 .navbar-brand>img {
 	margin:-5px 0 0 0;
 }
+
 .navbar-logo {
     height: 30px;
     padding-left: 20px;
 }
 
-.about-navbar{
-
-}
 .navbar-text {
     padding-right: 30px;
     font-size: 20px;
-	position: relative;
-	top:-3px;
+		position: relative;
+		top:-3px;
 }
 
-.text-center{
+.text-center {
 	text-align: center;
 }
 
-.link{
+.link {
 	margin-top:2px;
 	font-weight: 700;
 	line-height: 1.1;
 	color:#1565C0;
 	text-decoration: none !important;
-
 }
-.link:hover{
+
+.link:hover {
 	text-decoration: underline;
 }
 
-#left{
+#left {
 	width:22.6993866%;
 }
 
-#right{
+#right {
 	width:67.7%;
 }
-p{
+
+p {
 	line-height: 20px;
     text-align: justify;
 }
-h2{
+
+h2 {
 	line-height: 1.8;
 }
 
-@media only screen and (max-width: 768px) {
-	#left{
-			width: 100%;
+@media only screen and (max-width: 768px) {	
+	#left {
+		width: 100%;
 	}
 
-	#right{
-			width: 100%;
+	#right {
+		width: 100%;
 	}
-  .navbar-brand{
+
+  .navbar-brand {
     margin-left: -77px;
-  }
+	}
 }
+
 @media only screen and (max-width: 923px)and (min-width: 768px) {
-  .navbar-brand{
+	.navbar-brand {
     margin-left: -27%!important;
-  }
+	}
 }
 
 a {
@@ -106,8 +108,3 @@ a:hover {
 .navbar-brand {
 	padding-left: 100px;
 }
-
-
-
-
-

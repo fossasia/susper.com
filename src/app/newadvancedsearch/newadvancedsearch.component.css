@@ -4,39 +4,43 @@
   }
 }
 
-#top-line{
+#top-line {
   margin-bottom: 48px;
   width: 200%;
   margin-left: -5.5%;
 }
 
-.label-heading{
+.label-heading {
   max-width: 23%;
 }
-.label-search{
+
+.label-search {
   cursor: default;
   font-weight: 300;
 }
-.container{
+
+.container {
   padding-left: 3.5%;
   float: left;
   width: 70%;
 }
-.form-control{
+
+.form-control {
   width: 135%;
   border-radius: 0px;
 }
 
-.navbar-nav > li > a{
+.navbar-nav > li > a {
   text-align: left;
 }
 
-.adv-submit{
+.adv-submit {
   float: right;
   margin: 14px 0;
 }
-.adv-btn{
- border-color: white;
+
+.adv-btn {
+  border-color: white;
   height: 30px;
   min-width: 120px;
   padding: 0 12px;
@@ -50,16 +54,17 @@
 }
 
 .btn-text {
-color: white;
+  color: white;
   font-size: 11px;
   text-align: center;
-font-weight: bold;
+  font-weight: bold;
 }
-.navbar-right{
+
+.navbar-right {
   border-top:none;
 }
 
-.bold{
+.bold {
   font-weight: 700;
 }
 
@@ -68,6 +73,7 @@ font-weight: bold;
   clear: both;
   margin: -57px 0 0 0
 }
+
 .advsearch-navbar{
   position: relative;
   top:-5px;
@@ -87,22 +93,27 @@ font-weight: bold;
   padding-left: 20px;
   margin-top: -4%;
 }
-.navbar-brand{
+
+.navbar-brand {
   margin-left: 25px!important;
 }
+
 label {
   font-weight: normal !important;
 }
-.btn-round-lg{
+
+.btn-round-lg {
   border-radius: 22.5px;
 }
-.btn-round{
+
+.btn-round {
   border-radius: 11px;
 }
 
 .navbar-brand>img {
   margin:-5px 0 0 0;
 }
+
 .navbar-logo {
   height: 30px;
   padding-left: 20px;
@@ -115,40 +126,44 @@ label {
   top:-3px;
 }
 
-.text-center{
+.text-center {
   text-align: center;
 }
 
-.link{
+.link {
   margin-top:2px;
   font-weight: 700;
   line-height: 1.8;
   color:#1565C0;
   text-decoration: none !important;
-
 }
-.link:hover{
+
+.link:hover {
   text-decoration: underline;
 }
 
-#left{
+#left {
   width:22.6993866%;
 }
 
-#right{
+#right {
   width:67.7%;
 }
-p{
+
+p {
   line-height: 20px;
   text-align: justify;
 }
-h2{
+
+h2 {
   line-height: 1.8;
 }
-div{
+
+div {
   margin-top: 0.5%;
   font-family: Arial,SansSerif;
 }
+
 @media only screen and (max-width: 500px) {
   #left{
     width: 100%;
@@ -158,6 +173,7 @@ div{
     width: 100%;
   }
 }
+
 @media only screen and (max-width: 768px) {
   .navbar-logo{
     margin-left: -77px;
