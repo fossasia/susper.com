@@ -6,7 +6,6 @@ import { WebpackConfigOptions } from '../webpack-config';
  *
  * require('source-map-loader')
  * require('raw-loader')
- * require('script-loader')
  * require('url-loader')
  * require('file-loader')
  * require('@angular-devkit/build-optimizer')

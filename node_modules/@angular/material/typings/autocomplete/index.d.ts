@@ -1,4 +1,4 @@
-export declare class MdAutocompleteModule {
-}
-export * from './autocomplete';
-export * from './autocomplete-trigger';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

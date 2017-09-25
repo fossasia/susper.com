@@ -71,7 +71,7 @@ export declare class SelectionModel<T> {
  * @docs-private
  */
 export declare class SelectionChange<T> {
-    added: T[];
-    removed: T[];
-    constructor(added?: T[], removed?: T[]);
+    added: T[] | undefined;
+    removed: T[] | undefined;
+    constructor(added?: T[] | undefined, removed?: T[] | undefined);
 }

@@ -21,9 +21,9 @@ export declare class ExtractI18nPlugin implements Tapable {
     private _angularCompilerOptions;
     private _compilerHost;
     private _program;
-    private _i18nFormat;
-    private _locale;
-    private _outFile;
+    private _i18nFormat?;
+    private _locale?;
+    private _outFile?;
     constructor(options: ExtractI18nPluginOptions);
     private _setupOptions(options);
     apply(compiler: any): void;

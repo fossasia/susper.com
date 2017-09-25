@@ -1,3 +1,4 @@
-export declare class MdProgressBarModule {
-}
-export * from './progress-bar';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

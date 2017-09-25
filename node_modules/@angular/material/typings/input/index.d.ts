@@ -1,5 +1,4 @@
-export declare class MdInputModule {
-}
-export * from './autosize';
-export * from './input';
-export * from './input-errors';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

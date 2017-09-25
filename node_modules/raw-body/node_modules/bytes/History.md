@@ -1,3 +1,15 @@
+3.0.0 / 2017-08-31
+==================
+
+  * Change "kB" to "KB" in format output
+  * Remove support for Node.js 0.6
+  * Remove support for ComponentJS
+
+2.5.0 / 2017-03-24
+==================
+
+  * Add option "unit"
+
 2.4.0 / 2016-06-01
 ==================
 

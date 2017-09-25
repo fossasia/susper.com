@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const utils_1 = require("../models/webpack-configs/utils");
 // Sort chunks according to a predefined order:
-// inline, polyfills, all scripts, all styles, vendor, main
+// inline, polyfills, all styles, vendor, main
 function packageChunkSort(appConfig) {
     let entryPoints = ['inline', 'polyfills', 'sw-register'];
     const pushExtraEntries = (extraEntry) => {
@@ -10,9 +10,6 @@ function packageChunkSort(appConfig) {
             entryPoints.push(extraEntry.entry);
         }
     };
-    if (appConfig.scripts) {
-        utils_1.extraEntryParser(appConfig.scripts, './', 'scripts').forEach(pushExtraEntries);
-    }
     if (appConfig.styles) {
         utils_1.extraEntryParser(appConfig.styles, './', 'styles').forEach(pushExtraEntries);
     }

@@ -1,3 +1,4 @@
-export declare class MdTooltipModule {
-}
-export * from './tooltip';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

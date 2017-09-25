@@ -1,7 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const chalk_1 = require("chalk");
+const chalk = require("chalk");
 const common_tags_1 = require("common-tags");
+// Force basic color support on terminals with no color support.
+// Chalk typings don't have the correct constructor parameters.
+const chalkCtx = new chalk.constructor(chalk.supportsColor ? {} : { level: 1 });
+const { bold, green, red, reset, white, yellow } = chalkCtx;
 function _formatSize(size) {
     if (size <= 0) {
         return '0 bytes';
@@ -12,10 +16,10 @@ function _formatSize(size) {
 }
 function statsToString(json, statsConfig) {
     const colors = statsConfig.colors;
-    const rs = (x) => colors ? chalk_1.reset(x) : x;
-    const w = (x) => colors ? chalk_1.bold(chalk_1.white(x)) : x;
-    const g = (x) => colors ? chalk_1.bold(chalk_1.green(x)) : x;
-    const y = (x) => colors ? chalk_1.bold(chalk_1.yellow(x)) : x;
+    const rs = (x) => colors ? reset(x) : x;
+    const w = (x) => colors ? bold(white(x)) : x;
+    const g = (x) => colors ? bold(green(x)) : x;
+    const y = (x) => colors ? bold(yellow(x)) : x;
     return rs(common_tags_1.stripIndents `
     Date: ${w(new Date().toISOString())}
     Hash: ${w(json.hash)}
@@ -37,15 +41,15 @@ function statsToString(json, statsConfig) {
 exports.statsToString = statsToString;
 function statsWarningsToString(json, statsConfig) {
     const colors = statsConfig.colors;
-    const rs = (x) => colors ? chalk_1.reset(x) : x;
-    const y = (x) => colors ? chalk_1.bold(chalk_1.yellow(x)) : x;
+    const rs = (x) => colors ? reset(x) : x;
+    const y = (x) => colors ? bold(yellow(x)) : x;
     return rs('\n' + json.warnings.map((warning) => y(`WARNING in ${warning}`)).join('\n\n'));
 }
 exports.statsWarningsToString = statsWarningsToString;
 function statsErrorsToString(json, statsConfig) {
     const colors = statsConfig.colors;
-    const rs = (x) => colors ? chalk_1.reset(x) : x;
-    const r = (x) => colors ? chalk_1.bold(chalk_1.red(x)) : x;
+    const rs = (x) => colors ? reset(x) : x;
+    const r = (x) => colors ? bold(red(x)) : x;
     return rs('\n' + json.errors.map((error) => r(`ERROR in ${error}`)).join('\n'));
 }
 exports.statsErrorsToString = statsErrorsToString;

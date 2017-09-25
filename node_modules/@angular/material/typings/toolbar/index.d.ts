@@ -1,3 +1,4 @@
-export declare class MdToolbarModule {
-}
-export * from './toolbar';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

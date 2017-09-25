@@ -1,7 +1,18 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
-See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-instrument@1.7.5...istanbul-lib-instrument@1.8.0) (2017-09-05)
+
+
+### Features
+
+* add support for object-spread syntax ([#82](https://github.com/istanbuljs/istanbuljs/issues/82)) ([28d5566](https://github.com/istanbuljs/istanbuljs/commit/28d5566))
+
+
+
 
 <a name="1.7.5"></a>
 ## [1.7.5](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-instrument@1.7.4...istanbul-lib-instrument@1.7.5) (2017-08-23)

@@ -1,5 +1,4 @@
-export * from './chip-list';
-export * from './chip';
-export * from './chip-input';
-export declare class MdChipsModule {
-}
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

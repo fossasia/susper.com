@@ -22,8 +22,6 @@ import { OverlayRef } from '../overlay-ref';
  */
 export declare class ConnectedPositionStrategy implements PositionStrategy {
     private _connectedTo;
-    private _originPos;
-    private _overlayPos;
     private _viewportRuler;
     /** The overlay to which this strategy is attached. */
     private _overlayRef;
@@ -47,7 +45,7 @@ export declare class ConnectedPositionStrategy implements PositionStrategy {
     _onPositionChange: Subject<ConnectedOverlayPositionChange>;
     /** Emits an event when the connection point changes. */
     readonly onPositionChange: Observable<ConnectedOverlayPositionChange>;
-    constructor(_connectedTo: ElementRef, _originPos: OriginConnectionPosition, _overlayPos: OverlayConnectionPosition, _viewportRuler: ViewportRuler);
+    constructor(originPos: OriginConnectionPosition, overlayPos: OverlayConnectionPosition, _connectedTo: ElementRef, _viewportRuler: ViewportRuler);
     /** Ordered list of preferred positions, from most to least desirable. */
     readonly positions: ConnectionPositionPair[];
     attach(overlayRef: OverlayRef): void;

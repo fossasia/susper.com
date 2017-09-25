@@ -1,6 +1,6 @@
-# color-string
+# chartjs-color-string
 
-[![Build Status](https://travis-ci.org/harthur/color-string.svg?branch=master)](https://travis-ci.org/harthur/color-string)
+[![npm](https://img.shields.io/npm/v/chartjs-color-string.svg?style=flat-square&maxAge=600)](https://npmjs.com/package/chartjs-color-string) [![Travis](https://img.shields.io/travis/chartjs/chartjs-color-string.svg?style=flat-square&maxAge=600)](https://travis-ci.org/chartjs/chartjs-color-string)
 
 > library for parsing and generating CSS color strings.
 

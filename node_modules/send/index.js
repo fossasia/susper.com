@@ -50,13 +50,6 @@ var sep = path.sep
 var BYTES_RANGE_REGEXP = /^ *bytes=/
 
 /**
- * Simple expression to split token list.
- * @private
- */
-
-var TOKEN_LIST_REGEXP = / *, */
-
-/**
  * Maximum value allowed for the max age.
  * @private
  */
@@ -345,7 +338,7 @@ SendStream.prototype.isPreconditionFailure = function isPreconditionFailure () {
   var match = req.headers['if-match']
   if (match) {
     var etag = res.getHeader('ETag')
-    return !etag || (match !== '*' && match.split(TOKEN_LIST_REGEXP).every(function (match) {
+    return !etag || (match !== '*' && parseTokenList(match).every(function (match) {
       return match !== etag && match !== 'W/' + etag && 'W/' + match !== etag
     }))
   }
@@ -1054,6 +1047,42 @@ function parseHttpDate (date) {
   return typeof timestamp === 'number'
     ? timestamp
     : NaN
+}
+
+/**
+ * Parse a HTTP token list.
+ *
+ * @param {string} str
+ * @private
+ */
+
+function parseTokenList (str) {
+  var end = 0
+  var list = []
+  var start = 0
+
+  // gather tokens
+  for (var i = 0, len = str.length; i < len; i++) {
+    switch (str.charCodeAt(i)) {
+      case 0x20: /*   */
+        if (start === end) {
+          start = end = i + 1
+        }
+        break
+      case 0x2c: /* , */
+        list.push(str.substring(start, end))
+        start = end = i + 1
+        break
+      default:
+        end = i + 1
+        break
+    }
+  }
+
+  // final token
+  list.push(str.substring(start, end))
+
+  return list
 }
 
 /**

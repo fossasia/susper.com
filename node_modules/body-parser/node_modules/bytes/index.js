@@ -33,9 +33,6 @@ var map = {
   tb: ((1 << 30) * 1024)
 };
 
-// TODO: use is-finite module?
-var numberIsFinite = Number.isFinite || function (v) { return typeof v === 'number' && isFinite(v); };
-
 var parseRegExp = /^((-|\+)?(\d+(?:\.\d+)?)) *(kb|mb|gb|tb)$/i;
 
 /**
@@ -76,6 +73,7 @@ function bytes(value, options) {
  * @param {number} [options.decimalPlaces=2]
  * @param {number} [options.fixedDecimals=false]
  * @param {string} [options.thousandsSeparator=]
+ * @param {string} [options.unit=]
  * @param {string} [options.unitSeparator=]
  *
  * @returns {string|null}
@@ -83,7 +81,7 @@ function bytes(value, options) {
  */
 
 function format(value, options) {
-  if (!numberIsFinite(value)) {
+  if (!Number.isFinite(value)) {
     return null;
   }
 
@@ -92,16 +90,20 @@ function format(value, options) {
   var unitSeparator = (options && options.unitSeparator) || '';
   var decimalPlaces = (options && options.decimalPlaces !== undefined) ? options.decimalPlaces : 2;
   var fixedDecimals = Boolean(options && options.fixedDecimals);
-  var unit = 'B';
+  var unit = (options && options.unit) || '';
 
-  if (mag >= map.tb) {
-    unit = 'TB';
-  } else if (mag >= map.gb) {
-    unit = 'GB';
-  } else if (mag >= map.mb) {
-    unit = 'MB';
-  } else if (mag >= map.kb) {
-    unit = 'kB';
+  if (!unit || !map[unit.toLowerCase()]) {
+    if (mag >= map.tb) {
+      unit = 'TB';
+    } else if (mag >= map.gb) {
+      unit = 'GB';
+    } else if (mag >= map.mb) {
+      unit = 'MB';
+    } else if (mag >= map.kb) {
+      unit = 'KB';
+    } else {
+      unit = 'B';
+    }
   }
 
   var val = value / map[unit.toLowerCase()];

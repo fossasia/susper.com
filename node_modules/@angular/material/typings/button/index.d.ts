@@ -1,3 +1,4 @@
-export * from './button';
-export declare class MdButtonModule {
-}
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

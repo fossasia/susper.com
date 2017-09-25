@@ -1,4 +1,4 @@
-export declare class MdPaginatorModule {
-}
-export * from './paginator';
-export * from './paginator-intl';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

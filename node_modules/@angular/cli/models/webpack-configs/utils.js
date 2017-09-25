@@ -59,10 +59,10 @@ exports.extraEntryParser = extraEntryParser;
 function getOutputHashFormat(option, length = 20) {
     /* tslint:disable:max-line-length */
     const hashFormats = {
-        none: { chunk: '', extract: '', file: '' },
-        media: { chunk: '', extract: '', file: `.[hash:${length}]` },
-        bundles: { chunk: `.[chunkhash:${length}]`, extract: `.[contenthash:${length}]`, file: '' },
-        all: { chunk: `.[chunkhash:${length}]`, extract: `.[contenthash:${length}]`, file: `.[hash:${length}]` },
+        none: { chunk: '', extract: '', file: '', script: '' },
+        media: { chunk: '', extract: '', file: `.[hash:${length}]`, script: '' },
+        bundles: { chunk: `.[chunkhash:${length}]`, extract: `.[contenthash:${length}]`, file: '', script: '.[hash]' },
+        all: { chunk: `.[chunkhash:${length}]`, extract: `.[contenthash:${length}]`, file: `.[hash:${length}]`, script: '.[hash]' },
     };
     /* tslint:enable:max-line-length */
     return hashFormats[option] || hashFormats['none'];

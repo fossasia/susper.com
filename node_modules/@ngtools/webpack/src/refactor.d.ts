@@ -33,7 +33,7 @@ export declare class TypeScriptFileRefactor {
     prependBefore(node: ts.Node, text: string): void;
     insertImport(symbolName: string, modulePath: string): void;
     removeNode(node: ts.Node): void;
-    removeNodes(...nodes: ts.Node[]): void;
+    removeNodes(...nodes: Array<ts.Node | null>): void;
     replaceNode(node: ts.Node, replacement: string): void;
     sourceMatch(re: RegExp): boolean;
     transpile(compilerOptions: ts.CompilerOptions): TranspileOutput;

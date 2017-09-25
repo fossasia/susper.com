@@ -1,4 +1,4 @@
-export declare class MdSidenavModule {
-}
-export * from './drawer';
-export * from './sidenav';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

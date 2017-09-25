@@ -12,14 +12,9 @@ import { Optional, OnDestroy } from '@angular/core';
  */
 export declare class OverlayContainer implements OnDestroy {
     protected _containerElement: HTMLElement;
-    private _themeClass;
-    /**
-     * Base theme to be applied to all overlay-based components.
-     */
-    themeClass: string;
     ngOnDestroy(): void;
     /**
-     * This method returns the overlay container element.  It will lazily
+     * This method returns the overlay container element. It will lazily
      * create the element the first time  it is called to facilitate using
      * the container in non-browser environments.
      * @returns the container element

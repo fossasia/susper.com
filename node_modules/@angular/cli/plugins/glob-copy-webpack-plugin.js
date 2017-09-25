@@ -4,17 +4,10 @@ const fs = require("fs");
 const path = require("path");
 const glob = require("glob");
 const denodeify = require("denodeify");
+const is_directory_1 = require("../utilities/is-directory");
 const flattenDeep = require('lodash/flattenDeep');
 const globPromise = denodeify(glob);
 const statPromise = denodeify(fs.stat);
-function isDirectory(path) {
-    try {
-        return fs.statSync(path).isDirectory();
-    }
-    catch (_) {
-        return false;
-    }
-}
 // Adds an asset to the compilation assets;
 function addAsset(compilation, asset) {
     const realPath = path.resolve(asset.originPath, asset.relativePath);
@@ -50,7 +43,7 @@ class GlobCopyWebpackPlugin {
             pattern.output = pattern.output || '';
             pattern.glob = pattern.glob || '';
             // Convert dir patterns to globs.
-            if (isDirectory(path.resolve(pattern.input, pattern.glob))) {
+            if (is_directory_1.isDirectory(path.resolve(pattern.input, pattern.glob))) {
                 pattern.glob = pattern.glob + '/**/*';
             }
             return pattern;

@@ -2,6 +2,6 @@
   "name": "@angular/cdk/collections",
   "typings": "../collections.d.ts",
   "main": "../bundles/cdk-collections.umd.js",
-  "module": "../@angular/cdk/collections.es5.js",
-  "es2015": "../@angular/cdk/collections.js"
+  "module": "../esm5/collections.es5.js",
+  "es2015": "../esm2015/collections.js"
 }

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ComponentFactoryResolver, ApplicationRef, Injector, NgZone } from '@angular/core';
-import { OverlayState } from './overlay-state';
+import { OverlayConfig } from './overlay-config';
 import { OverlayRef } from './overlay-ref';
 import { OverlayPositionBuilder } from './position/overlay-position-builder';
 import { OverlayContainer } from './overlay-container';
@@ -33,7 +33,7 @@ export declare class Overlay {
      * @param state State to apply to the overlay.
      * @returns Reference to the created overlay.
      */
-    create(state?: OverlayState): OverlayRef;
+    create(state?: OverlayConfig): OverlayRef;
     /**
      * Returns a position builder that can be used, via fluent API,
      * to construct and configure a position strategy.

@@ -2,6 +2,6 @@
   "name": "@angular/cdk/portal",
   "typings": "../portal.d.ts",
   "main": "../bundles/cdk-portal.umd.js",
-  "module": "../@angular/cdk/portal.es5.js",
-  "es2015": "../@angular/cdk/portal.js"
+  "module": "../esm5/portal.es5.js",
+  "es2015": "../esm2015/portal.js"
 }

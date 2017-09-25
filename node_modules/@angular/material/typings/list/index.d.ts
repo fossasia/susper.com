@@ -1,4 +1,4 @@
-export declare class MdListModule {
-}
-export * from './list';
-export * from './selection-list';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

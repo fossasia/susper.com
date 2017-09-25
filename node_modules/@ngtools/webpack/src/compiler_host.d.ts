@@ -68,13 +68,13 @@ export declare class WebpackCompilerHost implements ts.CompilerHost {
     private _setFileContent(fileName, content);
     readonly dirty: boolean;
     enableCaching(): void;
-    populateWebpackResolver(resolver: any): void;
     resetChangedFileTracker(): void;
     getChangedFilePaths(): string[];
     invalidate(fileName: string): void;
-    fileExists(fileName: string): boolean;
+    fileExists(fileName: string, delegate?: boolean): boolean;
     readFile(fileName: string): string;
-    directoryExists(directoryName: string): boolean;
+    stat(path: string): VirtualStats;
+    directoryExists(directoryName: string, delegate?: boolean): boolean;
     getFiles(path: string): string[];
     getDirectories(path: string): string[];
     getSourceFile(fileName: string, languageVersion: ts.ScriptTarget, _onError?: OnErrorFn): ts.SourceFile;

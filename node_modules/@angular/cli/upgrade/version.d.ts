@@ -18,5 +18,6 @@ export declare class Version {
     static fromProject(): Version;
     static assertAngularVersionIs2_3_1OrHigher(projectRoot: string): void;
     static assertPostWebpackVersion(): void;
+    static assertTypescriptVersion(projectRoot: string): void;
     static isPreWebpack(): boolean;
 }

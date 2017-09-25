@@ -1,5 +1,4 @@
-export * from './cell';
-export * from './table';
-export * from './row';
-export declare class MdTableModule {
-}
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

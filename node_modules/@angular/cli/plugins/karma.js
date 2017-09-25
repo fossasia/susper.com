@@ -5,6 +5,7 @@ const fs = require("fs");
 const glob = require("glob");
 const webpack = require("webpack");
 const webpackDevMiddleware = require('webpack-dev-middleware');
+const is_directory_1 = require("../utilities/is-directory");
 const webpack_test_config_1 = require("../models/webpack-test-config");
 const karma_webpack_throw_error_1 = require("./karma-webpack-throw-error");
 /**
@@ -17,14 +18,6 @@ const karma_webpack_throw_error_1 = require("./karma-webpack-throw-error");
 const getAppFromConfig = require('../utilities/app-utils').getAppFromConfig;
 let blocked = [];
 let isBlocked = false;
-function isDirectory(path) {
-    try {
-        return fs.statSync(path).isDirectory();
-    }
-    catch (_) {
-        return false;
-    }
-}
 // Add files to the Karma files array.
 function addKarmaFiles(files, newFiles, prepend = false) {
     const defaults = {
@@ -79,7 +72,7 @@ const init = (config, emitter, customFileHandlers) => {
             pattern.glob = pattern.glob || '';
             // Build karma file pattern.
             const assetPath = path.join(pattern.input, pattern.glob);
-            const filePattern = isDirectory(assetPath) ? assetPath + '/**' : assetPath;
+            const filePattern = is_directory_1.isDirectory(assetPath) ? assetPath + '/**' : assetPath;
             addKarmaFiles(config.files, [{ pattern: filePattern, included: false }]);
             // The `files` entry serves the file from `/base/{asset.input}/{asset.glob}`.
             // We need to add a URL rewrite that exposes the asset as `/{asset.output}/{asset.glob}`.

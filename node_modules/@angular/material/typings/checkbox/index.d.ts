@@ -1,4 +1,4 @@
-export declare class MdCheckboxModule {
-}
-export * from './checkbox';
-export * from './checkbox-required-validator';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

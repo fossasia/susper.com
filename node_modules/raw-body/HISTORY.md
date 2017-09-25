@@ -1,3 +1,30 @@
+2.3.2 / 2017-09-09
+==================
+
+  * deps: iconv-lite@0.4.19
+    - Fix ISO-8859-1regression
+    - Update Windows-1255
+
+2.3.1 / 2017-09-07
+==================
+
+  * deps: bytes@3.0.0
+  * deps: http-errors@1.6.2
+    - deps: depd@1.1.1
+  * perf: skip buffer decoding on overage chunk
+
+2.3.0 / 2017-08-04
+==================
+
+  * Add TypeScript definitions
+  * Use `http-errors` for standard emitted errors
+  * deps: bytes@2.5.0
+  * deps: iconv-lite@0.4.18
+    - Add support for React Native
+    - Add a warning if not loaded as utf-8
+    - Fix CESU-8 decoding in Node.js 8
+    - Improve speed of ISO-8859-1 encoding
+
 2.2.0 / 2017-01-02
 ==================
 

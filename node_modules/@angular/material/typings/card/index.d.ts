@@ -1,3 +1,4 @@
-export declare class MdCardModule {
-}
-export * from './card';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

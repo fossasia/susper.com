@@ -1,7 +1,18 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
-See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+<a name="1.1.14"></a>
+## [1.1.14](https://github.com/istanbuljs/istanbuljs/compare/istanbul-api@1.1.9...istanbul-api@1.1.14) (2017-09-05)
+
+
+### Performance Improvements
+
+* set excludes to options.ignore on fileset ([#67](https://github.com/istanbuljs/istanbuljs/issues/67)) ([8b514a3](https://github.com/istanbuljs/istanbuljs/commit/8b514a3))
+
+
+
 
 <a name="1.1.13"></a>
 ## [1.1.13](https://github.com/istanbuljs/istanbuljs/compare/istanbul-api@1.1.9...istanbul-api@1.1.13) (2017-08-26)

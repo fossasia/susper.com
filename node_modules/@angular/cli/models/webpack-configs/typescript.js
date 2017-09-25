@@ -58,6 +58,7 @@ function _createAotPlugin(wco, options) {
         i18nFormat: buildOptions.i18nFormat,
         locale: buildOptions.locale,
         replaceExport: appConfig.platform === 'server',
+        missingTranslation: buildOptions.missingTranslation,
         hostReplacementPaths,
         // If we don't explicitely list excludes, it will default to `['**/*.spec.ts']`.
         exclude: []

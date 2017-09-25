@@ -7,7 +7,7 @@
  */
 import { NgZone } from '@angular/core';
 import { PortalHost, Portal } from '@angular/cdk/portal';
-import { OverlayState } from './overlay-state';
+import { OverlayConfig } from './overlay-config';
 import { Observable } from 'rxjs/Observable';
 /**
  * Reference to an overlay that has been created with the Overlay service.
@@ -22,7 +22,7 @@ export declare class OverlayRef implements PortalHost {
     private _backdropClick;
     private _attachments;
     private _detachments;
-    constructor(_portalHost: PortalHost, _pane: HTMLElement, _state: OverlayState, _ngZone: NgZone);
+    constructor(_portalHost: PortalHost, _pane: HTMLElement, _state: OverlayConfig, _ngZone: NgZone);
     /** The overlay's HTML element */
     readonly overlayElement: HTMLElement;
     /**
@@ -55,7 +55,7 @@ export declare class OverlayRef implements PortalHost {
     /**
      * Gets the current state config of the overlay.
      */
-    getState(): OverlayState;
+    getState(): OverlayConfig;
     /** Updates the position of the overlay based on the position strategy. */
     updatePosition(): void;
     /** Updates the text direction of the overlay panel. */

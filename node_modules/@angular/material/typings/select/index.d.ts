@@ -1,4 +1,4 @@
-export declare class MdSelectModule {
-}
-export * from './select';
-export { fadeInContent, transformPanel, transformPlaceholder } from './select-animations';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

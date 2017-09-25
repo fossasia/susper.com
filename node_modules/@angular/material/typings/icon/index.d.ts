@@ -1,4 +1,4 @@
-export declare class MdIconModule {
-}
-export * from './icon';
-export * from './icon-registry';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

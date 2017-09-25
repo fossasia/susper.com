@@ -130,7 +130,7 @@ export declare const startWith: {
     <T>(this: Observable<T>, v1: T, v2: T, v3: T, v4: T, scheduler?: IScheduler | undefined): Observable<T>;
     <T>(this: Observable<T>, v1: T, v2: T, v3: T, v4: T, v5: T, scheduler?: IScheduler | undefined): Observable<T>;
     <T>(this: Observable<T>, v1: T, v2: T, v3: T, v4: T, v5: T, v6: T, scheduler?: IScheduler | undefined): Observable<T>;
-    <T>(this: Observable<T>, ...array: (IScheduler | T)[]): Observable<T>;
+    <T>(this: Observable<T>, ...array: (T | IScheduler)[]): Observable<T>;
 } & StartWithBrand & Function;
 export declare const debounceTime: (<T>(this: Observable<T>, dueTime: number, scheduler?: IScheduler | undefined) => Observable<T>) & DebounceTimeBrand & Function;
 export declare const auditTime: (<T>(this: Observable<T>, duration: number, scheduler?: IScheduler | undefined) => Observable<T>) & AuditTimeBrand & Function;

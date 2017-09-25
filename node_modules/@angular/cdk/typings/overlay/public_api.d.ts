@@ -9,11 +9,11 @@ import { Provider } from '@angular/core';
 export declare const OVERLAY_PROVIDERS: Provider[];
 export declare class OverlayModule {
 }
+export * from './overlay-config';
 export { Overlay } from './overlay';
 export { OverlayContainer } from './overlay-container';
 export { FullscreenOverlayContainer } from './fullscreen-overlay-container';
 export { OverlayRef } from './overlay-ref';
-export { OverlayState } from './overlay-state';
 export { ConnectedOverlayDirective, OverlayOrigin } from './overlay-directives';
 export { ViewportRuler } from '@angular/cdk/scrolling';
 export { ComponentType } from '@angular/cdk/portal';

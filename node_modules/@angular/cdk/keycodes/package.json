@@ -2,6 +2,6 @@
   "name": "@angular/cdk/keycodes",
   "typings": "../keycodes.d.ts",
   "main": "../bundles/cdk-keycodes.umd.js",
-  "module": "../@angular/cdk/keycodes.es5.js",
-  "es2015": "../@angular/cdk/keycodes.js"
+  "module": "../esm5/keycodes.es5.js",
+  "es2015": "../esm2015/keycodes.js"
 }

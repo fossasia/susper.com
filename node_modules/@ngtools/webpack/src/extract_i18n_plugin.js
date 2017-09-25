@@ -36,7 +36,7 @@ class ExtractI18nPlugin {
         catch (err) {
             throw new Error(`An error happened while parsing ${this._tsConfigPath} JSON: ${err}.`);
         }
-        const tsConfig = ts.parseJsonConfigFileContent(tsConfigJson, ts.sys, basePath, null, this._tsConfigPath);
+        const tsConfig = ts.parseJsonConfigFileContent(tsConfigJson, ts.sys, basePath, undefined, this._tsConfigPath);
         let fileNames = tsConfig.fileNames;
         if (options.hasOwnProperty('exclude')) {
             let exclude = typeof options.exclude == 'string'

@@ -1,5 +1,5 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Susper</title><base href="/"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><link rel="stylesheet" href="assets/css/base.css"><link rel="stylesheet" href="assets/css/bootstrap-base.css"><!-- jQuery library --><script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><script src="assets/Chart.bundle.min.js"></script><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><meta name="description" content="Susper is a decentral Search Engine that uses the peer to peer system
-    'YaCy' and 'Apache Solr' to crawl and index search results."><!-- Latest compiled JavaScript --><script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/x-icon" href="favicon.ico"><link rel="search" href="//susper.com/susper.xml" type="application/opensearchdescription+xml" title="susper.com"/><link href="styles.d41d8cd98f00b204e980.bundle.css" rel="stylesheet"/></head><body><!--<div id="set-susper-default">
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Susper</title><base href="/"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><link rel="stylesheet" href="assets/css/base.css"><link rel="stylesheet" href="assets/css/bootstrap-base.css"><!-- jQuery library --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><script src="assets/Chart.bundle.min.js"></script><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><meta name="description" content="Susper is a decentral Search Engine that uses the peer to peer system
+    'YaCy' and 'Apache Solr' to crawl and index search results."><!-- Latest compiled JavaScript --><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/x-icon" href="favicon.ico"><link rel="search" href="https://susper.com/susper.xml" type="application/opensearchdescription+xml" title="susper.com"/><link href="styles.d41d8cd98f00b204e980.bundle.css" rel="stylesheet"/></head><body><!--<div id="set-susper-default">
   <h3>Set Susper as your default search engine on Mozilla!</h3>
   <ol>
     <li><button id="install-susper">Install susper</button></li>
@@ -18,7 +18,7 @@
     }
 
     if (window.external && window.external.IsSearchProviderInstalled) {
-        var isInstalled = window.external.IsSearchProviderInstalled("http://susper.com");
+        var isInstalled = window.external.IsSearchProviderInstalled("https://susper.com");
 
         if (!isInstalled) {
             $("#set-susper-default").show();
@@ -26,7 +26,7 @@
     }
 
     $("#install-susper").on("click", function () {
-        window.external.AddSearchProvider("http://susper.com/susper.xml");
+        window.external.AddSearchProvider("https://susper.com/susper.xml");
     });
 
     $("#cancel-installation").on("click", function () {
@@ -38,4 +38,4 @@
     if (redirect && redirect != location.href) {
       history.replaceState(null, null, redirect);
     }
-  })();</script><app-root></app-root><script type="text/javascript" src="inline.3bae565455ebcd3598f3.bundle.js"></script><script type="text/javascript" src="sw-register.e8ad119c04e6f7da649e.bundle.js"></script><script type="text/javascript" src="vendor.8d88d1046510526acb53.bundle.js"></script><script type="text/javascript" src="main.b126f342b182dcfac212.bundle.js"></script></body></html>
+  })();</script><app-root></app-root><script type="text/javascript" src="inline.41849f2f47e1a7a0b968.bundle.js"></script><script type="text/javascript" src="sw-register.e8ad119c04e6f7da649e.bundle.js"></script><script type="text/javascript" src="vendor.194f765531ba3704572a.bundle.js"></script><script type="text/javascript" src="main.f02a2bc09677785bca85.bundle.js"></script></body></html>

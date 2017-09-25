@@ -1,4 +1,4 @@
-declare class MdProgressSpinnerModule {
-}
-export { MdProgressSpinnerModule };
-export * from './progress-spinner';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';

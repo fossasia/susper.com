@@ -27,13 +27,7 @@
     "email": "thlorenz@gmx.de"
   },
   "_npmVersion": "2.15.6",
-  "_phantomChildren": {
-    "core-util-is": "1.0.2",
-    "inherits": "2.0.3",
-    "process-nextick-args": "1.0.7",
-    "safe-buffer": "5.1.1",
-    "util-deprecate": "1.0.2"
-  },
+  "_phantomChildren": {},
   "_requested": {
     "raw": "readdirp@^2.0.0",
     "scope": null,

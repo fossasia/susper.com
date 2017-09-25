@@ -1,3 +1,49 @@
+1.18.2 / 2017-09-22
+===================
+
+  * deps: debug@2.6.9
+  * perf: remove argument reassignment
+
+1.18.1 / 2017-09-12
+===================
+
+  * deps: content-type@~1.0.4
+    - perf: remove argument reassignment
+    - perf: skip parameter parsing when no parameters
+  * deps: iconv-lite@0.4.19
+    - Fix ISO-8859-1 regression
+    - Update Windows-1255
+  * deps: qs@6.5.1
+    - Fix parsing & compacting very deep objects
+  * deps: raw-body@2.3.2
+    - deps: iconv-lite@0.4.19
+
+1.18.0 / 2017-09-08
+===================
+
+  * Fix JSON strict violation error to match native parse error
+  * Include the `body` property on verify errors
+  * Include the `type` property on all generated errors
+  * Use `http-errors` to set status code on errors
+  * deps: bytes@3.0.0
+  * deps: debug@2.6.8
+  * deps: depd@~1.1.1
+    - Remove unnecessary `Buffer` loading
+  * deps: http-errors@~1.6.2
+    - deps: depd@1.1.1
+  * deps: iconv-lite@0.4.18
+    - Add support for React Native
+    - Add a warning if not loaded as utf-8
+    - Fix CESU-8 decoding in Node.js 8
+    - Improve speed of ISO-8859-1 encoding
+  * deps: qs@6.5.0
+  * deps: raw-body@2.3.1
+    - Use `http-errors` for standard emitted errors
+    - deps: bytes@3.0.0
+    - deps: iconv-lite@0.4.18
+    - perf: skip buffer decoding on overage chunk
+  * perf: prevent internal `throw` when missing charset
+
 1.17.2 / 2017-05-17
 ===================
 

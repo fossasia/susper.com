@@ -1,3 +1,4 @@
-export declare class MdSliderModule {
-}
-export * from './slider';
+/**
+ * Generated bundle index. Do not edit.
+ */
+export * from './public_api';
