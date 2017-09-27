@@ -65,7 +65,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 MIT
 MIT
 
-ngx-infinite-scroll@0.5.1
+ngx-infinite-scroll@0.5.2
 MIT
 MIT License
 

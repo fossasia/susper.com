@@ -17,7 +17,7 @@ toposort = require('toposort')
 ## Usage
 We want to sort the following graph.
 
-![graph](https://raw.githubusercontent.com/marcelklehr/toposort/master/graph.svg)
+![graph](https://cdn.rawgit.com/marcelklehr/toposort/8b14e9fd/graph.svg)
 
 ```js
 // First, we define our edges.

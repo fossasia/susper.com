@@ -1,5 +1,10 @@
 # Change Log
 
+## v2.9.0
+**Features:**
+* added typeguard `isMappedTypeNode`
+* added utilities `canHaveJsDoc` and `getJsDoc`
+
 ## v2.8.2
 **Bugfixes:**
 * `collectVariableUsage`: handle global augmentation like other module augmentations

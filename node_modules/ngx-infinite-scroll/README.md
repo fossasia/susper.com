@@ -1,10 +1,10 @@
 [![Build Status](https://travis-ci.org/orizens/ngx-infinite-scroll.svg?branch=master)](https://travis-ci.org/orizens/ngx-infinite-scroll)
 
 # Angular Infinite Scroll
-Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular (> 2, 4).
+Inspired by [ng-infinite-scroll](https://github.com/sroze/ngInfiniteScroll) directive for angular.
 
 ## Angular Support
-Supports Angular **> 4**  
+**Supports Angular > 4**  
 For Angular version **<= 2.3.1**, you can use ```npm i angular2-infinite-scroll``` (latest version is 0.3.42) - please notice **the angular2-infinite-scroll** package is deprecated
 
 ## Angular Consulting Services
@@ -31,6 +31,8 @@ Currently supported attributes:
 * **scrollWindow**<_boolean_> - (optional, default: **true**) - listens to the window scroll instead of the actual element scroll. this allows to invoke a callback function in the scope of the element while listenning to the window scroll.
 * **immediateCheck**<_boolean_> - (optional, default: **false**) - invokes the handler immediately to check if a scroll event has been already triggred when the page has been loaded (i.e. - when you refresh a page that has been scrolled).
 * **infiniteScrollDisabled**<_boolean_> - (optional, default: **false**) - doesn't invoke the handler if set to true
+* **horizontal**<_boolean_> - (optional, default: false) - sets the scroll to listen for horizontal events  
+* **alwaysCallback**<_boolean_> - (optional, default: false) - instructs the scroller to always trigger events 
 
 ## Behavior
 By default, the directive listens to the **window scroll** event and invoked the callback.  
@@ -73,7 +75,7 @@ import { Component } from '@angular/core';
 		<div class="search-results"
 		    infiniteScroll
 		    [infiniteScrollDistance]="2"
-		    [infiniteScrollThrottle]="300"
+		    [infiniteScrollThrottle]="50"
 		    (scrolled)="onScroll()">
 		</div>
 	`
@@ -101,7 +103,7 @@ import { Component } from '@angular/core';
 		<div class="search-results"
 		    infiniteScroll
 		    [infiniteScrollDistance]="2"
-		    [infiniteScrollThrottle]="500"
+		    [infiniteScrollThrottle]="50"
 		    (scrolled)="onScroll()"
 		    [scrollWindow]="false">
 		</div>
@@ -128,7 +130,7 @@ import { InfiniteScroll } from 'ngx-infinite-scroll';
 		    infiniteScroll
 		    [infiniteScrollDistance]="2"
 		    [infiniteScrollUpDistance]="1.5"
-		    [infiniteScrollThrottle]="500"
+		    [infiniteScrollThrottle]="50"
 		    (scrolled)="onScrollDown()"
 		    (scrolledUp)="onScrollUp()">
 		</div>
