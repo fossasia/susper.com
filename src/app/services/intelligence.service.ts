@@ -6,8 +6,8 @@ import {Observable} from "rxjs";
 
 @Injectable()
 export class IntelligenceService {
-  server = 'http://api.susi.ai';
-  searchURL = 'http://' + this.server + '/susi/chat.json';
+  server = 'https://api.susi.ai';
+  searchURL = 'https://' + this.server + '/susi/chat.json';
 
   constructor(
     private http: Http,
@@ -22,7 +22,7 @@ export class IntelligenceService {
     params.set('callback', 'JSONP_CALLBACK');
 
     return this.jsonp
-      .get('http://api.asksusi.com/susi/chat.json', {search: params}).map(res =>
+      .get('https://api.asksusi.com/susi/chat.json', {search: params}).map(res =>
         res.json()
       );
   }

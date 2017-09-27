@@ -10,9 +10,9 @@ import {Observable} from 'rxjs';
 @Injectable()
 export class SearchService {
   server = 'yacy.searchlab.eu';
-  searchURL = 'http://' + this.server + '/solr/select?callback=?';
-  suggestUrl = 'http://' + this.server + '/suggest.json?callback=?';
-  homepage = 'http://susper.com';
+  searchURL = 'https://' + this.server + '/solr/select?callback=?';
+  suggestUrl = 'https://' + this.server + '/suggest.json?callback=?';
+  homepage = 'https://susper.com';
   logo = '../images/susper.svg';
   Items: any;
   headline: string;
@@ -45,7 +45,7 @@ export class SearchService {
     params.append('facet.field', 'collection_sxt');
 
     return this.jsonp
-      .get('http://yacy.searchlab.eu/solr/select', {search: params}).map(res =>
+      .get('https://yacy.searchlab.eu/solr/select', {search: params}).map(res =>
 
         res.json()[0]
 
