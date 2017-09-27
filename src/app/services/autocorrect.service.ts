@@ -9,7 +9,7 @@ import * as fromRoot from '../reducers';
 export class AutocorrectService {
   server = 'https://montanaflynn-spellcheck.p.mashape.com';
   searchURL = this.server + '/check/';
-  homepage = 'http://susper.com';
+  homepage = 'https://susper.com';
   logo = '../images/susper.svg';
 
   constructor(

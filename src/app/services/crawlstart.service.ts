@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
 @Injectable()
 export class CrawlstartService {
   server = 'yacy.searchlab.eu';
-  searchURL = 'http://' + this.server + '/solr/select?callback=?';
+  searchURL = 'https://' + this.server + '/solr/select?callback=?';
 
   constructor(
     private http: Http,
@@ -15,7 +15,7 @@ export class CrawlstartService {
   ) { }
 
   getcrawldefaults() {
-    return this.jsonp.get('http://yacygrid.com:8300/yacy/grid/crawler/defaultValues.json?CALLBACK=JSONP_CALLBACK').map(res => {
+    return this.jsonp.get('https://yacygrid.com:8300/yacy/grid/crawler/defaultValues.json?CALLBACK=JSONP_CALLBACK').map(res => {
       res.json();
     });
   }
@@ -41,7 +41,7 @@ export class CrawlstartService {
 
     let options = new RequestOptions({ search: params });
     return this.jsonp
-      .get('http://yacy.searchlab.eu/Crawler_p.json', options).map(res => {
+      .get('https://yacy.searchlab.eu/Crawler_p.json', options).map(res => {
         res.json();
       });
   }

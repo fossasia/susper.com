@@ -15,7 +15,7 @@ module.exports = function (config) {
     ],
     files: [
       { pattern: './src/test.ts', watched: false },
-      'http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'
+      'https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'
     ],
     preprocessors: {
       './src/test.ts': ['@angular/cli'],

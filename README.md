@@ -80,7 +80,7 @@ The repository is licensed under Creative Commons Attribution 2.0 License (CC-BY
 
 The project is maintained by
 * Michael Christen ([@Orbiter](https://github.com/Orbiter))
-* Mario Behling ([@mariobehling](http://github.com/mariobehling))
+* Mario Behling ([@mariobehling](https://github.com/mariobehling))
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
