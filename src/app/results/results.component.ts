@@ -186,7 +186,10 @@ export class ResultsComponent implements OnInit {
         urldata.mode = query['mode'];
       }
 
-      urldata.query = query['query'];
+      if (query['query']) {
+        urldata.query = query['query'].replace('+', ' ');
+      }
+
       this.store.dispatch(new queryactions.QueryAction(query['query']));
       this.querylook = Object.assign({}, query);
       this.begin = Number(query['start']) + 1;
