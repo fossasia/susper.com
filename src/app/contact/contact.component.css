@@ -33,12 +33,12 @@
 .navbar-logo {
     height: 30px;
     padding-left: 20px;
-    margin-top: -4%;
 }
 
 .navbar-text {
     padding-right: 30px;
     font-size: 20px;
+    margin-top: 6px;
 }
 
 .text-center {
