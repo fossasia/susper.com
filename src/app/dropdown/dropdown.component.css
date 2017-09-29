@@ -96,7 +96,7 @@ p {
 }
 
 hr {
-    clear: both !important;
+    clear: both;
     margin-bottom: 10px;
 }
 
