@@ -12,7 +12,7 @@ export class KnowledgeapiService {
 
   server = 'http://lookup.dbpedia.org';
   searchURL = this.server + '/api/search/KeywordSearch?';
-  homepage = 'http://susper.com';
+  homepage = 'https://susper.com';
   logo = '../images/susper.svg';
 
   constructor(

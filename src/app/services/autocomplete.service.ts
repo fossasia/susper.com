@@ -12,8 +12,8 @@ import * as fromRoot from '../reducers';
 @Injectable()
 export class AutocompleteService {
   server = 'yacy.searchlab.eu';
-  suggestUrl = 'http://' + this.server + '/suggest.json?callback=?';
-  homepage = 'http://susper.com';
+  suggestUrl = 'https://' + this.server + '/suggest.json?callback=?';
+  homepage = 'https://susper.com';
   logo = '../images/susper.svg';
 
   constructor(
@@ -41,7 +41,7 @@ export class AutocompleteService {
     let headers = new Headers({ 'Accept': 'application/json' });
     let options = new RequestOptions({ headers: headers, search: params });
     return this.jsonp
-      .get('http://yacy.searchlab.eu/suggest.json', {search: params}).map(res =>
+      .get('https://yacy.searchlab.eu/suggest.json', {search: params}).map(res =>
 
         res.json()[0]
 
