@@ -7,14 +7,49 @@ li.dropdown-menu-box {
   grid-template-columns: 1fr 1fr 1fr;
   background-color: white;
 }
+.menu-row a {
+    color: #737373;
+    text-decoration: none;
+}
 
 .menu-item {
-  display: inline-block;
-  width: 86px;
+    border: 1px solid #fff;
+    float: left;
+    margin-bottom: 10px;
+    display: block;
+    width: 87px;
+    padding: 10px 0;
+    text-align: center;
+}
+.menu-item:hover {
+    border-color: #ddd;
+}
+.menu-item .img {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.menu-item img {
+    display: block;
+    margin: 0 auto 5px auto;
+    height: auto;
+    width: auto;
+    max-height: 50px;
+    max-width: 60px;
+}
+.menu-item p {
+    height: 28px;
+    line-height: 14px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dropdown-menu {
-  height: 500px;
+  height: auto;
   width: 327px;
   padding: 28px;
 }
@@ -47,6 +82,7 @@ div.block:hover {
 }
 
 div.block {
+    border: 1px solid #fff;
     text-align: center;
 }
 
@@ -54,81 +90,19 @@ p {
     padding: 10px;
 }
 
-.loklak {
-    width: 41px;
-    height: 47.8px;
-}
-
-div#loklak-logo {
-    padding-top: 6px;
-}
-
-div#fossasia-logo {
-  padding-top: 6px;
-}
-
-div#susi-logo {
-  padding-top: 6px;
-}
-
-img.eventyay {
-    width: 98px;
-    height: 28.2px;
-}
-
-div#eventyay {
-    padding-left: 5px;
-}
-
-p.eventyay-text {
-    padding-left: 20px;
-}
-
-div#labs {
-    padding-left: 64px;
-    margin-top: -18px;
-}
-
-.lab-link {
-    color: #737373;
-}
-
-p.fossasia-text {
-    margin-left: -11px;
-}
-
-p.loklak-text {
-    margin-left: -5px;
-}
-
-p.search-text {
-    margin-left: -5px;
-}
-
-p.center-align-text {
-    margin-top: -30px;
-    margin-left: 1px;
-}
-
-p.bug {
-    margin-left: 7px;
-}
-
 #side-menu{
   width:0;
   float: right;
 }
 
-div#text-bug {
-    margin-left: -5px;
-}
-
-p.contact-text {
-    margin-left: -8.5px;
-}
-
 hr {
-    padding-top: 10px;
+    clear: both !important;
+    margin-bottom: 10px;
+}
+
+div#labs {
+    text-align: center;
+    margin: 0 0 -20px 0;
 }
 
 @media screen and (max-width: 2670px) {
@@ -173,4 +147,5 @@ hr {
   .dropdown-menu-box {
       margin-left: -210%;
   }
+
 }
