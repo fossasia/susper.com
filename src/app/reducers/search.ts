@@ -30,23 +30,23 @@ const initialState: State = {
 export function reducer(state: State = initialState, action: search.Actions): State {
   switch (action.type) {
     case search.ActionTypes.CHANGE: {
-      const search = action.payload.response;
+      const changeSearch = action.payload.response;
       const append = action.payload.append;
       if (append) {
-        const newitems = state.items.concat(search.channels[0].items);
+        const newitems = state.items.concat(changeSearch.channels[0].items);
         return Object.assign({}, state, {
           searchresults: search,
           items: newitems,
-          totalResults: Number(search.channels[0].totalResults) || 0,
-          navigation: search.channels[0].navigation,
+          totalResults: Number(changeSearch.channels[0].totalResults) || 0,
+          navigation: changeSearch.channels[0].navigation,
           responsetime: new Date()
         });
       } else {
         return Object.assign({}, state, {
-          searchresults: search,
-          items: search.channels[0].items,
-          totalResults: Number(search.channels[0].totalResults) || 0,
-          navigation: search.channels[0].navigation,
+          searchresults: changeSearch,
+          items: changeSearch.channels[0].items,
+          totalResults: Number(changeSearch.channels[0].totalResults) || 0,
+          navigation: changeSearch.channels[0].navigation,
           responsetime: new Date()
         });
       }
