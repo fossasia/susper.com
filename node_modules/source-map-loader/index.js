@@ -15,7 +15,7 @@ var baseRegex = "\\s*[@#]\\s*sourceMappingURL\\s*=\\s*([^\\s]*)(?![\\S\\s]*sourc
 	// Matches // .... comments
 	regex2 = new RegExp("//"+baseRegex+"($|\n|\r\n?)"),
 	// Matches DataUrls
-	regexDataUrl = /data:[^;\n]+(?:;charset=[^;\n]+)?;base64,(.*)/;
+	regexDataUrl = /data:[^;\n]+(?:;charset=[^;\n]+)?;base64,([a-zA-Z0-9+/]+={0,2})/;
 
 module.exports = function(input, inputMap) {
 	this.cacheable && this.cacheable();
@@ -28,7 +28,16 @@ module.exports = function(input, inputMap) {
 		var dataUrlMatch = regexDataUrl.exec(url);
 		var callback = this.async();
 		if(dataUrlMatch) {
-			processMap(JSON.parse((new Buffer(dataUrlMatch[1], "base64")).toString()), this.context, callback);
+			var mapBase64 = dataUrlMatch[1];
+			var mapStr = (new Buffer(mapBase64, "base64")).toString();
+			var map;
+			try {
+				map = JSON.parse(mapStr)
+			} catch (e) {
+				emitWarning("Cannot parse inline SourceMap '" + mapBase64.substr(0, 50) + "': " + e);
+				return untouched();				
+			}
+			processMap(map, this.context, callback);
 		} else {
 			resolve(this.context, loaderUtils.urlToRequest(url), function(err, result) {
 				if(err) {

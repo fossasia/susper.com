@@ -127,6 +127,28 @@ describe("source-map-loader", function() {
 			done();
 		});
 	});
+	it("should skip invalid base64 SourceMap", function (done) {
+		execLoader(path.join(__dirname, "fixtures", "invalid-inline-source-map.js"), function (err, res, map, deps, warns) {
+			should.equal(err, null);
+			warns.should.be.eql([]);
+			should.equal(res, "without SourceMap\n// @sourceMappingURL=data:application/source-map;base64,\"something invalid\"\n// comment");
+			should.equal(map, null);
+			deps.should.be.eql([]);
+			done();
+		});
+	});
+	it("should warn on invalid base64 SourceMap", function (done) {
+		execLoader(path.join(__dirname, "fixtures", "invalid-inline-source-map2.js"), function (err, res, map, deps, warns) {
+			should.equal(err, null);
+			warns.should.matchEach(
+				new RegExp("Cannot parse inline SourceMap 'invalid\/base64=': SyntaxError: Unexpected token")
+			);
+			should.equal(res, "without SourceMap\n// @sourceMappingURL=data:application/source-map;base64,invalid/base64=\n// comment");
+			should.equal(map, null);
+			deps.should.be.eql([]);
+			done();
+		});
+	});
 	it("should warn on missing SourceMap", function(done) {
 		execLoader(path.join(__dirname, "fixtures", "missing-source-map.js"), function(err, res, map, deps, warns) {
 			should.equal(err, null);

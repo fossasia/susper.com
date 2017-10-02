@@ -321,7 +321,8 @@
                                 this._setInterval(task.invoke, task.data['delay'], task.data['args']);
                             break;
                         case 'XMLHttpRequest.send':
-                            throw new Error('Cannot make XHRs from within a fake async test.');
+                            throw new Error('Cannot make XHRs from within a fake async test. Request URL: ' +
+                                task.data['url']);
                         case 'requestAnimationFrame':
                         case 'webkitRequestAnimationFrame':
                         case 'mozRequestAnimationFrame':

@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/webpack/source-map-loader/compare/v0.2.1...v0.2.2) (2017-09-30)
+
+
+### Bug Fixes
+
+* Handle exception on loading invalid base64 source maps ([#53](https://github.com/webpack/source-map-loader/issues/53)) ([38da2eb](https://github.com/webpack/source-map-loader/commit/38da2eb))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/webpack/source-map-loader/compare/v0.2.0...v0.2.1) (2017-03-30)
 

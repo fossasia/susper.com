@@ -15,9 +15,14 @@ import {patchTimer} from '../common/timers';
 import {patchClass, patchMacroTask, patchMethod, patchOnProperties, patchPrototype, zoneSymbol} from '../common/utils';
 
 import {propertyPatch} from './define-property';
-import {eventTargetPatch} from './event-target';
+import {eventTargetPatch, patchEvent} from './event-target';
 import {propertyDescriptorPatch} from './property-descriptor';
 import {registerElementPatch} from './register-element';
+
+Zone.__load_patch('util', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
+  api.patchOnProperties = patchOnProperties;
+  api.patchMethod = patchMethod;
+});
 
 Zone.__load_patch('timers', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
   const set = 'set';
@@ -46,6 +51,7 @@ Zone.__load_patch('blocking', (global: any, Zone: ZoneType, api: _ZonePrivate) =
 });
 
 Zone.__load_patch('EventTarget', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
+  patchEvent(global, api);
   eventTargetPatch(global, api);
   // patch XMLHttpRequestEventTarget's addEventListener/removeEventListener
   const XMLHttpRequestEventTarget = (global as any)['XMLHttpRequestEventTarget'];
@@ -82,9 +88,11 @@ Zone.__load_patch('XHR', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
   const XHR_SYNC = zoneSymbol('xhrSync');
   const XHR_LISTENER = zoneSymbol('xhrListener');
   const XHR_SCHEDULED = zoneSymbol('xhrScheduled');
+  const XHR_URL = zoneSymbol('xhrURL');
 
   interface XHROptions extends TaskData {
     target: any;
+    url: string;
     args: any[];
     aborted: boolean;
   }
@@ -158,6 +166,7 @@ Zone.__load_patch('XHR', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
     const openNative: Function = patchMethod(
         window.XMLHttpRequest.prototype, 'open', () => function(self: any, args: any[]) {
           self[XHR_SYNC] = args[2] == false;
+          self[XHR_URL] = args[1];
           return openNative.apply(self, args);
         });
 
@@ -169,8 +178,14 @@ Zone.__load_patch('XHR', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
             // if the XHR is sync there is no task to schedule, just execute the code.
             return sendNative.apply(self, args);
           } else {
-            const options: XHROptions =
-                {target: self, isPeriodic: false, delay: null, args: args, aborted: false};
+            const options: XHROptions = {
+              target: self,
+              url: self[XHR_URL],
+              isPeriodic: false,
+              delay: null,
+              args: args,
+              aborted: false
+            };
             return zone.scheduleMacroTask(
                 XMLHTTPREQUEST_SOURCE, placeholderCallback, options, scheduleTask, clearTask);
           }
@@ -230,9 +245,4 @@ Zone.__load_patch('PromiseRejectionEvent', (global: any, Zone: ZoneType, api: _Z
     (Zone as any)[zoneSymbol('rejectionHandledHandler')] =
         findPromiseRejectionHandler('rejectionhandled');
   }
-});
-
-Zone.__load_patch('util', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
-  api.patchOnProperties = patchOnProperties;
-  api.patchMethod = patchMethod;
 });

@@ -22,13 +22,13 @@ under the pattern property.
 
 To use the plugin, simply add it to your webpack config's plugin list.
 
-The below example matches MIT, ISC, and any license starting with BSD.
+The below example matches any license type.
 This example will also throw an error and terminate your build if it finds a
 license containing GPL in it.
 
 ```javascript
 new LicenseWebpackPlugin({
-  pattern: /^(MIT|ISC|BSD.*)$/,
+  pattern: /.*/,
   unacceptablePattern: /GPL/,
   abortOnUnacceptableLicense: true
 });
@@ -48,7 +48,7 @@ Below is an annotated list of options that can be passed along with their defaul
     'license.txt'
   ],
   perChunkOutput: true, // whether or not to generate output for each chunk, for just create one file with all the licenses combined
-  outputTemplate: path.resolve(__dirname, '../output.template.ejs'), // ejs template for rendering the licenses
+  outputTemplate: 'output.template.ejs'), // ejs template for rendering the licenses. The default one is contained in the license-webpack-plugin directory under node_modules
   outputFilename: '[name].licenses.txt', // output name. [name] refers to the chunk name here. Any properties of the chunk can be used here, such as [hash]. If perChunkOutput is false, the default value is 'licenses.txt'
   suppressErrors: false, // suppress error messages
   includePackagesWithoutLicense: false, // whether or not to include packages that are missing a license

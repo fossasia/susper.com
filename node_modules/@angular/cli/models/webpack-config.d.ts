@@ -1,21 +1,17 @@
 import { BuildOptions } from './build-options';
-export interface WebpackConfigOptions {
+export interface WebpackConfigOptions<T extends BuildOptions = BuildOptions> {
     projectRoot: string;
-    buildOptions: BuildOptions;
+    buildOptions: T;
     appConfig: any;
 }
-export declare class NgCliWebpackConfig {
+export declare class NgCliWebpackConfig<T extends BuildOptions = BuildOptions> {
     config: any;
-    wco: WebpackConfigOptions;
-    constructor(buildOptions: BuildOptions, appConfig: any);
+    wco: WebpackConfigOptions<T>;
+    constructor(buildOptions: T, appConfig: any);
     buildConfig(): any;
-    getTargetConfig(webpackConfigOptions: WebpackConfigOptions): any;
+    getTargetConfig(webpackConfigOptions: WebpackConfigOptions<T>): any;
     validateBuildOptions(buildOptions: BuildOptions): void;
-    addTargetDefaults(buildOptions: BuildOptions): BuildOptions;
-    mergeConfigs(buildOptions: BuildOptions, appConfig: any, projectRoot: string): {
-        outputPath: string;
-        deployUrl: any;
-        baseHref: any;
-    } & BuildOptions;
+    addTargetDefaults(buildOptions: T): T;
+    mergeConfigs(buildOptions: T, appConfig: any, projectRoot: string): T;
     addAppConfigDefaults(appConfig: any): any;
 }

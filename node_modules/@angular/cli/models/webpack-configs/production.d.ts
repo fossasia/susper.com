@@ -1,5 +1,5 @@
 import { WebpackConfigOptions } from '../webpack-config';
-export declare const getProdConfig: (wco: WebpackConfigOptions) => {
+export declare function getProdConfig(wco: WebpackConfigOptions): {
     entry: {
         [key: string]: string[];
     };

@@ -133,7 +133,8 @@ class Version {
         }
     }
     static assertTypescriptVersion(projectRoot) {
-        if (!config_1.CliConfig.fromGlobal().get('warnings.typescriptMismatch')) {
+        const config = config_1.CliConfig.fromProject() || config_1.CliConfig.fromGlobal();
+        if (!config.get('warnings.typescriptMismatch')) {
             return;
         }
         let compilerVersion, tsVersion;
@@ -168,7 +169,7 @@ class Version {
 
             npm install typescript@'${currentCombo.typescript}'
 
-        To disable this warning run "ng set --global warnings.typescriptMismatch=false".
+        To disable this warning run "ng set warnings.typescriptMismatch=false".
       ` + '\n')));
         }
     }

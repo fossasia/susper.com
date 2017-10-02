@@ -132,6 +132,23 @@ suite.addBatch(
      assert.deepEqual(result, ['d', 'c', 'a', 'b'])
     }
   }
+, 'giant graphs':
+  {
+    topic: function() {
+      var graph = []
+      for (var i = 0; i < 100000; i++) {
+        graph.push([i, i + 1])
+      }
+      return graph
+    }
+  , 'should sort quickly': function(er, result){
+     var start = (new Date).getTime()
+     var sorted = toposort(result)
+     var end = (new Date).getTime()
+     var elapsedSeconds = (end - start) / 1000
+     assert(elapsedSeconds < 1)
+    }
+  }
 })
 .run(null, function() {
   (suite.results.broken+suite.results.errored) > 0 && process.exit(1)
