@@ -84,7 +84,7 @@
     <!-- Image section -->
     <div *ngIf="Display('images')">
       <div class="container">
-        <div *ngIf="totalNumber < 1">
+        <div *ngIf="totalNumber < 1" class="container-fluid col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
           <div class="noResults">
             <p>Your search - <em>{{searchdata.query}}</em> - did not match any images.</p>
             <p>Suggestions:</p>
