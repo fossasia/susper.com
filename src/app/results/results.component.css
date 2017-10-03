@@ -110,9 +110,7 @@ a {
 }
 
 .container-fluid li {
-  height: 15px;
-  line-height: 15px;
-  padding-top: 28px;
+  line-height: 18px;
 }
 
 .container-fluid li a {
@@ -363,10 +361,7 @@ a {
   padding-left: 16px;
 }
 
-.noResults >ul> li {
-  padding-top: 0;
-  padding-bottom: 18px;
-}
+
 
 .noResults em {
   font-weight: bold;
