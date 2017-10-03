@@ -1,5 +1,9 @@
 # Change Log
 
+## v2.11.1
+**Bugfixes:**
+* `collectVariableUsage`: correctly consider catch binding as block scoped declaration inside catch block
+
 ## v2.11.0
 **Bugfixes:**
 * `getJsDoc` now correctly returns JsDoc for `EndOfFileToken`
