@@ -149,5 +149,6 @@ a:hover {
 @media only screen and (max-width: 768px) {
     .navbar-logo{
         margin-left: -77px;
+        margin-top: 0px;
     }
 }

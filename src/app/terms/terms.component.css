@@ -78,7 +78,8 @@ h2 {
 	}
 
   .navbar-brand {
-    margin-left: -77px;
+	margin-left: -77px;	
+	margin-top: -9px;
 	}
 }
 
