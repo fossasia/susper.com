@@ -29,15 +29,15 @@ const initialState: State = {
 export function reducer(state: State = initialState, action: query.Actions): State {
   switch (action.type) {
     case query.ActionTypes.QUERYCHANGE: {
-      const query = action.payload;
+      const changeQuery = action.payload;
       return Object.assign({}, state, {
-        query: query,
+        query: changeQuery,
         wholequery: state.wholequery
       });
     }
 
     case query.ActionTypes.QUERYSERVER: {
-      let query = Object.assign({}, action.payload);
+      let serverQuery = Object.assign({}, action.payload);
       let resultCount = 10;
 
       if (localStorage.getItem('resultscount')) {
@@ -50,9 +50,9 @@ export function reducer(state: State = initialState, action: query.Actions): Sta
         resultCount = 10;
       }
 
-      query.rows = resultCount;
+      serverQuery.rows = resultCount;
       return Object.assign({}, state, {
-        wholequery: query,
+        wholequery: serverQuery,
         query: state.query
       });
     }
