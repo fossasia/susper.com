@@ -21,12 +21,10 @@
     margin: -57px 0 0 0
 }
 
-.navbar-brand>img {
-	margin:-5px 0 0 0;
-}
 
 .navbar-logo {
     height: 30px;
+    margin-top: 4px;
     padding-left: 20px;
 }
 
@@ -80,7 +78,8 @@ h2 {
 	}
 
   .navbar-brand {
-    margin-left: -77px;
+	  margin-left: -77px;	
+	  margin-top: -9px;
 	}
 }
 
