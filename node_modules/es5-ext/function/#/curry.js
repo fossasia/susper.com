@@ -7,7 +7,7 @@ var toPosInt     = require("../../number/to-pos-integer")
   , slice = Array.prototype.slice, apply = Function.prototype.apply
   , curry;
 
-curry = function self (fn, length, preArgs) {
+curry = function self(fn, length, preArgs) {
 	return defineLength(function () {
 		var args = preArgs
 				? preArgs.concat(slice.call(arguments, 0, length - preArgs.length))

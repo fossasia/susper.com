@@ -25,6 +25,7 @@ export declare class ConnectedPositionStrategy implements PositionStrategy {
     private _viewportRuler;
     /** The overlay to which this strategy is attached. */
     private _overlayRef;
+    /** Layout direction of the position strategy. */
     private _dir;
     /** The offset in pixels for the overlay connection point on the x-axis */
     private _offsetX;
@@ -32,6 +33,8 @@ export declare class ConnectedPositionStrategy implements PositionStrategy {
     private _offsetY;
     /** The Scrollable containers used to check scrollable view properties on position change. */
     private scrollables;
+    /** Subscription to viewport resize events. */
+    private _resizeSubscription;
     /** Whether the we're dealing with an RTL context */
     readonly _isRtl: boolean;
     /** Ordered list of preferred positions, from most to least desirable. */
@@ -51,6 +54,8 @@ export declare class ConnectedPositionStrategy implements PositionStrategy {
     attach(overlayRef: OverlayRef): void;
     /** Performs any cleanup after the element is destroyed. */
     dispose(): void;
+    /** @docs-private */
+    detach(): void;
     /**
      * Updates the position of the overlay element, using whichever preferred position relative
      * to the origin fits on-screen.

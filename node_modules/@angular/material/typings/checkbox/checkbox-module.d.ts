@@ -1,2 +1,2 @@
-export declare class MdCheckboxModule {
+export declare class MatCheckboxModule {
 }

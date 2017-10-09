@@ -7,5 +7,6 @@
       "from": "./scrolling/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/cdk/scrolling"
 }

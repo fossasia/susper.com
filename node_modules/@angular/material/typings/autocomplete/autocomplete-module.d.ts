@@ -1,2 +1,2 @@
-export declare class MdAutocompleteModule {
+export declare class MatAutocompleteModule {
 }

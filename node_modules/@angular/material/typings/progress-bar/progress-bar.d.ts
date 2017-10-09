@@ -1,7 +1,7 @@
 /**
- * <md-progress-bar> component.
+ * <mat-progress-bar> component.
  */
-export declare class MdProgressBar {
+export declare class MatProgressBar {
     /** Color of the progress bar. */
     color: 'primary' | 'accent' | 'warn';
     private _value;

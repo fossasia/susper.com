@@ -1,2 +1,2 @@
-export declare class MdPaginatorModule {
+export declare class MatPaginatorModule {
 }

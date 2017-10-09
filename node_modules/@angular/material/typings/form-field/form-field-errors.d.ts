@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 /** @docs-private */
-export declare function getMdFormFieldPlaceholderConflictError(): Error;
+export declare function getMatFormFieldPlaceholderConflictError(): Error;
 /** @docs-private */
-export declare function getMdFormFieldDuplicatedHintError(align: string): Error;
+export declare function getMatFormFieldDuplicatedHintError(align: string): Error;
 /** @docs-private */
-export declare function getMdFormFieldMissingControlError(): Error;
+export declare function getMatFormFieldMissingControlError(): Error;

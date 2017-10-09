@@ -1,9 +1,9 @@
 import { Subject } from 'rxjs/Subject';
 /**
- * To modify the labels and text displayed, create a new instance of MdPaginatorIntl and
+ * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
  * include it in a custom provider
  */
-export declare class MdPaginatorIntl {
+export declare class MatPaginatorIntl {
     /**
      * Stream that emits whenever the labels here are changed. Use this to notify
      * components if the labels have changed after initialization.

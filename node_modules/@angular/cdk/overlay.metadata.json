@@ -7,5 +7,6 @@
       "from": "./overlay/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/cdk/overlay"
 }

@@ -7,5 +7,6 @@
       "from": "./progress-spinner/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/material/progress-spinner"
 }

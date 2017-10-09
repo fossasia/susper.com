@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { QueryList } from '@angular/core';
-import { MdGridTile } from './grid-tile';
+import { MatGridTile } from './grid-tile';
 /**
  * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
  * in the grid. This is necessary (rather than just rendering the tiles in normal document flow)
@@ -38,7 +38,7 @@ export declare class TileCoordinator {
     readonly rowspan: number;
     /** The computed (row, col) position of each tile (the output). */
     positions: TilePosition[];
-    constructor(numColumns: number, tiles: QueryList<MdGridTile>);
+    constructor(numColumns: number, tiles: QueryList<MatGridTile>);
     /** Calculates the row and col position of a tile. */
     private _trackTile(tile);
     /** Finds the next available space large enough to fit the tile. */

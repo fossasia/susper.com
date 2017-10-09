@@ -8,37 +8,36 @@
 import { ElementRef, Renderer2 } from '@angular/core';
 import { CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef } from '@angular/cdk/table';
 /** Workaround for https://github.com/angular/angular/issues/17849 */
-export declare const _MdCellDef: typeof CdkCellDef;
-export declare const _MdHeaderCellDef: typeof CdkHeaderCellDef;
-export declare const _MdColumnDef: typeof CdkColumnDef;
-export declare const _MdHeaderCell: typeof CdkHeaderCell;
-export declare const _MdCell: typeof CdkCell;
+export declare const _MatCellDef: typeof CdkCellDef;
+export declare const _MatHeaderCellDef: typeof CdkHeaderCellDef;
+export declare const _MatColumnDef: typeof CdkColumnDef;
+export declare const _MatHeaderCell: typeof CdkHeaderCell;
+export declare const _MatCell: typeof CdkCell;
 /**
- * Cell definition for the md-table.
+ * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
  */
-export declare class MdCellDef extends _MdCellDef {
+export declare class MatCellDef extends _MatCellDef {
 }
 /**
- * Header cell definition for the md-table.
+ * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
  */
-export declare class MdHeaderCellDef extends _MdHeaderCellDef {
+export declare class MatHeaderCellDef extends _MatHeaderCellDef {
 }
 /**
- * Column definition for the md-table.
+ * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
  */
-export declare class MdColumnDef extends _MdColumnDef {
+export declare class MatColumnDef extends _MatColumnDef {
     /** Unique name for this column. */
     name: string;
-    _matColumnDefName: string;
 }
 /** Header cell template container that adds the right classes and role. */
-export declare class MdHeaderCell extends _MdHeaderCell {
+export declare class MatHeaderCell extends _MatHeaderCell {
     constructor(columnDef: CdkColumnDef, elementRef: ElementRef, renderer: Renderer2);
 }
 /** Cell template container that adds the right classes and role. */
-export declare class MdCell extends _MdCell {
+export declare class MatCell extends _MatCell {
     constructor(columnDef: CdkColumnDef, elementRef: ElementRef, renderer: Renderer2);
 }

@@ -1,2 +1,2 @@
-export declare class MdDialogModule {
+export declare class MatDialogModule {
 }

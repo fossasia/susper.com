@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentChecked, OnInit, QueryList, Renderer2, ElementRef } from '@angular/core';
-import { MdGridTile } from './grid-tile';
+import { MatGridTile } from './grid-tile';
 import { Directionality } from '@angular/cdk/bidi';
-export declare class MdGridList implements OnInit, AfterContentChecked {
+export declare class MatGridList implements OnInit, AfterContentChecked {
     private _renderer;
     private _element;
     private _dir;
@@ -26,7 +26,7 @@ export declare class MdGridList implements OnInit, AfterContentChecked {
     /** Sets position and size styles for a tile */
     private _tileStyler;
     /** Query list of tiles that are being rendered. */
-    _tiles: QueryList<MdGridTile>;
+    _tiles: QueryList<MatGridTile>;
     constructor(_renderer: Renderer2, _element: ElementRef, _dir: Directionality);
     /** Amount of columns in the grid list. */
     cols: any;

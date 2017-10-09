@@ -1,2 +1,2 @@
-export declare class MdTableModule {
+export declare class MatTableModule {
 }

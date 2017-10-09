@@ -9,30 +9,30 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
 import { AfterContentInit, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
-import { MdDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs/Subject';
-import { MdCalendar } from './calendar';
-import { MdDatepickerInput } from './datepicker-input';
+import { MatCalendar } from './calendar';
+import { MatDatepickerInput } from './datepicker-input';
 /** Injection token that determines the scroll handling while the calendar is open. */
-export declare const MD_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+export declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
-export declare function MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
+export declare function MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
 /** @docs-private */
-export declare const MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER: {
+export declare const MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: typeof Overlay[];
     useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
 };
 /**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
- * MdCalendar directly as the content so we can control the initial focus. This also gives us a
+ * MatCalendar directly as the content so we can control the initial focus. This also gives us a
  * place to put additional features of the popup that are not part of the calendar itself in the
  * future. (e.g. confirmation buttons).
  * @docs-private
  */
-export declare class MdDatepickerContent<D> implements AfterContentInit {
-    datepicker: MdDatepicker<D>;
-    _calendar: MdCalendar<D>;
+export declare class MatDatepickerContent<D> implements AfterContentInit {
+    datepicker: MatDatepicker<D>;
+    _calendar: MatCalendar<D>;
     ngAfterContentInit(): void;
     /**
      * Handles keydown event on datepicker content.
@@ -41,7 +41,7 @@ export declare class MdDatepickerContent<D> implements AfterContentInit {
     _handleKeydown(event: KeyboardEvent): void;
 }
 /** Component responsible for managing the datepicker popup/dialog. */
-export declare class MdDatepicker<D> implements OnDestroy {
+export declare class MatDatepicker<D> implements OnDestroy {
     private _dialog;
     private _overlay;
     private _ngZone;
@@ -90,10 +90,10 @@ export declare class MdDatepicker<D> implements OnDestroy {
     private _focusedElementBeforeOpen;
     private _inputSubscription;
     /** The input element this datepicker is associated with. */
-    _datepickerInput: MdDatepickerInput<D>;
+    _datepickerInput: MatDatepickerInput<D>;
     /** Emits when the datepicker is disabled. */
     _disabledChange: Subject<boolean>;
-    constructor(_dialog: MdDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any);
+    constructor(_dialog: MatDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any);
     ngOnDestroy(): void;
     /** Selects the given date */
     _select(date: D): void;
@@ -101,7 +101,7 @@ export declare class MdDatepicker<D> implements OnDestroy {
      * Register an input with this datepicker.
      * @param input The datepicker input to register with this datepicker.
      */
-    _registerInput(input: MdDatepickerInput<D>): void;
+    _registerInput(input: MatDatepickerInput<D>): void;
     /** Open the calendar. */
     open(): void;
     /** Close the calendar. */

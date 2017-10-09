@@ -7,5 +7,6 @@
       "from": "./grid-list/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/material/grid-list"
 }

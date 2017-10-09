@@ -129,5 +129,5 @@ PlatformModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { PlatformModule, Platform, getSupportedInputTypes };
+export { Platform, getSupportedInputTypes, PlatformModule };
 //# sourceMappingURL=platform.js.map

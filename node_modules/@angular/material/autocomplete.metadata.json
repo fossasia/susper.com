@@ -7,5 +7,6 @@
       "from": "./autocomplete/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/material/autocomplete"
 }

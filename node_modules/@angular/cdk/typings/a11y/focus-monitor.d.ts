@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, EventEmitter, NgZone, OnDestroy, Optional, Renderer2 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
+import { ElementRef, EventEmitter, NgZone, OnDestroy, Optional, Renderer2 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 export declare const TOUCH_BUFFER_MS = 650;
 export declare type FocusOrigin = 'touch' | 'mouse' | 'keyboard' | 'program' | null;

@@ -1,2 +1,2 @@
-export declare class MdSidenavModule {
+export declare class MatSidenavModule {
 }

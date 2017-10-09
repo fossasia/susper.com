@@ -7,5 +7,6 @@
       "from": "./select/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/material/select"
 }

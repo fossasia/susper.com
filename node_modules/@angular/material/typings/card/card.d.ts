@@ -2,25 +2,25 @@
  * Content of a card, needed as it's used as a selector in the API.
  * @docs-private
  */
-export declare class MdCardContent {
+export declare class MatCardContent {
 }
 /**
  * Title of a card, needed as it's used as a selector in the API.
  * @docs-private
  */
-export declare class MdCardTitle {
+export declare class MatCardTitle {
 }
 /**
  * Sub-title of a card, needed as it's used as a selector in the API.
  * @docs-private
  */
-export declare class MdCardSubtitle {
+export declare class MatCardSubtitle {
 }
 /**
  * Action section of a card, needed as it's used as a selector in the API.
  * @docs-private
  */
-export declare class MdCardActions {
+export declare class MatCardActions {
     /** Position of the actions inside the card. */
     align: 'start' | 'end';
 }
@@ -28,68 +28,68 @@ export declare class MdCardActions {
  * Footer of a card, needed as it's used as a selector in the API.
  * @docs-private
  */
-export declare class MdCardFooter {
+export declare class MatCardFooter {
 }
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * @docs-private
  */
-export declare class MdCardImage {
+export declare class MatCardImage {
 }
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * @docs-private
  */
-export declare class MdCardSmImage {
+export declare class MatCardSmImage {
 }
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * @docs-private
  */
-export declare class MdCardMdImage {
+export declare class MatCardMdImage {
 }
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * @docs-private
  */
-export declare class MdCardLgImage {
+export declare class MatCardLgImage {
 }
 /**
  * Large image used in a card, needed to add the mat- CSS styling.
  * @docs-private
  */
-export declare class MdCardXlImage {
+export declare class MatCardXlImage {
 }
 /**
  * Avatar image used in a card, needed to add the mat- CSS styling.
  * @docs-private
  */
-export declare class MdCardAvatar {
+export declare class MatCardAvatar {
 }
 /**
  * A basic content container component that adds the styles of a Material design card.
  *
  * While this component can be used alone, it also provides a number
  * of preset styles for common card sections, including:
- * - md-card-title
- * - md-card-subtitle
- * - md-card-content
- * - md-card-actions
- * - md-card-footer
+ * - mat-card-title
+ * - mat-card-subtitle
+ * - mat-card-content
+ * - mat-card-actions
+ * - mat-card-footer
  */
-export declare class MdCard {
+export declare class MatCard {
 }
 /**
- * Component intended to be used within the `<md-card>` component. It adds styles for a
+ * Component intended to be used within the `<mat-card>` component. It adds styles for a
  * preset header section (i.e. a title, subtitle, and avatar layout).
  * @docs-private
  */
-export declare class MdCardHeader {
+export declare class MatCardHeader {
 }
 /**
- * Component intended to be used within the <md-card> component. It adds styles for a preset
+ * Component intended to be used within the <mat-card> component. It adds styles for a preset
  * layout that groups an image with a title section.
  * @docs-private
  */
-export declare class MdCardTitleGroup {
+export declare class MatCardTitleGroup {
 }

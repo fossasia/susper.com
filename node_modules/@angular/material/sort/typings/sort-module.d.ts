@@ -1,2 +1,2 @@
-export declare class MdSortModule {
+export declare class MatSortModule {
 }

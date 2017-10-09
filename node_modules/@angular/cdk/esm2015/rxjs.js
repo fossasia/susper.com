@@ -17,6 +17,7 @@ import { startWith } from 'rxjs/operator/startWith';
 import { debounceTime } from 'rxjs/operator/debounceTime';
 import { auditTime } from 'rxjs/operator/auditTime';
 import { takeUntil } from 'rxjs/operator/takeUntil';
+import { delay } from 'rxjs/operator/delay';
 
 /**
  * Utility class used to chain RxJS operators.
@@ -92,6 +93,8 @@ class AuditTimeBrand {
 }
 class TakeUntilBrand {
 }
+class DelayBrand {
+}
 // We add `Function` to the type intersection to make this nomically different from
 // `finallyOperatorType` while still being structurally the same. Without this, TypeScript tries to
 // reduce `typeof _finallyOperator & FinallyBrand` to `finallyOperatorType<T>` and then fails
@@ -108,10 +111,11 @@ const startWith$1 = (startWith);
 const debounceTime$1 = (debounceTime);
 const auditTime$1 = (auditTime);
 const takeUntil$1 = (takeUntil);
+const delay$1 = (delay);
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { RxChain, FinallyBrand, CatchBrand, DoBrand, MapBrand, FilterBrand, ShareBrand, FirstBrand, SwitchMapBrand, StartWithBrand, DebounceTimeBrand, AuditTimeBrand, TakeUntilBrand, finallyOperator, catchOperator, doOperator, map$1 as map, filter$1 as filter, share$1 as share, first$1 as first, switchMap$1 as switchMap, startWith$1 as startWith, debounceTime$1 as debounceTime, auditTime$1 as auditTime, takeUntil$1 as takeUntil };
+export { RxChain, FinallyBrand, CatchBrand, DoBrand, MapBrand, FilterBrand, ShareBrand, FirstBrand, SwitchMapBrand, StartWithBrand, DebounceTimeBrand, AuditTimeBrand, TakeUntilBrand, DelayBrand, finallyOperator, catchOperator, doOperator, map$1 as map, filter$1 as filter, share$1 as share, first$1 as first, switchMap$1 as switchMap, startWith$1 as startWith, debounceTime$1 as debounceTime, auditTime$1 as auditTime, takeUntil$1 as takeUntil, delay$1 as delay };
 //# sourceMappingURL=rxjs.js.map

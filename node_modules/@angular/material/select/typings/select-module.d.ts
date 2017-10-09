@@ -1,2 +1,2 @@
-export declare class MdSelectModule {
+export declare class MatSelectModule {
 }

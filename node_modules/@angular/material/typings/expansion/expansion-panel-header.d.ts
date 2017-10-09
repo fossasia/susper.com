@@ -1,27 +1,20 @@
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-import { ChangeDetectorRef, OnDestroy, Renderer2, ElementRef } from '@angular/core';
-import { MdExpansionPanel } from './expansion-panel';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { ChangeDetectorRef, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
+import { MatExpansionPanel } from './expansion-panel';
 /**
- * <md-expansion-panel-header> component.
+ * <mat-expansion-panel-header> component.
  *
- * This component corresponds to the header element of an <md-expansion-panel>.
+ * This component corresponds to the header element of an <mat-expansion-panel>.
  *
  * Please refer to README.md for examples on how to use it.
  */
-export declare class MdExpansionPanelHeader implements OnDestroy {
-    panel: MdExpansionPanel;
+export declare class MatExpansionPanelHeader implements OnDestroy {
+    panel: MatExpansionPanel;
     private _element;
     private _focusMonitor;
     private _changeDetectorRef;
     private _parentChangeSubscription;
-    constructor(renderer: Renderer2, panel: MdExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef);
+    constructor(renderer: Renderer2, panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef);
     /** Height of the header while the panel is expanded. */
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */
@@ -41,16 +34,16 @@ export declare class MdExpansionPanelHeader implements OnDestroy {
     ngOnDestroy(): void;
 }
 /**
- * <md-panel-description> directive.
+ * <mat-panel-description> directive.
  *
- * This direction is to be used inside of the MdExpansionPanelHeader component.
+ * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
-export declare class MdExpansionPanelDescription {
+export declare class MatExpansionPanelDescription {
 }
 /**
- * <md-panel-title> directive.
+ * <mat-panel-title> directive.
  *
- * This direction is to be used inside of the MdExpansionPanelHeader component.
+ * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
-export declare class MdExpansionPanelTitle {
+export declare class MatExpansionPanelTitle {
 }

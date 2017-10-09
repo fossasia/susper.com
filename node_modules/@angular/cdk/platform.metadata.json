@@ -7,5 +7,6 @@
       "from": "./platform/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/cdk/platform"
 }

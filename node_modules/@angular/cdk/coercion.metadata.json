@@ -7,5 +7,6 @@
       "from": "./coercion/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/cdk/coercion"
 }

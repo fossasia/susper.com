@@ -7,12 +7,12 @@
  */
 import { Provider } from '@angular/core';
 import { CheckboxRequiredValidator } from '@angular/forms';
-export declare const _MdCheckboxRequiredValidator: typeof CheckboxRequiredValidator;
-export declare const MD_CHECKBOX_REQUIRED_VALIDATOR: Provider;
+export declare const _MatCheckboxRequiredValidator: typeof CheckboxRequiredValidator;
+export declare const MAT_CHECKBOX_REQUIRED_VALIDATOR: Provider;
 /**
  * Validator for Material checkbox's required attribute in template-driven checkbox.
  * Current CheckboxRequiredValidator only work with `input type=checkbox` and does not
- * work with `md-checkbox`.
+ * work with `mat-checkbox`.
  */
-export declare class MdCheckboxRequiredValidator extends _MdCheckboxRequiredValidator {
+export declare class MatCheckboxRequiredValidator extends _MatCheckboxRequiredValidator {
 }

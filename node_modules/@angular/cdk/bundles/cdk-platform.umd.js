@@ -50,15 +50,16 @@ var Platform = (function () {
         // Safari browser should also use Webkit as its layout engine.
         this.SAFARI = this.isBrowser && /safari/i.test(navigator.userAgent) && this.WEBKIT;
     }
+    Platform.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    Platform.ctorParameters = function () { return []; };
     return Platform;
 }());
-Platform.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-Platform.ctorParameters = function () { return []; };
+
 /**
  * Cached result Set of input types support by the current browser.
  */
@@ -116,24 +117,25 @@ function getSupportedInputTypes() {
     }));
     return supportedInputTypes;
 }
+
 var PlatformModule = (function () {
     function PlatformModule() {
     }
+    PlatformModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    providers: [Platform]
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    PlatformModule.ctorParameters = function () { return []; };
     return PlatformModule;
 }());
-PlatformModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                providers: [Platform]
-            },] },
-];
-/**
- * @nocollapse
- */
-PlatformModule.ctorParameters = function () { return []; };
 
-exports.PlatformModule = PlatformModule;
 exports.Platform = Platform;
 exports.getSupportedInputTypes = getSupportedInputTypes;
+exports.PlatformModule = PlatformModule;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { UniqueSelectionDispatcher } from '@angular/material/core';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { CdkAccordion } from './accordion';
 /**
  * An abstract class to be extended and decorated as a component.  Sets up all

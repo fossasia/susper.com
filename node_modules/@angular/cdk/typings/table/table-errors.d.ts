@@ -16,3 +16,13 @@ export declare function getTableUnknownColumnError(id: string): Error;
  * @docs-private
  */
 export declare function getTableDuplicateColumnNameError(name: string): Error;
+/**
+ * Returns an error to be thrown when there are multiple rows that are missing a when function.
+ * @docs-private
+ */
+export declare function getTableMultipleDefaultRowDefsError(): Error;
+/**
+ * Returns an error to be thrown when there are no matching row defs for a particular set of data.
+ * @docs-private
+ */
+export declare function getTableMissingMatchingRowDefError(): Error;

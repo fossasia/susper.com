@@ -21,6 +21,7 @@ import { startWith as startWithOperator } from 'rxjs/operator/startWith';
 import { debounceTime as debounceTimeOperator } from 'rxjs/operator/debounceTime';
 import { auditTime as auditTimeOperator } from 'rxjs/operator/auditTime';
 import { takeUntil as takeUntilOperator } from 'rxjs/operator/takeUntil';
+import { delay as delayOperator } from 'rxjs/operator/delay';
 /**
  * Represents a strongly-typed chain of RxJS operators.
  *
@@ -48,6 +49,7 @@ export interface StrictRxChain<T> {
     call(operator: debounceTimeOperatorType<T>, dueTime: number, scheduler?: IScheduler): StrictRxChain<T>;
     call(operator: auditTimeOperatorType<T>, duration: number, scheduler?: IScheduler): StrictRxChain<T>;
     call(operator: takeUntilOperatorType<T>, notifier: Observable<any>): StrictRxChain<T>;
+    call(operator: delayOperatorType<T>, delay: number | Date, scheduler?: IScheduler): StrictRxChain<T>;
     subscribe(fn: (t: T) => void): Subscription;
     result(): Observable<T>;
 }
@@ -87,6 +89,9 @@ export declare class AuditTimeBrand {
 export declare class TakeUntilBrand {
     private _;
 }
+export declare class DelayBrand {
+    private _;
+}
 export declare type finallyOperatorType<T> = typeof _finallyOperator & FinallyBrand;
 export declare type catchOperatorType<T, R> = typeof _catchOperator & CatchBrand;
 export declare type doOperatorType<T> = typeof _doOperator & DoBrand;
@@ -99,6 +104,7 @@ export declare type startWithOperatorType<T> = typeof startWithOperator & StartW
 export declare type debounceTimeOperatorType<T> = typeof debounceTimeOperator & DebounceTimeBrand;
 export declare type auditTimeOperatorType<T> = typeof auditTimeOperator & AuditTimeBrand;
 export declare type takeUntilOperatorType<T> = typeof takeUntilOperator & TakeUntilBrand;
+export declare type delayOperatorType<T> = typeof delayOperator & DelayBrand;
 export declare const finallyOperator: (<T>(this: Observable<T>, callback: () => void) => Observable<T>) & FinallyBrand & Function;
 export declare const catchOperator: (<T, R>(this: Observable<T>, selector: (err: any, caught: Observable<T>) => ObservableInput<R>) => Observable<T | R>) & CatchBrand & Function;
 export declare const doOperator: {
@@ -135,3 +141,4 @@ export declare const startWith: {
 export declare const debounceTime: (<T>(this: Observable<T>, dueTime: number, scheduler?: IScheduler | undefined) => Observable<T>) & DebounceTimeBrand & Function;
 export declare const auditTime: (<T>(this: Observable<T>, duration: number, scheduler?: IScheduler | undefined) => Observable<T>) & AuditTimeBrand & Function;
 export declare const takeUntil: (<T>(this: Observable<T>, notifier: Observable<any>) => Observable<T>) & TakeUntilBrand & Function;
+export declare const delay: (<T>(this: Observable<T>, delay: number | Date, scheduler?: IScheduler | undefined) => Observable<T>) & DelayBrand & Function;

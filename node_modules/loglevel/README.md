@@ -9,6 +9,8 @@ Minimal lightweight simple logging for JavaScript. loglevel replaces console.log
 
 This is a barebones reliable everyday logging library. It does not do fancy things, it does not let you reconfigure appenders or add complex log filtering rules or boil tea (more's the pity), but it does have the all core functionality that you actually use:
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/iJW7FWKrcEHBcxrqjGxT9JPS/pimterry/loglevel'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/iJW7FWKrcEHBcxrqjGxT9JPS/pimterry/loglevel.svg' /></a>
+
 ## Features
 
 ### Simple
@@ -35,9 +37,9 @@ This is a barebones reliable everyday logging library. It does not do fancy thin
 
 If you're using NPM, you can just run `npm install loglevel`.
 
-Alternatively, loglevel is also available via [Bower](https://github.com/bower/bower) (`bower install loglevel`), [JamJS](http://jamjs.org/packages/#/details/loglevel) (`jam install loglevel`), as a [Webjar](http://www.webjars.org/), or an [Atmosphere package](https://atmospherejs.com/spacejamio/loglevel) (for Meteor)
+Alternatively, loglevel is also available via [Bower](https://github.com/bower/bower) (`bower install loglevel`), as a [Webjar](http://www.webjars.org/), or an [Atmosphere package](https://atmospherejs.com/spacejamio/loglevel) (for Meteor)
 
-Alternatively if you just want to grab the file yourself, you can download either the current stable [production version][min] or the [development version][max] directly, or reference it remotely on CDNJS at `//cdnjs.cloudflare.com/ajax/libs/loglevel/1.4.0/loglevel.min.js`
+Alternatively if you just want to grab the file yourself, you can download either the current stable [production version][min] or the [development version][max] directly, or reference it remotely on CDNJS at `//cdnjs.cloudflare.com/ajax/libs/loglevel/1.5.0/loglevel.min.js`
 
 Finally, if you want to tweak loglevel to your own needs or you immediately need the cutting-edge version, clone this repo and see [Developing & Contributing](#developing--contributing) below for build instructions.
 
@@ -259,7 +261,6 @@ To do a release of loglevel:
 * Commit the built code, tagging it with the version number and a brief message about the release
 * Push to Github
 * Run `npm publish .` to publish to NPM
-* Run `jam publish` to publish to JamJS
 * Update CDN url once https://cdnjs.com/libraries/loglevel picks up the new version
 * Autoupdate gh-pages docs
 
@@ -293,6 +294,8 @@ v1.4.0 - Add getLevel(), setDefaultLevel() and getLogger() functionality for mor
 v1.4.1 - Reorder UMD (#92) to improve bundling tool compatibility
 
 v1.5.0 - Fix log.debug (#111) after V8 changes deprecating console.debug, check for `window` upfront (#104), and add `.log` alias for `.debug` (#64)
+
+v1.5.1 - Fix bug (#112) in level-persistence cookie fallback, which failed if it wasn't the first cookie present
 
 ## License
 Copyright (c) 2013 Tim Perry

@@ -1,2 +1,2 @@
-export declare class MdGridListModule {
+export declare class MatGridListModule {
 }

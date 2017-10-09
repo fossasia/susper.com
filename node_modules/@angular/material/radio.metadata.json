@@ -7,5 +7,6 @@
       "from": "./radio/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/material/radio"
 }

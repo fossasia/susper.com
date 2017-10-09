@@ -28,8 +28,18 @@ function coerceNumberProperty(value, fallbackValue = 0) {
 }
 
 /**
+ * Wraps the provided value in an array, unless the provided value is an array.
+ * @template T
+ * @param {?} value
+ * @return {?}
+ */
+function coerceArray(value) {
+    return Array.isArray(value) ? value : [value];
+}
+
+/**
  * Generated bundle index. Do not edit.
  */
 
-export { coerceBooleanProperty, coerceNumberProperty };
+export { coerceBooleanProperty, coerceNumberProperty, coerceArray };
 //# sourceMappingURL=coercion.js.map

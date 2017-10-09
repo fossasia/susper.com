@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.10.31"></a>
+## [0.10.31](https://github.com/medikoo/es5-ext/compare/v0.10.30...v0.10.31) (2017-10-09)
+
+
+### Features
+
+* Object.isPlainFunction utility ([031be0a](https://github.com/medikoo/es5-ext/commit/031be0a))
+
+
+
 <a name="0.10.30"></a>
 ## [0.10.30](https://github.com/medikoo/es5-ext/compare/v0.10.29...v0.10.30) (2017-08-25)
 

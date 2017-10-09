@@ -10,7 +10,7 @@ import { EventEmitter } from '@angular/core';
  * An internal class that represents the data corresponding to a single calendar cell.
  * @docs-private
  */
-export declare class MdCalendarCell {
+export declare class MatCalendarCell {
     value: number;
     displayValue: string;
     ariaLabel: string;
@@ -21,11 +21,11 @@ export declare class MdCalendarCell {
  * An internal component used to display calendar data in a table.
  * @docs-private
  */
-export declare class MdCalendarBody {
+export declare class MatCalendarBody {
     /** The label for the table. (e.g. "Jan 2017"). */
     label: string;
     /** The cells to display in the table. */
-    rows: MdCalendarCell[][];
+    rows: MatCalendarCell[][];
     /** The value in the table that corresponds to today. */
     todayValue: number;
     /** The value in the table that is currently selected. */
@@ -45,7 +45,7 @@ export declare class MdCalendarBody {
     cellAspectRatio: number;
     /** Emits when a new value is selected. */
     selectedValueChange: EventEmitter<number>;
-    _cellClicked(cell: MdCalendarCell): void;
+    _cellClicked(cell: MatCalendarCell): void;
     /** The number of blank cells to put at the beginning for the first row. */
     readonly _firstRowOffset: number;
     _isActiveCell(rowIndex: number, colIndex: number): boolean;

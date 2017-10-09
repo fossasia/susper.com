@@ -1,5 +1,10 @@
 # Changelog for jasminewd2
 
+# 2.2.0
+
+## Dependencies
+Update selenium-webdriverjs to 3.5.0.
+
 # 2.1.0
 
 ## Features

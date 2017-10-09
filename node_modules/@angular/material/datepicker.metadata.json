@@ -7,5 +7,6 @@
       "from": "./datepicker/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/material/datepicker"
 }

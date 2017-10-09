@@ -1,2 +1,2 @@
-export declare class MdSlideToggleModule {
+export declare class MatSlideToggleModule {
 }

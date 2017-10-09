@@ -1,2 +1,2 @@
-export declare class MdProgressBarModule {
+export declare class MatProgressBarModule {
 }

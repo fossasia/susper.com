@@ -1,2 +1,2 @@
-export declare class MdTooltipModule {
+export declare class MatTooltipModule {
 }

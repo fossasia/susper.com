@@ -17,9 +17,9 @@ export interface DialogPosition {
     right?: string;
 }
 /**
- * Configuration for opening a modal dialog with the MdDialog service.
+ * Configuration for opening a modal dialog with the MatDialog service.
  */
-export declare class MdDialogConfig {
+export declare class MatDialogConfig {
     /**
      * Where the attached component should live in Angular's *logical* component tree.
      * This affects what is available for injection and the change detection order for the

@@ -12,11 +12,11 @@ import { OverlayRef } from './overlay-ref';
 import { ConnectedOverlayPositionChange, ConnectionPositionPair } from './position/connected-position';
 import { RepositionScrollStrategy, ScrollStrategy } from './scroll/index';
 /** Injection token that determines the scroll handling while the connected overlay is open. */
-export declare const MD_CONNECTED_OVERLAY_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+export declare const MAT_CONNECTED_OVERLAY_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
-export declare function MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
+export declare function MAT_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
 /** @docs-private */
-export declare const MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER: {
+export declare const MAT_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: typeof Overlay[];
     useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;

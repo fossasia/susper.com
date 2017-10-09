@@ -5,20 +5,20 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { TemplatePortal } from '@angular/material/core';
+import { TemplatePortal } from '@angular/cdk/portal';
 import { OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { CanDisable } from '@angular/material/core';
-import { MdTabLabel } from './tab-label';
 import { Subject } from 'rxjs/Subject';
+import { MatTabLabel } from './tab-label';
 /** @docs-private */
-export declare class MdTabBase {
+export declare class MatTabBase {
 }
-export declare const _MdTabMixinBase: (new (...args: any[]) => CanDisable) & typeof MdTabBase;
-export declare class MdTab extends _MdTabMixinBase implements OnInit, CanDisable, OnChanges, OnDestroy {
+export declare const _MatTabMixinBase: (new (...args: any[]) => CanDisable) & typeof MatTabBase;
+export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisable, OnChanges, OnDestroy {
     private _viewContainerRef;
-    /** Content for the tab label given by <ng-template md-tab-label>. */
-    templateLabel: MdTabLabel;
-    /** Template inside the MdTab view that contains an <ng-content>. */
+    /** Content for the tab label given by <ng-template mat-tab-label>. */
+    templateLabel: MatTabLabel;
+    /** Template inside the MatTab view that contains an <ng-content>. */
     _content: TemplateRef<any>;
     /** The plain text label for the tab, used when there is no template label. */
     textLabel: string;

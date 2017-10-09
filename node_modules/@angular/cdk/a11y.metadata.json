@@ -7,5 +7,6 @@
       "from": "./a11y/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/cdk/a11y"
 }

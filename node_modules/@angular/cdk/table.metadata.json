@@ -7,5 +7,6 @@
       "from": "./table/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/cdk/table"
 }

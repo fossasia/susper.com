@@ -279,17 +279,27 @@ HTTPParser.prototype.HEADER = function () {
   } else {
     var headers = info.headers;
     var hasContentLength = false;
+    var currentContentLengthValue;
     for (var i = 0; i < headers.length; i += 2) {
       switch (headers[i].toLowerCase()) {
         case 'transfer-encoding':
           this.isChunked = headers[i + 1].toLowerCase() === 'chunked';
           break;
         case 'content-length':
+          currentContentLengthValue = +headers[i + 1];
           if (hasContentLength) {
-            throw parseErrorCode('HPE_UNEXPECTED_CONTENT_LENGTH');
+            // Fix duplicate Content-Length header with same values.
+            // Throw error only if values are different.
+            // Known issues:
+            // https://github.com/request/request/issues/2091#issuecomment-328715113
+            // https://github.com/nodejs/node/issues/6517#issuecomment-216263771
+            if (currentContentLengthValue !== this.body_bytes) {
+              throw parseErrorCode('HPE_UNEXPECTED_CONTENT_LENGTH');
+            }
+          } else {
+            hasContentLength = true;
+            this.body_bytes = currentContentLengthValue;
           }
-          hasContentLength = true;
-          this.body_bytes = +headers[i + 1];
           break;
         case 'connection':
           this.connection += headers[i + 1].toLowerCase();

@@ -7,5 +7,6 @@
       "from": "./slide-toggle/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/material/slide-toggle"
 }

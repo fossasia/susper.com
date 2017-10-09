@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { EventEmitter, QueryList, ElementRef, TemplateRef } from '@angular/core';
+import { EventEmitter, QueryList, ElementRef, TemplateRef, ChangeDetectorRef, OnChanges } from '@angular/core';
 import { CdkStepLabel } from './step-label';
 import { AbstractControl } from '@angular/forms';
 import { Directionality } from '@angular/cdk/bidi';
@@ -25,7 +25,7 @@ export declare class StepperSelectionEvent {
     /** The step instance previously selected. */
     previouslySelectedStep: CdkStep;
 }
-export declare class CdkStep {
+export declare class CdkStep implements OnChanges {
     private _stepper;
     /** Template for step label if it exists. */
     stepLabel: CdkStepLabel;
@@ -33,7 +33,7 @@ export declare class CdkStep {
     content: TemplateRef<any>;
     /** The top level abstract control of the step. */
     stepControl: AbstractControl;
-    /** Whether user has seen the expanded step content or not . */
+    /** Whether user has seen the expanded step content or not. */
     interacted: boolean;
     /** Label of the step. */
     label: string;
@@ -49,9 +49,11 @@ export declare class CdkStep {
     constructor(_stepper: CdkStepper);
     /** Selects this step component. */
     select(): void;
+    ngOnChanges(): void;
 }
 export declare class CdkStepper {
     private _dir;
+    private _changeDetectorRef;
     /** The list of step components that the stepper is holding. */
     _steps: QueryList<CdkStep>;
     /** The list of step headers of the steps in the stepper. */
@@ -70,7 +72,7 @@ export declare class CdkStepper {
     _focusIndex: number;
     /** Used to track unique ID for each stepper component. */
     _groupId: number;
-    constructor(_dir: Directionality);
+    constructor(_dir: Directionality, _changeDetectorRef: ChangeDetectorRef);
     /** Selects and focuses the next step in list. */
     next(): void;
     /** Selects and focuses the previous step in list. */
@@ -79,6 +81,8 @@ export declare class CdkStepper {
     _getStepLabelId(i: number): string;
     /** Returns unique id for each step content element. */
     _getStepContentId(i: number): string;
+    /** Marks the component to be change detected. */
+    _stateChanged(): void;
     /** Returns position state of the step with the given index. */
     _getAnimationDirection(index: number): StepContentPositionState;
     /** Returns the type of icon to be displayed. */

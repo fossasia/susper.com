@@ -8,11 +8,11 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { DialogPosition } from './dialog-config';
 import { Observable } from 'rxjs/Observable';
-import { MdDialogContainer } from './dialog-container';
+import { MatDialogContainer } from './dialog-container';
 /**
- * Reference to a dialog opened via the MdDialog service.
+ * Reference to a dialog opened via the MatDialog service.
  */
-export declare class MdDialogRef<T> {
+export declare class MatDialogRef<T> {
     private _overlayRef;
     private _containerInstance;
     readonly id: string;
@@ -28,7 +28,7 @@ export declare class MdDialogRef<T> {
     private _beforeClose;
     /** Result to be passed to afterClosed. */
     private _result;
-    constructor(_overlayRef: OverlayRef, _containerInstance: MdDialogContainer, id?: string);
+    constructor(_overlayRef: OverlayRef, _containerInstance: MatDialogContainer, id?: string);
     /**
      * Close the dialog.
      * @param dialogResult Optional result to return to the dialog opener.

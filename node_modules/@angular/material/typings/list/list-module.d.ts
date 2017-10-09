@@ -1,2 +1,2 @@
-export declare class MdListModule {
+export declare class MatListModule {
 }

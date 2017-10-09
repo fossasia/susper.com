@@ -1,2 +1,2 @@
-export declare class MdChipsModule {
+export declare class MatChipsModule {
 }

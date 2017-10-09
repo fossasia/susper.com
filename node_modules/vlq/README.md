@@ -70,4 +70,4 @@ Adapted from [murzwin.com/base64vlq.html](http://murzwin.com/base64vlq.html) by 
 
 ## License
 
-MIT.
+[MIT](LICENSE).

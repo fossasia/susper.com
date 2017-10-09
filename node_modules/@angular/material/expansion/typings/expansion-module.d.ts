@@ -1,2 +1,2 @@
-export declare class MdExpansionModule {
+export declare class MatExpansionModule {
 }

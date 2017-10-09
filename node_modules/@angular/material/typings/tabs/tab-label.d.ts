@@ -8,8 +8,8 @@
 import { TemplateRef, ViewContainerRef } from '@angular/core';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
 /** Workaround for https://github.com/angular/angular/issues/17849 */
-export declare const _MdTabLabelBaseClass: typeof TemplatePortalDirective;
+export declare const _MatTabLabelBaseClass: typeof TemplatePortalDirective;
 /** Used to flag tab labels for use with the portal directive */
-export declare class MdTabLabel extends _MdTabLabelBaseClass {
+export declare class MatTabLabel extends _MatTabLabelBaseClass {
     constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef);
 }

@@ -32,6 +32,7 @@ module.exports = {
 	isFiniteNumber: require("./is-finite-number"),
 	isNumberValue: require("./is-number-value"),
 	isObject: require("./is-object"),
+	isPlainFunction: require("./is-plain-function"),
 	isPlainObject: require("./is-plain-object"),
 	isPromise: require("./is-promise"),
 	isValue: require("./is-value"),

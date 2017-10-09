@@ -1,2 +1,2 @@
-export declare class MdFormFieldModule {
+export declare class MatFormFieldModule {
 }

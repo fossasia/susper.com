@@ -1,2 +1,2 @@
-export declare class MdButtonModule {
+export declare class MatButtonModule {
 }

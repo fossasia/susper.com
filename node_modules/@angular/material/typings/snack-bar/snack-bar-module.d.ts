@@ -1,2 +1,2 @@
-export declare class MdSnackBarModule {
+export declare class MatSnackBarModule {
 }

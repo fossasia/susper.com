@@ -30,10 +30,10 @@ export declare class Overlay {
     constructor(scrollStrategies: ScrollStrategyOptions, _overlayContainer: OverlayContainer, _componentFactoryResolver: ComponentFactoryResolver, _positionBuilder: OverlayPositionBuilder, _appRef: ApplicationRef, _injector: Injector, _ngZone: NgZone);
     /**
      * Creates an overlay.
-     * @param state State to apply to the overlay.
+     * @param config Config to apply to the overlay.
      * @returns Reference to the created overlay.
      */
-    create(state?: OverlayConfig): OverlayRef;
+    create(config?: OverlayConfig): OverlayRef;
     /**
      * Returns a position builder that can be used, via fluent API,
      * to construct and configure a position strategy.

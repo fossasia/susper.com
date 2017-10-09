@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken } from '@angular/core';
-export declare type MdDateFormats = {
+export declare type MatDateFormats = {
     parse: {
         dateInput: any;
     };
@@ -17,4 +17,4 @@ export declare type MdDateFormats = {
         monthYearA11yLabel: any;
     };
 };
-export declare const MD_DATE_FORMATS: InjectionToken<MdDateFormats>;
+export declare const MAT_DATE_FORMATS: InjectionToken<MatDateFormats>;

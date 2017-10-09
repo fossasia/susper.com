@@ -1,2 +1,2 @@
-export declare class MdStepperModule {
+export declare class MatStepperModule {
 }

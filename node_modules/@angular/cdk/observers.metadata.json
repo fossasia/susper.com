@@ -7,5 +7,6 @@
       "from": "./observers/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/cdk/observers"
 }

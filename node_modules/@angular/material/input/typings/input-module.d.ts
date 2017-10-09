@@ -1,2 +1,2 @@
-export declare class MdInputModule {
+export declare class MatInputModule {
 }

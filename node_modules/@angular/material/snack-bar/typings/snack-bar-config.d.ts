@@ -8,18 +8,18 @@
 import { ViewContainerRef, InjectionToken } from '@angular/core';
 import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
-export declare const MD_SNACK_BAR_DATA: InjectionToken<any>;
-/** Possible values for horizontalPosition on MdSnackBarConfig. */
-export declare type MdSnackBarHorizontalPosition = 'start' | 'center' | 'end' | 'left' | 'right';
-/** Possible values for verticalPosition on MdSnackBarConfig. */
-export declare type MdSnackBarVerticalPosition = 'top' | 'bottom';
+export declare const MAT_SNACK_BAR_DATA: InjectionToken<any>;
+/** Possible values for horizontalPosition on MatSnackBarConfig. */
+export declare type MatSnackBarHorizontalPosition = 'start' | 'center' | 'end' | 'left' | 'right';
+/** Possible values for verticalPosition on MatSnackBarConfig. */
+export declare type MatSnackBarVerticalPosition = 'top' | 'bottom';
 /**
  * Configuration used when opening a snack-bar.
  */
-export declare class MdSnackBarConfig {
-    /** The politeness level for the MdAriaLiveAnnouncer announcement. */
+export declare class MatSnackBarConfig {
+    /** The politeness level for the MatAriaLiveAnnouncer announcement. */
     politeness?: AriaLivePoliteness;
-    /** Message to be announced by the MdAriaLiveAnnouncer */
+    /** Message to be announced by the MatAriaLiveAnnouncer */
     announcementMessage?: string;
     /** The view container to place the overlay for the snack bar into. */
     viewContainerRef?: ViewContainerRef;
@@ -32,7 +32,7 @@ export declare class MdSnackBarConfig {
     /** Data being injected into the child component. */
     data?: any;
     /** The horizontal position to place the snack bar. */
-    horizontalPosition?: MdSnackBarHorizontalPosition;
+    horizontalPosition?: MatSnackBarHorizontalPosition;
     /** The vertical position to place the snack bar. */
-    verticalPosition?: MdSnackBarVerticalPosition;
+    verticalPosition?: MatSnackBarVerticalPosition;
 }

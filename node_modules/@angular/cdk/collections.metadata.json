@@ -7,5 +7,6 @@
       "from": "./collections/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/cdk/collections"
 }

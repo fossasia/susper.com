@@ -7,5 +7,6 @@
       "from": "./snack-bar/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/material/snack-bar"
 }

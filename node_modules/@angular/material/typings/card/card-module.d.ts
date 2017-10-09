@@ -1,2 +1,2 @@
-export declare class MdCardModule {
+export declare class MatCardModule {
 }

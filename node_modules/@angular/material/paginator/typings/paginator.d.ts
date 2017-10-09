@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
-import { MdPaginatorIntl } from './paginator-intl';
+import { MatPaginatorIntl } from './paginator-intl';
 /**
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
@@ -24,8 +24,8 @@ export declare class PageEvent {
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
  */
-export declare class MdPaginator implements OnInit, OnDestroy {
-    _intl: MdPaginatorIntl;
+export declare class MatPaginator implements OnInit, OnDestroy {
+    _intl: MatPaginatorIntl;
     private _changeDetectorRef;
     private _initialized;
     private _intlChanges;
@@ -45,7 +45,7 @@ export declare class MdPaginator implements OnInit, OnDestroy {
     page: EventEmitter<PageEvent>;
     /** Displayed set of page size options. Will be sorted and include current page size. */
     _displayedPageSizeOptions: number[];
-    constructor(_intl: MdPaginatorIntl, _changeDetectorRef: ChangeDetectorRef);
+    constructor(_intl: MatPaginatorIntl, _changeDetectorRef: ChangeDetectorRef);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Advances to the next page if it exists. */

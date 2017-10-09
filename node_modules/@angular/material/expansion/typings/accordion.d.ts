@@ -1,5 +1,5 @@
-/** MdAccordion's display modes. */
-export declare type MdAccordionDisplayMode = 'default' | 'flat';
+/** MatAccordion's display modes. */
+export declare type MatAccordionDisplayMode = 'default' | 'flat';
 /**
  * Directive whose purpose is to manage the expanded state of CdkAccordionItem children.
  */
@@ -20,10 +20,10 @@ export declare class CdkAccordion {
      *  flat - no spacing is placed around expanded panels, showing all panels at the same
      *     elevation.
      */
-    displayMode: MdAccordionDisplayMode;
+    displayMode: MatAccordionDisplayMode;
 }
 /**
  * Directive for a Material Design Accordion.
  */
-export declare class MdAccordion extends CdkAccordion {
+export declare class MatAccordion extends CdkAccordion {
 }

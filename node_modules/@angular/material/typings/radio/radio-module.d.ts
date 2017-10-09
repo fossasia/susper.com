@@ -1,2 +1,2 @@
-export declare class MdRadioModule {
+export declare class MatRadioModule {
 }

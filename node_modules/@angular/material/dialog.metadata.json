@@ -7,5 +7,6 @@
       "from": "./dialog/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/material/dialog"
 }

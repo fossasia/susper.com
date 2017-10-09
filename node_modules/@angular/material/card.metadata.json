@@ -7,5 +7,6 @@
       "from": "./card/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/material/card"
 }

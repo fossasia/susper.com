@@ -1,4 +1,4 @@
-export declare type MdPseudoCheckboxState = 'unchecked' | 'checked' | 'indeterminate';
+export declare type MatPseudoCheckboxState = 'unchecked' | 'checked' | 'indeterminate';
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
  * Meant to be used when the checkbox is purely decorative and a large number of them will be
@@ -7,14 +7,14 @@ export declare type MdPseudoCheckboxState = 'unchecked' | 'checked' | 'indetermi
  * `mat-primary .mat-pseudo-checkbox`.
  *
  * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with <md-checkbox> and should *not* be used if the user would directly interact
+ * interchangeable with <mat-checkbox> and should *not* be used if the user would directly interact
  * with the checkbox. The pseudo-checkbox should only be used as an implementation detail of
  * more complex components that appropriately handle selected / checked state.
  * @docs-private
  */
-export declare class MdPseudoCheckbox {
+export declare class MatPseudoCheckbox {
     /** Display state of the checkbox. */
-    state: MdPseudoCheckboxState;
+    state: MatPseudoCheckboxState;
     /** Whether the checkbox is disabled. */
     disabled: boolean;
 }

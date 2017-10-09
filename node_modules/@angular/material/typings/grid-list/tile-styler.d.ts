@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { MdGridList } from './grid-list';
-import { MdGridTile } from './grid-tile';
+import { MatGridList } from './grid-list';
+import { MatGridTile } from './grid-tile';
 import { TileCoordinator } from './tile-coordinator';
 /**
  * Sets the style properties for an individual tile, given the position calculated by the
@@ -57,9 +57,9 @@ export declare abstract class TileStyler {
      * @param rowIndex Index of the tile's row.
      * @param colIndex Index of the tile's column.
      */
-    setStyle(tile: MdGridTile, rowIndex: number, colIndex: number): void;
+    setStyle(tile: MatGridTile, rowIndex: number, colIndex: number): void;
     /** Sets the horizontal placement of the tile in the list. */
-    setColStyles(tile: MdGridTile, colIndex: number, percentWidth: number, gutterWidth: number): void;
+    setColStyles(tile: MatGridTile, colIndex: number, percentWidth: number, gutterWidth: number): void;
     /**
      * Calculates the total size taken up by gutters across one axis of a list.
      */
@@ -74,7 +74,7 @@ export declare abstract class TileStyler {
      * This method will be implemented by each type of TileStyler.
      * @docs-private
      */
-    abstract setRowStyles(tile: MdGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): any;
+    abstract setRowStyles(tile: MatGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): any;
     /**
      * Calculates the computed height and returns the correct style property to set.
      * This method can be implemented by each type of TileStyler.
@@ -86,24 +86,24 @@ export declare abstract class TileStyler {
      * @param list Grid list that the styler was attached to.
      * @docs-private
      */
-    abstract reset(list: MdGridList): any;
+    abstract reset(list: MatGridList): any;
 }
 /**
  * This type of styler is instantiated when the user passes in a fixed row height.
- * Example <md-grid-list cols="3" rowHeight="100px">
+ * Example <mat-grid-list cols="3" rowHeight="100px">
  * @docs-private
  */
 export declare class FixedTileStyler extends TileStyler {
     fixedRowHeight: string;
     constructor(fixedRowHeight: string);
     init(gutterSize: string, tracker: TileCoordinator, cols: number, direction: string): void;
-    setRowStyles(tile: MdGridTile, rowIndex: number): void;
+    setRowStyles(tile: MatGridTile, rowIndex: number): void;
     getComputedHeight(): [string, string];
-    reset(list: MdGridList): void;
+    reset(list: MatGridList): void;
 }
 /**
  * This type of styler is instantiated when the user passes in a width:height ratio
- * for the row height.  Example <md-grid-list cols="3" rowHeight="3:1">
+ * for the row height.  Example <mat-grid-list cols="3" rowHeight="3:1">
  * @docs-private
  */
 export declare class RatioTileStyler extends TileStyler {
@@ -111,19 +111,19 @@ export declare class RatioTileStyler extends TileStyler {
     rowHeightRatio: number;
     baseTileHeight: string;
     constructor(value: string);
-    setRowStyles(tile: MdGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): void;
+    setRowStyles(tile: MatGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): void;
     getComputedHeight(): [string, string];
-    reset(list: MdGridList): void;
+    reset(list: MatGridList): void;
     private _parseRatio(value);
 }
 /**
  * This type of styler is instantiated when the user selects a "fit" row height mode.
  * In other words, the row height will reflect the total height of the container divided
- * by the number of rows.  Example <md-grid-list cols="3" rowHeight="fit">
+ * by the number of rows.  Example <mat-grid-list cols="3" rowHeight="fit">
  *
  * @docs-private
  */
 export declare class FitTileStyler extends TileStyler {
-    setRowStyles(tile: MdGridTile, rowIndex: number): void;
-    reset(list: MdGridList): void;
+    setRowStyles(tile: MatGridTile, rowIndex: number): void;
+    reset(list: MatGridList): void;
 }

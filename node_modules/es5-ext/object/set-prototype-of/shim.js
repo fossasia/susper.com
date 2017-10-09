@@ -40,7 +40,7 @@ module.exports = (function (status) {
 			};
 		}
 	} else {
-		fn = function self (obj, prototype) {
+		fn = function self(obj, prototype) {
 			var isNullBase;
 			validate(obj, prototype);
 			isNullBase = objIsPrototypOf.call(self.nullPolyfill, obj);

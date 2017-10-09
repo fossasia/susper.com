@@ -1,5 +1,9 @@
 # changelog
 
+## 0.2.3
+
+* Add LICENSE to npm package
+
 ## 0.2.2
 
 * Expose `pkg.module`, not `jsnext:main`

@@ -1,2 +1,2 @@
-export declare class MdMenuModule {
+export declare class MatMenuModule {
 }

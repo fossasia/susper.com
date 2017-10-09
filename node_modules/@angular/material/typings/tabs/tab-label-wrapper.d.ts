@@ -8,14 +8,14 @@
 import { ElementRef } from '@angular/core';
 import { CanDisable } from '@angular/material/core';
 /** @docs-private */
-export declare class MdTabLabelWrapperBase {
+export declare class MatTabLabelWrapperBase {
 }
-export declare const _MdTabLabelWrapperMixinBase: (new (...args: any[]) => CanDisable) & typeof MdTabLabelWrapperBase;
+export declare const _MatTabLabelWrapperMixinBase: (new (...args: any[]) => CanDisable) & typeof MatTabLabelWrapperBase;
 /**
- * Used in the `md-tab-group` view to display tab labels.
+ * Used in the `mat-tab-group` view to display tab labels.
  * @docs-private
  */
-export declare class MdTabLabelWrapper extends _MdTabLabelWrapperMixinBase implements CanDisable {
+export declare class MatTabLabelWrapper extends _MatTabLabelWrapperMixinBase implements CanDisable {
     elementRef: ElementRef;
     constructor(elementRef: ElementRef);
     /** Sets focus on the wrapper element */

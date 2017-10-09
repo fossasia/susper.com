@@ -1,10 +1,3 @@
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { Optional } from '@angular/core';
 import { Http } from '@angular/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -14,27 +7,27 @@ import { Observable } from 'rxjs/Observable';
  * load an icon with a name that cannot be found.
  * @docs-private
  */
-export declare function getMdIconNameNotFoundError(iconName: string): Error;
+export declare function getMatIconNameNotFoundError(iconName: string): Error;
 /**
  * Returns an exception to be thrown when the consumer attempts to use
- * `<md-icon>` without including @angular/http.
+ * `<mat-icon>` without including @angular/http.
  * @docs-private
  */
-export declare function getMdIconNoHttpProviderError(): Error;
+export declare function getMatIconNoHttpProviderError(): Error;
 /**
  * Returns an exception to be thrown when a URL couldn't be sanitized.
  * @param url URL that was attempted to be sanitized.
  * @docs-private
  */
-export declare function getMdIconFailedToSanitizeError(url: SafeResourceUrl): Error;
+export declare function getMatIconFailedToSanitizeError(url: SafeResourceUrl): Error;
 /**
- * Service to register and display icons used by the <md-icon> component.
+ * Service to register and display icons used by the <mat-icon> component.
  * - Registers icon URLs by namespace and name.
  * - Registers icon set URLs by namespace.
  * - Registers aliases for CSS classes, for use with icon fonts.
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
-export declare class MdIconRegistry {
+export declare class MatIconRegistry {
     private _http;
     private _sanitizer;
     /**
@@ -53,7 +46,7 @@ export declare class MdIconRegistry {
     /** Map from font identifiers to their CSS class names. Used for icon fonts. */
     private _fontCssClassesByAlias;
     /**
-     * The CSS class to apply when an <md-icon> component has no icon name, url, or font specified.
+     * The CSS class to apply when an <mat-icon> component has no icon name, url, or font specified.
      * The default 'material-icons' value assumes that the material icon font has been loaded as
      * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
      */
@@ -84,9 +77,9 @@ export declare class MdIconRegistry {
      */
     addSvgIconSetInNamespace(namespace: string, url: SafeResourceUrl): this;
     /**
-     * Defines an alias for a CSS class name to be used for icon fonts. Creating an mdIcon
+     * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
-     * to the <md-icon> element.
+     * to the <mat-icon> element.
      *
      * @param alias Alias for the font.
      * @param className Class name override to be used instead of the alias.
@@ -98,14 +91,14 @@ export declare class MdIconRegistry {
      */
     classNameForFontAlias(alias: string): string;
     /**
-     * Sets the CSS class name to be used for icon fonts when an <md-icon> component does not
+     * Sets the CSS class name to be used for icon fonts when an <mat-icon> component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      *
      * @param className
      */
     setDefaultFontSetClass(className: string): this;
     /**
-     * Returns the CSS class name to be used for icon fonts when an <md-icon> component does not
+     * Returns the CSS class name to be used for icon fonts when an <mat-icon> component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      */
     getDefaultFontSetClass(): string;
@@ -185,10 +178,10 @@ export declare class MdIconRegistry {
     private _fetchUrl(safeUrl);
 }
 /** @docs-private */
-export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MdIconRegistry, http: Http, sanitizer: DomSanitizer): MdIconRegistry;
+export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, http: Http, sanitizer: DomSanitizer): MatIconRegistry;
 /** @docs-private */
 export declare const ICON_REGISTRY_PROVIDER: {
-    provide: typeof MdIconRegistry;
+    provide: typeof MatIconRegistry;
     deps: (Optional[] | typeof DomSanitizer)[];
-    useFactory: (parentRegistry: MdIconRegistry, http: Http, sanitizer: DomSanitizer) => MdIconRegistry;
+    useFactory: (parentRegistry: MatIconRegistry, http: Http, sanitizer: DomSanitizer) => MatIconRegistry;
 };

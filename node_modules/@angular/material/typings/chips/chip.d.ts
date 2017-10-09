@@ -9,33 +9,33 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import { ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { CanColor, CanDisable } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
-export interface MdChipEvent {
-    chip: MdChip;
+export interface MatChipEvent {
+    chip: MatChip;
 }
-/** Event object emitted by MdChip when selected or deselected. */
-export declare class MdChipSelectionChange {
-    source: MdChip;
+/** Event object emitted by MatChip when selected or deselected. */
+export declare class MatChipSelectionChange {
+    source: MatChip;
     selected: boolean;
     isUserInput: boolean;
-    constructor(source: MdChip, selected: boolean, isUserInput?: boolean);
+    constructor(source: MatChip, selected: boolean, isUserInput?: boolean);
 }
 /** @docs-private */
-export declare class MdChipBase {
+export declare class MatChipBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdChipMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MdChipBase;
+export declare const _MatChipMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MatChipBase;
 /**
  * Dummy directive to add CSS class to basic chips.
  * @docs-private
  */
-export declare class MdBasicChip {
+export declare class MatBasicChip {
 }
 /**
- * Material design styled Chip component. Used inside the MdChipList component.
+ * Material design styled Chip component. Used inside the MatChipList component.
  */
-export declare class MdChip extends _MdChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable {
+export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable {
     _elementRef: ElementRef;
     protected _value: any;
     protected _selected: boolean;
@@ -45,7 +45,7 @@ export declare class MdChip extends _MdChipMixinBase implements FocusableOption,
     _hasFocus: boolean;
     /** Whether the chip is selected. */
     selected: boolean;
-    /** The value of the chip. Defaults to the content inside <md-chip> tags. */
+    /** The value of the chip. Defaults to the content inside <mat-chip> tags. */
     value: any;
     /**
      * Whether or not the chips are selectable. When a chip is not selectable,
@@ -57,25 +57,25 @@ export declare class MdChip extends _MdChipMixinBase implements FocusableOption,
      */
     removable: boolean;
     /** Emits when the chip is focused. */
-    _onFocus: Subject<MdChipEvent>;
+    _onFocus: Subject<MatChipEvent>;
     /** Emits when the chip is blured. */
-    _onBlur: Subject<MdChipEvent>;
+    _onBlur: Subject<MatChipEvent>;
     /** Emitted when the chip is selected or deselected. */
-    selectionChange: EventEmitter<MdChipSelectionChange>;
+    selectionChange: EventEmitter<MatChipSelectionChange>;
     /** Emitted when the chip is destroyed. */
-    destroyed: EventEmitter<MdChipEvent>;
+    destroyed: EventEmitter<MatChipEvent>;
     /**
      * Emitted when the chip is destroyed.
      * @deprecated Use 'destroyed' instead.
      */
-    destroy: EventEmitter<MdChipEvent>;
+    destroy: EventEmitter<MatChipEvent>;
     /** Emitted when a chip is to be removed. */
-    removed: EventEmitter<MdChipEvent>;
+    removed: EventEmitter<MatChipEvent>;
     /**
      * Emitted when a chip is to be removed.
      * @deprecated Use `removed` instead.
      */
-    onRemove: EventEmitter<MdChipEvent>;
+    onRemove: EventEmitter<MatChipEvent>;
     readonly ariaSelected: string | null;
     constructor(renderer: Renderer2, _elementRef: ElementRef);
     ngOnDestroy(): void;
@@ -90,7 +90,7 @@ export declare class MdChip extends _MdChipMixinBase implements FocusableOption,
     /** Allows for programmatic focusing of the chip. */
     focus(): void;
     /**
-     * Allows for programmatic removal of the chip. Called by the MdChipList when the DELETE or
+     * Allows for programmatic removal of the chip. Called by the MatChipList when the DELETE or
      * BACKSPACE keys are pressed.
      *
      * Informs any listeners of the removal request. Does not remove the chip from the DOM.
@@ -108,16 +108,16 @@ export declare class MdChip extends _MdChipMixinBase implements FocusableOption,
  *
  * Example:
  *
- *     <md-chip>
- *       <md-icon mdChipRemove>cancel</md-icon>
- *     </md-chip>
+ *     <mat-chip>
+ *       <mat-icon matChipRemove>cancel</mat-icon>
+ *     </mat-chip>
  *
- * You *may* use a custom icon, but you may need to override the `md-chip-remove` positioning styles
- * to properly center the icon within the chip.
+ * You *may* use a custom icon, but you may need to override the `mat-chip-remove` positioning
+ * styles to properly center the icon within the chip.
  */
-export declare class MdChipRemove {
-    protected _parentChip: MdChip;
-    constructor(_parentChip: MdChip);
+export declare class MatChipRemove {
+    protected _parentChip: MatChip;
+    constructor(_parentChip: MatChip);
     /** Calls the parent chip's public `remove()` method if applicable. */
     _handleClick(): void;
 }

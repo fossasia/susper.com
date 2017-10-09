@@ -7,5 +7,6 @@
       "from": "./bidi/index"
     }
   ],
-  "flatModuleIndexRedirect": true
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/cdk/bidi"
 }

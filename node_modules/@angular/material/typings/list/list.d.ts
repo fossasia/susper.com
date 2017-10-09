@@ -6,68 +6,67 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, ElementRef, QueryList, Renderer2 } from '@angular/core';
-import { MdLine } from '@angular/material/core';
-import { CanDisableRipple } from '@angular/material/core';
+import { CanDisableRipple, MatLine } from '@angular/material/core';
 /** @docs-private */
-export declare class MdListBase {
+export declare class MatListBase {
 }
-export declare const _MdListMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MdListBase;
+export declare const _MatListMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatListBase;
 /** @docs-private */
-export declare class MdListItemBase {
+export declare class MatListItemBase {
 }
-export declare const _MdListItemMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MdListItemBase;
+export declare const _MatListItemMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatListItemBase;
 /** Divider between items within a list. */
-export declare class MdListDivider {
+export declare class MatListDivider {
 }
 /** A Material Design list component. */
-export declare class MdList extends _MdListMixinBase implements CanDisableRipple {
+export declare class MatList extends _MatListMixinBase implements CanDisableRipple {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
  */
-export declare class MdListCssMatStyler {
+export declare class MatListCssMatStyler {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
  */
-export declare class MdNavListCssMatStyler {
+export declare class MatNavListCssMatStyler {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
  */
-export declare class MdDividerCssMatStyler {
+export declare class MatDividerCssMatStyler {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
  */
-export declare class MdListAvatarCssMatStyler {
+export declare class MatListAvatarCssMatStyler {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
  */
-export declare class MdListIconCssMatStyler {
+export declare class MatListIconCssMatStyler {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
  */
-export declare class MdListSubheaderCssMatStyler {
+export declare class MatListSubheaderCssMatStyler {
 }
 /** An item within a Material Design list. */
-export declare class MdListItem extends _MdListItemMixinBase implements AfterContentInit, CanDisableRipple {
+export declare class MatListItem extends _MatListItemMixinBase implements AfterContentInit, CanDisableRipple {
     private _renderer;
     private _element;
     private _list;
     private _lineSetter;
     private _isNavList;
-    _lines: QueryList<MdLine>;
-    _hasAvatar: MdListAvatarCssMatStyler;
-    constructor(_renderer: Renderer2, _element: ElementRef, _list: MdList, navList: MdNavListCssMatStyler);
+    _lines: QueryList<MatLine>;
+    _hasAvatar: MatListAvatarCssMatStyler;
+    constructor(_renderer: Renderer2, _element: ElementRef, _list: MatList, navList: MatNavListCssMatStyler);
     ngAfterContentInit(): void;
     /** Whether this list item should show a ripple effect when clicked.  */
     _isRippleDisabled(): boolean;

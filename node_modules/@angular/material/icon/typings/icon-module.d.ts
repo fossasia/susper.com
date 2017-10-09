@@ -1,2 +1,2 @@
-export declare class MdIconModule {
+export declare class MatIconModule {
 }

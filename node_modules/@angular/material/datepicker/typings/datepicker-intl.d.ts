@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs/Subject';
 /** Datepicker data that requires internationalization. */
-export declare class MdDatepickerIntl {
+export declare class MatDatepickerIntl {
     /**
      * Stream that emits whenever the labels here are changed. Use this to notify
      * components if the labels have changed after initialization.

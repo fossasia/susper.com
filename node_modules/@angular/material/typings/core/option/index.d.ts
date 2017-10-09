@@ -1,4 +1,4 @@
-export declare class MdOptionModule {
+export declare class MatOptionModule {
 }
 export * from './option';
 export * from './optgroup';

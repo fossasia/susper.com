@@ -3,7 +3,7 @@
 module.exports = function (t, a) {
 	var foo = "raz", bar = "dwa";
 	// eslint-disable-next-line func-names
-	var fn = function marko (a, b) {
+	var fn = function marko(a, b) {
 		return this + a + b + foo + bar;
 	};
 	var result, o = {};

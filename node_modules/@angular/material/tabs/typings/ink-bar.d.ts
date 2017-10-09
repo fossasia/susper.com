@@ -10,7 +10,7 @@ import { Renderer2, ElementRef, NgZone } from '@angular/core';
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * @docs-private
  */
-export declare class MdInkBar {
+export declare class MatInkBar {
     private _renderer;
     private _elementRef;
     private _ngZone;

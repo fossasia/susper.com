@@ -1,2 +1,2 @@
-export declare class MdDatepickerModule {
+export declare class MatDatepickerModule {
 }

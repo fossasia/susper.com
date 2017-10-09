@@ -10,17 +10,17 @@
  * after initialization.
  * @docs-private
  */
-export declare function getMdSelectDynamicMultipleError(): Error;
+export declare function getMatSelectDynamicMultipleError(): Error;
 /**
  * Returns an exception to be thrown when attempting to assign a non-array value to a select
  * in `multiple` mode. Note that `undefined` and `null` are still valid values to allow for
  * resetting the value.
  * @docs-private
  */
-export declare function getMdSelectNonArrayValueError(): Error;
+export declare function getMatSelectNonArrayValueError(): Error;
 /**
  * Returns an exception to be thrown when assigning a non-function value to the comparator
  * used to determine if a value corresponds to an option. Note that whether the function
  * actually takes two values and returns a boolean is not checked.
  */
-export declare function getMdSelectNonFunctionValueError(): Error;
+export declare function getMatSelectNonFunctionValueError(): Error;

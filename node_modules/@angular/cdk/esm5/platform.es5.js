@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Injectable, NgModule } from '@angular/core';
+
 // Whether the current platform supports the V8 Break Iterator. The V8 check
 // is necessary to detect all Blink based browsers.
 var hasV8BreakIterator = (typeof (Intl) !== 'undefined' && ((Intl)).v8BreakIterator);
@@ -45,15 +46,16 @@ var Platform = (function () {
         // Safari browser should also use Webkit as its layout engine.
         this.SAFARI = this.isBrowser && /safari/i.test(navigator.userAgent) && this.WEBKIT;
     }
+    Platform.decorators = [
+        { type: Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    Platform.ctorParameters = function () { return []; };
     return Platform;
 }());
-Platform.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-Platform.ctorParameters = function () { return []; };
+
 /**
  * Cached result Set of input types support by the current browser.
  */
@@ -111,22 +113,25 @@ function getSupportedInputTypes() {
     }));
     return supportedInputTypes;
 }
+
 var PlatformModule = (function () {
     function PlatformModule() {
     }
+    PlatformModule.decorators = [
+        { type: NgModule, args: [{
+                    providers: [Platform]
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    PlatformModule.ctorParameters = function () { return []; };
     return PlatformModule;
 }());
-PlatformModule.decorators = [
-    { type: NgModule, args: [{
-                providers: [Platform]
-            },] },
-];
-/**
- * @nocollapse
- */
-PlatformModule.ctorParameters = function () { return []; };
+
 /**
  * Generated bundle index. Do not edit.
  */
-export { PlatformModule, Platform, getSupportedInputTypes };
+
+export { Platform, getSupportedInputTypes, PlatformModule };
 //# sourceMappingURL=platform.es5.js.map

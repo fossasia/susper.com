@@ -6,25 +6,25 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusKeyManager } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { Directionality } from '@angular/material/core';
-import { MdFormFieldControl } from '@angular/material/form-field';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { MdChip, MdChipEvent, MdChipSelectionChange } from './chip';
-import { MdChipInput } from './chip-input';
+import { MatChip, MatChipEvent, MatChipSelectionChange } from './chip';
+import { MatChipInput } from './chip-input';
 /** Change event object that is emitted when the chip list value has changed. */
-export declare class MdChipListChange {
-    source: MdChipList;
+export declare class MatChipListChange {
+    source: MatChipList;
     value: any;
-    constructor(source: MdChipList, value: any);
+    constructor(source: MatChipList, value: any);
 }
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
-export declare class MdChipList implements MdFormFieldControl<any>, ControlValueAccessor, AfterContentInit, OnInit, OnDestroy {
+export declare class MatChipList implements MatFormFieldControl<any>, ControlValueAccessor, AfterContentInit, OnInit, OnDestroy {
     protected _renderer: Renderer2;
     protected _elementRef: ElementRef;
     private _changeDetectorRef;
@@ -32,15 +32,16 @@ export declare class MdChipList implements MdFormFieldControl<any>, ControlValue
     private _parentForm;
     private _parentFormGroup;
     ngControl: NgControl;
+    readonly controlType: string;
     /**
-     * Stream that emits whenever the state of the input changes such that the wrapping `MdFormField`
+     * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
      * needs to run change detection.
      */
     stateChanges: Subject<void>;
     /** When a chip is destroyed, we track the index so we can focus the appropriate next chip. */
     protected _lastDestroyedIndex: number | null;
     /** Track which chips we're listening to for focus/destruction. */
-    protected _chipSet: WeakMap<MdChip, boolean>;
+    protected _chipSet: WeakMap<MatChip, boolean>;
     /** Subscription to tabbing out from the chip list. */
     private _tabOutSubscription;
     /** Subscription to changes in the chip list. */
@@ -58,7 +59,7 @@ export declare class MdChipList implements MdFormFieldControl<any>, ControlValue
     /** Whether the component is in multiple selection mode. */
     private _multiple;
     /** The chip input to add more chips */
-    protected _chipInput: MdChipInput;
+    protected _chipInput: MatChipInput;
     /** The aria-describedby attribute on the chip list for improved a11y. */
     protected _ariaDescribedby: string;
     /** Id of the chip list */
@@ -70,7 +71,7 @@ export declare class MdChipList implements MdFormFieldControl<any>, ControlValue
     /** Whether this is disabled */
     protected _disabled: boolean;
     protected _value: any;
-    /** Placeholder for the chip list. Alternatively, placeholder can be set on MdChipInput */
+    /** Placeholder for the chip list. Alternatively, placeholder can be set on MatChipInput */
     protected _placeholder: string;
     /** Tab index for the chip list. */
     _tabIndex: number;
@@ -80,16 +81,16 @@ export declare class MdChipList implements MdFormFieldControl<any>, ControlValue
      */
     _userTabIndex: number | null;
     /** The FocusKeyManager which handles focus. */
-    _keyManager: FocusKeyManager<MdChip>;
+    _keyManager: FocusKeyManager<MatChip>;
     /** Function when touched */
     _onTouched: () => void;
     /** Function when changed */
     _onChange: (value: any) => void;
-    _selectionModel: SelectionModel<MdChip>;
+    _selectionModel: SelectionModel<MatChip>;
     /** Comparison function to specify which option is displayed. Defaults to object equality. */
     private _compareWith;
     /** The array of selected chips inside chip list. */
-    readonly selected: MdChip[] | MdChip;
+    readonly selected: MatChip[] | MatChip;
     /** Whether the user should be allowed to select multiple chips. */
     multiple: boolean;
     /**
@@ -106,10 +107,11 @@ export declare class MdChipList implements MdFormFieldControl<any>, ControlValue
     required: any;
     /** For FormFieldControl. Use chip input's placholder if there's a chip input */
     placeholder: string;
-    /** Whether any chips or the mdChipInput inside of this chip-list has focus. */
+    /** Whether any chips or the matChipInput inside of this chip-list has focus. */
     readonly focused: boolean;
-    /** Whether this chip-list contains no chips and no mdChipInput. */
+    /** Whether this chip-list contains no chips and no matChipInput. */
     readonly empty: boolean;
+    readonly shouldPlaceholderFloat: boolean;
     /** Whether this chip-list is disabled. */
     disabled: any;
     /** Whether the chip list is in an error state. */
@@ -123,15 +125,15 @@ export declare class MdChipList implements MdFormFieldControl<any>, ControlValue
     selectable: boolean;
     tabIndex: number;
     /** Combined stream of all of the child chips' selection change events. */
-    readonly chipSelectionChanges: Observable<MdChipSelectionChange>;
+    readonly chipSelectionChanges: Observable<MatChipSelectionChange>;
     /** Combined stream of all of the child chips' focus change events. */
-    readonly chipFocusChanges: Observable<MdChipEvent>;
+    readonly chipFocusChanges: Observable<MatChipEvent>;
     /** Combined stream of all of the child chips' blur change events. */
-    readonly chipBlurChanges: Observable<MdChipEvent>;
+    readonly chipBlurChanges: Observable<MatChipEvent>;
     /** Combined stream of all of the child chips' remove change events. */
-    readonly chipRemoveChanges: Observable<MdChipEvent>;
+    readonly chipRemoveChanges: Observable<MatChipEvent>;
     /** Event emitted when the selected chip list value has been changed by the user. */
-    change: EventEmitter<MdChipListChange>;
+    change: EventEmitter<MatChipListChange>;
     /**
      * Event that emits whenever the raw value of the chip-list changes. This is here primarily
      * to facilitate the two-way binding for the `value` input.
@@ -139,18 +141,19 @@ export declare class MdChipList implements MdFormFieldControl<any>, ControlValue
      */
     valueChange: EventEmitter<any>;
     /** The chip components contained within this chip list. */
-    chips: QueryList<MdChip>;
+    chips: QueryList<MatChip>;
     constructor(_renderer: Renderer2, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl);
     ngAfterContentInit(): void;
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Associates an HTML input element with this chip list. */
-    registerInput(inputElement: MdChipInput): void;
+    registerInput(inputElement: MatChipInput): void;
     setDescribedByIds(ids: string[]): void;
     writeValue(value: any): void;
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: () => void): void;
     setDisabledState(disabled: boolean): void;
+    onContainerClick(): void;
     /**
      * Focuses the the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
@@ -172,7 +175,7 @@ export declare class MdChipList implements MdFormFieldControl<any>, ControlValue
      * Otherwise focus the next chip in the list.
      * Save `_lastDestroyedIndex` so we can set the correct focus.
      */
-    protected _updateKeyManager(chip: MdChip): void;
+    protected _updateKeyManager(chip: MatChip): void;
     /**
      * Checks to see if a focus chip was recently destroyed so that we can refocus the next closest
      * one.

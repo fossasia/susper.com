@@ -7,15 +7,15 @@
  */
 import { ElementRef, Renderer2 } from '@angular/core';
 import { CanColor } from '@angular/material/core';
-export declare class MdToolbarRow {
+export declare class MatToolbarRow {
 }
 /** @docs-private */
-export declare class MdToolbarBase {
+export declare class MatToolbarBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdToolbarMixinBase: (new (...args: any[]) => CanColor) & typeof MdToolbarBase;
-export declare class MdToolbar extends _MdToolbarMixinBase implements CanColor {
+export declare const _MatToolbarMixinBase: (new (...args: any[]) => CanColor) & typeof MatToolbarBase;
+export declare class MatToolbar extends _MatToolbarMixinBase implements CanColor {
     constructor(renderer: Renderer2, elementRef: ElementRef);
 }

@@ -1,2 +1,2 @@
-export declare class MdTabsModule {
+export declare class MatTabsModule {
 }

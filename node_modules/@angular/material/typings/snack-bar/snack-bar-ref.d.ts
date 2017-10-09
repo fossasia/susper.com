@@ -7,11 +7,11 @@
  */
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs/Observable';
-import { MdSnackBarContainer } from './snack-bar-container';
+import { MatSnackBarContainer } from './snack-bar-container';
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
-export declare class MdSnackBarRef<T> {
+export declare class MatSnackBarRef<T> {
     private _overlayRef;
     /** The instance of the component making up the content of the snack bar. */
     instance: T;
@@ -19,7 +19,7 @@ export declare class MdSnackBarRef<T> {
      * The instance of the component making up the content of the snack bar.
      * @docs-private
      */
-    containerInstance: MdSnackBarContainer;
+    containerInstance: MatSnackBarContainer;
     /** Subject for notifying the user that the snack bar has closed. */
     private _afterClosed;
     /** Subject for notifying the user that the snack bar has opened and appeared. */
@@ -31,7 +31,7 @@ export declare class MdSnackBarRef<T> {
      * dismissed before the duration passes.
      */
     private _durationTimeoutId;
-    constructor(containerInstance: MdSnackBarContainer, _overlayRef: OverlayRef);
+    constructor(containerInstance: MatSnackBarContainer, _overlayRef: OverlayRef);
     /** Dismisses the snack bar. */
     dismiss(): void;
     /** Marks the snackbar action clicked. */
