@@ -28,3 +28,4 @@ export declare function __await(v: any): any;
 export declare function __asyncGenerator(thisArg: any, _arguments: any, generator: Function): any;
 export declare function __asyncDelegator(o: any): any;
 export declare function __asyncValues(o: any): any;
+export declare function __makeTemplateObject(cooked: string[], raw: string[]): TemplateStringsArray;

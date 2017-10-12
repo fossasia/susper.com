@@ -1,19 +1,47 @@
-# Runtime
+# tslib
 
 This is a runtime library for [TypeScript](http://www.typescriptlang.org/) that contains all of the TypeScript helper functions.
 
+This library is primarily used by the `--importHelpers` flag in TypeScript.
+When using `--importHelpers`, a module that uses helper functions like `__extends` and `__assign` in the following emitted file:
+
+```ts
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+exports.x = {};
+exports.y = __assign({}, exports.x);
+
+```
+
+will instead be emitted as something like the following:
+
+```ts
+var tslib_1 = require("tslib");
+exports.x = {};
+exports.y = tslib_1.__assign({}, exports.x);
+```
+
+Because this can avoid duplicate declarations of things like `__extends`, `__assign`, etc., this means delivering users smaller files on average, as well as less runtime overhead.
+For optimized bundles with TypeScript, you should absolutely consider using `tslib` and `--importHelpers`.
+
 # Installing
 
-For the latest stable version:
+For the latest stable version, run:
 
 ## npm
 
 ```sh
 # TypeScript 2.3.3 or later
-npm install tslib
+npm install --save tslib
 
 # TypeScript 2.3.2 or earlier
-npm install tslib@1.6.1
+npm install --save tslib@1.6.1
 ```
 
 ## bower
@@ -30,10 +58,10 @@ bower install tslib@1.6.1
 
 ```sh
 # TypeScript 2.3.3 or later
-jspm install npm:tslib
+jspm install tslib
 
 # TypeScript 2.3.2 or earlier
-jspm install npm:tslib@1.6.1
+jspm install tslib@1.6.1
 ```
 
 # Usage
@@ -76,11 +104,11 @@ For JSPM users:
 ```json
 {
     "compilerOptions": {
-        "module": "System",
+        "module": "system",
         "importHelpers": true,
         "baseUrl": "./",
         "paths": {
-            "tslib" : ["jspm_packages/npm/tslib@1.7.0/tslib.d.ts"]
+            "tslib" : ["jspm_packages/npm/tslib@1.8.0/tslib.d.ts"]
         }
     }
 }
@@ -90,6 +118,7 @@ For JSPM users:
 # Contribute
 
 There are many ways to [contribute](https://github.com/Microsoft/TypeScript/blob/master/CONTRIBUTING.md) to TypeScript.
+
 * [Submit bugs](https://github.com/Microsoft/TypeScript/issues) and help us verify fixes as they are checked in.
 * Review the [source code changes](https://github.com/Microsoft/TypeScript/pulls).
 * Engage with other TypeScript users and developers on [StackOverflow](http://stackoverflow.com/questions/tagged/typescript).
