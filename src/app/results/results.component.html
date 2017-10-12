@@ -141,7 +141,7 @@
     </div>
     <br>
     <div class="clean"></div>
-    <div class="card">
+    <div class="card" *ngIf="totalNumber > 0">
     <div class="pagination-bar" *ngIf="!Display('images')">
       <div class="pagination-property" *ngIf="noOfPages>1">
         <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
