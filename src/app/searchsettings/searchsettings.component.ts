@@ -24,6 +24,7 @@ export class SearchsettingsComponent implements OnInit {
       this.instantresults = JSON.parse(localStorage.getItem('instantsearch')).value || false;
     } else {
       this.instantresults = false;
+      localStorage.setItem('instantsearch', JSON.stringify({value: true}));
     }
 
     if (localStorage.getItem('resultscount')) {
