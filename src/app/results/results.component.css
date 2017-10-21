@@ -110,9 +110,7 @@ a {
 }
 
 .container-fluid li {
-  height: 15px;
-  line-height: 15px;
-  padding-top: 28px;
+  line-height: 18px;
 }
 
 .container-fluid li a {
@@ -348,7 +346,7 @@ a {
 }
 
 .noResults {
-  margin-left: 3%;
+  margin-left: 172px;
   margin-top: 7%;
   font-size: medium;
   font-weight: normal;
@@ -363,10 +361,7 @@ a {
   padding-left: 16px;
 }
 
-.noResults >ul> li {
-  padding-top: 0;
-  padding-bottom: 18px;
-}
+
 
 .noResults em {
   font-weight: bold;
@@ -378,6 +373,7 @@ div.autocorrect {
   margin-left: 172px;
 }
 
+
  /*Responsiveness*/
 @media screen and (min-width: 426px) and (max-width: 2560px) {
   .next-page-mobile {
@@ -387,6 +383,10 @@ div.autocorrect {
 
 @media screen and (min-width:1920px) {
   div.autocorrect {
+    margin-left: 191px;
+  }
+
+  div.noResults {
     margin-left: 191px;
   }
 
@@ -410,6 +410,10 @@ div.autocorrect {
 
 @media screen and (max-width:1079px) {
   div.autocorrect {
+    margin-left: 134px;
+  }
+
+  div.noResults {
     margin-left: 134px;
   }
 
@@ -486,6 +490,11 @@ div.autocorrect {
   }
 
   div.autocorrect {
+    margin-left: 4%;
+    padding-left: 0;
+  }
+
+  div.noResults {
     margin-left: 4%;
     padding-left: 0;
   }
