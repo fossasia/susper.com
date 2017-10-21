@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AnimateTimings, AnimationOptions, ɵStyleData } from '@angular/animations';
+import { AnimateTimings, AnimationMetadataType, AnimationOptions, ɵStyleData } from '@angular/animations';
 export interface AstVisitor {
     visitTrigger(ast: TriggerAst, context: any): any;
     visitState(ast: StateAst, context: any): any;
@@ -20,107 +20,77 @@ export interface AstVisitor {
     visitAnimateRef(ast: AnimateRefAst, context: any): any;
     visitQuery(ast: QueryAst, context: any): any;
     visitStagger(ast: StaggerAst, context: any): any;
-    visitTiming(ast: TimingAst, context: any): any;
 }
-export declare abstract class Ast {
-    abstract visit(ast: AstVisitor, context: any): any;
-    options: AnimationOptions;
-    readonly params: {
-        [name: string]: any;
-    } | null;
+export interface Ast<T extends AnimationMetadataType> {
+    type: T;
+    options: AnimationOptions | null;
 }
-export declare class TriggerAst extends Ast {
+export interface TriggerAst extends Ast<AnimationMetadataType.Trigger> {
+    type: AnimationMetadataType.Trigger;
     name: string;
     states: StateAst[];
     transitions: TransitionAst[];
     queryCount: number;
     depCount: number;
-    constructor(name: string, states: StateAst[], transitions: TransitionAst[]);
-    visit(visitor: AstVisitor, context: any): any;
 }
-export declare class StateAst extends Ast {
+export interface StateAst extends Ast<AnimationMetadataType.State> {
+    type: AnimationMetadataType.State;
     name: string;
     style: StyleAst;
-    constructor(name: string, style: StyleAst);
-    visit(visitor: AstVisitor, context: any): any;
 }
-export declare class TransitionAst extends Ast {
+export interface TransitionAst extends Ast<AnimationMetadataType.Transition> {
     matchers: ((fromState: string, toState: string) => boolean)[];
-    animation: Ast;
+    animation: Ast<AnimationMetadataType>;
     queryCount: number;
     depCount: number;
-    constructor(matchers: ((fromState: string, toState: string) => boolean)[], animation: Ast);
-    visit(visitor: AstVisitor, context: any): any;
 }
-export declare class SequenceAst extends Ast {
-    steps: Ast[];
-    constructor(steps: Ast[]);
-    visit(visitor: AstVisitor, context: any): any;
+export interface SequenceAst extends Ast<AnimationMetadataType.Sequence> {
+    steps: Ast<AnimationMetadataType>[];
 }
-export declare class GroupAst extends Ast {
-    steps: Ast[];
-    constructor(steps: Ast[]);
-    visit(visitor: AstVisitor, context: any): any;
+export interface GroupAst extends Ast<AnimationMetadataType.Group> {
+    steps: Ast<AnimationMetadataType>[];
 }
-export declare class AnimateAst extends Ast {
+export interface AnimateAst extends Ast<AnimationMetadataType.Animate> {
     timings: TimingAst;
     style: StyleAst | KeyframesAst;
-    constructor(timings: TimingAst, style: StyleAst | KeyframesAst);
-    visit(visitor: AstVisitor, context: any): any;
 }
-export declare class StyleAst extends Ast {
+export interface StyleAst extends Ast<AnimationMetadataType.Style> {
     styles: (ɵStyleData | string)[];
     easing: string | null;
     offset: number | null;
-    isEmptyStep: boolean;
     containsDynamicStyles: boolean;
-    constructor(styles: (ɵStyleData | string)[], easing: string | null, offset: number | null);
-    visit(visitor: AstVisitor, context: any): any;
+    isEmptyStep?: boolean;
 }
-export declare class KeyframesAst extends Ast {
+export interface KeyframesAst extends Ast<AnimationMetadataType.Keyframes> {
     styles: StyleAst[];
-    constructor(styles: StyleAst[]);
-    visit(visitor: AstVisitor, context: any): any;
 }
-export declare class ReferenceAst extends Ast {
-    animation: Ast;
-    constructor(animation: Ast);
-    visit(visitor: AstVisitor, context: any): any;
+export interface ReferenceAst extends Ast<AnimationMetadataType.Reference> {
+    animation: Ast<AnimationMetadataType>;
 }
-export declare class AnimateChildAst extends Ast {
-    constructor();
-    visit(visitor: AstVisitor, context: any): any;
+export interface AnimateChildAst extends Ast<AnimationMetadataType.AnimateChild> {
 }
-export declare class AnimateRefAst extends Ast {
+export interface AnimateRefAst extends Ast<AnimationMetadataType.AnimateRef> {
     animation: ReferenceAst;
-    constructor(animation: ReferenceAst);
-    visit(visitor: AstVisitor, context: any): any;
 }
-export declare class QueryAst extends Ast {
+export interface QueryAst extends Ast<AnimationMetadataType.Query> {
     selector: string;
     limit: number;
     optional: boolean;
     includeSelf: boolean;
-    animation: Ast;
+    animation: Ast<AnimationMetadataType>;
     originalSelector: string;
-    constructor(selector: string, limit: number, optional: boolean, includeSelf: boolean, animation: Ast);
-    visit(visitor: AstVisitor, context: any): any;
 }
-export declare class StaggerAst extends Ast {
+export interface StaggerAst extends Ast<AnimationMetadataType.Stagger> {
     timings: AnimateTimings;
-    animation: Ast;
-    constructor(timings: AnimateTimings, animation: Ast);
-    visit(visitor: AstVisitor, context: any): any;
+    animation: Ast<AnimationMetadataType>;
 }
-export declare class TimingAst extends Ast {
+export interface TimingAst {
     duration: number;
     delay: number;
     easing: string | null;
-    constructor(duration: number, delay?: number, easing?: string | null);
-    visit(visitor: AstVisitor, context: any): any;
+    dynamic?: boolean;
 }
-export declare class DynamicTimingAst extends TimingAst {
-    value: string;
-    constructor(value: string);
-    visit(visitor: AstVisitor, context: any): any;
+export interface DynamicTimingAst extends TimingAst {
+    strValue: string;
+    dynamic: true;
 }

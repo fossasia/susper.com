@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-var iteratorSymbol = require('es6-symbol').iterator
-  , Iterator       = require('../');
+var iteratorSymbol = require("es6-symbol").iterator
+  , Iterator       = require("../");
 
 module.exports = function (t, a) {
 	var iterator;
@@ -10,10 +10,14 @@ module.exports = function (t, a) {
 	a(t({}), false, "Plain object");
 	a(t({ length: 0 }), false, "Array-like");
 	iterator = {};
-	iterator[iteratorSymbol] = function () { return new Iterator([]); };
+	iterator[iteratorSymbol] = function () {
+ return new Iterator([]);
+};
 	a(t(iterator), true, "Iterator");
 	a(t([]), true, "Array");
-	a(t('foo'), true, "String");
-	a(t(''), true, "Empty string");
-	a(t((function () { return arguments; }())), true, "Arguments");
+	a(t("foo"), true, "String");
+	a(t(""), true, "Empty string");
+	a(t(function () {
+ return arguments;
+}()), true, "Arguments");
 };

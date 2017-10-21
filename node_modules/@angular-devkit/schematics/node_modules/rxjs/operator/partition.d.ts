@@ -40,4 +40,4 @@ import { Observable } from '../Observable';
  * @method partition
  * @owner Observable
  */
-export declare function partition<T>(this: Observable<T>, predicate: (value: T) => boolean, thisArg?: any): [Observable<T>, Observable<T>];
+export declare function partition<T>(this: Observable<T>, predicate: (value: T, index: number) => boolean, thisArg?: any): [Observable<T>, Observable<T>];

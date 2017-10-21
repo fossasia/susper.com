@@ -1,9 +1,9 @@
 /**!
 
  @license
- handlebars v4.0.10
+ handlebars v4.0.11
 
-Copyright (C) 2011-2016 by Yehuda Katz
+Copyright (C) 2011-2017 by Yehuda Katz
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -275,7 +275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _logger2 = _interopRequireDefault(_logger);
 
-	var VERSION = '4.0.10';
+	var VERSION = '4.0.11';
 	exports.VERSION = VERSION;
 	var COMPILER_REVISION = 7;
 

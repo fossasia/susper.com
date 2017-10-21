@@ -1,5 +1,6 @@
 import { Observable } from '../Observable';
 import { IScheduler } from '../Scheduler';
+import { Timestamp } from '../operators/timestamp';
 /**
  * @param scheduler
  * @return {Observable<Timestamp<any>>|WebSocketSubject<T>|Observable<T>}
@@ -7,8 +8,3 @@ import { IScheduler } from '../Scheduler';
  * @owner Observable
  */
 export declare function timestamp<T>(this: Observable<T>, scheduler?: IScheduler): Observable<Timestamp<T>>;
-export declare class Timestamp<T> {
-    value: T;
-    timestamp: number;
-    constructor(value: T, timestamp: number);
-}

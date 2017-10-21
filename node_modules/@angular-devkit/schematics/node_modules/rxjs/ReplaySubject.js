@@ -7,7 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Subject_1 = require('./Subject');
 var queue_1 = require('./scheduler/queue');
 var Subscription_1 = require('./Subscription');
-var observeOn_1 = require('./operator/observeOn');
+var observeOn_1 = require('./operators/observeOn');
 var ObjectUnsubscribedError_1 = require('./util/ObjectUnsubscribedError');
 var SubjectSubscription_1 = require('./SubjectSubscription');
 /**

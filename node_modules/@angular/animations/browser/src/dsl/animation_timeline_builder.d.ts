@@ -5,14 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AnimateTimings, AnimationOptions, ɵStyleData } from '@angular/animations';
+import { AnimateTimings, AnimationMetadataType, AnimationOptions, ɵStyleData } from '@angular/animations';
 import { AnimationDriver } from '../render/animation_driver';
-import { AnimateAst, AnimateChildAst, AnimateRefAst, Ast, AstVisitor, GroupAst, KeyframesAst, QueryAst, ReferenceAst, SequenceAst, StaggerAst, StateAst, StyleAst, TimingAst, TransitionAst, TriggerAst } from './animation_ast';
+import { AnimateAst, AnimateChildAst, AnimateRefAst, Ast, AstVisitor, GroupAst, KeyframesAst, QueryAst, ReferenceAst, SequenceAst, StaggerAst, StateAst, StyleAst, TransitionAst, TriggerAst } from './animation_ast';
 import { AnimationTimelineInstruction } from './animation_timeline_instruction';
 import { ElementInstructionMap } from './element_instruction_map';
-export declare function buildAnimationTimelines(driver: AnimationDriver, rootElement: any, ast: Ast, startingStyles: ɵStyleData | undefined, finalStyles: ɵStyleData | undefined, options: AnimationOptions, subInstructions?: ElementInstructionMap, errors?: any[]): AnimationTimelineInstruction[];
+export declare function buildAnimationTimelines(driver: AnimationDriver, rootElement: any, ast: Ast<AnimationMetadataType>, startingStyles: ɵStyleData | undefined, finalStyles: ɵStyleData | undefined, options: AnimationOptions, subInstructions?: ElementInstructionMap, errors?: any[]): AnimationTimelineInstruction[];
 export declare class AnimationTimelineBuilderVisitor implements AstVisitor {
-    buildKeyframes(driver: AnimationDriver, rootElement: any, ast: Ast, startingStyles: ɵStyleData, finalStyles: ɵStyleData, options: AnimationOptions, subInstructions?: ElementInstructionMap, errors?: any[]): AnimationTimelineInstruction[];
+    buildKeyframes(driver: AnimationDriver, rootElement: any, ast: Ast<AnimationMetadataType>, startingStyles: ɵStyleData, finalStyles: ɵStyleData, options: AnimationOptions, subInstructions?: ElementInstructionMap, errors?: any[]): AnimationTimelineInstruction[];
     visitTrigger(ast: TriggerAst, context: AnimationTimelineContext): any;
     visitState(ast: StateAst, context: AnimationTimelineContext): any;
     visitTransition(ast: TransitionAst, context: AnimationTimelineContext): any;
@@ -22,7 +22,7 @@ export declare class AnimationTimelineBuilderVisitor implements AstVisitor {
     visitReference(ast: ReferenceAst, context: AnimationTimelineContext): void;
     visitSequence(ast: SequenceAst, context: AnimationTimelineContext): void;
     visitGroup(ast: GroupAst, context: AnimationTimelineContext): void;
-    visitTiming(ast: TimingAst, context: AnimationTimelineContext): AnimateTimings;
+    private _visitTiming(ast, context);
     visitAnimate(ast: AnimateAst, context: AnimationTimelineContext): void;
     visitStyle(ast: StyleAst, context: AnimationTimelineContext): void;
     visitKeyframes(ast: KeyframesAst, context: AnimationTimelineContext): void;
@@ -42,7 +42,7 @@ export declare class AnimationTimelineContext {
     parentContext: AnimationTimelineContext | null;
     currentTimeline: TimelineBuilder;
     currentAnimateTimings: AnimateTimings | null;
-    previousNode: Ast;
+    previousNode: Ast<AnimationMetadataType>;
     subContextCount: number;
     options: AnimationOptions;
     currentQueryIndex: number;

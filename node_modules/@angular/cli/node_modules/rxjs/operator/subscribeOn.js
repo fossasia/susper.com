@@ -1,5 +1,5 @@
 "use strict";
-var SubscribeOnObservable_1 = require('../observable/SubscribeOnObservable');
+var subscribeOn_1 = require('../operators/subscribeOn');
 /**
  * Asynchronously subscribes Observers to this Observable on the specified IScheduler.
  *
@@ -13,17 +13,7 @@ var SubscribeOnObservable_1 = require('../observable/SubscribeOnObservable');
  */
 function subscribeOn(scheduler, delay) {
     if (delay === void 0) { delay = 0; }
-    return this.lift(new SubscribeOnOperator(scheduler, delay));
+    return subscribeOn_1.subscribeOn(scheduler, delay)(this);
 }
 exports.subscribeOn = subscribeOn;
-var SubscribeOnOperator = (function () {
-    function SubscribeOnOperator(scheduler, delay) {
-        this.scheduler = scheduler;
-        this.delay = delay;
-    }
-    SubscribeOnOperator.prototype.call = function (subscriber, source) {
-        return new SubscribeOnObservable_1.SubscribeOnObservable(source, this.delay, this.scheduler).subscribe(subscriber);
-    };
-    return SubscribeOnOperator;
-}());
 //# sourceMappingURL=subscribeOn.js.map

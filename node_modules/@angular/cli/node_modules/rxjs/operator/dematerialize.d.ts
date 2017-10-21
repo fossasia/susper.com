@@ -1,4 +1,5 @@
 import { Observable } from '../Observable';
+import { Notification } from '../Notification';
 /**
  * Converts an Observable of {@link Notification} objects into the emissions
  * that they represent.
@@ -39,4 +40,4 @@ import { Observable } from '../Observable';
  * @method dematerialize
  * @owner Observable
  */
-export declare function dematerialize<T>(this: Observable<T>): Observable<any>;
+export declare function dematerialize<T>(this: Observable<Notification<T>>): Observable<T>;

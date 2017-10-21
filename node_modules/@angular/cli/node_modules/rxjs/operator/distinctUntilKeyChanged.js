@@ -1,5 +1,5 @@
 "use strict";
-var distinctUntilChanged_1 = require('./distinctUntilChanged');
+var distinctUntilKeyChanged_1 = require('../operators/distinctUntilKeyChanged');
 /* tslint:enable:max-line-length */
 /**
  * Returns an Observable that emits all items emitted by the source Observable that are distinct by comparison from the previous item,
@@ -59,12 +59,7 @@ var distinctUntilChanged_1 = require('./distinctUntilChanged');
  * @owner Observable
  */
 function distinctUntilKeyChanged(key, compare) {
-    return distinctUntilChanged_1.distinctUntilChanged.call(this, function (x, y) {
-        if (compare) {
-            return compare(x[key], y[key]);
-        }
-        return x[key] === y[key];
-    });
+    return distinctUntilKeyChanged_1.distinctUntilKeyChanged(key, compare)(this);
 }
 exports.distinctUntilKeyChanged = distinctUntilKeyChanged;
 //# sourceMappingURL=distinctUntilKeyChanged.js.map

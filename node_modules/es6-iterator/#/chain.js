@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-var setPrototypeOf = require('es5-ext/object/set-prototype-of')
-  , d              = require('d')
-  , Iterator       = require('../')
-  , validIterable  = require('../valid-iterable')
+var setPrototypeOf = require("es5-ext/object/set-prototype-of")
+  , d              = require("d")
+  , Iterator       = require("../")
+  , validIterable  = require("../valid-iterable")
 
   , push = Array.prototype.push
   , defineProperties = Object.defineProperties
@@ -11,8 +11,8 @@ var setPrototypeOf = require('es5-ext/object/set-prototype-of')
 
 IteratorChain = function (iterators) {
 	defineProperties(this, {
-		__iterators__: d('', iterators),
-		__current__: d('w', iterators.shift())
+		__iterators__: d("", iterators),
+		__current__: d("w", iterators.shift())
 	});
 };
 if (setPrototypeOf) setPrototypeOf(IteratorChain, Iterator);

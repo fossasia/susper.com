@@ -1,5 +1,5 @@
 "use strict";
-var mergeMapTo_1 = require('./mergeMapTo');
+var concatMapTo_1 = require('../operators/concatMapTo');
 /* tslint:enable:max-line-length */
 /**
  * Projects each source value to the same Observable which is merged multiple
@@ -58,7 +58,7 @@ var mergeMapTo_1 = require('./mergeMapTo');
  * @owner Observable
  */
 function concatMapTo(innerObservable, resultSelector) {
-    return this.lift(new mergeMapTo_1.MergeMapToOperator(innerObservable, resultSelector, 1));
+    return concatMapTo_1.concatMapTo(innerObservable, resultSelector)(this);
 }
 exports.concatMapTo = concatMapTo;
 //# sourceMappingURL=concatMapTo.js.map

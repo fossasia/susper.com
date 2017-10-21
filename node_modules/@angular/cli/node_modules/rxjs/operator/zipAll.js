@@ -1,5 +1,5 @@
 "use strict";
-var zip_1 = require('./zip');
+var zipAll_1 = require('../operators/zipAll');
 /**
  * @param project
  * @return {Observable<R>|WebSocketSubject<T>|Observable<T>}
@@ -7,7 +7,7 @@ var zip_1 = require('./zip');
  * @owner Observable
  */
 function zipAll(project) {
-    return this.lift(new zip_1.ZipOperator(project));
+    return zipAll_1.zipAll(project)(this);
 }
 exports.zipAll = zipAll;
 //# sourceMappingURL=zipAll.js.map

@@ -1,6 +1,5 @@
 "use strict";
-var not_1 = require('../util/not');
-var filter_1 = require('./filter');
+var partition_1 = require('../operators/partition');
 /**
  * Splits the source Observable into two, one with values that satisfy a
  * predicate, and another with values that don't satisfy the predicate.
@@ -43,10 +42,7 @@ var filter_1 = require('./filter');
  * @owner Observable
  */
 function partition(predicate, thisArg) {
-    return [
-        filter_1.filter.call(this, predicate, thisArg),
-        filter_1.filter.call(this, not_1.not(predicate, thisArg))
-    ];
+    return partition_1.partition(predicate, thisArg)(this);
 }
 exports.partition = partition;
 //# sourceMappingURL=partition.js.map

@@ -1,18 +1,17 @@
 "use strict";
-var ReplaySubject_1 = require('../ReplaySubject');
-var multicast_1 = require('./multicast');
+var publishReplay_1 = require('../operators/publishReplay');
+/* tslint:enable:max-line-length */
 /**
  * @param bufferSize
  * @param windowTime
+ * @param selectorOrScheduler
  * @param scheduler
- * @return {ConnectableObservable<T>}
+ * @return {Observable<T> | ConnectableObservable<T>}
  * @method publishReplay
  * @owner Observable
  */
-function publishReplay(bufferSize, windowTime, scheduler) {
-    if (bufferSize === void 0) { bufferSize = Number.POSITIVE_INFINITY; }
-    if (windowTime === void 0) { windowTime = Number.POSITIVE_INFINITY; }
-    return multicast_1.multicast.call(this, new ReplaySubject_1.ReplaySubject(bufferSize, windowTime, scheduler));
+function publishReplay(bufferSize, windowTime, selectorOrScheduler, scheduler) {
+    return publishReplay_1.publishReplay(bufferSize, windowTime, selectorOrScheduler, scheduler)(this);
 }
 exports.publishReplay = publishReplay;
 //# sourceMappingURL=publishReplay.js.map

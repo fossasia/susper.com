@@ -5,7 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AnimateTimings, AnimationMetadata, AnimationOptions, ɵStyleData } from '@angular/animations';
+import { AnimateTimings, AnimationMetadata, AnimationMetadataType, AnimationOptions, ɵStyleData } from '@angular/animations';
+import { Ast as AnimationAst, AstVisitor as AnimationAstVisitor } from './dsl/animation_ast';
+import { AnimationDslVisitor } from './dsl/animation_dsl_visitor';
 export declare const ONE_SECOND = 1000;
 export declare const SUBSTITUTION_EXPR_START = "{{";
 export declare const SUBSTITUTION_EXPR_END = "}}";
@@ -40,3 +42,5 @@ export declare function iteratorToArray(iterator: any): any[];
 export declare function mergeAnimationOptions(source: AnimationOptions, destination: AnimationOptions): AnimationOptions;
 export declare function dashCaseToCamelCase(input: string): string;
 export declare function allowPreviousPlayerStylesMerge(duration: number, delay: number): boolean;
+export declare function visitDslNode(visitor: AnimationDslVisitor, node: AnimationMetadata, context: any): any;
+export declare function visitDslNode(visitor: AnimationAstVisitor, node: AnimationAst<AnimationMetadataType>, context: any): any;

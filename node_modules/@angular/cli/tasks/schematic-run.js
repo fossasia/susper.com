@@ -9,7 +9,6 @@ const config_1 = require("../models/config");
 require("rxjs/add/operator/concatMap");
 require("rxjs/add/operator/map");
 const schematics_2 = require("../utilities/schematics");
-const app_utils_1 = require("../utilities/app-utils");
 const Task = require('../ember-cli/lib/models/task');
 exports.default = Task.extend({
     run: function (options) {
@@ -17,12 +16,6 @@ exports.default = Task.extend({
         const ui = this.ui;
         const collection = schematics_2.getCollection(collectionName);
         const schematic = schematics_2.getSchematic(collection, schematicName);
-        let modifiedFiles = [];
-        let appConfig;
-        try {
-            appConfig = app_utils_1.getAppFromConfig(taskOptions.app);
-        }
-        catch (err) { }
         const projectRoot = !!this.project ? this.project.root : workingDir;
         const preppedOptions = prepOptions(schematic, taskOptions);
         const opts = Object.assign({}, taskOptions, preppedOptions);
@@ -32,6 +25,7 @@ exports.default = Task.extend({
         const fsSink = new schematics_1.FileSystemSink(workingDir, opts.force);
         let error = false;
         const loggingQueue = [];
+        const modifiedFiles = [];
         dryRunSink.reporter.subscribe((event) => {
             const eventPath = event.path.startsWith('/') ? event.path.substr(1) : event.path;
             switch (event.kind) {
@@ -46,7 +40,7 @@ exports.default = Task.extend({
                         keyword: 'update',
                         message: `${eventPath} (${event.content.length} bytes)`
                     });
-                    modifiedFiles = [...modifiedFiles, event.path];
+                    modifiedFiles.push(event.path);
                     break;
                 case 'create':
                     loggingQueue.push({
@@ -54,7 +48,7 @@ exports.default = Task.extend({
                         keyword: 'create',
                         message: `${eventPath} (${event.content.length} bytes)`
                     });
-                    modifiedFiles = [...modifiedFiles, event.path];
+                    modifiedFiles.push(event.path);
                     break;
                 case 'delete':
                     loggingQueue.push({
@@ -70,6 +64,7 @@ exports.default = Task.extend({
                         keyword: 'rename',
                         message: `${eventPath} => ${eventToPath}`
                     });
+                    modifiedFiles.push(event.to);
                     break;
             }
         });

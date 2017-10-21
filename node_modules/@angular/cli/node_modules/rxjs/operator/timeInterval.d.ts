@@ -1,5 +1,7 @@
 import { Observable } from '../Observable';
 import { IScheduler } from '../Scheduler';
+import { TimeInterval } from '../operators/timeInterval';
+export { TimeInterval };
 /**
  * @param scheduler
  * @return {Observable<TimeInterval<any>>|WebSocketSubject<T>|Observable<T>}
@@ -7,8 +9,3 @@ import { IScheduler } from '../Scheduler';
  * @owner Observable
  */
 export declare function timeInterval<T>(this: Observable<T>, scheduler?: IScheduler): Observable<TimeInterval<T>>;
-export declare class TimeInterval<T> {
-    value: T;
-    interval: number;
-    constructor(value: T, interval: number);
-}

@@ -1,16 +1,15 @@
 import { Observable } from '../Observable';
-import { multicast } from './multicast';
-import { Subject } from '../Subject';
-
-function shareSubjectFactory() {
-  return new Subject();
-}
+import { share as higherOrder } from '../operators/share';
 
 /**
  * Returns a new Observable that multicasts (shares) the original Observable. As long as there is at least one
  * Subscriber this Observable will be subscribed and emitting data. When all subscribers have unsubscribed it will
  * unsubscribe from the source Observable. Because the Observable is multicasting it makes the stream `hot`.
- * This is an alias for .publish().refCount().
+ *
+ * This behaves similarly to .publish().refCount(), with a behavior difference when the source observable emits complete.
+ * .publish().refCount() will not resubscribe to the original source, however .share() will resubscribe to the original source.
+ * Observable.of("test").publish().refCount() will not re-emit "test" on new subscriptions, Observable.of("test").share() will
+ * re-emit "test" to new subscriptions.
  *
  * <img src="./img/share.png" width="100%">
  *
@@ -19,5 +18,5 @@ function shareSubjectFactory() {
  * @owner Observable
  */
 export function share<T>(this: Observable<T>): Observable<T> {
-  return multicast.call(this, shareSubjectFactory).refCount();
+  return higherOrder()(this) as Observable<T>;
 };

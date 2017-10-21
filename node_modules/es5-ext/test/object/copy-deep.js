@@ -3,19 +3,22 @@
 var stringify = JSON.stringify;
 
 module.exports = function (t, a) {
-	var o = { 1: "raz", 2: "dwa", 3: "trzy" }
-	  , no = t(o);
+	var o = { 1: "raz", 2: "dwa", 3: "trzy" }, no = t(o);
 
 	a.not(no, o, "Return different object");
 	a(stringify(no), stringify(o), "Match properties and values");
 
-	o = { foo: "bar",
-raz: { dwa: "dwa",
-		trzy: { cztery: "pięć", sześć: "siedem" },
-osiem: {},
-		dziewięć: function () { } },
+	o = {
+		foo: "bar",
+		raz: {
+			dwa: "dwa",
+			trzy: { cztery: "pięć", sześć: "siedem" },
+			osiem: {},
+			dziewięć: function () {}
+		},
 		dziesięć: 10,
-jedenaście: ["raz", ["dwa", "trzy", { elo: "true" }]] };
+		jedenaście: ["raz", ["dwa", "trzy", { elo: "true" }]]
+	};
 	o.raz.rec = o;
 
 	no = t(o);
@@ -28,4 +31,5 @@ jedenaście: ["raz", ["dwa", "trzy", { elo: "true" }]] };
 	a.not(o["jedenaście"], no["jedenaście"]);
 	a.not(o["jedenaście"][1], no["jedenaście"][1]);
 	a.not(o["jedenaście"][1][2], no["jedenaście"][1][2]);
+	a(t(true), true);
 };

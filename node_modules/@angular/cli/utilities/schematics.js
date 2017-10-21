@@ -12,14 +12,19 @@ const json_schema_1 = require("@ngtools/json-schema");
 require("rxjs/add/operator/concatMap");
 require("rxjs/add/operator/map");
 const SilentError = require('silent-error');
+const engineHost = new tools_1.NodeModulesEngineHost();
+const engine = new schematics_1.SchematicEngine(engineHost);
 function getEngineHost() {
-    const engineHost = new tools_1.NodeModulesEngineHost();
     return engineHost;
 }
 exports.getEngineHost = getEngineHost;
+function getEngine() {
+    return engine;
+}
+exports.getEngine = getEngine;
 function getCollection(collectionName) {
     const engineHost = getEngineHost();
-    const engine = new schematics_1.SchematicEngine(engineHost);
+    const engine = getEngine();
     // Add support for schemaJson.
     engineHost.registerOptionsTransform((schematic, options) => {
         if (schematic.schema) {

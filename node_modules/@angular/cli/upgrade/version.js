@@ -156,7 +156,7 @@ class Version {
         const versionCombos = [
             { compiler: '>=2.3.1 <3.0.0', typescript: '>=2.0.2 <2.3.0' },
             { compiler: '>=4.0.0 <5.0.0', typescript: '>=2.1.0 <2.4.0' },
-            { compiler: '>=5.0.0 <6.0.0', typescript: '>=2.4.0 <2.6.0' }
+            { compiler: '>=5.0.0 <6.0.0', typescript: '>=2.4.0 <2.5.0' }
         ];
         const currentCombo = versionCombos.find((combo) => semver_1.satisfies(compilerVersion, combo.compiler));
         if (currentCombo && !semver_1.satisfies(tsVersion, currentCombo.typescript)) {

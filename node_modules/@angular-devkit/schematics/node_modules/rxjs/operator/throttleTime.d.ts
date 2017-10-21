@@ -1,6 +1,6 @@
-import { IScheduler } from '../Scheduler';
 import { Observable } from '../Observable';
-import { ThrottleConfig } from './throttle';
+import { IScheduler } from '../Scheduler';
+import { ThrottleConfig } from '../operators/throttle';
 /**
  * Emits a value from the source Observable, then ignores subsequent source
  * values for `duration` milliseconds, then repeats this process.

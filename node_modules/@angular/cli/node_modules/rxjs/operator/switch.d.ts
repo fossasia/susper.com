@@ -41,4 +41,4 @@ import { Observable } from '../Observable';
  * @name switch
  * @owner Observable
  */
-export declare function _switch<T>(this: Observable<T>): T;
+export declare function _switch<T>(this: Observable<Observable<T>>): Observable<T>;

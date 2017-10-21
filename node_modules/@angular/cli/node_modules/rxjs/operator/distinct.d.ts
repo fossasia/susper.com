@@ -1,7 +1,4 @@
 import { Observable } from '../Observable';
-import { Subscriber } from '../Subscriber';
-import { OuterSubscriber } from '../OuterSubscriber';
-import { InnerSubscriber } from '../InnerSubscriber';
 /**
  * Returns an Observable that emits all items emitted by the source Observable that are distinct by comparison from previous items.
  *
@@ -48,18 +45,3 @@ import { InnerSubscriber } from '../InnerSubscriber';
  * @owner Observable
  */
 export declare function distinct<T, K>(this: Observable<T>, keySelector?: (value: T) => K, flushes?: Observable<any>): Observable<T>;
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-export declare class DistinctSubscriber<T, K> extends OuterSubscriber<T, T> {
-    private keySelector;
-    private values;
-    constructor(destination: Subscriber<T>, keySelector: (value: T) => K, flushes: Observable<any>);
-    notifyNext(outerValue: T, innerValue: T, outerIndex: number, innerIndex: number, innerSub: InnerSubscriber<T, T>): void;
-    notifyError(error: any, innerSub: InnerSubscriber<T, T>): void;
-    protected _next(value: T): void;
-    private _useKeySelector(value);
-    private _finalizeNext(key, value);
-}

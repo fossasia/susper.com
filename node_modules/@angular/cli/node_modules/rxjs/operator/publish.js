@@ -1,6 +1,5 @@
 "use strict";
-var Subject_1 = require('../Subject');
-var multicast_1 = require('./multicast');
+var publish_1 = require('../operators/publish');
 /* tslint:enable:max-line-length */
 /**
  * Returns a ConnectableObservable, which is a variety of Observable that waits until its connect method is called
@@ -16,8 +15,7 @@ var multicast_1 = require('./multicast');
  * @owner Observable
  */
 function publish(selector) {
-    return selector ? multicast_1.multicast.call(this, function () { return new Subject_1.Subject(); }, selector) :
-        multicast_1.multicast.call(this, new Subject_1.Subject());
+    return publish_1.publish(selector)(this);
 }
 exports.publish = publish;
 //# sourceMappingURL=publish.js.map

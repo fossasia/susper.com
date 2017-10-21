@@ -1,13 +1,13 @@
 "use strict";
-var AsyncSubject_1 = require('../AsyncSubject');
-var multicast_1 = require('./multicast');
+var publishLast_1 = require('../operators/publishLast');
 /**
  * @return {ConnectableObservable<T>}
  * @method publishLast
  * @owner Observable
  */
 function publishLast() {
-    return multicast_1.multicast.call(this, new AsyncSubject_1.AsyncSubject());
+    //TODO(benlesh): correct type-flow through here.
+    return publishLast_1.publishLast()(this);
 }
 exports.publishLast = publishLast;
 //# sourceMappingURL=publishLast.js.map

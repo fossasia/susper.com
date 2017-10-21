@@ -1,5 +1,5 @@
 "use strict";
-var map_1 = require('./map');
+var pluck_1 = require('../operators/pluck');
 /**
  * Maps each source value (an object) to its specified nested property.
  *
@@ -31,27 +31,7 @@ function pluck() {
     for (var _i = 0; _i < arguments.length; _i++) {
         properties[_i - 0] = arguments[_i];
     }
-    var length = properties.length;
-    if (length === 0) {
-        throw new Error('list of properties cannot be empty.');
-    }
-    return map_1.map.call(this, plucker(properties, length));
+    return pluck_1.pluck.apply(void 0, properties)(this);
 }
 exports.pluck = pluck;
-function plucker(props, length) {
-    var mapper = function (x) {
-        var currentProp = x;
-        for (var i = 0; i < length; i++) {
-            var p = currentProp[props[i]];
-            if (typeof p !== 'undefined') {
-                currentProp = p;
-            }
-            else {
-                return undefined;
-            }
-        }
-        return currentProp;
-    };
-    return mapper;
-}
 //# sourceMappingURL=pluck.js.map

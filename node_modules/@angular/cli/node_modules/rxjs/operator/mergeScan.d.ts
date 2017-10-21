@@ -1,9 +1,4 @@
-import { Operator } from '../Operator';
 import { Observable } from '../Observable';
-import { Subscriber } from '../Subscriber';
-import { Subscription } from '../Subscription';
-import { OuterSubscriber } from '../OuterSubscriber';
-import { InnerSubscriber } from '../InnerSubscriber';
 /**
  * Applies an accumulator function over the source Observable where the
  * accumulator function itself returns an Observable, then each intermediate
@@ -36,31 +31,3 @@ import { InnerSubscriber } from '../InnerSubscriber';
  * @owner Observable
  */
 export declare function mergeScan<T, R>(this: Observable<T>, accumulator: (acc: R, value: T) => Observable<R>, seed: R, concurrent?: number): Observable<R>;
-export declare class MergeScanOperator<T, R> implements Operator<T, R> {
-    private accumulator;
-    private seed;
-    private concurrent;
-    constructor(accumulator: (acc: R, value: T) => Observable<R>, seed: R, concurrent: number);
-    call(subscriber: Subscriber<R>, source: any): any;
-}
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-export declare class MergeScanSubscriber<T, R> extends OuterSubscriber<T, R> {
-    private accumulator;
-    private acc;
-    private concurrent;
-    private hasValue;
-    private hasCompleted;
-    private buffer;
-    private active;
-    protected index: number;
-    constructor(destination: Subscriber<R>, accumulator: (acc: R, value: T) => Observable<R>, acc: R, concurrent: number);
-    protected _next(value: any): void;
-    private _innerSub(ish, value, index);
-    protected _complete(): void;
-    notifyNext(outerValue: T, innerValue: R, outerIndex: number, innerIndex: number, innerSub: InnerSubscriber<T, R>): void;
-    notifyComplete(innerSub: Subscription): void;
-}

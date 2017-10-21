@@ -1,9 +1,5 @@
 import { Observable, SubscribableOrPromise } from '../Observable';
-export interface ThrottleConfig {
-    leading?: boolean;
-    trailing?: boolean;
-}
-export declare const defaultThrottleConfig: ThrottleConfig;
+import { ThrottleConfig } from '../operators/throttle';
 /**
  * Emits a value from the source Observable, then ignores subsequent source
  * values for a duration determined by another Observable, then repeats this

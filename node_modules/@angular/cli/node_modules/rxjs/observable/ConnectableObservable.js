@@ -8,6 +8,7 @@ var Subject_1 = require('../Subject');
 var Observable_1 = require('../Observable');
 var Subscriber_1 = require('../Subscriber');
 var Subscription_1 = require('../Subscription');
+var refCount_1 = require('../operators/refCount');
 /**
  * @class ConnectableObservable<T>
  */
@@ -48,7 +49,7 @@ var ConnectableObservable = (function (_super) {
         return connection;
     };
     ConnectableObservable.prototype.refCount = function () {
-        return this.lift(new RefCountOperator(this));
+        return refCount_1.refCount()(this);
     };
     return ConnectableObservable;
 }(Observable_1.Observable));

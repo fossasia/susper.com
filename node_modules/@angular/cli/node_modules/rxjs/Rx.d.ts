@@ -144,14 +144,17 @@ export { ObjectUnsubscribedError } from './util/ObjectUnsubscribedError';
 export { TimeoutError } from './util/TimeoutError';
 export { UnsubscriptionError } from './util/UnsubscriptionError';
 export { TimeInterval } from './operator/timeInterval';
-export { Timestamp } from './operator/timestamp';
+export { Timestamp } from './operators/timestamp';
 export { TestScheduler } from './testing/TestScheduler';
 export { VirtualTimeScheduler } from './scheduler/VirtualTimeScheduler';
 export { AjaxRequest, AjaxResponse, AjaxError, AjaxTimeoutError } from './observable/dom/AjaxObservable';
+export { pipe } from './util/pipe';
 import { AsapScheduler } from './scheduler/AsapScheduler';
 import { AsyncScheduler } from './scheduler/AsyncScheduler';
 import { QueueScheduler } from './scheduler/QueueScheduler';
 import { AnimationFrameScheduler } from './scheduler/AnimationFrameScheduler';
+import * as _operators from './operators';
+export declare const operators: typeof _operators;
 /**
  * @typedef {Object} Rx.Scheduler
  * @property {Scheduler} queue Schedules on a queue in the current event frame
