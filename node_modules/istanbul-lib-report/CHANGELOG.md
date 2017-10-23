@@ -1,7 +1,18 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
-See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-report@1.1.1...istanbul-lib-report@1.1.2) (2017-10-21)
+
+
+### Bug Fixes
+
+* remove call to mkdirp.sync() in constructor so when used for ConsoleWriter ([#104](https://github.com/istanbuljs/istanbuljs/issues/104)) ([58eb79d](https://github.com/istanbuljs/istanbuljs/commit/58eb79d))
+
+
+
 
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-report@1.1.0...istanbul-lib-report@1.1.1) (2017-05-27)

@@ -1,7 +1,18 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
-See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-hook@1.0.7...istanbul-lib-hook@1.1.0) (2017-10-21)
+
+
+### Features
+
+* hook vm.runInContext ([#90](https://github.com/istanbuljs/istanbuljs/issues/90)) ([9659936](https://github.com/istanbuljs/istanbuljs/commit/9659936))
+
+
+
 
 <a name="1.0.7"></a>
 ## [1.0.7](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-hook@1.0.6...istanbul-lib-hook@1.0.7) (2017-05-27)

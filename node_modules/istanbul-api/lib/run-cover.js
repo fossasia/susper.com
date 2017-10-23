@@ -23,7 +23,12 @@ function getCoverFunctions(config, includes, callback) {
         reportingDir = path.resolve(config.reporting.dir()),
         reporter = new Reporter(config),
         excludes = config.instrumentation.excludes(true),
-        coverageVar = '$$cov_' + new Date().getTime() + '$$',
+        // The coverage variable below should have different value than
+        // that of the coverage variable actually used by the instrumenter (in this case: __coverage__).
+        // Otherwise if you run nyc to provide coverage on these files,
+        // both the actual instrumenter and this file will write to the global coverage variable,
+        // and provide unexpected coverage result.
+        coverageVar = '$$coverage$$',
         instOpts = config.instrumentation.getInstrumenterOpts(),
         sourceMapStore = libSourceMaps.createSourceMapStore({}),
         instrumenter,
@@ -88,7 +93,8 @@ function getCoverFunctions(config, includes, callback) {
     hookFn = function (matchFn) {
         var hookOpts = {
             verbose: config.verbose,
-            extensions: config.instrumentation.extensions()
+            extensions: config.instrumentation.extensions(),
+            coverageVariable: coverageVar
         };
 
         //initialize the global variable
@@ -96,6 +102,9 @@ function getCoverFunctions(config, includes, callback) {
         reportInitFn();
 
         if (config.hooks.hookRunInContext()) {
+            hook.hookRunInContext(matchFn, transformer, hookOpts);
+        }
+        if (config.hooks.hookRunInThisContext()) {
             hook.hookRunInThisContext(matchFn, transformer, hookOpts);
         }
         disabler = hook.hookRequire(matchFn, requireTransformer, hookOpts);
@@ -106,6 +115,7 @@ function getCoverFunctions(config, includes, callback) {
             disabler();
         }
         hook.unhookRunInThisContext();
+        hook.unhookRunInContext();
         hook.unloadRequireCache(matchFn);
     };
 

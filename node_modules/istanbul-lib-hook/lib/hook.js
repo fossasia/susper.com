@@ -6,7 +6,8 @@ var path = require('path'),
     vm = require('vm'),
     appendTransform = require('append-transform'),
     originalCreateScript = vm.createScript,
-    originalRunInThisContext = vm.runInThisContext;
+    originalRunInThisContext = vm.runInThisContext,
+    originalRunInContext = vm.runInContext;
 
 function transformFn(matcher, transformer, verbose) {
 
@@ -150,6 +151,43 @@ function unhookRunInThisContext() {
     vm.runInThisContext = originalRunInThisContext;
 }
 /**
+ * hooks `vm.runInContext` to return transformed code.
+ * @method hookRunInContext
+ * @static
+ * @param matcher {Function(filePath)} a function that is called with the filename passed to `vm.createScript`
+ *  Should return a truthy value when transformations need to be applied to the code, a falsy value otherwise
+ * @param transformer {Function(code, filePath)} a function called with the original code and the filename passed to
+ *  `vm.createScript`. Should return the transformed code.
+ * @param opts {Object} [opts={}] options
+ * @param {Boolean} [options.verbose] write a line to standard error every time the transformer is called
+ */
+function hookRunInContext(matcher, transformer, opts) {
+    opts = opts || {};
+    var fn = transformFn(matcher, transformer, opts.verbose);
+    vm.runInContext = function (code, context, file) {
+        var ret = fn(code, file);
+        var coverageVariable = opts.coverageVariable || '__coverage__';
+        // Refer coverage variable in context to global coverage variable.
+        // So that coverage data will be written in global coverage variable for unit tests run in vm.runInContext.
+        // If all unit tests are run in vm.runInContext, no global coverage variable will be generated.
+        // Thus initialize a global coverage variable here.
+        if (!global[coverageVariable]) {
+            global[coverageVariable] = {};
+        }
+        context[coverageVariable] = global[coverageVariable];
+        return originalRunInContext(ret.code, context, file);
+    };
+    
+}
+/**
+ * unhooks vm.runInContext, restoring it to its original state.
+ * @method unhookRunInContext
+ * @static
+ */
+function unhookRunInContext() {
+    vm.runInContext = originalRunInContext;
+}
+/**
  * istanbul-lib-hook provides mechanisms to transform code in the scope of `require`,
  * `vm.createScript`, `vm.runInThisContext` etc.
  *
@@ -177,6 +215,8 @@ module.exports = {
     unhookCreateScript: unhookCreateScript,
     hookRunInThisContext : hookRunInThisContext,
     unhookRunInThisContext : unhookRunInThisContext,
+    hookRunInContext : hookRunInContext,
+    unhookRunInContext : unhookRunInContext,
     unloadRequireCache: unloadRequireCache
 };
 

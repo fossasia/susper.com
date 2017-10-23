@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.9.1"></a>
+## [1.9.1](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-instrument@1.9.0...istanbul-lib-instrument@1.9.1) (2017-10-22)
+
+
+### Bug Fixes
+
+* address issue with class instrumentation ([#111](https://github.com/istanbuljs/istanbuljs/issues/111)) ([cbd1c14](https://github.com/istanbuljs/istanbuljs/commit/cbd1c14))
+
+
+
+
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-instrument@1.8.0...istanbul-lib-instrument@1.9.0) (2017-10-21)
+
+
+### Bug Fixes
+
+* support conditional expression for superClass ([#106](https://github.com/istanbuljs/istanbuljs/issues/106)) ([aae256f](https://github.com/istanbuljs/istanbuljs/commit/aae256f))
+
+
+### Features
+
+* add support for ignoring entire files ([#108](https://github.com/istanbuljs/istanbuljs/issues/108)) ([f12da65](https://github.com/istanbuljs/istanbuljs/commit/f12da65))
+
+
+
+
 <a name="1.8.0"></a>
 # [1.8.0](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-instrument@1.7.5...istanbul-lib-instrument@1.8.0) (2017-09-05)
 

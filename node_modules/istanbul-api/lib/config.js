@@ -39,6 +39,7 @@ function defaultConfig() {
         },
         hooks: {
             'hook-run-in-context': false,
+            'hook-run-in-this-context': false,
             'post-require-hook': null,
             'handle-sigint': false
         },
@@ -336,10 +337,15 @@ function HookOptions(config) {
 }
 
 /**
+ * returns if `vm.runInContext` needs to be hooked. Used by the `cover` command.
+ * @method hookRunInContext
+ * @return {Boolean} true if `vm.runInContext` needs to be hooked for coverage
+ */
+/**
  * returns if `vm.runInThisContext` needs to be hooked, in addition to the standard
  * `require` hooks added by istanbul. This should be true for code that uses
  * RequireJS for example. Used by the `cover` command.
- * @method hookRunInContext
+ * @method hookRunInThisContext
  * @return {Boolean} true if `vm.runInThisContext` needs to be hooked for coverage
  */
 /**
@@ -360,7 +366,7 @@ function HookOptions(config) {
  * @return {Boolean} true if SIGINT needs to be hooked to write coverage information
  */
 
-addMethods(HookOptions, 'hookRunInContext', 'postRequireHook', 'handleSigint');
+addMethods(HookOptions, 'hookRunInContext', 'hookRunInThisContext', 'postRequireHook', 'handleSigint');
 
 /**
  * represents the istanbul configuration and provides sub-objects that can

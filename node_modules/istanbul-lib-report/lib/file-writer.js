@@ -119,7 +119,6 @@ function FileWriter(baseDir) {
     if (!baseDir) {
         throw new Error('baseDir must be specified');
     }
-    mkdirp.sync(baseDir);
     this.baseDir = baseDir;
 }
 

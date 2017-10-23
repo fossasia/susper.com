@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/istanbuljs/istanbuljs/compare/istanbul-api@1.2.0...istanbul-api@1.2.1) (2017-10-22)
+
+
+
+
+**Note:** Version bump only for package istanbul-api
+
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/istanbuljs/istanbuljs/compare/istanbul-api@1.1.9...istanbul-api@1.2.0) (2017-10-21)
+
+
+### Features
+
+* hook vm.runInContext ([#90](https://github.com/istanbuljs/istanbuljs/issues/90)) ([9659936](https://github.com/istanbuljs/istanbuljs/commit/9659936))
+
+
+### Performance Improvements
+
+* set excludes to options.ignore on fileset ([#67](https://github.com/istanbuljs/istanbuljs/issues/67)) ([8b514a3](https://github.com/istanbuljs/istanbuljs/commit/8b514a3))
+
+
+
+
 <a name="1.1.14"></a>
 ## [1.1.14](https://github.com/istanbuljs/istanbuljs/compare/istanbul-api@1.1.9...istanbul-api@1.1.14) (2017-09-05)
 
