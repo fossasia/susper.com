@@ -9,7 +9,7 @@ var tryCatch_1 = require('../../util/tryCatch');
 var errorObject_1 = require('../../util/errorObject');
 var Observable_1 = require('../../Observable');
 var Subscriber_1 = require('../../Subscriber');
-var operators_1 = require('../../operators');
+var map_1 = require('../../operators/map');
 function getCORSRequest() {
     if (root_1.root.XMLHttpRequest) {
         return new root_1.root.XMLHttpRequest();
@@ -72,7 +72,7 @@ function ajaxPatch(url, body, headers) {
 }
 exports.ajaxPatch = ajaxPatch;
 ;
-var mapResponse = operators_1.map(function (x, index) { return x.response; });
+var mapResponse = map_1.map(function (x, index) { return x.response; });
 function ajaxGetJSON(url, headers) {
     return mapResponse(new AjaxObservable({
         method: 'GET',

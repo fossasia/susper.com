@@ -1,2 +1,4 @@
-import { OperatorFunction } from '../interfaces';
-export declare function publishLast<T>(): OperatorFunction<T, T>;
+import { Observable } from '../Observable';
+import { ConnectableObservable } from '../observable/ConnectableObservable';
+import { UnaryFunction } from '../interfaces';
+export declare function publishLast<T>(): UnaryFunction<Observable<T>, ConnectableObservable<T>>;
