@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE_BRANCH="master"
+SOURCE_BRANCH="crawlpage-design-changes"
 TARGET_BRANCH="gh-pages"
 
 # Pull requests and commits to other branches shouldn't try to deploy.

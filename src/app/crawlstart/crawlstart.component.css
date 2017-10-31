@@ -23,6 +23,7 @@
   font-size: 11px;
   text-align: center;
   font-weight: bold;
+  margin: auto;
 }
 
 .nav-terms {
@@ -229,7 +230,6 @@ h2 {
 }
 
 fieldset{
-  background-color: #eeeeee;
   color: #18294A;
   border: 0px solid #eeeeee;
   border-radius: 5px;
