@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// @ignoreDep typescript
 const path = require("path");
 const ts = require("typescript");
 const ModulesInRootPlugin = require('enhanced-resolve/lib/ModulesInRootPlugin');

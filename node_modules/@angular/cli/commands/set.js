@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
+const chalk_1 = require("chalk");
 const config_1 = require("../models/config");
 const common_tags_1 = require("common-tags");
 const SilentError = require('silent-error');
-const chalk = require('chalk');
 const Command = require('../ember-cli/lib/models/command');
 const SetCommand = Command.extend({
     name: 'set',
@@ -96,7 +96,7 @@ function updateLintForPrefix(filePath, prefix) {
         tsLint.rules['directive-selector'][2] = prefix;
     }
     fs.writeFileSync(filePath, JSON.stringify(tsLint, null, 2));
-    console.log(chalk.yellow(common_tags_1.oneLine `we have updated tslint to match prefix,
+    console.log(chalk_1.default.yellow(common_tags_1.oneLine `we have updated tslint to match prefix,
      you may want to fix linting errors.`));
 }
 function parseValue(rawValue, path) {

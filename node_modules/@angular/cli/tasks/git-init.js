@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_tags_1 = require("common-tags");
+const chalk_1 = require("chalk");
 const denodeify = require("denodeify");
 const exec = denodeify(require('child_process').exec);
 const path = require('path');
@@ -20,7 +21,6 @@ const gitEnvironmentVariables = {
 };
 module.exports = Task.extend({
     run: function (commandOptions) {
-        const chalk = require('chalk');
         const ui = this.ui;
         if (commandOptions.skipGit) {
             return Promise.resolve();
@@ -55,7 +55,7 @@ module.exports = Task.extend({
                 }
             })
                 .then(function () {
-                ui.writeLine(chalk.green('Successfully initialized git.'));
+                ui.writeLine(chalk_1.default.green('Successfully initialized git.'));
             });
         })
             .catch(function () {

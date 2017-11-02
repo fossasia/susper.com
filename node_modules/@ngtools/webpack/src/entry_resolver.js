@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// @ignoreDep typescript
 const fs = require("fs");
 const path_1 = require("path");
 const ts = require("typescript");

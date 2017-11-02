@@ -9,6 +9,7 @@ const config_1 = require("../models/config");
 require("rxjs/add/operator/concatMap");
 require("rxjs/add/operator/map");
 const schematics_2 = require("../utilities/schematics");
+const { green, red, yellow } = chalk_1.default;
 const Task = require('../ember-cli/lib/models/task');
 exports.default = Task.extend({
     run: function (options) {
@@ -36,7 +37,7 @@ exports.default = Task.extend({
                     break;
                 case 'update':
                     loggingQueue.push({
-                        color: chalk_1.yellow,
+                        color: yellow,
                         keyword: 'update',
                         message: `${eventPath} (${event.content.length} bytes)`
                     });
@@ -44,7 +45,7 @@ exports.default = Task.extend({
                     break;
                 case 'create':
                     loggingQueue.push({
-                        color: chalk_1.green,
+                        color: green,
                         keyword: 'create',
                         message: `${eventPath} (${event.content.length} bytes)`
                     });
@@ -52,7 +53,7 @@ exports.default = Task.extend({
                     break;
                 case 'delete':
                     loggingQueue.push({
-                        color: chalk_1.red,
+                        color: red,
                         keyword: 'remove',
                         message: `${eventPath}`
                     });
@@ -60,7 +61,7 @@ exports.default = Task.extend({
                 case 'rename':
                     const eventToPath = event.to.startsWith('/') ? event.to.substr(1) : event.to;
                     loggingQueue.push({
-                        color: chalk_1.yellow,
+                        color: yellow,
                         keyword: 'rename',
                         message: `${eventPath} => ${eventToPath}`
                     });
@@ -86,12 +87,12 @@ exports.default = Task.extend({
             })
                 .subscribe({
                 error(err) {
-                    ui.writeLine(chalk_1.red(`Error: ${err.message}`));
+                    ui.writeLine(red(`Error: ${err.message}`));
                     reject(err.message);
                 },
                 complete() {
                     if (opts.dryRun) {
-                        ui.writeLine(chalk_1.yellow(`\nNOTE: Run with "dry run" no changes were made.`));
+                        ui.writeLine(yellow(`\nNOTE: Run with "dry run" no changes were made.`));
                     }
                     resolve({ modifiedFiles });
                 }

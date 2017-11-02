@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const path = require("path");
-const ts = require("typescript");
 const common_tags_1 = require("common-tags");
 const json_schema_1 = require("@ngtools/json-schema");
+const strip_bom_1 = require("../../utilities/strip-bom");
 const DEFAULT_CONFIG_SCHEMA_PATH = path.join(__dirname, '../../lib/config/schema.json');
 class InvalidConfigError extends Error {
     constructor(message) {
@@ -63,12 +63,20 @@ class CliConfig {
         return new CliConfig(null, schema, content, global);
     }
     static fromConfigPath(configPath, otherPath = []) {
-        const configContent = ts.sys.readFile(configPath) || '{}';
         const schemaContent = fs.readFileSync(DEFAULT_CONFIG_SCHEMA_PATH, 'utf-8');
+        let configContent = '{}';
+        if (fs.existsSync(configPath)) {
+            configContent = strip_bom_1.stripBom(fs.readFileSync(configPath, 'utf-8') || '{}');
+        }
         let otherContents = new Array();
         if (configPath !== otherPath[0]) {
             otherContents = otherPath
-                .map(path => ts.sys.readFile(path))
+                .map(path => {
+                if (fs.existsSync(path)) {
+                    return strip_bom_1.stripBom(fs.readFileSync(path, 'utf-8'));
+                }
+                return undefined;
+            })
                 .filter(content => !!content);
         }
         let content;

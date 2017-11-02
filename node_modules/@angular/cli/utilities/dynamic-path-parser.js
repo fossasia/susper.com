@@ -7,7 +7,8 @@ const stringUtils = require('ember-cli-string-utils');
 function dynamicPathParser(options) {
     const projectRoot = options.project.root;
     const sourceDir = options.appConfig.root;
-    const appRoot = path.join(sourceDir, 'app');
+    const p = options.appConfig.appRoot === undefined ? 'app' : options.appConfig.appRoot;
+    const appRoot = path.join(sourceDir, p);
     const cwd = process.env.PWD;
     const rootPath = path.join(projectRoot, appRoot);
     let outputPath = path.join(rootPath, options.entityName);

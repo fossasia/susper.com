@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const chalk = require("chalk");
+const chalk_1 = require("chalk");
 const link_cli_1 = require("../tasks/link-cli");
 const npm_install_1 = require("../tasks/npm-install");
 const validate_project_name_1 = require("../utilities/validate-project-name");
@@ -91,7 +91,7 @@ exports.default = Task.extend({
         })
             .then(() => {
             if (!commandOptions.dryRun) {
-                this.ui.writeLine(chalk.green(`Project '${packageName}' successfully created.`));
+                this.ui.writeLine(chalk_1.default.green(`Project '${packageName}' successfully created.`));
             }
         });
     }

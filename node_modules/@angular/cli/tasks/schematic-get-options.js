@@ -16,6 +16,7 @@ exports.default = Task.extend({
             .map(key => (Object.assign({}, properties[key], { name: stringUtils.dasherize(key) })))
             .map(opt => {
             let type;
+            const schematicType = opt.type;
             switch (opt.type) {
                 case 'string':
                     type = String;
@@ -38,9 +39,11 @@ exports.default = Task.extend({
             if (opt.aliases) {
                 aliases = [...aliases, ...opt.aliases];
             }
+            const schematicDefault = opt.default;
             return Object.assign({}, opt, { aliases,
-                type, default: undefined // do not carry over schematics defaults
-             });
+                type,
+                schematicType, default: undefined, // do not carry over schematics defaults
+                schematicDefault });
         })
             .filter(x => x);
         return Promise.resolve(availableOptions);

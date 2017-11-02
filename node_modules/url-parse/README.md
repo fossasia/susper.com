@@ -89,6 +89,17 @@ The returned `url` instance contains the following properties:
 - `href`: The full URL.
 - `origin`: The origin of the URL.
 
+Note that when `url-parse` is used in a browser environment, it will default to
+using the browser's current window location as the base URL when parsing all
+inputs. To parse an input independently of the browser's current URL (e.g. for
+functionality parity with the library in a Node environment), pass an empty
+location object as the second parameter:
+
+```js
+var parse = require('url-parse');
+parse('hostname', {});
+```
+
 ### URL.set(key, value)
 
 A simple helper function to change parts of the URL and propagating it through

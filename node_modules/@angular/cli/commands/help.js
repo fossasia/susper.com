@@ -54,8 +54,14 @@ const HelpCommand = Command.extend({
                     if (commandOptions.short) {
                         this.ui.writeLine(command.printShortHelp(commandOptions));
                     }
-                    else if (command.printDetailedHelp(commandOptions)) {
-                        this.ui.writeLine(command.printDetailedHelp(commandOptions));
+                    else if (command.printDetailedHelp(commandOptions, rawArgs)) {
+                        const result = command.printDetailedHelp(commandOptions, rawArgs);
+                        if (result instanceof Promise) {
+                            result.then(r => this.ui.writeLine(r));
+                        }
+                        else {
+                            this.ui.writeLine(result);
+                        }
                     }
                     else {
                         this.ui.writeLine(command.printBasicHelp(commandOptions));

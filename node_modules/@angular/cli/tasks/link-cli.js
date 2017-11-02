@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Task = require('../ember-cli/lib/models/task');
-const chalk = require("chalk");
+const chalk_1 = require("chalk");
 const child_process_1 = require("child_process");
 exports.default = Task.extend({
     run: function () {
@@ -13,11 +13,11 @@ exports.default = Task.extend({
         return new Promise(function (resolve, reject) {
             child_process_1.exec(`${packageManager} link @angular/cli`, (err) => {
                 if (err) {
-                    ui.writeLine(chalk.red(`Couldn't do '${packageManager} link @angular/cli'.`));
+                    ui.writeLine(chalk_1.default.red(`Couldn't do '${packageManager} link @angular/cli'.`));
                     reject();
                 }
                 else {
-                    ui.writeLine(chalk.green('Successfully linked to @angular/cli.'));
+                    ui.writeLine(chalk_1.default.green('Successfully linked to @angular/cli.'));
                     resolve();
                 }
             });

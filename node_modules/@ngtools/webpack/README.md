@@ -3,7 +3,35 @@
 Webpack plugin that AoT compiles your Angular components and modules.
 
 ## Usage
-In your webpack config, add the following plugin and loader:
+
+In your webpack config, add the following plugin and loader.
+
+Angular version 5 and up, use `AngularCompilerPlugin`:
+
+```typescript
+import {AngularCompilerPlugin} from '@ngtools/webpack'
+
+exports = { /* ... */
+  module: {
+    rules: [
+      {
+        test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+        loader: '@ngtools/webpack',
+        sourcemap: true
+      }
+    ]
+  },
+
+  plugins: [
+    new AngularCompilerPlugin({
+      tsConfigPath: 'path/to/tsconfig.json',
+      entryModule: 'path/to/app.module#AppModule'
+    })
+  ]
+}
+```
+
+Angular version 2 and 4, use `AotPlugin`:
 
 ```typescript
 import {AotPlugin} from '@ngtools/webpack'
@@ -14,6 +42,7 @@ exports = { /* ... */
       {
         test: /\.ts$/,
         loader: '@ngtools/webpack',
+        sourcemap: true
       }
     ]
   },
@@ -27,7 +56,7 @@ exports = { /* ... */
 }
 ```
 
-The loader works with the webpack plugin to compile your TypeScript. It's important to include both, and to not include any other TypeScript compiler loader.
+The loader works with webpack plugin to compile your TypeScript. It's important to include both, and to not include any other TypeScript compiler loader.
 
 ## Options
 
@@ -35,9 +64,10 @@ The loader works with the webpack plugin to compile your TypeScript. It's import
 * `basePath`. Optional. The root to use by the compiler to resolve file paths. By default, use the `tsConfigPath` root.
 * `entryModule`. Optional if specified in `angularCompilerOptions`. The path and classname of the main application module. This follows the format `path/to/file#ClassName`.
 * `mainPath`. Optional if `entryModule` is specified. The `main.ts` file containing the bootstrap code. The plugin will use AST to determine the `entryModule`.
-* `skipCodeGeneration`. Optional, defaults to false. Disable code generation and do not refactor the code to bootstrap. This replaces `templateUrl: "string"` with `template: require("string")` (and similar for styles) to allow for webpack to properly link the resources.
-* `typeChecking`. Optional, defaults to true. Enable type checking through your application. This will slow down compilation, but show syntactic and semantic errors in webpack.
-* `exclude`. Optional. Extra files to exclude from TypeScript compilation.
+* `skipCodeGeneration`. Optional, defaults to false. Disable code generation and do not refactor the code to bootstrap. This replaces `templateUrl: "string"` with `template: require("string")` (and similar for styles) to allow for webpack to properly link the resources. Only available in `AotPlugin`.
+* `typeChecking`. Optional, defaults to true. Enable type checking through your application. This will slow down compilation, but show syntactic and semantic errors in webpack. Only available in `AotPlugin`.
+* `exclude`. Optional. Extra files to exclude from TypeScript compilation. Not supported with `AngularCompilerPlugin`.
+* `sourceMap`. Optional. Include sourcemaps.
 * `compilerOptions`. Optional. Override options in `tsconfig.json`.
 
 ## Features

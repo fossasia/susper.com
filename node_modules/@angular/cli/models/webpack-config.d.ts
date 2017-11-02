@@ -3,6 +3,7 @@ export interface WebpackConfigOptions<T extends BuildOptions = BuildOptions> {
     projectRoot: string;
     buildOptions: T;
     appConfig: any;
+    tsConfig: any;
 }
 export declare class NgCliWebpackConfig<T extends BuildOptions = BuildOptions> {
     config: any;

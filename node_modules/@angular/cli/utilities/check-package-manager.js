@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const chalk = require("chalk");
+const chalk_1 = require("chalk");
 const child_process_1 = require("child_process");
 const config_1 = require("../models/config");
 const denodeify = require("denodeify");
@@ -16,19 +16,19 @@ function checkYarnOrCNPM() {
         .then((data) => {
         const [isYarnInstalled, isCNPMInstalled] = data;
         if (isYarnInstalled && isCNPMInstalled) {
-            console.log(chalk.yellow('You can `ng set --global packageManager=yarn` '
+            console.log(chalk_1.default.yellow('You can `ng set --global packageManager=yarn` '
                 + 'or `ng set --global packageManager=cnpm`.'));
         }
         else if (isYarnInstalled) {
-            console.log(chalk.yellow('You can `ng set --global packageManager=yarn`.'));
+            console.log(chalk_1.default.yellow('You can `ng set --global packageManager=yarn`.'));
         }
         else if (isCNPMInstalled) {
-            console.log(chalk.yellow('You can `ng set --global packageManager=cnpm`.'));
+            console.log(chalk_1.default.yellow('You can `ng set --global packageManager=cnpm`.'));
         }
         else {
             if (packageManager !== 'default' && packageManager !== 'npm') {
-                console.log(chalk.yellow(`Seems that ${packageManager} is not installed.`));
-                console.log(chalk.yellow('You can `ng set --global packageManager=npm`.'));
+                console.log(chalk_1.default.yellow(`Seems that ${packageManager} is not installed.`));
+                console.log(chalk_1.default.yellow('You can `ng set --global packageManager=npm`.'));
             }
         }
     });

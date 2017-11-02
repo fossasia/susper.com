@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Command = require('../ember-cli/lib/models/command');
 const stringUtils = require('ember-cli-string-utils');
-const chalk = require("chalk");
+const chalk_1 = require("chalk");
 function pickOne(of) {
     return of[Math.floor(Math.random() * of.length)];
 }
@@ -23,7 +23,7 @@ const MakeThisAwesomeCommand = Command.extend({
             `Nothing to do; already awesome. Exiting.`,
             `Error 418: As Awesome As Can Get.`
         ]);
-        console.log(chalk.green(phrase));
+        console.log(chalk_1.default.green(phrase));
     }
 });
 exports.default = MakeThisAwesomeCommand;

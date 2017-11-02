@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Task = require('../ember-cli/lib/models/task');
-const chalk = require("chalk");
+const chalk_1 = require("chalk");
 const child_process_1 = require("child_process");
 exports.default = Task.extend({
     run: function () {
@@ -10,7 +10,7 @@ exports.default = Task.extend({
         if (packageManager === 'default') {
             packageManager = 'npm';
         }
-        ui.writeLine(chalk.green(`Installing packages for tooling via ${packageManager}.`));
+        ui.writeLine(chalk_1.default.green(`Installing packages for tooling via ${packageManager}.`));
         let installCommand = `${packageManager} install`;
         if (packageManager === 'npm') {
             installCommand = `${packageManager} --quiet install`;
@@ -20,11 +20,11 @@ exports.default = Task.extend({
                 if (err) {
                     ui.writeLine(stderr);
                     const message = 'Package install failed, see above.';
-                    ui.writeLine(chalk.red(message));
+                    ui.writeLine(chalk_1.default.red(message));
                     reject(message);
                 }
                 else {
-                    ui.writeLine(chalk.green(`Installed packages for tooling via ${packageManager}.`));
+                    ui.writeLine(chalk_1.default.green(`Installed packages for tooling via ${packageManager}.`));
                     resolve();
                 }
             });

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const config_1 = require("./config/config");
 const common_tags_1 = require("common-tags");
-const chalk = require("chalk");
+const chalk_1 = require("chalk");
 const fs = require("fs");
 const path = require("path");
 const os_1 = require("os");
@@ -77,7 +77,7 @@ class CliConfig extends config_1.CliConfig {
         ];
         // If any of them returned true, output a deprecation warning.
         if (aliases.some(x => x)) {
-            console.error(chalk.yellow(common_tags_1.oneLine `
+            console.error(chalk_1.default.yellow(common_tags_1.oneLine `
         The "defaults.prefix" and "defaults.sourceDir" properties of .angular-cli.json
         are deprecated in favor of "apps[0].root" and "apps[0].prefix".\n
         Please update in order to avoid errors in future versions of Angular CLI.
