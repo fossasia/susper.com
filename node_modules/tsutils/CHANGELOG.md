@@ -1,5 +1,17 @@
 # Change Log
 
+## v2.12.2
+
+**Bugfixes:**
+
+* `endsControlFlow`
+  * added missing logic for labeled statement, iteration statements and try-catch
+  * added missing logic for `break` and `continue` with labels
+  * take all jump statements into account, not only the last statement
+* `isValidIdentifier` and `isValidNumericLiteral` handle irregular whitespace
+* `findImports` searches in ambient modules inside regular `.ts` files (not only `.d.ts`)
+* `canHaveJsDoc` is now a typeguard
+
 ## v2.12.1
 
 **Bugfixes:**
