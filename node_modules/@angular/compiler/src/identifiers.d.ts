@@ -1,0 +1,57 @@
+import { CompileIdentifierMetadata, CompileTokenMetadata } from './compile_metadata';
+export interface IdentifierSpec {
+    name: string;
+    moduleUrl: string;
+    runtime: any;
+}
+export declare class Identifiers {
+    static ANALYZE_FOR_ENTRY_COMPONENTS: IdentifierSpec;
+    static ElementRef: IdentifierSpec;
+    static NgModuleRef: IdentifierSpec;
+    static ViewContainerRef: IdentifierSpec;
+    static ChangeDetectorRef: IdentifierSpec;
+    static QueryList: IdentifierSpec;
+    static TemplateRef: IdentifierSpec;
+    static CodegenComponentFactoryResolver: IdentifierSpec;
+    static ComponentFactoryResolver: IdentifierSpec;
+    static ComponentFactory: IdentifierSpec;
+    static ComponentRef: IdentifierSpec;
+    static NgModuleFactory: IdentifierSpec;
+    static NgModuleInjector: IdentifierSpec;
+    static RegisterModuleFactoryFn: IdentifierSpec;
+    static Injector: IdentifierSpec;
+    static ViewEncapsulation: IdentifierSpec;
+    static ChangeDetectionStrategy: IdentifierSpec;
+    static SecurityContext: IdentifierSpec;
+    static LOCALE_ID: IdentifierSpec;
+    static TRANSLATIONS_FORMAT: IdentifierSpec;
+    static inlineInterpolate: IdentifierSpec;
+    static interpolate: IdentifierSpec;
+    static EMPTY_ARRAY: IdentifierSpec;
+    static EMPTY_MAP: IdentifierSpec;
+    static Renderer: IdentifierSpec;
+    static viewDef: IdentifierSpec;
+    static elementDef: IdentifierSpec;
+    static anchorDef: IdentifierSpec;
+    static textDef: IdentifierSpec;
+    static directiveDef: IdentifierSpec;
+    static providerDef: IdentifierSpec;
+    static queryDef: IdentifierSpec;
+    static pureArrayDef: IdentifierSpec;
+    static pureObjectDef: IdentifierSpec;
+    static purePipeDef: IdentifierSpec;
+    static pipeDef: IdentifierSpec;
+    static nodeValue: IdentifierSpec;
+    static ngContentDef: IdentifierSpec;
+    static unwrapValue: IdentifierSpec;
+    static createRendererType2: IdentifierSpec;
+    static RendererType2: IdentifierSpec;
+    static ViewDefinition: IdentifierSpec;
+    static createComponentFactory: IdentifierSpec;
+}
+export declare function assetUrl(pkg: string, path?: string | null, type?: string): string;
+export declare function resolveIdentifier(identifier: IdentifierSpec): any;
+export declare function createIdentifier(identifier: IdentifierSpec): CompileIdentifierMetadata;
+export declare function identifierToken(identifier: CompileIdentifierMetadata): CompileTokenMetadata;
+export declare function createIdentifierToken(identifier: IdentifierSpec): CompileTokenMetadata;
+export declare function createEnumIdentifier(enumType: IdentifierSpec, name: string): CompileIdentifierMetadata;

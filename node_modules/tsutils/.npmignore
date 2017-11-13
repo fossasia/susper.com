@@ -1,0 +1,10 @@
+.gitignore
+*.json
+*.ts
+!*.d.ts
+/test
+/.nycrc.json
+/.vscode
+/coverage/
+/.nyc_output
+/circle.yml

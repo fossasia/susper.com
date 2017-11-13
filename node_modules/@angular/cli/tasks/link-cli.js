@@ -1,0 +1,27 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Task = require('../ember-cli/lib/models/task');
+const chalk_1 = require("chalk");
+const child_process_1 = require("child_process");
+exports.default = Task.extend({
+    run: function () {
+        const ui = this.ui;
+        let packageManager = this.packageManager;
+        if (packageManager === 'default') {
+            packageManager = 'npm';
+        }
+        return new Promise(function (resolve, reject) {
+            child_process_1.exec(`${packageManager} link @angular/cli`, (err) => {
+                if (err) {
+                    ui.writeLine(chalk_1.default.red(`Couldn't do '${packageManager} link @angular/cli'.`));
+                    reject();
+                }
+                else {
+                    ui.writeLine(chalk_1.default.green('Successfully linked to @angular/cli.'));
+                    resolve();
+                }
+            });
+        });
+    }
+});
+//# sourceMappingURL=/users/hansl/sources/hansl/angular-cli/tasks/link-cli.js.map

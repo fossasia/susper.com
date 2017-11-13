@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jsHashes - Base64, CRC-32 and URL enconding example</title>
+<script type="text/javascript" src="../../hashes.js"></script>
+<script type="text/javascript">
+
+	// sample string 
+	var str = 'This is a sample text!',
+		// new Base64 instance
+		b64 = new Hashes.Base64;
+
+	// output into DOM
+	document.write('<h2>jsHashes</h2>');
+	document.write('<h3>Base64, CRC-32 and URL enconding example</h3>');
+
+	document.write('<p>Base64 encode: <b>' + b64.encode(str) + '</b></p>');
+	document.write('<p>Base64 decode: <b>' + b64.decode(b64.encode(str)) + '</b></p>');
+	document.write('<p>CRC32 calculation: <b>' + Hashes.CRC32(str) + '</b></p>');
+
+</script>
+</head>
+<body>
+</body>
+</html>
