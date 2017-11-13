@@ -1,0 +1,11 @@
+metadata:
+  author: FOSSASIA
+  projectname: "Susper"
+  version: master
+build:
+  theme:
+    name: sphinx_fossasia_theme
+  source: .
+publish:
+  ghpages:
+    docurl: susper.fossasia.org
