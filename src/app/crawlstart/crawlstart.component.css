@@ -23,12 +23,21 @@
   font-size: 11px;
   text-align: center;
   font-weight: bold;
+  margin: auto;
 }
 
 .nav-terms {
   padding: 0px;
   clear: both;
   margin: -57px 0 0 0
+}
+
+#label-inline{
+  display: inline;
+}
+
+#language{
+  display: inline;
 }
 
 .advsearch-navbar {
@@ -44,13 +53,92 @@
 .container {
   padding-left: 3.5%;
   float: left;
-  width: 70%;
+  width: 100%;
   margin-bottom: 5%;
 }
 
 .form-control {
-  width:135%;
   border-radius:0px
+}
+
+.label-section {
+  margin-left: 80px;
+}
+
+.label-bold{
+  font-weight: bold;
+}
+
+label{
+    font-weight: bold;
+    display: inline;
+} 
+
+#fieldset-1 input[type=text], textarea{
+  margin-left: 80px;
+}
+
+#fieldset-1 dt{
+  width: 35%;
+}
+
+#fieldset-1 dd{
+  width: 60%;
+}
+
+span{
+  margin-left: 10px;
+}
+
+#country-code-span{
+  margin-left: 7px;
+}
+
+.span-right{
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
+.span-both{
+  margin: 0px 10px; 
+}
+
+.top-margin-div{
+  margin-top: 15px;
+}
+
+#fieldset-2 .label-bold{
+  font-weight: bold;
+}
+
+
+#checkbox-desc-1{
+  margin-left: 5px;
+}
+
+#checkbox-desc-2{
+  margin-left: 25px;
+}
+
+#directDocByURLID{
+  margin-left: 25px;
+}
+dl{
+    width: 75%;
+    margin-left: 20px;
+}
+
+dt{
+  text-align: left;
+  float: left; margin-top: 20px;
+  clear: left;
+  display: block;
+  position: relative;
+}
+
+dd{
+  float: left; margin-top: 20px;
+  display: block;
 }
 
 .adv-btn {
@@ -106,6 +194,12 @@
   text-align: center;
 }
 
+legend{
+    border-radius: 5px;
+    text-align: left;
+    color: red;
+}
+
 .link {
   margin-top:2px;
   font-weight: 700;
@@ -132,6 +226,20 @@ p {
 
 h2 {
   line-height: 1.8;
+}
+
+fieldset{
+  color: #18294A;
+  border: 0px solid #eeeeee;
+  border-radius: 5px;
+}
+
+#language{
+  width: 20%;
+}
+
+.dd-class{
+  width: 100%;
 }
 
 div {
