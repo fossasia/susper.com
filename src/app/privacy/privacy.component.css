@@ -1,0 +1,109 @@
+@media screen and (max-width:990px) {
+	.navbar-collapse.navbar-right {
+		text-align: right;
+	}
+}
+
+.bold {
+	font-weight: 700;
+}
+
+.navbar-nav > li > a {
+  text-align: left;
+}
+
+.navbar-right {
+  border-top:none;
+}
+.nav-terms {
+	padding: 0px;
+    clear: both;
+    margin: -57px 0 0 0
+}
+
+
+.navbar-logo {
+    height: 30px;
+    margin-top: 4px;
+    padding-left: 20px;
+}
+
+.navbar-text {
+    padding-right: 30px;
+    font-size: 20px;
+		position: relative;
+		top:-3px;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.link {
+	margin-top:2px;
+	font-weight: 700;
+	line-height: 1.1;
+	color:#1565C0;
+	text-decoration: none;
+}
+
+.link:hover {
+	text-decoration: underline;
+}
+
+#left {
+	width:22.6993866%;
+}
+
+#right {
+	width:67.7%;
+}
+
+p {
+	line-height: 20px;
+    text-align: justify;
+}
+
+h2 {
+	line-height: 1.8;
+}
+
+@media only screen and (max-width: 768px) {	
+	#left {
+		width: 100%;
+	}
+
+	#right {
+		width: 100%;
+	}
+
+  .navbar-brand {
+	  margin-left: -77px;	
+	  margin-top: -9px;
+	}
+}
+
+@media only screen and (max-width: 923px)and (min-width: 768px) {
+	.navbar-brand {
+    margin-left: -27%;
+	}
+}
+
+a {
+	text-decoration: none;
+	padding-right: 30px;
+	color: rgb(119,119,119);
+}
+
+.navbar-collapse.navbar-right {
+	padding-top: 15px;
+}
+
+a:hover {
+	color: rgb(51,51,51);
+	text-decoration: none;
+}
+
+.navbar-brand {
+	padding-left: 100px;
+}
