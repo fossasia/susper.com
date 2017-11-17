@@ -20,7 +20,6 @@ import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
 import { ContactComponent } from './contact/contact.component';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { TermsComponent } from './terms/terms.component';
-import { PrivacyComponent } from './privacy/privacy.component';
 import { EffectsModule } from '@ngrx/effects';
 import { ApiSearchEffects } from './effects/search-effects';
 import { NewadvancedsearchComponent } from './newadvancedsearch/newadvancedsearch.component';
@@ -51,7 +50,6 @@ const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
   {path: '', component: IndexComponent},
   {path: 'about', component: AboutComponent},
-  {path: 'privacy', component: PrivacyComponent},
   {path: 'terms', component: TermsComponent},
   {path: 'contact', component: ContactComponent},
   {path: '404', component: NotFoundComponent},
@@ -74,7 +72,6 @@ const appRoutes: Routes = [
     FooterNavbarComponent,
     ContactComponent,
     TermsComponent,
-    PrivacyComponent,
     NewadvancedsearchComponent,
     InfoboxComponent,
     RelatedSearchComponent,
