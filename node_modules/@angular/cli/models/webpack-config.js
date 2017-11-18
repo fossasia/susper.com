@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const webpack_1 = require("@ngtools/webpack");
 const read_tsconfig_1 = require("../utilities/read-tsconfig");
+const require_project_module_1 = require("../utilities/require-project-module");
 const webpackMerge = require('webpack-merge');
 const config_1 = require("./config");
 const webpack_configs_1 = require("./webpack-configs");
@@ -16,7 +17,10 @@ class NgCliWebpackConfig {
         buildOptions = this.mergeConfigs(buildOptions, appConfig, projectRoot);
         const tsconfigPath = path.resolve(projectRoot, appConfig.root, appConfig.tsconfig);
         const tsConfig = read_tsconfig_1.readTsconfig(tsconfigPath);
-        this.wco = { projectRoot, buildOptions, appConfig, tsConfig };
+        const projectTs = require_project_module_1.requireProjectModule(projectRoot, 'typescript');
+        const supportES2015 = tsConfig.options.target !== projectTs.ScriptTarget.ES3
+            && tsConfig.options.target !== projectTs.ScriptTarget.ES5;
+        this.wco = { projectRoot, buildOptions, appConfig, tsConfig, supportES2015 };
     }
     buildConfig() {
         const platformConfig = this.wco.appConfig.platform === 'server' ?

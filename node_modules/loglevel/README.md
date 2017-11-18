@@ -39,12 +39,13 @@ If you're using NPM, you can just run `npm install loglevel`.
 
 Alternatively, loglevel is also available via [Bower](https://github.com/bower/bower) (`bower install loglevel`), as a [Webjar](http://www.webjars.org/), or an [Atmosphere package](https://atmospherejs.com/spacejamio/loglevel) (for Meteor)
 
-Alternatively if you just want to grab the file yourself, you can download either the current stable [production version][min] or the [development version][max] directly, or reference it remotely on CDNJS at `//cdnjs.cloudflare.com/ajax/libs/loglevel/1.5.0/loglevel.min.js`
+Alternatively if you just want to grab the file yourself, you can download either the current stable [production version][min] or the [development version][max] directly, or reference it remotely on unpkg at [`https://unpkg.com/loglevel/dist/loglevel.min.js`][cdn] (this will redirect to a latest version, use the resulting redirected URL if you want to pin that version).
 
 Finally, if you want to tweak loglevel to your own needs or you immediately need the cutting-edge version, clone this repo and see [Developing & Contributing](#developing--contributing) below for build instructions.
 
 [min]: https://raw.github.com/pimterry/loglevel/master/dist/loglevel.min.js
 [max]: https://raw.github.com/pimterry/loglevel/master/dist/loglevel.js
+[cdn]: https://unpkg.com/loglevel/dist/loglevel.min.js
 
 ## Setting it up
 
@@ -199,6 +200,9 @@ The loglevel API is extremely minimal. All methods are available on the root log
 
   Likewise, loggers will inherit the root logger’s `methodFactory`. After creation, each logger can have its `methodFactory` independently set. See the *plugins* section below for more about `methodFactory`.
 
+* A `log.getLoggers()` method.
+
+  This will return you the dictionary of all loggers created with `getLogger`, keyed off of their names.
 
 ## Plugins
 
@@ -261,7 +265,6 @@ To do a release of loglevel:
 * Commit the built code, tagging it with the version number and a brief message about the release
 * Push to Github
 * Run `npm publish .` to publish to NPM
-* Update CDN url once https://cdnjs.com/libraries/loglevel picks up the new version
 * Autoupdate gh-pages docs
 
 ## Release History
@@ -296,6 +299,8 @@ v1.4.1 - Reorder UMD (#92) to improve bundling tool compatibility
 v1.5.0 - Fix log.debug (#111) after V8 changes deprecating console.debug, check for `window` upfront (#104), and add `.log` alias for `.debug` (#64)
 
 v1.5.1 - Fix bug (#112) in level-persistence cookie fallback, which failed if it wasn't the first cookie present
+
+v1.6.0 - Add a name property to loggers and add log.getLoggers() (#114), and recommend unpkg as CDN instead of CDNJS.
 
 ## License
 Copyright (c) 2013 Tim Perry

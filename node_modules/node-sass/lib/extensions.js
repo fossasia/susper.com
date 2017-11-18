@@ -7,7 +7,8 @@ var eol = require('os').EOL,
   pkg = require('../package.json'),
   mkdir = require('mkdirp'),
   path = require('path'),
-  defaultBinaryPath = path.join(__dirname, '..', 'vendor');
+  defaultBinaryPath = path.join(__dirname, '..', 'vendor'),
+  trueCasePathSync = require('true-case-path');
 
 /**
  * Get the human readable name of the Platform that is running
@@ -272,7 +273,11 @@ function getBinaryPath() {
     binaryPath = path.join(defaultBinaryPath, getBinaryName().replace(/_(?=binding\.node)/, '/'));
   }
 
-  return binaryPath;
+  if (process.versions.modules < 46) {
+    return binaryPath;
+  }
+
+  return trueCasePathSync(binaryPath) || binaryPath;
 }
 
 /**

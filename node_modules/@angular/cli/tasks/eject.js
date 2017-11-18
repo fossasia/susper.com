@@ -9,6 +9,7 @@ const webpack_config_1 = require("../models/webpack-config");
 const config_1 = require("../models/config");
 const strip_bom_1 = require("../utilities/strip-bom");
 const webpack_1 = require("@ngtools/webpack");
+const build_optimizer_1 = require("@angular-devkit/build-optimizer");
 const license_webpack_plugin_1 = require("license-webpack-plugin");
 const denodeify = require("denodeify");
 const common_tags_1 = require("common-tags");
@@ -198,6 +199,9 @@ class JsonWebpackSerializer {
                 case webpack_1.AotPlugin:
                     args = this._aotPluginSerialize(plugin);
                     this._addImport('@ngtools/webpack', 'AotPlugin');
+                    break;
+                case build_optimizer_1.PurifyPlugin:
+                    this._addImport('@angular-devkit/build-optimizer', 'PurifyPlugin');
                     break;
                 case webpack_1.AngularCompilerPlugin:
                     args = this._aotPluginSerialize(plugin);

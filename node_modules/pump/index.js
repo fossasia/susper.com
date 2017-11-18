@@ -37,7 +37,7 @@ var destroyer = function (stream, reading, writing, callback) {
     if (destroyed) return
     destroyed = true
 
-    if (isFS(stream)) return stream.close() // use close for fs streams to avoid fd leaks
+    if (isFS(stream)) return stream.close(noop) // use close for fs streams to avoid fd leaks
     if (isRequest(stream)) return stream.abort() // request.destroy just do .end - .abort is what we want
 
     if (isFn(stream.destroy)) return stream.destroy()

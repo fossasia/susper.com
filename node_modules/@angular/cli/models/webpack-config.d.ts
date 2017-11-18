@@ -4,6 +4,7 @@ export interface WebpackConfigOptions<T extends BuildOptions = BuildOptions> {
     buildOptions: T;
     appConfig: any;
     tsConfig: any;
+    supportES2015: boolean;
 }
 export declare class NgCliWebpackConfig<T extends BuildOptions = BuildOptions> {
     config: any;

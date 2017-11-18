@@ -1,18 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const require_project_module_1 = require("../../utilities/require-project-module");
 /**
  * Returns a partial specific to creating a bundle for node
  * @param wco Options which are include the build options and app config
  */
 function getServerConfig(wco) {
-    const projectTs = require_project_module_1.requireProjectModule(wco.projectRoot, 'typescript');
-    const supportES2015 = wco.tsConfig.options.target !== projectTs.ScriptTarget.ES3
-        && wco.tsConfig.options.target !== projectTs.ScriptTarget.ES5;
     const config = {
         resolve: {
             mainFields: [
-                ...(supportES2015 ? ['es2015'] : []),
+                ...(wco.supportES2015 ? ['es2015'] : []),
                 'main', 'module',
             ],
         },
