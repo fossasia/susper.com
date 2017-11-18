@@ -6,6 +6,7 @@ a {
   font-family: Arial, sans-serif;
   font-size: 17px;
   margin-left: 2.4%;
+  display: block;
 }
 
 #index-sug-box {
