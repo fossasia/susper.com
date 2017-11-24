@@ -49,6 +49,7 @@ export declare class AngularCompilerPlugin implements Tapable {
     private _donePromise;
     private _compiler;
     private _compilation;
+    private _normalizedLocale;
     private _forkTypeChecker;
     private _typeCheckerProcess;
     private readonly _ngCompilerSupportsNewApi;

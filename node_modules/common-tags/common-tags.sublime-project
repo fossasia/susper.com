@@ -1,0 +1,16 @@
+{
+	"folders":
+	[
+		{
+			"folder_exclude_patterns":
+			[
+        ".nyc_output",
+        "coverage",
+        "es",
+        "lib",
+				"node_modules"
+			],
+			"path": "."
+		}
+	]
+}

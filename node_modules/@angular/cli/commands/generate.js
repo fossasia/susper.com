@@ -116,14 +116,14 @@ exports.default = Command.extend({
             dryRun: commandOptions.dryRun
         };
         const parsedPath = dynamic_path_parser_1.dynamicPathParser(dynamicPathOptions);
-        commandOptions.sourceDir = appConfig.root;
-        const root = appConfig.root + path.sep;
-        commandOptions.appRoot = parsedPath.appRoot === appConfig.root ? '' :
+        commandOptions.sourceDir = parsedPath.sourceDir;
+        const root = parsedPath.sourceDir + path.sep;
+        commandOptions.appRoot = parsedPath.appRoot === parsedPath.sourceDir ? '' :
             parsedPath.appRoot.startsWith(root)
                 ? parsedPath.appRoot.substr(root.length)
                 : parsedPath.appRoot;
         commandOptions.path = parsedPath.dir.replace(separatorRegEx, '/');
-        commandOptions.path = parsedPath.dir === appConfig.root ? '' :
+        commandOptions.path = parsedPath.dir === parsedPath.sourceDir ? '' :
             parsedPath.dir.startsWith(root)
                 ? commandOptions.path.substr(root.length)
                 : commandOptions.path;

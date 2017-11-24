@@ -9,6 +9,9 @@ import { WebpackConfigOptions } from '../webpack-config';
  *
  */
 export declare function getTestConfig(wco: WebpackConfigOptions<WebpackTestOptions>): {
+    resolve: {
+        mainFields: string[];
+    };
     devtool: string;
     entry: {
         main: string;

@@ -137,7 +137,8 @@ class AngularCompilerPlugin {
             this._compilerOptions.i18nOutFormat = options.i18nOutFormat;
         }
         if (options.locale !== undefined) {
-            this._compilerOptions.i18nInLocale = this._validateLocale(options.locale);
+            this._compilerOptions.i18nInLocale = options.locale;
+            this._normalizedLocale = this._validateLocale(options.locale);
         }
         if (options.missingTranslation !== undefined) {
             this._compilerOptions.i18nInMissingTranslations =
@@ -497,8 +498,8 @@ class AngularCompilerPlugin {
             // If we have a locale, auto import the locale data file.
             // This transform must go before replaceBootstrap because it looks for the entry module
             // import, which will be replaced.
-            if (this._compilerOptions.i18nInLocale) {
-                this._transformers.push(transformers_1.registerLocaleData(isAppPath, getEntryModule, this._compilerOptions.i18nInLocale));
+            if (this._normalizedLocale) {
+                this._transformers.push(transformers_1.registerLocaleData(isAppPath, getEntryModule, this._normalizedLocale));
             }
             if (!this._JitMode) {
                 // Replace bootstrap in browser AOT.

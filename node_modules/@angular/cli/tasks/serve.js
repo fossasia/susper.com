@@ -222,7 +222,7 @@ exports.default = Task.extend({
         This is a simple server for use in testing or debugging Angular applications locally.
         It hasn't been reviewed for security issues.
 
-        DON'T USE IT FOR PRODUCTION USE!
+        DON'T USE IT FOR PRODUCTION!
         ****************************************************************************************
       `));
         }

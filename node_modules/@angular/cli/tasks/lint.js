@@ -78,10 +78,22 @@ exports.default = Task.extend({
             if (current.fixes) {
                 total.fixes = (total.fixes || []).concat(...current.fixes);
             }
+            if (current.errorCount !== undefined) {
+                total.errorCount += current.errorCount;
+            }
+            else {
+                // Handle pre-warning/error bifurcation
+                total.errorCount += failures.length;
+            }
+            if (current.warningCount !== undefined) {
+                total.warningCount += current.warningCount;
+            }
             return total;
         }, {
             failures: [],
-            fixes: undefined
+            fixes: undefined,
+            errorCount: 0,
+            warningCount: 0,
         });
         if (!options.silent) {
             const Formatter = projectTslint.findFormatter(options.format);
@@ -96,19 +108,18 @@ exports.default = Task.extend({
         }
         // print formatter output directly for non human-readable formats
         if (['prose', 'verbose', 'stylish'].indexOf(options.format) == -1) {
-            return (result.failures.length == 0 || options.force)
-                ? Promise.resolve(0) : Promise.resolve(2);
+            options.silent = true;
         }
-        if (result.failures.length > 0) {
-            if (!options.silent) {
-                ui.writeLine(chalk_1.default.red('Lint errors found in the listed files.'));
-            }
-            return options.force ? Promise.resolve(0) : Promise.resolve(2);
+        if (result.warningCount > 0 && !options.silent) {
+            ui.writeLine(chalk_1.default.yellow('Lint warnings found in the listed files.'));
         }
-        if (!options.silent) {
+        if (result.errorCount > 0 && !options.silent) {
+            ui.writeLine(chalk_1.default.red('Lint errors found in the listed files.'));
+        }
+        if (result.warningCount === 0 && result.errorCount === 0 && !options.silent) {
             ui.writeLine(chalk_1.default.green('All files pass linting.'));
         }
-        return Promise.resolve(0);
+        return options.force || result.errorCount === 0 ? Promise.resolve(0) : Promise.resolve(2);
     }
 });
 function normalizeArrayOption(option) {

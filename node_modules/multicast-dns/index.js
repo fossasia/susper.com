@@ -2,6 +2,7 @@ var packet = require('dns-packet')
 var dgram = require('dgram')
 var thunky = require('thunky')
 var events = require('events')
+var os = require('os')
 
 var noop = function () {}
 
@@ -49,11 +50,16 @@ module.exports = function (opts) {
   socket.on('listening', function () {
     if (!port) port = me.port = socket.address().port
     if (opts.multicast !== false) {
-      try {
-        socket.addMembership(ip, opts.interface)
-      } catch (err) {
-        that.emit('error', err)
+      var ifaces = opts.interface ? [].concat(opts.interface) : allInterfaces()
+
+      for (var i = 0; i < ifaces.length; i++) {
+        try {
+          socket.addMembership(ip, ifaces[i])
+        } catch (err) {
+          that.emit('error', err)
+        }
       }
+
       socket.setMulticastTTL(opts.ttl || 255)
       socket.setMulticastLoopback(opts.loopback !== false)
     }
@@ -77,12 +83,25 @@ module.exports = function (opts) {
     if (typeof rinfo === 'function') return that.send(value, null, rinfo)
     if (!cb) cb = noop
     if (!rinfo) rinfo = me
-    bind(function (err) {
+
+    bind(onbind)
+
+    function onbind (err) {
       if (destroyed) return cb()
       if (err) return cb(err)
       var message = packet.encode(value)
-      socket.send(message, 0, message.length, rinfo.port, rinfo.address || rinfo.host, cb)
-    })
+      socket.send(message, 0, message.length, rinfo.port, rinfo.address || rinfo.host, onsend)
+    }
+
+    function onsend (err) {
+      if (err && err.code === 'ENETUNREACH' && rinfo.address !== '127.0.0.1') {
+        rinfo = {port: me.port, address: '127.0.0.1'}
+        onbind(null)
+        return
+      }
+
+      cb(err)
+    }
   }
 
   that.response =
@@ -115,4 +134,17 @@ module.exports = function (opts) {
   }
 
   return that
+}
+
+function allInterfaces () {
+  var networks = os.networkInterfaces()
+  var res = []
+
+  Object.keys(networks).forEach(function (k) {
+    networks[k].forEach(function (iface) {
+      if (iface.family === 'IPv4') res.push(iface.address)
+    })
+  })
+
+  return res
 }

@@ -5,6 +5,8 @@ const webpack = require("webpack");
 const webpack_1 = require("@ngtools/webpack");
 const webpack_xi18n_config_1 = require("../models/webpack-xi18n-config");
 const app_utils_1 = require("../utilities/app-utils");
+const webpack_configs_1 = require("../models/webpack-configs");
+const stats_1 = require("../utilities/stats");
 const Task = require('../ember-cli/lib/models/task');
 const MemoryFS = require('memory-fs');
 exports.Extracti18nTask = Task.extend({
@@ -30,25 +32,24 @@ exports.Extracti18nTask = Task.extend({
         }, appConfig).buildConfig();
         const webpackCompiler = webpack(config);
         webpackCompiler.outputFileSystem = new MemoryFS();
+        const statsConfig = webpack_configs_1.getWebpackStatsConfig(runTaskOptions.verbose);
         return new Promise((resolve, reject) => {
             const callback = (err, stats) => {
                 if (err) {
                     return reject(err);
                 }
+                const json = stats.toJson('verbose');
+                if (stats.hasWarnings()) {
+                    this.ui.writeLine(stats_1.statsWarningsToString(json, statsConfig));
+                }
                 if (stats.hasErrors()) {
-                    reject();
+                    reject(stats_1.statsErrorsToString(json, statsConfig));
                 }
                 else {
                     resolve();
                 }
             };
             webpackCompiler.run(callback);
-        })
-            .catch((err) => {
-            if (err) {
-                this.ui.writeError('\nAn error occured during the i18n extraction:\n'
-                    + ((err && err.stack) || err));
-            }
         });
     }
 });

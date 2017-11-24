@@ -38,6 +38,12 @@ function getTestConfig(wco) {
         });
     }
     return {
+        resolve: {
+            mainFields: [
+                ...(wco.supportES2015 ? ['es2015'] : []),
+                'browser', 'module', 'main'
+            ]
+        },
         devtool: buildOptions.sourcemaps ? 'inline-source-map' : 'eval',
         entry: {
             main: path.resolve(projectRoot, appConfig.root, appConfig.test)

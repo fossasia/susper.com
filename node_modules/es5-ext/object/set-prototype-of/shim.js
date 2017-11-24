@@ -7,7 +7,7 @@
 
 var isObject        = require("../is-object")
   , value           = require("../valid-value")
-  , objIsPrototypOf = Object.prototype.isPrototypeOf
+  , objIsPrototypeOf = Object.prototype.isPrototypeOf
   , defineProperty  = Object.defineProperty
   , nullDesc        = {
 	configurable: true,
@@ -43,7 +43,7 @@ module.exports = (function (status) {
 		fn = function self(obj, prototype) {
 			var isNullBase;
 			validate(obj, prototype);
-			isNullBase = objIsPrototypOf.call(self.nullPolyfill, obj);
+			isNullBase = objIsPrototypeOf.call(self.nullPolyfill, obj);
 			if (isNullBase) delete self.nullPolyfill.__proto__;
 			if (prototype === null) prototype = self.nullPolyfill;
 			obj.__proto__ = prototype;

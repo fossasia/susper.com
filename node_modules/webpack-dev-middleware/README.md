@@ -138,12 +138,12 @@ This part shows how you might interact with the middleware during runtime:
 
 In order to develop a server-side rendering application, we need access to the [`stats`](https://github.com/webpack/docs/wiki/node.js-api#stats), which is generated with the latest build.
 
-In the server-side rendering mode, __webpack-dev-middleware__ would sets the `stat` to `res.locals.webpackStats` before invoking the next middleware, where we can render pages and response to clients.
+In the server-side rendering mode, __webpack-dev-middleware__ sets the `stat` to `res.locals.webpackStats` before invoking the next middleware, allowing a developer to render the page body and manage the response to clients.
 
 Notice that requests for bundle files would still be responded by __webpack-dev-middleware__ and all requests will be pending until the building process is finished in the server-side rendering mode.
 
 ```javascript
-// This function makes server rendering of asset references consistent with different webpack chunk/entry confiugrations
+// This function makes server rendering of asset references consistent with different webpack chunk/entry configurations
 function normalizeAssets(assets) {
   return Array.isArray(assets) ? assets : [assets]
 }
