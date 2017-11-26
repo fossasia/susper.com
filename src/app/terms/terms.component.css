@@ -21,6 +21,10 @@
     margin: -57px 0 0 0
 }
 
+.page-link {
+  padding-right: 0%;
+  color: blue;
+}
 
 .navbar-logo {
     height: 30px;

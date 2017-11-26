@@ -17,6 +17,10 @@ div a {
   line-height: 40px;
   text-decoration: none;
 }
+.page-link {
+  padding-right: 0%;
+  color: blue;
+}
 
 div a:hover {
   text-decoration: underline;
