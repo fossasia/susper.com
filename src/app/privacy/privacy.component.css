@@ -11,6 +11,10 @@
 .navbar-nav > li > a {
   text-align: left;
 }
+.page-link {
+  padding-right: 0%;
+  color: blue;
+}
 
 .navbar-right {
   border-top:none;
