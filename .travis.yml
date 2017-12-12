@@ -17,6 +17,7 @@ script:
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
+- bash ./pr_deploy.sh
 - bash ./deploy.sh
 cache:
     bundler: true
