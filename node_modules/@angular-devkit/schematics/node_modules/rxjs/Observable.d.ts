@@ -45,8 +45,7 @@ export declare class Observable<T> implements Subscribable<T> {
      * @return {Observable} a new observable with the Operator applied
      */
     lift<R>(operator: Operator<T, R>): Observable<R>;
-    subscribe(): Subscription;
-    subscribe(observer: PartialObserver<T>): Subscription;
+    subscribe(observer?: PartialObserver<T>): Subscription;
     subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): Subscription;
     protected _trySubscribe(sink: Subscriber<T>): TeardownLogic;
     /**

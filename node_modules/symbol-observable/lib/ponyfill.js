@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports['default'] = symbolObservablePonyfill;
+exports.default = symbolObservablePonyfill;
 function symbolObservablePonyfill(root) {
 	var result;
 	var _Symbol = root.Symbol;

@@ -31,4 +31,6 @@ export interface BuildOptions {
     namedChunks?: boolean;
     subresourceIntegrity?: boolean;
     forceTsCommonjs?: boolean;
+    serviceWorker?: boolean;
+    skipAppShell?: boolean;
 }

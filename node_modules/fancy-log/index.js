@@ -2,11 +2,11 @@
 /*
   Initial code from https://github.com/gulpjs/gulp-util/blob/v3.0.6/lib/log.js
  */
-var chalk = require('chalk');
+var gray = require('ansi-gray');
 var timestamp = require('time-stamp');
 
 function getTimestamp(){
-  return '['+chalk.grey(timestamp('HH:mm:ss'))+']';
+  return '['+gray(timestamp('HH:mm:ss'))+']';
 }
 
 function log(){

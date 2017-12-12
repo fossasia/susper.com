@@ -1,3 +1,7 @@
+#7.3.0 - 2017-10-26
+
+Added: hash option - `append` (PR#114](https://github.com/postcss/postcss-url/pull/114))
+ 
 #7.2.1 - 2017-10-19
 
 Fixed: dependency security ([#108](https://github.com/postcss/postcss-url/issues/108)) ([#109](https://github.com/postcss/postcss-url/issues/109))

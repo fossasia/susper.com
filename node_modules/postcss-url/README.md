@@ -241,6 +241,11 @@ Hash method `xxhash32|xxhash64` or custom function (accept file buffer)
 _(default: `8`)_
 
 Result hash shrink count
+##### `append`
+
+_(default: `false`)_
+
+Prepend the original filename in resulting filename
 
 ---
 

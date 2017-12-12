@@ -141,9 +141,14 @@ function allInterfaces () {
   var res = []
 
   Object.keys(networks).forEach(function (k) {
-    networks[k].forEach(function (iface) {
-      if (iface.family === 'IPv4') res.push(iface.address)
-    })
+    for (var i = 0; i < networks[k].length; i++) {
+      var iface = networks[k][i]
+      if (iface.family === 'IPv4') {
+        res.push(iface.address)
+        // could only addMembership once per interface (https://nodejs.org/api/dgram.html#dgram_socket_addmembership_multicastaddress_multicastinterface)
+        break
+      }
+    }
   })
 
   return res

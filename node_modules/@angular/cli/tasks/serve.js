@@ -102,7 +102,7 @@ exports.default = Task.extend({
                 ui.writeLine(common_tags_1.oneLine `
           ${yellow('NOTICE')} Hot Module Replacement (HMR) is enabled for the dev server.
         `);
-                const showWarning = config_1.CliConfig.fromGlobal().get('warnings.hmrWarning');
+                const showWarning = config_1.CliConfig.fromProject().get('warnings.hmrWarning');
                 if (showWarning) {
                     ui.writeLine('  The project will still live reload when HMR is enabled,');
                     ui.writeLine('  but to take advantage of HMR additional application code is required');
@@ -110,7 +110,7 @@ exports.default = Task.extend({
                     ui.writeLine(`  See ${chalk_1.default.blue(webpackHmrLink)}`);
                     ui.writeLine('  for information on working with HMR for Webpack.');
                     ui.writeLine(common_tags_1.oneLine `
-            ${yellow('To disable this warning use "ng set --global warnings.hmrWarning=false"')}
+            ${yellow('To disable this warning use "ng set warnings.hmrWarning=false"')}
           `);
                 }
                 entryPoints.push('webpack/hot/dev-server');

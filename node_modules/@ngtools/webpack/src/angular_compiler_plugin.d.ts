@@ -47,9 +47,9 @@ export declare class AngularCompilerPlugin implements Tapable {
     private _emitSkipped;
     private _firstRun;
     private _donePromise;
-    private _compiler;
-    private _compilation;
     private _normalizedLocale;
+    private _warnings;
+    private _errors;
     private _forkTypeChecker;
     private _typeCheckerProcess;
     private readonly _ngCompilerSupportsNewApi;
@@ -74,6 +74,7 @@ export declare class AngularCompilerPlugin implements Tapable {
     private _updateForkedTypeChecker(rootNames, changedCompilationFiles);
     apply(compiler: any): void;
     private _make(compilation, cb);
+    private pushCompilationErrors(compilation);
     private _makeTransformers();
     private _update();
     writeI18nOutFile(): void;

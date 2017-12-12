@@ -84,11 +84,11 @@ function getCommonConfig(wco) {
             // specify a configuration flag.
             // Also prevent writing outside the project path. That is not overridable.
             const fullOutputPath = path.resolve(buildOptions.outputPath, asset.output);
-            if (!fullOutputPath.startsWith(projectRoot)) {
-                const message = 'An asset cannot be written to a location outside the project.';
-                throw new SilentError(message);
-            }
             if (!fullOutputPath.startsWith(path.resolve(buildOptions.outputPath))) {
+                if (!fullOutputPath.startsWith(projectRoot)) {
+                    const message = 'An asset cannot be written to a location outside the project.';
+                    throw new SilentError(message);
+                }
                 if (!asset.allowOutsideOutDir) {
                     const message = 'An asset cannot be written to a location outside of the output path. '
                         + 'You can override this message by setting the `allowOutsideOutDir` '

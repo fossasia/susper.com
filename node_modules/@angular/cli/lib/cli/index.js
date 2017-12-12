@@ -1,7 +1,4 @@
 "use strict";
-// Prevent the dependency validation from tripping because we don't import these. We need
-// it as a peer dependency of @angular/core.
-// require('zone.js')
 Object.defineProperty(exports, "__esModule", { value: true });
 const path = require("path");
 const cli = require('../../ember-cli/lib/cli');

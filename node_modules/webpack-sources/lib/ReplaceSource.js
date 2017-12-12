@@ -61,8 +61,13 @@ class ReplaceSource extends Source {
 			var splitted2 = this._splitString(splitted1[0], Math.floor(repl[0]));
 			result.push(splitted1[1], repl[2], splitted2[0]);
 		}, this);
-		result = result.reverse();
-		return result.join("");
+
+		// write out result array in reverse order
+		let resultStr = "";
+		for(let i = result.length - 1; i >= 0; --i) {
+			resultStr += result[i];
+		}
+		return resultStr;
 	}
 
 	node(options) {

@@ -525,6 +525,38 @@ var ES6 = assign(assign({}, ES5), {
 			throw new TypeError('unable to create data property');
 		}
 		return success;
+	},
+
+	// http://ecma-international.org/ecma-262/6.0/#sec-advancestringindex
+	AdvanceStringIndex: function AdvanceStringIndex(S, index, unicode) {
+		if (this.Type(S) !== 'String') {
+			throw new TypeError('Assertion failed: Type(S) is not String');
+		}
+		if (!this.IsInteger(index)) {
+			throw new TypeError('Assertion failed: length must be an integer >= 0 and <= (2**53 - 1)');
+		}
+		if (index < 0 || index > MAX_SAFE_INTEGER) {
+			throw new RangeError('Assertion failed: length must be an integer >= 0 and <= (2**53 - 1)');
+		}
+		if (this.Type(unicode) !== 'Boolean') {
+			throw new TypeError('Assertion failed: Type(unicode) is not Boolean');
+		}
+		if (!unicode) {
+			return index + 1;
+		}
+		var length = S.length;
+		if ((index + 1) >= length) {
+			return index + 1;
+		}
+		var first = S.charCodeAt(index);
+		if (first < 0xD800 || first > 0xDBFF) {
+			return index + 1;
+		}
+		var second = S.charCodeAt(index + 1);
+		if (second < 0xDC00 || second > 0xDFFF) {
+			return index + 1;
+		}
+		return index + 2;
 	}
 });
 

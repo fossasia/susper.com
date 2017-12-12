@@ -1,7 +1,7 @@
 "use strict";
 var merge_1 = require('../operators/merge');
-var merge_2 = require('../operators/merge');
-exports.mergeStatic = merge_2.mergeStatic;
+var merge_2 = require('../observable/merge');
+exports.mergeStatic = merge_2.merge;
 /* tslint:enable:max-line-length */
 /**
  * Creates an output Observable which concurrently emits all values from every

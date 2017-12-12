@@ -25,7 +25,7 @@ exports.run = function (options) {
   var dir = path.join(process.cwd(), options.dir);
 
   if (process.env.TRAVIS) {
-    options.message += '\n\n' +
+    options.message += ' -- ' + process.env.TRAVIS_COMMIT_MESSAGE + ' \n\n' +
       'Triggered by commit: https://github.com/' + process.env.TRAVIS_REPO_SLUG + '/commit/' + process.env.TRAVIS_COMMIT + '\n' +
       'Travis build: https://travis-ci.org/' + process.env.TRAVIS_REPO_SLUG + '/builds/' + process.env.TRAVIS_BUILD_ID;
   }

@@ -6,7 +6,8 @@ const HEXBASE = 16;
 
 const defaultHashOptions = {
     method: 'xxhash32',
-    shrink: 8
+    shrink: 8,
+    append: false
 };
 
 const getxxhash = (content, options) => {
@@ -20,11 +21,11 @@ const getxxhash = (content, options) => {
 };
 
 const getHash = (content, options) => {
-    if (typeof options.method === 'function') {
+    if (options.method && typeof options.method === 'function') {
         return options.method(content);
     }
 
-    if (options.method.indexOf('xxhash') === 0) {
+    if (options.method && options.method.indexOf('xxhash') === 0) {
         return getxxhash(content, options);
     }
 

@@ -7,6 +7,7 @@ const chalk_1 = require("chalk");
 const app_utils_1 = require("../utilities/app-utils");
 const webpack_config_1 = require("../models/webpack-config");
 const config_1 = require("../models/config");
+const service_worker_1 = require("../utilities/service-worker");
 const strip_bom_1 = require("../utilities/strip-bom");
 const webpack_1 = require("@ngtools/webpack");
 const build_optimizer_1 = require("@angular-devkit/build-optimizer");
@@ -495,6 +496,14 @@ exports.default = Task.extend({
             packageJson['scripts']['test'] = 'karma start ./karma.conf.js';
             packageJson['scripts']['pree2e'] = pree2eNpmScript;
             packageJson['scripts']['e2e'] = 'protractor ./protractor.conf.js';
+            if (!!appConfig.serviceWorker && runTaskOptions.target === 'production' &&
+                service_worker_1.usesServiceWorker(project.root) && !!runTaskOptions.serviceWorker) {
+                packageJson['scripts']['build'] += ' && npm run sw-config && npm run sw-copy';
+                packageJson['scripts']['sw-config'] = `ngsw-config ${outputPath} src/ngsw-config.json`;
+                packageJson['scripts']['sw-copy'] =
+                    `cpx node_modules/@angular/service-worker/ngsw-worker.js ${outputPath}`;
+                packageJson['devDependencies']['cpx'] = '^1.5.0';
+            }
             // Add new dependencies based on our dependencies.
             const ourPackageJson = require('../package.json');
             if (!packageJson['devDependencies']) {

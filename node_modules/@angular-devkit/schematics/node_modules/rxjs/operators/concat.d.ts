@@ -1,6 +1,7 @@
 import { ObservableInput } from '../Observable';
 import { IScheduler } from '../Scheduler';
 import { OperatorFunction, MonoTypeOperatorFunction } from '../interfaces';
+export { concat as concatStatic } from '../observable/concat';
 export declare function concat<T>(scheduler?: IScheduler): MonoTypeOperatorFunction<T>;
 export declare function concat<T, T2>(v2: ObservableInput<T2>, scheduler?: IScheduler): OperatorFunction<T, T | T2>;
 export declare function concat<T, T2, T3>(v2: ObservableInput<T2>, v3: ObservableInput<T3>, scheduler?: IScheduler): OperatorFunction<T, T | T2 | T3>;

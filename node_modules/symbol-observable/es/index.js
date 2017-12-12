@@ -1,18 +1,11 @@
 /* global window */
 import ponyfill from './ponyfill';
 
-var root;
-
-if (typeof self !== 'undefined') {
-  root = self;
+var root = this;
+if (typeof global !== 'undefined') {
+	root = global;
 } else if (typeof window !== 'undefined') {
-  root = window;
-} else if (typeof global !== 'undefined') {
-  root = global;
-} else if (typeof module !== 'undefined') {
-  root = module;
-} else {
-  root = Function('return this')();
+	root = window;
 }
 
 var result = ponyfill(root);

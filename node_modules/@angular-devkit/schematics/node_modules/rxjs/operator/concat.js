@@ -1,5 +1,7 @@
 "use strict";
 var concat_1 = require('../operators/concat');
+var concat_2 = require('../observable/concat');
+exports.concatStatic = concat_2.concat;
 /* tslint:enable:max-line-length */
 /**
  * Creates an output Observable which sequentially emits all values from every

@@ -1,6 +1,11 @@
-# Change Log
+# 2.13.0
 
-## v2.12.2
+**Features:**
+
+* added support for `JsxFragment` introduced in typescript@2.6.2
+* added corresponding typeguard functions
+
+# 2.12.2
 
 **Bugfixes:**
 
@@ -12,7 +17,7 @@
 * `findImports` searches in ambient modules inside regular `.ts` files (not only `.d.ts`)
 * `canHaveJsDoc` is now a typeguard
 
-## v2.12.1
+# 2.12.1
 
 **Bugfixes:**
 
@@ -20,25 +25,25 @@
   * handles irregular whitespace and no longer visits some tokens twice
   * correctly calculates the range of JsxText
 
-## v2.12.0
+# 2.12.0
 
 **API-Changes:**
 
 * deprecated `ImportOptions` if favor of the new `ImportKind` enum
 
-## v2.11.2
+# 2.11.2
 
 **Bugfixes:**
 
 * `parseJsDocOfNode`: set correct `pos`, `end` and `parent` properties. Also affects `getJsDoc` of `EndOfFileToken`
 
-## v2.11.1
+# 2.11.1
 
 **Bugfixes:**
 
 * `collectVariableUsage`: correctly consider catch binding as block scoped declaration inside catch block
 
-## v2.11.0
+# 2.11.0
 
 **Bugfixes:**
 
@@ -48,57 +53,57 @@
 
 * added utility `parseJsDocOfNode`
 
-## v2.10.0
+# 2.10.0
 
 **Features:**
 
 * added utility `findImports` to find all kinds of imports in a source file
 
-## v2.9.0
+# 2.9.0
 
 **Features:**
 
 * added typeguard `isMappedTypeNode`
 * added utilities `canHaveJsDoc` and `getJsDoc`
 
-## v2.8.2
+# 2.8.2
 
 **Bugfixes:**
 
 * `collectVariableUsage`: handle global augmentation like other module augmentations
 
-## v2.8.1
+# 2.8.1
 
 **Bugfixes:**
 
 * Support `typescript@2.5.1` with optional catch binding
 * `collectVariableUsage` fixed a bug where method decorator had method's parameters in scope
 
-## v2.8.0
+# 2.8.0
 
 * Compatibility with the latest typescript nightly
 * Added `getIdentifierText` to unescape identifiers across typescript versions
 
-## v2.7.1
+# 2.7.1
 
 **Bugfixes:**
 
 * `isReassignmentTarget` don't return `true` for right side of assignment
 
-## v2.7.0
+# 2.7.0
 
 **Features:**
 
 * Added `isReassignmentTarget` utility
 
-## v2.6.1
+# 2.6.1
 
 **Bugfixes:**
 
 * `getDeclarationDomain` now returns `undefined` for Parameter in IndexSignature
 * `collectVariableUsage` ignores Parameter in IndexSignature
 
-## v2.6.0
+# 2.6.0
 
 **Bugfixes:**
 
@@ -112,13 +117,13 @@
 * Added `getModifier` utility
 * Added `DeclarationDomain.Import` to distinguish imports from other declarations
 
-## v2.5.1
+# 2.5.1
 
 **Bugfixes:**
 
 * `collectVariableUsage` ignore jump labels as in `break label;`
 
-## v2.5.0
+# 2.5.0
 
 **Bugfixes:**
 
@@ -140,7 +145,7 @@
 * fixed how `: typeof foo` is handled for parameters and function return type
 * **still WIP**: `export {Foo as Bar}` inside ambient namespaces and modules
 
-## v2.4.0
+# 2.4.0
 
 **Bugfixes:**
 
@@ -153,7 +158,7 @@
 * Added typeguard: `isJsDoc`
 * Added experimental scope and usage analysis (`getUsageDomain` and `collectVariableUsage`)
 
-## v2.3.0
+# 2.3.0
 
 **Bugfixes:**
 
@@ -164,7 +169,7 @@
 
 * Added utility: `getCommentAtPosition`
 
-## v2.2.0
+# 2.2.0
 
 **Bugfixes:**
 
@@ -174,14 +179,14 @@
 
 * Added utilities: `getTokenAtPosition` and `isPositionInComment`
 
-## v2.1.0
+# 2.1.0
 
 **Features:**
 
 * Added typeguard `isExpression`
 * Added utilities: `hasSideEffects`, `getDeclarationOfBindingElement`
 
-## v2.0.0
+# 2.0.0
 
 **Breaking Changes:**
 
@@ -194,13 +199,13 @@
 
 * New directory structure allows imports of typeguards or utils independently, e.g. (`require('tsutils/typeguard')`)
 
-## v1.9.1
+# 1.9.1
 
 **Bugfixes:**
 
 * `isObjectFlagSet` now uses the correct `objectFlags` property
 
-## v1.9.0
+# 1.9.0
 
 **Bugfixes:**
 
@@ -211,14 +216,14 @@
 * Added typeguards for types
 * Added utilities for flag checking: `isNodeFlagSet`, `isTypeFlagSet`, `isSymbolFlagSet`,`isObjectFlagSet`, `isModifierFlagSet`
 
-## v1.8.0
+# 1.8.0
 
 **Features:**
 
 * Support peer dependency of typescript nightlies of 2.4.0
 * Added typeguards: `isJsxAttributes`, `isIntersectionTypeNode`, `isTypeOperatorNode`, `isTypePredicateNode`, `isTypeQueryNode`, `isUnionTypeNode`
 
-## v1.7.0
+# 1.7.0
 
 **Bugfixes:**
 
@@ -228,25 +233,25 @@
 
 * Added utilities: `isThisParameter`, `isSameLine` and `isFunctionWithBody`
 
-## v1.6.0
+# 1.6.0
 
 **Features:**
 
 * Add `isValidPropertyAccess`, `isValidNumericLiteral` and `isValidPropertyName`
 
-## v1.5.0
+# 1.5.0
 
 **Features:**
 
 * Add `isValidIdentifier`
 
-## v1.4.0
+# 1.4.0
 
 **Features:**
 
 * Add `contentLength` property to the result of `getLineRanges`
 
-## v1.3.0
+# 1.3.0
 
 **Bugfixes:**
 
@@ -261,7 +266,7 @@
   * isTypeParameterDeclaration
   * isEnitityName
 
-## v1.2.2
+# 1.2.2
 
 **Bugfixes:**
 
@@ -269,13 +274,13 @@
   * exclude overload signatures of function declarations
   * add method declarations on object literals
 
-## v1.2.1
+# 1.2.1
 
 **Bugfixes:**
 
 * Fix name of `isNumericLiteral`
 
-## v1.2.0
+# 1.2.0
 
 **Features:**
 
@@ -287,7 +292,7 @@
   * isJsDocKind, isTypeNodeKind
 * Allow typescript@next in peerDependencies
 
-## v1.1.0
+# 1.1.0
 
 **Bugfixes:**
 
@@ -307,7 +312,7 @@
   * hasOwnThisReference
   * getLineRanges
 
-## v1.0.0
+# 1.0.0
 
 **Features:**
 

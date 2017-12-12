@@ -1,3 +1,13 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/karma-runner/karma-jasmine/compare/v1.1.0...v1.1.1) (2017-12-01)
+
+
+### Features
+
+* Propagate errors thrown in afterAll blocks ([f3fa264](https://github.com/karma-runner/karma-jasmine/commit/f3fa264)), closes [#161](https://github.com/karma-runner/karma-jasmine/issues/161)
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/karma-runner/karma-jasmine/compare/v1.0.2...v1.1.0) (2016-12-09)
 

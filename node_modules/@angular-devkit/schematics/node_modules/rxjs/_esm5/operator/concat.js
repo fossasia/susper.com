@@ -1,5 +1,6 @@
 /** PURE_IMPORTS_START .._operators_concat PURE_IMPORTS_END */
 import { concat as higherOrder } from '../operators/concat';
+export { concat as concatStatic } from '../observable/concat';
 /* tslint:enable:max-line-length */
 /**
  * Creates an output Observable which sequentially emits all values from every

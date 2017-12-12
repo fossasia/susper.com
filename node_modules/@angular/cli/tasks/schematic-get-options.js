@@ -14,6 +14,7 @@ exports.default = Task.extend({
         const keys = Object.keys(properties);
         const availableOptions = keys
             .map(key => (Object.assign({}, properties[key], { name: stringUtils.dasherize(key) })))
+            .filter(opt => opt.visible !== false)
             .map(opt => {
             let type;
             const schematicType = opt.type;

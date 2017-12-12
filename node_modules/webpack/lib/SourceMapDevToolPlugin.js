@@ -158,7 +158,7 @@ class SourceMapDevToolPlugin {
 					const moduleFilenames = modules.map(m => moduleToSourceNameMapping.get(m));
 					sourceMap.sources = moduleFilenames;
 					if(sourceMap.sourcesContent && !options.noSources) {
-						sourceMap.sourcesContent = sourceMap.sourcesContent.map((content, i) => `${content}\n\n\n${ModuleFilenameHelpers.createFooter(modules[i], requestShortener)}`);
+						sourceMap.sourcesContent = sourceMap.sourcesContent.map((content, i) => typeof content === "string" ? `${content}\n\n\n${ModuleFilenameHelpers.createFooter(modules[i], requestShortener)}` : null);
 					} else {
 						sourceMap.sourcesContent = undefined;
 					}
@@ -181,14 +181,14 @@ class SourceMapDevToolPlugin {
 						}
 						let sourceMapFile = compilation.getPath(sourceMapFilename, {
 							chunk,
-							filename,
+							filename: options.fileContext ? path.relative(options.fileContext, filename) : filename,
 							query,
 							basename: basename(filename)
 						});
 						if(sourceMapFile.indexOf("[contenthash]") !== -1) {
 							sourceMapFile = sourceMapFile.replace(/\[contenthash\]/g, crypto.createHash("md5").update(sourceMapString).digest("hex"));
 						}
-						const sourceMapUrl = path.relative(path.dirname(file), sourceMapFile).replace(/\\/g, "/");
+						const sourceMapUrl = options.publicPath ? options.publicPath + sourceMapFile.replace(/\\/g, "/") : path.relative(path.dirname(file), sourceMapFile).replace(/\\/g, "/");
 						if(currentSourceMappingURLComment !== false) {
 							asset.__SourceMapDevToolData[file] = compilation.assets[file] = new ConcatSource(new RawSource(source), currentSourceMappingURLComment.replace(/\[url\]/g, sourceMapUrl));
 						}

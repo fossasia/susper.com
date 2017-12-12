@@ -34,8 +34,8 @@ class AngularCompilerPlugin {
         this._emitSkipped = true;
         // Webpack plugin.
         this._firstRun = true;
-        this._compiler = null;
-        this._compilation = null;
+        this._warnings = [];
+        this._errors = [];
         // TypeChecker process.
         this._forkTypeChecker = true;
         ngtools_api_1.CompilerCliIsSupported();
@@ -322,7 +322,7 @@ class AngularCompilerPlugin {
             if (moduleKey in this._lazyRoutes) {
                 if (this._lazyRoutes[moduleKey] !== modulePath) {
                     // Found a duplicate, this is an error.
-                    this._compilation.warnings.push(new Error(`Duplicated path in loadChildren detected during a rebuild. `
+                    this._warnings.push(new Error(`Duplicated path in loadChildren detected during a rebuild. `
                         + `We will take the latest version detected and override it to save rebuild time. `
                         + `You should perform a full build to validate that your routes don't overlap.`));
                 }
@@ -350,19 +350,36 @@ class AngularCompilerPlugin {
         this._typeCheckerProcess.send(new type_checker_1.InitMessage(this._compilerOptions, this._basePath, this._JitMode, this._rootNames));
         // Cleanup.
         const killTypeCheckerProcess = () => {
-            treeKill(this._typeCheckerProcess.pid, 'SIGTERM');
+            if (this._typeCheckerProcess && this._typeCheckerProcess.pid) {
+                treeKill(this._typeCheckerProcess.pid, 'SIGTERM');
+                this._typeCheckerProcess = undefined;
+                this._forkTypeChecker = false;
+            }
+        };
+        // Handle child process exit.
+        const handleChildProcessExit = () => {
+            killTypeCheckerProcess();
+            const msg = 'AngularCompilerPlugin: Forked Type Checker exited unexpectedly. ' +
+                'Falling back to typechecking on main thread.';
+            this._warnings.push(msg);
+        };
+        this._typeCheckerProcess.once('exit', handleChildProcessExit);
+        this._typeCheckerProcess.once('SIGINT', handleChildProcessExit);
+        this._typeCheckerProcess.once('uncaughtException', handleChildProcessExit);
+        // Handle parent process exit.
+        const handleParentProcessExit = () => {
+            killTypeCheckerProcess();
             process.exit();
         };
-        process.once('exit', killTypeCheckerProcess);
-        process.once('SIGINT', killTypeCheckerProcess);
-        process.once('uncaughtException', killTypeCheckerProcess);
+        process.once('exit', handleParentProcessExit);
+        process.once('SIGINT', handleParentProcessExit);
+        process.once('uncaughtException', handleParentProcessExit);
     }
     _updateForkedTypeChecker(rootNames, changedCompilationFiles) {
         this._typeCheckerProcess.send(new type_checker_1.UpdateMessage(rootNames, changedCompilationFiles));
     }
     // Registration hook for webpack plugin.
     apply(compiler) {
-        this._compiler = compiler;
         // Decorate inputFileSystem to serve contents of CompilerHost.
         // Use decorated inputFileSystem in watchFileSystem.
         compiler.plugin('environment', () => {
@@ -427,7 +444,6 @@ class AngularCompilerPlugin {
         });
         compiler.plugin('done', () => {
             this._donePromise = null;
-            this._compilation = null;
         });
         // TODO: consider if it's better to remove this plugin and instead make it wait on the
         // VirtualFileSystemDecorator.
@@ -456,13 +472,12 @@ class AngularCompilerPlugin {
     }
     _make(compilation, cb) {
         benchmark_1.time('AngularCompilerPlugin._make');
-        this._compilation = compilation;
         this._emitSkipped = true;
-        if (this._compilation._ngToolsWebpackPluginInstance) {
+        if (compilation._ngToolsWebpackPluginInstance) {
             return cb(new Error('An @ngtools/webpack plugin already exist for this compilation.'));
         }
         // Set a private variable for this plugin instance.
-        this._compilation._ngToolsWebpackPluginInstance = this;
+        compilation._ngToolsWebpackPluginInstance = this;
         // Update the resource loader with the new webpack compilation.
         this._resourceLoader.update(compilation);
         // Create a new process for the type checker on the second build if there isn't one yet.
@@ -472,13 +487,21 @@ class AngularCompilerPlugin {
         this._donePromise = Promise.resolve()
             .then(() => this._update())
             .then(() => {
+            this.pushCompilationErrors(compilation);
             benchmark_1.timeEnd('AngularCompilerPlugin._make');
             cb();
         }, (err) => {
             compilation.errors.push(err.stack);
+            this.pushCompilationErrors(compilation);
             benchmark_1.timeEnd('AngularCompilerPlugin._make');
             cb();
         });
+    }
+    pushCompilationErrors(compilation) {
+        compilation.errors.push(...this._errors);
+        compilation.warnings.push(...this._warnings);
+        this._errors = [];
+        this._warnings = [];
     }
     _makeTransformers() {
         const isAppPath = (fileName) => !fileName.endsWith('.ngfactory.ts') && !fileName.endsWith('.ngstyle.ts');
@@ -560,15 +583,15 @@ class AngularCompilerPlugin {
                 .filter((diag) => diag.category === ts.DiagnosticCategory.Warning);
             if (errors.length > 0) {
                 const message = ngtools_api_1.formatDiagnostics(errors);
-                this._compilation.errors.push(message);
+                this._errors.push(message);
             }
             if (warnings.length > 0) {
                 const message = ngtools_api_1.formatDiagnostics(warnings);
-                this._compilation.warnings.push(message);
+                this._warnings.push(message);
             }
             this._emitSkipped = !emitResult || emitResult.emitSkipped;
             // Reset changed files on successful compilation.
-            if (!this._emitSkipped && this._compilation.errors.length === 0) {
+            if (!this._emitSkipped && this._errors.length === 0) {
                 this._compilerHost.resetChangedFileTracker();
             }
             benchmark_1.timeEnd('AngularCompilerPlugin._update');

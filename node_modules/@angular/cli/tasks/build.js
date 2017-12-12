@@ -8,6 +8,7 @@ const webpack_config_1 = require("../models/webpack-config");
 const utils_1 = require("../models/webpack-configs/utils");
 const config_1 = require("../models/config");
 const stats_1 = require("../utilities/stats");
+const service_worker_1 = require("../utilities/service-worker");
 const Task = require('../ember-cli/lib/models/task');
 const SilentError = require('silent-error');
 exports.default = Task.extend({
@@ -58,7 +59,15 @@ exports.default = Task.extend({
                     reject();
                 }
                 else {
-                    resolve();
+                    if (!!app.serviceWorker && runTaskOptions.target === 'production' &&
+                        service_worker_1.usesServiceWorker(this.project.root) && runTaskOptions.serviceWorker !== false) {
+                        const appRoot = path.resolve(this.project.root, app.root);
+                        service_worker_1.augmentAppWithServiceWorker(this.project.root, appRoot, path.resolve(outputPath), runTaskOptions.baseHref || '/')
+                            .then(() => resolve(), (err) => reject(err));
+                    }
+                    else {
+                        resolve();
+                    }
                 }
             };
             if (runTaskOptions.watch) {

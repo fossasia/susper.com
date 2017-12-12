@@ -1417,6 +1417,90 @@ var es2015 = function ES2015(ES, ops, expectedMissing) {
 
 		t.end();
 	});
+
+	test('AdvanceStringIndex', function (t) {
+		forEach(v.nonStrings, function (nonString) {
+			t['throws'](
+				function () { ES.AdvanceStringIndex(nonString); },
+				TypeError,
+				'"S" argument must be a String; ' + debug(nonString) + ' is not'
+			);
+		});
+
+		forEach(v.nonIntegerNumbers, function (nonInteger) {
+			t['throws'](
+				function () { ES.AdvanceStringIndex('', nonInteger, false); },
+				TypeError,
+				'"index" argument must be an integer; ' + debug(nonInteger) + ' is not'
+			);
+		});
+		forEach([-1, -42], function (negative) {
+			t['throws'](
+				function () { ES.AdvanceStringIndex('', negative, false); },
+				RangeError,
+				'"index" argument must be a non-negative integer; ' + debug(negative) + ' is not'
+			);
+		});
+		t['throws'](
+			function () { ES.AdvanceStringIndex('', MAX_SAFE_INTEGER + 1, false); },
+			RangeError,
+			'too large integers throw'
+		);
+
+		forEach(v.nonBooleans, function (nonBoolean) {
+			t['throws'](
+				function () { ES.AdvanceStringIndex('', 0, nonBoolean); },
+				TypeError,
+				'"unicode" argument must be a Boolean; ' + debug(nonBoolean) + ' is not'
+			);
+		});
+
+		t.test('when unicode is false', function (st) {
+			st.equal(ES.AdvanceStringIndex('', 0, false), 1, 'index is incremented by 1');
+			st.equal(ES.AdvanceStringIndex('abc', 0, false), 1, 'index is incremented by 1');
+			st.equal(ES.AdvanceStringIndex('', 3, false), 4, 'index is incremented by 1');
+			st.equal(ES.AdvanceStringIndex('abc', 3, false), 4, 'index is incremented by 1');
+
+			st.test('when the index is within the string', function (s2t) {
+				s2t.equal(ES.AdvanceStringIndex('abc', 0, false), 1, '0 -> 1');
+				s2t.equal(ES.AdvanceStringIndex('abc', 1, false), 2, '1 -> 2');
+				s2t.equal(ES.AdvanceStringIndex('abc', 2, false), 3, '2 -> 3');
+				s2t.end();
+			});
+
+			st.end();
+		});
+
+		t.test('when unicode is true', function (st) {
+			st.test('when index + 1 >= length', function (s2t) {
+				t.equal(ES.AdvanceStringIndex('', 0, true), 1, 'index is incremented by 1');
+				t.equal(ES.AdvanceStringIndex('a', 0, true), 1, 'index is incremented by 1');
+				t.equal(ES.AdvanceStringIndex('a', 5, true), 6, 'index is incremented by 1');
+				s2t.end();
+			});
+
+			st.test('when the index is within the string', function (s2t) {
+				s2t.equal(ES.AdvanceStringIndex('abc', 0, true), 1, '0 -> 1');
+				s2t.equal(ES.AdvanceStringIndex('abc', 1, true), 2, '1 -> 2');
+				s2t.equal(ES.AdvanceStringIndex('abc', 2, true), 3, '2 -> 3');
+				s2t.end();
+			});
+
+			st.test('surrogate pairs', function (s2t) {
+				var lowestPair = String.fromCharCode('0xD800') + String.fromCharCode('0xDC00');
+				var highestPair = String.fromCharCode('0xDBFF') + String.fromCharCode('0xDFFF');
+				var poop = String.fromCharCode('0xD83D') + String.fromCharCode('0xDCA9');
+				s2t.equal(ES.AdvanceStringIndex(lowestPair, 0, true), 2, 'lowest surrogate pair, 0 -> 2');
+				s2t.equal(ES.AdvanceStringIndex(highestPair, 0, true), 2, 'highest surrogate pair, 0 -> 2');
+				s2t.equal(ES.AdvanceStringIndex(poop, 0, true), 2, 'poop, 0 -> 2');
+				s2t.end();
+			});
+
+			st.end();
+		});
+
+		t.end();
+	});
 };
 
 var es2016 = function ES2016(ES, ops, expectedMissing) {

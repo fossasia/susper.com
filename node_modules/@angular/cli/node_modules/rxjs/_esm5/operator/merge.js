@@ -1,6 +1,6 @@
 /** PURE_IMPORTS_START .._operators_merge PURE_IMPORTS_END */
 import { merge as higherOrder } from '../operators/merge';
-export { mergeStatic } from '../operators/merge';
+export { merge as mergeStatic } from '../observable/merge';
 /* tslint:enable:max-line-length */
 /**
  * Creates an output Observable which concurrently emits all values from every
