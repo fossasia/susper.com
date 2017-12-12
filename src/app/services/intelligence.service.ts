@@ -6,8 +6,9 @@ import {Observable} from "rxjs";
 
 @Injectable()
 export class IntelligenceService {
-  server = 'https://api.susi.ai';
-  searchURL = 'https://' + this.server + '/susi/chat.json';
+
+  private static readonly apiUrl: URL = new URL('https://api.susi.ai/susi/chat.json');
+  private timezoneOffset = new Date().getTimezoneOffset().toString();
 
   constructor(
     private http: Http,
@@ -20,9 +21,10 @@ export class IntelligenceService {
 
     params.set('q', searchquery);
     params.set('callback', 'JSONP_CALLBACK');
+    params.set('timezoneOffset', this.timezoneOffset);
 
     return this.jsonp
-      .get('https://api.asksusi.com/susi/chat.json', {search: params}).map(res =>
+      .get('https://api.susi.ai/susi/chat.json', {search: params}).map(res =>
         res.json()
       );
   }
