@@ -1,3 +1,9 @@
+# 2.13.1
+
+**Bugfixes:**
+
+* fixed name of `isJsxFragment`
+
 # 2.13.0
 
 **Features:**

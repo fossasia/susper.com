@@ -4,11 +4,10 @@ const webpack = require("webpack");
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const named_lazy_chunks_webpack_plugin_1 = require("../../plugins/named-lazy-chunks-webpack-plugin");
-const insert_concat_assets_webpack_plugin_1 = require("../../plugins/insert-concat-assets-webpack-plugin");
 const utils_1 = require("./utils");
 const is_directory_1 = require("../../utilities/is-directory");
 const require_project_module_1 = require("../../utilities/require-project-module");
-const ConcatPlugin = require('webpack-concat-plugin');
+const scripts_webpack_plugin_1 = require("../../plugins/scripts-webpack-plugin");
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const SilentError = require('silent-error');
@@ -55,20 +54,16 @@ function getCommonConfig(wco) {
         }, []);
         // Add a new asset for each entry.
         globalScriptsByEntry.forEach((script) => {
-            const hash = hashFormat.chunk !== '' && !script.lazy ? '.[hash]' : '';
-            extraPlugins.push(new ConcatPlugin({
-                uglify: buildOptions.target === 'production' ? { sourceMapIncludeSources: true } : false,
-                sourceMap: buildOptions.sourcemaps,
+            // Lazy scripts don't get a hash, otherwise they can't be loaded by name.
+            const hash = script.lazy ? '' : hashFormat.script;
+            extraPlugins.push(new scripts_webpack_plugin_1.ScriptsWebpackPlugin({
                 name: script.entry,
-                // Lazy scripts don't get a hash, otherwise they can't be loaded by name.
-                fileName: `[name]${script.lazy ? '' : hash}.bundle.js`,
-                filesToConcat: script.paths
+                sourceMap: buildOptions.sourcemaps,
+                filename: `${script.entry}${hash}.bundle.js`,
+                scripts: script.paths,
+                basePath: projectRoot,
             }));
         });
-        // Insert all the assets created by ConcatPlugin in the right place in index.html.
-        extraPlugins.push(new insert_concat_assets_webpack_plugin_1.InsertConcatAssetsWebpackPlugin(globalScriptsByEntry
-            .filter((el) => !el.lazy)
-            .map((el) => el.entry)));
     }
     // process asset entries
     if (appConfig.assets) {

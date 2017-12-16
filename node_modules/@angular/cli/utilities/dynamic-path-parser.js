@@ -6,10 +6,10 @@ const fs = require("fs-extra");
 const stringUtils = require('ember-cli-string-utils');
 function dynamicPathParser(options) {
     const projectRoot = options.project.root;
-    const sourceDir = options.appConfig.root.replace('/', path.sep);
+    const sourceDir = options.appConfig.root.replace(/\//g, path.sep);
     const p = options.appConfig.appRoot === undefined
         ? 'app'
-        : options.appConfig.appRoot.replace('/', path.sep);
+        : options.appConfig.appRoot.replace(/\//g, path.sep);
     const appRoot = path.join(sourceDir, p);
     const cwd = process.env.PWD;
     const rootPath = path.join(projectRoot, appRoot);

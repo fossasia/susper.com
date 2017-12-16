@@ -23,7 +23,9 @@
     "email": "sindresorhus@gmail.com"
   },
   "_npmVersion": "2.11.3",
-  "_phantomChildren": {},
+  "_phantomChildren": {
+    "pinkie-promise": "2.0.1"
+  },
   "_requested": {
     "raw": "read-pkg-up@^1.0.1",
     "scope": null,

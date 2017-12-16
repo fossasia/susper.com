@@ -13,6 +13,9 @@ function packageChunkSort(appConfig) {
     if (appConfig.styles) {
         utils_1.extraEntryParser(appConfig.styles, './', 'styles').forEach(pushExtraEntries);
     }
+    if (appConfig.scripts) {
+        utils_1.extraEntryParser(appConfig.scripts, './', 'scripts').forEach(pushExtraEntries);
+    }
     entryPoints.push(...['vendor', 'main']);
     function sort(left, right) {
         let leftIndex = entryPoints.indexOf(left.names[0]);

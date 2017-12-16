@@ -4,9 +4,30 @@
  */
 var gray = require('ansi-gray');
 var timestamp = require('time-stamp');
+var supportsColor = require('color-support');
+
+function hasFlag(flag) {
+  return (process.argv.indexOf('--' + flag) !== -1);
+}
+
+function addColor(str) {
+  if (hasFlag('no-color')) {
+    return str;
+  }
+
+  if (hasFlag('color')) {
+    return gray(str);
+  }
+
+  if (supportsColor()) {
+    return gray(str);
+  }
+
+  return str;
+}
 
 function getTimestamp(){
-  return '['+gray(timestamp('HH:mm:ss'))+']';
+  return '['+addColor(timestamp('HH:mm:ss'))+']';
 }
 
 function log(){

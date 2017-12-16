@@ -22,7 +22,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SubresourceIntegrityPlugin = require('webpack-subresource-integrity');
 const SilentError = require('silent-error');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
-const ConcatPlugin = require('webpack-concat-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const Task = require('../ember-cli/lib/models/task');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
@@ -135,15 +134,6 @@ class JsonWebpackSerializer {
     _licenseWebpackPlugin(plugin) {
         return plugin.options;
     }
-    _concatPlugin(plugin) {
-        const options = plugin.settings;
-        if (!options || !options.filesToConcat) {
-            return options;
-        }
-        const filesToConcat = options.filesToConcat
-            .map((file) => path.relative(process.cwd(), file));
-        return Object.assign({}, options, { filesToConcat });
-    }
     _uglifyjsPlugin(plugin) {
         return plugin.options;
     }
@@ -175,6 +165,7 @@ class JsonWebpackSerializer {
                     break;
                 case angularCliPlugins.BaseHrefWebpackPlugin:
                 case angularCliPlugins.NamedLazyChunksWebpackPlugin:
+                case angularCliPlugins.ScriptsWebpackPlugin:
                 case angularCliPlugins.SuppressExtractedTextChunksWebpackPlugin:
                     this._addImport('@angular/cli/plugins/webpack', plugin.constructor.name);
                     break;
@@ -219,10 +210,6 @@ class JsonWebpackSerializer {
                 case license_webpack_plugin_1.LicenseWebpackPlugin:
                     args = this._licenseWebpackPlugin(plugin);
                     this._addImport('license-webpack-plugin', 'LicenseWebpackPlugin');
-                    break;
-                case ConcatPlugin:
-                    args = this._concatPlugin(plugin);
-                    this.variableImports['webpack-concat-plugin'] = 'ConcatPlugin';
                     break;
                 case UglifyJSPlugin:
                     args = this._uglifyjsPlugin(plugin);
@@ -533,7 +520,6 @@ exports.default = Task.extend({
                 'stylus-loader',
                 'url-loader',
                 'circular-dependency-plugin',
-                'webpack-concat-plugin',
                 'copy-webpack-plugin',
                 'uglifyjs-webpack-plugin',
             ].forEach((packageName) => {

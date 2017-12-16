@@ -1,24 +1,37 @@
 'use strict';
-var fs = require('graceful-fs');
-var Promise = require('pinkie-promise');
-var pify = require('pify');
+const fs = require('fs');
+const pify = require('pify');
 
 function type(fn, fn2, fp) {
 	if (typeof fp !== 'string') {
-		return Promise.reject(new TypeError('Expected a string'));
+		return Promise.reject(new TypeError(`Expected a string, got ${typeof fp}`));
 	}
 
-	return pify(fs[fn], Promise)(fp).then(function (stats) {
-		return stats[fn2]();
-	});
+	return pify(fs[fn])(fp)
+		.then(stats => stats[fn2]())
+		.catch(err => {
+			if (err.code === 'ENOENT') {
+				return false;
+			}
+
+			throw err;
+		});
 }
 
 function typeSync(fn, fn2, fp) {
 	if (typeof fp !== 'string') {
-		throw new TypeError('Expected a string');
+		throw new TypeError(`Expected a string, got ${typeof fp}`);
 	}
 
-	return fs[fn](fp)[fn2]();
+	try {
+		return fs[fn](fp)[fn2]();
+	} catch (err) {
+		if (err.code === 'ENOENT') {
+			return false;
+		}
+
+		throw err;
+	}
 }
 
 exports.file = type.bind(null, 'stat', 'isFile');

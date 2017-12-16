@@ -54,8 +54,8 @@ function getStylesConfig(wco) {
                     // Only convert root relative URLs, which CSS-Loader won't process into require().
                     filter: ({ url }) => url.startsWith('/') && !url.startsWith('//'),
                     url: ({ url }) => {
-                        if (deployUrl.match(/:\/\//)) {
-                            // If deployUrl contains a scheme, ignore baseHref use deployUrl as is.
+                        if (deployUrl.match(/:\/\//) || deployUrl.startsWith('/')) {
+                            // If deployUrl is absolute or root relative, ignore baseHref & use deployUrl as is.
                             return `${deployUrl.replace(/\/$/, '')}${url}`;
                         }
                         else if (baseHref.match(/:\/\//)) {

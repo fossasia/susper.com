@@ -75,7 +75,7 @@ class PathsPlugin {
         }
         this._nmf.plugin('before-resolve', (request, callback) => {
             // Only work on TypeScript issuers.
-            if (!request.contextInfo.issuer || !request.contextInfo.issuer.endsWith('.ts')) {
+            if (!request.contextInfo.issuer || !request.contextInfo.issuer.match(/\.[jt]s$/)) {
                 return callback(null, request);
             }
             for (let mapping of this._mappings) {
