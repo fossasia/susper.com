@@ -58,7 +58,6 @@ export declare class WebpackCompilerHost implements ts.CompilerHost {
     private _delegate;
     private _files;
     private _directories;
-    private _cachedResources;
     private _changedFiles;
     private _changedDirs;
     private _basePath;

@@ -452,31 +452,35 @@ exports.default = Task.extend({
             .then((packageJson) => JSON.parse(packageJson))
             .then((packageJson) => {
             const scripts = packageJson['scripts'];
-            if (scripts['build'] && scripts['build'] !== 'ng build' && !force) {
-                throw new SilentError(common_tags_1.oneLine `
-            Your package.json scripts must not contain a build script as it will be overwritten.
-          `);
-            }
-            if (scripts['start'] && scripts['start'] !== 'ng serve' && !force) {
-                throw new SilentError(common_tags_1.oneLine `
-            Your package.json scripts must not contain a start script as it will be overwritten.
-          `);
-            }
-            if (scripts['pree2e'] && scripts['pree2e'] !== pree2eNpmScript && !force) {
-                throw new SilentError(common_tags_1.oneLine `
-            Your package.json scripts must not contain a pree2e script as it will be
-            overwritten.
-          `);
-            }
-            if (scripts['e2e'] && scripts['e2e'] !== 'ng e2e' && !force) {
-                throw new SilentError(common_tags_1.oneLine `
-            Your package.json scripts must not contain a e2e script as it will be overwritten.
-          `);
-            }
-            if (scripts['test'] && scripts['test'] !== 'ng test' && !force) {
-                throw new SilentError(common_tags_1.oneLine `
-            Your package.json scripts must not contain a test script as it will be overwritten.
-          `);
+            if (!force) {
+                if (scripts['build']
+                    && scripts['build'] != 'ng build'
+                    && scripts['build'] != 'ng build --prod') {
+                    throw new SilentError(common_tags_1.oneLine `
+              Your package.json scripts must not contain a build script as it will be overwritten.
+            `);
+                }
+                if (scripts['start'] && scripts['start'] !== 'ng serve') {
+                    throw new SilentError(common_tags_1.oneLine `
+              Your package.json scripts must not contain a start script as it will be overwritten.
+            `);
+                }
+                if (scripts['pree2e'] && scripts['pree2e'] !== pree2eNpmScript) {
+                    throw new SilentError(common_tags_1.oneLine `
+              Your package.json scripts must not contain a pree2e script as it will be
+              overwritten.
+            `);
+                }
+                if (scripts['e2e'] && scripts['e2e'] !== 'ng e2e') {
+                    throw new SilentError(common_tags_1.oneLine `
+              Your package.json scripts must not contain a e2e script as it will be overwritten.
+            `);
+                }
+                if (scripts['test'] && scripts['test'] !== 'ng test') {
+                    throw new SilentError(common_tags_1.oneLine `
+              Your package.json scripts must not contain a test script as it will be overwritten.
+            `);
+                }
             }
             packageJson['scripts']['build'] = 'webpack';
             packageJson['scripts']['start'] = 'webpack-dev-server --port=4200';

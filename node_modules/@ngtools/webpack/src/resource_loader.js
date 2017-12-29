@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const vm = require("vm");
 const path = require("path");
+const webpack_sources_1 = require("webpack-sources");
 const NodeTemplatePlugin = require('webpack/lib/node/NodeTemplatePlugin');
 const NodeTargetPlugin = require('webpack/lib/node/NodeTargetPlugin');
 const LoaderTargetPlugin = require('webpack/lib/LoaderTargetPlugin');
@@ -10,6 +11,7 @@ class WebpackResourceLoader {
     constructor() {
         this._uniqueId = 0;
         this._resourceDependencies = new Map();
+        this._cachedResources = new Map();
     }
     update(parentCompilation) {
         this._parentCompilation = parentCompilation;
@@ -33,8 +35,7 @@ class WebpackResourceLoader {
         const childCompiler = this._parentCompilation.createChildCompiler(relativePath, outputOptions);
         childCompiler.context = this._context;
         childCompiler.apply(new NodeTemplatePlugin(outputOptions), new NodeTargetPlugin(), new SingleEntryPlugin(this._context, filePath), new LoaderTargetPlugin('node'));
-        // Store the result of the parent compilation before we start the child compilation
-        let assetsBeforeCompilation = Object.assign({}, this._parentCompilation.assets[outputOptions.filename]);
+        // NOTE: This is not needed with webpack 3.6+
         // Fix for "Uncaught TypeError: __webpack_require__(...) is not a function"
         // Hot module replacement requires that every child compiler has its own
         // cache. @see https://github.com/ampedandwired/html-webpack-plugin/pull/179
@@ -46,9 +47,29 @@ class WebpackResourceLoader {
                 compilation.cache = compilation.cache[compilerName];
             }
         });
+        childCompiler.plugin('this-compilation', (compilation) => {
+            compilation.plugin('additional-assets', (callback) => {
+                if (this._cachedResources.has(compilation.fullHash)) {
+                    callback();
+                    return;
+                }
+                const asset = compilation.assets[filePath];
+                if (asset) {
+                    this._evaluate({ outputName: filePath, source: asset.source() })
+                        .then(output => {
+                        compilation.assets[filePath] = new webpack_sources_1.RawSource(output);
+                        callback();
+                    })
+                        .catch(err => callback(err));
+                }
+                else {
+                    callback();
+                }
+            });
+        });
         // Compile and return a promise
         return new Promise((resolve, reject) => {
-            childCompiler.runAsChild((err, entries, childCompilation) => {
+            childCompiler.compile((err, childCompilation) => {
                 // Resolve / reject the promise
                 if (childCompilation && childCompilation.errors && childCompilation.errors.length) {
                     const errorDetails = childCompilation.errors.map(function (error) {
@@ -60,42 +81,33 @@ class WebpackResourceLoader {
                     reject(err);
                 }
                 else {
-                    // Replace [hash] placeholders in filename
-                    const outputName = this._parentCompilation.mainTemplate.applyPluginsWaterfall('asset-path', outputOptions.filename, {
-                        hash: childCompilation.hash,
-                        chunk: entries[0]
-                    });
-                    // Restore the parent compilation to the state like it was before the child compilation.
-                    Object.keys(childCompilation.assets).forEach((fileName) => {
-                        // If it wasn't there and it's a source file (absolute path) - delete it.
-                        if (assetsBeforeCompilation[fileName] === undefined && path.isAbsolute(fileName)) {
-                            delete this._parentCompilation.assets[fileName];
-                        }
-                        else {
-                            // Otherwise, add it to the parent compilation.
-                            this._parentCompilation.assets[fileName] = childCompilation.assets[fileName];
+                    Object.keys(childCompilation.assets).forEach(assetName => {
+                        if (assetName !== filePath && this._parentCompilation.assets[assetName] == undefined) {
+                            this._parentCompilation.assets[assetName] = childCompilation.assets[assetName];
                         }
                     });
                     // Save the dependencies for this resource.
-                    this._resourceDependencies.set(outputName, childCompilation.fileDependencies);
-                    resolve({
-                        // Output name.
-                        outputName,
-                        // Compiled code.
-                        source: childCompilation.assets[outputName].source()
-                    });
+                    this._resourceDependencies.set(filePath, childCompilation.fileDependencies);
+                    const compilationHash = childCompilation.fullHash;
+                    if (this._cachedResources.has(compilationHash)) {
+                        resolve({
+                            outputName: filePath,
+                            source: this._cachedResources.get(compilationHash),
+                        });
+                    }
+                    else {
+                        const source = childCompilation.assets[filePath].source();
+                        this._cachedResources.set(compilationHash, source);
+                        resolve({ outputName: filePath, source });
+                    }
                 }
             });
         });
     }
-    _evaluate(output) {
+    _evaluate({ outputName, source }) {
         try {
-            const outputName = output.outputName;
-            const vmContext = vm.createContext(Object.assign({ require: require }, global));
-            const vmScript = new vm.Script(output.source, { filename: outputName });
-            // Evaluate code and cast to string
-            let evaluatedSource;
-            evaluatedSource = vmScript.runInContext(vmContext);
+            // Evaluate code
+            const evaluatedSource = vm.runInNewContext(source, undefined, { filename: outputName });
             if (typeof evaluatedSource == 'string') {
                 return Promise.resolve(evaluatedSource);
             }
@@ -107,7 +119,7 @@ class WebpackResourceLoader {
     }
     get(filePath) {
         return this._compile(filePath)
-            .then((result) => this._evaluate(result));
+            .then((result) => result.source);
     }
 }
 exports.WebpackResourceLoader = WebpackResourceLoader;

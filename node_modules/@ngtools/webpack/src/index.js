@@ -10,7 +10,7 @@ const semver_1 = require("semver");
 // See https://github.com/angular/angular-cli/issues/8107#issuecomment-338185872
 try {
     const version = require('typescript').version;
-    if (!semver_1.satisfies(version, '^2.0.2')) {
+    if (!semver_1.gte(version, '2.0.2')) {
         throw new Error();
     }
 }

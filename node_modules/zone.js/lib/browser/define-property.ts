@@ -69,12 +69,18 @@ function isUnconfigurable(obj: any, prop: any) {
 }
 
 function rewriteDescriptor(obj: any, prop: string, desc: any) {
-  desc.configurable = true;
+  // issue-927, if the desc is frozen, don't try to change the desc
+  if (!Object.isFrozen(desc)) {
+    desc.configurable = true;
+  }
   if (!desc.configurable) {
-    if (!obj[unconfigurablesKey]) {
+    // issue-927, if the obj is frozen, don't try to set the desc to obj
+    if (!obj[unconfigurablesKey] && !Object.isFrozen(obj)) {
       _defineProperty(obj, unconfigurablesKey, {writable: true, value: {}});
     }
-    obj[unconfigurablesKey][prop] = true;
+    if (obj[unconfigurablesKey]) {
+      obj[unconfigurablesKey][prop] = true;
+    }
   }
   return desc;
 }
@@ -98,7 +104,7 @@ function _tryDefineProperty(obj: any, prop: string, desc: any, originalConfigura
         try {
           descJson = JSON.stringify(desc);
         } catch (error) {
-          descJson = descJson.toString();
+          descJson = desc.toString();
         }
         console.log(`Attempting to configure '${prop}' with descriptor '${descJson
                     }' on object '${obj}' and got error, giving up: ${error}`);

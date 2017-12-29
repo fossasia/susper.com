@@ -109,12 +109,15 @@ var doc = {hello: 'world', notInSchema: true}
 console.log(filter(doc)) // {hello: 'world'}
 ```
 
-## Verbose mode outputs the value on errors
+## Verbose mode shows more information about the source of the error
 
-is-my-json-valid outputs the value causing an error when verbose is set to true
+When the `verbose` options is set to `true`, `is-my-json-valid` also outputs:
+
+- `value`: The data value that caused the error
+- `schemaPath`: an array of keys indicating which sub-schema failed
 
 ``` js
-var validate = validator({
+var schema = {
   required: true,
   type: 'object',
   properties: {
@@ -123,12 +126,33 @@ var validate = validator({
       type: 'string'
     }
   }
-}, {
+}
+var validate = validator(schema, {
   verbose: true
 })
 
 validate({hello: 100});
-console.log(validate.errors) // {field: 'data.hello', message: 'is the wrong type', value: 100, type: 'string'}
+console.log(validate.errors)
+// [ { field: 'data.hello',
+//     message: 'is the wrong type',
+//     value: 100,
+//     type: 'string',
+//     schemaPath: [ 'properties', 'hello' ] } ]
+```
+
+Many popular libraries make it easy to retrieve the failing rule with the `schemaPath`:
+```
+var schemaPath = validate.errors[0].schemaPath
+var R = require('ramda')
+
+console.log( 'All evaluate to the same thing: ', R.equals(
+  schema.properties.hello,
+  { required: true, type: 'string' },
+  R.path(schemaPath, schema),
+  require('lodash').get(schema, schemaPath),
+  require('jsonpointer').get(schema, [""].concat(schemaPath))
+))
+// All evaluate to the same thing: true
 ```
 
 ## Greedy mode tries to validate as much as possible

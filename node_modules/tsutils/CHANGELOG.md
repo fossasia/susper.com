@@ -1,3 +1,10 @@
+# 2.14.0
+
+**Features:**
+
+* added `isDeleteExpression`
+* added `getLineBreakStyle`
+
 # 2.13.1
 
 **Bugfixes:**

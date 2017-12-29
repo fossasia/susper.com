@@ -44,7 +44,7 @@ const init = (config, emitter, customFileHandlers) => {
         environment: 'dev',
         codeCoverage: false,
         sourcemaps: true,
-        progress: true,
+        progress: process.stdout.isTTY === true,
         preserveSymlinks: false,
     }, config.angularCli);
     if (testConfig.sourcemaps) {

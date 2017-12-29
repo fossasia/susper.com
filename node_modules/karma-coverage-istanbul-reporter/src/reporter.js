@@ -61,7 +61,7 @@ function CoverageIstanbulReporter(baseReporterDecorator, logger, config) {
       Object.keys(coverage).forEach(filename => {
         const fileCoverage = coverage[filename];
         if (fileCoverage.inputSourceMap && coverageIstanbulReporter.fixWebpackSourcePaths) {
-          fileCoverage.inputSourceMap = util.fixWebpackSourcePaths(fileCoverage.inputSourceMap);
+          fileCoverage.inputSourceMap = util.fixWebpackSourcePaths(fileCoverage.inputSourceMap, config.webpack);
         }
         if (
           coverageIstanbulReporter.skipFilesWithNoCoverage &&

@@ -21,6 +21,7 @@ const _global: any =
 const FUNCTION = 'function';
 const UNDEFINED = 'undefined';
 const REMOVE_ATTRIBUTE = 'removeAttribute';
+const NULL_ON_PROP_VALUE: any[] = [null];
 
 export function bindArguments(args: any[], source: string): any[] {
   for (let i = args.length - 1; i >= 0; i--) {
@@ -29,6 +30,22 @@ export function bindArguments(args: any[], source: string): any[] {
     }
   }
   return args;
+}
+
+export function wrapFunctionArgs(func: Function, source?: string): Function {
+  return function() {
+    const args = Array.prototype.slice.call(arguments);
+    const wrappedArgs = bindArguments(args, source ? source : (func as any).name);
+    return func.apply(this, wrappedArgs);
+  };
+}
+
+export function patchArguments(target: any, name: string, source: string): Function {
+  return patchMethod(
+      target, name,
+      (delegate: Function, delegateName: string, name: string) => (self: any, args: any[]) => {
+        return delegate && delegate.apply(self, bindArguments(args, source));
+      });
 }
 
 export function patchPrototype(prototype: any, fnNames: string[]) {
@@ -133,6 +150,7 @@ export function patchProperty(obj: any, prop: string, prototype?: any) {
   delete desc.writable;
   delete desc.value;
   const originalDescGet = desc.get;
+  const originalDescSet = desc.set;
 
   // substr(2) cuz 'onclick' -> 'click', etc
   const eventName = prop.substr(2);
@@ -155,6 +173,12 @@ export function patchProperty(obj: any, prop: string, prototype?: any) {
     let previousValue = target[eventNameSymbol];
     if (previousValue) {
       target.removeEventListener(eventName, wrapFn);
+    }
+
+    // issue #978, when onload handler was added before loading zone.js
+    // we should remove it with originalDescSet
+    if (originalDescSet) {
+      originalDescSet.apply(target, NULL_ON_PROP_VALUE);
     }
 
     if (typeof newValue === 'function') {

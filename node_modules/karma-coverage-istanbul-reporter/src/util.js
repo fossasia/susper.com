@@ -22,8 +22,22 @@ function fixWebpackFilePath(filePath) {
   return filePath;
 }
 
-function fixWebpackSourcePaths(sourceMap) {
+function fixWebpackSourcePaths(sourceMap, webpackConfig) {
+  let sourceRoot = sourceMap.sourceRoot;
+  // Fix for https://github.com/mattlewis92/karma-coverage-istanbul-reporter/issues/32
+  // The sourceRoot is relative to the project directory and not an absolute path, so add the webpack context to it if set
+  if (
+    webpackConfig &&
+    webpackConfig.context &&
+    sourceMap.sourceRoot &&
+    !sourceMap.sourceRoot.startsWith(webpackConfig.context) &&
+    !path.isAbsolute(sourceRoot)
+  ) {
+    sourceRoot = path.join(webpackConfig.context, sourceRoot);
+  }
+
   return Object.assign({}, sourceMap, {
+    sourceRoot: sourceRoot, // eslint-disable-line object-shorthand
     sources: (sourceMap.sources || []).map(source => {
       source = fixWebpackFilePath(source);
       if (sourceMap.sourceRoot && source.startsWith(sourceMap.sourceRoot)) {
