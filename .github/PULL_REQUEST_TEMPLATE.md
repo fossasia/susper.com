@@ -6,6 +6,7 @@ Fixes #
 - [ ] I have read the [Contribution & Best practices Guide](https://blog.fossasia.org/open-source-developer-guide-and-best-practices-at-fossasia) and my PR follows them.
 - [ ] My branch is up-to-date with the Upstream `master` branch.
 - [ ] I have added necessary documentation (if appropriate)
+- [ ] Added Surge preview link
 
 #### Changes proposed in this pull request:
 
@@ -13,6 +14,10 @@ Fixes #
 -
 
 <!-- Demo Link: Add here the link where you changes can be seen. -->
+<!-- Replace "PR_NUMBER" with your pull request number. This link is generated when your PR passes the travis tests.A sample link can look like https://pr-200-fossasia-susper.surge.sh 
+
+[View Proposed Changes live](https://pr-PR_NUMBER-fossasia-susper.surge.sh) -->
+
 -
 
 <!-- Screenshots for the change: Add here the screenshot of the fix. -->
