@@ -1,3 +1,9 @@
+# 2.15.0
+
+**Features:**
+
+* added `convertAst` utility to produce a flattened and wrapped version of the AST
+
 # 2.14.0
 
 **Features:**

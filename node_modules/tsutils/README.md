@@ -1,5 +1,7 @@
 # Utility functions for working with typescript's AST
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ajafff/tsutils.svg)](https://greenkeeper.io/)
+
 ## Usage
 
 This package consists of two major parts: utilities and typeguard functions.
