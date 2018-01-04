@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# SOURCE_BRANCH & TARGET_BRANCH stores the name of different susper.com github branches.
 SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
@@ -9,15 +10,15 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]
     exit 0
 fi
 
-# Save some useful information
+# Store some useful information into variables
 REPO=`git config remote.origin.url`
 SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
 SHA=`git rev-parse --verify HEAD`
 
-# Deceyption of the deploy_key.enc
+# Decryption of the `deploy.enc`
 openssl aes-256-cbc -k "$super_secret_password" -in deploy.enc -out deploy_key -d
 
-
+# give `deploy_key`. the permission to read and write
 chmod 600 deploy_key
 eval `ssh-agent -s`
 ssh-add deploy_key
@@ -37,12 +38,13 @@ git config user.email "$COMMIT_AUTHOR_EMAIL"
 find repo/* ! -name "CNAME" ! -name "404.html" -maxdepth 1  -exec rm -rf {} \; 2> /dev/null
 cd repo
 
+# commit the changes, move to SOURCE_BRANCH
 git add --all
 git commit -m "Travis CI Clean Deploy : ${SHA}"
 
 git checkout $SOURCE_BRANCH
 
-# Actual building and setup of current push or PR.
+# Actual building and setup of current push or PR. Move to `TARGET_BRANCH` and move the `dist` folder
 npm install
 ng build --prod --aot
 mv susper.xml dist/
