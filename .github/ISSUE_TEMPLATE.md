@@ -8,6 +8,9 @@
 **Expected behavior:**
 <!-- Behavior would be without the bug. -->
 
+**Steps to resolve the issue
+<!-- How will you solve the issue?. -->
+
 **Screenshots of the issue:**
 <!-- Attach a screenshot of the issue here. -->
 
