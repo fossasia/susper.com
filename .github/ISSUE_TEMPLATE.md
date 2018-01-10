@@ -8,5 +8,11 @@
 **Expected behavior:**
 <!-- Behavior would be without the bug. -->
 
+**Steps to resolve the issue
+<!-- How will you solve the issue?. -->
+
 **Screenshots of the issue:**
 <!-- Attach a screenshot of the issue here. -->
+
+**Would You like to work on this**
+<!-- PLease mention whether you are working or is it open for someone to claim. -->
