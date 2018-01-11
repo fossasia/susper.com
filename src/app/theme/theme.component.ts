@@ -13,7 +13,7 @@ export class ThemeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(localStorage.getItem('theme')) {
+    if (localStorage.getItem('theme')) {
       this.applyTheme(JSON.parse(localStorage.getItem('theme')).value);
     }
   }
