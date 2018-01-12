@@ -9,39 +9,38 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
 import { TermsComponent } from './terms.component';
-
 describe('Component: Terms', () => {
-  let component: TermsComponent;
-  let fixture: ComponentFixture<TermsComponent>;
+    let component: TermsComponent;
+    let fixture: ComponentFixture < TermsComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
         RouterTestingModule,
         FormsModule
       ],
-      declarations: [
+                declarations: [
         FooterNavbarComponent,
         TermsComponent
       ]
-    })
-    .compileComponents();
-  }));
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TermsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(TermsComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create a Terms Component', () => {
-    const terms = new TermsComponent();
-    expect(terms).toBeTruthy();
-  });
+    it('should create a Terms Component', () => {
+        const terms = new TermsComponent();
+        expect(terms).toBeTruthy();
+    });
 
-  it('should create a FooterNavbar Component', () => {
-    const footerNavbar = new FooterNavbarComponent();
-    expect(footerNavbar).toBeTruthy();
-  });
+    it('should create a FooterNavbar Component', () => {
+        const footerNavbar = new FooterNavbarComponent();
+        expect(footerNavbar).toBeTruthy();
+    });
 
 });

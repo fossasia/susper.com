@@ -18,10 +18,9 @@ export class ContactComponent implements OnInit {
     @ViewChild('myModal')
     modal: ModalComponent;
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     close() {
         this.modal.close();

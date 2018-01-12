@@ -12,37 +12,37 @@ import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component'
 import { PrivacyComponent } from './privacy.component';
 
 describe('Component: Privacy', () => {
-  let component: PrivacyComponent;
-  let fixture: ComponentFixture<PrivacyComponent>;
+    let component: PrivacyComponent;
+    let fixture: ComponentFixture < PrivacyComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        FormsModule
-      ],
-      declarations: [
-        FooterNavbarComponent,
-        PrivacyComponent
-      ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                    FormsModule
+                ],
+                declarations: [
+                    FooterNavbarComponent,
+                    PrivacyComponent
+                ]
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PrivacyComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(PrivacyComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create a Privacy Component', () => {
-    const privacy = new PrivacyComponent();
-    expect(privacy).toBeTruthy();
-  });
+    it('should create a Privacy Component', () => {
+        const privacy = new PrivacyComponent();
+        expect(privacy).toBeTruthy();
+    });
 
-  it('should create a FooterNavbar Component', () => {
-    const footerNavbar = new FooterNavbarComponent();
-    expect(footerNavbar).toBeTruthy();
-  });
+    it('should create a FooterNavbar Component', () => {
+        const footerNavbar = new FooterNavbarComponent();
+        expect(footerNavbar).toBeTruthy();
+    });
 
 });

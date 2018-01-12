@@ -13,38 +13,39 @@ import {reducer} from "../reducers/index";
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 
 describe('AutoCorrectComponent', () => {
-  let component: AutoCorrectComponent;
-  let fixture: ComponentFixture<AutoCorrectComponent>;
+    let component: AutoCorrectComponent;
+    let fixture: ComponentFixture < AutoCorrectComponent > ;
 
-  beforeEach(async(() => {
+    beforeEach(async (() => {
         TestBed.configureTestingModule({
-            imports: [
-              RouterTestingModule,
-              BrowserModule,
-              CommonModule,
-              FormsModule,
-              HttpModule,
-              JsonpModule,
-              StoreModule.provideStore(reducer),
-              StoreDevtoolsModule.instrumentOnlyWithExtension(),
-            ],
-            declarations: [
-              AutoCorrectComponent,
-              IntelligenceComponent
-            ],
-            providers: [
-              AutocorrectService ]
-        })
-          .compileComponents();
-      }));
+                imports: [
+                    RouterTestingModule,
+                    BrowserModule,
+                    CommonModule,
+                    FormsModule,
+                    HttpModule,
+                    JsonpModule,
+                    StoreModule.provideStore(reducer),
+                    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+                ],
+                declarations: [
+                    AutoCorrectComponent,
+                    IntelligenceComponent
+                ],
+                providers: [
+                    AutocorrectService
+                ]
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AutoCorrectComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(AutoCorrectComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should be created', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(component).toBeTruthy();
+    });
 });

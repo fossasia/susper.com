@@ -4,45 +4,47 @@ import {Http, URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@
 import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
 
-
 @Injectable()
 export class AutocorrectService {
-  server = 'https://montanaflynn-spellcheck.p.mashape.com';
-  searchURL = this.server + '/check/';
-  homepage = 'https://susper.com';
-  logo = '../images/susper.svg';
+    server = 'https://montanaflynn-spellcheck.p.mashape.com';
+    searchURL = this.server + '/check/';
+    homepage = 'https://susper.com';
+    logo = '../images/susper.svg';
 
-  constructor(
-    private http: Http,
-    private jsonp: Jsonp,
-    private store: Store<fromRoot.State>
-  ) { }
+    constructor(
+        private http: Http,
+        private jsonp: Jsonp,
+        private store: Store < fromRoot.State >
+    ) {}
 
-  getsearchresults(searchquery) {
-    let params = new URLSearchParams();
+    getsearchresults(searchquery) {
+        let params = new URLSearchParams();
 
-    params.set('text', searchquery);
+        params.set('text', searchquery);
 
-    let headers = new Headers();
+        let headers = new Headers();
 
-    headers.set('Accept', 'application/json');
-    headers.set('X-Mashape-Key', 'MNy1dDOsyMmshBCz70BwQ51vfeuzp19LReMjsnKtccAQkuB9WM');
+        headers.set('Accept', 'application/json');
+        headers.set('X-Mashape-Key', 'MNy1dDOsyMmshBCz70BwQ51vfeuzp19LReMjsnKtccAQkuB9WM');
 
-    let options = new RequestOptions({ headers: headers, search: params });
-    return this.http
-      .get(this.searchURL, options).map(res =>
+        let options = new RequestOptions({
+            headers: headers,
+            search: params
+        });
+        return this.http
+            .get(this.searchURL, options).map(res =>
 
-        res.json()
+                res.json()
 
-      ).catch(this.handleError);
-  }
+            ).catch(this.handleError);
+    }
 
-  private handleError (error: any) {
-    // In some advance version we can include a remote logging of errors
-    let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // Right now we are logging to console itself
-    return Observable.throw(errMsg);
-  }
+    private handleError(error: any) {
+        // In some advance version we can include a remote logging of errors
+        let errMsg = (error.message) ? error.message :
+            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        console.error(errMsg); // Right now we are logging to console itself
+        return Observable.throw(errMsg);
+    }
 
 }

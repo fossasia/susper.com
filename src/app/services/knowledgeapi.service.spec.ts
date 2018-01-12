@@ -11,65 +11,65 @@ import { KnowledgeapiService } from './knowledgeapi.service';
 import { MockKnowledgeApi } from '../shared/mocks/knowledge.mock';
 
 const mockHttp_provider = {
-  provide: Http,
-  deps: [MockBackend, BaseRequestOptions],
-  useFactory: (backend: MockBackend, options: BaseRequestOptions) => {
-    return new Http(backend, options);
-  }
+    provide: Http,
+    deps: [MockBackend, BaseRequestOptions],
+    useFactory: (backend: MockBackend, options: BaseRequestOptions) => {
+        return new Http(backend, options);
+    }
 };
 
 describe('Service: KnowledgeapiService', () => {
-  let service: KnowledgeapiService = null;
-  let backend: MockBackend = null;
+    let service: KnowledgeapiService = null;
+    let backend: MockBackend = null;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        KnowledgeapiService,
-        MockBackend,
-        BaseRequestOptions,
-        mockHttp_provider,
-      ],
-      imports: [
-        HttpModule,
-        JsonpModule,
-        StoreModule.provideStore(reducer)
-      ]
-    });
-  });
-
-  beforeEach(inject([KnowledgeapiService, MockBackend], (knowledgeService: KnowledgeapiService, mockBackend: MockBackend) => {
-    service = knowledgeService;
-    backend = mockBackend;
-  }));
-
-  const searchquery = 'Berlin';
-  const _queryResult = MockKnowledgeApi;
-
-  it('should create an instance KnowledgeapiService',
-    inject([KnowledgeapiService, MockBackend], () => {
-      expect(service).toBeTruthy();
-    })
-  );
-
-  it('should call knowledge service API and return the result', () => {
-    backend.connections.subscribe((connection: MockConnection) => {
-      const options = new ResponseOptions({
-        body: JSON.stringify(MockKnowledgeApi)
-      });
-
-      connection.mockRespond(new Response(options));
-      expect(connection.request.method).toEqual(RequestMethod.Get);
-      expect(connection.request.url).toBe(
-        `http://lookup.dbpedia.org/api/search/KeywordSearch` +
-                    `?&QueryString=${searchquery}`
-      );
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                KnowledgeapiService,
+                MockBackend,
+                BaseRequestOptions,
+                mockHttp_provider,
+            ],
+            imports: [
+                HttpModule,
+                JsonpModule,
+                StoreModule.provideStore(reducer)
+            ]
+        });
     });
 
-    service.getsearchresults(searchquery).subscribe((res) => {
-      expect(res).toEqual(MockKnowledgeApi);
-    });
+    beforeEach(inject([KnowledgeapiService, MockBackend], (knowledgeService: KnowledgeapiService, mockBackend: MockBackend) => {
+        service = knowledgeService;
+        backend = mockBackend;
+    }));
 
-  });
+    const searchquery = 'Berlin';
+    const _queryResult = MockKnowledgeApi;
+
+    it('should create an instance KnowledgeapiService',
+        inject([KnowledgeapiService, MockBackend], () => {
+            expect(service).toBeTruthy();
+        })
+    );
+
+    it('should call knowledge service API and return the result', () => {
+        backend.connections.subscribe((connection: MockConnection) => {
+            const options = new ResponseOptions({
+                body: JSON.stringify(MockKnowledgeApi)
+            });
+
+            connection.mockRespond(new Response(options));
+            expect(connection.request.method).toEqual(RequestMethod.Get);
+            expect(connection.request.url).toBe(
+                `http://lookup.dbpedia.org/api/search/KeywordSearch` +
+                `?&QueryString=${searchquery}`
+            );
+        });
+
+        service.getsearchresults(searchquery).subscribe((res) => {
+            expect(res).toEqual(MockKnowledgeApi);
+        });
+
+    });
 
 });

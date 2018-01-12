@@ -14,70 +14,70 @@ import {BrowserModule} from "@angular/platform-browser";
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 
 describe('SearchsettingsComponent', () => {
-  let component: SearchsettingsComponent;
-  let fixture: ComponentFixture<SearchsettingsComponent>;
+    let component: SearchsettingsComponent;
+    let fixture: ComponentFixture < SearchsettingsComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        BrowserModule,
-        CommonModule,
-        FormsModule,
-        HttpModule,
-        JsonpModule,
-        StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
-      ],
-      declarations: [
-        FooterNavbarComponent,
-        IntelligenceComponent,
-        SearchsettingsComponent
-      ],
-    })
-    .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                    BrowserModule,
+                    CommonModule,
+                    FormsModule,
+                    HttpModule,
+                    JsonpModule,
+                    StoreModule.provideStore(reducer),
+                    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+                ],
+                declarations: [
+                    FooterNavbarComponent,
+                    IntelligenceComponent,
+                    SearchsettingsComponent
+                ],
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SearchsettingsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SearchsettingsComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
 
-  it('should create an instance', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(component).toBeTruthy();
+    });
 
-  it('should have an app-advancedsearch element', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
-  });
+    it('should have an app-advancedsearch element', () => {
+        let compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
+    });
 
-  it('should have a save button', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have a save button', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('button.savbtn'));
-  });
+        expect(compiled.querySelector('button.savbtn'));
+    });
 
-  it('should have a cancel button', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have a cancel button', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('button.cancbtn'));
-  });
+        expect(compiled.querySelector('button.cancbtn'));
+    });
 
-  it('should have a navbar', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have a navbar', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('nav.navbar'));
-  });
+        expect(compiled.querySelector('nav.navbar'));
+    });
 
-  it('should have alt text property as brand', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have alt text property as brand', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    let image: HTMLImageElement = compiled.querySelector('a.navbar-brand img');
-    expect(image).toBeTruthy();
-    expect(image.alt).toBe('brand');
-  });
+        let image: HTMLImageElement = compiled.querySelector('a.navbar-brand img');
+        expect(image).toBeTruthy();
+        expect(image.alt).toBe('brand');
+    });
 
 });

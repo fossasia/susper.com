@@ -9,19 +9,19 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {reducer} from "../reducers/index";
 
 describe('AutocompleteService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpModule,
-        JsonpModule,
-        StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
-      ],
-      providers: [AutocompleteService]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                HttpModule,
+                JsonpModule,
+                StoreModule.provideStore(reducer),
+                StoreDevtoolsModule.instrumentOnlyWithExtension(),
+            ],
+            providers: [AutocompleteService]
+        });
     });
-  });
 
-  it('should ...', inject([AutocompleteService], (service: AutocompleteService) => {
-    expect(service).toBeTruthy();
-  }));
+    it('should ...', inject([AutocompleteService], (service: AutocompleteService) => {
+        expect(service).toBeTruthy();
+    }));
 });

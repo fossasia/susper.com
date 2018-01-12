@@ -2,14 +2,14 @@ import { Action } from '@ngrx/store';
 import { type } from '../utils';
 
 export const ActionTypes = {
-  CHANGE: type('[Knowledge] Change'),
+    CHANGE: type('[Knowledge] Change'),
 };
 
 export class SearchAction implements Action {
-  type = ActionTypes.CHANGE;
+    type = ActionTypes.CHANGE;
 
-  constructor(public payload: any) {}
+    constructor(public payload: any) {}
 }
 
 export type Actions
-  = SearchAction ;
+    = SearchAction;

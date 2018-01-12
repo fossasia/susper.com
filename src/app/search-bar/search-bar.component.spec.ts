@@ -11,72 +11,72 @@ import { AutoCompleteComponent } from "../auto-complete/auto-complete.component"
 import { SpeechService } from '../services/speech.service';
 
 describe('Component: SearchBarComponent', () => {
-  let component: SearchBarComponent;
-  let fixture: ComponentFixture<SearchBarComponent>;
+    let component: SearchBarComponent;
+    let fixture: ComponentFixture < SearchBarComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        FormsModule,
-        HttpModule,
-        JsonpModule,
-        StoreModule.provideStore(reducer),
-      ],
-      declarations: [
-        SearchBarComponent,
-        AutoCompleteComponent,
-      ],
-      providers: [
-        AutocompleteService,
-        SpeechService
-      ],
-    })
-      .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                    FormsModule,
+                    HttpModule,
+                    JsonpModule,
+                    StoreModule.provideStore(reducer),
+                ],
+                declarations: [
+                    SearchBarComponent,
+                    AutoCompleteComponent,
+                ],
+                providers: [
+                    AutocompleteService,
+                    SpeechService
+                ],
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SearchBarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SearchBarComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create an instance', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(component).toBeTruthy();
+    });
 
-  it('should have an input element for search inputs', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an input element for search inputs', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('div.input-group input#nav-input'));
-  });
+        expect(compiled.querySelector('div.input-group input#nav-input'));
+    });
 
-  it('should focus the input search element on initialization', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let inputElement: HTMLInputElement = compiled.querySelector('div.input-group input#nav-input');
-    expect(document.activeElement).toBe(inputElement);
-  });
+    it('should focus the input search element on initialization', () => {
+        let compiled = fixture.debugElement.nativeElement;
+        let inputElement: HTMLInputElement = compiled.querySelector('div.input-group input#nav-input');
+        expect(document.activeElement).toBe(inputElement);
+    });
 
-  it('should have "searchdata" property', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have "searchdata" property', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(component.searchdata).toBeTruthy();
-  });
+        expect(component.searchdata).toBeTruthy();
+    });
 
-  it('should have an app-auto-complete element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an app-auto-complete element', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-auto-complete')).toBeTruthy();
-  });
+        expect(compiled.querySelector('app-auto-complete')).toBeTruthy();
+    });
 
-  it('should have microphone icon', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have microphone icon', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('img.microphone')).toBeTruthy();
-  });
+        expect(compiled.querySelector('img.microphone')).toBeTruthy();
+    });
 
-  it('should have wholequery$ as Observable', () => {
-    expect(component.wholequery$).toBeTruthy();
-  });
+    it('should have wholequery$ as Observable', () => {
+        expect(component.wholequery$).toBeTruthy();
+    });
 
 });

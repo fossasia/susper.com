@@ -6,32 +6,32 @@ import * as queryactions from '../actions/query';
 import {Observable} from "rxjs";
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css']
+    selector: 'app-index',
+    templateUrl: './index.component.html',
+    styleUrls: ['./index.component.css']
 })
 
 export class IndexComponent implements OnInit {
-  searchdata: any = {
-    query: '',
-    start: 0,
-    rows: 10,
-    mode: 'text',
-  };
+    searchdata: any = {
+        query: '',
+        start: 0,
+        rows: 10,
+        mode: 'text',
+    };
 
-  hidespeech: Observable<boolean>;
+    hidespeech: Observable < boolean > ;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private store: Store<fromRoot.State>
-  ) {
-    this.hidespeech = store.select(fromRoot.getSpeechMode);
-  }
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private store: Store < fromRoot.State >
+    ) {
+        this.hidespeech = store.select(fromRoot.getSpeechMode);
+    }
 
-  ngOnInit() {
-    document.getElementById('nav-group').style.width = '584px';
-    document.getElementById('nav-input').style.width = '528px';
-  }
+    ngOnInit() {
+        document.getElementById('nav-group').style.width = '584px';
+        document.getElementById('nav-input').style.width = '528px';
+    }
 
 }

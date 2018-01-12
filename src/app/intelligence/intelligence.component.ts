@@ -5,47 +5,46 @@ import * as fromRoot from '../reducers';
 import {IntelligenceService} from "../services/intelligence.service";
 
 @Component({
-  selector: 'app-intelligence',
-  templateUrl: './intelligence.component.html',
-  styleUrls: ['./intelligence.component.css']
+    selector: 'app-intelligence',
+    templateUrl: './intelligence.component.html',
+    styleUrls: ['./intelligence.component.css']
 })
 export class IntelligenceComponent implements OnInit {
-  wholequery$: Observable<any>;
-  actions: Array<any> = [];
-  answer: any;
-  resultscomponentchange$: Observable<any>;
+    wholequery$: Observable < any > ;
+    actions: Array < any > = [];
+    answer: any;
+    resultscomponentchange$: Observable < any > ;
 
-  constructor(
-    private store: Store<fromRoot.State>,
-    private intelligence: IntelligenceService
-  ) {
-    this.resultscomponentchange$ = store.select(fromRoot.getItems);
+    constructor(
+        private store: Store < fromRoot.State > ,
+        private intelligence: IntelligenceService
+    ) {
+        this.resultscomponentchange$ = store.select(fromRoot.getItems);
 
-    this.resultscomponentchange$.subscribe(resp => {
-      this.wholequery$ = store.select(fromRoot.getwholequery);
+        this.resultscomponentchange$.subscribe(resp => {
+            this.wholequery$ = store.select(fromRoot.getwholequery);
 
-      this.wholequery$.subscribe(data => {
-        this.intelligence.getintelligentresponse(data.query).subscribe(res => {
-          if (res && res.answers && res.answers[0].actions) {
-            this.actions = res.answers[0].actions;
+            this.wholequery$.subscribe(data => {
+                this.intelligence.getintelligentresponse(data.query).subscribe(res => {
+                    if (res && res.answers && res.answers[0].actions) {
+                        this.actions = res.answers[0].actions;
 
-            for (let action of this.actions) {
-              if (action.type === 'answer' && action.mood !== 'sabta') {
-                this.answer = action.expression;
-              } else {
-                this.answer = '';
-              }
-            }
-          } else {
-            this.answer = '';
-          }
+                        for (let action of this.actions) {
+                            if (action.type === 'answer' && action.mood !== 'sabta') {
+                                this.answer = action.expression;
+                            } else {
+                                this.answer = '';
+                            }
+                        }
+                    } else {
+                        this.answer = '';
+                    }
+                });
+            }).unsubscribe();
+
         });
-      }).unsubscribe();
+    }
 
-    });
-  }
-
-  ngOnInit() {
-  }
+    ngOnInit() {}
 
 }

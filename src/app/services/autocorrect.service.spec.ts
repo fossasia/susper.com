@@ -7,19 +7,19 @@ import {reducer} from "../reducers/index";
 import {AutocorrectService} from "./autocorrect.service";
 
 describe('AutocorrectService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpModule,
-        JsonpModule,
-        StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
-      ],
-      providers: [AutocorrectService]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                HttpModule,
+                JsonpModule,
+                StoreModule.provideStore(reducer),
+                StoreDevtoolsModule.instrumentOnlyWithExtension(),
+            ],
+            providers: [AutocorrectService]
+        });
     });
-  });
 
-  it('should be created', inject([AutocorrectService], (service: AutocorrectService) => {
-    expect(service).toBeTruthy();
-  }));
+    it('should be created', inject([AutocorrectService], (service: AutocorrectService) => {
+        expect(service).toBeTruthy();
+    }));
 });
