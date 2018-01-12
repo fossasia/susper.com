@@ -29,37 +29,37 @@ import {InfoboxComponent} from "../infobox/infobox.component";
 import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
 
 describe('IntelligenceComponent', () => {
-  let component: IntelligenceComponent;
-  let fixture: ComponentFixture<IntelligenceComponent>;
+    let component: IntelligenceComponent;
+    let fixture: ComponentFixture < IntelligenceComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        BrowserModule,
-        CommonModule,
-        FormsModule,
-        HttpModule,
-        JsonpModule,
-        StoreModule.provideStore(reducer),
-      ],
-      declarations: [
-        IntelligenceComponent
-      ],
-      providers: [
-        IntelligenceService
-      ],
-    })
-    .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                    BrowserModule,
+                    CommonModule,
+                    FormsModule,
+                    HttpModule,
+                    JsonpModule,
+                    StoreModule.provideStore(reducer),
+                ],
+                declarations: [
+                    IntelligenceComponent
+                ],
+                providers: [
+                    IntelligenceService
+                ],
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IntelligenceComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IntelligenceComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

@@ -35,9 +35,9 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {ChartsModule} from "ng2-charts";
 
 describe('AppComponent', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [
         RouterTestingModule,
         InfiniteScrollModule,
         BrowserModule,
@@ -49,7 +49,7 @@ describe('AppComponent', () => {
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
       ],
-      declarations: [
+            declarations: [
         AppComponent,
         NavbarComponent,
         IndexComponent,
@@ -71,23 +71,23 @@ describe('AppComponent', () => {
         AutoCorrectComponent,
         StatsboxComponent
       ],
-      providers: [
+            providers: [
         SpeechService
       ]
+        });
+        TestBed.compileComponents();
     });
-    TestBed.compileComponents();
-  });
 
-  it('should create the app', async(() => {
-    let fixture = TestBed.createComponent(AppComponent);
-    let app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+    it('should create the app', async (() => {
+        let fixture = TestBed.createComponent(AppComponent);
+        let app = fixture.debugElement.componentInstance;
+        expect(app).toBeTruthy();
+    }));
 
-  it(`should have as title 'Susper'`, async(() => {
-    let fixture = TestBed.createComponent(AppComponent);
-    let app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Susper');
-  }));
+    it(`should have as title 'Susper'`, async (() => {
+        let fixture = TestBed.createComponent(AppComponent);
+        let app = fixture.debugElement.componentInstance;
+        expect(app.title).toEqual('Susper');
+    }));
 
 });

@@ -48,21 +48,54 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 const appRoutes: Routes = [
-  {path: 'search', component: ResultsComponent},
-  {path: '', component: IndexComponent},
-  {path: 'about', component: AboutComponent},
-  {path: 'privacy', component: PrivacyComponent},
-  {path: 'terms', component: TermsComponent},
-  {path: 'contact', component: ContactComponent},
-  {path: '404', component: NotFoundComponent},
-  {path: 'advancedsearch', component: NewadvancedsearchComponent},
-  {path: 'crawlstartexpert', component: CrawlstartComponent},
-  {path: 'preferences', component: SearchsettingsComponent },
-  {path: '**', redirectTo: '/404'},
+    {
+        path: 'search',
+        component: ResultsComponent
+    },
+    {
+        path: '',
+        component: IndexComponent
+    },
+    {
+        path: 'about',
+        component: AboutComponent
+    },
+    {
+        path: 'privacy',
+        component: PrivacyComponent
+    },
+    {
+        path: 'terms',
+        component: TermsComponent
+    },
+    {
+        path: 'contact',
+        component: ContactComponent
+    },
+    {
+        path: '404',
+        component: NotFoundComponent
+    },
+    {
+        path: 'advancedsearch',
+        component: NewadvancedsearchComponent
+    },
+    {
+        path: 'crawlstartexpert',
+        component: CrawlstartComponent
+    },
+    {
+        path: 'preferences',
+        component: SearchsettingsComponent
+    },
+    {
+        path: '**',
+        redirectTo: '/404'
+    },
 ];
 
 @NgModule({
-  declarations: [
+    declarations: [
     AppComponent,
     NavbarComponent,
     IndexComponent,
@@ -89,7 +122,7 @@ const appRoutes: Routes = [
     StatsboxComponent,
   ],
 
-  imports: [
+    imports: [
     BrowserModule,
     InfiniteScrollModule,
     CommonModule,
@@ -105,7 +138,7 @@ const appRoutes: Routes = [
     ChartsModule
   ],
 
-  providers: [
+    providers: [
     SearchService,
     KnowledgeapiService,
     AutocompleteService,
@@ -117,7 +150,7 @@ const appRoutes: Routes = [
     SpeechSynthesisService
   ],
 
-  bootstrap: [AppComponent]
+    bootstrap: [AppComponent]
 })
 
-export class AppModule { }
+export class AppModule {}

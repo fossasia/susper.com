@@ -2,21 +2,21 @@ import { Action } from '@ngrx/store';
 import { type } from '../utils';
 
 export const ActionTypes = {
-  QUERYCHANGE: type('[Query] Change'),
-  QUERYSERVER: type('[Query] Server'),
+    QUERYCHANGE: type('[Query] Change'),
+    QUERYSERVER: type('[Query] Server'),
 };
 
 export class QueryAction implements Action {
-  type = ActionTypes.QUERYCHANGE;
+    type = ActionTypes.QUERYCHANGE;
 
-  constructor(public payload: any) {}
+    constructor(public payload: any) {}
 }
 
 export class QueryServerAction implements Action {
-  type = ActionTypes.QUERYSERVER;
+    type = ActionTypes.QUERYSERVER;
 
-  constructor(public payload: any) {}
+    constructor(public payload: any) {}
 }
 
 export type Actions
-  = QueryAction|QueryServerAction ;
+    = QueryAction | QueryServerAction;

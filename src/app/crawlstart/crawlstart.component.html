@@ -2,8 +2,7 @@
   <div class="container-fluid">
 
     <div class="navbar-header">
-      <button type = "button" class = "navbar-toggle"
-              data-toggle = "collapse" data-target = "#dropmenu">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#dropmenu">
         <span class = "icon-bar"></span>
         <span class = "icon-bar"></span>
         <span class = "icon-bar"></span>
@@ -27,19 +26,17 @@
 
 <div class="container">
   <h3 style="color: #dd4b39;font-family: Arial,SansSerif">Expert Crawl Start</h3>
-  
+
   <p>
-    You can define URLs as start points for Web page crawling and start crawling here.
-    "Crawling" implies that YaCy will download the given website, extract all links in it and then download the content behind these links.
-    This is repeated as long as specified under "Crawling Depth".
-    A crawl can also be started using wget and the <a href="http://www.yacy-websearch.net/wiki/index.php/Dev:APICrawler" target="_blank">post arguments</a> for this web page.
+    You can define URLs as start points for Web page crawling and start crawling here. "Crawling" implies that YaCy will download the given website, extract all links in it and then download the content behind these links. This is repeated as long as specified
+    under "Crawling Depth". A crawl can also be started using wget and the <a href="http://www.yacy-websearch.net/wiki/index.php/Dev:APICrawler" target="_blank">post arguments</a> for this web page.
   </p>
-  
+
   <hr>
-  <fieldset>  
+  <fieldset>
     <legend>Crawl Job</legend>
     <p>A Crawl Job consist of one or more start points, crawl limitations and document freshness rules.</p><br/>
-    <fieldset id="fieldset-1">  
+    <fieldset id="fieldset-1">
       <legend>Start Point</legend>
       <dl>
         <form>
@@ -52,8 +49,7 @@
                   (must start with http:// https:// ftp:// smb:// file://):</label>
               </dt>
               <dd>
-                  <textarea [(ngModel)]="crawlvalues.crawlingURL" type="text" 
-                    name="crawlingURL" class="form-control" id="words" cols="64" rows="3" size="41" >
+                <textarea [(ngModel)]="crawlvalues.crawlingURL" type="text" name="crawlingURL" class="form-control" id="words" cols="64" rows="3" size="41">
                   </textarea>
               </dd>
             </div>
@@ -70,8 +66,7 @@
                 <label for="any" class="label-inline">From Sitemap</label>
               </dt>
               <dd>
-                <input type="text" class="form-control" id="any" 
-                  [(ngModel)]="crawlvalues.sitemapURL" maxlength="256" name="sitemapURL">
+                <input type="text" class="form-control" id="any" [(ngModel)]="crawlvalues.sitemapURL" maxlength="256" name="sitemapURL">
               </dd>
             </div>
             <div class="form-group">
@@ -80,8 +75,7 @@
                 <label for="none" class="label-inline">From File (enter a path <br/> within your local file system)</label>
               </dt>
               <dd>
-                <input type="text" class="form-control" id="none" 
-                  [(ngModel)]="crawlvalues.crawlingFile" size="71" maxlength="256" name="crawlingFile">
+                <input type="text" class="form-control" id="none" [(ngModel)]="crawlvalues.crawlingFile" size="71" maxlength="256" name="crawlingFile">
               </dd>
             </div>
           </div>
@@ -145,7 +139,7 @@
           </div>
 
           <div class="form-group">
-            <div class="col-md-4"><label for="terms appearing">Load Filter on IPs</label></div> 
+            <div class="col-md-4"><label for="terms appearing">Load Filter on IPs</label></div>
             <div class="col-md-6">
               <img src="https://yacy.searchlab.eu/env/grafics/plus.gif">
               <span>must-match</span>
@@ -171,34 +165,35 @@
     <hr>
     <fieldset>
       <legend>Document Filter</legend>
-      <p>These are limitations on index feeder. The filters will be applied after a web page was loaded.<p>
-      <form>
-        <div class="row">
-          <div class="form-group">
-            <div class="col-md-4">
-              <label>Filter On URLs</label>
-            </div>
-            <div class="col-md-6">
-              <img src="https://yacy.searchlab.eu/env/grafics/plus.gif"><span>must match</span>
-              <input name="index" [(ngModel)]="crawlvalues.indexmustmatch" type="text" class="form-control">
-              <img src="https://yacy.searchlab.eu/env/grafics/minus.gif"><span>must-not-match</span>
-              <input name="index" [(ngModel)]="crawlvalues.indexmustnotmatch" type="text" class="form-control">
-            </div>
-          </div>
+      <p>These are limitations on index feeder. The filters will be applied after a web page was loaded.
+        <p>
+          <form>
+            <div class="row">
+              <div class="form-group">
+                <div class="col-md-4">
+                  <label>Filter On URLs</label>
+                </div>
+                <div class="col-md-6">
+                  <img src="https://yacy.searchlab.eu/env/grafics/plus.gif"><span>must match</span>
+                  <input name="index" [(ngModel)]="crawlvalues.indexmustmatch" type="text" class="form-control">
+                  <img src="https://yacy.searchlab.eu/env/grafics/minus.gif"><span>must-not-match</span>
+                  <input name="index" [(ngModel)]="crawlvalues.indexmustnotmatch" type="text" class="form-control">
+                </div>
+              </div>
 
-          <div class="form-group">
-            <div class="col-md-4">
-              <label>Filter on Content of Document<br/>
+              <div class="form-group">
+                <div class="col-md-4">
+                  <label>Filter on Content of Document<br/>
               (all visible text, including camel-case-tokenized url and title)</label>
+                </div>
+                <div class="col-md-6">
+                  <img src="https://yacy.searchlab.eu/env/grafics/plus.gif"><span>must match</span>
+                  <input name="index" [(ngModel)]="crawlvalues.indexcontentmustmatch" type="text" size="55" class="form-control" maxlength="100000">
+                  <img src="https://yacy.searchlab.eu/env/grafics/minus.gif"><span>must-not-match</span>
+                  <input name="index" [(ngModel)]="crawlvalues.indexcontentmustnotmatch" type="text" class="form-control"></div>
+              </div>
             </div>
-            <div class="col-md-6">
-              <img src="https://yacy.searchlab.eu/env/grafics/plus.gif"><span>must match</span>
-              <input name="index" [(ngModel)]="crawlvalues.indexcontentmustmatch" type="text" size="55" class="form-control" maxlength="100000">
-              <img src="https://yacy.searchlab.eu/env/grafics/minus.gif"><span>must-not-match</span>
-              <input name="index" [(ngModel)]="crawlvalues.indexcontentmustnotmatch" type="text" class="form-control"></div >
-          </div>
-        </div>
-      </form>
+          </form>
     </fieldset>
 
     <hr>
@@ -285,7 +280,7 @@
 
           <div class="form-group">
             <div class="col-md-4"><label>Policy for usage of Web Cache</label></div>
-            
+
             <div class="col-md-6">
               <input name="cache" [(ngModel)]="crawlvalues.cachePolicy" type="radio" value="nocache"><span class="span-both">no cache</span><br/>
               <input name="cachepolicy" type="radio" [(ngModel)]="crawlvalues.cachePolicy" value="iffresh"><span class="span-both">if fresh</span><br/>
@@ -295,9 +290,9 @@
 
           </div>
         </div>
-      </form>  
+      </form>
     </fieldset>
-    
+
     <hr>
     <fieldset>
       <legend>Snapshot Creation</legend>
@@ -360,7 +355,6 @@
         </div>
       </form>
     </fieldset>
-    
 
     <div class="adv-submit" id="crawlStartBtn">
       <button class="adv-btn btn" (click)="startCrawlJob()"><span class="btn-text">Start New Crawl Job</span></button>

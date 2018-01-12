@@ -20,60 +20,60 @@ import { SpeechService } from '../services/speech.service';
 import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 
 describe('IndexComponent', () => {
-  let component: IndexComponent;
-  let fixture: ComponentFixture<IndexComponent>;
+    let component: IndexComponent;
+    let fixture: ComponentFixture < IndexComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        FormsModule,
-        RouterTestingModule,
-        HttpModule,
-        JsonpModule,
-        StoreModule.provideStore(reducer)
-      ],
-      declarations: [
-        IndexComponent,
-        SearchBarComponent,
-        FooterNavbarComponent,
-        DropdownComponent,
-        AutoCompleteComponent,
-        SpeechtotextComponent
-      ],
-      providers: [
-        AutocompleteService,
-        SpeechService
-      ]
-    })
-      .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    FormsModule,
+                    RouterTestingModule,
+                    HttpModule,
+                    JsonpModule,
+                    StoreModule.provideStore(reducer)
+                ],
+                declarations: [
+                    IndexComponent,
+                    SearchBarComponent,
+                    FooterNavbarComponent,
+                    DropdownComponent,
+                    AutoCompleteComponent,
+                    SpeechtotextComponent
+                ],
+                providers: [
+                    AutocompleteService,
+                    SpeechService
+                ]
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IndexComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IndexComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create an instance', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(component).toBeTruthy();
+    });
 
-  it('should have logo with correct alt text property', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let image: HTMLImageElement = compiled.querySelector('div img');
-    expect(image).toBeTruthy();
-    expect(image.alt).toBe('Susper');
-  });
+    it('should have logo with correct alt text property', () => {
+        let compiled = fixture.debugElement.nativeElement;
+        let image: HTMLImageElement = compiled.querySelector('div img');
+        expect(image).toBeTruthy();
+        expect(image.alt).toBe('Susper');
+    });
 
-  it('should have an element app-search-bar', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an element app-search-bar', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-search-bar')).toBeTruthy();
-  });
+        expect(compiled.querySelector('app-search-bar')).toBeTruthy();
+    });
 
-  it('should have set-susper-default option', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('div #set-susper-default')).toBeTruthy();
-  });
+    it('should have set-susper-default option', () => {
+        let compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('div #set-susper-default')).toBeTruthy();
+    });
 
 });

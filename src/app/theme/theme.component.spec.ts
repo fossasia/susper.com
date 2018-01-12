@@ -1,31 +1,26 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ThemeComponent } from './theme.component';
-import { ThemeService } from '../services/theme.service';
-
 describe('ThemeComponent', () => {
-  let component: ThemeComponent;
-  let fixture: ComponentFixture<ThemeComponent>;
+    let component: ThemeComponent;
+    let fixture: ComponentFixture < ThemeComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                declarations: [
         ThemeComponent
       ],
-      providers: [
+                providers: [
         ThemeService
       ]
-    })
-    .compileComponents();
-  }));
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ThemeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ThemeComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should be created', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(component).toBeTruthy();
+    });
 });

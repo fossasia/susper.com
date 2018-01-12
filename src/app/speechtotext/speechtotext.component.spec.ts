@@ -7,28 +7,28 @@ import {reducer} from "../reducers/index";
 import {RouterTestingModule} from "@angular/router/testing";
 
 describe('SpeechtotextComponent', () => {
-  let component: SpeechtotextComponent;
-  let fixture: ComponentFixture<SpeechtotextComponent>;
+    let component: SpeechtotextComponent;
+    let fixture: ComponentFixture < SpeechtotextComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        StoreModule.provideStore(reducer),
-      ],
-      declarations: [ SpeechtotextComponent ],
-      providers: [SpeechService]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                    StoreModule.provideStore(reducer),
+                ],
+                declarations: [SpeechtotextComponent],
+                providers: [SpeechService]
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SpeechtotextComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SpeechtotextComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

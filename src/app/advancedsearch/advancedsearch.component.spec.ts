@@ -15,32 +15,32 @@ import { StoreModule } from '@ngrx/store';
 import { AdvancedsearchComponent } from './advancedsearch.component';
 
 describe('AdvancedsearchComponent', () => {
-  let component: AdvancedsearchComponent;
-  let fixture: ComponentFixture<AdvancedsearchComponent>;
+    let component: AdvancedsearchComponent;
+    let fixture: ComponentFixture < AdvancedsearchComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        FormsModule,
-        HttpModule,
-        JsonpModule,
-        StoreModule.provideStore(reducer)
-      ],
-      declarations: [
-        AdvancedsearchComponent,
-      ]
-    })
-      .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                    FormsModule,
+                    HttpModule,
+                    JsonpModule,
+                    StoreModule.provideStore(reducer)
+                ],
+                declarations: [
+                    AdvancedsearchComponent,
+                ]
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AdvancedsearchComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(AdvancedsearchComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create an instance', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(component).toBeTruthy();
+    });
 });

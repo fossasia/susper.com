@@ -12,30 +12,30 @@ import { FormsModule } from '@angular/forms';
 import { FooterNavbarComponent } from './footer-navbar.component';
 
 describe('Component: FooterNavbar', () => {
-  let component: FooterNavbarComponent;
-  let fixture: ComponentFixture<FooterNavbarComponent>;
+    let component: FooterNavbarComponent;
+    let fixture: ComponentFixture < FooterNavbarComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-      ],
-      declarations: [
-        FooterNavbarComponent,
-      ]
-    })
-      .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                ],
+                declarations: [
+                    FooterNavbarComponent,
+                ]
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FooterNavbarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(FooterNavbarComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create FooterNavbar Component', () => {
-    const footer = new FooterNavbarComponent();
-    expect(footer).toBeTruthy();
-  });
+    it('should create FooterNavbar Component', () => {
+        const footer = new FooterNavbarComponent();
+        expect(footer).toBeTruthy();
+    });
 
 });

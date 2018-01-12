@@ -14,13 +14,13 @@ a {
 }
 
 .query-suggestions:hover {
-  background: #E3E3E3;
+  background: #e3e3e3;
 }
 
 .suggestion-box {
   width: 634px;
   max-width: 100%;
-  border: 1px solid rgba(150,150,150,0.3);
+  border: 1px solid rgba(150, 150, 150, 0.3);
   background-color: white;
   margin-top: 47px;
   margin-left: -1px;

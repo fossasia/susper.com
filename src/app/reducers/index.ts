@@ -45,10 +45,10 @@ import * as fromSpeech from './speech';
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface State {
-  search: fromSearch.State;
-  query: fromQuery.State;
-  knowledge: fromKnowledge.State;
-  speech: fromSpeech.State;
+    search: fromSearch.State;
+    query: fromQuery.State;
+    knowledge: fromKnowledge.State;
+    speech: fromSpeech.State;
 }
 
 
@@ -60,21 +60,21 @@ export interface State {
  * the result from right to left.
  */
 const reducers = {
-  search: fromSearch.reducer,
-  query: fromQuery.reducer,
-  knowledge: fromKnowledge.reducer,
-  speech: fromSpeech.reducer,
+    search: fromSearch.reducer,
+    query: fromQuery.reducer,
+    knowledge: fromKnowledge.reducer,
+    speech: fromSpeech.reducer,
 };
 
-const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
-const productionReducer: ActionReducer<State> = combineReducers(reducers);
+const developmentReducer: ActionReducer < State > = compose(storeFreeze, combineReducers)(reducers);
+const productionReducer: ActionReducer < State > = combineReducers(reducers);
 
 export function reducer(state: any, action: any) {
-  if (environment.production) {
-    return productionReducer(state, action);
-  } else {
-    return developmentReducer(state, action);
-  }
+    if (environment.production) {
+        return productionReducer(state, action);
+    } else {
+        return developmentReducer(state, action);
+    }
 }
 
 export const getSearchState = (state: State) => state.search;

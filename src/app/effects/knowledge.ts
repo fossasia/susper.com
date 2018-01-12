@@ -19,7 +19,7 @@ import {SearchService} from '../services/search.service';
 import {KnowledgeapiService} from "../services/knowledgeapi.service";
 
 export interface State {
-  query: string;
+    query: string;
 }
 
 
@@ -40,41 +40,40 @@ export interface State {
 @Injectable()
 export class KnowledgeEffects {
 
-  @Effect()
-  search$: Observable<any>
-    = this.actions$
-    .ofType(query.ActionTypes.QUERYSERVER)
-    .debounceTime(300)
-    .map((action: query.QueryServerAction) => action.payload)
-    .switchMap(querypay => {
-      if (querypay === '') {
-        this.store.dispatch(new knowledge.SearchAction([]));
-        return empty();
-      }
-
-      const nextSearch$ = this.actions$.ofType(query.ActionTypes.QUERYSERVER).skip(1);
-
-      this.knowledgeservice.getsearchresults(querypay.query)
-        .takeUntil(nextSearch$)
-        .subscribe((response) => {
-          if (response.results) {
-            if (response.results[0]) {
-              this.store.dispatch(new knowledge.SearchAction(response));
-              return empty();
-            } else {
-              this.store.dispatch(new knowledge.SearchAction([]));
+    @Effect()
+    search$: Observable < any > = this.actions$
+        .ofType(query.ActionTypes.QUERYSERVER)
+        .debounceTime(300)
+        .map((action: query.QueryServerAction) => action.payload)
+        .switchMap(querypay => {
+            if (querypay === '') {
+                this.store.dispatch(new knowledge.SearchAction([]));
+                return empty();
             }
-          } else {
-            this.store.dispatch(new knowledge.SearchAction([]));
-          }
-        });
-      return empty();
-    });
 
-  constructor(
-    private actions$: Actions,
-    private knowledgeservice: KnowledgeapiService,
-    private store: Store<fromRoot.State>
-  ) { }
+            const nextSearch$ = this.actions$.ofType(query.ActionTypes.QUERYSERVER).skip(1);
+
+            this.knowledgeservice.getsearchresults(querypay.query)
+                .takeUntil(nextSearch$)
+                .subscribe((response) => {
+                    if (response.results) {
+                        if (response.results[0]) {
+                            this.store.dispatch(new knowledge.SearchAction(response));
+                            return empty();
+                        } else {
+                            this.store.dispatch(new knowledge.SearchAction([]));
+                        }
+                    } else {
+                        this.store.dispatch(new knowledge.SearchAction([]));
+                    }
+                });
+            return empty();
+        });
+
+    constructor(
+        private actions$: Actions,
+        private knowledgeservice: KnowledgeapiService,
+        private store: Store < fromRoot.State >
+    ) {}
 
 }

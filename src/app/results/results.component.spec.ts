@@ -42,152 +42,152 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {ChartsModule} from "ng2-charts";
 
 describe('ResultsComponent', () => {
-  let component: ResultsComponent;
-  let fixture: ComponentFixture<ResultsComponent>;
+    let component: ResultsComponent;
+    let fixture: ComponentFixture < ResultsComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        BrowserModule,
-        CommonModule,
-        FormsModule,
-        HttpModule,
-        InfiniteScrollModule,
-        JsonpModule,
-        ChartsModule,
-        StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension()
-      ],
-      declarations: [
-        AppComponent,
-        NavbarComponent,
-        IndexComponent,
-        ResultsComponent,
-        NotFoundComponent,
-        AdvancedsearchComponent,
-        SearchBarComponent,
-        FooterNavbarComponent,
-        AboutComponent,
-        ContactComponent,
-        ModalComponent,
-        InfoboxComponent,
-        RelatedSearchComponent,
-        AutoCompleteComponent,
-        ThemeComponent,
-        DropdownComponent,
-        IntelligenceComponent,
-        SpeechtotextComponent,
-        AutoCorrectComponent,
-        StatsboxComponent
-      ],
-      providers: [
-        SearchService,
-        KnowledgeapiService,
-        AutocompleteService,
-        ThemeService,
-        SpeechService,
-        IntelligenceService,
-        AutocorrectService,
-        SpeechSynthesisService
-      ]
-    })
-      .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                    BrowserModule,
+                    CommonModule,
+                    FormsModule,
+                    HttpModule,
+                    InfiniteScrollModule,
+                    JsonpModule,
+                    ChartsModule,
+                    StoreModule.provideStore(reducer),
+                    StoreDevtoolsModule.instrumentOnlyWithExtension()
+                ],
+                declarations: [
+                    AppComponent,
+                    NavbarComponent,
+                    IndexComponent,
+                    ResultsComponent,
+                    NotFoundComponent,
+                    AdvancedsearchComponent,
+                    SearchBarComponent,
+                    FooterNavbarComponent,
+                    AboutComponent,
+                    ContactComponent,
+                    ModalComponent,
+                    InfoboxComponent,
+                    RelatedSearchComponent,
+                    AutoCompleteComponent,
+                    ThemeComponent,
+                    DropdownComponent,
+                    IntelligenceComponent,
+                    SpeechtotextComponent,
+                    AutoCorrectComponent,
+                    StatsboxComponent
+                ],
+                providers: [
+                    SearchService,
+                    KnowledgeapiService,
+                    AutocompleteService,
+                    ThemeService,
+                    SpeechService,
+                    IntelligenceService,
+                    AutocorrectService,
+                    SpeechSynthesisService
+                ]
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ResultsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ResultsComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create an instance', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(component).toBeTruthy();
+    });
 
-  it('should have an app-navbar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an app-navbar element', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-navbar')).toBeTruthy();
-  });
+        expect(compiled.querySelector('app-navbar')).toBeTruthy();
+    });
 
-  it('should have an app-advancedsearch element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an app-advancedsearch element', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-advancedsearch')).toBeTruthy();
-  });
+        expect(compiled.querySelector('app-advancedsearch')).toBeTruthy();
+    });
 
-  it('should have an app-related-search element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an app-related-search element', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-related-search')).toBeTruthy();
-  });
+        expect(compiled.querySelector('app-related-search')).toBeTruthy();
+    });
 
-  it('should have an footer-navbar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an footer-navbar element', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
-  });
+        expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
+    });
 
-  it('should have an app-infobox element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an app-infobox element', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-infobox')).toBeTruthy();
-  });
+        expect(compiled.querySelector('app-infobox')).toBeTruthy();
+    });
 
-  it('should have an app-theme element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an app-theme element', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-theme')).toBeTruthy();
-  });
+        expect(compiled.querySelector('app-theme')).toBeTruthy();
+    });
 
 
-  it('should have a search options menu', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('div#search-options-field ul#search-options'));
-  });
+    it('should have a search options menu', () => {
+        let compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('div#search-options-field ul#search-options'));
+    });
 
-  it('should have "items$" variable', () => {
-    expect(component.items$).toBeTruthy();
-  });
+    it('should have "items$" variable', () => {
+        expect(component.items$).toBeTruthy();
+    });
 
-  it('should have a tool drop-down menu', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('ul#tool-dropdown'));
-  });
+    it('should have a tool drop-down menu', () => {
+        let compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('ul#tool-dropdown'));
+    });
 
-  it('should have a tool drop-down menu', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('ul#setting-dropdown'));
-  });
+    it('should have a tool drop-down menu', () => {
+        let compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('ul#setting-dropdown'));
+    });
 
-  it('should have a pagination bar', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('div.pagination-bar'));
-  });
+    it('should have a pagination bar', () => {
+        let compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('div.pagination-bar'));
+    });
 
-  it('should have correctly related sub-components', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    if (component.resultDisplay.toLocaleLowerCase() === 'all') {
-      expect(compiled.querySelector('div.text-result div.title'));
-      expect(compiled.querySelector('div.text-result div.link'));
-      expect(compiled.querySelector('div.text-result div.description'));
-    } else if (component.resultDisplay.toLocaleLowerCase() === 'images') {
-      expect(compiled.querySelector('div.grid div.cell'));
-      expect(compiled.querySelector('div.grid div.cell a.image-pointer'));
-    } else if (component.resultDisplay.toLocaleLowerCase() === 'videos') {
-      expect(compiled.querySelector('div.video-result div.title'));
-      expect(compiled.querySelector('div.video-result div.link'));
-    }
-  });
+    it('should have correctly related sub-components', () => {
+        let compiled = fixture.debugElement.nativeElement;
+        if (component.resultDisplay.toLocaleLowerCase() === 'all') {
+            expect(compiled.querySelector('div.text-result div.title'));
+            expect(compiled.querySelector('div.text-result div.link'));
+            expect(compiled.querySelector('div.text-result div.description'));
+        } else if (component.resultDisplay.toLocaleLowerCase() === 'images') {
+            expect(compiled.querySelector('div.grid div.cell'));
+            expect(compiled.querySelector('div.grid div.cell a.image-pointer'));
+        } else if (component.resultDisplay.toLocaleLowerCase() === 'videos') {
+            expect(compiled.querySelector('div.video-result div.title'));
+            expect(compiled.querySelector('div.video-result div.link'));
+        }
+    });
 
-  it('should have appropriate message', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    if (component.totalNumber < 1) {
-      expect(compiled.querySelector('div.noResults'));
-    } else if  (component.totalNumber > 0) {
-      expect(compiled.querySelector('div.message-bar'));
-    }
-  });
+    it('should have appropriate message', () => {
+        let compiled = fixture.debugElement.nativeElement;
+        if (component.totalNumber < 1) {
+            expect(compiled.querySelector('div.noResults'));
+        } else if (component.totalNumber > 0) {
+            expect(compiled.querySelector('div.message-bar'));
+        }
+    });
 
 });

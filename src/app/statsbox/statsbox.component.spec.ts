@@ -8,31 +8,31 @@ import {reducer} from "../reducers/index";
 import {ChartsModule} from "ng2-charts";
 
 describe('StatsboxComponent', () => {
-  let component: StatsboxComponent;
-  let fixture: ComponentFixture<StatsboxComponent>;
+    let component: StatsboxComponent;
+    let fixture: ComponentFixture < StatsboxComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        HttpModule,
-        JsonpModule,
-        ChartsModule,
-        StoreModule.provideStore(reducer),
-      ],
-      declarations: [
-        StatsboxComponent,
-      ]
-    })
-      .compileComponents();
-  }));
-  beforeEach(() => {
-    fixture = TestBed.createComponent(StatsboxComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                    HttpModule,
+                    JsonpModule,
+                    ChartsModule,
+                    StoreModule.provideStore(reducer),
+                ],
+                declarations: [
+                    StatsboxComponent,
+                ]
+            })
+            .compileComponents();
+    }));
+    beforeEach(() => {
+        fixture = TestBed.createComponent(StatsboxComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

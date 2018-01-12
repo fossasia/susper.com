@@ -4,26 +4,26 @@ import { NewadvancedsearchComponent } from './newadvancedsearch.component';
 import {FooterNavbarComponent} from '../footer-navbar/footer-navbar.component';
 
 describe('NewadvancedsearchComponent', () => {
-  let component: NewadvancedsearchComponent;
-  let fixture: ComponentFixture<NewadvancedsearchComponent>;
+    let component: NewadvancedsearchComponent;
+    let fixture: ComponentFixture < NewadvancedsearchComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NewadvancedsearchComponent,
-        FooterNavbarComponent,
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                declarations: [NewadvancedsearchComponent,
+                    FooterNavbarComponent,
 
-      ]
-    })
-    .compileComponents();
-  }));
+                ]
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(NewadvancedsearchComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(NewadvancedsearchComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

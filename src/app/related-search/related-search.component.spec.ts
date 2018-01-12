@@ -19,49 +19,49 @@ import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
 
 
 describe('RelatedSearchComponent', () => {
-  let component: RelatedSearchComponent;
-  let fixture: ComponentFixture<RelatedSearchComponent>;
+    let component: RelatedSearchComponent;
+    let fixture: ComponentFixture < RelatedSearchComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        BrowserModule,
-        CommonModule,
-        FormsModule,
-        HttpModule,
-        JsonpModule,
-        StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
-      ],
-      declarations: [
-        AppComponent,
-        SpeechtotextComponent,
-        RelatedSearchComponent
-      ],
-      providers: [
-        KnowledgeapiService
-      ],
-    })
-    .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                    BrowserModule,
+                    CommonModule,
+                    FormsModule,
+                    HttpModule,
+                    JsonpModule,
+                    StoreModule.provideStore(reducer),
+                    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+                ],
+                declarations: [
+                    AppComponent,
+                    SpeechtotextComponent,
+                    RelatedSearchComponent
+                ],
+                providers: [
+                    KnowledgeapiService
+                ],
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(RelatedSearchComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(RelatedSearchComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create an instance', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(component).toBeTruthy();
+    });
 
-  it('should display results if any, along with right keyword', () => {
-    let knowledgeService = fixture.debugElement.injector.get(KnowledgeapiService);
-    let compiled = fixture.debugElement.nativeElement;
-    if (component.results.length > 0) {
-      expect(compiled.querySelector('div.card'));
-      expect(component.keyword).not.toBeNull('Keyword has not been initialized');
-    }
-  });
+    it('should display results if any, along with right keyword', () => {
+        let knowledgeService = fixture.debugElement.injector.get(KnowledgeapiService);
+        let compiled = fixture.debugElement.nativeElement;
+        if (component.results.length > 0) {
+            expect(compiled.querySelector('div.card'));
+            expect(component.keyword).not.toBeNull('Keyword has not been initialized');
+        }
+    });
 });

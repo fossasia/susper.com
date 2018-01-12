@@ -13,53 +13,53 @@ import { SpeechService } from '../services/speech.service';
 import { AutocompleteService } from '../services/autocomplete.service';
 
 describe('NotFoundComponent', () => {
-  let component: NotFoundComponent;
-  let fixture: ComponentFixture<NotFoundComponent>;
+    let component: NotFoundComponent;
+    let fixture: ComponentFixture < NotFoundComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        CommonModule,
-        FormsModule,
-        HttpModule,
-        JsonpModule,
-        StoreModule.provideStore(reducer),
-      ],
-      declarations: [
-        NotFoundComponent,
-        SearchBarComponent,
-        AutoCompleteComponent
-      ],
-      providers: [
-        SpeechService,
-        AutocompleteService
-      ]
-    })
-      .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                    CommonModule,
+                    FormsModule,
+                    HttpModule,
+                    JsonpModule,
+                    StoreModule.provideStore(reducer),
+                ],
+                declarations: [
+                    NotFoundComponent,
+                    SearchBarComponent,
+                    AutoCompleteComponent
+                ],
+                providers: [
+                    SpeechService,
+                    AutocompleteService
+                ]
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(NotFoundComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(NotFoundComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create an instance', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(component).toBeTruthy();
+    });
 
-  it('it should have logo with correct alt text property', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let image: HTMLInputElement = compiled.querySelector('div.not-found-banner img');
-    expect(image).toBeTruthy();
-    expect(image.alt).toBe('YaCy');
-  });
+    it('it should have logo with correct alt text property', () => {
+        let compiled = fixture.debugElement.nativeElement;
+        let image: HTMLInputElement = compiled.querySelector('div.not-found-banner img');
+        expect(image).toBeTruthy();
+        expect(image.alt).toBe('YaCy');
+    });
 
-  it('should have an app-search-bar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an app-search-bar element', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-search-bar')).toBeTruthy();
-  });
+        expect(compiled.querySelector('app-search-bar')).toBeTruthy();
+    });
 
 });

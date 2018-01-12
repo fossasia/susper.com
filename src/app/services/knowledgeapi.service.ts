@@ -10,38 +10,43 @@ import {Observable} from 'rxjs';
 @Injectable()
 export class KnowledgeapiService {
 
-  server = 'http://lookup.dbpedia.org';
-  searchURL = this.server + '/api/search/KeywordSearch?';
-  homepage = 'https://susper.com';
-  logo = '../images/susper.svg';
+    server = 'http://lookup.dbpedia.org';
+    searchURL = this.server + '/api/search/KeywordSearch?';
+    homepage = 'https://susper.com';
+    logo = '../images/susper.svg';
 
-  constructor(
-    private http: Http,
-    private jsonp: Jsonp,
-    private store: Store<fromRoot.State>
-  ) {}
+    constructor(
+        private http: Http,
+        private jsonp: Jsonp,
+        private store: Store < fromRoot.State >
+    ) {}
 
-  public getsearchresults(searchquery) {
-    let params = new URLSearchParams();
+    public getsearchresults(searchquery) {
+        let params = new URLSearchParams();
 
-    params.set('QueryString', searchquery);
+        params.set('QueryString', searchquery);
 
-    let headers = new Headers({ 'Accept': 'application/json' });
-    let options = new RequestOptions({ headers: headers, search: params });
+        let headers = new Headers({
+            'Accept': 'application/json'
+        });
+        let options = new RequestOptions({
+            headers: headers,
+            search: params
+        });
 
-    return this.http
-      .get(this.searchURL, options).map(res =>
+        return this.http
+            .get(this.searchURL, options).map(res =>
 
-        res.json()
+                res.json()
 
-      ).catch(this.handleError);
-  }
+            ).catch(this.handleError);
+    }
 
-  private handleError (error: any) {
-    // In some advance version we can include a remote logging of errors
-    let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // Right now we are logging to console itself
-    return Observable.throw(errMsg);
-  }
+    private handleError(error: any) {
+        // In some advance version we can include a remote logging of errors
+        let errMsg = (error.message) ? error.message :
+            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        console.error(errMsg); // Right now we are logging to console itself
+        return Observable.throw(errMsg);
+    }
 }

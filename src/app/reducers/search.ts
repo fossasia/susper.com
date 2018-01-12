@@ -7,11 +7,11 @@ import * as search from '../actions/search';
 export const CHANGE = 'CHANGE';
 
 export interface State {
-  searchresults: any;
-  items: any;
-  totalResults: any;
-  navigation: any;
-  responsetime: any;
+    searchresults: any;
+    items: any;
+    totalResults: any;
+    navigation: any;
+    responsetime: any;
 }
 /**
  * There is always a need of initial state to be passed onto the store.
@@ -20,41 +20,43 @@ export interface State {
  * @prop: loading: false
  */
 const initialState: State = {
-  searchresults: {},
-  items: [],
-  totalResults: 0,
-  navigation: [],
-  responsetime: 0
+    searchresults: {},
+    items: [],
+    totalResults: 0,
+    navigation: [],
+    responsetime: 0
 };
 
 export function reducer(state: State = initialState, action: search.Actions): State {
-  switch (action.type) {
-    case search.ActionTypes.CHANGE: {
-      const changeSearch = action.payload.response;
-      const append = action.payload.append;
-      if (append) {
-        const newitems = state.items.concat(changeSearch.channels[0].items);
-        return Object.assign({}, state, {
-          searchresults: search,
-          items: newitems,
-          totalResults: Number(changeSearch.channels[0].totalResults) || 0,
-          navigation: changeSearch.channels[0].navigation,
-          responsetime: new Date()
-        });
-      } else {
-        return Object.assign({}, state, {
-          searchresults: changeSearch,
-          items: changeSearch.channels[0].items,
-          totalResults: Number(changeSearch.channels[0].totalResults) || 0,
-          navigation: changeSearch.channels[0].navigation,
-          responsetime: new Date()
-        });
-      }
+    switch (action.type) {
+        case search.ActionTypes.CHANGE:
+            {
+                const changeSearch = action.payload.response;
+                const append = action.payload.append;
+                if (append) {
+                    const newitems = state.items.concat(changeSearch.channels[0].items);
+                    return Object.assign({}, state, {
+                        searchresults: search,
+                        items: newitems,
+                        totalResults: Number(changeSearch.channels[0].totalResults) || 0,
+                        navigation: changeSearch.channels[0].navigation,
+                        responsetime: new Date()
+                    });
+                } else {
+                    return Object.assign({}, state, {
+                        searchresults: changeSearch,
+                        items: changeSearch.channels[0].items,
+                        totalResults: Number(changeSearch.channels[0].totalResults) || 0,
+                        navigation: changeSearch.channels[0].navigation,
+                        responsetime: new Date()
+                    });
+                }
+            }
+        default:
+            {
+                return state;
+            }
     }
-    default: {
-      return state;
-    }
-  }
 }
 
 export const getsearchresults = (state: State) => state.searchresults;

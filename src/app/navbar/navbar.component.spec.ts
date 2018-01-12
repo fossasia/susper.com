@@ -26,62 +26,62 @@ import { reducer } from '../reducers/index';
 import { FormsModule } from '@angular/forms';
 
 describe('Component: Navbar', () => {
-  let component: NavbarComponent;
-  let fixture: ComponentFixture<NavbarComponent>;
+    let component: NavbarComponent;
+    let fixture: ComponentFixture < NavbarComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        FormsModule,
-        HttpModule,
-        JsonpModule,
-        StoreModule.provideStore(reducer)
-      ],
-      declarations: [
-        NavbarComponent,
-        SearchBarComponent,
-        AutoCompleteComponent,
-        DropdownComponent
-      ],
-      providers: [
-        AutocompleteService,
-        SpeechService
-      ]
-    })
-      .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                    FormsModule,
+                    HttpModule,
+                    JsonpModule,
+                    StoreModule.provideStore(reducer)
+                ],
+                declarations: [
+                    NavbarComponent,
+                    SearchBarComponent,
+                    AutoCompleteComponent,
+                    DropdownComponent
+                ],
+                providers: [
+                    AutocompleteService,
+                    SpeechService
+                ]
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(NavbarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(NavbarComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  /**
-   * No need to add 'create NavbarComponent' test-suite as it will require
-   * to pass parameters :
-   * router : Router, route: ActivatedRoute
-   */
+    /**
+     * No need to add 'create NavbarComponent' test-suite as it will require
+     * to pass parameters :
+     * router : Router, route: ActivatedRoute
+     */
 
-  it('should have an app-search-bar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an app-search-bar element', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-search-bar')).toBeTruthy();
-  });
+        expect(compiled.querySelector('app-search-bar')).toBeTruthy();
+    });
 
-  it('should have alt text property as brand', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
+    it('should have alt text property as brand', () => {
+        let compiled = fixture.debugElement.nativeElement;
+        let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
 
-    expect(image).toBeTruthy();
-    expect(image.alt).toBe('brand');
-  });
+        expect(image).toBeTruthy();
+        expect(image.alt).toBe('brand');
+    });
 
-  it('should have an app-dropdown element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an app-dropdown element', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-dropdown')).toBeTruthy();
-  });
+        expect(compiled.querySelector('app-dropdown')).toBeTruthy();
+    });
 
 });

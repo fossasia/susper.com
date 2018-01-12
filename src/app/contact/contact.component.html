@@ -3,8 +3,7 @@
 <nav class="navbar navbar-default nav-about">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type = "button" class = "navbar-toggle"
-              data-toggle = "collapse" data-target = "#dropmenu">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#dropmenu">
         <span class = "icon-bar"></span>
         <span class = "icon-bar"></span>
         <span class = "icon-bar"></span>
@@ -42,8 +41,7 @@
     <div class="row">
       <div class="col-lg-12 col-sm-12 sub-details">
         <h5 class="bold">Susper</h5>
-        <p>93 Mau Than Street<br> Can Tho<br> Viet Nam<br> Phone +84 (0) 907 65 29 27<br> Email: support@susper.net<br> Board
-          of Directors: Hong Phuc Dang<br> Susper Ltd. is registered in Can Tho, Viet Nam.</p>
+        <p>93 Mau Than Street<br> Can Tho<br> Viet Nam<br> Phone +84 (0) 907 65 29 27<br> Email: support@susper.net<br> Board of Directors: Hong Phuc Dang<br> Susper Ltd. is registered in Can Tho, Viet Nam.</p>
       </div>
 
     </div>
@@ -55,9 +53,7 @@
     <div class="row">
 
       <div class="col-lg-12 col-sm-12 contact-sub-details">
-        <p>Report a safety or abuse issue affecting our products.<br> If you know of a safety or abuse problem with any of Susper's
-          services, we'd like to hear about it right away. Please use our <a [routerLink]="['/contact']" (click)="open()">contact</a> form to report the
-          issue.
+        <p>Report a safety or abuse issue affecting our products.<br> If you know of a safety or abuse problem with any of Susper's services, we'd like to hear about it right away. Please use our <a [routerLink]="['/contact']" (click)="open()">contact</a>          form to report the issue.
         </p>
       </div>
 
@@ -76,30 +72,30 @@
   </div>
 
   <form class="form-horizontal" method="POST" action="https://formspree.io/office@fossasia.org">
-  <fieldset>
-  <legend>Contact Form</legend>
+    <fieldset>
+      <legend>Contact Form</legend>
 
-  <div class="form-group">
-    <label class="col-md-3 control-label" for="textinput">Your Name<sup>*</sup></label>
-    
-    <div class="col-md-9">
-      <input id="textinput" name="yourName" type="text" placeholder="Your Name" class="form-control input-md" required="">
-    </div>
-  </div>
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="textinput">Your Name<sup>*</sup></label>
 
-  <div class="form-group">
-    <label class="col-md-3 control-label"a for="emailinput">Email<sup>*</sup></label>
-    
-    <div class="col-md-9">
-      <input id="emailinput" name="email-address" type="email" placeholder="Email Address" class="form-control input-md" required="">
-    </div>
-  </div>
+        <div class="col-md-9">
+          <input id="textinput" name="yourName" type="text" placeholder="Your Name" class="form-control input-md" required="">
+        </div>
+      </div>
 
-  <div class="form-group row">
-    <label class="col-md-3 control-label" for="countrycode">Mobile Number<sup>*</sup></label>
-    
-    <div class="col-md-9">
-    <select id="countrycode" name="countrycode" class="form-control">
+      <div class="form-group">
+        <label class="col-md-3 control-label" a for="emailinput">Email<sup>*</sup></label>
+
+        <div class="col-md-9">
+          <input id="emailinput" name="email-address" type="email" placeholder="Email Address" class="form-control input-md" required="">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-3 control-label" for="countrycode">Mobile Number<sup>*</sup></label>
+
+        <div class="col-md-9">
+          <select id="countrycode" name="countrycode" class="form-control">
               <option data-countryCode="DZ" value="213">Algeria (+213)</option>
               <option data-countryCode="AD" value="376">Andorra (+376)</option>
               <option data-countryCode="AO" value="244">Angola (+244)</option>
@@ -316,30 +312,30 @@
               <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
       </select>
 
-    <input id="telephone" name="telephone" type="number" placeholder="Mobile Number"(ngModelChange)="checkValidity()" [(ngModel)]="tpnoInput" class="form-control input-md" required="">
-    
-    </div>
-  </div>
+          <input id="telephone" name="telephone" type="number" placeholder="Mobile Number" (ngModelChange)="checkValidity()" [(ngModel)]="tpnoInput" class="form-control input-md" required="">
 
-  <div class="form-group">
-    <label class="col-md-3 control-label" for="message">Message<sup>*</sup></label>
-    
-    <div class="col-md-9">
-      <textarea class="form-control" id="message" name="message" placeholder="Minimum 100 words" required="" (ngModelChange)="checkValidity()" [(ngModel)]="contactMessage"></textarea>
-    </div>
+        </div>
+      </div>
 
-  </div>
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="message">Message<sup>*</sup></label>
 
-  <div class="form-group">
-    <label class="col-md-12 control-label" for="submit"></label>
-    
-    <div class="col-md-12">
-      <button id="submit" name="submit" class="btn btn-info sub-btn" type="submit" #submitButton disabled>Submit</button>
-    </div>
+        <div class="col-md-9">
+          <textarea class="form-control" id="message" name="message" placeholder="Minimum 100 words" required="" (ngModelChange)="checkValidity()" [(ngModel)]="contactMessage"></textarea>
+        </div>
 
-  </div>
+      </div>
 
-  </fieldset>
+      <div class="form-group">
+        <label class="col-md-12 control-label" for="submit"></label>
+
+        <div class="col-md-12">
+          <button id="submit" name="submit" class="btn btn-info sub-btn" type="submit" #submitButton disabled>Submit</button>
+        </div>
+
+      </div>
+
+    </fieldset>
   </form>
 
 </modal>

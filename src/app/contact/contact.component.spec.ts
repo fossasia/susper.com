@@ -14,53 +14,53 @@ import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component'
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 describe('Component: Contact', () => {
-  let component: ContactComponent;
-  let fixture: ComponentFixture<ContactComponent>;
+    let component: ContactComponent;
+    let fixture: ComponentFixture < ContactComponent > ;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpModule,
-        RouterTestingModule,
-        FormsModule
-      ],
-      declarations: [
-        FooterNavbarComponent,
-        ContactComponent,
-        ModalComponent,
-      ]
-    })
-      .compileComponents();
-  }));
+    beforeEach(async (() => {
+        TestBed.configureTestingModule({
+                imports: [
+                    HttpModule,
+                    RouterTestingModule,
+                    FormsModule
+                ],
+                declarations: [
+                    FooterNavbarComponent,
+                    ContactComponent,
+                    ModalComponent,
+                ]
+            })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ContactComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ContactComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create a Contact Component', () => {
-    const contactComponent = new ContactComponent();
-    expect(contactComponent).toBeTruthy();
-  });
+    it('should create a Contact Component', () => {
+        const contactComponent = new ContactComponent();
+        expect(contactComponent).toBeTruthy();
+    });
 
-  it('should have alt text property as brand', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have alt text property as brand', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
-    expect(image).toBeTruthy();
-    expect(image.alt).toBe('brand');
-  });
+        let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
+        expect(image).toBeTruthy();
+        expect(image.alt).toBe('brand');
+    });
 
-  it('should have a FooterNavbar Component', () => {
-    const footerNavbar = new FooterNavbarComponent();
-    expect(footerNavbar).toBeTruthy();
-  });
+    it('should have a FooterNavbar Component', () => {
+        const footerNavbar = new FooterNavbarComponent();
+        expect(footerNavbar).toBeTruthy();
+    });
 
-  it('should have an element app-footer-navbar', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    it('should have an element app-footer-navbar', () => {
+        let compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
-  });
+        expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
+    });
 
 });
