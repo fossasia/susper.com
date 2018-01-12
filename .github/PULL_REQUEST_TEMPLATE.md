@@ -20,6 +20,6 @@ Check by changing each `[ ]` to `[x]` Please take note of the whitespace as it m
 
 
 # Demo Link: Add here the link where you changes can be seen.
-  [Link Name](url)
+  
 
 # Screenshots for the change: Add here the screenshot of the fix.
