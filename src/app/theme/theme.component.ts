@@ -13,6 +13,37 @@ export class ThemeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (localStorage.getItem('theme')) {
+      this.applyTheme(JSON.parse(localStorage.getItem('theme')).value);
+    }
+  }
+
+  applyTheme(theme: string) {
+    switch (theme) {
+      case "darkTheme": {
+        return this.darkTheme();
+      }
+      case "basicTheme": {
+        return this.basicTheme();
+      }
+      case "contrastTheme": {
+        return this.contrastTheme();
+      }
+      case "terminalTheme": {
+        return this.terminalTheme();
+      }
+      case "defaultTheme": {
+        return this.defaultTheme();
+      }
+      default: {
+        return;
+      }
+    }
+  }
+
+  setTheme(theme: string) {
+    localStorage.setItem('theme', JSON.stringify({value: theme}));
+    this.applyTheme(theme);
   }
 
   darkTheme() {
