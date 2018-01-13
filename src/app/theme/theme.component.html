@@ -6,11 +6,11 @@
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <!-- Stop ignoring HTMLLintBear -->
       <h4 class="modal-title" id="my-modal-label">Customization</h4>
-      <button type="button" (click)="defaultTheme()" class="btn btn-round btn-default theme-link">Default</button>
-      <button type="button" (click)="darkTheme()" class="btn btn-round btn-default theme-link">Dark</button>
-      <button type="button" (click)="basicTheme()" class="btn btn-round btn-default theme-link">Basic</button>
-      <button type="button" (click)="contrastTheme()" class="btn btn-round btn-default theme-link">Contrast</button>
-      <button type="button" (click)="terminalTheme()" class="btn btn-round btn-default theme-link">Terminal</button>
+      <button type="button" (click)="setTheme('defaultTheme')" class="btn btn-round btn-default theme-link">Default</button>
+      <button type="button" (click)="setTheme('darkTheme')" class="btn btn-round btn-default theme-link">Dark</button>
+      <button type="button" (click)="setTheme('basicTheme')" class="btn btn-round btn-default theme-link">Basic</button>
+      <button type="button" (click)="setTheme('contrastTheme')" class="btn btn-round btn-default theme-link">Contrast</button>
+      <button type="button" (click)="setTheme('terminalTheme')" class="btn btn-round btn-default theme-link">Terminal</button>
     </div>
 
   </div>
