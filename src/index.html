@@ -13,8 +13,8 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <meta name="description"
-    content="Susper is a decentral Search Engine that uses the peer to peer system
-    'YaCy' and 'Apache Solr' to crawl and index search results.">
+  content="Susper is a decentral Search Engine that uses the peer to peer system
+  'YaCy' and 'Apache Solr' to crawl and index search results.">
 
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -39,29 +39,24 @@
 <script>
   $(document).ready(function () {
     var isFirefox = typeof InstallTrigger !== 'undefined';
-
     if (isFirefox === false) {
-        $("#set-susper-default").remove();
-        $(".input-group-btn").addClass("align-search-btn");
-        $("#navbar-search").addClass("align-navsearch-btn");
+      $("#set-susper-default").remove();
+      $(".input-group-btn").addClass("align-search-btn");
+      $("#navbar-search").addClass("align-navsearch-btn");
     }
-
     if (window.external && window.external.IsSearchProviderInstalled) {
-        var isInstalled = window.external.IsSearchProviderInstalled("https://susper.com");
-
-        if (!isInstalled) {
-            $("#set-susper-default").show();
-        }
+      var isInstalled = window.external.IsSearchProviderInstalled("https://susper.com");
+      if (!isInstalled) {
+        $("#set-susper-default").show();
+      }
     }
-
     $("#install-susper").on("click", function () {
-        window.external.AddSearchProvider("https://susper.com/susper.xml");
+      window.external.AddSearchProvider("https://susper.com/susper.xml");
     });
-
     $("#cancel-installation").on("click", function () {
-        $("#set-susper-default").remove();
+      $("#set-susper-default").remove();
     });
-});
+  });
 </script>
 <script>
   (function(){
