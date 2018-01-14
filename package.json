@@ -42,7 +42,7 @@
     "ngrx-store-freeze": "^0.1.9",
     "ngx-infinite-scroll": "^0.5.1",
     "reselect": "^3.0.1",
-    "rxjs": "5.4.0",
+    "rxjs": "^5.5.6",
     "ts-helpers": "^1.1.2",
     "ts-node": "3.0.4",
     "tslint": "^5.4.0",
