@@ -5,9 +5,8 @@ dist: trusty
 # versions of node to use
 language: node_js
 node_js:
-- 6
+- 8.9.4
 
-# Running javascript tests in browser
 before_install:
 #set CHROME_BIN as chromium-browser
 - export CHROME_BIN=chromium-browser
