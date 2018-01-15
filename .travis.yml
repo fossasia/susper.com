@@ -1,29 +1,41 @@
+# Using a sudo enabled, Linux trusty distribution, VM
 sudo: required
 dist: trusty
+
+# versions of node to use
 language: node_js
 node_js:
 - 8.9.4
+
 before_install:
+#set CHROME_BIN as chromium-browser
 - export CHROME_BIN=chromium-browser
+#set up a fake DISPLAY
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 
+# Build a production build of the project
 before_script:
   - ng build --prod
 
+# Check for coverage, and linting
 script:
   - ng test --single-run --code-coverage --reporters=coverage-istanbul
   - ng lint
 
+# Notify codecov, deploy to surge
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 - bash ./pr_deploy.sh
 - bash ./deploy.sh
+
+# enable node_modules dir to avoid re-download everytime
 cache:
     bundler: true
     directories:
     - node_modules
 
+#specify branches to process
 branches:
    only:
    - master
