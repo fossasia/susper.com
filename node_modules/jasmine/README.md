@@ -12,7 +12,7 @@ This module allows you to run Jasmine specs for your Node.js code. The output wi
 
 ## Documentation
 
-http://jasmine.github.io/2.5/node.html
+https://jasmine.github.io/2.8/node.html
 
 ## Installation
 ```sh

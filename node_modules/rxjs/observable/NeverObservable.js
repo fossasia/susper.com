@@ -25,7 +25,7 @@ var NeverObservable = (function (_super) {
      *
      * This static operator is useful for creating a simple Observable that emits
      * neither values nor errors nor the completion notification. It can be used
-     * for testing purposes or for composing with other Observables. Please not
+     * for testing purposes or for composing with other Observables. Please note
      * that by never emitting a complete notification, this Observable keeps the
      * subscription from being disposed automatically. Subscriptions need to be
      * manually disposed.

@@ -5,13 +5,11 @@ browsers:
   - name: firefox
     version: 34..latest
   - name: safari
-    version: 5..latest
+    version: 7..latest
   - name: microsoftedge
     version: 13..latest
   - name: ie
     version: 9..latest
-  - name: opera
-    version: 11..latest
   - name: iphone
     version: '8.1..latest'
   - name: android

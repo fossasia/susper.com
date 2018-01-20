@@ -7,14 +7,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/defer';
-import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/concat';
-import 'rxjs/add/operator/concatMap';
-import 'rxjs/add/operator/ignoreElements';
-import 'rxjs/add/operator/last';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
 import { Action, CreateFileAction, DeleteFileAction, OverwriteFileAction, RenameFileAction } from '../tree/action';
 import { Tree } from '../tree/interface';
 export interface Sink {

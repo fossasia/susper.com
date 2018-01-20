@@ -13,7 +13,7 @@ var ArrayObservable_1 = require('./ArrayObservable');
 var ArrayLikeObservable_1 = require('./ArrayLikeObservable');
 var iterator_1 = require('../symbol/iterator');
 var Observable_1 = require('../Observable');
-var observeOn_1 = require('../operator/observeOn');
+var observeOn_1 = require('../operators/observeOn');
 var observable_1 = require('../symbol/observable');
 /**
  * We need this JSDoc comment for affecting ESDoc.

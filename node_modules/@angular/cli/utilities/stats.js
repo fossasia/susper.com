@@ -20,11 +20,9 @@ function statsToString(json, statsConfig) {
     const w = (x) => colors ? bold(white(x)) : x;
     const g = (x) => colors ? bold(green(x)) : x;
     const y = (x) => colors ? bold(yellow(x)) : x;
-    return rs(common_tags_1.stripIndents `
-    Date: ${w(new Date().toISOString())}
-    Hash: ${w(json.hash)}
-    Time: ${w('' + json.time)}ms
-    ${json.chunks.map((chunk) => {
+    const changedChunksStats = json.chunks
+        .filter((chunk) => chunk.rendered)
+        .map((chunk) => {
         const asset = json.assets.filter((x) => x.name == chunk.files[0])[0];
         const size = asset ? ` ${_formatSize(asset.size)}` : '';
         const files = chunk.files.join(', ');
@@ -34,8 +32,23 @@ function statsToString(json, statsConfig) {
             .map(f => f && chunk[f] ? g(` [${f}]`) : '')
             .join('');
         return `chunk {${y(chunk.id)}} ${g(files)}${names}${size} ${initial}${flags}`;
-    }).join('\n')}
-    `);
+    });
+    const unchangedChunkNumber = json.chunks.length - changedChunksStats.length;
+    if (unchangedChunkNumber > 0) {
+        return rs(common_tags_1.stripIndents `
+      Date: ${w(new Date().toISOString())} • Hash: ${w(json.hash)} • Time: ${w('' + json.time)}ms
+      ${unchangedChunkNumber} unchanged chunks
+      ${changedChunksStats.join('\n')}
+      `);
+    }
+    else {
+        return rs(common_tags_1.stripIndents `
+      Date: ${w(new Date().toISOString())}
+      Hash: ${w(json.hash)}
+      Time: ${w('' + json.time)}ms
+      ${changedChunksStats.join('\n')}
+      `);
+    }
 }
 exports.statsToString = statsToString;
 function statsWarningsToString(json, statsConfig) {

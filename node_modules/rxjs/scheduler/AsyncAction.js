@@ -125,7 +125,6 @@ var AsyncAction = (function (_super) {
         var actions = scheduler.actions;
         var index = actions.indexOf(this);
         this.work = null;
-        this.delay = null;
         this.state = null;
         this.pending = false;
         this.scheduler = null;
@@ -135,6 +134,7 @@ var AsyncAction = (function (_super) {
         if (id != null) {
             this.id = this.recycleAsyncId(scheduler, id, null);
         }
+        this.delay = null;
     };
     return AsyncAction;
 }(Action_1.Action));

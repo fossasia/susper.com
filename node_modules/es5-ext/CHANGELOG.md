@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.10.38"></a>
+## [0.10.38](https://github.com/medikoo/es5-ext/compare/v0.10.37...v0.10.38) (2018-01-16)
+
+
+### Features
+
+* Object.isNaturalNumber an Object.isNaturalNumberValue ([66a40af](https://github.com/medikoo/es5-ext/commit/66a40af))
+
+
+
 <a name="0.10.37"></a>
 ## [0.10.37](https://github.com/medikoo/es5-ext/compare/v0.10.36...v0.10.37) (2017-11-23)
 

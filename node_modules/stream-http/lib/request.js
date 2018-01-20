@@ -38,9 +38,8 @@ var ClientRequest = module.exports = function (opts) {
 
 	var preferBinary
 	var useFetch = true
-	if (opts.mode === 'disable-fetch' || 'timeout' in opts) {
-		// If the use of XHR should be preferred and includes preserving the 'content-type' header.
-		// Force XHR to be used since the Fetch API does not yet support timeouts.
+	if (opts.mode === 'disable-fetch' || ('requestTimeout' in opts && !capability.abortController)) {
+		// If the use of XHR should be preferred. Not typically needed.
 		useFetch = false
 		preferBinary = true
 	} else if (opts.mode === 'prefer-streaming') {
@@ -102,7 +101,9 @@ ClientRequest.prototype._onFinish = function () {
 	var headersObj = self._headers
 	var body = null
 	if (opts.method !== 'GET' && opts.method !== 'HEAD') {
-		if (capability.blobConstructor) {
+		if (capability.arraybuffer) {
+			body = toArrayBuffer(Buffer.concat(self._body))
+		} else if (capability.blobConstructor) {
 			body = new global.Blob(self._body.map(function (buffer) {
 				return toArrayBuffer(buffer)
 			}), {
@@ -129,12 +130,28 @@ ClientRequest.prototype._onFinish = function () {
 	})
 
 	if (self._mode === 'fetch') {
+		var signal = null
+		if (capability.abortController) {
+			var controller = new AbortController()
+			signal = controller.signal
+			self._fetchAbortController = controller
+
+			if ('requestTimeout' in opts && opts.requestTimeout !== 0) {
+				global.setTimeout(function () {
+					self.emit('requestTimeout')
+					if (self._fetchAbortController)
+						self._fetchAbortController.abort()
+				}, opts.requestTimeout)
+			}
+		}
+
 		global.fetch(self._opts.url, {
 			method: self._opts.method,
 			headers: headersList,
 			body: body || undefined,
 			mode: 'cors',
-			credentials: opts.withCredentials ? 'include' : 'same-origin'
+			credentials: opts.withCredentials ? 'include' : 'same-origin',
+			signal: signal
 		}).then(function (response) {
 			self._fetchResponse = response
 			self._connect()
@@ -162,10 +179,10 @@ ClientRequest.prototype._onFinish = function () {
 		if (self._mode === 'text' && 'overrideMimeType' in xhr)
 			xhr.overrideMimeType('text/plain; charset=x-user-defined')
 
-		if ('timeout' in opts) {
-			xhr.timeout = opts.timeout
+		if ('requestTimeout' in opts) {
+			xhr.timeout = opts.requestTimeout
 			xhr.ontimeout = function () {
-				self.emit('timeout')
+				self.emit('requestTimeout')
 			}
 		}
 
@@ -261,8 +278,8 @@ ClientRequest.prototype.abort = ClientRequest.prototype.destroy = function () {
 		self._response._destroyed = true
 	if (self._xhr)
 		self._xhr.abort()
-	// Currently, there isn't a way to truly abort a fetch.
-	// If you like bikeshedding, see https://github.com/whatwg/fetch/issues/27
+	else if (self._fetchAbortController)
+		self._fetchAbortController.abort()
 }
 
 ClientRequest.prototype.end = function (data, encoding, cb) {

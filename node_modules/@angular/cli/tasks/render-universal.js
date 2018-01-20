@@ -6,7 +6,7 @@ const fs = require('fs');
 const Task = require('../ember-cli/lib/models/task');
 exports.default = Task.extend({
     run: function (options) {
-        require('zone.js/dist/zone-node');
+        require_project_module_1.requireProjectModule(this.project.root, 'zone.js/dist/zone-node');
         const renderModuleFactory = require_project_module_1.requireProjectModule(this.project.root, '@angular/platform-server').renderModuleFactory;
         // Get the main bundle from the server build's output directory.
         const serverDir = fs.readdirSync(options.serverOutDir);

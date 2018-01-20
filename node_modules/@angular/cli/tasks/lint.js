@@ -138,7 +138,7 @@ function getFilesToLint(program, lintConfig, linter) {
     }
     let programFiles = linter.getFileNames(program);
     if (ignore && ignore.length > 0) {
-        const ignoreMatchers = ignore.map(pattern => new minimatch_1.Minimatch(pattern));
+        const ignoreMatchers = ignore.map(pattern => new minimatch_1.Minimatch(pattern, { dot: true }));
         programFiles = programFiles
             .filter(file => !ignoreMatchers.some(matcher => matcher.match(file)));
     }

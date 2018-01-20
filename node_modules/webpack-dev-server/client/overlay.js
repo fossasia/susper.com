@@ -3,12 +3,12 @@
 // The error overlay is inspired (and mostly copied) from Create React App (https://github.com/facebookincubator/create-react-app)
 // They, in turn, got inspired by webpack-hot-middleware (https://github.com/glenjamin/webpack-hot-middleware).
 
-const ansiHTML = require('ansi-html');
-const Entities = require('html-entities').AllHtmlEntities;
+var ansiHTML = require('ansi-html');
+var Entities = require('html-entities').AllHtmlEntities;
 
-const entities = new Entities();
+var entities = new Entities();
 
-const colors = {
+var colors = {
   reset: ['transparent', 'transparent'],
   black: '181818',
   red: 'E36049',
@@ -23,7 +23,7 @@ const colors = {
 ansiHTML.setColors(colors);
 
 function createOverlayIframe(onIframeLoad) {
-  const iframe = document.createElement('iframe');
+  var iframe = document.createElement('iframe');
   iframe.id = 'webpack-dev-server-client-overlay';
   iframe.src = 'about:blank';
   iframe.style.position = 'fixed';
@@ -40,7 +40,7 @@ function createOverlayIframe(onIframeLoad) {
 }
 
 function addOverlayDivTo(iframe) {
-  const div = iframe.contentDocument.createElement('div');
+  var div = iframe.contentDocument.createElement('div');
   div.id = 'webpack-dev-server-client-overlay-div';
   div.style.position = 'fixed';
   div.style.boxSizing = 'border-box';
@@ -62,9 +62,9 @@ function addOverlayDivTo(iframe) {
   return div;
 }
 
-let overlayIframe = null;
-let overlayDiv = null;
-let lastOnOverlayDivReady = null;
+var overlayIframe = null;
+var overlayDiv = null;
+var lastOnOverlayDivReady = null;
 
 function ensureOverlayDivExists(onOverlayDivReady) {
   if (overlayDiv) {
@@ -83,7 +83,7 @@ function ensureOverlayDivExists(onOverlayDivReady) {
   }
 
   // Create iframe and, when it is ready, a div inside it.
-  overlayIframe = createOverlayIframe(function cb() {
+  overlayIframe = createOverlayIframe(function () {
     overlayDiv = addOverlayDivTo(overlayIframe);
     // Now we can talk!
     lastOnOverlayDivReady(overlayDiv);
@@ -96,11 +96,9 @@ function ensureOverlayDivExists(onOverlayDivReady) {
 }
 
 function showMessageOverlay(message) {
-  ensureOverlayDivExists(function cb(div) {
+  ensureOverlayDivExists(function (div) {
     // Make it look similar to our terminal.
-    div.innerHTML = '<span style="color: #' + colors.red +
-                    '">Failed to compile.</span><br><br>' +
-                    ansiHTML(entities.encode(message));
+    div.innerHTML = '<span style="color: #' + colors.red + '">Failed to compile.</span><br><br>' + ansiHTML(entities.encode(message));
   });
 }
 

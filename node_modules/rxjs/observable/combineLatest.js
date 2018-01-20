@@ -2,7 +2,7 @@
 var isScheduler_1 = require('../util/isScheduler');
 var isArray_1 = require('../util/isArray');
 var ArrayObservable_1 = require('./ArrayObservable');
-var combineLatest_1 = require('../operator/combineLatest');
+var combineLatest_1 = require('../operators/combineLatest');
 /* tslint:enable:max-line-length */
 /**
  * Combines multiple Observables to create an Observable whose values are

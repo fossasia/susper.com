@@ -1,4 +1,4 @@
-import { MergeMapOperator } from './mergeMap';
+import { concatMap as higherOrderConcatMap } from '../operators/concatMap';
 import { Observable, ObservableInput } from '../Observable';
 
 /* tslint:disable:max-line-length */
@@ -58,9 +58,6 @@ export function concatMap<T, I, R>(this: Observable<T>, project: (value: T, inde
  * - `innerValue`: the value that came from the projected Observable
  * - `outerIndex`: the "index" of the value that came from the source
  * - `innerIndex`: the "index" of the value from the projected Observable
- * @return {Observable} An observable of values merged from the projected
- * Observables as they were subscribed to, one at a time. Optionally, these
- * values may have been projected from a passed `projectResult` argument.
  * @return {Observable} An Observable that emits the result of applying the
  * projection function (and the optional `resultSelector`) to each item emitted
  * by the source Observable and taking values from each projected inner
@@ -70,5 +67,5 @@ export function concatMap<T, I, R>(this: Observable<T>, project: (value: T, inde
  */
 export function concatMap<T, I, R>(this: Observable<T>, project: (value: T, index: number) =>  ObservableInput<I>,
                                    resultSelector?: (outerValue: T, innerValue: I, outerIndex: number, innerIndex: number) => R) {
-  return this.lift(new MergeMapOperator(project, resultSelector, 1));
+  return higherOrderConcatMap(project, resultSelector)(this);
 }

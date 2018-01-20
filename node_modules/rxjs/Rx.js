@@ -169,7 +169,7 @@ var UnsubscriptionError_1 = require('./util/UnsubscriptionError');
 exports.UnsubscriptionError = UnsubscriptionError_1.UnsubscriptionError;
 var timeInterval_1 = require('./operator/timeInterval');
 exports.TimeInterval = timeInterval_1.TimeInterval;
-var timestamp_1 = require('./operator/timestamp');
+var timestamp_1 = require('./operators/timestamp');
 exports.Timestamp = timestamp_1.Timestamp;
 var TestScheduler_1 = require('./testing/TestScheduler');
 exports.TestScheduler = TestScheduler_1.TestScheduler;
@@ -179,6 +179,8 @@ var AjaxObservable_1 = require('./observable/dom/AjaxObservable');
 exports.AjaxResponse = AjaxObservable_1.AjaxResponse;
 exports.AjaxError = AjaxObservable_1.AjaxError;
 exports.AjaxTimeoutError = AjaxObservable_1.AjaxTimeoutError;
+var pipe_1 = require('./util/pipe');
+exports.pipe = pipe_1.pipe;
 var asap_1 = require('./scheduler/asap');
 var async_1 = require('./scheduler/async');
 var queue_1 = require('./scheduler/queue');
@@ -186,6 +188,8 @@ var animationFrame_1 = require('./scheduler/animationFrame');
 var rxSubscriber_1 = require('./symbol/rxSubscriber');
 var iterator_1 = require('./symbol/iterator');
 var observable_1 = require('./symbol/observable');
+var _operators = require('./operators');
+exports.operators = _operators;
 /* tslint:enable:no-unused-variable */
 /**
  * @typedef {Object} Rx.Scheduler

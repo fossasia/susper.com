@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // @ignoreDep typescript
-const process = require("process");
 const ts = require("typescript");
 const chalk_1 = require("chalk");
+const ngtools_api_1 = require("./ngtools_api");
 const compiler_host_1 = require("./compiler_host");
 const benchmark_1 = require("./benchmark");
 const gather_diagnostics_1 = require("./gather_diagnostics");
-const ngtools_api_1 = require("./ngtools_api");
+// This file should run in a child process with the AUTO_START_ARG argument
 // Force basic color support on terminals with no color support.
 // Chalk typings don't have the correct constructor parameters.
 const chalkCtx = new chalk_1.default.constructor(chalk_1.default.supportsColor ? {} : { level: 1 });
@@ -41,33 +41,7 @@ class UpdateMessage extends TypeCheckerMessage {
     }
 }
 exports.UpdateMessage = UpdateMessage;
-let typeChecker;
-let lastCancellationToken;
-process.on('message', (message) => {
-    benchmark_1.time('TypeChecker.message');
-    switch (message.kind) {
-        case MESSAGE_KIND.Init:
-            const initMessage = message;
-            typeChecker = new TypeChecker(initMessage.compilerOptions, initMessage.basePath, initMessage.jitMode, initMessage.rootNames);
-            break;
-        case MESSAGE_KIND.Update:
-            if (!typeChecker) {
-                throw new Error('TypeChecker: update message received before initialization');
-            }
-            if (lastCancellationToken) {
-                // This cancellation token doesn't seem to do much, messages don't seem to be processed
-                // before the diagnostics finish.
-                lastCancellationToken.requestCancellation();
-            }
-            const updateMessage = message;
-            lastCancellationToken = new gather_diagnostics_1.CancellationToken();
-            typeChecker.update(updateMessage.rootNames, updateMessage.changedCompilationFiles, lastCancellationToken);
-            break;
-        default:
-            throw new Error(`TypeChecker: Unexpected message received: ${message}.`);
-    }
-    benchmark_1.timeEnd('TypeChecker.message');
-});
+exports.AUTO_START_ARG = '9d93e901-158a-4cf9-ba1b-2f0582ffcfeb';
 class TypeChecker {
     constructor(_compilerOptions, _basePath, _JitMode, _rootNames) {
         this._compilerOptions = _compilerOptions;
@@ -140,4 +114,5 @@ class TypeChecker {
         this._diagnose(cancellationToken);
     }
 }
+exports.TypeChecker = TypeChecker;
 //# sourceMappingURL=/users/hansl/sources/hansl/angular-cli/src/type_checker.js.map

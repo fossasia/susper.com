@@ -1,11 +1,5 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var OuterSubscriber_1 = require('../OuterSubscriber');
-var subscribeToResult_1 = require('../util/subscribeToResult');
+var sample_1 = require('../operators/sample');
 /**
  * Emits the most recently emitted value from the source Observable whenever
  * another Observable, the `notifier`, emits.
@@ -41,48 +35,7 @@ var subscribeToResult_1 = require('../util/subscribeToResult');
  * @owner Observable
  */
 function sample(notifier) {
-    return this.lift(new SampleOperator(notifier));
+    return sample_1.sample(notifier)(this);
 }
 exports.sample = sample;
-var SampleOperator = (function () {
-    function SampleOperator(notifier) {
-        this.notifier = notifier;
-    }
-    SampleOperator.prototype.call = function (subscriber, source) {
-        var sampleSubscriber = new SampleSubscriber(subscriber);
-        var subscription = source.subscribe(sampleSubscriber);
-        subscription.add(subscribeToResult_1.subscribeToResult(sampleSubscriber, this.notifier));
-        return subscription;
-    };
-    return SampleOperator;
-}());
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var SampleSubscriber = (function (_super) {
-    __extends(SampleSubscriber, _super);
-    function SampleSubscriber() {
-        _super.apply(this, arguments);
-        this.hasValue = false;
-    }
-    SampleSubscriber.prototype._next = function (value) {
-        this.value = value;
-        this.hasValue = true;
-    };
-    SampleSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
-        this.emitValue();
-    };
-    SampleSubscriber.prototype.notifyComplete = function () {
-        this.emitValue();
-    };
-    SampleSubscriber.prototype.emitValue = function () {
-        if (this.hasValue) {
-            this.hasValue = false;
-            this.destination.next(this.value);
-        }
-    };
-    return SampleSubscriber;
-}(OuterSubscriber_1.OuterSubscriber));
 //# sourceMappingURL=sample.js.map

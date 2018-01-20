@@ -79,7 +79,7 @@ class ScriptsWebpackPlugin {
                     const concatSource = new webpack_sources_1.ConcatSource();
                     sources.forEach(source => {
                         concatSource.add(source);
-                        concatSource.add('\n');
+                        concatSource.add('\n;');
                     });
                     const combinedSource = new webpack_sources_1.CachedSource(concatSource);
                     const filename = loader_utils_1.interpolateName({ resourcePath: 'scripts.js' }, this.options.filename, { content: combinedSource.source() });

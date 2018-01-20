@@ -158,10 +158,11 @@ export {ObjectUnsubscribedError} from './util/ObjectUnsubscribedError';
 export {TimeoutError} from './util/TimeoutError';
 export {UnsubscriptionError} from './util/UnsubscriptionError';
 export {TimeInterval} from './operator/timeInterval';
-export {Timestamp} from './operator/timestamp';
+export {Timestamp} from './operators/timestamp';
 export {TestScheduler} from './testing/TestScheduler';
 export {VirtualTimeScheduler} from './scheduler/VirtualTimeScheduler';
 export {AjaxRequest, AjaxResponse, AjaxError, AjaxTimeoutError} from './observable/dom/AjaxObservable';
+export { pipe } from './util/pipe';
 
 import { asap } from './scheduler/asap';
 import { async } from './scheduler/async';
@@ -174,6 +175,10 @@ import { AnimationFrameScheduler } from './scheduler/AnimationFrameScheduler';
 import { rxSubscriber } from './symbol/rxSubscriber';
 import { iterator } from './symbol/iterator';
 import { observable } from './symbol/observable';
+
+import * as _operators from './operators';
+
+export const operators = _operators;
 
 /* tslint:enable:no-unused-variable */
 

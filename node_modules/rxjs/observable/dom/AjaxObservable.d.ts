@@ -121,6 +121,10 @@ export declare class AjaxError extends Error {
     request: AjaxRequest;
     /** @type {number} The HTTP status code */
     status: number;
+    /** @type {string} The responseType (e.g. 'json', 'arraybuffer', or 'xml') */
+    responseType: string;
+    /** @type {string|ArrayBuffer|Document|object|any} The response data */
+    response: any;
     constructor(message: string, xhr: XMLHttpRequest, request: AjaxRequest);
 }
 /**

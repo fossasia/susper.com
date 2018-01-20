@@ -19,6 +19,7 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
             return null;
         }
         else {
+            destination.syncErrorThrowable = true;
             return result.subscribe(destination);
         }
     }

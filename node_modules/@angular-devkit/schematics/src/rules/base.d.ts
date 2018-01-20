@@ -1,6 +1,3 @@
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
 import { FileOperator, Rule, Source } from '../engine/interface';
 import { FilePredicate, MergeStrategy, Tree } from '../tree/interface';
 /**

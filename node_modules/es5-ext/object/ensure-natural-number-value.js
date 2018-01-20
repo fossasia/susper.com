@@ -1,9 +1,10 @@
 "use strict";
 
-var ensure  = require("./ensure-natural-number")
-  , isValue = require("./is-value");
+var isNaturalValue = require("./is-natural-number-value")
+  , toShortString  = require("../to-short-string-representation");
 
 module.exports = function (arg) {
-	if (!isValue(arg)) throw new TypeError(arg + " is not a natural number");
-	return ensure(arg);
+	var num = Number(arg);
+	if (!isNaturalValue(arg)) throw new TypeError(toShortString(arg) + " is not a natural number");
+	return num;
 };

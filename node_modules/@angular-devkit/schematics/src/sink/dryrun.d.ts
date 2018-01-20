@@ -8,7 +8,6 @@
  */
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/observable/empty';
 import { FileSystemSink } from './filesystem';
 export interface DryRunErrorEvent {
     kind: 'error';

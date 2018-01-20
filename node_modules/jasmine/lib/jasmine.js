@@ -85,7 +85,7 @@ Jasmine.prototype.configureDefaultReporter = function(options) {
 };
 
 Jasmine.prototype.addMatchers = function(matchers) {
-  this.jasmine.Expectation.addMatchers(matchers);
+  this.env.addMatchers(matchers);
 };
 
 Jasmine.prototype.loadSpecs = function() {

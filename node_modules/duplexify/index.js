@@ -12,7 +12,7 @@ var onuncork = function(self, fn) {
 
 var destroyer = function(self, end) {
   return function(err) {
-    if (err) self.destroy(err.message === 'premature close' ? null : err)
+    if (err) self._destroyInterval(err)
     else if (end && !self._ended) self.end()
   }
 }
@@ -46,6 +46,8 @@ var Duplexify = function(writable, readable, opts) {
   this._unwrite = null
   this._unread = null
   this._ended = false
+  this._error = null
+  this._preferError = false
 
   this.destroyed = false
 
@@ -167,13 +169,22 @@ Duplexify.prototype._forward = function() {
 }
 
 Duplexify.prototype.destroy = function(err) {
+  if (this._preferError && !this._error && err) this._error = err
+
   if (this.destroyed) return
   this.destroyed = true
 
   var self = this
   process.nextTick(function() {
-    self._destroy(err)
+    self._destroy(self._preferError ? self._error : err)
   })
+}
+
+Duplexify.prototype._destroyInterval = function(err) {
+  if (this.destroyed) return
+  if (err.message !== 'premature close') return this.destroy(err)
+  this._preferError = true
+  this.destroy(null)
 }
 
 Duplexify.prototype._destroy = function(err) {

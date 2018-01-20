@@ -1,6 +1,5 @@
-import { Operator } from '../Operator';
 import { Observable } from '../Observable';
-import { Subscriber } from '../Subscriber';
+import { pairwise as higherOrder } from '../operators/pairwise';
 
 /**
  * Groups pairs of consecutive emissions together and emits them as an array of
@@ -38,35 +37,5 @@ import { Subscriber } from '../Subscriber';
  * @owner Observable
  */
 export function pairwise<T>(this: Observable<T>): Observable<[T, T]> {
-  return this.lift(new PairwiseOperator());
-}
-
-class PairwiseOperator<T> implements Operator<T, [T, T]> {
-  call(subscriber: Subscriber<[T, T]>, source: any): any {
-    return source.subscribe(new PairwiseSubscriber(subscriber));
-  }
-}
-
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-class PairwiseSubscriber<T> extends Subscriber<T> {
-  private prev: T;
-  private hasPrev: boolean = false;
-
-  constructor(destination: Subscriber<[T, T]>) {
-    super(destination);
-  }
-
-  _next(value: T): void {
-    if (this.hasPrev) {
-      this.destination.next([this.prev, value]);
-    } else {
-      this.hasPrev = true;
-    }
-
-    this.prev = value;
-  }
+  return higherOrder()(this) as Observable<[T, T]>;
 }

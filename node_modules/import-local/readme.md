@@ -8,7 +8,7 @@ Useful for CLI tools that want to defer to the user's locally installed version 
 ## Install
 
 ```
-$ npm install --save import-local
+$ npm install import-local
 ```
 
 

@@ -13,7 +13,8 @@ export interface TransformJavascriptOptions {
     outputFilePath?: string;
     emitSourceMap?: boolean;
     strict?: boolean;
-    getTransforms: Array<(program: ts.Program) => ts.TransformerFactory<ts.SourceFile>>;
+    typeCheck?: boolean;
+    getTransforms: Array<(program?: ts.Program) => ts.TransformerFactory<ts.SourceFile>>;
 }
 export interface TransformJavascriptOutput {
     content: string | null;

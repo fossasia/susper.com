@@ -1,4 +1,4 @@
-// These tests are teken from http-browserify to ensure compatibility with
+// These tests are taken from http-browserify to ensure compatibility with
 // that module
 var test = require('tape')
 var url = require('url')

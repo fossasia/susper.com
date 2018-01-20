@@ -21,7 +21,7 @@ export declare class Subject<T> extends Observable<T> implements ISubscription {
     thrownError: any;
     constructor();
     static create: Function;
-    lift<R>(operator: Operator<T, R>): Observable<T>;
+    lift<R>(operator: Operator<T, R>): Observable<R>;
     next(value?: T): void;
     error(err: any): void;
     complete(): void;

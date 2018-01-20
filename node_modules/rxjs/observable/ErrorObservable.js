@@ -67,6 +67,7 @@ var ErrorObservable = (function (_super) {
     ErrorObservable.prototype._subscribe = function (subscriber) {
         var error = this.error;
         var scheduler = this.scheduler;
+        subscriber.syncErrorThrowable = true;
         if (scheduler) {
             return scheduler.schedule(ErrorObservable.dispatch, 0, {
                 error: error, subscriber: subscriber

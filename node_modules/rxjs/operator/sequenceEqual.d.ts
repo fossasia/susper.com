@@ -1,7 +1,4 @@
-import { Operator } from '../Operator';
-import { Observer } from '../Observer';
 import { Observable } from '../Observable';
-import { Subscriber } from '../Subscriber';
 /**
  * Compares all values of two observables in sequence using an optional comparor function
  * and returns an observable of a single boolean value representing whether or not the two sequences
@@ -55,27 +52,3 @@ import { Subscriber } from '../Subscriber';
  * @owner Observable
  */
 export declare function sequenceEqual<T>(this: Observable<T>, compareTo: Observable<T>, comparor?: (a: T, b: T) => boolean): Observable<boolean>;
-export declare class SequenceEqualOperator<T> implements Operator<T, boolean> {
-    private compareTo;
-    private comparor;
-    constructor(compareTo: Observable<T>, comparor: (a: T, b: T) => boolean);
-    call(subscriber: Subscriber<boolean>, source: any): any;
-}
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-export declare class SequenceEqualSubscriber<T, R> extends Subscriber<T> {
-    private compareTo;
-    private comparor;
-    private _a;
-    private _b;
-    private _oneComplete;
-    constructor(destination: Observer<R>, compareTo: Observable<T>, comparor: (a: T, b: T) => boolean);
-    protected _next(value: T): void;
-    _complete(): void;
-    checkValues(): void;
-    emit(value: boolean): void;
-    nextB(value: T): void;
-}

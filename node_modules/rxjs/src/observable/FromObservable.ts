@@ -10,7 +10,7 @@ import { IScheduler } from '../Scheduler';
 import { iterator as Symbol_iterator } from '../symbol/iterator';
 import { Observable, ObservableInput } from '../Observable';
 import { Subscriber } from '../Subscriber';
-import { ObserveOnSubscriber } from '../operator/observeOn';
+import { ObserveOnSubscriber } from '../operators/observeOn';
 import { observable as Symbol_observable } from '../symbol/observable';
 
 /**
@@ -91,7 +91,7 @@ export class FromObservable<T> extends Observable<T> {
         return new FromObservable<T>(ish, scheduler);
       } else if (isArray(ish)) {
         return new ArrayObservable<T>(ish, scheduler);
-      } else if (isPromise(ish)) {
+      } else if (isPromise<T>(ish)) {
         return new PromiseObservable<T>(ish, scheduler);
       } else if (typeof ish[Symbol_iterator] === 'function' || typeof ish === 'string') {
         return new IteratorObservable<T>(ish, scheduler);

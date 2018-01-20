@@ -1,5 +1,5 @@
 import { Observable } from '../Observable';
-import { map } from './map';
+import { pluck as higherOrder } from '../operators/pluck';
 
 /**
  * Maps each source value (an object) to its specified nested property.
@@ -14,7 +14,7 @@ import { map } from './map';
  * Observable. If a property can't be resolved, it will return `undefined` for
  * that value.
  *
- * @example <caption>Map every every click to the tagName of the clicked target element</caption>
+ * @example <caption>Map every click to the tagName of the clicked target element</caption>
  * var clicks = Rx.Observable.fromEvent(document, 'click');
  * var tagNames = clicks.pluck('target', 'tagName');
  * tagNames.subscribe(x => console.log(x));
@@ -28,26 +28,5 @@ import { map } from './map';
  * @owner Observable
  */
 export function pluck<T, R>(this: Observable<T>, ...properties: string[]): Observable<R> {
-  const length = properties.length;
-  if (length === 0) {
-    throw new Error('list of properties cannot be empty.');
-  }
-  return map.call(this, plucker(properties, length));
-}
-
-function plucker(props: string[], length: number): (x: string) => any {
-  const mapper = (x: string) => {
-    let currentProp = x;
-    for (let i = 0; i < length; i++) {
-      const p = currentProp[props[i]];
-      if (typeof p !== 'undefined') {
-        currentProp = p;
-      } else {
-        return undefined;
-      }
-    }
-    return currentProp;
-  };
-
-  return mapper;
+  return higherOrder(...properties)(this) as Observable<R>;
 }

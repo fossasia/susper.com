@@ -83,7 +83,13 @@ module.exports = function(content, map) {
 		}
 
 		cssAsString = cssAsString.replace(result.importItemRegExpG, importItemMatcher.bind(this));
-		if(query.url !== false) {
+
+		// helper for ensuring valid CSS strings from requires
+		var urlEscapeHelper = "";
+
+		if(query.url !== false && result.urlItems.length > 0) {
+			urlEscapeHelper = "var escape = require(" + loaderUtils.stringifyRequest(this, require.resolve("./url/escape.js")) + ");\n";
+
 			cssAsString = cssAsString.replace(result.urlItemRegExpG, function(item) {
 				var match = result.urlItemRegExp.exec(item);
 				var idx = +match[1];
@@ -95,22 +101,21 @@ module.exports = function(content, map) {
 				if(idx > 0) { // idx === 0 is catched by isUrlRequest
 					// in cases like url('webfont.eot?#iefix')
 					urlRequest = url.substr(0, idx);
-					return "\" + require(" + loaderUtils.stringifyRequest(this, urlRequest) + ") + \"" +
+					return "\" + escape(require(" + loaderUtils.stringifyRequest(this, urlRequest) + ")) + \"" +
 							url.substr(idx);
 				}
 				urlRequest = url;
-				return "\" + require(" + loaderUtils.stringifyRequest(this, urlRequest) + ") + \"";
+				return "\" + escape(require(" + loaderUtils.stringifyRequest(this, urlRequest) + ")) + \"";
 			}.bind(this));
 		}
-
-
+		
 		var exportJs = compileExports(result, importItemMatcher.bind(this), camelCaseKeys);
 		if (exportJs) {
 			exportJs = "exports.locals = " + exportJs + ";";
 		}
 
 		var moduleJs;
-		if(query.sourceMap && result.map) {
+		if(sourceMap && result.map) {
 			// add a SourceMap
 			map = result.map;
 			if(map.sources) {
@@ -127,9 +132,10 @@ module.exports = function(content, map) {
 		}
 
 		// embed runtime
-		callback(null, "exports = module.exports = require(" +
+		callback(null, urlEscapeHelper +
+			"exports = module.exports = require(" +
 			loaderUtils.stringifyRequest(this, require.resolve("./css-base.js")) +
-			")(" + query.sourceMap + ");\n" +
+			")(" + sourceMap + ");\n" +
 			"// imports\n" +
 			importJs + "\n\n" +
 			"// module\n" +

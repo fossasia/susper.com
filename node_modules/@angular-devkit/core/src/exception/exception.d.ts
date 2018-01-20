@@ -14,6 +14,12 @@ export declare class FileDoesNotExistException extends BaseException {
 export declare class FileAlreadyExistException extends BaseException {
     constructor(path: string);
 }
+export declare class PathIsDirectoryException extends BaseException {
+    constructor(path: string);
+}
+export declare class PathIsFileException extends BaseException {
+    constructor(path: string);
+}
 export declare class ContentHasMutatedException extends BaseException {
     constructor(path: string);
 }
@@ -24,5 +30,8 @@ export declare class MergeConflictException extends BaseException {
     constructor(path: string);
 }
 export declare class UnimplementedException extends BaseException {
+    constructor();
+}
+export declare class UnsupportedPlatformException extends BaseException {
     constructor();
 }

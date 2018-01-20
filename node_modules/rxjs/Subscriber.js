@@ -45,6 +45,7 @@ var Subscriber = (function (_super) {
                 }
                 if (typeof destinationOrNext === 'object') {
                     if (destinationOrNext instanceof Subscriber) {
+                        this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
                         this.destination = destinationOrNext;
                         this.destination.add(this);
                     }

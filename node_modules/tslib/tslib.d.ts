@@ -29,3 +29,5 @@ export declare function __asyncGenerator(thisArg: any, _arguments: any, generato
 export declare function __asyncDelegator(o: any): any;
 export declare function __asyncValues(o: any): any;
 export declare function __makeTemplateObject(cooked: string[], raw: string[]): TemplateStringsArray;
+export declare function __importStar<T>(mod: T): T;
+export declare function __importDefault<T>(mod: T): T | { default: T };

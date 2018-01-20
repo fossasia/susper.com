@@ -1,6 +1,105 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.11.3
+* Fix for `path: undefined` option.
+
+## 2.11.2
+* Remove Node.js specific code from webpack build.
+
+## 2.11.1
+* Fix using Browserslist in browser with `path` but without `fs`.
+
+## 2.11
+* Add `last 2 years` query support (by James Harris).
+
+## 2.10.2
+* Fix Browserify support.
+
+## 2.10.1
+* Fix using Browserslist without `process` (by Andrew Patton).
+
+## 2.10
+* Add `< 1%` and `<= 1%` queries support (by August Kaiser).
+
+## 2.9.1
+* Fix unknown query on trailing spaces in query.
+
+## 2.9
+* Add `last Electron versions` and `last Electron major versions` queries
+  (by Louis Mouhat).
+
+## 2.8
+* Add `since 2016-03` and `since 2016-03-20` queries support (by Andrew Blick).
+
+## 2.7
+* Add `since 2016` queries support (by Igor Deryabin).
+
+## 2.6.1
+* Fix `Path must be a string` error.
+
+## 2.6
+* By default load config from current directory in CLI tool.
+
+## 2.5.1
+* Allow `@scope/browserlist-config` config name (by Jamie Connolly).
+
+## 2.5
+* Add `extends` query (by YellowKirby).
+
+## 2.4.1
+* Throw error if `package.json` contain `browserlist` instead of `browserslist`.
+
+## 2.4
+* Add `last n major versions` query (by John Sanders).
+
+## 2.3.3
+* Fix browsers support.
+
+## 2.3.2
+* Fix `> 0` query for browsers with one version (by Nikolay Solovyov).
+
+## 2.3.1
+* Reduce library size.
+
+## 2.3
+* Add `unreleased versions` and `unreleased Chrome versions` queries.
+
+## 2.2.2
+* Fix `Path must be a string` error (by Pieter Beulque).
+
+## 2.2.1
+* Fix security issue with regions dynamic `require`.
+
+## 2.2
+* Add region usage statistics support (by Clément P).
+
+## 2.1.5
+* Remove Firefox 45 from Firefox ESR.
+
+## 2.1.4
+* Use both ESR versions when they actual.
+
+## 2.1.3
+* Add warning on first exclude query.
+
+## 2.1.2
+* Fix non-Node.js environments support.
+
+## 2.1.1
+* Fix CLI arguments parsing.
+
+## 2.1
+* Add `>= 5%`, `>= 5% in US` and `>= 5% in my stats` queries.
+
+## 2.0
+* `last n versions` returns versions for all browsers, not only main browsers.
+* Cache file system operations (by Aarni Koskela).
+* Use `caniuse-lite` 1 MB instead of `caniuse-db` 7 MB (by Ben Briggs).
+* Add `.browserslistrc` config support.
+* Add QQ Browser for Android support.
+* Add tests for CLI (by Zhulduz Zhankenova).
+
 ## 1.7.7
 * Update Firefox ESR.
 

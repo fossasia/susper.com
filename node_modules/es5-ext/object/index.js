@@ -31,6 +31,8 @@ module.exports = {
 	isCopyDeep: require("./is-copy-deep"),
 	isEmpty: require("./is-empty"),
 	isFiniteNumber: require("./is-finite-number"),
+	isNaturalNumber: require("./is-natural-number"),
+	isNaturalNumberValue: require("./is-natural-number-value"),
 	isNumberValue: require("./is-number-value"),
 	isObject: require("./is-object"),
 	isPlainFunction: require("./is-plain-function"),

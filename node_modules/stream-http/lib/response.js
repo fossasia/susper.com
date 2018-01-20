@@ -35,13 +35,40 @@ var IncomingMessage = exports.IncomingMessage = function (xhr, response, mode) {
 		self.statusCode = response.status
 		self.statusMessage = response.statusText
 		
-		response.headers.forEach(function(header, key){
+		response.headers.forEach(function (header, key){
 			self.headers[key.toLowerCase()] = header
 			self.rawHeaders.push(key, header)
 		})
 
+		if (capability.writableStream) {
+			var writable = new WritableStream({
+				write: function (chunk) {
+					return new Promise(function (resolve, reject) {
+						if (self._destroyed) {
+							return
+						} else if(self.push(new Buffer(chunk))) {
+							resolve()
+						} else {
+							self._resumeFetch = resolve
+						}
+					})
+				},
+				close: function () {
+					if (!self._destroyed)
+						self.push(null)
+				},
+				abort: function (err) {
+					if (!self._destroyed)
+						self.emit('error', err)
+				}
+			})
 
-		// TODO: this doesn't respect backpressure. Once WritableStream is available, this can be fixed
+			try {
+				response.body.pipeTo(writable)
+				return
+			} catch (e) {} // pipeTo method isn't defined. Can't find a better way to feature test this
+		}
+		// fallback for when writableStream or pipeTo aren't available
 		var reader = response.body.getReader()
 		function read () {
 			reader.read().then(function (result) {
@@ -54,11 +81,11 @@ var IncomingMessage = exports.IncomingMessage = function (xhr, response, mode) {
 				self.push(new Buffer(result.value))
 				read()
 			}).catch(function(err) {
-				self.emit('error', err)
+				if (!self._destroyed)
+					self.emit('error', err)
 			})
 		}
 		read()
-
 	} else {
 		self._xhr = xhr
 		self._pos = 0
@@ -102,7 +129,15 @@ var IncomingMessage = exports.IncomingMessage = function (xhr, response, mode) {
 
 inherits(IncomingMessage, stream.Readable)
 
-IncomingMessage.prototype._read = function () {}
+IncomingMessage.prototype._read = function () {
+	var self = this
+
+	var resolve = self._resumeFetch
+	if (resolve) {
+		self._resumeFetch = null
+		resolve()
+	}
+}
 
 IncomingMessage.prototype._onXHRProgress = function () {
 	var self = this

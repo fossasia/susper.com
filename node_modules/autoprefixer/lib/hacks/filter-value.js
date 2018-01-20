@@ -1,72 +1,37 @@
-(function() {
-  var FilterValue, OldFilterValue, OldValue, Value, utils,
-    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    hasProp = {}.hasOwnProperty;
+'use strict';
 
-  OldValue = require('../old-value');
+function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
 
-  Value = require('../value');
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  utils = require('../utils');
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-  OldFilterValue = (function(superClass) {
-    extend(OldFilterValue, superClass);
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 
-    function OldFilterValue() {
-      return OldFilterValue.__super__.constructor.apply(this, arguments);
-    }
+var Value = require('../value');
 
-    OldFilterValue.prototype.clean = function(decl) {
-      return decl.value = utils.editList(decl.value, (function(_this) {
-        return function(props) {
-          if (props.every(function(i) {
-            return i.indexOf(_this.unprefixed) !== 0;
-          })) {
-            return props;
-          }
-          return props.filter(function(i) {
-            return i.indexOf(_this.prefixed) === -1;
-          });
-        };
-      })(this));
-    };
-
-    return OldFilterValue;
-
-  })(OldValue);
-
-  FilterValue = (function(superClass) {
-    extend(FilterValue, superClass);
-
-    FilterValue.names = ['filter', 'filter-function'];
+var FilterValue = function (_Value) {
+    _inherits(FilterValue, _Value);
 
     function FilterValue(name, prefixes) {
-      FilterValue.__super__.constructor.apply(this, arguments);
-      if (name === 'filter-function') {
-        this.name = 'filter';
-      }
+        _classCallCheck(this, FilterValue);
+
+        var _this = _possibleConstructorReturn(this, _Value.call(this, name, prefixes));
+
+        if (name === 'filter-function') {
+            _this.name = 'filter';
+        }
+        return _this;
     }
 
-    FilterValue.prototype.replace = function(value, prefix) {
-      if (prefix === '-webkit-' && value.indexOf('filter(') === -1) {
-        if (value.indexOf('-webkit-filter') === -1) {
-          return FilterValue.__super__.replace.apply(this, arguments) + ', ' + value;
-        } else {
-          return value;
-        }
-      } else {
-        return FilterValue.__super__.replace.apply(this, arguments);
-      }
-    };
-
-    FilterValue.prototype.old = function(prefix) {
-      return new OldFilterValue(this.name, prefix + this.name);
-    };
-
     return FilterValue;
+}(Value);
 
-  })(Value);
+Object.defineProperty(FilterValue, 'names', {
+    enumerable: true,
+    writable: true,
+    value: ['filter', 'filter-function']
+});
 
-  module.exports = FilterValue;
 
-}).call(this);
+module.exports = FilterValue;

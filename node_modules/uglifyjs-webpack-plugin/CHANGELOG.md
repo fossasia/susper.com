@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.6"></a>
+## [1.1.6](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/compare/v1.1.5...v1.1.6) (2018-01-05)
+
+
+### Bug Fixes
+
+* **index:** don't pass `compilation` as an argument to `UglifyJsPlugin.buildError` ([#201](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/201)) ([339ca10](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/339ca10))
+
+
+### Reverts
+
+* **package:** use exact `uglify-es` version (`dependencies`) ([#199](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/199)) ([#202](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/202)) ([426bafd](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/426bafd))
+
+
+
 <a name="1.1.5"></a>
 ## [1.1.5](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/compare/v1.1.4...v1.1.5) (2017-12-27)
 

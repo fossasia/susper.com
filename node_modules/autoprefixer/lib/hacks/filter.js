@@ -1,29 +1,40 @@
-(function() {
-  var Declaration, Filter,
-    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    hasProp = {}.hasOwnProperty;
+'use strict';
 
-  Declaration = require('../declaration');
+function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
 
-  Filter = (function(superClass) {
-    extend(Filter, superClass);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
+
+var Declaration = require('../declaration');
+
+var Filter = function (_Declaration) {
+    _inherits(Filter, _Declaration);
 
     function Filter() {
-      return Filter.__super__.constructor.apply(this, arguments);
+        _classCallCheck(this, Filter);
+
+        return _possibleConstructorReturn(this, _Declaration.apply(this, arguments));
     }
 
-    Filter.names = ['filter'];
-
-    Filter.prototype.check = function(decl) {
-      var v;
-      v = decl.value;
-      return v.toLowerCase().indexOf('alpha(') === -1 && v.indexOf('DXImageTransform.Microsoft') === -1 && v.indexOf('data:image/svg+xml') === -1;
+    /**
+     * Check is it Internet Explorer filter
+     */
+    Filter.prototype.check = function check(decl) {
+        var v = decl.value;
+        return v.toLowerCase().indexOf('alpha(') === -1 && v.indexOf('DXImageTransform.Microsoft') === -1 && v.indexOf('data:image/svg+xml') === -1;
     };
 
     return Filter;
+}(Declaration);
 
-  })(Declaration);
+Object.defineProperty(Filter, 'names', {
+    enumerable: true,
+    writable: true,
+    value: ['filter']
+});
 
-  module.exports = Filter;
 
-}).call(this);
+module.exports = Filter;

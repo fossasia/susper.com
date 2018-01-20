@@ -10,6 +10,5 @@ Zone.__load_patch('mediaQuery', (global: any, Zone: ZoneType, api: _ZonePrivate)
     return;
   }
   api.patchEventTarget(
-      global, [global['MediaQueryList'].prototype],
-      {addEventListenerFnName: 'addListener', removeEventListenerFnName: 'removeListener'});
+      global, [global['MediaQueryList'].prototype], {add: 'addListener', rm: 'removeListener'});
 });

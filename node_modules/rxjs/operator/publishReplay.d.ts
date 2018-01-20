@@ -1,12 +1,7 @@
 import { Observable } from '../Observable';
 import { IScheduler } from '../Scheduler';
 import { ConnectableObservable } from '../observable/ConnectableObservable';
-/**
- * @param bufferSize
- * @param windowTime
- * @param scheduler
- * @return {ConnectableObservable<T>}
- * @method publishReplay
- * @owner Observable
- */
+import { OperatorFunction, MonoTypeOperatorFunction } from '../interfaces';
 export declare function publishReplay<T>(this: Observable<T>, bufferSize?: number, windowTime?: number, scheduler?: IScheduler): ConnectableObservable<T>;
+export declare function publishReplay<T>(this: Observable<T>, bufferSize?: number, windowTime?: number, selector?: MonoTypeOperatorFunction<T>, scheduler?: IScheduler): Observable<T>;
+export declare function publishReplay<T, R>(this: Observable<T>, bufferSize?: number, windowTime?: number, selector?: OperatorFunction<T, R>): Observable<R>;

@@ -8,22 +8,22 @@ var includes      = require("../array/#/contains")
 
 var isArray = Array.isArray, slice = Array.prototype.slice;
 
-var deepAssign = function (source, target) {
-	if (isPlainObject(source)) {
-		if (!isPlainObject(target)) return target;
-		objForEach(target, function (value, key) {
-			source[key] = deepAssign(source[key], value);
+var deepAssign = function (target, source) {
+	if (isPlainObject(target)) {
+		if (!isPlainObject(source)) return source;
+		objForEach(source, function (value, key) {
+			target[key] = deepAssign(target[key], value);
 		});
-		return source;
+		return target;
 	}
-	if (isArray(source)) {
-		if (!isArray(target)) return target;
-		target.forEach(function (item) {
-			if (!includes.call(source, item)) source.push(item);
+	if (isArray(target)) {
+		if (!isArray(source)) return source;
+		source.forEach(function (item) {
+			if (!includes.call(target, item)) target.push(item);
 		});
-		return source;
+		return target;
 	}
-	return target;
+	return source;
 };
 
 module.exports = function (target /*, ...objects*/) {

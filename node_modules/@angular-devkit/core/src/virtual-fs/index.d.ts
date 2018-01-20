@@ -6,3 +6,5 @@
  * found in the LICENSE file at https://angular.io/license
  */
 export * from './path';
+import * as virtualFs from './host';
+export { virtualFs };

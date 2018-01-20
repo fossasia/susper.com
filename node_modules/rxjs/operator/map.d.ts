@@ -1,5 +1,3 @@
-import { Operator } from '../Operator';
-import { Subscriber } from '../Subscriber';
 import { Observable } from '../Observable';
 /**
  * Applies a given `project` function to each value emitted by the source
@@ -35,9 +33,3 @@ import { Observable } from '../Observable';
  * @owner Observable
  */
 export declare function map<T, R>(this: Observable<T>, project: (value: T, index: number) => R, thisArg?: any): Observable<R>;
-export declare class MapOperator<T, R> implements Operator<T, R> {
-    private project;
-    private thisArg;
-    constructor(project: (value: T, index: number) => R, thisArg: any);
-    call(subscriber: Subscriber<R>, source: any): any;
-}

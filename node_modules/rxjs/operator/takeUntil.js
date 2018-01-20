@@ -1,11 +1,5 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var OuterSubscriber_1 = require('../OuterSubscriber');
-var subscribeToResult_1 = require('../util/subscribeToResult');
+var takeUntil_1 = require('../operators/takeUntil');
 /**
  * Emits the values emitted by the source Observable until a `notifier`
  * Observable emits a value.
@@ -17,8 +11,8 @@ var subscribeToResult_1 = require('../util/subscribeToResult');
  *
  * `takeUntil` subscribes and begins mirroring the source Observable. It also
  * monitors a second Observable, `notifier` that you provide. If the `notifier`
- * emits a value or a complete notification, the output Observable stops
- * mirroring the source Observable and completes.
+ * emits a value, the output Observable stops mirroring the source Observable
+ * and completes.
  *
  * @example <caption>Tick every second until the first click happens</caption>
  * var interval = Rx.Observable.interval(1000);
@@ -40,36 +34,7 @@ var subscribeToResult_1 = require('../util/subscribeToResult');
  * @owner Observable
  */
 function takeUntil(notifier) {
-    return this.lift(new TakeUntilOperator(notifier));
+    return takeUntil_1.takeUntil(notifier)(this);
 }
 exports.takeUntil = takeUntil;
-var TakeUntilOperator = (function () {
-    function TakeUntilOperator(notifier) {
-        this.notifier = notifier;
-    }
-    TakeUntilOperator.prototype.call = function (subscriber, source) {
-        return source.subscribe(new TakeUntilSubscriber(subscriber, this.notifier));
-    };
-    return TakeUntilOperator;
-}());
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var TakeUntilSubscriber = (function (_super) {
-    __extends(TakeUntilSubscriber, _super);
-    function TakeUntilSubscriber(destination, notifier) {
-        _super.call(this, destination);
-        this.notifier = notifier;
-        this.add(subscribeToResult_1.subscribeToResult(this, notifier));
-    }
-    TakeUntilSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
-        this.complete();
-    };
-    TakeUntilSubscriber.prototype.notifyComplete = function () {
-        // noop
-    };
-    return TakeUntilSubscriber;
-}(OuterSubscriber_1.OuterSubscriber));
 //# sourceMappingURL=takeUntil.js.map

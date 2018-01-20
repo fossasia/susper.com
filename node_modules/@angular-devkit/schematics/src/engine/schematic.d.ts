@@ -7,8 +7,6 @@
  */
 import { BaseException } from '@angular-devkit/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/concatMap';
 import { Tree } from '../tree/interface';
 import { Collection, Engine, RuleFactory, Schematic, SchematicDescription, TypedSchematicContext } from './interface';
 export declare class InvalidSchematicsNameException extends BaseException {

@@ -1,4 +1,5 @@
 var ClientRequest = require('./lib/request')
+var IncomingMessage = require('./lib/response')
 var extend = require('xtend')
 var statusCodes = require('builtin-status-codes')
 var url = require('url')
@@ -43,6 +44,9 @@ http.get = function get (opts, cb) {
 	req.end()
 	return req
 }
+
+http.ClientRequest = ClientRequest
+http.IncomingMessage = IncomingMessage
 
 http.Agent = function () {}
 http.Agent.defaultMaxSockets = 4

@@ -1,4 +1,5 @@
 MANIFEST.in
+README.md
 package.json
 setup.py
 ./setup.py

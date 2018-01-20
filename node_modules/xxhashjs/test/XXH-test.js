@@ -9,14 +9,14 @@ describe('XXH', function () {
 		var expected = 'A3643705' // Computed with xxHash C version
 
 		it('should return hash in a single step', function (done) {
-			var h = XXH( input, seed ).toString(16).toUpperCase()
+			var h = XXH.h32( input, seed ).toString(16).toUpperCase()
 
 			assert.equal( h, expected )
 			done()
 		})
 
 		it('should return hash in many steps', function (done) {
-			var H = XXH( seed )
+			var H = XXH.h32( seed )
 			var h = H.update( input ).digest().toString(16).toUpperCase()
 
 			assert.equal( h, expected )
@@ -30,14 +30,14 @@ describe('XXH', function () {
 		var expected = 'E18CBEA'
 
 		it('should return hash in a single step', function (done) {
-			var h = XXH( input, seed ).toString(16).toUpperCase()
+			var h = XXH.h32( input, seed ).toString(16).toUpperCase()
 
 			assert.equal( h, expected )
 			done()
 		})
 
 		it('should return hash in many steps', function (done) {
-			var H = XXH( seed )
+			var H = XXH.h32( seed )
 			var h = H.update( input ).digest().toString(16).toUpperCase()
 
 			assert.equal( h, expected )
@@ -51,14 +51,14 @@ describe('XXH', function () {
 		var expected = '32D153FF' // Computed with xxHash C version
 
 		it('should return hash in a single step', function (done) {
-			var h = XXH( input, seed ).toString(16).toUpperCase()
+			var h = XXH.h32( input, seed ).toString(16).toUpperCase()
 
 			assert.equal( h, expected )
 			done()
 		})
 
 		it('should return hash in many steps', function (done) {
-			var H = XXH( seed )
+			var H = XXH.h32( seed )
 			var h = H.update( input ).digest().toString(16).toUpperCase()
 
 			assert.equal( h, expected )
@@ -72,14 +72,14 @@ describe('XXH', function () {
 		var expected = '89DA9B6E'
 
 		it('should return hash in a single step', function (done) {
-			var h = XXH( input, seed ).toString(16).toUpperCase()
+			var h = XXH.h32( input, seed ).toString(16).toUpperCase()
 
 			assert.equal( h, expected )
 			done()
 		})
 
 		it('should return hash in many steps', function (done) {
-			var H = XXH( seed )
+			var H = XXH.h32( seed )
 			var h = H.update( input ).digest().toString(16).toUpperCase()
 
 			assert.equal( h, expected )
@@ -93,7 +93,7 @@ describe('XXH', function () {
 		var expected = '89DA9B6E'
 
 		it('should return hash with split input < 16', function (done) {
-			var H = XXH( seed )
+			var H = XXH.h32( seed )
 			var h = H
 				.update( input.slice(0, 10) )
 				.update( input.slice(10) )
@@ -104,7 +104,7 @@ describe('XXH', function () {
 		})
 
 		it('should return hash with split input = 16', function (done) {
-			var H = XXH( seed )
+			var H = XXH.h32( seed )
 			var h = H
 				.update( input.slice(0, 16) )
 				.update( input.slice(16) )
@@ -115,7 +115,7 @@ describe('XXH', function () {
 		})
 
 		it('should return hash with split input > 16', function (done) {
-			var H = XXH( seed )
+			var H = XXH.h32( seed )
 			var h = H
 				.update( input.slice(0, 20) )
 				.update( input.slice(20) )
@@ -132,14 +132,14 @@ describe('XXH', function () {
 		var expected = 'DB5ABCCC' // Computed with xxHash C version
 
 		it('should return hash', function (done) {
-			var h = XXH( input, seed ).toString(16).toUpperCase()
+			var h = XXH.h32( input, seed ).toString(16).toUpperCase()
 
 			assert.equal( h, expected )
 			done()
 		})
 
 		it('should return hash in many steps', function (done) {
-			var H = XXH( seed )
+			var H = XXH.h32( seed )
 			var h = H.update( input ).digest().toString(16).toUpperCase()
 
 			assert.equal( h, expected )
@@ -153,14 +153,14 @@ describe('XXH', function () {
 		var expected = 'D855F606' // Computed with xxHash C version
 
 		it('should return hash', function (done) {
-			var h = XXH( input, seed ).toString(16).toUpperCase()
+			var h = XXH.h32( input, seed ).toString(16).toUpperCase()
 
 			assert.equal( h, expected )
 			done()
 		})
 
 		it('should return hash in many steps', function (done) {
-			var H = XXH( seed )
+			var H = XXH.h32( seed )
 			var h = H.update( input ).digest().toString(16).toUpperCase()
 
 			assert.equal( h, expected )

@@ -1,6 +1,6 @@
-import { onErrorResumeNextStatic } from '../../operator/onErrorResumeNext';
+import { onErrorResumeNext as staticOnErrorResumeNext } from '../../observable/onErrorResumeNext';
 declare module '../../Observable' {
     namespace Observable {
-        let onErrorResumeNext: typeof onErrorResumeNextStatic;
+        let onErrorResumeNext: typeof staticOnErrorResumeNext;
     }
 }

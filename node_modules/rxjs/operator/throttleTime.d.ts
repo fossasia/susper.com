@@ -1,6 +1,6 @@
-import { IScheduler } from '../Scheduler';
 import { Observable } from '../Observable';
-import { ThrottleConfig } from './throttle';
+import { IScheduler } from '../Scheduler';
+import { ThrottleConfig } from '../operators/throttle';
 /**
  * Emits a value from the source Observable, then ignores subsequent source
  * values for `duration` milliseconds, then repeats this process.
@@ -34,7 +34,7 @@ import { ThrottleConfig } from './throttle';
  * emitting the last value, measured in milliseconds or the time unit determined
  * internally by the optional `scheduler`.
  * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
- * managing the timers that handle the sampling.
+ * managing the timers that handle the throttling.
  * @return {Observable<T>} An Observable that performs the throttle operation to
  * limit the rate of emissions from the source.
  * @method throttleTime

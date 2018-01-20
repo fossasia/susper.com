@@ -133,11 +133,36 @@ Currently the different available records are
 }
 ```
 
+#### `NS`
+
+``` js
+{
+  data: nameServer
+}
+```
+
 #### `NULL`
 
 ``` js
 {
   data: Buffer('any binary data')
+}
+```
+
+#### `SOA`
+
+``` js
+{
+  data:
+    {
+      mname: domainName,
+      rname: mailbox,
+      serial: zoneSerial,
+      refresh: refreshInterval,
+      retry: retryInterval,
+      expire: expireInterval,
+      minimum: minimumTTL
+    }
 }
 ```
 

@@ -1,6 +1,7 @@
 import { IScheduler } from '../Scheduler';
 import { Observable } from '../Observable';
 import { TeardownLogic } from '../Subscription';
+import { Subscriber } from '../Subscriber';
 export interface DispatchArg {
     error: any;
     subscriber: any;
@@ -56,5 +57,5 @@ export declare class ErrorObservable extends Observable<any> {
     static create(error: any, scheduler?: IScheduler): ErrorObservable;
     static dispatch(arg: DispatchArg): void;
     constructor(error: any, scheduler?: IScheduler);
-    protected _subscribe(subscriber: any): TeardownLogic;
+    protected _subscribe(subscriber: Subscriber<any>): TeardownLogic;
 }

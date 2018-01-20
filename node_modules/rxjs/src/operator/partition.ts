@@ -1,7 +1,5 @@
-import { not } from '../util/not';
-import { filter } from './filter';
 import { Observable } from '../Observable';
-
+import { partition as higherOrder } from '../operators/partition';
 /**
  * Splits the source Observable into two, one with values that satisfy a
  * predicate, and another with values that don't satisfy the predicate.
@@ -43,9 +41,6 @@ import { Observable } from '../Observable';
  * @method partition
  * @owner Observable
  */
-export function partition<T>(this: Observable<T>, predicate: (value: T) => boolean, thisArg?: any): [Observable<T>, Observable<T>] {
-  return [
-    filter.call(this, predicate, thisArg),
-    filter.call(this, not(predicate, thisArg))
-  ];
+export function partition<T>(this: Observable<T>, predicate: (value: T, index: number) => boolean, thisArg?: any): [Observable<T>, Observable<T>] {
+  return higherOrder(predicate, thisArg)(this);
 }

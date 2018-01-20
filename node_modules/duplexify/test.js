@@ -260,7 +260,6 @@ tape('prefinish not twice', function(t) {
 tape('close', function(t) {
   var passthrough = through()
   var dup = duplexify(passthrough, passthrough)
-  var ok = false
 
   passthrough.emit('close')
   dup.on('close', function() {
