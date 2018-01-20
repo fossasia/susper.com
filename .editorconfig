@@ -8,6 +8,20 @@ indent_size = 2
 insert_final_newline = true
 trim_trailing_whitespace = true
 
+[*.{js,py}]
+charset = utf-8
+
+[Makefile]
+indent_style = tab
+
+[lib/**.js]
+indent_style = space
+indent_size = 2
+
+[{package.json,.travis.yml}]
+indent_style = space
+indent_size = 2
+
 [*.md]
 max_line_length = off
 trim_trailing_whitespace = false
