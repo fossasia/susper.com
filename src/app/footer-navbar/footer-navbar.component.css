@@ -46,6 +46,16 @@ div a:active {
     flex-wrap: wrap;
     justify-content: center;
   }
+  
+  .footer-bar, .left-side , .right-side {
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #fsett {
+    margin-left: 0 !important;
+  }
 }
 
 .dropup {
