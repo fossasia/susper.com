@@ -6,18 +6,18 @@
       <h3  class="related-searches"><b>Top {{nav.displayname}}</b></h3>
 
       <div style="display: block;cursor:pointer;cursor: hand;" *ngFor="let element of ((i != selectedelement)? (nav.elements| slice:0:5) :nav.elements )">
-        <a [routerLink]="['/search']" [queryParams]="changequerylook(element.modifier,element)" *ngIf="element.name" href="#">
+        <a [routerLink]="['/search']" [queryParams]="changequerylook(element.modifier,element)" *ngIf="element.name" href="#" [style.color]="themeService.linkColor">
           {{element.name}} <span class="badge badge-info">{{element.count}}</span>
         </a>
-        <a  *ngIf="!element.name" style="color: black;cursor: default" href="#">
+        <a  *ngIf="!element.name" style="color: black;cursor: default" href="#" [style.color]="themeService.linkColor">
           Undefined Author <span class="badge badge-info">{{element.count}}</span>
         </a>
       </div>
 
-      <a style="display: block;cursor:pointer;cursor: hand;" (click)="selectelement(i)" *ngIf="selectedelement!=i">
+      <a style="display: block;cursor:pointer;cursor: hand;" (click)="selectelement(i)" *ngIf="selectedelement!=i" [style.color]="themeService.linkColor">
         more..
       </a>
-      <a style="display: block;cursor:pointer;cursor: hand;" (click)="deselectelement(i)" *ngIf="selectedelement===i">
+      <a style="display: block;cursor:pointer;cursor: hand;" (click)="deselectelement(i)" *ngIf="selectedelement===i" [style.color]="themeService.linkColor">
         less..
       </a>
     </div>
