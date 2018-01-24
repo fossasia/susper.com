@@ -8,7 +8,7 @@ import { SpeechSynthesisService } from "../services/speech-synthesis.service";
 import { reducer } from "../reducers/index";
 import { StoreModule } from "@ngrx/store";
 import { MockKnowledgeApi } from "../shared/mocks/knowledge.mock";
-
+import {ThemeService} from '../services/theme.service';
 describe('Component: InfoboxComponent', () => {
   let component: InfoboxComponent;
   let fixture: ComponentFixture<InfoboxComponent>;
@@ -26,7 +26,8 @@ describe('Component: InfoboxComponent', () => {
       ],
       providers: [
         { provide: KnowledgeapiService, useValue: MockKnowledgeApi},
-        { provide: SpeechSynthesisService, useValue: MockKnowledgeApi}
+        { provide: SpeechSynthesisService, useValue: MockKnowledgeApi},
+        ThemeService
       ],
     })
       .compileComponents();

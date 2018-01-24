@@ -6,7 +6,7 @@ import {HttpModule, JsonpModule} from "@angular/http";
 import {StoreModule} from "@ngrx/store";
 import {reducer} from "../reducers/index";
 import {ChartsModule} from "ng2-charts";
-
+import { ThemeService } from '../services/theme.service';
 describe('StatsboxComponent', () => {
   let component: StatsboxComponent;
   let fixture: ComponentFixture<StatsboxComponent>;
@@ -22,7 +22,8 @@ describe('StatsboxComponent', () => {
       ],
       declarations: [
         StatsboxComponent,
-      ]
+      ],
+      providers: [ThemeService]
     })
       .compileComponents();
   }));
