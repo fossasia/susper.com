@@ -2,10 +2,10 @@
   "static": {
     "urls": {
       "/not-found-bg.8f346a53ee078b98deb0.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
-      "/main.65632f02728471a60f86.bundle.js": "98524c9996ed81073e7de843794f522a5b9fb344",
+      "/main.d95eea08e8984f816b49.bundle.js": "200d88daf3d4b7439be2d1b1969a51a11d10f722",
       "/sw-register.e8ad119c04e6f7da649e.bundle.js": "5bccf39eedc381fd3ce6e9cd588c6fcfa8fcbf31",
       "/vendor.e4e9a53ea17ad25661d2.bundle.js": "95bcc7b9dbc193db994aab64cf83bd74188adbcc",
-      "/inline.8cac47133e3141d135f8.bundle.js": "dd2a51e9bed21f4d213e09763b7c9586d0261c43",
+      "/inline.2de34fcbe6f522961fe4.bundle.js": "7c59244c1f42a8fc1cdef94e30c82376755b6ba9",
       "/styles.9c0ad738f18adc3d19ed.bundle.css": "e392ebe39e63c70b434f71bbe87278aa9aa641c0",
       "/favicon.ico": "1214df2ad2bb72333b2cf64a4e5e101b25c321e2",
       "/manifest.json": "1e4647137558c4a7650ad9a06c0e0e99274a0b16",
@@ -41,7 +41,7 @@
       "/assets/images/terminal.png": "2aa0054d6e388a6cd5630e3eca2350cfb289955b",
       "/assets/images/YaCyLogo2011_60.png": "954f9d626d69a7861e9e84735c44b0a8bc759c97",
       "/assets/images/mountain.jpg": "af7d0d9a086ba468c13b1c064e8fa8c24fbb7601",
-      "/index.html": "0eeae2b19cc5471d8a95d67dbb0887a4e4cbfd2a"
+      "/index.html": "047c1a924055548d00b2b2016d1289ed5edc86c6"
     },
     "_generatedFromWebpack": true
   }
