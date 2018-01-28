@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import * as fromRoot from '../reducers';
 import {Observable} from 'rxjs';
 import {SearchService} from '../services/search.service';
-
+import { ThemeService } from '../services/theme.service';
 @Component({
   selector: 'app-statsbox',
   templateUrl: './statsbox.component.html',
@@ -74,6 +74,7 @@ export class StatsboxComponent implements OnInit {
 
   constructor(
     private route: Router,
+    public themeService: ThemeService,
     private activatedroute: ActivatedRoute,
     private store: Store<fromRoot.State>
   ) {
