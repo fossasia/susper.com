@@ -5,6 +5,7 @@ import * as fromRoot from '../reducers';
 import { KnowledgeapiService } from '../services/knowledgeapi.service';
 import { Observable } from "rxjs";
 import { SpeechSynthesisService } from '../services/speech-synthesis.service';
+import {ThemeService} from '../services/theme.service';
 declare var window: any;
 declare var SpeechSynthesisUtterance: any;
 
@@ -29,7 +30,8 @@ export class InfoboxComponent implements OnInit {
     private activatedroute: ActivatedRoute,
     private store: Store<fromRoot.State>,
     private ref: ChangeDetectorRef,
-    private synthesis: SpeechSynthesisService
+    private synthesis: SpeechSynthesisService,
+    private themeService: ThemeService
     ) {
     this.query$ = store.select(fromRoot.getwholequery);
 
