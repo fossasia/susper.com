@@ -160,7 +160,7 @@ tests.forEach(function (test) {
   })
 
   test('TXT record', function (dns, t) {
-    var data = new Buffer('black box')
+    var data = Buffer.from('black box')
 
     dns.once('query', function (packet) {
       t.same(packet.questions.length, 1, 'one question')
@@ -215,6 +215,21 @@ tests.forEach(function (test) {
         {type: 'A', name: 'foo', ttl: 120, data: '127.0.0.2', class: 1, flush: false}
       ])
       t.same(packet.additionals[0], {type: 'A', name: 'foo', ttl: 120, data: '127.0.0.3', class: 1, flush: true})
+      dns.destroy(function () {
+        t.end()
+      })
+    })
+
+    dns.query('foo', 'A')
+  })
+
+  test('Authoritive Answer bit', function (dns, t) {
+    dns.once('query', function (packet) {
+      dns.respond([])
+    })
+
+    dns.once('response', function (packet) {
+      t.ok(packet.flag_auth, 'should be set')
       dns.destroy(function () {
         t.end()
       })

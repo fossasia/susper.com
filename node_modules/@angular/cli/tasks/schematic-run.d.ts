@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/concatMap';
-import 'rxjs/add/operator/map';
 export interface SchematicRunOptions {
     taskOptions: SchematicOptions;
     workingDir: string;

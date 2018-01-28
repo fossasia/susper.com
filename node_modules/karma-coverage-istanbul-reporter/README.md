@@ -38,13 +38,17 @@ module.exports = function (config) {
     // any of these options are valid: https://github.com/istanbuljs/istanbuljs/blob/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-api/lib/config.js#L33-L39
     coverageIstanbulReporter: {
 
-       // reports can be any that are listed here: https://github.com/istanbuljs/istanbuljs/tree/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-reports/lib
+      // reports can be any that are listed here: https://github.com/istanbuljs/istanbuljs/tree/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-reports/lib
       reports: ['html', 'lcovonly', 'text-summary'],
 
-       // base output directory. If you include %browser% in the path it will be replaced with the karma browser name
+      // base output directory. If you include %browser% in the path it will be replaced with the karma browser name
       dir: path.join(__dirname, 'coverage'),
 
-       // if using webpack and pre-loaders, work around webpack breaking the source path
+      // Combines coverage information from multiple browsers into one report rather than outputting a report
+      // for each browser.
+      combineBrowserReports: true,
+
+      // if using webpack and pre-loaders, work around webpack breaking the source path
       fixWebpackSourcePaths: true,
 
       // stop istanbul outputting messages like `File [${filename}] ignored, nothing could be mapped`

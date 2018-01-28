@@ -93,6 +93,7 @@ module.exports = function (opts) {
     if (Array.isArray(res)) res = {answers: res}
 
     res.type = 'response'
+    res.flags = (res.flags || 0) | packet.AUTHORITATIVE_ANSWER
     that.send(res, rinfo, cb)
   }
 

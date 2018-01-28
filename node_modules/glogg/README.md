@@ -1,6 +1,6 @@
 # glogg
 
-[![Travis Build Status](https://img.shields.io/travis/undertakerjs/glogg/master.svg?label=travis&style=flat-square)](https://travis-ci.org/undertakerjs/glogg)
+[![Travis Build Status](https://img.shields.io/travis/js-cli/glogg/master.svg?label=travis&style=flat-square)](https://travis-ci.org/js-cli/glogg)
 
 Global logging utility
 

@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.6 - 2018-01-24
+
+### Fixed
+
+* Use `typeof` to search globals more carefully.
+
+## 2.0.5 - 2018-01-23
+
+### Fixed
+
+* Try harder to retrieve `setImmediate` and `clearImmediate` in esoteric
+  environments.
+
 ## 2.0.4 - 2017-08-14
 
 ### Fixed
@@ -9,7 +22,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Revert `setImmediate` and `clearImmediate` changes from 2.0.3 because they
   appear to break Webpack.
 
-### 2.0.3 - 2017-07-31
+## 2.0.3 - 2017-07-31
 
 ### Fixed
 

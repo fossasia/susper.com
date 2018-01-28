@@ -20,6 +20,10 @@ class NgCliWebpackConfig {
         const projectTs = require_project_module_1.requireProjectModule(projectRoot, 'typescript');
         const supportES2015 = tsConfig.options.target !== projectTs.ScriptTarget.ES3
             && tsConfig.options.target !== projectTs.ScriptTarget.ES5;
+        // Only force if the default module kind is used (ES2015)
+        // Allows user to adjust module kind (to esNext for example)
+        buildOptions.forceTsCommonjs = buildOptions.forceTsCommonjs
+            && tsConfig.options.module === projectTs.ModuleKind.ES2015;
         this.wco = { projectRoot, buildOptions, appConfig, tsConfig, supportES2015 };
     }
     buildConfig() {

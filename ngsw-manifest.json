@@ -2,12 +2,13 @@
   "static": {
     "urls": {
       "/not-found-bg.8f346a53ee078b98deb0.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
-      "/main.bea107969539a6fd8900.bundle.js": "0bbe0e8d54f31be8f166e31cce91711b3bd3b6e8",
+      "/main.ba239217e26134c15d11.bundle.js": "f6d7e4aebe575ec3f3c7a2d713b67cde3979e559",
       "/sw-register.e8ad119c04e6f7da649e.bundle.js": "5bccf39eedc381fd3ce6e9cd588c6fcfa8fcbf31",
-      "/vendor.e4e9a53ea17ad25661d2.bundle.js": "19db9af8f96a8b810062df592a1122cf88a29eeb",
-      "/inline.77a15141391e59c5c844.bundle.js": "77339b5f6b115bb45b714cd0c16d24e39ded85fa",
+      "/vendor.e4e9a53ea17ad25661d2.bundle.js": "95bcc7b9dbc193db994aab64cf83bd74188adbcc",
+      "/inline.4086ea4c9ab754f8119d.bundle.js": "3a75206c41ff5212e92df8ac5f55a1943637c9f1",
       "/styles.9c0ad738f18adc3d19ed.bundle.css": "e392ebe39e63c70b434f71bbe87278aa9aa641c0",
       "/favicon.ico": "1214df2ad2bb72333b2cf64a4e5e101b25c321e2",
+      "/manifest.json": "1e4647137558c4a7650ad9a06c0e0e99274a0b16",
       "/assets/Chart.bundle.min.js": "37f92d10cdf56f5c78afd05abdb72f93ee8d2686",
       "/assets/css/base.css": "f33d855f3fd7c059981974cf51853ae776db7e24",
       "/assets/css/bootstrap-base.css": "04286a6357f4cf16b53b800f72e0c13a2d293d22",
@@ -31,6 +32,7 @@
       "/assets/images/github.png": "3a2742622a80a60edec8516dbe5a32db7e3f4eaa",
       "/assets/images/loklak.png": "96bff0518b5f2285dccf720481e89aa4286a5441",
       "/assets/images/microphone.png": "c0f1e88007368d123ab49c28397ed22d1913f5dc",
+      "/assets/images/mountain.jpg": "af7d0d9a086ba468c13b1c064e8fa8c24fbb7601",
       "/assets/images/not-found-bg.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
       "/assets/images/Pslab.png": "9cf27193837c420226e05afd505890be65011175",
       "/assets/images/search.png": "dbd3a14d4dafedfd8449e5ca136f7004a2242379",
@@ -39,8 +41,7 @@
       "/assets/images/susper.svg": "7a8cb12bd11e689754c7d9dbb8504ba2902c14d9",
       "/assets/images/terminal.png": "2aa0054d6e388a6cd5630e3eca2350cfb289955b",
       "/assets/images/YaCyLogo2011_60.png": "954f9d626d69a7861e9e84735c44b0a8bc759c97",
-      "/assets/images/mountain.jpg": "af7d0d9a086ba468c13b1c064e8fa8c24fbb7601",
-      "/index.html": "acfce96b365009ab8ee7833bfd9ab4d97322c015"
+      "/index.html": "025e679760cb57a1a03a88593fef5149b3d897c9"
     },
     "_generatedFromWebpack": true
   }

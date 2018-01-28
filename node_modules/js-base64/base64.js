@@ -11,7 +11,7 @@
     typeof exports === 'object' && typeof module !== 'undefined'
         ? module.exports = factory(global)
         : typeof define === 'function' && define.amd
-        ? define(factory) : null
+        ? define(factory) : factory(global)
 }((
     typeof self !== 'undefined' ? self
         : typeof window !== 'undefined' ? window
@@ -21,7 +21,7 @@
     'use strict';
     // existing version for noConflict()
     var _Base64 = global.Base64;
-    var version = "2.4.1";
+    var version = "2.4.3";
     // if node.js, we use Buffer
     var buffer;
     if (typeof module !== 'undefined' && module.exports) {

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const Task = require('../ember-cli/lib/models/task');
-const { cyan, grey } = chalk_1.default;
+const { cyan, green, grey } = chalk_1.default;
 const hiddenOptions = [
     'name',
     'path',
@@ -22,7 +22,7 @@ exports.default = Task.extend({
             }), nonSchematicOptions])
             .then(([availableOptions, nonSchematicOptions]) => {
             const output = [];
-            [...(nonSchematicOptions || []), ...availableOptions]
+            [...(nonSchematicOptions || []), ...availableOptions || []]
                 .filter(opt => hiddenOptions.indexOf(opt.name) === -1)
                 .forEach(opt => {
                 let text = cyan(`    --${opt.name}`);
@@ -43,6 +43,10 @@ exports.default = Task.extend({
                     output.push(grey(`      aliases: ${aliasText}`));
                 }
             });
+            if (availableOptions === null) {
+                output.push(green('This schematic accept additional options, but did not provide '
+                    + 'documentation.'));
+            }
             return output;
         });
     }

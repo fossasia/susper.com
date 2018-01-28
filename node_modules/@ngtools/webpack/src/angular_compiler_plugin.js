@@ -176,7 +176,7 @@ class AngularCompilerPlugin {
             this._entryModule = this._options.entryModule;
         }
         else if (this._compilerOptions.entryModule) {
-            this._entryModule = path.resolve(this._basePath, this._compilerOptions.entryModule);
+            this._entryModule = path.resolve(this._basePath, this._compilerOptions.entryModule); // temporary cast for type issue
         }
         // Set platform.
         this._platform = options.platform || PLATFORM.Browser;

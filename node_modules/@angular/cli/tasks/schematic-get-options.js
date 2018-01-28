@@ -10,6 +10,9 @@ exports.default = Task.extend({
             config_1.CliConfig.getValue('defaults.schematics.collection');
         const collection = schematics_1.getCollection(collectionName);
         const schematic = schematics_1.getSchematic(collection, options.schematicName);
+        if (!schematic.description.schemaJson) {
+            return Promise.resolve(null);
+        }
         const properties = schematic.description.schemaJson.properties;
         const keys = Object.keys(properties);
         const availableOptions = keys

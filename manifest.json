@@ -1,0 +1,40 @@
+{
+  "icons": [
+    {
+      "src": "./assets/images/susper.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "./assets/images/susper.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./assets/images/susper.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "./assets/images/susper.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "./assets/images/susper.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "scope": ".",
+  "name": "susper",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fff",
+  "theme_color": "#0d0d63",
+  "description": "Susper is a decentral Search Engine that uses the peer to peer system to crawl and index search results.",
+  "short_name": "susper",
+  "dir": "ltr",
+  "lang": "en-US"
+}

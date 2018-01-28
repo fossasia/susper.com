@@ -36,7 +36,7 @@ function statsToString(json, statsConfig) {
     const unchangedChunkNumber = json.chunks.length - changedChunksStats.length;
     if (unchangedChunkNumber > 0) {
         return rs(common_tags_1.stripIndents `
-      Date: ${w(new Date().toISOString())} • Hash: ${w(json.hash)} • Time: ${w('' + json.time)}ms
+      Date: ${w(new Date().toISOString())} - Hash: ${w(json.hash)} - Time: ${w('' + json.time)}ms
       ${unchangedChunkNumber} unchanged chunks
       ${changedChunksStats.join('\n')}
       `);
