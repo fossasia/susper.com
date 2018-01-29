@@ -1,0 +1,13 @@
+.menu-item-link {
+	font-size: 14px;
+}
+
+.modal-body {
+	max-height: 560px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.section-heading {
+	font-weight: bold;
+}
