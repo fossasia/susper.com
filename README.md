@@ -21,11 +21,11 @@ This is a front-end for Susper running on Yacy server. The retrieval of search r
 
 * Solr and Javascript(JSON)
 
-Search results are displayed using Solr server which is embedded into YaCy. All search results must be provided by a YaCy search server which includes a Solr with a specialized JSON result writer. When a search request is made in one of the search templates, a http request is made to YaCy. The response is done in JSON because that can much better be parsed than XML in JavaScript. To overcome the same orgin policy in JavaScript, the result is capsuled into a JSONP response.
+Search results are displayed using Solr server which is embedded into YaCy. All search results must be provided by a YaCy search server which includes a Solr with a specialized JSON result writer. When a search request is made in one of the search templates, a HTTP request is made to YaCy. The response is done in JSON because that can much better be parsed than XML in JavaScript. To overcome the same-origin policy in JavaScript, the result is capsuled into a JSONP response.
 
 ## Technology Stack
 * HTML - Structure of the web page generated.
-* CSS - Styling options and details ofthe web page.
+* CSS - Styling options and details of the web page.
 * Javascript(JSON) - Used to store information for deploying the application such as dependencies.
 * Angular-4 - Structure for deployment of the web page.
 
@@ -57,7 +57,7 @@ With these very simple steps you can have susper deployed:
 * **Step 2:** Then checkout to your master branch `$ git checkout master`
 * **Step 3:** Deploy running this : ```ng build``` and then ```npm run deploy```
 * **Step 4:** Visit `https://yourusername.github.io/susper` and you should see the Susper search running.
-* **Step 5:** As you search you might see that that it cant find anything, to resolve this, on search you will see there is a red shield on search bar, click on it and allow to load unsafe scripts.
+* **Step 5:** As you search you might see that it cant find anything, to resolve this, on search you will see there is a red shield on search bar, click on it and allow to load unsafe scripts.
 * **Step 6:** Reload and you will have a fully functioning Susper search deployed on github pages.
 
 ### For deploying with [Surge](https://surge.sh/):
