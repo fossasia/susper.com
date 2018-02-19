@@ -1,6 +1,6 @@
 # susper.com
 
-Susper is a decentralized Search Engine that uses the peer to peer system yacy and Apache Solr to crawl and index search results.
+Susper is a decentralized Search Engine that uses the peer to peer system YaCy and Apache Solr to crawl and index search results.
 
 [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=master)](https://travis-ci.org/fossasia/susper.com)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ba119419e7444b3b505bb37b4525deb)](https://www.codacy.com/app/shiven15094/susper-com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fossasia/susper.com&amp;utm_campaign=Badge_Grade)
@@ -17,29 +17,29 @@ Our chat channel is on gitter : https://gitter.im/fossasia/susper.com
 
 ## Components and Technology
 
-This is a front-end for Susper running on Yacy server. The retrieval of search results is done using YaCy search API.
+This is a front-end for Susper running on YaCy server. The retrieval of search results is done using YaCy search API.
 
 * Solr and Javascript(JSON)
 
-Search results are displayed using Solr server which is embedded into YaCy. All search results must be provided by a YaCy search server which includes a Solr with a specialized JSON result writer. When a search request is made in one of the search templates, a http request is made to YaCy. The response is done in JSON because that can much better be parsed than XML in JavaScript. To overcome the same orgin policy in JavaScript, the result is capsuled into a JSONP response.
+Search results are displayed using Solr server which is embedded into YaCy. All search results must be provided by a YaCy search server which includes a Solr with a specialized JSON result writer. When a search request is made in one of the search templates, an HTTP request is made to YaCy. The response is done in JSON because that can much better be parsed than XML in JavaScript. To overcome the same orgin policy in JavaScript, the result is capsuled into a JSONP response.
 
 ## Technology Stack
 * HTML - Structure of the web page generated.
 * CSS - Styling options and details ofthe web page.
 * Javascript(JSON) - Used to store information for deploying the application such as dependencies.
-* Angular-4 - Structure for deployment of the web page.
+* Angular 4 - Structure for deployment of the web page.
 
 ## Requirements
-* [Angular-cli](https://github.com/angular/angular-cli#installation)
+* [Angular CLI](https://github.com/angular/angular-cli#installation)
 * node --version >= 6
 * npm --version >= 3
 
 ## Installation
-First we will need to install angular-cli by using the following command:
+First, we will need to install Angular CLI by using the following command:
 ```sh
 $ npm install -g @angular/cli@latest
 ```
-After installing angular-cli we need to install our required node modules, so we will do that by using the following command:
+After installing Angular CLI we need to install our required node modules, so we will do that by using the following command:
 ```sh
 $ npm install
 ```
@@ -47,7 +47,7 @@ $ npm install
 ### Running on localhost:
 * **Step 1:** Fork susper repository and clone it to your desktop
 * **Step 2:** Then cd into that cloned folder
-* **Step 3:** Deploy locally by running this :```$ ng serve```
+* **Step 3:** Deploy locally by running this:```$ ng serve```
 * **Step 4:** Go to localhost:4200 where the application will be running locally.
 
 ### For deploying with [Github Pages](https://pages.github.com/):
@@ -55,9 +55,9 @@ With these very simple steps you can have susper deployed:
 
 * **Step 1:** Fork susper repository and clone it to your desktop.
 * **Step 2:** Then checkout to your master branch `$ git checkout master`
-* **Step 3:** Deploy running this : ```ng build``` and then ```npm run deploy```
+* **Step 3:** Deploy running this: ```ng build``` and then ```npm run deploy```
 * **Step 4:** Visit `https://yourusername.github.io/susper` and you should see the Susper search running.
-* **Step 5:** As you search you might see that that it cant find anything, to resolve this, on search you will see there is a red shield on search bar, click on it and allow to load unsafe scripts.
+* **Step 5:** As you search you might see that it can't find anything, to resolve this, on search you will see there is a red shield on search bar, click on it and allow to load unsafe scripts.
 * **Step 6:** Reload and you will have a fully functioning Susper search deployed on github pages.
 
 ### For deploying with [Surge](https://surge.sh/):
@@ -75,14 +75,14 @@ This is an Open Source project and we would be happy to see contributors who rep
 **Commits**
 * Write clear meaningful git commit messages (Do read http://chris.beams.io/posts/git-commit/)
 * Make sure your PR's description contains GitHub's special keyword references that automatically close the related issue when the PR is merged. (More info at https://github.com/blog/1506-closing-issues-via-pull-requests )
-* When you make very very minor changes to a PR of yours (like for example fixing a failing travis build or some small style corrections or minor changes requested by reviewers) make sure you squash your commits afterwards so that you don't have an absurd number of commits for a very small fix. (Learn how to squash at https://davidwalsh.name/squash-commits-git )
+* When you make very very minor changes to a PR of yours (like for example fixing a failing Travis build or some small style corrections or minor changes requested by reviewers) make sure you squash your commits afterwards so that you don't have an absurd number of commits for a very small fix. (Learn how to squash at https://davidwalsh.name/squash-commits-git )
 * When you're submitting a PR for a UI-related issue, it would be really awesome if you add a screenshot of your change or a link to a deployment where it can be tested out along with your PR. It makes it very easy for the reviewers and you'll also get reviews quicker.
 
 **Feature Requests and Bug Reports**
 * When you file a feature request or when you are submitting a bug report to the [issue tracker](https://github.com/fossasia/susper.com/issues), make sure you add steps to reproduce it. Especially if that bug is some weird/rare one.
 
 **Join the development**
-* Before you join development, please set up the project on your local machine, run it and go through the application completely. Press on any button you can find and see where it leads to. Explore. (Don't worry ... Nothing will happen to the app or to you due to the exploring :wink: Only thing that will happen is, you'll be more familiar with what is where and might even get some cool ideas on how to improve various aspects of the app.)
+* Before you join development, please set up the project on your local machine, run it and go through the application completely. Press on any button you can find and see where it leads to. Explore. (Don't worry... Nothing will happen to the app or to you due to the exploring. :wink: Only thing that will happen is, you'll be more familiar with what is where and might even get some cool ideas on how to improve various aspects of the app.)
 * If you would like to work on an issue, drop in a comment at the issue. If it is already assigned to someone, but there is no sign of any work being done, please free to drop in a comment so that the issue can be assigned to you if the previous assignee has dropped it entirely.
 
 Do read the [Open Source Developer Guide and Best Practices at FOSSASIA](https://blog.fossasia.org/open-source-developer-guide-and-best-practices-at-fossasia).
@@ -96,7 +96,7 @@ We have the following branches:
  * **gh-pages**
    This contains shipped code. After significant features/bugfixes are accumulated on development, we make a version update, and make a release.
  * **master**
- This contains the code that is related to Angular-4 version of Susper. If you're making a contribution related to Angular issues, you are supposed to make a pull request to _master_. PRs must pass a build check and unit-tests check on Travis.
+ This contains the code that is related to Angular 4 version of Susper. If you're making a contribution related to Angular issues, you are supposed to make a pull request to _master_. PRs must pass a build check and unit-tests check on Travis.
 
 ## LICENSE
 
@@ -128,9 +128,9 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 Before running the tests make sure you are serving the app via `ng serve`.
 
-## Update Angular-CLI
+## Update Angular CLI
 
-To update Angular-CLI to a new version, you must update both the global package and your project's local package.
+To update Angular CLI to a new version, you must update both the global package and your project's local package.
 
 Global package
 
