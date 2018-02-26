@@ -74,7 +74,7 @@ export class ThemeComponent implements OnInit {
     $(document).ready(function() {
       (document.getElementById("nav-button") as HTMLElement).style.background = '#ffffff';
       (document.getElementsByClassName("mean")[0] as HTMLElement).style.color = "#363636";
-      (document.getElementsByClassName("card")[2] as HTMLElement).style.color = "#363636";      
+      (document.getElementsByClassName("card")[2] as HTMLElement).style.color = "#363636";
     });
   }
 
@@ -117,7 +117,7 @@ export class ThemeComponent implements OnInit {
     $(document).ready(function() {
       (document.getElementById("nav-button") as HTMLElement).style.background = '#323232';
       (document.getElementsByClassName("mean")[0] as HTMLElement).style.color = "#dddddd";
-      (document.getElementsByClassName("card")[2] as HTMLElement).style.color = "#dddddd";      
+      (document.getElementsByClassName("card")[2] as HTMLElement).style.color = "#dddddd";
     });
   }
 }
