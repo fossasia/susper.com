@@ -29,7 +29,7 @@ export class AutoCorrectComponent implements OnInit {
     private activatedroute: ActivatedRoute,
     private store: Store<fromRoot.State>,
     private ref: ChangeDetectorRef,
-    public themeService: ThemeService
+    private themeService: ThemeService
   ) {
 
     this.sugflag = false;
