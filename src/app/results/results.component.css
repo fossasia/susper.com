@@ -310,6 +310,7 @@ a {
   width: 100%;
   margin-top: -24px;
   margin-left: 200px;
+  margin-bottom:  51px;
 }
 
 .pagination-property {
@@ -372,6 +373,8 @@ div.autocorrect {
   margin-bottom: 7px;
   margin-left: 172px;
 }
+
+
 
 
  /*Responsiveness*/
@@ -607,6 +610,10 @@ div.autocorrect {
     margin-left: 12%;
   }
 
+  .spacer{
+    height: 83px;
+    
+  }
   .card {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     margin-bottom: 16px;

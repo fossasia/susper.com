@@ -147,6 +147,7 @@
       <br>
       <div class="clean"></div>
       <div class="card" *ngIf="totalNumber > 0">
+        
         <div class="pagination-bar" *ngIf="!Display('images')">
           <div class="pagination-property" *ngIf="noOfPages>1">
             <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
@@ -155,7 +156,7 @@
                   <li class="page-item2" *ngIf="!getStyle(1)">
                     <span class="spl" id="left-arrow" (click)="decPresentPage()">
                       <div class="arrow" (click)="decreasePage()">
-                        <</div>
+                        </div>
                           <div class="side-text">Previous</div>
                     </span>
                   </li>
@@ -203,6 +204,9 @@
         </div>
 
         <!--footer navigation bar goes here-->
+      </div>
+      <div class="spacer">  
+          
       </div>
     </div>
     <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
