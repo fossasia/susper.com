@@ -26,9 +26,11 @@
 
 .image-banner {
     position: relative;
-    height: 450px;
     overflow: hidden;
+    padding:0px;
 }
+
+
 
 .navbar-logo {
     height: 30px;
@@ -48,19 +50,9 @@
 
 .bold {
     font-weight: 700;
-}
-
-@media screen and (max-width:990px) {
-    
-    .image-banner {
-        height: 190px;
-    }
-
-    .banner {
-        top: 0;
-    }
 
 }
+
 
 .about-navbar {
     position: relative;
