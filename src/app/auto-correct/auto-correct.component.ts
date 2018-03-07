@@ -4,6 +4,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
 import {Observable} from "rxjs";
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-auto-correct',
@@ -27,7 +28,8 @@ export class AutoCorrectComponent implements OnInit {
     private route: Router,
     private activatedroute: ActivatedRoute,
     private store: Store<fromRoot.State>,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    public themeService: ThemeService
   ) {
 
     this.sugflag = false;

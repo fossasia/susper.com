@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <div class="resultContainer">
   <app-navbar></app-navbar>
   <div class="row" [style.background-color]="themeService.backgroundColor">
@@ -136,10 +137,10 @@
         <div class="feed container">
           <div *ngFor="let item of items$|async" class="result">
             <div class="title">
-              <a class="title-pointer" href="{{item.path}}">{{item.title}}</a>
+              <a class="title-pointer" href="{{item.link}}" [style.color]="themeService.titleColor">{{item.title}}</a>
             </div>
             <div class="link">
-              <p>{{item.link}}</p>
+              <p [style.color]="themeService.linkColor">{{item.link}}</p>
             </div>
           </div>
         </div>
@@ -147,6 +148,7 @@
       <br>
       <div class="clean"></div>
       <div class="card" *ngIf="totalNumber > 0">
+        
         <div class="pagination-bar" *ngIf="!Display('images')">
           <div class="pagination-property" *ngIf="noOfPages>1">
             <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
@@ -155,7 +157,7 @@
                   <li class="page-item2" *ngIf="!getStyle(1)">
                     <span class="spl" id="left-arrow" (click)="decPresentPage()">
                       <div class="arrow" (click)="decreasePage()">
-                        <</div>
+                        </div>
                           <div class="side-text">Previous</div>
                     </span>
                   </li>
@@ -203,6 +205,9 @@
         </div>
 
         <!--footer navigation bar goes here-->
+      </div>
+      <div class="spacer">  
+          
       </div>
     </div>
     <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
