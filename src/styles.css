@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+ footer{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width:100%;
+  }
+
+
+
+
+
+body{
+    position: relative;
+    min-height: 100vh;
+}
