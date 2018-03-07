@@ -11,6 +11,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {AutocorrectService} from "../services/autocorrect.service";
 import {reducer} from "../reducers/index";
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
+import { ThemeService } from '../services/theme.service';
 
 describe('AutoCorrectComponent', () => {
   let component: AutoCorrectComponent;
@@ -33,7 +34,9 @@ describe('AutoCorrectComponent', () => {
               IntelligenceComponent
             ],
             providers: [
-              AutocorrectService ]
+              AutocorrectService,
+              ThemeService
+            ]
         })
           .compileComponents();
       }));
