@@ -1,3 +1,17 @@
+[4.1.11 / 2018-03-06](https://github.com/jakubpawlowicz/clean-css/compare/v4.1.10...v4.1.11)
+==================
+
+* Fixes ReDOS vulnerabilities in validator code.
+
+[4.1.10 / 2018-03-05](https://github.com/jakubpawlowicz/clean-css/compare/v4.1.9...v4.1.10)
+==================
+
+* Fixed issue [#988](https://github.com/jakubpawlowicz/clean-css/issues/988) - edge case in dropping default animation-duration.
+* Fixed issue [#989](https://github.com/jakubpawlowicz/clean-css/issues/989) - edge case in removing unused at rules.
+* Fixed issue [#1001](https://github.com/jakubpawlowicz/clean-css/issues/1001) - corrupted tokenizer state.
+* Fixed issue [#1006](https://github.com/jakubpawlowicz/clean-css/issues/1006) - edge case in handling invalid source maps.
+* Fixed issue [#1008](https://github.com/jakubpawlowicz/clean-css/issues/1008) - edge case in breaking up `font` shorthand.
+
 [4.1.9 / 2017-09-19](https://github.com/jakubpawlowicz/clean-css/compare/v4.1.8...v4.1.9)
 ==================
 

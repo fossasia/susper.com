@@ -17,10 +17,6 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
 var _minimatch = require('minimatch');
 
 var _minimatch2 = _interopRequireDefault(_minimatch);
@@ -28,6 +24,10 @@ var _minimatch2 = _interopRequireDefault(_minimatch);
 var _writeFile = require('./writeFile');
 
 var _writeFile2 = _interopRequireDefault(_writeFile);
+
+var _isObject = require('./utils/isObject');
+
+var _isObject2 = _interopRequireDefault(_isObject);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37,7 +37,7 @@ function processPattern(globalRef, pattern) {
         output = globalRef.output,
         concurrency = globalRef.concurrency;
 
-    var globArgs = _lodash2.default.assign({
+    var globArgs = Object.assign({
         cwd: pattern.context
     }, pattern.fromArgs || {});
 
@@ -47,8 +47,8 @@ function processPattern(globalRef, pattern) {
 
     var limit = (0, _pLimit2.default)(concurrency || 100);
 
-    info('begin globbing \'' + pattern.absoluteFrom + '\' with a context of \'' + pattern.context + '\'');
-    return (0, _globby2.default)(pattern.absoluteFrom, globArgs).then(function (paths) {
+    info('begin globbing \'' + pattern.glob + '\' with a context of \'' + pattern.context + '\'');
+    return (0, _globby2.default)(pattern.glob, globArgs).then(function (paths) {
         return Promise.all(paths.map(function (from) {
             return limit(function () {
                 var file = {
@@ -74,12 +74,15 @@ function processPattern(globalRef, pattern) {
                     };
 
                     var glob = void 0;
-                    if (_lodash2.default.isString(ignoreGlob)) {
+                    if (typeof ignoreGlob === 'string') {
                         glob = ignoreGlob;
-                    } else if (_lodash2.default.isObject(ignoreGlob)) {
+                    } else if ((0, _isObject2.default)(ignoreGlob)) {
                         glob = ignoreGlob.glob || '';
+                        var ignoreGlobParams = Object.assign({}, ignoreGlob);
+                        delete ignoreGlobParams.glob;
+
                         // Overwrite minimatch defaults
-                        globParams = _lodash2.default.assign(globParams, _lodash2.default.omit(ignoreGlob, ['glob']));
+                        globParams = Object.assign(globParams, ignoreGlobParams);
                     } else {
                         glob = '';
                     }

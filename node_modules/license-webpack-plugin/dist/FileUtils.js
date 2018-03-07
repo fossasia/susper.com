@@ -14,7 +14,7 @@ var FileUtils = (function () {
         }
         return exists;
     };
-    FileUtils.MODULE_DIR = 'node_modules';
+    FileUtils.NODE_MODULES = 'node_modules';
     return FileUtils;
 }());
 exports.FileUtils = FileUtils;

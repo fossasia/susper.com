@@ -9,6 +9,7 @@ __export(require("./make_transform"));
 __export(require("./insert_import"));
 __export(require("./elide_imports"));
 __export(require("./replace_bootstrap"));
+__export(require("./replace_server_bootstrap"));
 __export(require("./export_ngfactory"));
 __export(require("./export_lazy_module_map"));
 __export(require("./register_locale_data"));

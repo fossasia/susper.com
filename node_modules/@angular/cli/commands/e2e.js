@@ -34,6 +34,15 @@ const E2eCommand = Command.extend({
       `
         },
         {
+            name: 'suite',
+            type: String,
+            aliases: ['su'],
+            description: common_tags_1.oneLine `
+        Override suite in the protractor config.
+        Can send in multiple suite by comma separated values (ng e2e --suite=suiteA,suiteB).
+      `
+        },
+        {
             name: 'element-explorer',
             type: Boolean,
             default: false,

@@ -7,4 +7,4 @@ exports.InvalidStateError = InvalidStateError;
 class Serializer {
 }
 exports.Serializer = Serializer;
-//# sourceMappingURL=/users/hansl/sources/angular-cli/src/serializer.js.map
+//# sourceMappingURL=/users/hansl/sources/hansl/angular-cli/src/serializer.js.map

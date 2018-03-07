@@ -10,5 +10,8 @@ var ErrorMessage;
     ErrorMessage["OUTPUT_TEMPLATE_NOT_EXIST"] = "Output template file does not exist: {0}";
     ErrorMessage["NO_LICENSE_OVERRIDE_FILE_FOUND"] = "No license override found for {0} with name {1}";
     ErrorMessage["NO_LICENSE_FILE"] = "Could not find a license file for {0}, defaulting to license name found in package.json: {1}";
+    ErrorMessage["INVALID_MODULES_DIRECTORIES"] = "Invalid modulesDirectories option. If defined, it should be a nonempty array of strings.";
+    ErrorMessage["NO_MODULE_DIRECTORY_FOUND_FOR_MODULE"] = "Could not find package {0} in any module directory. Please check if this package exists in any of the directories defined by the modulesDirectories option.";
+    ErrorMessage["BUILD_ROOT_NOT_EXIST"] = "Could not find the following specified build root: {0}";
 })(ErrorMessage || (ErrorMessage = {}));
 exports.ErrorMessage = ErrorMessage;

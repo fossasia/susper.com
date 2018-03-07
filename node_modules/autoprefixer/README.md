@@ -125,10 +125,10 @@ Autoprefixer uses [Browserslist], so you can specify the browsers
 you want to target in your project by queries like `last 2 versions`
 or `> 5%`.
 
-The best way to provide browsers is `browserslist` config
+The best way to provide browsers is `.browserslistrc` config
 or `package.json` with `browserslist` key. Put it in your project root.
 
-We recommend to avoid Autoprefixer option and use `browserslist` config
+We recommend to avoid Autoprefixer option and use `.browserslistrc` config
 or `package.json`. In this case browsers will be shared with other tools
 like [babel-preset-env] or [Stylelint].
 
@@ -589,11 +589,11 @@ to increase performance.
 
 ## Debug
 
-Run `npx autoprefixer-info` in your project directory to check
+Run `npx autoprefixer-info --package autoprefixer` in your project directory to check
 which browsers are selected and which properties will be prefixed:
 
 ```
-$ npx autoprefixer-info
+$ npx autoprefixer-info --package autoprefixer
 Browsers:
   Edge: 16
 

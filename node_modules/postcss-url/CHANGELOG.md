@@ -1,16 +1,20 @@
-#7.3.0 - 2017-10-26
+# 7.3.1 - 2018-02-25
 
-Added: hash option - `append` (PR#114](https://github.com/postcss/postcss-url/pull/114))
+Fixed: ignore urls which starts with `//` ([PR#117](https://github.com/postcss/postcss-url/pull/117))
+
+# 7.3.0 - 2017-10-26
+
+Added: hash option - `append` ([PR#114](https://github.com/postcss/postcss-url/pull/114))
  
-#7.2.1 - 2017-10-19
+# 7.2.1 - 2017-10-19
 
 Fixed: dependency security ([#108](https://github.com/postcss/postcss-url/issues/108)) ([#109](https://github.com/postcss/postcss-url/issues/109))
 
-#7.2.0 - 2017-10-17
+# 7.2.0 - 2017-10-17
 
 Added: `assetsPath` option for `rebase`
 
-#7.1.2 - 2017-08-11
+# 7.1.2 - 2017-08-11
 
 Fixed: wrap url by quotes for inlined svg ([#78](https://github.com/postcss/postcss-url/issues/78))
 

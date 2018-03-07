@@ -60,6 +60,10 @@ const replacePathVariables = (path, data) => {
 	const chunkHash = chunk && (chunk.renderedHash || chunk.hash);
 	const chunkHashWithLength = chunk && chunk.hashWithLength;
 
+	if(typeof path === "function") {
+		path = path(data);
+	}
+
 	if(data.noChunkHash && REGEXP_CHUNKHASH_FOR_TEST.test(path)) {
 		throw new Error(`Cannot use [chunkhash] for chunk in '${path}' (use [hash] instead)`);
 	}
@@ -101,9 +105,9 @@ class TemplatedPathPlugin {
 				const outputOptions = this.outputOptions;
 				const chunkFilename = outputOptions.chunkFilename || outputOptions.filename;
 				if(REGEXP_CHUNKHASH_FOR_TEST.test(chunkFilename))
-					hash.update(JSON.stringify(chunk.getChunkMaps(true, true).hash));
+					hash.update(JSON.stringify(chunk.getChunkMaps(false, true).hash));
 				if(REGEXP_NAME_FOR_TEST.test(chunkFilename))
-					hash.update(JSON.stringify(chunk.getChunkMaps(true, true).name));
+					hash.update(JSON.stringify(chunk.getChunkMaps(false, true).name));
 			});
 		});
 	}

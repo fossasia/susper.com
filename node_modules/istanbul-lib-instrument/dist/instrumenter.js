@@ -140,6 +140,7 @@ var Instrumenter = function () {
 
             var generateOptions = {
                 compact: opts.compact,
+                comments: opts.preserveComments,
                 sourceMaps: opts.produceSourceMap,
                 sourceFileName: filename
             };

@@ -529,13 +529,12 @@ nanomatch.matcher = function matcher(pattern, options) {
     };
   }
 
-  var fn = test(re);
-  Object.defineProperty(fn, 'result', {
-    configurable: true,
-    enumerable: false,
-    value: re.result
-  });
-  return fn;
+  // create matcher function
+  var matcherFn = test(re);
+  // set result object from compiler on matcher function,
+  // as a non-enumerable property. useful for debugging
+  utils.define(matcherFn, 'result', re.result);
+  return matcherFn;
 };
 
 /**
@@ -608,13 +607,9 @@ nanomatch.makeRe = function(pattern, options) {
 
   function makeRe() {
     var opts = utils.extend({wrap: false}, options);
-    var res = nanomatch.create(pattern, opts);
-    var regex = toRegex(res.output, opts);
-    Object.defineProperty(regex, 'result', {
-      configurable: true,
-      enumerable: false,
-      value: res
-    });
+    var result = nanomatch.create(pattern, opts);
+    var regex = toRegex(result.output, opts);
+    utils.define(regex, 'result', result);
     return regex;
   }
 

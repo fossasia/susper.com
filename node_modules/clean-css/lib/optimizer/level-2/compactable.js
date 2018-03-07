@@ -99,6 +99,7 @@ var compactable = {
     ],
     defaultValue: '0s',
     intoMultiplexMode: 'real',
+    keepUnlessDefault: 'animation-delay',
     vendorPrefixes: [
       '-moz-',
       '-o-',
@@ -680,7 +681,7 @@ var compactable = {
     defaultValue: 'auto'
   },
   'line-height': {
-    canOverride: canOverride.generic.unit,
+    canOverride: canOverride.generic.unitOrNumber,
     defaultValue: 'normal',
     shortestValue: '0'
   },
@@ -953,6 +954,10 @@ function cloneDescriptor(propertyName, prefix) {
     clonedDescriptor.components = clonedDescriptor.components.map(function (longhandName) {
       return prefix + longhandName;
     });
+  }
+
+  if ('keepUnlessDefault' in clonedDescriptor) {
+    clonedDescriptor.keepUnlessDefault = prefix + clonedDescriptor.keepUnlessDefault;
   }
 
   return clonedDescriptor;

@@ -1,11 +1,4 @@
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-import { RuleFactory } from '@angular-devkit/schematics';
+import { RuleFactory } from '../src';
 import { FileSystemCollectionDesc, FileSystemSchematicDesc } from './description';
 import { FileSystemEngineHostBase } from './file-system-engine-host-base';
 /**

@@ -126,4 +126,4 @@ class JsonSerializer {
     }
 }
 exports.JsonSerializer = JsonSerializer;
-//# sourceMappingURL=/users/hansl/sources/angular-cli/src/serializers/json.js.map
+//# sourceMappingURL=/users/hansl/sources/hansl/angular-cli/src/serializers/json.js.map

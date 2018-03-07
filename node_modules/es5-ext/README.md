@@ -1,5 +1,12 @@
+[![Build status][semaphore-image]][semaphore-url]
+[![Windows status][appveyor-image]][appveyor-url]
+![Transpilation status][transpilation-image]
+[![npm version][npm-image]][npm-url]
+
 # es5-ext
+
 ## ECMAScript 5 extensions
+
 ### (with respect to ECMAScript 6 standard)
 
 Shims for upcoming ES6 standard and other goodies implemented strictly with ECMAScript conventions in mind.
@@ -10,8 +17,8 @@ When used in ECMAScript 6 environment, native implementation (if valid) takes pr
 
 ### Installation
 
-	$ npm install es5-ext
-	
+    $ npm install es5-ext
+
 To port it to Browser or any other (non CJS) environment, use your favorite CJS bundler. No favorite yet? Try: [Browserify](http://browserify.org/), [Webmake](https://github.com/medikoo/modules-webmake) or [Webpack](http://webpack.github.io/)
 
 ### Usage
@@ -21,118 +28,128 @@ To port it to Browser or any other (non CJS) environment, use your favorite CJS 
 You can force ES6 features to be implemented in your environment, e.g. following will assign `from` function to `Array` (only if it's not implemented already).
 
 ```javascript
-require('es5-ext/array/from/implement');
-Array.from('foo'); // ['f', 'o', 'o']
+require("es5-ext/array/from/implement");
+Array.from("foo"); // ['f', 'o', 'o']
 ```
 
 You can also access shims directly, without fixing native objects. Following will return native `Array.from` if it's available and fallback to shim if it's not.
 
 ```javascript
-var aFrom = require('es5-ext/array/from');
-aFrom('foo'); // ['f', 'o', 'o']
+var aFrom = require("es5-ext/array/from");
+aFrom("foo"); // ['f', 'o', 'o']
 ```
 
 If you want to use shim unconditionally (even if native implementation exists) do:
 
 ```javascript
-var aFrom = require('es5-ext/array/from/shim');
-aFrom('foo'); // ['f', 'o', 'o']
+var aFrom = require("es5-ext/array/from/shim");
+aFrom("foo"); // ['f', 'o', 'o']
 ```
 
 ##### List of ES6 shims
 
 It's about properties introduced with ES6 and those that have been updated in new spec.
 
-- `Array.from` -> `require('es5-ext/array/from')`
-- `Array.of` -> `require('es5-ext/array/of')`
-- `Array.prototype.concat` -> `require('es5-ext/array/#/concat')`
-- `Array.prototype.copyWithin` -> `require('es5-ext/array/#/copy-within')`
-- `Array.prototype.entries` -> `require('es5-ext/array/#/entries')`
-- `Array.prototype.fill` -> `require('es5-ext/array/#/fill')`
-- `Array.prototype.filter` -> `require('es5-ext/array/#/filter')`
-- `Array.prototype.find` -> `require('es5-ext/array/#/find')`
-- `Array.prototype.findIndex` -> `require('es5-ext/array/#/find-index')`
-- `Array.prototype.keys` -> `require('es5-ext/array/#/keys')`
-- `Array.prototype.map` -> `require('es5-ext/array/#/map')`
-- `Array.prototype.slice` -> `require('es5-ext/array/#/slice')`
-- `Array.prototype.splice` -> `require('es5-ext/array/#/splice')`
-- `Array.prototype.values` -> `require('es5-ext/array/#/values')`
-- `Array.prototype[@@iterator]` -> `require('es5-ext/array/#/@@iterator')`
-- `Math.acosh` -> `require('es5-ext/math/acosh')`
-- `Math.asinh` -> `require('es5-ext/math/asinh')`
-- `Math.atanh` -> `require('es5-ext/math/atanh')`
-- `Math.cbrt` -> `require('es5-ext/math/cbrt')`
-- `Math.clz32` -> `require('es5-ext/math/clz32')`
-- `Math.cosh` -> `require('es5-ext/math/cosh')`
-- `Math.exmp1` -> `require('es5-ext/math/expm1')`
-- `Math.fround` -> `require('es5-ext/math/fround')`
-- `Math.hypot` -> `require('es5-ext/math/hypot')`
-- `Math.imul` -> `require('es5-ext/math/imul')`
-- `Math.log1p` -> `require('es5-ext/math/log1p')`
-- `Math.log2` -> `require('es5-ext/math/log2')`
-- `Math.log10` -> `require('es5-ext/math/log10')`
-- `Math.sign` -> `require('es5-ext/math/sign')`
-- `Math.signh` -> `require('es5-ext/math/signh')`
-- `Math.tanh` -> `require('es5-ext/math/tanh')`
-- `Math.trunc` -> `require('es5-ext/math/trunc')`
-- `Number.EPSILON` -> `require('es5-ext/number/epsilon')`
-- `Number.MAX_SAFE_INTEGER` -> `require('es5-ext/number/max-safe-integer')`
-- `Number.MIN_SAFE_INTEGER` -> `require('es5-ext/number/min-safe-integer')`
-- `Number.isFinite` -> `require('es5-ext/number/is-finite')`
-- `Number.isInteger` -> `require('es5-ext/number/is-integer')`
-- `Number.isNaN` -> `require('es5-ext/number/is-nan')`
-- `Number.isSafeInteger` -> `require('es5-ext/number/is-safe-integer')`
-- `Object.assign` -> `require('es5-ext/object/assign')`
-- `Object.keys` -> `require('es5-ext/object/keys')`
-- `Object.setPrototypeOf` -> `require('es5-ext/object/set-prototype-of')`
-- `RegExp.prototype.match` -> `require('es5-ext/reg-exp/#/match')`
-- `RegExp.prototype.replace` -> `require('es5-ext/reg-exp/#/replace')`
-- `RegExp.prototype.search` -> `require('es5-ext/reg-exp/#/search')`
-- `RegExp.prototype.split` -> `require('es5-ext/reg-exp/#/split')`
-- `RegExp.prototype.sticky` -> Implement with `require('es5-ext/reg-exp/#/sticky/implement')`, use as function with `require('es5-ext/reg-exp/#/is-sticky')`
-- `RegExp.prototype.unicode` -> Implement with `require('es5-ext/reg-exp/#/unicode/implement')`, use as function with `require('es5-ext/reg-exp/#/is-unicode')`
-- `String.fromCodePoint` -> `require('es5-ext/string/from-code-point')`
-- `String.raw` -> `require('es5-ext/string/raw')`
-- `String.prototype.codePointAt` -> `require('es5-ext/string/#/code-point-at')`
-- `String.prototype.contains` -> `require('es5-ext/string/#/contains')`
-- `String.prototype.endsWith` -> `require('es5-ext/string/#/ends-with')`
-- `String.prototype.normalize` -> `require('es5-ext/string/#/normalize')`
-- `String.prototype.repeat` -> `require('es5-ext/string/#/repeat')`
-- `String.prototype.startsWith` -> `require('es5-ext/string/#/starts-with')`
-- `String.prototype[@@iterator]` -> `require('es5-ext/string/#/@@iterator')`
+* `Array.from` -> `require('es5-ext/array/from')`
+* `Array.of` -> `require('es5-ext/array/of')`
+* `Array.prototype.concat` -> `require('es5-ext/array/#/concat')`
+* `Array.prototype.copyWithin` -> `require('es5-ext/array/#/copy-within')`
+* `Array.prototype.entries` -> `require('es5-ext/array/#/entries')`
+* `Array.prototype.fill` -> `require('es5-ext/array/#/fill')`
+* `Array.prototype.filter` -> `require('es5-ext/array/#/filter')`
+* `Array.prototype.find` -> `require('es5-ext/array/#/find')`
+* `Array.prototype.findIndex` -> `require('es5-ext/array/#/find-index')`
+* `Array.prototype.keys` -> `require('es5-ext/array/#/keys')`
+* `Array.prototype.map` -> `require('es5-ext/array/#/map')`
+* `Array.prototype.slice` -> `require('es5-ext/array/#/slice')`
+* `Array.prototype.splice` -> `require('es5-ext/array/#/splice')`
+* `Array.prototype.values` -> `require('es5-ext/array/#/values')`
+* `Array.prototype[@@iterator]` -> `require('es5-ext/array/#/@@iterator')`
+* `Math.acosh` -> `require('es5-ext/math/acosh')`
+* `Math.asinh` -> `require('es5-ext/math/asinh')`
+* `Math.atanh` -> `require('es5-ext/math/atanh')`
+* `Math.cbrt` -> `require('es5-ext/math/cbrt')`
+* `Math.clz32` -> `require('es5-ext/math/clz32')`
+* `Math.cosh` -> `require('es5-ext/math/cosh')`
+* `Math.exmp1` -> `require('es5-ext/math/expm1')`
+* `Math.fround` -> `require('es5-ext/math/fround')`
+* `Math.hypot` -> `require('es5-ext/math/hypot')`
+* `Math.imul` -> `require('es5-ext/math/imul')`
+* `Math.log1p` -> `require('es5-ext/math/log1p')`
+* `Math.log2` -> `require('es5-ext/math/log2')`
+* `Math.log10` -> `require('es5-ext/math/log10')`
+* `Math.sign` -> `require('es5-ext/math/sign')`
+* `Math.signh` -> `require('es5-ext/math/signh')`
+* `Math.tanh` -> `require('es5-ext/math/tanh')`
+* `Math.trunc` -> `require('es5-ext/math/trunc')`
+* `Number.EPSILON` -> `require('es5-ext/number/epsilon')`
+* `Number.MAX_SAFE_INTEGER` -> `require('es5-ext/number/max-safe-integer')`
+* `Number.MIN_SAFE_INTEGER` -> `require('es5-ext/number/min-safe-integer')`
+* `Number.isFinite` -> `require('es5-ext/number/is-finite')`
+* `Number.isInteger` -> `require('es5-ext/number/is-integer')`
+* `Number.isNaN` -> `require('es5-ext/number/is-nan')`
+* `Number.isSafeInteger` -> `require('es5-ext/number/is-safe-integer')`
+* `Object.assign` -> `require('es5-ext/object/assign')`
+* `Object.keys` -> `require('es5-ext/object/keys')`
+* `Object.setPrototypeOf` -> `require('es5-ext/object/set-prototype-of')`
+* `RegExp.prototype.match` -> `require('es5-ext/reg-exp/#/match')`
+* `RegExp.prototype.replace` -> `require('es5-ext/reg-exp/#/replace')`
+* `RegExp.prototype.search` -> `require('es5-ext/reg-exp/#/search')`
+* `RegExp.prototype.split` -> `require('es5-ext/reg-exp/#/split')`
+* `RegExp.prototype.sticky` -> Implement with `require('es5-ext/reg-exp/#/sticky/implement')`, use as function with `require('es5-ext/reg-exp/#/is-sticky')`
+* `RegExp.prototype.unicode` -> Implement with `require('es5-ext/reg-exp/#/unicode/implement')`, use as function with `require('es5-ext/reg-exp/#/is-unicode')`
+* `String.fromCodePoint` -> `require('es5-ext/string/from-code-point')`
+* `String.raw` -> `require('es5-ext/string/raw')`
+* `String.prototype.codePointAt` -> `require('es5-ext/string/#/code-point-at')`
+* `String.prototype.contains` -> `require('es5-ext/string/#/contains')`
+* `String.prototype.endsWith` -> `require('es5-ext/string/#/ends-with')`
+* `String.prototype.normalize` -> `require('es5-ext/string/#/normalize')`
+* `String.prototype.repeat` -> `require('es5-ext/string/#/repeat')`
+* `String.prototype.startsWith` -> `require('es5-ext/string/#/starts-with')`
+* `String.prototype[@@iterator]` -> `require('es5-ext/string/#/@@iterator')`
 
 #### Non ECMAScript standard features
 
-__es5-ext__ provides also other utils, and implements them as if they were proposed for a standard. It mostly offers methods (not functions) which can directly be assigned to native prototypes:
+**es5-ext** provides also other utils, and implements them as if they were proposed for a standard. It mostly offers methods (not functions) which can directly be assigned to native prototypes:
 
 ```javascript
-Object.defineProperty(Function.prototype, 'partial', { value: require('es5-ext/function/#/partial'),
-  configurable: true, enumerable: false, writable: true });
-Object.defineProperty(Array.prototype, 'flatten', { value: require('es5-ext/array/#/flatten'),
-  configurable: true, enumerable: false, writable: true });
-Object.defineProperty(String.prototype, 'capitalize', { value: require('es5-ext/string/#/capitalize'),
-  configurable: true, enumerable: false, writable: true });
+Object.defineProperty(Function.prototype, "partial", {
+	value: require("es5-ext/function/#/partial"),
+	configurable: true,
+	enumerable: false,
+	writable: true
+});
+Object.defineProperty(Array.prototype, "flatten", {
+	value: require("es5-ext/array/#/flatten"),
+	configurable: true,
+	enumerable: false,
+	writable: true
+});
+Object.defineProperty(String.prototype, "capitalize", {
+	value: require("es5-ext/string/#/capitalize"),
+	configurable: true,
+	enumerable: false,
+	writable: true
+});
 ```
 
-See [es5-extend](https://github.com/wookieb/es5-extend#es5-extend), a great utility that automatically will extend natives for you. 
+See [es5-extend](https://github.com/wookieb/es5-extend#es5-extend), a great utility that automatically will extend natives for you.
 
-__Important:__ Remember to __not__ extend natives in scope of generic reusable packages (e.g. ones you intend to publish to npm). Extending natives is fine __only__ if you're the _owner_ of the global scope, so e.g. in final project you lead development of.
+**Important:** Remember to **not** extend natives in scope of generic reusable packages (e.g. ones you intend to publish to npm). Extending natives is fine **only** if you're the _owner_ of the global scope, so e.g. in final project you lead development of.
 
 When you're in situation when native extensions are not good idea, then you should use methods indirectly:
 
-
 ```javascript
-var flatten = require('es5-ext/array/#/flatten');
+var flatten = require("es5-ext/array/#/flatten");
 
 flatten.call([1, [2, [3, 4]]]); // [1, 2, 3, 4]
 ```
 
 for better convenience you can turn methods into functions:
 
-
 ```javascript
-var call = Function.prototype.call
-var flatten = call.bind(require('es5-ext/array/#/flatten'));
+var call = Function.prototype.call;
+var flatten = call.bind(require("es5-ext/array/#/flatten"));
 
 flatten([1, [2, [3, 4]]]); // [1, 2, 3, 4]
 ```
@@ -141,9 +158,9 @@ You can configure custom toolkit (like [underscorejs](http://underscorejs.org/))
 
 ```javascript
 var util = {};
-util.partial = call.bind(require('es5-ext/function/#/partial'));
-util.flatten = call.bind(require('es5-ext/array/#/flatten'));
-util.startsWith = call.bind(require('es5-ext/string/#/starts-with'));
+util.partial = call.bind(require("es5-ext/function/#/partial"));
+util.flatten = call.bind(require("es5-ext/array/#/flatten"));
+util.startsWith = call.bind(require("es5-ext/string/#/starts-with"));
 
 util.flatten([1, [2, [3, 4]]]); // [1, 2, 3, 4]
 ```
@@ -190,7 +207,7 @@ Returns `obj` if it's an array, otherwise throws `TypeError`
 
 #### arr.binarySearch(compareFn) _(es5-ext/array/#/binary-search)_
 
-In __sorted__ list search for index of item for which _compareFn_ returns value closest to _0_.  
+In **sorted** list search for index of item for which _compareFn_ returns value closest to _0_.  
 It's variant of binary search algorithm
 
 #### arr.clear() _(es5-ext/array/#/clear)_
@@ -212,7 +229,7 @@ Whether list contains the given value.
 
 #### arr.copyWithin(target, start[, end]) _(es5-ext/array/#/copy-within)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.copywithin).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.copywithin).
 
 #### arr.diff(other) _(es5-ext/array/#/diff)_
 
@@ -237,7 +254,7 @@ Returns the array of elements that are found only in one of the lists (either co
 
 #### arr.fill(value[, start, end]) _(es5-ext/array/#/fill)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.fill).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.fill).
 
 #### arr.filter(callback[, thisArg]) _(es5-ext/array/#/filter)_
 
@@ -397,13 +414,13 @@ Formats date up to given string. Supported patterns:
 
 ### Error Constructor extensions
 
-#### custom(message/*, code, ext*/) _(es5-ext/error/custom)_
+#### custom(message/_, code, ext_/) _(es5-ext/error/custom)_
 
-Creates custom error object, optinally extended with `code` and other extension properties (provided with `ext` object)  
+Creates custom error object, optinally extended with `code` and other extension properties (provided with `ext` object)
 
 #### isError(x) _(es5-ext/error/is-error)_
 
-Whether value is an error (instance of `Error`).  
+Whether value is an error (instance of `Error`).
 
 #### validError(x) _(es5-ext/error/valid-error)_
 
@@ -423,13 +440,13 @@ Some of the functions were inspired by [Functional JavaScript](http://osteele.co
 
 Returns a constant function that returns pregiven argument
 
-_k(x)(y)  =def  x_
+_k(x)(y) =def x_
 
 #### identity(x) _(es5-ext/function/identity)_
 
 Identity function. Returns first argument
 
-_i(x)  =def  x_
+_i(x) =def x_
 
 #### invoke(name[, …args]) _(es5-ext/function/invoke)_
 
@@ -437,7 +454,7 @@ Returns a function that takes an object as an argument, and applies object's
 _name_ method to arguments.  
 _name_ can be name of the method or method itself.
 
-_invoke(name, …args)(object, …args2)  =def  object\[name\]\(…args, …args2\)_
+_invoke(name, …args)(object, …args2) =def object\[name\]\(…args, …args2\)_
 
 #### isArguments(x) _(es5-ext/function/is-arguments)_
 
@@ -456,7 +473,7 @@ No operation function
 Returns a function that takes an object, and returns the value of its _name_
 property
 
-_pluck(name)(obj)  =def  obj[name]_
+_pluck(name)(obj) =def obj[name]_
 
 #### validFunction(arg) _(es5-ext/function/valid-function)_
 
@@ -470,7 +487,7 @@ Some of the methods were inspired by [Functional JavaScript](http://osteele.com/
 
 Applies the functions in reverse argument-list order.
 
-_f1.compose(f2, f3, f4)(…args)  =def  f1(f2(f3(f4(…arg))))_
+_f1.compose(f2, f3, f4)(…args) =def f1(f2(f3(f4(…arg))))_
 
 #### fn.copy() _(es5-ext/function/#/copy)_
 
@@ -481,13 +498,13 @@ Produces copy of given function
 Invoking the function returned by this function only _n_ arguments are passed to the underlying function. If the underlying function is not saturated, the result is a function that passes all its arguments to the underlying function.  
 If _n_ is not provided then it defaults to context function length
 
-_f.curry(4)(arg1, arg2)(arg3)(arg4)  =def  f(arg1, args2, arg3, arg4)_
+_f.curry(4)(arg1, arg2)(arg3)(arg4) =def f(arg1, args2, arg3, arg4)_
 
 #### fn.lock([…args]) _(es5-ext/function/#/lock)_
 
 Returns a function that applies the underlying function to _args_, and ignores its own arguments.
 
-_f.lock(…args)(…args2)  =def  f(…args)_
+_f.lock(…args)(…args2) =def f(…args)_
 
 _Named after it's counterpart in Google Closure_
 
@@ -495,19 +512,19 @@ _Named after it's counterpart in Google Closure_
 
 Returns a function that returns boolean negation of value returned by underlying function.
 
-_f.not()(…args)  =def !f(…args)_
+_f.not()(…args) =def !f(…args)_
 
 #### fn.partial([…args]) _(es5-ext/function/#/partial)_
 
 Returns a function that when called will behave like context function called with initially passed arguments. If more arguments are suplilied, they are appended to initial args.
 
-_f.partial(…args1)(…args2)  =def  f(…args1, …args2)_
+_f.partial(…args1)(…args2) =def f(…args1, …args2)_
 
 #### fn.spread() _(es5-ext/function/#/spread)_
 
 Returns a function that applies underlying function with first list argument
 
-_f.match()(args)  =def  f.apply(null, args)_
+_f.match()(args) =def f.apply(null, args)_
 
 #### fn.toStringTokens() _(es5-ext/function/#/to-string-tokens)_
 
@@ -517,77 +534,77 @@ Serializes function into two (arguments and body) string tokens. Result is plain
 
 #### acosh(x) _(es5-ext/math/acosh)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.acosh).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.acosh).
 
 #### asinh(x) _(es5-ext/math/asinh)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.asinh).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.asinh).
 
 #### atanh(x) _(es5-ext/math/atanh)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.atanh).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.atanh).
 
 #### cbrt(x) _(es5-ext/math/cbrt)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.cbrt).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.cbrt).
 
 #### clz32(x) _(es5-ext/math/clz32)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.clz32).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.clz32).
 
 #### cosh(x) _(es5-ext/math/cosh)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.cosh).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.cosh).
 
 #### expm1(x) _(es5-ext/math/expm1)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.expm1).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.expm1).
 
 #### fround(x) _(es5-ext/math/fround)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.fround).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.fround).
 
 #### hypot([…values]) _(es5-ext/math/hypot)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.hypot).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.hypot).
 
 #### imul(x, y) _(es5-ext/math/imul)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.imul).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.imul).
 
 #### log1p(x) _(es5-ext/math/log1p)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.log1p).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.log1p).
 
 #### log2(x) _(es5-ext/math/log2)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.log2).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.log2).
 
 #### log10(x) _(es5-ext/math/log10)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.log10).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.log10).
 
 #### sign(x) _(es5-ext/math/sign)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.sign).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.sign).
 
 #### sinh(x) _(es5-ext/math/sinh)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.sinh).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.sinh).
 
 #### tanh(x) _(es5-ext/math/tanh)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.tanh).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.tanh).
 
 #### trunc(x) _(es5-ext/math/trunc)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.trunc).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.trunc).
 
 ### Number Constructor extensions
 
 #### EPSILON _(es5-ext/number/epsilon)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.epsilon).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.epsilon).
 
 The difference between 1 and the smallest value greater than 1 that is representable as a Number value, which is approximately 2.2204460492503130808472633361816 x 10-16.
 
@@ -612,14 +629,14 @@ Whether given value is number
 
 #### isSafeInteger(x) _(es5-ext/number/is-safe-integer)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.issafeinteger).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.issafeinteger).
 
-#### MAX_SAFE_INTEGER _(es5-ext/number/max-safe-integer)_
+#### MAX*SAFE_INTEGER *(es5-ext/number/max-safe-integer)\_
 
 [_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.maxsafeinteger).  
 The value of Number.MAX_SAFE_INTEGER is 9007199254740991.
 
-#### MIN_SAFE_INTEGER _(es5-ext/number/min-safe-integer)_
+#### MIN*SAFE_INTEGER *(es5-ext/number/min-safe-integer)\_
 
 [_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.minsafeinteger).  
 The value of Number.MIN_SAFE_INTEGER is -9007199254740991 (253-1).
@@ -705,7 +722,7 @@ Returns first enumerable key of the object, as keys are unordered by specificati
 
 Returns new object, with flatten properties of input object
 
-_flatten({ a: { b: 1 }, c: { d: 1 } })  =def  { b: 1, d: 1 }_
+_flatten({ a: { b: 1 }, c: { d: 1 } }) =def { b: 1, d: 1 }_
 
 #### forEach(obj, cb[, thisArg[, compareFn]]) _(es5-ext/object/for-each)_
 
@@ -773,13 +790,13 @@ Useful as an alternative for `setPrototypeOf` in environments in which it cannot
 
 #### normalizeOptions(options) _(es5-ext/object/normalize-options)_
 
-Normalizes options object into flat plain object.  
+Normalizes options object into flat plain object.
 
 Useful for functions in which we either need to keep options object for future reference or need to modify it for internal use.
 
-- It never returns input `options` object back (always a copy is created)
-- `options` can be undefined in such case empty plain object is returned.
-- Copies all enumerable properties found down prototype chain.
+* It never returns input `options` object back (always a copy is created)
+* `options` can be undefined in such case empty plain object is returned.
+* Copies all enumerable properties found down prototype chain.
 
 #### primitiveSet([…names]) _(es5-ext/object/primitive-set)_
 
@@ -855,19 +872,19 @@ It's to be used as counterpart to [regExp.unicode](http://people.mozilla.org/~jo
 
 #### re.match(string) _(es5-ext/reg-exp/#/match)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-regexp.prototype.match).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-regexp.prototype.match).
 
 #### re.replace(string, replaceValue) _(es5-ext/reg-exp/#/replace)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-regexp.prototype.replace).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-regexp.prototype.replace).
 
 #### re.search(string) _(es5-ext/reg-exp/#/search)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-regexp.prototype.search).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-regexp.prototype.search).
 
 #### re.split(string) _(es5-ext/reg-exp/#/search)_
 
-[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-regexp.prototype.split).  
+[_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-regexp.prototype.split).
 
 #### re.sticky _(es5-ext/reg-exp/#/sticky/implement)_
 
@@ -988,6 +1005,14 @@ Whether strings starts with given string
 [_Introduced with ECMAScript 6_](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-string.prototype-@@iterator).  
 Returns iterator object which traverses all string characters (with respect to unicode symbols)
 
-### Tests [![Build Status](https://img.shields.io/circleci/project/github/medikoo/es5-ext.svg)](https://circleci.com/gh/medikoo/es5-ext)
+### Tests
 
-	$ npm test
+    $ npm test
+
+[semaphore-image]: https://semaphoreci.com/api/v1/medikoo/es5-ext/branches/master/badge.svg
+[semaphore-url]: https://semaphoreci.com/medikoo/es5-ext
+[appveyor-image]: https://img.shields.io/appveyor/ci/medikoo/es5-ext.svg
+[appveyor-url]: https://ci.appveyor.com/project/medikoo/es5-ext
+[transpilation-image]: https://img.shields.io/badge/transpilation-free-brightgreen.svg
+[npm-image]: https://img.shields.io/npm/v/es5-ext.svg
+[npm-url]: https://www.npmjs.com/package/es5-ext

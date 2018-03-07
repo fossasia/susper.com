@@ -13,23 +13,23 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ValidationError = function (_Error) {
   _inherits(ValidationError, _Error);
 
-  function ValidationError(err, name) {
-    var _ret;
-
+  function ValidationError(errors, name) {
     _classCallCheck(this, ValidationError);
 
-    var _this = _possibleConstructorReturn(this, (ValidationError.__proto__ || Object.getPrototypeOf(ValidationError)).call(this, err));
+    var _this = _possibleConstructorReturn(this, (ValidationError.__proto__ || Object.getPrototypeOf(ValidationError)).call(this));
 
-    _this.err = err;
-    _this.stack = false;
+    _this.name = 'ValidationError';
 
-    _this.message = 'Validation Error\n\n' + String(name || '') + ' Invalid Options\n\n';
+    _this.message = `${name || ''} Invalid Options\n\n`;
 
-    err.forEach(function (msg) {
-      _this.message += 'options' + String(msg.dataPath) + ' ' + String(msg.message) + '\n';
+    errors.forEach(function (err) {
+      _this.message += `options${err.dataPath} ${err.message}\n`;
     });
 
-    return _ret = _this, _possibleConstructorReturn(_this, _ret);
+    _this.errors = errors;
+
+    Error.captureStackTrace(_this, _this.constructor);
+    return _this;
   }
 
   return ValidationError;

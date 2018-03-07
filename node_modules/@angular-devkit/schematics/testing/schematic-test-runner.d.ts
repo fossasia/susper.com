@@ -6,10 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { logging } from '@angular-devkit/core';
-import { DelegateTree, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { Observable } from 'rxjs/Observable';
+import { DelegateTree, Rule, SchematicContext, Tree } from '../src';
 export declare class UnitTestTree extends DelegateTree {
     readonly files: string[];
+    readContent(path: string): string;
 }
 export declare class SchematicTestRunner {
     private _collectionName;

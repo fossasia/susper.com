@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { FileSystemTreeHost } from '@angular-devkit/schematics';
+import { FileSystemTreeHost } from '../src';
 export declare class FileSystemHost implements FileSystemTreeHost {
     private _root;
     constructor(_root: string);

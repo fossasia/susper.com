@@ -12,7 +12,7 @@ var Prefixer = require('./prefixer');
 var OldValue = require('./old-value');
 var utils = require('./utils');
 
-var vendor = require('postcss/lib/vendor');
+var vendor = require('postcss').vendor;
 
 var Value = function (_Prefixer) {
     _inherits(Value, _Prefixer);

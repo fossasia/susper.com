@@ -505,6 +505,7 @@ getJasmineRequireObj().Spec = function(j$) {
      * @property {String} fullName - The full description including all ancestors of this spec.
      * @property {Expectation[]} failedExpectations - The list of expectations that failed during execution of this spec.
      * @property {Expectation[]} passedExpectations - The list of expectations that passed during execution of this spec.
+     * @property {Expectation[]} deprecationWarnings - The list of deprecation warnings that occurred during execution this spec.
      * @property {String} pendingReason - If the spec is {@link pending}, this will be the reason.
      * @property {String} status - Once the spec has completed, this string represents the pass/fail status of this spec.
      */
@@ -514,6 +515,7 @@ getJasmineRequireObj().Spec = function(j$) {
       fullName: this.getFullName(),
       failedExpectations: [],
       passedExpectations: [],
+      deprecationWarnings: [],
       pendingReason: ''
     };
   }
@@ -629,6 +631,10 @@ getJasmineRequireObj().Spec = function(j$) {
     return this.getSpecName(this);
   };
 
+  Spec.prototype.addDeprecationWarning = function(msg) {
+    this.result.deprecationWarnings.push(this.expectationResultFactory({ message: msg }));
+  };
+
   var extractCustomPendingMessage = function(e) {
     var fullMessage = e.toString(),
         boilerplateStart = fullMessage.indexOf(Spec.pendingSpecExceptionMessage),
@@ -709,6 +715,8 @@ getJasmineRequireObj().Env = function(j$) {
 
     var self = this;
     var global = options.global || j$.getGlobal();
+
+    var hasExecuted = false;
 
     var totalSpecsDefined = 0;
 
@@ -896,6 +904,9 @@ getJasmineRequireObj().Env = function(j$) {
     // TODO: fix this naming, and here's where the value comes in
     this.catchExceptions = function(value) {
       catchExceptions = !!value;
+      if (!catchExceptions) {
+        this.deprecated('The catchExceptions option is deprecated and will be replaced with stopOnSpecFailure in Jasmine 3.0');
+      }
       return catchExceptions;
     };
 
@@ -933,6 +944,14 @@ getJasmineRequireObj().Env = function(j$) {
       return seed;
     };
 
+    this.deprecated = function(msg) {
+      var runnable = currentRunnable() || topSuite;
+      runnable.addDeprecationWarning(msg);
+      if(typeof console !== 'undefined' && typeof console.warn !== 'undefined') {
+        console.error('DEPRECATION: ' + msg);
+      }
+    };
+
     var queueRunnerFactory = function(options) {
       options.catchException = catchException;
       options.clearStack = options.clearStack || clearStack;
@@ -940,6 +959,7 @@ getJasmineRequireObj().Env = function(j$) {
       options.fail = self.fail;
       options.globalErrors = globalErrors;
       options.completeOnFirstError = throwOnExpectationFailure && options.isLeaf;
+      options.deprecated = self.deprecated;
 
       new j$.QueueRunner(options).execute();
     };
@@ -959,6 +979,12 @@ getJasmineRequireObj().Env = function(j$) {
     };
 
     this.execute = function(runnablesToRun) {
+      if (hasExecuted) {
+        this.deprecated('Executing the same Jasmine multiple times will no longer work in Jasmine 3.0');
+      }
+
+      hasExecuted = true;
+
       if(!runnablesToRun) {
         if (focusedRunnables.length) {
           runnablesToRun = focusedRunnables;
@@ -1025,10 +1051,12 @@ getJasmineRequireObj().Env = function(j$) {
          * @typedef JasmineDoneInfo
          * @property {Order} order - Information about the ordering (random or not) of this execution of the suite.
          * @property {Expectation[]} failedExpectations - List of expectations that failed in an {@link afterAll} at the global level.
+         * @property {Expectation[]} deprecationWarnings - List of deprecation warnings that occurred at the global level.
          */
         reporter.jasmineDone({
           order: order,
-          failedExpectations: topSuite.result.failedExpectations
+          failedExpectations: topSuite.result.failedExpectations,
+          deprecationWarnings: topSuite.result.deprecationWarnings
         });
       });
     };
@@ -1130,6 +1158,7 @@ getJasmineRequireObj().Env = function(j$) {
     var focusedRunnables = [];
 
     this.fdescribe = function(description, specDefinitions) {
+      this.deprecated('fit and fdescribe will cause your suite to report an \'incomplete\' status in Jasmine 3.0');
       ensureIsNotNested('fdescribe');
       ensureIsFunction(specDefinitions, 'fdescribe');
       var suite = suiteFactory(description);
@@ -1255,6 +1284,7 @@ getJasmineRequireObj().Env = function(j$) {
     };
 
     this.fit = function(description, fn, timeout){
+      this.deprecated('fit and fdescribe will cause your suite to report an \'incomplete\' status in Jasmine 3.0');
       ensureIsNotNested('fit');
       ensureIsFunctionOrAsync(fn, 'fit');
       var spec = specFactory(description, fn, currentDeclarationSuite, timeout);
@@ -1510,6 +1540,9 @@ getJasmineRequireObj().Any = function(j$) {
     }
 
     if (this.expectedObject == Object) {
+      if (other === null) {
+        j$.getEnv().deprecated('jasmine.Any(Object) will no longer match null in Jasmine 3.0');
+      }
       return typeof other == 'object';
     }
 
@@ -4320,7 +4353,7 @@ getJasmineRequireObj().QueueRunner = function(j$) {
     return function() {
       if (!called) {
         called = true;
-        fn();
+        fn.apply(null, arguments);
       }
       return null;
     };
@@ -4339,6 +4372,7 @@ getJasmineRequireObj().QueueRunner = function(j$) {
     this.fail = attrs.fail || function() {};
     this.globalErrors = attrs.globalErrors || { pushListener: function() {}, popListener: function() {} };
     this.completeOnFirstError = !!attrs.completeOnFirstError;
+    this.deprecated = attrs.deprecated;
   }
 
   QueueRunner.prototype.execute = function() {
@@ -4398,8 +4432,12 @@ getJasmineRequireObj().QueueRunner = function(j$) {
           clearTimeout(timeoutId);
           self.globalErrors.popListener(handleError);
         }),
-        next = once(function () {
+        next = once(function (err) {
           cleanup();
+
+          if (err instanceof Error) {
+            self.deprecated('done callback received an Error object. Jasmine 3.0 will treat this as a failure');
+          }
 
           function runNext() {
             if (self.completeOnFirstError && errored) {
@@ -5147,13 +5185,15 @@ getJasmineRequireObj().Suite = function(j$) {
      * @property {String} description - The description text passed to the {@link describe} that made this suite.
      * @property {String} fullName - The full description including all ancestors of this suite.
      * @property {Expectation[]} failedExpectations - The list of expectations that failed in an {@link afterAll} for this suite.
+     * @property {Expectation[]} deprecationWarnings - The list of deprecation warnings that occurred on this suite.
      * @property {String} status - Once the suite has completed, this string represents the pass/fail status of this suite.
      */
     this.result = {
       id: this.id,
       description: this.description,
       fullName: this.getFullName(),
-      failedExpectations: []
+      failedExpectations: [],
+      deprecationWarnings: []
     };
   }
 
@@ -5271,6 +5311,10 @@ getJasmineRequireObj().Suite = function(j$) {
         }
       }
     }
+  };
+
+  Suite.prototype.addDeprecationWarning = function(msg) {
+    this.result.deprecationWarnings.push(this.expectationResultFactory({ message: msg }));
   };
 
   function isAfterAll(children) {
@@ -5538,5 +5582,5 @@ getJasmineRequireObj().UserContext = function(j$) {
 };
 
 getJasmineRequireObj().version = function() {
-  return '2.9.1';
+  return '2.99.0';
 };

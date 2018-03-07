@@ -12,22 +12,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var buildUglifyOptions = function buildUglifyOptions() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      ie8 = _ref.ie8,
       ecma = _ref.ecma,
+      warnings = _ref.warnings,
       _ref$parse = _ref.parse,
       parse = _ref$parse === undefined ? {} : _ref$parse,
-      mangle = _ref.mangle,
-      output = _ref.output,
       _ref$compress = _ref.compress,
       compress = _ref$compress === undefined ? {} : _ref$compress,
-      warnings = _ref.warnings,
+      mangle = _ref.mangle,
+      output = _ref.output,
       toplevel = _ref.toplevel,
-      nameCache = _ref.nameCache;
+      nameCache = _ref.nameCache,
+      ie8 = _ref.ie8,
+      keep_classnames = _ref.keep_classnames,
+      keep_fnames = _ref.keep_fnames,
+      safari10 = _ref.safari10;
 
   return {
-    ie8,
     ecma,
+    warnings,
     parse,
+    compress,
     mangle: mangle == null ? true : mangle,
     output: Object.assign({
       shebang: true,
@@ -35,12 +39,14 @@ var buildUglifyOptions = function buildUglifyOptions() {
       beautify: false,
       semicolons: true
     }, output),
-    compress,
-    warnings,
+    // Ignoring sourcemap from options
+    sourceMap: null,
     toplevel,
     nameCache,
-    // Ignoring sourcemap from options
-    sourceMap: null
+    ie8,
+    keep_classnames,
+    keep_fnames,
+    safari10
   };
 }; /* eslint-disable
      arrow-body-style

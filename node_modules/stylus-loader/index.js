@@ -24,9 +24,11 @@ module.exports = function(source) {
   if (this.stylus) {
     configKey = options.config || 'default';
     stylusOptions = this.stylus[configKey] || {};
-  } else {
+  } else if (this.options) {
     configKey = options.config || 'stylus';
     stylusOptions = this.options[configKey] || {};
+  } else {
+    stylusOptions = {};
   }
   // Instead of assigning to options, we run them manually later so their side effects apply earlier for
   // resolving paths.

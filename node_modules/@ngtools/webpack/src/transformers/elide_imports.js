@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// @ignoreDep typescript
 const ts = require("typescript");
-const ast_helpers_1 = require("./ast_helpers");
 const interfaces_1 = require("./interfaces");
 // Remove imports for which all identifiers have been removed.
 // Needs type checker, and works even if it's not the first transformer.
@@ -15,78 +13,79 @@ function elideImports(sourceFile, removedNodes, getTypeChecker) {
     if (removedNodes.length === 0) {
         return [];
     }
-    // Get all children identifiers inside the removed nodes.
-    const removedIdentifiers = removedNodes
-        .map((node) => ast_helpers_1.collectDeepNodes(node, ts.SyntaxKind.Identifier))
-        .reduce((prev, curr) => prev.concat(curr), [])
-        .concat(removedNodes.filter((node) => node.kind === ts.SyntaxKind.Identifier));
-    if (removedIdentifiers.length === 0) {
-        return [];
-    }
-    // Get all imports in the source file.
-    const allImports = ast_helpers_1.collectDeepNodes(sourceFile, ts.SyntaxKind.ImportDeclaration);
-    if (allImports.length === 0) {
-        return [];
-    }
-    const removedSymbolMap = new Map();
     const typeChecker = getTypeChecker();
-    // Find all imports that use a removed identifier and add them to the map.
-    allImports
-        .filter((node) => {
-        // TODO: try to support removing `import * as X from 'XYZ'`.
-        // Filter out import statements that are either `import 'XYZ'` or `import * as X from 'XYZ'`.
-        const clause = node.importClause;
-        if (!clause || clause.name || !clause.namedBindings) {
+    // Collect all imports and used identifiers
+    const specialCaseNames = new Set();
+    const usedSymbols = new Set();
+    const imports = new Array();
+    ts.forEachChild(sourceFile, function visit(node) {
+        // Skip removed nodes
+        if (removedNodes.includes(node)) {
+            return;
+        }
+        // Record import and skip
+        if (ts.isImportDeclaration(node)) {
+            imports.push(node);
+            return;
+        }
+        if (ts.isIdentifier(node)) {
+            usedSymbols.add(typeChecker.getSymbolAtLocation(node));
+        }
+        else if (ts.isExportSpecifier(node)) {
+            // Export specifiers return the non-local symbol from the above
+            // so check the name string instead
+            specialCaseNames.add((node.propertyName || node.name).text);
+            return;
+        }
+        else if (ts.isShorthandPropertyAssignment(node)) {
+            // Shorthand property assignments return the object property's symbol not the import's
+            specialCaseNames.add(node.name.text);
+        }
+        ts.forEachChild(node, visit);
+    });
+    if (imports.length === 0) {
+        return [];
+    }
+    const isUnused = (node) => {
+        if (specialCaseNames.has(node.text)) {
             return false;
         }
-        return clause.namedBindings.kind == ts.SyntaxKind.NamedImports;
-    })
-        .forEach((importDecl) => {
-        const importClause = importDecl.importClause;
-        const namedImports = importClause.namedBindings;
-        namedImports.elements.forEach((importSpec) => {
-            const importId = importSpec.name;
-            const symbol = typeChecker.getSymbolAtLocation(importId);
-            const removedNodesForImportId = removedIdentifiers.filter((id) => id.text === importId.text && typeChecker.getSymbolAtLocation(id) === symbol);
-            if (removedNodesForImportId.length > 0) {
-                removedSymbolMap.set(importId.text, {
-                    symbol,
-                    importDecl,
-                    importSpec,
-                    singleImport: namedImports.elements.length === 1,
-                    removed: removedNodesForImportId,
-                    all: []
-                });
-            }
-        });
-    });
-    if (removedSymbolMap.size === 0) {
-        return [];
-    }
-    // Find all identifiers in the source file that have a removed symbol, and add them to the map.
-    ast_helpers_1.collectDeepNodes(sourceFile, ts.SyntaxKind.Identifier)
-        .forEach((id) => {
-        if (removedSymbolMap.has(id.text)) {
-            const symbol = removedSymbolMap.get(id.text);
-            // Check if the symbol is the same or if it is a named export.
-            // Named exports don't have the same symbol but will have the same name.
-            if ((id.parent && id.parent.kind === ts.SyntaxKind.ExportSpecifier)
-                || typeChecker.getSymbolAtLocation(id) === symbol.symbol) {
-                symbol.all.push(id);
+        const symbol = typeChecker.getSymbolAtLocation(node);
+        return symbol && !usedSymbols.has(symbol);
+    };
+    for (const node of imports) {
+        if (!node.importClause) {
+            // "import 'abc';"
+            continue;
+        }
+        if (node.importClause.name) {
+            // "import XYZ from 'abc';"
+            if (isUnused(node.importClause.name)) {
+                ops.push(new interfaces_1.RemoveNodeOperation(sourceFile, node));
             }
         }
-    });
-    Array.from(removedSymbolMap.values())
-        .filter((symbol) => {
-        // If the number of removed imports plus one (the import specifier) is equal to the total
-        // number of identifiers for that symbol, it's safe to remove the import.
-        return symbol.removed.length + 1 === symbol.all.length;
-    })
-        .forEach((symbol) => {
-        // Remove the whole declaration if it's a single import.
-        const nodeToRemove = symbol.singleImport ? symbol.importDecl : symbol.importSpec;
-        ops.push(new interfaces_1.RemoveNodeOperation(sourceFile, nodeToRemove));
-    });
+        else if (ts.isNamespaceImport(node.importClause.namedBindings)) {
+            // "import * as XYZ from 'abc';"
+            if (isUnused(node.importClause.namedBindings.name)) {
+                ops.push(new interfaces_1.RemoveNodeOperation(sourceFile, node));
+            }
+        }
+        else if (ts.isNamedImports(node.importClause.namedBindings)) {
+            // "import { XYZ, ... } from 'abc';"
+            const specifierOps = [];
+            for (const specifier of node.importClause.namedBindings.elements) {
+                if (isUnused(specifier.propertyName || specifier.name)) {
+                    specifierOps.push(new interfaces_1.RemoveNodeOperation(sourceFile, specifier));
+                }
+            }
+            if (specifierOps.length === node.importClause.namedBindings.elements.length) {
+                ops.push(new interfaces_1.RemoveNodeOperation(sourceFile, node));
+            }
+            else {
+                ops.push(...specifierOps);
+            }
+        }
+    }
     return ops;
 }
 exports.elideImports = elideImports;

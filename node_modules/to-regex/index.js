@@ -1,5 +1,6 @@
 'use strict';
 
+var safe = require('safe-regex');
 var define = require('define-property');
 var extend = require('extend-shallow');
 var not = require('regex-not');
@@ -86,10 +87,16 @@ function makeRe(pattern, options) {
     if (opts.negate || typeof opts.strictNegate === 'boolean') {
       pattern = not.create(pattern, opts);
     }
+
     var str = open + '(?:' + pattern + ')' + close;
     regex = new RegExp(str, flags);
+
+    if (opts.safe === true && safe(regex) === false) {
+      throw new Error('potentially unsafe regular expression: ' + regex.source);
+    }
+
   } catch (err) {
-    if (opts.strictErrors === true) {
+    if (opts.strictErrors === true || opts.safe === true) {
       err.key = key;
       err.pattern = pattern;
       err.originalOptions = options;
@@ -105,18 +112,18 @@ function makeRe(pattern, options) {
   }
 
   if (opts.cache !== false) {
-    cacheRegex(regex, key, pattern, opts);
+    memoize(regex, key, pattern, opts);
   }
   return regex;
 }
 
 /**
- * Cache generated regex. This can result in dramatic speed improvements
+ * Memoize generated regex. This can result in dramatic speed improvements
  * and simplify debugging by adding options and pattern to the regex. It can be
  * disabled by passing setting `options.cache` to false.
  */
 
-function cacheRegex(regex, key, pattern, options) {
+function memoize(regex, key, pattern, options) {
   define(regex, 'cached', true);
   define(regex, 'pattern', pattern);
   define(regex, 'options', options);

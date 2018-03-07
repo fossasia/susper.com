@@ -1,3 +1,7 @@
+# 11.1.0 - 2018-02-10
+
+- Added: `filter` option
+
 # 11.0.0 - 2017-09-16
 
 - Changed: A syntax error in an imported file now throws an error instead of just warning ([#264](https://github.com/postcss/postcss-import/issues/264))

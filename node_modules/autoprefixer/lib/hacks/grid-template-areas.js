@@ -78,18 +78,21 @@ var GridTemplateAreas = function (_Declaration) {
         if (prefix !== '-ms-') return _Declaration.prototype.insert.call(this, decl, prefix, prefixes);
 
         var areas = parseGridAreas(decl.value);
+        var missed = Object.keys(areas);
+
         this.getRoot(decl.parent).walkDecls('grid-area', function (gridArea) {
             var value = gridArea.value;
             var area = areas[value];
-            delete areas[value];
 
-            if (gridArea.parent.some(function (i) {
-                return i.prop === '-ms-grid-row';
-            })) {
-                return undefined;
-            }
+            missed = missed.filter(function (e) {
+                return e !== value;
+            });
 
             if (area) {
+                gridArea.parent.walkDecls(/-ms-grid-(row|column)/, function (d) {
+                    d.remove();
+                });
+
                 gridArea.cloneBefore({
                     prop: '-ms-grid-row',
                     value: String(area.row.start)
@@ -114,7 +117,6 @@ var GridTemplateAreas = function (_Declaration) {
             return undefined;
         });
 
-        var missed = Object.keys(areas);
         if (missed.length > 0) {
             decl.warn(result, 'Can not find grid areas: ' + missed.join(', '));
         }

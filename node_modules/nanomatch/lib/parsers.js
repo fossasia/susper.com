@@ -10,7 +10,7 @@ var isOdd = require('is-odd');
  */
 
 var cached;
-var NOT_REGEX = '[!*+?$^"\'.\\\\/\\[]+';
+var NOT_REGEX = '[\\[!*+?$^"\'.\\\\/]+';
 var not = createTextRegex(NOT_REGEX);
 
 /**
@@ -35,7 +35,6 @@ module.exports = function(nanomatch, options) {
 
     .capture('prefix', function() {
       if (this.parsed) return;
-      var pos = this.position();
       var m = this.match(/^\.[\\/]/);
       if (!m) return;
       this.state.strictOpen = !!this.options.strictOpen;
@@ -91,7 +90,7 @@ module.exports = function(nanomatch, options) {
     .capture('not', function() {
       var parsed = this.parsed;
       var pos = this.position();
-      var m = this.match(this.notRegex || /^\!+/);
+      var m = this.match(this.notRegex || /^!+/);
       if (!m) return;
       var val = m[0];
 
@@ -166,11 +165,12 @@ module.exports = function(nanomatch, options) {
     .capture('globstar', function() {
       var parsed = this.parsed;
       var pos = this.position();
-      var m = this.match(/^\*{2}(?![*(])(?=[,\/)]|$)/);
+      var m = this.match(/^\*{2}(?![*(])(?=[,)/]|$)/);
       if (!m) return;
 
       var type = opts.noglobstar !== true ? 'globstar' : 'star';
       var node = pos({type: type, parsed: parsed});
+      this.state.metachar = true;
 
       while (this.input.slice(0, 4) === '/**/') {
         this.input = this.input.slice(3);
@@ -190,7 +190,6 @@ module.exports = function(nanomatch, options) {
         node.val = '*';
       }
 
-      this.state.metachar = true;
       return node;
     })
 
@@ -200,7 +199,7 @@ module.exports = function(nanomatch, options) {
 
     .capture('star', function() {
       var pos = this.position();
-      var starRe = /^(?:\*(?![*(])|[*]{3,}(?!\()|[*]{2}(?![(\/]|$)|\*(?=\*\())/;
+      var starRe = /^(?:\*(?![*(])|[*]{3,}(?!\()|[*]{2}(?![(/]|$)|\*(?=\*\())/;
       var m = this.match(starRe);
       if (!m) return;
 
@@ -273,7 +272,7 @@ module.exports = function(nanomatch, options) {
 
     .capture('bracket', function() {
       var pos = this.position();
-      var m = this.match(/^(?:\[([!^]?)([^\]]+|\]\-)(\]|[^*+?]+)|\[)/);
+      var m = this.match(/^(?:\[([!^]?)([^\]]+|\]-)(\]|[^*+?]+)|\[)/);
       if (!m) return;
 
       var val = m[0];
@@ -377,7 +376,7 @@ function createTextRegex(pattern) {
   if (cached) return cached;
   var opts = {contains: true, strictClose: false};
   var not = regexNot.create(pattern, opts);
-  var re = toRegex('^(?:[*]\\(|' + not + ')', opts);
+  var re = toRegex('^(?:[*]\\((?=.)|' + not + ')', opts);
   return (cached = re);
 }
 

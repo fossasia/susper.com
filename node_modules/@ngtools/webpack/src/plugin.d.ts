@@ -41,7 +41,6 @@ export declare class AotPlugin implements Tapable {
     private _tsConfigPath;
     private _entryModule;
     private _donePromise;
-    private _compiler;
     private _compilation;
     private _typeCheck;
     private _skipCodeGeneration;

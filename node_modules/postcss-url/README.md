@@ -143,7 +143,7 @@ Checkout [tests](test) for examples.
   * `encodeType` - `base64`, `encodeURI`, `encodeURIComponent`
   * `includeUriFragment` - include the fragment identifer at the end of the URI
   * `maxSize` - file size in kbytes
-  * `fallback` - `copy` or custom function for files > `maxSize`
+  * `fallback` - `copy`, `rebase` or custom function for files > `maxSize`
   * `ignoreFragmentWarning` - do not warn when an SVG URL with a fragment is inlined
   * `optimizeSvgEncode` - reduce size of inlined svg (IE9+, Android 3+)
 * `copy`
@@ -185,7 +185,6 @@ And should return the transformed url.
 You can use this option to adjust urls for CDN.
 
 #### `maxSize`
-_(default: `14`)_
 
 Specify the maximum file size to inline (in kbytes)
 

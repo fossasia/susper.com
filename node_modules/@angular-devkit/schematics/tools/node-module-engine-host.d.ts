@@ -1,4 +1,4 @@
-import { RuleFactory } from '@angular-devkit/schematics';
+import { RuleFactory } from '../src';
 import { FileSystemCollectionDesc, FileSystemSchematicDesc } from './description';
 import { FileSystemEngineHostBase } from './file-system-engine-host-base';
 /**

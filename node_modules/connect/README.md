@@ -4,7 +4,6 @@
 [![NPM Downloads][downloads-image]][downloads-url]
 [![Build Status][travis-image]][travis-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
-[![Gratipay][gratipay-image]][gratipay-url]
 
   Connect is an extensible HTTP server framework for [node](http://nodejs.org) using "plugins" known as _middleware_.
 
@@ -265,11 +264,11 @@ npm test
 
 The Connect project would not be the same without all the people involved.
 
-The original author of Connect is [TJ Holowaychuk](https://github.com/tj) [![TJ's Gratipay][gratipay-image-visionmedia]][gratipay-url-visionmedia]
+The original author of Connect is [TJ Holowaychuk](https://github.com/tj)
 
-The current lead maintainer is [Douglas Christopher Wilson](https://github.com/dougwilson) [![Doug's Gratipay][gratipay-image-dougwilson]][gratipay-url-dougwilson]
+The current lead maintainer is [Douglas Christopher Wilson](https://github.com/dougwilson)
 
-[List of all contributors](https://github.comsenchalabs/connect/graphs/contributors)
+[List of all contributors](https://github.com/senchalabs/connect/graphs/contributors)
 
 ## Node Compatibility
 
@@ -277,7 +276,7 @@ The current lead maintainer is [Douglas Christopher Wilson](https://github.com/d
   - Connect `1.x` - node `0.4`
   - Connect `< 2.8` - node `0.6`
   - Connect `>= 2.8 < 3` - node `0.8`
-  - Connect `>= 3` - node `0.10`, `0.12`, `4.x`, `5.x`, `6.x`, `7.x`; io.js `1.x`, `2.x`, `3.x`
+  - Connect `>= 3` - node `0.10`, `0.12`, `4.x`, `5.x`, `6.x`, `7.x`, `8.x`; io.js `1.x`, `2.x`, `3.x`
 
 ## License
 
@@ -291,5 +290,3 @@ The current lead maintainer is [Douglas Christopher Wilson](https://github.com/d
 [coveralls-url]: https://coveralls.io/r/senchalabs/connect
 [downloads-image]: https://img.shields.io/npm/dm/connect.svg
 [downloads-url]: https://npmjs.org/package/connect
-[gratipay-image]: https://img.shields.io/gratipay/dougwilson.svg
-[gratipay-url]: https://www.gratipay.com/dougwilson/

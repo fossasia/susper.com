@@ -9,8 +9,11 @@ export declare function getWebpackStatsConfig(verbose?: boolean): {
     modules: boolean;
     reasons: boolean;
     warnings: boolean;
+    errors: boolean;
     assets: boolean;
     version: boolean;
+    errorDetails: boolean;
+    moduleTrace: boolean;
 };
 export interface ExtraEntry {
     input: string;

@@ -138,4 +138,4 @@ class DTsSerializer {
     }
 }
 exports.DTsSerializer = DTsSerializer;
-//# sourceMappingURL=/users/hansl/sources/angular-cli/src/serializers/dts.js.map
+//# sourceMappingURL=/users/hansl/sources/hansl/angular-cli/src/serializers/dts.js.map

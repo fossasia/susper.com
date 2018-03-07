@@ -1,6 +1,7 @@
 'use strict';
 
 var extend = require('extend-shallow');
+var safe = require('safe-regex');
 
 /**
  * The main export is a function that takes a `pattern` string and an `options` object.
@@ -41,7 +42,7 @@ toRegex.create = function(pattern, options) {
   }
 
   var opts = extend({}, options);
-  if (opts && opts.contains === true) {
+  if (opts.contains === true) {
     opts.strictNegate = false;
   }
 
@@ -50,13 +51,18 @@ toRegex.create = function(pattern, options) {
   var endChar = opts.endChar ? opts.endChar : '+';
   var str = pattern;
 
-  if (opts && opts.strictNegate === false) {
+  if (opts.strictNegate === false) {
     str = '(?:(?!(?:' + pattern + ')).)' + endChar;
   } else {
     str = '(?:(?!^(?:' + pattern + ')$).)' + endChar;
   }
 
-  return open + str + close;
+  var res = open + str + close;
+  if (opts.safe === true && safe(res) === false) {
+    throw new Error('potentially unsafe regular expression: ' + res);
+  }
+
+  return res;
 };
 
 /**

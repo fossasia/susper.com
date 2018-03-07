@@ -14,15 +14,20 @@ const webpackOutputOptions = {
     modules: false,
     reasons: false,
     warnings: true,
-    assets: false,
-    version: false
+    errors: true,
+    assets: true,
+    version: false,
+    errorDetails: false,
+    moduleTrace: false,
 };
 const verboseWebpackOutputOptions = {
     children: true,
     assets: true,
     version: true,
     reasons: true,
-    chunkModules: false // TODO: set to true when console to file output is fixed
+    chunkModules: false,
+    errorDetails: true,
+    moduleTrace: true,
 };
 function getWebpackStatsConfig(verbose = false) {
     return verbose

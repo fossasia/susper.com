@@ -19,7 +19,6 @@ const inlineSourceMapRe = /\/\/# sourceMappingURL=data:application\/json;base64,
 class AotPlugin {
     constructor(options) {
         this._lazyRoutes = Object.create(null);
-        this._compiler = null;
         this._compilation = null;
         this._typeCheck = true;
         this._skipCodeGeneration = false;
@@ -260,7 +259,6 @@ class AotPlugin {
     }
     // registration hook for webpack plugin
     apply(compiler) {
-        this._compiler = compiler;
         // Decorate inputFileSystem to serve contents of CompilerHost.
         // Use decorated inputFileSystem in watchFileSystem.
         compiler.plugin('environment', () => {

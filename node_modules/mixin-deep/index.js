@@ -23,6 +23,10 @@ function mixinDeep(target, objects) {
  */
 
 function copy(val, key) {
+  if (key === '__proto__') {
+    return;
+  }
+
   var obj = this[key];
   if (isObject(val) && isObject(obj)) {
     mixinDeep(obj, val);

@@ -155,4 +155,4 @@ function SchemaClassFactory(schema) {
     return GeneratedSchemaClass;
 }
 exports.SchemaClassFactory = SchemaClassFactory;
-//# sourceMappingURL=/users/hansl/sources/angular-cli/src/schema-class-factory.js.map
+//# sourceMappingURL=/users/hansl/sources/hansl/angular-cli/src/schema-class-factory.js.map

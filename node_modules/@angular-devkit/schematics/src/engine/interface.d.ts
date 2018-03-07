@@ -18,6 +18,7 @@ import { TaskConfigurationGenerator, TaskExecutor, TaskId } from './task';
  */
 export declare type CollectionDescription<CollectionMetadataT extends object> = CollectionMetadataT & {
     readonly name: string;
+    readonly extends?: string[];
 };
 /**
  * The description (metadata) of a schematic. This type contains every information the engine
@@ -40,7 +41,7 @@ export interface EngineHost<CollectionMetadataT extends object, SchematicMetadat
      */
     listSchematics(collection: Collection<CollectionMetadataT, SchematicMetadataT>): string[];
     listSchematicNames(collection: CollectionDescription<CollectionMetadataT>): string[];
-    createSchematicDescription(name: string, collection: CollectionDescription<CollectionMetadataT>): SchematicDescription<CollectionMetadataT, SchematicMetadataT>;
+    createSchematicDescription(name: string, collection: CollectionDescription<CollectionMetadataT>): SchematicDescription<CollectionMetadataT, SchematicMetadataT> | null;
     getSchematicRuleFactory<OptionT extends object>(schematic: SchematicDescription<CollectionMetadataT, SchematicMetadataT>, collection: CollectionDescription<CollectionMetadataT>): RuleFactory<OptionT>;
     createSourceFromUrl(url: Url, context: TypedSchematicContext<CollectionMetadataT, SchematicMetadataT>): Source | null;
     transformOptions<OptionT extends object, ResultT extends object>(schematic: SchematicDescription<CollectionMetadataT, SchematicMetadataT>, options: OptionT): Observable<ResultT>;
@@ -73,6 +74,7 @@ export interface Engine<CollectionMetadataT extends object, SchematicMetadataT e
  */
 export interface Collection<CollectionMetadataT extends object, SchematicMetadataT extends object> {
     readonly description: CollectionDescription<CollectionMetadataT>;
+    readonly baseDescriptions?: Array<CollectionDescription<CollectionMetadataT>>;
     createSchematic(name: string): Schematic<CollectionMetadataT, SchematicMetadataT>;
     listSchematicNames(): string[];
 }

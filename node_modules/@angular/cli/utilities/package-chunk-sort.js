@@ -19,11 +19,11 @@ function packageChunkSort(appConfig) {
     entryPoints.push(...['vendor', 'main']);
     function sort(left, right) {
         let leftIndex = entryPoints.indexOf(left.names[0]);
-        let rightindex = entryPoints.indexOf(right.names[0]);
-        if (leftIndex > rightindex) {
+        let rightIndex = entryPoints.indexOf(right.names[0]);
+        if (leftIndex > rightIndex) {
             return 1;
         }
-        else if (leftIndex < rightindex) {
+        else if (leftIndex < rightIndex) {
             return -1;
         }
         else {

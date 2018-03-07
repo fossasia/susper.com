@@ -7,6 +7,7 @@ var path = require('path');
  * Module dependencies
  */
 
+var isWindows = require('is-windows')();
 var Snapdragon = require('snapdragon');
 utils.define = require('define-property');
 utils.diff = require('arr-diff');
@@ -31,7 +32,7 @@ utils.isEmptyString = function(val) {
  */
 
 utils.isWindows = function() {
-  return path.sep === '\\' || process.platform === 'win32';
+  return path.sep === '\\' || isWindows === true;
 };
 
 /**
@@ -60,7 +61,7 @@ utils.instantiate = function(ast, options) {
   }
 
   utils.define(snapdragon, 'parse', function(str, options) {
-    var parsed = Snapdragon.prototype.parse.apply(this, arguments);
+    var parsed = Snapdragon.prototype.parse.call(this, str, options);
     parsed.input = str;
 
     // escape unmatched brace/bracket/parens
@@ -148,7 +149,7 @@ utils.isObject = function(val) {
  */
 
 utils.escapeRegex = function(str) {
-  return str.replace(/[-[\]{}()^$|*+?.\\\/\s]/g, '\\$&');
+  return str.replace(/[-[\]{}()^$|*+?.\\/\s]/g, '\\$&');
 };
 
 /**
@@ -172,7 +173,7 @@ utils.combineDupes = function(input, patterns) {
  */
 
 utils.hasSpecialChars = function(str) {
-  return /(?:(?:(^|\/)[!.])|[*?+()|\[\]{}]|[+@]\()/.test(str);
+  return /(?:(?:(^|\/)[!.])|[*?+()|[\]{}]|[+@]\()/.test(str);
 };
 
 /**
@@ -204,7 +205,7 @@ utils.unescape = function(str) {
  */
 
 utils.stripDrive = function(fp) {
-  return utils.isWindows() ? fp.replace(/^[a-z]:[\\\/]+?/i, '/') : fp;
+  return utils.isWindows() ? fp.replace(/^[a-z]:[\\/]+?/i, '/') : fp;
 };
 
 /**
@@ -228,7 +229,7 @@ utils.stripPrefix = function(str) {
  */
 
 utils.isSimpleChar = function(str) {
-  return str === '' || str === ' ' || str === '.';
+  return str.trim() === '' || str === '.';
 };
 
 /**

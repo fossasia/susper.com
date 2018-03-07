@@ -2,6 +2,59 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.11"></a>
+## [1.1.11](https://github.com/webpack/file-loader/compare/v1.1.10...v1.1.11) (2018-03-01)
+
+
+### Reverts
+
+* **index:** `context` takes precedence over `issuer.context` (`options.useRelativePath`) ([#260](https://github.com/webpack/file-loader/issues/260)) ([e73131f](https://github.com/webpack/file-loader/commit/e73131f))
+
+
+
+<a name="1.1.10"></a>
+## [1.1.10](https://github.com/webpack/file-loader/compare/v1.1.9...v1.1.10) (2018-02-26)
+
+
+### Bug Fixes
+
+* **package:** add `webpack >= 4` (`peerDependencies`) ([#255](https://github.com/webpack/file-loader/issues/255)) ([3a6a7a1](https://github.com/webpack/file-loader/commit/3a6a7a1))
+
+
+
+<a name="1.1.9"></a>
+## [1.1.9](https://github.com/webpack/file-loader/compare/v1.1.8...v1.1.9) (2018-02-21)
+
+
+### Bug Fixes
+
+* **index:** handle protocol URL's correctly (`options.publicPath`) ([#253](https://github.com/webpack/file-loader/issues/253)) ([54fa5a3](https://github.com/webpack/file-loader/commit/54fa5a3))
+* **index:** use `path.posix` for platform consistency ([#254](https://github.com/webpack/file-loader/issues/254)) ([2afe0af](https://github.com/webpack/file-loader/commit/2afe0af))
+
+
+
+<a name="1.1.8"></a>
+## [1.1.8](https://github.com/webpack/file-loader/compare/v1.1.7...v1.1.8) (2018-02-20)
+
+
+### Bug Fixes
+
+* **index:** `context` takes precedence over `issuer.context` (`options.useRelativePath`) ([3b071f5](https://github.com/webpack/file-loader/commit/3b071f5))
+* **index:** don't append `outputPath` to the original `url` (`options.outputPath` `{Function}`) ([4c1ccaa](https://github.com/webpack/file-loader/commit/4c1ccaa))
+* **index:** normalize and concat paths via `path.join()` ([26e47ca](https://github.com/webpack/file-loader/commit/26e47ca))
+
+
+
+<a name="1.1.7"></a>
+## [1.1.7](https://github.com/webpack/file-loader/compare/v1.1.6...v1.1.7) (2018-02-19)
+
+
+### Bug Fixes
+
+* **index:** don't concat `options.outputPath` and `options.publicPath` ([#246](https://github.com/webpack/file-loader/issues/246)) ([98bf052](https://github.com/webpack/file-loader/commit/98bf052))
+
+
+
 <a name="1.1.6"></a>
 ## [1.1.6](https://github.com/webpack/file-loader/compare/v1.1.5...v1.1.6) (2017-12-16)
 

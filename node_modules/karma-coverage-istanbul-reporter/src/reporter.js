@@ -60,12 +60,16 @@ function CoverageIstanbulReporter(baseReporterDecorator, logger, config) {
   }
 
   function createReport(browserOrBrowsers, results) {
-    if (!coverageConfig.combineBrowserReports && coverageConfig.dir) {
-      coverageConfig.dir = coverageConfig.dir.replace(BROWSER_PLACEHOLDER, browserOrBrowsers.name);
-    }
+    const reportConfigOverride = (!coverageConfig.combineBrowserReports && coverageConfig.dir) ?
+      {dir: coverageConfig.dir.replace(BROWSER_PLACEHOLDER, browserOrBrowsers.name)} :
+      {};
 
     const reportConfig = istanbul.config.loadObject({
-      reporting: coverageConfig
+      reporting: Object.assign(
+        {},
+        coverageConfig,
+        reportConfigOverride
+      )
     });
     const reportTypes = reportConfig.reporting.config.reports;
 

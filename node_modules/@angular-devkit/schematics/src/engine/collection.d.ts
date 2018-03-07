@@ -10,7 +10,8 @@ import { Collection, CollectionDescription, Schematic } from './interface';
 export declare class CollectionImpl<CollectionT extends object, SchematicT extends object> implements Collection<CollectionT, SchematicT> {
     private _description;
     private _engine;
-    constructor(_description: CollectionDescription<CollectionT>, _engine: SchematicEngine<CollectionT, SchematicT>);
+    readonly baseDescriptions: CollectionDescription<CollectionT>[] | undefined;
+    constructor(_description: CollectionDescription<CollectionT>, _engine: SchematicEngine<CollectionT, SchematicT>, baseDescriptions?: CollectionDescription<CollectionT>[] | undefined);
     readonly description: CollectionDescription<CollectionT>;
     readonly name: string;
     createSchematic(name: string): Schematic<CollectionT, SchematicT>;

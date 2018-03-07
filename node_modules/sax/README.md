@@ -9,7 +9,7 @@ the browser or other CommonJS implementations.
 
 * A very simple tool to parse through an XML string.
 * A stepping stone to a streaming HTML parser.
-* A handy way to deal with RSS and other mostly-ok-but-kinda-broken XML
+* A handy way to deal with RSS and other mostly-ok-but-kinda-broken XML 
   docs.
 
 ## What This Is (probably) Not
@@ -23,7 +23,7 @@ the browser or other CommonJS implementations.
   implementations are in Java and do a lot more than this does.
 * An XML Validator - It does a little validation when in strict mode, but
   not much.
-* A Schema-Aware XSD Thing - Schemas are an exercise in fetishistic
+* A Schema-Aware XSD Thing - Schemas are an exercise in fetishistic 
   masochism.
 * A DTD-aware Thing - Fetching DTDs is a much bigger job.
 
@@ -41,49 +41,48 @@ through unmolested.
 
 ## Usage
 
-```javascript
-var sax = require("./lib/sax"),
-  strict = true, // set to false for html-mode
-  parser = sax.parser(strict);
+    var sax = require("./lib/sax"),
+      strict = true, // set to false for html-mode
+      parser = sax.parser(strict);
 
-parser.onerror = function (e) {
-  // an error happened.
-};
-parser.ontext = function (t) {
-  // got some text.  t is the string of text.
-};
-parser.onopentag = function (node) {
-  // opened a tag.  node has "name" and "attributes"
-};
-parser.onattribute = function (attr) {
-  // an attribute.  attr has "name" and "value"
-};
-parser.onend = function () {
-  // parser stream is done, and ready to have more stuff written to it.
-};
+    parser.onerror = function (e) {
+      // an error happened.
+    };
+    parser.ontext = function (t) {
+      // got some text.  t is the string of text.
+    };
+    parser.onopentag = function (node) {
+      // opened a tag.  node has "name" and "attributes"
+    };
+    parser.onattribute = function (attr) {
+      // an attribute.  attr has "name" and "value"
+    };
+    parser.onend = function () {
+      // parser stream is done, and ready to have more stuff written to it.
+    };
 
-parser.write('<xml>Hello, <who name="world">world</who>!</xml>').close();
+    parser.write('<xml>Hello, <who name="world">world</who>!</xml>').close();
 
-// stream usage
-// takes the same options as the parser
-var saxStream = require("sax").createStream(strict, options)
-saxStream.on("error", function (e) {
-  // unhandled errors will throw, since this is a proper node
-  // event emitter.
-  console.error("error!", e)
-  // clear the error
-  this._parser.error = null
-  this._parser.resume()
-})
-saxStream.on("opentag", function (node) {
-  // same object as above
-})
-// pipe is supported, and it's readable/writable
-// same chunks coming in also go out.
-fs.createReadStream("file.xml")
-  .pipe(saxStream)
-  .pipe(fs.createWriteStream("file-copy.xml"))
-```
+    // stream usage
+    // takes the same options as the parser
+    var saxStream = require("sax").createStream(strict, options)
+    saxStream.on("error", function (e) {
+      // unhandled errors will throw, since this is a proper node
+      // event emitter.
+      console.error("error!", e)
+      // clear the error
+      this._parser.error = null
+      this._parser.resume()
+    })
+    saxStream.on("opentag", function (node) {
+      // same object as above
+    })
+    // pipe is supported, and it's readable/writable
+    // same chunks coming in also go out.
+    fs.createReadStream("file.xml")
+      .pipe(saxStream)
+      .pipe(fs.createWriteStream("file-copy.xml"))
+
 
 
 ## Arguments
@@ -103,9 +102,6 @@ Settings supported:
   in loose mode, rather than uppercasing them.
 * `xmlns` - Boolean. If true, then namespaces are supported.
 * `position` - Boolean. If false, then don't track line/col/position.
-* `strictEntities` - Boolean. If true, only parse [predefined XML
-  entities](http://www.w3.org/TR/REC-xml/#sec-predefined-ent)
-  (`&amp;`, `&apos;`, `&gt;`, `&lt;`, and `&quot;`)
 
 ## Methods
 
@@ -167,11 +163,6 @@ processing instructions have implementation dependent semantics.
 would trigger this kind of event. This is a weird thing to support, so it
 might go away at some point. SAX isn't intended to be used to parse SGML,
 after all.
-
-`opentagstart` - Emitted immediately when the tag name is available,
-but before any attributes are encountered.  Argument: object with a
-`name` field and an empty `attributes` set.  Note that this is the
-same object that will later be emitted in the `opentag` event.
 
 `opentag` - An opening tag. Argument: object with `name` and `attributes`.
 In non-strict mode, tag names are uppercased, unless the `lowercase`

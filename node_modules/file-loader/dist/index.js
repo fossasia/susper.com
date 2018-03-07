@@ -24,6 +24,9 @@ var _options2 = _interopRequireDefault(_options);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/* eslint-disable
+  multiline-ternary,
+*/
 function loader(content) {
   if (!this.emitFile) throw new Error('File Loader\n\nemitFile is required from module system');
 
@@ -39,43 +42,44 @@ function loader(content) {
     regExp: options.regExp
   });
 
-  var outputPath = '';
+  var outputPath = url;
 
   if (options.outputPath) {
-    // support functions as outputPath to generate them dynamically
-    outputPath = typeof options.outputPath === 'function' ? options.outputPath(url) : options.outputPath;
+    if (typeof options.outputPath === 'function') {
+      outputPath = options.outputPath(url);
+    } else {
+      outputPath = _path2.default.posix.join(options.outputPath, url);
+    }
   }
 
-  var filePath = this.resourcePath;
-
   if (options.useRelativePath) {
-    var issuerContext = this._module && this._module.issuer && this._module.issuer.context || context;
+    var filePath = this.resourcePath;
 
-    var relativeUrl = issuerContext && _path2.default.relative(issuerContext, filePath).split(_path2.default.sep).join('/');
+    var issuer = options.context ? context : this._module && this._module.issuer && this._module.issuer.context;
+
+    var relativeUrl = issuer && _path2.default.relative(issuer, filePath).split(_path2.default.sep).join('/');
 
     var relativePath = relativeUrl && `${_path2.default.dirname(relativeUrl)}/`;
     // eslint-disable-next-line no-bitwise
     if (~relativePath.indexOf('../')) {
       outputPath = _path2.default.posix.join(outputPath, relativePath, url);
     } else {
-      outputPath = relativePath + url;
+      outputPath = _path2.default.posix.join(relativePath, url);
     }
-
-    url = relativePath + url;
-  } else if (options.outputPath) {
-    // support functions as outputPath to generate them dynamically
-    outputPath = typeof options.outputPath === 'function' ? options.outputPath(url) : options.outputPath + url;
-
-    url = outputPath;
-  } else {
-    outputPath = url;
   }
 
-  var publicPath = `__webpack_public_path__ + ${JSON.stringify(url)}`;
+  var publicPath = `__webpack_public_path__ + ${JSON.stringify(outputPath)}`;
 
-  if (options.publicPath !== undefined) {
-    // support functions as publicPath to generate them dynamically
-    publicPath = JSON.stringify(typeof options.publicPath === 'function' ? options.publicPath(url) : options.publicPath + url);
+  if (options.publicPath) {
+    if (typeof options.publicPath === 'function') {
+      publicPath = options.publicPath(url);
+    } else if (options.publicPath.endsWith('/')) {
+      publicPath = options.publicPath + url;
+    } else {
+      publicPath = `${options.publicPath}/${url}`;
+    }
+
+    publicPath = JSON.stringify(publicPath);
   }
 
   if (options.emitFile === undefined || options.emitFile) {

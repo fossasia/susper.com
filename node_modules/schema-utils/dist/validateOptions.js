@@ -4,17 +4,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _fs = require('fs');
-
-var _fs2 = _interopRequireDefault(_fs);
-
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
+var _fs = require('fs');
+
+var _fs2 = _interopRequireDefault(_fs);
+
 var _ajv = require('ajv');
 
 var _ajv2 = _interopRequireDefault(_ajv);
+
+var _ajvKeywords = require('ajv-keywords');
+
+var _ajvKeywords2 = _interopRequireDefault(_ajvKeywords);
 
 var _ValidationError = require('./ValidationError');
 
@@ -22,18 +26,18 @@ var _ValidationError2 = _interopRequireDefault(_ValidationError);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// eslint-disable-line
+var ajv = new _ajv2.default({
+  allErrors: true,
+  useDefaults: true,
+  errorDataPath: 'property'
+});
+
+(0, _ajvKeywords2.default)(ajv, ['instanceof', 'typeof']);
 
 var validateOptions = function validateOptions(schema, options, name) {
-  var ajv = new _ajv2.default({
-    useDefaults: true,
-    allErrors: true,
-    errorDataPath: 'property'
-  });
-
   if (typeof schema === 'string') {
-    schema = _fs2.default.readFileSync(_path2.default.resolve(schema), 'utf8'); // eslint-disable-line
-    schema = JSON.parse(schema); // eslint-disable-line
+    schema = _fs2.default.readFileSync(_path2.default.resolve(schema), 'utf8');
+    schema = JSON.parse(schema);
   }
 
   if (!ajv.validate(schema, options)) {

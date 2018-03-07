@@ -23,7 +23,8 @@ const isUrlWithoutPathname = (assetUrl) => {
     return assetUrl[0] === '#'
         || assetUrl.indexOf('%23') === 0
         || assetUrl.indexOf('data:') === 0
-        || /^[a-z]+:\/\//.test(assetUrl);
+        || /^[a-z]+:\/\//.test(assetUrl)
+        || /^\/\//.test(assetUrl);
 };
 
 /**

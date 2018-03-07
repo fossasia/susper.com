@@ -167,6 +167,7 @@ var onSocketMsg = {
       log.error(strippedErrors[i]);
     }
     if (useErrorOverlay) overlay.showMessage(_errors);
+    initial = false;
   },
   error: function error(_error) {
     log.error(_error);

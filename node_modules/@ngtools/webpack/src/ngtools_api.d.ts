@@ -84,7 +84,7 @@ export interface LazyRoute {
         filePath: string;
     };
 }
-export declare type Diagnostics = Array<ts.Diagnostic | Diagnostic>;
+export declare type Diagnostics = ReadonlyArray<ts.Diagnostic | Diagnostic>;
 export interface CreateProgramInterface {
     ({rootNames, options, host, oldProgram}: {
         rootNames: string[];

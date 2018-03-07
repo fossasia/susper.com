@@ -28,4 +28,4 @@ function createSerializerFromMimetype(mimetype, writer, ...opts) {
 }
 exports.createSerializerFromMimetype = createSerializerFromMimetype;
 serializer_1.Serializer.fromMimetype = createSerializerFromMimetype;
-//# sourceMappingURL=/users/hansl/sources/angular-cli/src/mimetypes.js.map
+//# sourceMappingURL=/users/hansl/sources/hansl/angular-cli/src/mimetypes.js.map

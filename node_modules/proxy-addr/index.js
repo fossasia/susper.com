@@ -142,8 +142,8 @@ function compileTrust (rangeSubnets) {
   return len === 0
     ? trustNone
     : len === 1
-    ? trustSingle(rangeSubnets[0])
-    : trustMulti(rangeSubnets)
+      ? trustSingle(rangeSubnets[0])
+      : trustMulti(rangeSubnets)
 }
 
 /**

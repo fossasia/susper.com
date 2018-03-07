@@ -180,6 +180,6 @@ using a tool such as [`http-server`](https://github.com/indexzero/http-server).
 
 ## License
 
-Copyright (c) 2015-2017 Waysact Pty Ltd
+Copyright (c) 2015-2018 Waysact Pty Ltd
 
 MIT (see [LICENSE](LICENSE))

@@ -2,11 +2,12 @@
   "static": {
     "urls": {
       "/not-found-bg.8f346a53ee078b98deb0.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
-      "/main.0589ed61ea9ff718cb12.bundle.js": "0efe6589d9e6f1aa00352b2630375c0434f70f07",
-      "/sw-register.e8ad119c04e6f7da649e.bundle.js": "5bccf39eedc381fd3ce6e9cd588c6fcfa8fcbf31",
-      "/vendor.e4e9a53ea17ad25661d2.bundle.js": "95bcc7b9dbc193db994aab64cf83bd74188adbcc",
-      "/inline.e73c5ce8880c2b7dbd49.bundle.js": "3a0334c899090fd429312c54720354dc115c6ebf",
-      "/styles.9c0ad738f18adc3d19ed.bundle.css": "e392ebe39e63c70b434f71bbe87278aa9aa641c0",
+      "/main.af87d274097e3838ae1b.bundle.js": "556801374bbbb0413e20a0c46188938262731874",
+      "/sw-register.28c36090723540135ce0.bundle.js": "b8770a453e7d4cdb124dc9ae245d86f88b2fe209",
+      "/vendor.8a5689166c9f6be4b22a.bundle.js": "380329ade11e2eb9f3d72a96e97db22147d81727",
+      "/inline.31e1fb380eb7cf3d75b1.bundle.js": "afe1b233aaffec401067c782e7080cd11903896e",
+      "/styles.ce9210868ba5bc494de4.bundle.css": "f81bc773079ed6e5f7cf43ec03776f586d333eac",
+      "/assets/images/not-found-bg.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
       "/favicon.ico": "1214df2ad2bb72333b2cf64a4e5e101b25c321e2",
       "/manifest.json": "1e4647137558c4a7650ad9a06c0e0e99274a0b16",
       "/assets/Chart.bundle.min.js": "37f92d10cdf56f5c78afd05abdb72f93ee8d2686",
@@ -32,7 +33,7 @@
       "/assets/images/github.png": "3a2742622a80a60edec8516dbe5a32db7e3f4eaa",
       "/assets/images/loklak.png": "96bff0518b5f2285dccf720481e89aa4286a5441",
       "/assets/images/microphone.png": "c0f1e88007368d123ab49c28397ed22d1913f5dc",
-      "/assets/images/not-found-bg.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
+      "/assets/images/mountain.jpg": "af7d0d9a086ba468c13b1c064e8fa8c24fbb7601",
       "/assets/images/Pslab.png": "9cf27193837c420226e05afd505890be65011175",
       "/assets/images/search.png": "dbd3a14d4dafedfd8449e5ca136f7004a2242379",
       "/assets/images/susi_60x12.png": "e0a1b65b582f4cf784b2ca29297bccd538245ec9",
@@ -40,8 +41,7 @@
       "/assets/images/susper.svg": "7a8cb12bd11e689754c7d9dbb8504ba2902c14d9",
       "/assets/images/terminal.png": "2aa0054d6e388a6cd5630e3eca2350cfb289955b",
       "/assets/images/YaCyLogo2011_60.png": "954f9d626d69a7861e9e84735c44b0a8bc759c97",
-      "/assets/images/mountain.jpg": "af7d0d9a086ba468c13b1c064e8fa8c24fbb7601",
-      "/index.html": "633ead0f96810f8666e71c864bcfacd958085601"
+      "/index.html": "1ca190cd1fc0c3f6d9504530fd884ae886843a0b"
     },
     "_generatedFromWebpack": true
   }

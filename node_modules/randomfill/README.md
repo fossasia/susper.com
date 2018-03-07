@@ -1,7 +1,7 @@
 randomfill
 ===
 
-[![Version](http://img.shields.io/npm/v/randombytes.svg)](https://www.npmjs.org/package/randombytes) [![Build Status](https://travis-ci.org/crypto-browserify/randombytes.svg?branch=master)](https://travis-ci.org/crypto-browserify/randombytes)
+[![Version](http://img.shields.io/npm/v/randomfill.svg)](https://www.npmjs.org/package/randomfill)
 
 randomfill from node that works in the browser.  In node you just get crypto.randomBytes, but in the browser it uses .crypto/msCrypto.getRandomValues
 

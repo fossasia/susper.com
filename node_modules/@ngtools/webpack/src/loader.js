@@ -484,7 +484,10 @@ function ngcLoader(source) {
                 if (sourceFileName.endsWith('.ts')) {
                     result.errorDependencies.forEach(dep => this.addDependency(dep));
                     const dependencies = plugin.getDependencies(sourceFileName);
-                    dependencies.forEach(dep => this.addDependency(dep));
+                    dependencies.forEach(dep => {
+                        plugin.updateChangedFileExtensions(path.extname(dep));
+                        this.addDependency(dep);
+                    });
                 }
                 // NgFactory files depend on the component template, but we can't know what that file
                 // is (if any). So we add all the dependencies that the original component file has

@@ -64,8 +64,8 @@ exports.default = Task.extend({
             fs.removeSync(path.resolve(this.project.root, outputPath));
         }
         const serveDefaults = {
-            // default deployUrl to '' on serve to prevent the default from .angular-cli.json
-            deployUrl: ''
+            deployUrl: appConfig.deployUrl || '',
+            baseHref: appConfig.baseHref,
         };
         serveTaskOptions = Object.assign({}, serveDefaults, serveTaskOptions);
         let webpackConfig = new webpack_config_1.NgCliWebpackConfig(serveTaskOptions, appConfig).buildConfig();
@@ -94,8 +94,15 @@ exports.default = Task.extend({
         if (serveTaskOptions.liveReload) {
             // This allows for live reload of page when changes are made to repo.
             // https://webpack.js.org/configuration/dev-server/#devserver-inline
+            let webpackDevServerPath;
+            try {
+                webpackDevServerPath = require.resolve('webpack-dev-server/client');
+            }
+            catch (_a) {
+                throw new SilentError('The "webpack-dev-server" package could not be found.');
+            }
             let entryPoints = [
-                `webpack-dev-server/client?${clientAddress}`
+                `${webpackDevServerPath}?${clientAddress}`
             ];
             if (serveTaskOptions.hmr) {
                 const webpackHmrLink = 'https://webpack.js.org/guides/hot-module-replacement';
@@ -172,7 +179,8 @@ exports.default = Task.extend({
         let servePath = serveTaskOptions.servePath;
         if (!servePath && servePath !== '') {
             const defaultServePath = findDefaultServePath(serveTaskOptions.baseHref, serveTaskOptions.deployUrl);
-            if (defaultServePath == null) {
+            const showWarning = config_1.CliConfig.fromProject().get('warnings.servePathDefault');
+            if (defaultServePath == null && showWarning) {
                 ui.writeLine(common_tags_1.oneLine `
             ${chalk_1.default.yellow('WARNING')} --deploy-url and/or --base-href contain
             unsupported values for ng serve.  Default serve path of '/' used.
@@ -235,7 +243,7 @@ exports.default = Task.extend({
         const server = new WebpackDevServer(webpackCompiler, webpackDevServerConfiguration);
         if (!serveTaskOptions.verbose) {
             webpackCompiler.plugin('done', (stats) => {
-                const json = stats.toJson('verbose');
+                const json = stats.toJson(statsConfig);
                 this.ui.writeLine(stats_1.statsToString(json, statsConfig));
                 if (stats.hasWarnings()) {
                     this.ui.writeLine(stats_1.statsWarningsToString(json, statsConfig));

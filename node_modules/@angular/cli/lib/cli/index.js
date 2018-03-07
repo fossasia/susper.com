@@ -1,4 +1,10 @@
 "use strict";
+// TODO: remove this commented AJV require.
+// We don't actually require AJV, but there is a bug with NPM and peer dependencies that is
+// whose workaround is to depend on AJV.
+// See https://github.com/angular/angular-cli/issues/9691#issuecomment-367322703 for details.
+// We need to add a require here to satisfy the dependency checker.
+// require('ajv');
 Object.defineProperty(exports, "__esModule", { value: true });
 const path = require("path");
 const cli = require('../../ember-cli/lib/cli');
@@ -19,6 +25,7 @@ function loadCommands() {
         'completion': require('../../commands/completion').default,
         'doc': require('../../commands/doc').default,
         'xi18n': require('../../commands/xi18n').default,
+        'update': require('../../commands/update').default,
         // Easter eggs.
         'make-this-awesome': require('../../commands/easter-egg').default,
         // Configuration.

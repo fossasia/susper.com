@@ -7,7 +7,8 @@ const hiddenOptions = [
     'name',
     'path',
     'source-dir',
-    'app-root'
+    'app-root',
+    'link-cli',
 ];
 exports.default = Task.extend({
     run: function ({ schematicName, collectionName, nonSchematicOptions }) {

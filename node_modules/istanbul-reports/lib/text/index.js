@@ -5,7 +5,7 @@
 "use strict";
 
 var PCT_COLS = 9,
-    MISSING_COL = 15,
+    MISSING_COL = 18,
     TAB_SIZE = 1,
     DELIM = ' |',
     COL_DELIM = '-|';
@@ -108,7 +108,7 @@ function tableHeader(maxNameCols) {
     elements.push(formatPct('% Branch'));
     elements.push(formatPct('% Funcs'));
     elements.push(formatPct('% Lines'));
-    elements.push(formatPct('Uncovered Lines', MISSING_COL));
+    elements.push(formatPct('Uncovered Line #s', MISSING_COL));
     return elements.join(' |') + ' |';
 }
 

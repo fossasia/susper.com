@@ -1,7 +1,15 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
-See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-coverage@1.1.1...istanbul-lib-coverage@1.1.2) (2018-02-13)
+
+
+
+
+**Note:** Version bump only for package istanbul-lib-coverage
 
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-coverage@1.1.0...istanbul-lib-coverage@1.1.1) (2017-05-27)

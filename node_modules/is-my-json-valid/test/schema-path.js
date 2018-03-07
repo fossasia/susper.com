@@ -145,3 +145,23 @@ tape('schemaPath', function(t) {
 
   t.end()
 })
+
+tape('schemaPath - nested selectors', function(t) {
+  var schema = {
+    anyOf: [
+      { oneOf:[
+        { allOf: [
+          {
+            properties: {
+              nestedSelectors: {type: "integer"}
+            }
+          }
+        ]}
+      ]}
+    ]
+  }
+  var validate = validator(schema, { verbose: true, greedy: true } );
+  t.notOk(validate({nestedSelectors: "nope"}), 'should not crash on visit inside *Of');
+
+  t.end()
+})

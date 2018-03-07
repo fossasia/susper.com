@@ -1,13 +1,15 @@
 /*!
  * shallow-clone <https://github.com/jonschlinkert/shallow-clone>
  *
- * Copyright (c) 2015, Jon Schlinkert.
- * Licensed under the MIT License.
+ * Copyright (c) 2015-2017, Jon Schlinkert.
+ * Released under the MIT License.
  */
 
 'use strict';
 
-var utils = require('./utils');
+var isObject = require('is-extendable');
+var mixin = require('mixin-object');
+var typeOf = require('kind-of');
 
 /**
  * Shallow copy an object, array or primitive.
@@ -17,8 +19,7 @@ var utils = require('./utils');
  */
 
 function clone(val) {
-  var type = utils.typeOf(val);
-
+  var type = typeOf(val);
   if (clone.hasOwnProperty(type)) {
     return clone[type](val);
   }
@@ -34,8 +35,8 @@ clone.date = function cloneDate(date) {
 };
 
 clone.object = function cloneObject(obj) {
-  if (utils.isObject(obj)) {
-    return utils.mixin({}, obj);
+  if (isObject(obj)) {
+    return mixin({}, obj);
   } else {
     return obj;
   }

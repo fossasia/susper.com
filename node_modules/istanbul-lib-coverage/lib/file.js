@@ -130,7 +130,7 @@ function assertValidObject(obj) {
  *
  * * `path` - the file path for which coverage is being tracked
  * * `statementMap` - map of statement locations keyed by statement index
- * * `functionMap` - map of function metadata keyed by function index
+ * * `fnMap` - map of function metadata keyed by function index
  * * `branchMap` - map of branch metadata keyed by branch index
  * * `s` - hit counts for statements
  * * `f` - hit count for functions

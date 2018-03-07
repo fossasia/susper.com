@@ -1,11 +1,29 @@
 'use strict';
 
 /**
- * Nanomatch compilers
- */
+* Nanomatch compilers
+*/
 
 module.exports = function(nanomatch, options) {
-  var star = '[^/]*?';
+  function slash() {
+    if (options && typeof options.slash === 'string') {
+      return options.slash;
+    }
+    if (options && typeof options.slash === 'function') {
+      return options.slash.call(nanomatch);
+    }
+    return '\\\\/';
+  }
+
+  function star() {
+    if (options && typeof options.star === 'string') {
+      return options.star;
+    }
+    if (options && typeof options.star === 'function') {
+      return options.star.call(nanomatch);
+    }
+    return '[^' + slash() + ']*?';
+  }
 
   var ast = nanomatch.ast = nanomatch.parser.ast;
   ast.state = nanomatch.parser.state;
@@ -24,7 +42,7 @@ module.exports = function(nanomatch, options) {
       return this.emit(node.val, node);
     })
     .set('escape', function(node) {
-      if (this.options.unescape && /^[\w_.-]/.test(node.val)) {
+      if (this.options.unescape && /^[-\w_.]/.test(node.val)) {
         return this.emit(node.val, node);
       }
       return this.emit('\\' + node.val, node);
@@ -61,7 +79,7 @@ module.exports = function(nanomatch, options) {
       return this.emit(node.val, node);
     })
     .set('slash', function(node, nodes, i) {
-      var val = '\\' + node.val;
+      var val = '[' + slash() + ']';
       var parent = node.parent;
       var prev = this.prev();
 
@@ -129,7 +147,7 @@ module.exports = function(nanomatch, options) {
      */
 
     .set('square', function(node) {
-      var val = !/^\w/.test(node.val) ? '\\' + node.val : node.val;
+      var val = (/^\W/.test(node.val) ? '\\' : '') + node.val;
       return this.emit(val, node);
     })
 
@@ -139,6 +157,8 @@ module.exports = function(nanomatch, options) {
 
     .set('qmark', function(node) {
       var prev = this.prev();
+      // don't use "slash" variable so that we always avoid
+      // matching backslashes and slashes with a qmark
       var val = '[^.\\\\/]';
       if (this.options.dot || (prev.type !== 'bos' && prev.type !== 'slash')) {
         val = '[^\\\\/]';
@@ -185,18 +205,18 @@ module.exports = function(nanomatch, options) {
         this.state.leadingGlobstar = true;
       }
 
-      var next = this.next();
       var prev = this.prev();
-      var next2 = this.next(2);
-      var prev2 = this.prev(2);
+      var before = this.prev(2);
+      var next = this.next();
+      var after = this.next(2);
       var type = prev.type;
       var val = node.val;
 
       if (prev.type === 'slash' && next.type === 'slash') {
-        if (prev2.type === 'text') {
+        if (before.type === 'text') {
           this.output += '?';
 
-          if (next2.type !== 'text') {
+          if (after.type !== 'text') {
             this.output += '\\b';
           }
         }
@@ -209,19 +229,19 @@ module.exports = function(nanomatch, options) {
 
       var isInside = node.isInside.paren || node.isInside.brace;
       if (parsed && type !== 'slash' && type !== 'bos' && !isInside) {
-        val = star;
+        val = star();
       } else {
         val = this.options.dot !== true
-          ? '(?:(?!(?:\\/|^)\\.).)*?'
-          : '(?:(?!(?:\\/|^)(?:\\.{1,2})($|\\/))(?!\\.{2}).)*?';
+          ? '(?:(?!(?:[' + slash() + ']|^)\\.).)*?'
+          : '(?:(?!(?:[' + slash() + ']|^)(?:\\.{1,2})($|[' + slash() + ']))(?!\\.{2}).)*?';
       }
 
       if ((type === 'slash' || type === 'bos') && this.options.dot !== true) {
         val = '(?!\\.)' + val;
       }
 
-      if (prev.type === 'slash' && next.type === 'slash' && prev2.type !== 'text') {
-        if (next2.type === 'text' || next2.type === 'star') {
+      if (prev.type === 'slash' && next.type === 'slash' && before.type !== 'text') {
+        if (after.type === 'text' || after.type === 'star') {
           node.addQmark = true;
         }
       }
@@ -248,23 +268,23 @@ module.exports = function(nanomatch, options) {
       }
 
       if (this.output === '' && this.options.contains !== true) {
-        this.output = '(?!\\/)';
+        this.output = '(?![' + slash() + '])';
       }
 
       if (type === 'bracket' && this.options.bash === false) {
-        var str = next && next.type === 'bracket' ? star : '*?';
+        var str = next && next.type === 'bracket' ? star() : '*?';
         if (!prev.nodes || prev.nodes[1].type !== 'posix') {
           return this.emit(str, node);
         }
       }
 
       var prefix = !this.dotfiles && type !== 'text' && type !== 'escape'
-        ? (this.options.dot ? '(?!(?:^|\\/)\\.{1,2}(?:$|\\/))' : '(?!\\.)')
+        ? (this.options.dot ? '(?!(?:^|[' + slash() + '])\\.{1,2}(?:$|[' + slash() + ']))' : '(?!\\.)')
         : '';
 
       if (isStart(prev) || (isStart(prior) && type === 'not')) {
         if (prefix !== '(?!\\.)') {
-          prefix += '(?!(\\.{2}|\\.\\/))(?=.)';
+          prefix += '(?!(\\.{2}|\\.[' + slash() + ']))(?=.)';
         } else {
           prefix += '(?=.)';
         }
@@ -276,7 +296,7 @@ module.exports = function(nanomatch, options) {
         this.output = '(?!\\.)' + this.output;
       }
 
-      var output = prefix + star;
+      var output = prefix + star();
       if (this.options.capture) {
         output = '(' + output + ')';
       }
@@ -300,9 +320,9 @@ module.exports = function(nanomatch, options) {
       var prev = this.prev();
       var val = node.val;
 
-      this.output = '(?:(?:\\.(?:\\/|\\\\))(?=.))?' + this.output;
+      this.output = '(?:\\.[' + slash() + '](?=.))?' + this.output;
       if (this.state.metachar && prev.type !== 'qmark' && prev.type !== 'slash') {
-        val += (this.options.contains ? '(?:\\/|\\\\)?' : '(?:(?:\\/|\\\\)|$)');
+        val += (this.options.contains ? '[' + slash() + ']?' : '(?:[' + slash() + ']|$)');
       }
 
       return this.emit(val, node);

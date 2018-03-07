@@ -5,25 +5,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = preProcessPattern;
 
-var _fs = require('fs');
-
-var _fs2 = _interopRequireDefault(_fs);
-
-var _pify = require('pify');
-
-var _pify2 = _interopRequireDefault(_pify);
-
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
 var _isGlob = require('is-glob');
 
 var _isGlob2 = _interopRequireDefault(_isGlob);
+
+var _escape = require('./utils/escape');
+
+var _escape2 = _interopRequireDefault(_escape);
+
+var _isObject = require('./utils/isObject');
+
+var _isObject2 = _interopRequireDefault(_isObject);
+
+var _promisify = require('./utils/promisify');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35,6 +33,7 @@ function preProcessPattern(globalRef, pattern) {
         debug = globalRef.debug,
         warning = globalRef.warning,
         context = globalRef.context,
+        inputFileSystem = globalRef.inputFileSystem,
         fileDependencies = globalRef.fileDependencies,
         contextDependencies = globalRef.contextDependencies,
         compilation = globalRef.compilation;
@@ -42,7 +41,7 @@ function preProcessPattern(globalRef, pattern) {
 
     pattern = typeof pattern === 'string' ? {
         from: pattern
-    } : _lodash2.default.cloneDeep(pattern);
+    } : Object.assign({}, pattern);
     pattern.to = pattern.to || '';
     pattern.context = pattern.context || context;
     if (!_path2.default.isAbsolute(pattern.context)) {
@@ -69,9 +68,14 @@ function preProcessPattern(globalRef, pattern) {
     debug('determined \'' + pattern.to + '\' is a \'' + pattern.toType + '\'');
 
     // If we know it's a glob, then bail early
-    if (_lodash2.default.isObject(pattern.from) && pattern.from.glob) {
+    if ((0, _isObject2.default)(pattern.from) && pattern.from.glob) {
         pattern.fromType = 'glob';
-        pattern.fromArgs = _lodash2.default.omit(pattern.from, ['glob']);
+
+        var fromArgs = Object.assign({}, pattern.from);
+        delete fromArgs.glob;
+
+        pattern.fromArgs = fromArgs;
+        pattern.glob = (0, _escape2.default)(pattern.context, pattern.from.glob);
         pattern.absoluteFrom = _path2.default.resolve(pattern.context, pattern.from.glob);
         return Promise.resolve(pattern);
     }
@@ -84,10 +88,11 @@ function preProcessPattern(globalRef, pattern) {
 
     debug('determined \'' + pattern.from + '\' to be read from \'' + pattern.absoluteFrom + '\'');
 
-    return (0, _pify2.default)(_fs2.default.stat)(pattern.absoluteFrom).catch(function () {
+    return (0, _promisify.stat)(inputFileSystem, pattern.absoluteFrom).catch(function () {
         // If from doesn't appear to be a glob, then log a warning
         if ((0, _isGlob2.default)(pattern.from) || pattern.from.indexOf('*') !== -1) {
             pattern.fromType = 'glob';
+            pattern.glob = (0, _escape2.default)(pattern.context, pattern.from);
         } else {
             var msg = 'unable to locate \'' + pattern.from + '\' at \'' + pattern.absoluteFrom + '\'';
             warning(msg);
@@ -103,6 +108,7 @@ function preProcessPattern(globalRef, pattern) {
             pattern.fromType = 'dir';
             pattern.context = pattern.absoluteFrom;
             contextDependencies.push(pattern.absoluteFrom);
+            pattern.glob = (0, _escape2.default)(pattern.absoluteFrom, '**/*');
             pattern.absoluteFrom = _path2.default.join(pattern.absoluteFrom, '**/*');
             pattern.fromArgs = {
                 dot: true
@@ -110,6 +116,7 @@ function preProcessPattern(globalRef, pattern) {
         } else if (stat.isFile()) {
             pattern.fromType = 'file';
             pattern.context = _path2.default.dirname(pattern.absoluteFrom);
+            pattern.glob = (0, _escape2.default)(pattern.absoluteFrom);
             pattern.fromArgs = {
                 dot: true
             };

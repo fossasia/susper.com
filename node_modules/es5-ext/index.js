@@ -16,6 +16,7 @@ module.exports = {
 	math: require("./math"),
 	number: require("./number"),
 	object: require("./object"),
+	promise: require("./promise"),
 	regExp: require("./reg-exp"),
 	string: require("./string")
 };

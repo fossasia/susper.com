@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { JsonObject } from '@angular-devkit/core';
-import { Collection, CollectionDescription, RuleFactory, SchematicDescription, TypedSchematicContext } from '@angular-devkit/schematics';
+import { Collection, CollectionDescription, RuleFactory, SchematicDescription, TypedSchematicContext } from '../src';
 export interface FileSystemCollectionDescription {
     readonly path: string;
     readonly version?: string;

@@ -6,7 +6,7 @@ const common_tags_1 = require("common-tags");
 // Chalk typings don't have the correct constructor parameters.
 const chalkCtx = new chalk_1.default.constructor(chalk_1.default.supportsColor ? {} : { level: 1 });
 const { bold, green, red, reset, white, yellow } = chalkCtx;
-function _formatSize(size) {
+function formatSize(size) {
     if (size <= 0) {
         return '0 bytes';
     }
@@ -14,6 +14,7 @@ function _formatSize(size) {
     const index = Math.floor(Math.log(size) / Math.log(1000));
     return `${+(size / Math.pow(1000, index)).toPrecision(3)} ${abbreviations[index]}`;
 }
+exports.formatSize = formatSize;
 function statsToString(json, statsConfig) {
     const colors = statsConfig.colors;
     const rs = (x) => colors ? reset(x) : x;
@@ -24,7 +25,7 @@ function statsToString(json, statsConfig) {
         .filter((chunk) => chunk.rendered)
         .map((chunk) => {
         const asset = json.assets.filter((x) => x.name == chunk.files[0])[0];
-        const size = asset ? ` ${_formatSize(asset.size)}` : '';
+        const size = asset ? ` ${formatSize(asset.size)}` : '';
         const files = chunk.files.join(', ');
         const names = chunk.names ? ` (${chunk.names.join(', ')})` : '';
         const initial = y(chunk.entry ? '[entry]' : chunk.initial ? '[initial]' : '');

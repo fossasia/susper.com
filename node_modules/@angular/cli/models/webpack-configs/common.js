@@ -11,14 +11,15 @@ const scripts_webpack_plugin_1 = require("../../plugins/scripts-webpack-plugin")
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const SilentError = require('silent-error');
+const resolve = require('resolve');
 /**
  * Enumerate loaders and their dependencies from this file to let the dependency validator
  * know they are used.
  *
- * require('source-map-loader')
  * require('raw-loader')
  * require('url-loader')
  * require('file-loader')
+ * require('cache-loader')
  * require('@angular-devkit/build-optimizer')
  */
 function getCommonConfig(wco) {
@@ -78,7 +79,7 @@ function getCommonConfig(wco) {
             // Prevent asset configurations from writing outside of the output path, except if the user
             // specify a configuration flag.
             // Also prevent writing outside the project path. That is not overridable.
-            const absoluteOutputPath = path.resolve(buildOptions.outputPath);
+            const absoluteOutputPath = path.resolve(projectRoot, buildOptions.outputPath);
             const absoluteAssetOutput = path.resolve(absoluteOutputPath, asset.output);
             const outputRelativeOutput = path.relative(absoluteOutputPath, absoluteAssetOutput);
             if (outputRelativeOutput.startsWith('..') || path.isAbsolute(outputRelativeOutput)) {
@@ -108,14 +109,11 @@ function getCommonConfig(wco) {
             if (is_directory_1.isDirectory(path.resolve(asset.input, asset.glob))) {
                 asset.glob = asset.glob + '/**/*';
             }
-            // Escape the input in case it has special charaters and use to make glob absolute
-            const escapedInput = asset.input
-                .replace(/[\\|\*|\?|\!|\(|\)|\[|\]|\{|\}]/g, (substring) => `\\${substring}`);
             return {
                 context: asset.input,
                 to: asset.output,
                 from: {
-                    glob: path.resolve(escapedInput, asset.glob),
+                    glob: asset.glob,
                     dot: true
                 }
             };
@@ -136,12 +134,18 @@ function getCommonConfig(wco) {
         }));
     }
     if (buildOptions.buildOptimizer) {
+        // Set the cache directory to the Build Optimizer dir, so that package updates will delete it.
+        const buildOptimizerDir = path.dirname(resolve.sync('@angular-devkit/build-optimizer', { basedir: projectRoot }));
+        const cacheDirectory = path.resolve(buildOptimizerDir, './.cache/');
         extraRules.push({
             test: /\.js$/,
             use: [{
+                    loader: 'cache-loader',
+                    options: { cacheDirectory }
+                }, {
                     loader: '@angular-devkit/build-optimizer/webpack-loader',
                     options: { sourceMap: buildOptions.sourcemaps }
-                }]
+                }],
         });
     }
     if (buildOptions.namedChunks) {
@@ -158,17 +162,23 @@ function getCommonConfig(wco) {
         alias = rxPaths(nodeModules);
     }
     catch (e) { }
+    // Allow loaders to be in a node_modules nested inside the CLI package
+    const loaderNodeModules = ['node_modules'];
+    const potentialNodeModules = path.join(__dirname, '..', '..', 'node_modules');
+    if (is_directory_1.isDirectory(potentialNodeModules)) {
+        loaderNodeModules.push(potentialNodeModules);
+    }
     return {
         resolve: {
             extensions: ['.ts', '.js'],
-            modules: ['node_modules', nodeModules],
             symlinks: !buildOptions.preserveSymlinks,
+            modules: [appRoot, 'node_modules'],
             alias
         },
         resolveLoader: {
-            modules: [nodeModules, 'node_modules']
+            modules: loaderNodeModules
         },
-        context: __dirname,
+        context: projectRoot,
         entry: entryPoints,
         output: {
             path: path.resolve(buildOptions.outputPath),

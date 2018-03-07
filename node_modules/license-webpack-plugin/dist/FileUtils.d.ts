@@ -1,5 +1,5 @@
 declare class FileUtils {
-    static MODULE_DIR: string;
+    static NODE_MODULES: string;
     static isThere(file: string): boolean;
 }
 export { FileUtils };

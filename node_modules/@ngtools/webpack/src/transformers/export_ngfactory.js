@@ -22,7 +22,6 @@ function exportNgFactory(shouldTransform, getEntryModule) {
         const relativeEntryModulePath = path_1.relative(path_1.dirname(sourceFile.fileName), entryModule.path);
         const normalizedEntryModulePath = `./${relativeEntryModulePath}`.replace(/\\/g, '/');
         // Get the module path from the import.
-        let modulePath;
         entryModuleIdentifiers.forEach((entryModuleIdentifier) => {
             if (entryModuleIdentifier.parent.kind !== ts.SyntaxKind.ExportSpecifier) {
                 return;
@@ -32,7 +31,6 @@ function exportNgFactory(shouldTransform, getEntryModule) {
             if (moduleSpecifier.kind !== ts.SyntaxKind.StringLiteral) {
                 return;
             }
-            modulePath = moduleSpecifier.text;
             // Add the transform operations.
             const factoryClassName = entryModule.className + 'NgFactory';
             const factoryModulePath = normalizedEntryModulePath + '.ngfactory';

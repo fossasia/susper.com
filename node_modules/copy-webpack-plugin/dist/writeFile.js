@@ -5,14 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = writeFile;
 
-var _fs = require('fs');
-
-var _fs2 = _interopRequireDefault(_fs);
-
-var _pify = require('pify');
-
-var _pify2 = _interopRequireDefault(_pify);
-
 var _loaderUtils = require('loader-utils');
 
 var _loaderUtils2 = _interopRequireDefault(_loaderUtils);
@@ -35,6 +27,8 @@ var _findCacheDir = require('find-cache-dir');
 
 var _findCacheDir2 = _interopRequireDefault(_findCacheDir);
 
+var _promisify = require('./utils/promisify');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function writeFile(globalRef, pattern, file) {
@@ -43,10 +37,11 @@ function writeFile(globalRef, pattern, file) {
         compilation = globalRef.compilation,
         fileDependencies = globalRef.fileDependencies,
         written = globalRef.written,
+        inputFileSystem = globalRef.inputFileSystem,
         copyUnmodified = globalRef.copyUnmodified;
 
 
-    return (0, _pify2.default)(_fs2.default.stat)(file.absoluteFrom).then(function (stat) {
+    return (0, _promisify.stat)(inputFileSystem, file.absoluteFrom).then(function (stat) {
         // We don't write empty directories
         if (stat.isDirectory()) {
             return;
@@ -58,7 +53,7 @@ function writeFile(globalRef, pattern, file) {
         }
 
         info('reading ' + file.absoluteFrom + ' to write to assets');
-        return (0, _pify2.default)(_fs2.default.readFile)(file.absoluteFrom).then(function (content) {
+        return (0, _promisify.readFile)(inputFileSystem, file.absoluteFrom).then(function (content) {
             if (pattern.transform) {
                 var transform = function transform(content, absoluteFrom) {
                     return pattern.transform(content, absoluteFrom);
@@ -99,34 +94,16 @@ function writeFile(globalRef, pattern, file) {
             if (pattern.toType === 'template') {
                 info('interpolating template \'' + file.webpackTo + '\' for \'' + file.relativeFrom + '\'');
 
-                // A hack so .dotted files don't get parsed as extensions
-                var basename = _path2.default.basename(file.relativeFrom);
-                var dotRemoved = false;
-                if (basename[0] === '.') {
-                    dotRemoved = true;
-                    file.relativeFrom = _path2.default.join(_path2.default.dirname(file.relativeFrom), basename.slice(1));
-                }
-
                 // If it doesn't have an extension, remove it from the pattern
                 // ie. [name].[ext] or [name][ext] both become [name]
                 if (!_path2.default.extname(file.relativeFrom)) {
                     file.webpackTo = file.webpackTo.replace(/\.?\[ext\]/g, '');
                 }
 
-                // A hack because loaderUtils.interpolateName doesn't
-                // find the right path if no directory is defined
-                // ie. [path] applied to 'file.txt' would return 'file'
-                if (file.relativeFrom.indexOf(_path2.default.sep) < 0) {
-                    file.relativeFrom = _path2.default.sep + file.relativeFrom;
-                }
-
-                file.webpackTo = _loaderUtils2.default.interpolateName({ resourcePath: file.relativeFrom }, file.webpackTo, { content: content });
-
-                // Add back removed dots
-                if (dotRemoved) {
-                    var newBasename = _path2.default.basename(file.webpackTo);
-                    file.webpackTo = _path2.default.dirname(file.webpackTo) + '/.' + newBasename;
-                }
+                file.webpackTo = _loaderUtils2.default.interpolateName({ resourcePath: file.absoluteFrom }, file.webpackTo, {
+                    content: content,
+                    context: pattern.context
+                });
             }
 
             if (!copyUnmodified && written[file.absoluteFrom] && written[file.absoluteFrom]['hash'] === hash && written[file.absoluteFrom]['webpackTo'] === file.webpackTo) {

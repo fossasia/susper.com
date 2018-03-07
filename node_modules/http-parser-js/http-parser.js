@@ -81,7 +81,8 @@ var methods = exports.methods = HTTPParser.methods = [
 HTTPParser.prototype.reinitialize = HTTPParser;
 HTTPParser.prototype.close =
 HTTPParser.prototype.pause =
-HTTPParser.prototype.resume = function () {};
+HTTPParser.prototype.resume =
+HTTPParser.prototype.free = function () {};
 HTTPParser.prototype._compatMode0_11 = false;
 HTTPParser.prototype.getAsyncId = function() { return 0; };
 

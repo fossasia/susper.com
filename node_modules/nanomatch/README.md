@@ -31,6 +31,8 @@ Please consider following this project's author, [Jon Schlinkert](https://github
   * [options.nonegate](#optionsnonegate)
   * [options.nonull](#optionsnonull)
   * [options.nullglob](#optionsnullglob)
+  * [options.slash](#optionsslash)
+  * [options.star](#optionsstar)
   * [options.snapdragon](#optionssnapdragon)
   * [options.sourcemap](#optionssourcemap)
   * [options.unescape](#optionsunescape)
@@ -39,7 +41,7 @@ Please consider following this project's author, [Jon Schlinkert](https://github
 - [Bash expansion libs](#bash-expansion-libs)
 - [Benchmarks](#benchmarks)
   * [Running benchmarks](#running-benchmarks)
-  * [Latest results](#latest-results)
+  * [Nanomatch vs. Minimatch vs. Multimatch](#nanomatch-vs-minimatch-vs-multimatch)
 - [About](#about)
 
 </details>
@@ -536,7 +538,7 @@ console.log(nm.makeRe('*.js'));
 //=> /^(?:(\.[\\\/])?(?!\.)(?=.)[^\/]*?\.js)$/
 ```
 
-### [.create](index.js#L662)
+### [.create](index.js#L658)
 
 Parses the given glob `pattern` and returns an object with the compiled `output` and optional source `map`.
 
@@ -578,7 +580,7 @@ console.log(nm.create('abc/*.js'));
 //   idx: 6 }
 ```
 
-### [.parse](index.js#L701)
+### [.parse](index.js#L697)
 
 Parse the given `str` with the given `options`.
 
@@ -611,7 +613,7 @@ console.log(ast);
 //      { type: 'eos', val: '' } ] }
 ```
 
-### [.compile](index.js#L749)
+### [.compile](index.js#L745)
 
 Compile the given `ast` or string with the given `options`.
 
@@ -645,7 +647,7 @@ console.log(nm.compile(ast));
 //   parsingErrors: [] }
 ```
 
-### [.clearCache](index.js#L772)
+### [.clearCache](index.js#L768)
 
 Clear the regex cache.
 
@@ -664,7 +666,7 @@ nm.clearCache();
 
 Allow glob patterns without slashes to match a file path based on its basename. Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `matchBase`.
 
-Type: `Boolean`
+Type: `boolean`
 
 Default: `false`
 
@@ -687,7 +689,7 @@ nm(['a/b.js', 'a/c.md'], '*.js', {matchBase: true});
 
 Enabled by default, this option enforces bash-like behavior with stars immediately following a bracket expression. Bash bracket expressions are similar to regex character classes, but unlike regex, a star following a bracket expression **does not repeat the bracketed characters**. Instead, the star is treated the same as an other star.
 
-Type: `Boolean`
+Type: `boolean`
 
 Default: `true`
 
@@ -710,7 +712,7 @@ console.log(nm(files, '[a-c]*', {bash: false}));
 
 Disable regex and function memoization.
 
-Type: `Boolean`
+Type: `boolean`
 
 Default: `undefined`
 
@@ -723,7 +725,7 @@ Default: `undefined`
 
 Match dotfiles. Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `dot`.
 
-Type: `Boolean`
+Type: `boolean`
 
 Default: `false`
 
@@ -736,7 +738,7 @@ Default: `false`
 
 Similar to the `--failglob` behavior in Bash, throws an error when no matches are found.
 
-Type: `Boolean`
+Type: `boolean`
 
 Default: `undefined`
 
@@ -771,7 +773,7 @@ Alias for [options.basename](#options-basename).
 
 Use a case-insensitive regex for matching files. Same behavior as [minimatch](https://github.com/isaacs/minimatch).
 
-Type: `Boolean`
+Type: `boolean`
 
 Default: `undefined`
 
@@ -784,7 +786,7 @@ Default: `undefined`
 
 Remove duplicate elements from the result array.
 
-Type: `Boolean`
+Type: `boolean`
 
 Default: `true` (enabled by default)
 
@@ -809,7 +811,7 @@ nm.match(['a/b/c', 'a/b/c'], '**', {nodupes: false});
 
 Disable matching with globstars (`**`).
 
-Type: `Boolean`
+Type: `boolean`
 
 Default: `undefined`
 
@@ -830,7 +832,7 @@ nm(['a/b', 'a/b/c', 'a/b/c/d'], 'a/**', {noglobstar: true});
 
 Disallow negation (`!`) patterns, and treat leading `!` as a literal character to match.
 
-Type: `Boolean`
+Type: `boolean`
 
 Default: `undefined`
 
@@ -852,20 +854,46 @@ Alias for [options.nullglob](#options-nullglob).
 
 If `true`, when no matches are found the actual (arrayified) glob pattern is returned instead of an empty array. Same behavior as [minimatch](https://github.com/isaacs/minimatch) option `nonull`.
 
-Type: `Boolean`
+Type: `boolean`
 
 Default: `undefined`
 
 </details>
 
 <details>
-<summary><strong>snapdragon</strong></summary>
+<summary><strong><a name="slash">slash</a></strong></summary>
+
+### options.slash
+
+Customize the slash character(s) to use for matching.
+
+Type: `string|function`
+
+Default: `[/\\]` (forward slash and backslash)
+
+</details>
+
+<details>
+<summary><strong><a name="star">star</a></strong></summary>
+
+### options.star
+
+Customize the star character(s) to use for matching. It's not recommended that you modify this unless you have advanced knowledge of the compiler and matching rules.
+
+Type: `string|function`
+
+Default: `[^/\\]*?`
+
+</details>
+
+<details>
+<summary><strong><a name="snapdragon">snapdragon</a></strong></summary>
 
 ### options.snapdragon
 
 Pass your own instance of [snapdragon](https://github.com/jonschlinkert/snapdragon) to customize parsers or compilers.
 
-Type: `Object`
+Type: `object`
 
 Default: `undefined`
 
@@ -910,7 +938,7 @@ console.log(res.map);
 
 Remove backslashes from returned matches.
 
-Type: `Boolean`
+Type: `boolean`
 
 Default: `undefined`
 
@@ -935,7 +963,7 @@ nm.match(['abc', 'a\\*c'], 'a\\*c', {unescape: true});
 
 Convert path separators on returned files to posix/unix-style forward slashes.
 
-Type: `Boolean`
+Type: `boolean`
 
 Default: `true`
 
@@ -1004,50 +1032,50 @@ Install dev dependencies:
 npm i -d && node benchmark
 ```
 
-### Latest results
+### Nanomatch vs. Minimatch vs. Multimatch
 
 ```bash
 # globstar-basic (182 bytes)
-  minimatch x 70,508 ops/sec ±0.44% (92 runs sampled)
-  multimatch x 63,220 ops/sec ±0.76% (94 runs sampled)
-  nanomatch x 377,146 ops/sec ±0.45% (89 runs sampled)
+  minimatch x 69,512 ops/sec ±1.92% (88 runs sampled)
+  multimatch x 63,376 ops/sec ±1.41% (89 runs sampled)
+  nanomatch x 432,451 ops/sec ±0.92% (88 runs sampled)
 
-  fastest is nanomatch (by 564% avg)
+  fastest is nanomatch (by 651% avg)
 
 # large-list-globstar (485686 bytes)
-  minimatch x 35.67 ops/sec ±0.47% (61 runs sampled)
-  multimatch x 34.80 ops/sec ±1.77% (60 runs sampled)
-  nanomatch x 509 ops/sec ±0.43% (90 runs sampled)
+  minimatch x 34.02 ops/sec ±1.42% (59 runs sampled)
+  multimatch x 33.58 ops/sec ±1.97% (58 runs sampled)
+  nanomatch x 483 ops/sec ±1.06% (86 runs sampled)
 
-  fastest is nanomatch (by 1445% avg)
+  fastest is nanomatch (by 1429% avg)
 
 # long-list-globstar (194085 bytes)
-  minimatch x 397 ops/sec ±0.96% (89 runs sampled)
-  multimatch x 400 ops/sec ±0.32% (90 runs sampled)
-  nanomatch x 843 ops/sec ±0.40% (92 runs sampled)
+  minimatch x 383 ops/sec ±0.74% (90 runs sampled)
+  multimatch x 378 ops/sec ±0.59% (89 runs sampled)
+  nanomatch x 990 ops/sec ±1.14% (85 runs sampled)
 
-  fastest is nanomatch (by 212% avg)
+  fastest is nanomatch (by 260% avg)
 
 # negation-basic (132 bytes)
-  minimatch x 224,342 ops/sec ±1.07% (90 runs sampled)
-  multimatch x 68,071 ops/sec ±0.80% (89 runs sampled)
-  nanomatch x 442,204 ops/sec ±1.09% (91 runs sampled)
+  minimatch x 242,145 ops/sec ±1.17% (89 runs sampled)
+  multimatch x 76,403 ops/sec ±0.78% (92 runs sampled)
+  nanomatch x 537,253 ops/sec ±1.44% (86 runs sampled)
 
-  fastest is nanomatch (by 302% avg)
+  fastest is nanomatch (by 337% avg)
 
 # not-glob-basic (93 bytes)
-  minimatch x 222,156 ops/sec ±0.98% (89 runs sampled)
-  multimatch x 179,724 ops/sec ±1.04% (91 runs sampled)
-  nanomatch x 1,446,098 ops/sec ±0.45% (92 runs sampled)
+  minimatch x 252,402 ops/sec ±1.33% (89 runs sampled)
+  multimatch x 209,954 ops/sec ±1.30% (90 runs sampled)
+  nanomatch x 1,716,468 ops/sec ±1.13% (86 runs sampled)
 
-  fastest is nanomatch (by 720% avg)
+  fastest is nanomatch (by 742% avg)
 
 # star-basic (93 bytes)
-  minimatch x 165,049 ops/sec ±1.22% (91 runs sampled)
-  multimatch x 132,553 ops/sec ±0.57% (90 runs sampled)
-  nanomatch x 522,080 ops/sec ±1.20% (92 runs sampled)
+  minimatch x 182,780 ops/sec ±1.41% (91 runs sampled)
+  multimatch x 153,210 ops/sec ±0.72% (89 runs sampled)
+  nanomatch x 599,621 ops/sec ±1.22% (90 runs sampled)
 
-  fastest is nanomatch (by 351% avg)
+  fastest is nanomatch (by 357% avg)
 
 ```
 
@@ -1099,21 +1127,22 @@ You might also be interested in these projects:
 
 | **Commits** | **Contributor** | 
 | --- | --- |
-| 144 | [jonschlinkert](https://github.com/jonschlinkert) |
+| 164 | [jonschlinkert](https://github.com/jonschlinkert) |
 | 1 | [devongovett](https://github.com/devongovett) |
 
 ### Author
 
 **Jon Schlinkert**
 
+* [linkedin/in/jonschlinkert](https://linkedin.com/in/jonschlinkert)
 * [github/jonschlinkert](https://github.com/jonschlinkert)
 * [twitter/jonschlinkert](https://twitter.com/jonschlinkert)
 
 ### License
 
-Copyright © 2017, [Jon Schlinkert](https://github.com/jonschlinkert).
+Copyright © 2018, [Jon Schlinkert](https://github.com/jonschlinkert).
 Released under the [MIT License](LICENSE).
 
 ***
 
-_This file was generated by [verb-generate-readme](https://github.com/verbose/verb-generate-readme), v0.6.0, on October 20, 2017._
+_This file was generated by [verb-generate-readme](https://github.com/verbose/verb-generate-readme), v0.6.0, on February 18, 2018._

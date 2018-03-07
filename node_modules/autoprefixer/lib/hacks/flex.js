@@ -11,7 +11,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var flexSpec = require('./flex-spec');
 var Declaration = require('../declaration');
 
-var list = require('postcss/lib/list');
+var list = require('postcss').list;
 
 var Flex = function (_Declaration) {
     _inherits(Flex, _Declaration);

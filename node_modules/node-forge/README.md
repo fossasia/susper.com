@@ -1,171 +1,40 @@
 # Forge
 
-[![Build Status][travis-ci-png]][travis-ci-site]
-[travis-ci-png]: https://travis-ci.org/digitalbazaar/forge.png?branch=master
-[travis-ci-site]: https://travis-ci.org/digitalbazaar/forge
+[![npm package](https://nodei.co/npm/node-forge.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/node-forge/)
+
+[![Build status](https://img.shields.io/travis/digitalbazaar/forge.svg?branch=master)](https://travis-ci.org/digitalbazaar/forge)
 
 A native implementation of [TLS][] (and various other cryptographic tools) in
 [JavaScript][].
 
-## Introduction
+Introduction
+------------
 
-The Forge software is a fully native implementation of the [TLS][] protocol in
-JavaScript as well as a set of tools for developing Web Apps that utilize many
-network resources.
+The Forge software is a fully native implementation of the [TLS][] protocol
+in JavaScript, a set of cryptography utilities, and a set of tools for
+developing Web Apps that utilize many network resources.
 
-## Performance
+Performance
+------------
 
 Forge is fast. Benchmarks against other popular JavaScript cryptography
 libraries can be found here:
 
-http://dominictarr.github.io/crypto-bench/
+* http://dominictarr.github.io/crypto-bench/
+* http://cryptojs.altervista.org/test/simulate-threading-speed_test.html
 
-http://cryptojs.altervista.org/test/simulate-threading-speed_test.html
+Documentation
+-------------
 
-## Getting Started
-------------------
+* [Introduction](#introduction)
+* [Performance](#performance)
+* [Installation](#installation)
+* [Testing](#testing)
+* [Contributing](#contributing)
 
-### Node.js ###
+### API
 
-If you want to use forge with [node.js][], it is available through `npm`:
-
-https://npmjs.org/package/node-forge
-
-Installation:
-
-    npm install node-forge
-
-You can then use forge as a regular module:
-
-    var forge = require('node-forge');
-
-### Requirements ###
-
-* General
-  * Optional: GNU autotools for the build infrastructure if using Flash.
-* Building a Browser Bundle:
-  * nodejs
-  * npm
-* Testing
-  * nodejs
-  * Optional: Python and OpenSSL development environment to build
-  * a special SSL module with session cache support for testing with flash.
-  * http://www.python.org/dev/
-  * http://www.openssl.org/
-  * Debian users should install python-dev and libssl-dev.
-* Optional: Flash
-  * A pre-built SocketPool.swf is included.
-  * Adobe Flex 3 SDK to build the Flash socket code.
-  * http://opensource.adobe.com/wiki/display/flexsdk/
-
-### Building a browser bundle ###
-
-To create a minimized JavaScript bundle, run the following:
-
-```
-npm install
-npm run minify
-```
-
-This will create a single minimized file that can be included in
-the browser:
-
-```
-js/forge.min.js
-```
-
-Include the file via:
-
-```html
-<script src="js/forge.min.js"></script>
-```
-
-Note that the minify script depends on the requirejs package,
-and that the requirejs binary 'r.js' assumes that the name of
-the node binary is 'node' not 'nodejs', as it is on some
-systems. You may need to change the hashbang line to use
-'nodejs' or run the command manually.
-
-To create a single non-minimized file that can be included in
-the browser:
-
-```
-npm install
-npm run bundle
-```
-
-This will create:
-
-```
-js/forge.bundle.js
-```
-
-Include the file via:
-
-```html
-<script src="js/forge.bundle.js"></script>
-```
-
-The above bundles will synchronously create a global 'forge' object.
-
-Keep in mind that these bundles will not include any WebWorker
-scripts (eg: prime.worker.js) or their dependencies, so these will
-need to be accessible from the browser if any WebWorkers are used.
-
-### Testing with NodeJS & RequireJS ###
-
-A test server for [node.js][] can be found at `./nodejs`. The following are included:
-
-  * Example of how to use `forge` within NodeJS in the form of a [mocha](http://mochajs.org/) test.
-  * Example of how to serve `forge` to the browser using [RequireJS](http://requirejs.org/).
-
-To run:
-
-    cd nodejs
-    npm install
-    npm test
-    npm start
-
-
-### Old build system that includes flash support ###
-
-To build the whole project, including Flash, run the following:
-
-    $ ./build-setup
-    $ make
-
-This will create the SWF, symlink all the JavaScript files, and build a Python
-SSL module for testing. To see configure options, run `./configure --help`.
-
-### Old test system including flash support ###
-
-A test server is provided which can be run in TLS mode and non-TLS mode. Use
-the --help option to get help for configuring ports. The server will print out
-the local URL you can vist to run tests.
-
-Some of the simplier tests should be run with just the non-TLS server::
-
-    $ ./tests/server.py
-
-More advanced tests need TLS enabled::
-
-    $ ./tests/server.py --tls
-
-## Contributing
----------------
-
-Any contributions (eg: PRs) that are accepted will be brought under the same
-license used by the rest of the Forge project. This license allows Forge to
-be used under the terms of either the BSD License or the GNU General Public
-License (GPL) Version 2.
-
-See: [LICENSE](https://github.com/digitalbazaar/forge/blob/cbebca3780658703d925b61b2caffb1d263a6c1d/LICENSE)
-
-If a contribution contains 3rd party source code with its own license, it
-may retain it, so long as that license is compatible with the Forge license.
-
-## Documentation
-----------------
+* [Options](#options)
 
 ### Transports
 
@@ -211,14 +80,217 @@ may retain it, so long as that license is compatible with the Forge license.
 * [Utilities](#util)
 * [Logging](#log)
 * [Debugging](#debug)
-* [Flash Socket Policy Module](#fsp)
+* [Flash Networking Support](#flash)
+
+### Other
+
+* [Security Considerations](#security-considerations)
+* [Library Background](#library-background)
+* [Contact](#contact)
+* [Donations](#donations)
 
 ---------------------------------------
 
+Installation
+------------
+
+**Note**: Please see the [Security Considerations](#security-considerations)
+section before using packaging systems and pre-built files.
+
+Forge uses a [CommonJS][] module structure with a build process for browser
+bundles. The older [0.6.x][] branch with standalone files is available but will
+not be regularly updated.
+
+### Node.js
+
+If you want to use forge with [Node.js][], it is available through `npm`:
+
+https://npmjs.org/package/node-forge
+
+Installation:
+
+    npm install node-forge
+
+You can then use forge as a regular module:
+
+```js
+var forge = require('node-forge');
+```
+
+The npm package includes pre-built `forge.min.js`, `forge.all.min.js`, and
+`prime.worker.min.js` using the [UMD][] format.
+
+### Bundle / Bower
+
+Each release is published in a separate repository as pre-built and minimized
+basic forge bundles using the [UMD][] format.
+
+https://github.com/digitalbazaar/forge-dist
+
+This bundle can be used in many environments. In particular it can be installed
+with [Bower][]:
+
+    bower install forge
+
+### unpkg
+
+[unpkg][] provides a CDN that can serve files from npm packages directly.
+
+https://unpkg.com/node-forge@0.7.0/dist/forge.min.js
+
+### Development Requirements
+
+The core JavaScript has the following requirements to build and test:
+
+* Building a browser bundle:
+  * Node.js
+  * npm
+* Testing
+  * Node.js
+  * npm
+  * Chrome, Firefox, Safari (optional)
+
+Some special networking features can optionally use a Flash component.  See the
+[Flash README](./flash/README.md) for details.
+
+### Building for a web browser
+
+To create single file bundles for use with browsers run the following:
+
+    npm install
+    npm run build
+
+This will create single non-minimized and minimized files that can be
+included in the browser:
+
+    dist/forge.js
+    dist/forge.min.js
+
+A bundle that adds some utilities and networking support is also available:
+
+    dist/forge.all.js
+    dist/forge.all.min.js
+
+Include the file via:
+
+```html
+<script src="YOUR_SCRIPT_PATH/forge.js"></script>
+```
+or
+```html
+<script src="YOUR_SCRIPT_PATH/forge.min.js"></script>
+```
+
+The above bundles will synchronously create a global 'forge' object.
+
+**Note**: These bundles will not include any WebWorker scripts (eg:
+`dist/prime.worker.js`), so these will need to be accessible from the browser
+if any WebWorkers are used.
+
+### Building a custom browser bundle
+
+The build process uses [webpack][] and the [config](./webpack.config.js) file
+can be modified to generate a file or files that only contain the parts of
+forge you need.
+
+[Browserify][] override support is also present in `package.json`.
+
+Testing
+-------
+
+See the [testing README](./tests/README.md) for full details.
+
+### Prepare to run tests
+
+    npm install
+
+### Running automated tests with Node.js
+
+Forge natively runs in a [Node.js][] environment:
+
+    npm test
+
+### Running automated tests with PhantomJS
+
+Automated testing is done via [Karma][]. By default it will run the tests in a
+headless manner with PhantomJS.
+
+    npm run test-karma
+
+Is 'mocha' reporter output too verbose? Other reporters are available. Try
+'dots', 'progress', or 'tap'.
+
+    npm run test-karma -- --reporters progress
+
+By default [webpack][] is used. [Browserify][] can also be used.
+
+    BUNDLER=browserify npm run test-karma
+
+### Running automated tests with one or more browsers
+
+You can also specify one or more browsers to use.
+
+    npm run test-karma -- --browsers Chrome,Firefox,Safari,PhantomJS
+
+The reporter option and `BUNDLER` environment variable can also be used.
+
+### Running manual tests in a browser
+
+Testing in a browser uses [webpack][] to combine forge and all tests and then
+loading the result in a browser. A simple web server is provided that will
+output the HTTP or HTTPS URLs to load. It also will start a simple Flash Policy
+Server. Unit tests and older legacy tests are provided. Custom ports can be
+used by running `node tests/server.js` manually.
+
+To run the unit tests in a browser a special forge build is required:
+
+    npm run test-build
+
+To run legacy browser based tests the main forge build is required:
+
+    npm run build
+
+The tests are run with a custom server that prints out the URLs to use:
+
+    npm run test-server
+
+### Running other tests
+
+There are some other random tests and benchmarks available in the tests
+directory.
+
+### Coverage testing
+
+To perform coverage testing of the unit tests, run the following. The results
+will be put in the `coverage/` directory. Note that coverage testing can slow
+down some tests considerably.
+
+    npm install
+    npm run coverage
+
+Contributing
+------------
+
+Any contributions (eg: PRs) that are accepted will be brought under the same
+license used by the rest of the Forge project. This license allows Forge to
+be used under the terms of either the BSD License or the GNU General Public
+License (GPL) Version 2.
+
+See: [LICENSE](https://github.com/digitalbazaar/forge/blob/cbebca3780658703d925b61b2caffb1d263a6c1d/LICENSE)
+
+If a contribution contains 3rd party source code with its own license, it
+may retain it, so long as that license is compatible with the Forge license.
+
+API
+---
+
+<a name="options" />
+### Options
+
 If at any time you wish to disable the use of native code, where available,
 for particular forge features like its secure random number generator, you
-may set the ```disableNativeCode``` flag on ```forge``` to ```true```. It
-is not recommended that you set this flag as native code is typically more
+may set the ```forge.options.usePureJavaScript``` flag to ```true```. It is
+not recommended that you set this flag as native code is typically more
 performant and may have stronger security properties. It may be useful to
 set this flag to test certain features that you plan to run in environments
 that are different from your testing environment.
@@ -226,31 +298,19 @@ that are different from your testing environment.
 To disable native code when including forge in the browser:
 
 ```js
-forge = {disableNativeCode: true};
-// now include forge script file(s)
-// Note: with this approach, script files *must*
-// be included after initializing the global forge var
-
-// alternatively, include script files first and then call
-forge = forge({disableNativeCode: true});
-
-// Note: forge will be permanently reconfigured now;
-// to avoid this but use the same "forge" var name,
-// you can wrap your code in a function to shadow the
-// global var, eg:
-(function(forge) {
-  // ...
-})(forge({disableNativeCode: true}));
+// run this *after* including the forge script
+forge.options.usePureJavaScript = true;
 ```
 
-To disable native code when using node.js:
+To disable native code when using Node.js:
 
 ```js
-var forge = require('node-forge')({disableNativeCode: true});
+var forge = require('node-forge');
+forge.options.usePureJavaScript = true;
 ```
 
----------------------------------------
-## Transports
+Transports
+----------
 
 <a name="tls" />
 ### TLS
@@ -529,6 +589,7 @@ Provides an XmlHttpRequest implementation using forge.http as a backend.
 __Examples__
 
 ```js
+// TODO
 ```
 
 <a name="socket" />
@@ -539,10 +600,11 @@ Provides an interface to create and use raw sockets provided via Flash.
 __Examples__
 
 ```js
+// TODO
 ```
 
----------------------------------------
-## Ciphers
+Ciphers
+-------
 
 <a name="cipher" />
 ### CIPHER
@@ -584,6 +646,7 @@ var key = forge.pkcs5.pbkdf2('password', salt, numIterations, 16);
 
 // encrypt some bytes using CBC mode
 // (other modes include: ECB, CFB, OFB, CTR, and GCM)
+// Note: CBC and ECB modes use PKCS#7 padding as default
 var cipher = forge.cipher.createCipher('AES-CBC', key);
 cipher.start({iv: iv});
 cipher.update(forge.util.createBuffer(someBytes));
@@ -634,7 +697,7 @@ if(pass) {
 }
 ```
 
-Using forge in node.js to match openssl's "enc" command line tool (**Note**: OpenSSL "enc" uses a non-standard file format with a custom key derivation function and a fixed iteration count of 1, which some consider less secure than alternatives such as [OpenPGP](https://tools.ietf.org/html/rfc4880)/[GnuPG](https://www.gnupg.org/)):
+Using forge in Node.js to match openssl's "enc" command line tool (**Note**: OpenSSL "enc" uses a non-standard file format with a custom key derivation function and a fixed iteration count of 1, which some consider less secure than alternatives such as [OpenPGP](https://tools.ietf.org/html/rfc4880)/[GnuPG](https://www.gnupg.org/)):
 
 ```js
 var forge = require('node-forge');
@@ -751,8 +814,9 @@ cipher.finish();
 // outputs decrypted hex
 console.log(cipher.output.toHex());
 ```
----------------------------------------
-## PKI
+
+PKI
+---
 
 Provides [X.509][] certificate and RSA public and private key encoding,
 decoding, encryption/decryption, and signing/verifying.
@@ -766,10 +830,14 @@ __Examples__
 var rsa = forge.pki.rsa;
 
 // generate an RSA key pair synchronously
+// *NOT RECOMMENDED* -- can be significantly slower than async and will not
+// use native APIs if available.
 var keypair = rsa.generateKeyPair({bits: 2048, e: 0x10001});
 
 // generate an RSA key pair asynchronously (uses web workers if available)
 // use workers: -1 to run a fast core estimator to optimize # of workers
+// *RECOMMENDED* - can be significantly faster than sync -- and will use
+// native APIs if available.
 rsa.generateKeyPair({bits: 2048, workers: 2}, function(err, keypair) {
   // keypair.privateKey, keypair.publicKey
 });
@@ -1146,6 +1214,31 @@ var p7 = forge.pkcs7.createSignedData();
 p7.addCertificate(certOrCertPem1);
 p7.addCertificate(certOrCertPem2);
 var pem = forge.pkcs7.messageToPem(p7);
+
+// create PKCS#7 signed data with authenticatedAttributes
+// attributes include: PKCS#9 content-type, message-digest, and signing-time
+var p7 = forge.pkcs7.createSignedData();
+p7.content = forge.util.createBuffer('Some content to be signed.', 'utf8');
+p7.addCertificate(certOrCertPem);
+p7.addSigner({
+  key: privateKeyAssociatedWithCert,
+  certificate: certOrCertPem,
+  digestAlgorithm: forge.pki.oids.sha256,
+  authenticatedAttributes: [{
+    type: forge.pki.oids.contentType,
+    value: forge.pki.oids.data
+  }, {
+    type: forge.pki.oids.messageDigest
+    // value will be auto-populated at signing time
+  }, {
+    type: forge.pki.oids.signingTime,
+    // value can also be auto-populated at signing time
+    value: new Date()
+  }]
+});
+p7.sign();
+var pem = forge.pkcs7.messageToPem(p7);
+
 ```
 
 <a name="pkcs8" />
@@ -1288,6 +1381,10 @@ csr.getAttribute({name: 'extensionRequest'}).extensions;
 
 Provides the cryptographic archive file format from [PKCS#12][].
 
+**Note for Chrome/Firefox/iOS/similar users**: If you have trouble importing
+a PKCS#12 container, try using the TripleDES algorithm. It can be passed
+to `forge.pkcs12.toPkcs12Asn1` using the `{algorithm: '3des'}` option.
+
 __Examples__
 
 ```js
@@ -1353,7 +1450,7 @@ if(bag.key === null) {
 var p12Asn1 = forge.pkcs12.toPkcs12Asn1(
   privateKey, certificateChain, 'password');
 
-// generate a p12 that can be imported by Chrome/Firefox
+// generate a p12 that can be imported by Chrome/Firefox/iOS
 // (requires the use of Triple DES instead of AES)
 var p12Asn1 = forge.pkcs12.toPkcs12Asn1(
   privateKey, certificateChain, 'password',
@@ -1415,7 +1512,7 @@ var object = asn1.fromDer(derBuffer);
 var derOidBuffer = asn1.oidToDer('1.2.840.113549.1.1.5');
 
 // convert a byte buffer with a DER-encoded OID to a dot-separated string
-console.log(asn1.derToDer(derOidBuffer));
+console.log(asn1.derToOid(derOidBuffer));
 // output: 1.2.840.113549.1.1.5
 
 // validates that an ASN.1 object matches a particular ASN.1 structure and
@@ -1474,8 +1571,8 @@ if(oid !== pki.oids['rsaEncryption']) {
 asn1.prettyPrint(object);
 ```
 
----------------------------------------
-## Message Digests
+Message Digests
+----------------
 
 <a name="sha1" />
 ### SHA1
@@ -1575,8 +1672,8 @@ console.log(hmac.digest().toHex());
 // output: effcdf6ae5eb2fa2d27416d5f184df9c259a7c79
 ```
 
----------------------------------------
-## Utilities
+Utilities
+---------
 
 <a name="prime" />
 ### Prime
@@ -1662,6 +1759,7 @@ Provides queuing and synchronizing tasks in a web application.
 __Examples__
 
 ```js
+// TODO
 ```
 
 <a name="util" />
@@ -1705,12 +1803,12 @@ bytes.bytes(/* count */);
 // empty this buffer and get its contents
 bytes.getBytes(/* count */);
 
-// convert a forge buffer into a node.js Buffer
+// convert a forge buffer into a Node.js Buffer
 // make sure you specify the encoding as 'binary'
 var forgeBuffer = forge.util.createBuffer();
 var nodeBuffer = new Buffer(forgeBuffer.getBytes(), 'binary');
 
-// convert a node.js Buffer into a forge buffer
+// convert a Node.js Buffer into a forge buffer
 // make sure you specify the encoding as 'binary'
 var nodeBuffer = new Buffer();
 var forgeBuffer = forge.util.createBuffer(nodeBuffer.toString('binary'));
@@ -1729,6 +1827,7 @@ levels of verbosity.
 __Examples__
 
 ```js
+// TODO
 ```
 
 <a name="debug" />
@@ -1740,18 +1839,45 @@ closures for viewing/investigation.
 __Examples__
 
 ```js
+// TODO
 ```
 
-<a name="fsp" />
-### Flash Socket Policy Module
+<a name="flash" />
+### Flash Networking Support
 
-Provides an [Apache][] module "mod_fsp" that can serve up a Flash Socket
-Policy. See `mod_fsp/README` for more details. This module makes it easy to
-modify an [Apache][] server to allow cross domain requests to be made to it.
+The [flash README](./flash/README.md) provides details on rebuilding the
+optional Flash component used for networking. It also provides details on
+Policy Server support.
 
+Security Considerations
+-----------------------
 
-Library Details
----------------
+When using this code please keep the following in mind:
+
+- Cryptography is hard. Please review and test this code before depending on it
+  for critical functionality.
+- The nature of JavaScript is that execution of this code depends on trusting a
+  very large set of JavaScript tools and systems. Consider runtime variations,
+  runtime characteristics, runtime optimization, code optimization, code
+  minimization, code obfuscation, bundling tools, possible bugs, the Forge code
+  itself, and so on.
+- If using pre-built bundles from [Bower][] or similar be aware someone else
+  ran the tools to create those files.
+- Use a secure transport channel such as [TLS][] to load scripts and consider
+  using additional security mechanisms such as [Subresource Integrity][] script
+  attributes.
+- Use "native" functionality where possible. This can be critical when dealing
+  with performance and random number generation. Note that the JavaScript
+  random number algorithms should perform well if given suitable entropy.
+- Understand possible attacks against cryptographic systems. For instance side
+  channel and timing attacks may be possible due to the difficulty in
+  implementing constant time algorithms in pure JavaScript.
+- Certain features in this library are less susceptible to attacks depending on
+  usage. This primarily includes features that deal with data format
+  manipulation or those that are not involved in communication.
+
+Library Background
+------------------
 
 * http://digitalbazaar.com/2010/07/20/javascript-tls-1/
 * http://digitalbazaar.com/2010/07/20/javascript-tls-2/
@@ -1762,35 +1888,51 @@ Contact
 * Code: https://github.com/digitalbazaar/forge
 * Bugs: https://github.com/digitalbazaar/forge/issues
 * Email: support@digitalbazaar.com
+* IRC: [#forgejs][] on [freenode][]
 
-Donations welcome:
+Donations
+---------
 
-* Donate: paypal@digitalbazaar.com
+Financial support is welcome and helps contribute to futher development:
 
+* For [PayPal][] please send to paypal@digitalbazaar.com.
+* Something else? Please contact support@digitalbazaar.com.
+
+[#forgejs]: https://webchat.freenode.net/?channels=#forgejs
+[0.6.x]: https://github.com/digitalbazaar/forge/tree/0.6.x
+[3DES]: http://en.wikipedia.org/wiki/Triple_DES
 [AES]: http://en.wikipedia.org/wiki/Advanced_Encryption_Standard
 [ASN.1]: http://en.wikipedia.org/wiki/ASN.1
-[Apache]: http://httpd.apache.org/
-[CFB]: http://en.wikipedia.org/wiki/Block_cipher_mode_of_operation
+[Bower]: https://bower.io/
+[Browserify]: http://browserify.org/
 [CBC]: http://en.wikipedia.org/wiki/Block_cipher_mode_of_operation
+[CFB]: http://en.wikipedia.org/wiki/Block_cipher_mode_of_operation
 [CTR]: http://en.wikipedia.org/wiki/Block_cipher_mode_of_operation
-[3DES]: http://en.wikipedia.org/wiki/Triple_DES
+[CommonJS]: https://en.wikipedia.org/wiki/CommonJS
 [DES]: http://en.wikipedia.org/wiki/Data_Encryption_Standard
 [ECB]: http://en.wikipedia.org/wiki/Block_cipher_mode_of_operation
 [Fortuna]: http://en.wikipedia.org/wiki/Fortuna_(PRNG)
 [GCM]: http://en.wikipedia.org/wiki/GCM_mode
 [HMAC]: http://en.wikipedia.org/wiki/HMAC
 [JavaScript]: http://en.wikipedia.org/wiki/JavaScript
+[Karma]: https://karma-runner.github.io/
 [MD5]: http://en.wikipedia.org/wiki/MD5
+[Node.js]: http://nodejs.org/
 [OFB]: http://en.wikipedia.org/wiki/Block_cipher_mode_of_operation
-[PKCS#5]: http://en.wikipedia.org/wiki/PKCS
-[PKCS#7]: http://en.wikipedia.org/wiki/Cryptographic_Message_Syntax
 [PKCS#10]: http://en.wikipedia.org/wiki/Certificate_signing_request
 [PKCS#12]: http://en.wikipedia.org/wiki/PKCS_%E2%99%AF12
+[PKCS#5]: http://en.wikipedia.org/wiki/PKCS
+[PKCS#7]: http://en.wikipedia.org/wiki/Cryptographic_Message_Syntax
+[PayPal]: https://www.paypal.com/
 [RC2]: http://en.wikipedia.org/wiki/RC2
 [SHA-1]: http://en.wikipedia.org/wiki/SHA-1
 [SHA-256]: http://en.wikipedia.org/wiki/SHA-256
 [SHA-384]: http://en.wikipedia.org/wiki/SHA-384
 [SHA-512]: http://en.wikipedia.org/wiki/SHA-512
+[Subresource Integrity]: https://www.w3.org/TR/SRI/
 [TLS]: http://en.wikipedia.org/wiki/Transport_Layer_Security
+[UMD]: https://github.com/umdjs/umd
 [X.509]: http://en.wikipedia.org/wiki/X.509
-[node.js]: http://nodejs.org/
+[freenode]: https://freenode.net/
+[unpkg]: https://unpkg.com/
+[webpack]: https://webpack.github.io/

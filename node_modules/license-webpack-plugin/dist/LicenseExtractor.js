@@ -6,19 +6,21 @@ var FileUtils_1 = require("./FileUtils");
 var LicenseWebpackPluginError_1 = require("./LicenseWebpackPluginError");
 var ErrorMessage_1 = require("./ErrorMessage");
 var LicenseExtractor = (function () {
-    function LicenseExtractor(context, options, errors) {
-        this.context = context;
+    function LicenseExtractor(options, errors) {
         this.options = options;
         this.errors = errors;
         this.moduleCache = {};
-        this.modulePrefix = path.join(this.context, FileUtils_1.FileUtils.MODULE_DIR);
     }
     // returns true if the package is included as part of license report
-    LicenseExtractor.prototype.parsePackage = function (packageName) {
+    LicenseExtractor.prototype.parsePackage = function (packageName, modulePrefix) {
         if (this.moduleCache[packageName]) {
             return true;
         }
-        var packageJson = this.readPackageJson(packageName);
+        if (modulePrefix === null) {
+            this.errors.push(new LicenseWebpackPluginError_1.LicenseWebpackPluginError(ErrorMessage_1.ErrorMessage.NO_MODULE_DIRECTORY_FOUND_FOR_MODULE, packageName));
+            return false;
+        }
+        var packageJson = this.readPackageJson(packageName, modulePrefix);
         var licenseName = this.getLicenseName(packageJson);
         if (licenseName === LicenseExtractor.UNKNOWN_LICENSE &&
             !this.options.includePackagesWithoutLicense) {
@@ -39,7 +41,7 @@ var LicenseExtractor = (function () {
                 this.errors.push(error);
             }
         }
-        var licenseText = this.getLicenseText(packageJson, licenseName);
+        var licenseText = this.getLicenseText(packageJson, licenseName, modulePrefix);
         var moduleCacheEntry = {
             packageJson: packageJson,
             license: {
@@ -79,7 +81,7 @@ var LicenseExtractor = (function () {
         }
         return license;
     };
-    LicenseExtractor.prototype.getLicenseFilename = function (packageJson, licenseName) {
+    LicenseExtractor.prototype.getLicenseFilename = function (packageJson, licenseName, modulePrefix) {
         var filename;
         var packageName = packageJson.name;
         var overrideFile = this.options.licenseFileOverrides &&
@@ -91,7 +93,7 @@ var LicenseExtractor = (function () {
             return overrideFile;
         }
         for (var i = 0; i < this.options.licenseFilenames.length; i = i + 1) {
-            var licenseFile = path.join(this.modulePrefix, packageName, this.options.licenseFilenames[i]);
+            var licenseFile = path.join(modulePrefix, packageName, this.options.licenseFilenames[i]);
             if (FileUtils_1.FileUtils.isThere(licenseFile)) {
                 filename = licenseFile;
                 break;
@@ -105,11 +107,11 @@ var LicenseExtractor = (function () {
         }
         return filename;
     };
-    LicenseExtractor.prototype.getLicenseText = function (packageJson, licenseName) {
+    LicenseExtractor.prototype.getLicenseText = function (packageJson, licenseName, modulePrefix) {
         if (licenseName === LicenseExtractor.UNKNOWN_LICENSE) {
             return '';
         }
-        var licenseFilename = this.getLicenseFilename(packageJson, licenseName);
+        var licenseFilename = this.getLicenseFilename(packageJson, licenseName, modulePrefix);
         if (!licenseFilename) {
             this.errors.push(new LicenseWebpackPluginError_1.LicenseWebpackPluginError(ErrorMessage_1.ErrorMessage.NO_LICENSE_FILE, packageJson.name, licenseName));
             return licenseName;
@@ -119,8 +121,8 @@ var LicenseExtractor = (function () {
             .trim()
             .replace(/\r\n/g, '\n');
     };
-    LicenseExtractor.prototype.readPackageJson = function (packageName) {
-        var pathName = path.join(this.modulePrefix, packageName, 'package.json');
+    LicenseExtractor.prototype.readPackageJson = function (packageName, modulePrefix) {
+        var pathName = path.join(modulePrefix, packageName, 'package.json');
         var file = fs.readFileSync(pathName, 'utf8');
         return JSON.parse(file);
     };

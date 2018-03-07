@@ -35,6 +35,10 @@ Will return the following like this:
 }
 ```
 
+## Attributes
+
+for attributes, please refer to: https://github.com/digitalbazaar/forge/blob/master/js/x509.js#L121
+
 ## Options
 
 ```js

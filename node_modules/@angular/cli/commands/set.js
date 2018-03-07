@@ -80,6 +80,9 @@ const SetCommand = Command.extend({
     }
 });
 function updateLintForPrefix(filePath, prefix) {
+    if (!fs.existsSync(filePath)) {
+        return;
+    }
     const tsLint = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     const componentLint = tsLint.rules['component-selector'][2];
     if (componentLint instanceof Array) {
@@ -96,8 +99,10 @@ function updateLintForPrefix(filePath, prefix) {
         tsLint.rules['directive-selector'][2] = prefix;
     }
     fs.writeFileSync(filePath, JSON.stringify(tsLint, null, 2));
-    console.log(chalk_1.default.yellow(common_tags_1.oneLine `we have updated tslint to match prefix,
-     you may want to fix linting errors.`));
+    console.log(chalk_1.default.yellow(common_tags_1.oneLine `
+    tslint configuration updated to match new prefix,
+    you may need to fix any linting errors.
+  `));
 }
 function parseValue(rawValue, path) {
     try {

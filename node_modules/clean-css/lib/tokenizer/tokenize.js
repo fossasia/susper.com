@@ -56,7 +56,7 @@ var EXTRA_PAGE_BOXES = [
   '@right'
 ];
 
-var REPEAT_PATTERN = /^\[\s*\d+\s*\]$/;
+var REPEAT_PATTERN = /^\[\s{0,31}\d+\s{0,31}\]$/;
 var RULE_WORD_SEPARATOR_PATTERN = /[\s\(]/;
 var TAIL_BROKEN_VALUE_PATTERN = /[\s|\}]*$/;
 
@@ -114,6 +114,7 @@ function intoTokens(source, externalContext, internalContext, isNested) {
     isCommentStart = !wasCommentEnd && level != Level.COMMENT && !isQuoted && character == Marker.ASTERISK && source[position.index - 1] == Marker.FORWARD_SLASH;
     isCommentEndMarker = !wasCommentStart && !isQuoted && character == Marker.FORWARD_SLASH && source[position.index - 1] == Marker.ASTERISK;
     isCommentEnd = level == Level.COMMENT && isCommentEndMarker;
+    roundBracketLevel = Math.max(roundBracketLevel, 0);
 
     metadata = buffer.length === 0 ?
       [position.line, position.column, position.source] :

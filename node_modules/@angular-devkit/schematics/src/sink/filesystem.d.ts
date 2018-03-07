@@ -1,6 +1,5 @@
 /// <reference types="node" />
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/concat';
 import { VirtualFileSystemSink, VirtualFileSystemSinkHost } from './virtual-filesystem';
 export declare class FileSystemSinkHost implements VirtualFileSystemSinkHost {
     protected _root: string;

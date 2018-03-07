@@ -7,7 +7,6 @@ const ngtools_api_1 = require("./ngtools_api");
 const resource_loader_1 = require("./resource_loader");
 class ExtractI18nPlugin {
     constructor(options) {
-        this._compiler = null;
         this._compilation = null;
         this._compilerOptions = null;
         this._angularCompilerOptions = null;
@@ -67,7 +66,6 @@ class ExtractI18nPlugin {
         // kept for compatibility with Angular <v5.0.0-beta.7+
         { genDir }, this._compilerOptions, tsConfig.raw['angularCompilerOptions'], { basePath, outDir: genDir });
         this._basePath = basePath;
-        this._genDir = genDir;
         // this._compilerHost = new WebpackCompilerHost(this._compilerOptions, this._basePath);
         this._compilerHost = ts.createCompilerHost(this._compilerOptions, true);
         this._program = ts.createProgram(this._rootFilePath, this._compilerOptions, this._compilerHost);
@@ -91,10 +89,8 @@ class ExtractI18nPlugin {
         this._resourceLoader = new resource_loader_1.WebpackResourceLoader();
     }
     apply(compiler) {
-        this._compiler = compiler;
         compiler.plugin('make', (compilation, cb) => this._make(compilation, cb));
         compiler.plugin('after-emit', (compilation, cb) => {
-            this._donePromise = null;
             this._compilation = null;
             compilation._ngToolsWebpackXi18nPluginInstance = null;
             cb();
@@ -112,7 +108,7 @@ class ExtractI18nPlugin {
         }
         this._compilation._ngToolsWebpackXi18nPluginInstance = this;
         this._resourceLoader.update(compilation);
-        this._donePromise = Promise.resolve()
+        Promise.resolve()
             .then(() => {
             return ngtools_api_1.__NGTOOLS_PRIVATE_API_2.extractI18n({
                 basePath: this._basePath,

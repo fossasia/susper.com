@@ -36,7 +36,7 @@ exports.default = Task.extend({
                 if (err) {
                     return reject(err);
                 }
-                const json = stats.toJson('verbose');
+                const json = stats.toJson(statsConfig);
                 if (runTaskOptions.verbose) {
                     this.ui.writeLine(stats.toString(statsConfig));
                 }

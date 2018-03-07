@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.1.4"></a>
+## [1.1.4](https://github.com/istanbuljs/istanbuljs/compare/istanbul-reports@1.1.3...istanbul-reports@1.1.4) (2018-02-13)
+
+
+### Bug Fixes
+
+* changed column header from "Uncovered Lines" to "Uncovered Line #s" ([#138](https://github.com/istanbuljs/istanbuljs/issues/138)) ([7ba7760](https://github.com/istanbuljs/istanbuljs/commit/7ba7760))
+
+
+
+
 <a name="1.1.3"></a>
 ## [1.1.3](https://github.com/istanbuljs/istanbuljs/compare/istanbul-reports@1.1.2...istanbul-reports@1.1.3) (2017-10-21)
 

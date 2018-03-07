@@ -1,45 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
-const link_cli_1 = require("../tasks/link-cli");
-const npm_install_1 = require("../tasks/npm-install");
-const validate_project_name_1 = require("../utilities/validate-project-name");
+const fs = require("fs");
+const path = require("path");
 const check_package_manager_1 = require("../utilities/check-package-manager");
+const validate_project_name_1 = require("../utilities/validate-project-name");
 const config_1 = require("../models/config");
 const Task = require('../ember-cli/lib/models/task');
 const SilentError = require('silent-error');
-const GitInit = require('../tasks/git-init');
 const packageJson = require('../package.json');
 exports.default = Task.extend({
-    run: function (commandOptions, rawArgs) {
+    run: function (commandOptions, _rawArgs) {
         if (commandOptions.dryRun) {
             commandOptions.skipInstall = true;
-        }
-        // needs an explicit check in case it's just 'undefined'
-        // due to passing of options from 'new' and 'addon'
-        let gitInit;
-        if (commandOptions.skipGit === false) {
-            gitInit = new GitInit({
-                ui: this.ui,
-                project: this.project
-            });
-        }
-        const packageManager = config_1.CliConfig.fromGlobal().get('packageManager');
-        let npmInstall;
-        if (!commandOptions.skipInstall) {
-            npmInstall = new npm_install_1.default({
-                ui: this.ui,
-                project: this.project,
-                packageManager
-            });
-        }
-        let linkCli;
-        if (commandOptions.linkCli) {
-            linkCli = new link_cli_1.default({
-                ui: this.ui,
-                project: this.project,
-                packageManager
-            });
+            commandOptions.skipGit = true;
         }
         const project = this.project;
         const packageName = commandOptions.name !== '.' && commandOptions.name || project.name();
@@ -61,6 +35,14 @@ exports.default = Task.extend({
         const cwd = this.project.root;
         const schematicName = config_1.CliConfig.fromGlobal().get('defaults.schematics.newApp');
         commandOptions.version = packageJson.version;
+        if (!commandOptions.skipCommit) {
+            const commitMessage = fs.readFileSync(path.join(__dirname, '../utilities/INITIAL_COMMIT_MESSAGE.txt'), 'utf-8');
+            commandOptions.commit = {
+                message: commitMessage,
+                name: process.env.GIT_AUTHOR_NAME || 'Angular CLI',
+                email: process.env.GIT_AUTHOR_EMAIL || 'angular-cli@angular.io',
+            };
+        }
         const runOptions = {
             taskOptions: commandOptions,
             workingDir: cwd,
@@ -69,28 +51,14 @@ exports.default = Task.extend({
             schematicName
         };
         return schematicRunTask.run(runOptions)
-            .then(function () {
-            if (!commandOptions.dryRun) {
-                process.chdir(commandOptions.directory);
-            }
-        })
-            .then(function () {
+            .then(() => {
             if (!commandOptions.skipInstall) {
-                return check_package_manager_1.checkYarnOrCNPM().then(() => npmInstall.run());
-            }
-        })
-            .then(function () {
-            if (!commandOptions.dryRun && commandOptions.skipGit === false) {
-                return gitInit.run(commandOptions, rawArgs);
-            }
-        })
-            .then(function () {
-            if (!commandOptions.dryRun && commandOptions.linkCli) {
-                return linkCli.run();
+                return check_package_manager_1.checkYarnOrCNPM();
             }
         })
             .then(() => {
             if (!commandOptions.dryRun) {
+                process.chdir(commandOptions.directory);
                 this.ui.writeLine(chalk_1.default.green(`Project '${packageName}' successfully created.`));
             }
         });

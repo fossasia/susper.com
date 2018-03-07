@@ -14,18 +14,36 @@ function WebIntegrityJsonpMainTemplatePlugin(sriPlugin, compilation) {
   this.compilation = compilation;
 }
 
-WebIntegrityJsonpMainTemplatePlugin.prototype.apply = function apply(mainTemplate) {
-  var self = this;
+function addSriHashes(plugin, chunk, source) {
   var allDepChunkIds = {};
-
-  function findDepChunks(chunk) {
-    chunk.chunks.forEach(function forEachChunk(depChunk) {
+  function findDepChunks(childChunk) {
+    childChunk.chunks.forEach(function forEachChunk(depChunk) {
       if (!allDepChunkIds[depChunk.id]) {
         allDepChunkIds[depChunk.id] = true;
         findDepChunks(depChunk);
       }
     });
   }
+
+  if (chunk.chunks.length > 0) {
+    findDepChunks(chunk);
+
+    return plugin.asString([
+      source,
+      'var sriHashes = ' + JSON.stringify(
+        Object.keys(allDepChunkIds).reduce(function chunkIdReducer(sriHashes, chunkId) {
+          sriHashes[chunkId] = makePlaceholder(chunkId); // eslint-disable-line no-param-reassign
+          return sriHashes;
+        }, {})
+      ) + ';'
+    ]);
+  }
+
+  return source;
+}
+
+WebIntegrityJsonpMainTemplatePlugin.prototype.apply = function apply(mainTemplate) {
+  var self = this;
 
   /*
    *  Patch jsonp-script code to add the integrity attribute.
@@ -50,20 +68,7 @@ WebIntegrityJsonpMainTemplatePlugin.prototype.apply = function apply(mainTemplat
    *  later.
    */
   mainTemplate.plugin('local-vars', function localVarsPlugin(source, chunk) {
-    if (chunk.chunks.length > 0) {
-      findDepChunks(chunk);
-
-      return this.asString([
-        source,
-        'var sriHashes = ' + JSON.stringify(
-          Object.keys(allDepChunkIds).reduce(function chunkIdReducer(sriHashes, chunkId) {
-            sriHashes[chunkId] = makePlaceholder(chunkId); // eslint-disable-line no-param-reassign
-            return sriHashes;
-          }, {})
-        ) + ';'
-      ]);
-    }
-    return source;
+    return addSriHashes(this, chunk, source);
   });
 };
 
@@ -167,15 +172,105 @@ SubresourceIntegrityPlugin.prototype.hwpAssetPath = function hwpAssetPath(src) {
   return path.relative(this.hwpPublicPath, src);
 };
 
+function computeIntegrity(hashFuncNames, source) {
+  return hashFuncNames.map(function mapHashFuncName(hashFuncName) {
+    var hash = crypto.createHash(hashFuncName).update(source, 'utf8').digest('base64');
+    return hashFuncName + '-' + hash;
+  }).join(' ');
+}
+
+SubresourceIntegrityPlugin.prototype.warnIfHotUpdate = function warnIfHotUpdate(
+  compilation, source
+) {
+  if (source.indexOf('webpackHotUpdate') >= 0) {
+    this.warnOnce(
+      compilation,
+      'webpack-subresource-integrity may interfere with hot reloading. ' +
+        'Consider disabling this plugin in development mode.'
+    );
+  }
+};
+
+SubresourceIntegrityPlugin.prototype.replaceAsset = function replaceAsset(
+  assets,
+  depChunkIds,
+  hashByChunkId,
+  chunkFile
+) {
+  var oldSource = assets[chunkFile].source();
+  var newAsset;
+  var magicMarker;
+  var magicMarkerPos;
+
+  newAsset = new ReplaceSource(assets[chunkFile]);
+
+  depChunkIds.forEach(function replaceMagicMarkers(depChunkId) {
+    magicMarker = makePlaceholder(depChunkId);
+    magicMarkerPos = oldSource.indexOf(magicMarker);
+    if (magicMarkerPos >= 0) {
+      newAsset.replace(
+        magicMarkerPos,
+        (magicMarkerPos + magicMarker.length) - 1,
+        hashByChunkId[depChunkId]);
+    }
+  });
+
+  // eslint-disable-next-line no-param-reassign
+  assets[chunkFile] = newAsset;
+
+  newAsset.integrity = computeIntegrity(this.options.hashFuncNames, newAsset.source());
+  return newAsset;
+};
+
+SubresourceIntegrityPlugin.prototype.processChunk = function processChunk(
+  chunk, compilation, assets
+) {
+  var self = this;
+  var newAsset;
+  var hashByChunkId = {};
+
+  function recurse(childChunk) {
+    var depChunkIds = [];
+
+    if (hashByChunkId[childChunk.id]) {
+      return [];
+    }
+    hashByChunkId[childChunk.id] = true;
+
+    childChunk.chunks.forEach(function mapChunk(depChunk) {
+      depChunkIds = depChunkIds.concat(recurse(depChunk));
+    });
+
+    if (childChunk.files.length > 0) {
+      self.warnIfHotUpdate(compilation, assets[childChunk.files[0]].source());
+      newAsset = self.replaceAsset(
+        assets,
+        depChunkIds,
+        hashByChunkId,
+        childChunk.files[0]);
+      hashByChunkId[childChunk.id] = newAsset.integrity;
+    }
+    return [childChunk.id].concat(depChunkIds);
+  }
+  return recurse(chunk);
+};
+
+function getTagSrc(tag) {
+  // Get asset path - src from scripts and href from links
+  return tag.attributes.href || tag.attributes.src;
+}
+
+function filterTag(tag) {
+  // Process only script and link tags with a url
+  return (tag.tagName === 'script' || tag.tagName === 'link') && getTagSrc(tag);
+}
+
+function normalizePath(p) {
+  return p.replace(/\?.*$/, '').split(path.sep).join('/');
+}
+
 SubresourceIntegrityPlugin.prototype.apply = function apply(compiler) {
   var self = this;
-
-  function computeIntegrity(source) {
-    return self.options.hashFuncNames.map(function mapHashFuncName(hashFuncName) {
-      var hash = crypto.createHash(hashFuncName).update(source, 'utf8').digest('base64');
-      return hashFuncName + '-' + hash;
-    }).join(' ');
-  }
 
   compiler.plugin('after-plugins', function afterPlugins() {
     compiler.plugin('this-compilation', function thisCompilation(compilation) {
@@ -192,93 +287,21 @@ SubresourceIntegrityPlugin.prototype.apply = function apply(compiler) {
        *  placeholders by the actual values.
        */
       compilation.plugin('after-optimize-assets', function optimizeAssetsPlugin(assets) {
-        var hashByChunkId = {};
-        var visitedByChunkId = {};
-        var chunkFile;
-        var oldSource;
-        var magicMarker;
-        var magicMarkerPos;
-        var newAsset;
         var asset;
-        var newSource;
-
-        function processChunkRecursive(chunk) {
-          var depChunkIds = [];
-
-          if (visitedByChunkId[chunk.id]) {
-            return [];
-          }
-          visitedByChunkId[chunk.id] = true;
-
-          chunk.chunks.forEach(function mapChunk(depChunk) {
-            depChunkIds = depChunkIds.concat(processChunkRecursive(depChunk));
-          });
-
-          if (chunk.files.length > 0) {
-            chunkFile = chunk.files[0];
-
-            oldSource = assets[chunkFile].source();
-
-            if (oldSource.indexOf('webpackHotUpdate') >= 0) {
-              self.warnOnce(
-                compilation,
-                'webpack-subresource-integrity may interfere with hot reloading. ' +
-                  'Consider disabling this plugin in development mode.'
-              );
-            }
-
-            newAsset = new ReplaceSource(assets[chunkFile]);
-
-            depChunkIds.forEach(function forEachChunk(depChunkId) {
-              magicMarker = makePlaceholder(depChunkId);
-              magicMarkerPos = oldSource.indexOf(magicMarker);
-              if (magicMarkerPos >= 0) {
-                newAsset.replace(
-                  magicMarkerPos,
-                  (magicMarkerPos + magicMarker.length) - 1,
-                  hashByChunkId[depChunkId]);
-              }
-            });
-
-            // eslint-disable-next-line no-param-reassign
-            assets[chunkFile] = newAsset;
-
-            newSource = newAsset.source();
-            newAsset.integrity = computeIntegrity(newSource);
-            hashByChunkId[chunk.id] = newAsset.integrity;
-          }
-          return [chunk.id].concat(depChunkIds);
-        }
 
         compilation.chunks.forEach(function forEachChunk(chunk) {
-          // chunk.entry was removed in Webpack 2. Use hasRuntime()
-          // for this check instead (if it exists)
           if (('hasRuntime' in chunk) ? chunk.hasRuntime() : chunk.entry) {
-            processChunkRecursive(chunk);
+            self.processChunk(chunk, compilation, assets);
           }
         });
 
         Object.keys(assets).forEach(function loop(assetKey) {
           asset = assets[assetKey];
           if (!asset.integrity) {
-            asset.integrity = computeIntegrity(asset.source());
+            asset.integrity = computeIntegrity(self.options.hashFuncNames, asset.source());
           }
         });
       });
-
-      function getTagSrc(tag) {
-        // Get asset path - src from scripts and href from links
-        return tag.attributes.href || tag.attributes.src;
-      }
-
-      function filterTag(tag) {
-        // Process only script and link tags with a url
-        return (tag.tagName === 'script' || tag.tagName === 'link') && getTagSrc(tag);
-      }
-
-      function normalizePath(p) {
-        return p.replace(/\?.*$/, '').split(path.sep).join('/');
-      }
 
       function getIntegrityChecksumForAsset(src) {
         var normalizedSrc;

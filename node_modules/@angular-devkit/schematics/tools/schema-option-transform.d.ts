@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BaseException, schema } from '@angular-devkit/core';
-import { SchematicDescription } from '@angular-devkit/schematics';
 import { Observable } from 'rxjs/Observable';
+import { SchematicDescription } from '../src';
 import { FileSystemCollectionDescription, FileSystemSchematicDescription } from './description';
 export declare type SchematicDesc = SchematicDescription<FileSystemCollectionDescription, FileSystemSchematicDescription>;
 export declare class InvalidInputOptions extends BaseException {

@@ -138,6 +138,9 @@ class NonLeafSchemaTreeNode extends SchemaTreeNode {
             case 'integer':
                 Klass = IntegerSchemaTreeNode;
                 break;
+            case 'null':
+                Klass = NullSchemaTreeNode;
+                break;
             case 'enum':
                 Klass = EnumSchemaTreeNode;
                 break;
@@ -371,6 +374,12 @@ class StringSchemaTreeNode extends LeafSchemaTreeNode {
     get type() { return 'string'; }
     get tsType() { return String; }
 }
+class NullSchemaTreeNode extends LeafSchemaTreeNode {
+    isCompatible(v) { return v == undefined || v == null; }
+    convert(_v) { return null; }
+    get type() { return 'null'; }
+    get tsType() { return Object; }
+}
 class EnumSchemaTreeNode extends LeafSchemaTreeNode {
     constructor(metaData) {
         super(metaData);
@@ -427,4 +436,4 @@ class NumberSchemaTreeNode extends LeafSchemaTreeNode {
 class IntegerSchemaTreeNode extends NumberSchemaTreeNode {
     convert(v) { return v === undefined ? undefined : Math.floor(+v); }
 }
-//# sourceMappingURL=/users/hansl/sources/angular-cli/src/schema-tree.js.map
+//# sourceMappingURL=/users/hansl/sources/hansl/angular-cli/src/schema-tree.js.map

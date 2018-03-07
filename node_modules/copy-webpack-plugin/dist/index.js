@@ -4,10 +4,6 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
 var _preProcessPattern = require('./preProcessPattern');
 
 var _preProcessPattern2 = _interopRequireDefault(_preProcessPattern);
@@ -74,7 +70,7 @@ function CopyWebpackPlugin() {
             context = options.context;
         }
 
-        compiler.plugin('emit', function (compilation, cb) {
+        var emit = function emit(compilation, cb) {
             debug('starting emit');
             var callback = function callback() {
                 debug('finishing emit');
@@ -93,6 +89,7 @@ function CopyWebpackPlugin() {
                 fileDependencies: fileDependencies,
                 contextDependencies: contextDependencies,
                 context: context,
+                inputFileSystem: compiler.inputFileSystem,
                 output: compiler.options.output.path,
                 ignore: options.ignore || [],
                 copyUnmodified: options.copyUnmodified,
@@ -120,40 +117,118 @@ function CopyWebpackPlugin() {
             }).then(function () {
                 return callback();
             });
-        });
+        };
 
-        compiler.plugin('after-emit', function (compilation, cb) {
+        var afterEmit = function afterEmit(compilation, cb) {
             debug('starting after-emit');
             var callback = function callback() {
                 debug('finishing after-emit');
                 cb();
             };
 
-            var compilationFileDependencies = new Set(compilation.fileDependencies);
-            var compilationContextDependencies = new Set(compilation.contextDependencies);
+            var compilationFileDependencies = void 0;
+            var addFileDependency = void 0;
+            if (Array.isArray(compilation.fileDependencies)) {
+                compilationFileDependencies = new Set(compilation.fileDependencies);
+                addFileDependency = function addFileDependency(file) {
+                    return compilation.fileDependencies.push(file);
+                };
+            } else {
+                compilationFileDependencies = compilation.fileDependencies;
+                addFileDependency = function addFileDependency(file) {
+                    return compilation.fileDependencies.add(file);
+                };
+            }
+
+            var compilationContextDependencies = void 0;
+            var addContextDependency = void 0;
+            if (Array.isArray(compilation.contextDependencies)) {
+                compilationContextDependencies = new Set(compilation.contextDependencies);
+                addContextDependency = function addContextDependency(file) {
+                    return compilation.contextDependencies.push(file);
+                };
+            } else {
+                compilationContextDependencies = compilation.contextDependencies;
+                addContextDependency = function addContextDependency(file) {
+                    return compilation.contextDependencies.add(file);
+                };
+            }
 
             // Add file dependencies if they're not already tracked
-            _lodash2.default.forEach(fileDependencies, function (file) {
-                if (compilationFileDependencies.has(file)) {
-                    debug('not adding ' + file + ' to change tracking, because it\'s already tracked');
-                } else {
-                    debug('adding ' + file + ' to change tracking');
-                    compilation.fileDependencies.push(file);
-                }
-            });
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
 
-            // Add context dependencies if they're not already tracked
-            _lodash2.default.forEach(contextDependencies, function (context) {
-                if (compilationContextDependencies.has(context)) {
-                    debug('not adding ' + context + ' to change tracking, because it\'s already tracked');
-                } else {
-                    debug('adding ' + context + ' to change tracking');
-                    compilation.contextDependencies.push(context);
+            try {
+                for (var _iterator = fileDependencies[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var file = _step.value;
+
+                    if (compilationFileDependencies.has(file)) {
+                        debug('not adding ' + file + ' to change tracking, because it\'s already tracked');
+                    } else {
+                        debug('adding ' + file + ' to change tracking');
+                        addFileDependency(file);
+                    }
                 }
-            });
+
+                // Add context dependencies if they're not already tracked
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+                for (var _iterator2 = contextDependencies[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    var _context = _step2.value;
+
+                    if (compilationContextDependencies.has(_context)) {
+                        debug('not adding ' + _context + ' to change tracking, because it\'s already tracked');
+                    } else {
+                        debug('adding ' + _context + ' to change tracking');
+                        addContextDependency(_context);
+                    }
+                }
+            } catch (err) {
+                _didIteratorError2 = true;
+                _iteratorError2 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                        _iterator2.return();
+                    }
+                } finally {
+                    if (_didIteratorError2) {
+                        throw _iteratorError2;
+                    }
+                }
+            }
 
             callback();
-        });
+        };
+
+        if (compiler.hooks) {
+            var plugin = { name: 'CopyPlugin' };
+
+            compiler.hooks.emit.tapAsync(plugin, emit);
+            compiler.hooks.afterEmit.tapAsync(plugin, afterEmit);
+        } else {
+            compiler.plugin('emit', emit);
+            compiler.plugin('after-emit', afterEmit);
+        }
     };
 
     return {

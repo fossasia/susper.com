@@ -106,6 +106,9 @@ Use a custom `fs` implementation. For example [`graceful-fs`](https://github.com
 - [make-dir-cli](https://github.com/sindresorhus/make-dir-cli) - CLI for this module
 - [del](https://github.com/sindresorhus/del) - Delete files and directories
 - [globby](https://github.com/sindresorhus/globby) - User-friendly glob matching
+- [cpy](https://github.com/sindresorhus/cpy) - Copy files
+- [cpy-cli](https://github.com/sindresorhus/cpy-cli) - Copy files on the command-line
+- [move-file](https://github.com/sindresorhus/move-file) - Move a file
 
 
 ## License
