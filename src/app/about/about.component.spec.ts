@@ -42,12 +42,12 @@ describe('Component: About', () => {
     expect(image).toBeTruthy();
     expect(image.alt).toBe('brand');
   });
-
+  /*
   it('should have an footer navbar component', () => {
     const footerNavbar = new FooterNavbarComponent();
     expect(footerNavbar).toBeTruthy();
   });
-
+  */
   it('should have an app-footer-navbar element', () => {
     let compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();

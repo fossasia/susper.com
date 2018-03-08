@@ -16,6 +16,7 @@ import {KnowledgeapiService} from "../services/knowledgeapi.service";
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
 import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
+import { ThemeService } from '../services/theme.service';
 
 
 describe('RelatedSearchComponent', () => {
@@ -40,7 +41,8 @@ describe('RelatedSearchComponent', () => {
         RelatedSearchComponent
       ],
       providers: [
-        KnowledgeapiService
+        KnowledgeapiService,
+        ThemeService
       ],
     })
     .compileComponents();

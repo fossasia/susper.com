@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [style.color]="themeService.cardColor">
   <h2 class="heading"><b>Analytics</b></h2>
 
   <div id="filtersearch" *ngFor="let nav of navigation$|async; let i = index">

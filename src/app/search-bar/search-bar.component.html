@@ -1,18 +1,19 @@
 <!-- Start ignoring BootLintBear -->
 <form class="navbar-form navbar-left">
 <!-- Stop ignoring BootLintBear -->
-  <div class="input-group" id="nav-group">
+  <div class="input-group" id="nav-group" [style.background-color]="themeService.searchbarbackgroundColor">
 
     <div class="input-text">
       <input #input type="text" name="query" class="form-control" id="nav-input" (ngModelChange)="onquery($event)"
-           [(ngModel)]="searchdata.query" autocomplete="off" (keypress)="onEnter($event)" [style.width]="navbarWidth">
+           [(ngModel)]="searchdata.query" autocomplete="off" (keypress)="onEnter($event)" [style.width]="navbarWidth"
+           [style.background-color]="themeService.searchbarbackgroundColor" [style.color]="themeService.searchbarColor">
     </div>
 
     <div class="input-group-btn">
-      <button class="btn btn-default" id="speech-button" type="submit">
+      <button class="btn btn-default" id="speech-button" type="submit" [style.background-color]="themeService.searchbarbackgroundColor">
         <img src="../../assets/images/microphone.png" class="microphone" (click)="speechRecognition()"/>
       </button>
-      <button class="btn btn-default" id="nav-button" type="submit" (click)="onClick()" *ngIf="this.resultspage">
+      <button class="btn btn-default" id="nav-button" type="submit" (click)="onClick()" *ngIf="this.resultspage" [style.background-color]="themeService.searchbarbackgroundColor">
         <i class="glyphicon glyphicon-search"></i>
       </button>
     </div>

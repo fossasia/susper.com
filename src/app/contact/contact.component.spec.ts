@@ -51,16 +51,16 @@ describe('Component: Contact', () => {
     expect(image).toBeTruthy();
     expect(image.alt).toBe('brand');
   });
-
+  /*
   it('should have a FooterNavbar Component', () => {
     const footerNavbar = new FooterNavbarComponent();
     expect(footerNavbar).toBeTruthy();
   });
-
+  */
   it('should have an element app-footer-navbar', () => {
     let compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
   });
-
+  
 });

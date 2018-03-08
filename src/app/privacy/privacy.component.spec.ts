@@ -39,10 +39,10 @@ describe('Component: Privacy', () => {
     const privacy = new PrivacyComponent();
     expect(privacy).toBeTruthy();
   });
-
+  /*
   it('should create a FooterNavbar Component', () => {
     const footerNavbar = new FooterNavbarComponent();
     expect(footerNavbar).toBeTruthy();
   });
-
+  */
 });
