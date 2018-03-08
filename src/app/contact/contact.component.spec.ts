@@ -62,5 +62,5 @@ describe('Component: Contact', () => {
 
     expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
   });
-  
+ 
 });

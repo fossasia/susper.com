@@ -9,7 +9,7 @@ import { ThemeService } from '../services/theme.service';
 export class FooterNavbarComponent implements OnInit {
 
   constructor(
-  	public themeService: ThemeService
+    public themeService: ThemeService
   ) { }
 
   ngOnInit() {

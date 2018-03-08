@@ -36,7 +36,7 @@ export class ThemeComponent implements OnInit {
         return this.defaultTheme();
       }
       case "nightTheme": {
-        return this.nightTheme();      
+        return this.nightTheme();
       }
       default: {
         return;
