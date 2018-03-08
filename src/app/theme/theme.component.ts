@@ -35,6 +35,9 @@ export class ThemeComponent implements OnInit {
       case "defaultTheme": {
         return this.defaultTheme();
       }
+      case "nightTheme": {
+        return this.nightTheme();
+      }
       default: {
         return;
       }
@@ -51,6 +54,12 @@ export class ThemeComponent implements OnInit {
     this.themeService.titleColor = '#050404';
     this.themeService.linkColor = '#7E716E';
     this.themeService.descriptionColor = '#494443';
+    this.themeService.cardColor = '#363636';
+    this.themeService.footerbackgroundColor = '#f2f2f2';
+    this.themeService.footerborderColor = '#e4e4e4';
+    this.themeService.navbarbackgroundColor = '#f8f8f8';
+    this.themeService.searchbarbackgroundColor = '#ffffff';
+    this.themeService.searchbarColor = '#000000';
   }
 
   defaultTheme() {
@@ -58,6 +67,12 @@ export class ThemeComponent implements OnInit {
     this.themeService.titleColor = '#1a0dab';
     this.themeService.linkColor = '#006621';
     this.themeService.descriptionColor = '#545454';
+    this.themeService.cardColor = '#363636';
+    this.themeService.footerbackgroundColor = '#f2f2f2';
+    this.themeService.footerborderColor = '#e4e4e4';
+    this.themeService.navbarbackgroundColor = '#f8f8f8';
+    this.themeService.searchbarbackgroundColor = '#ffffff';
+    this.themeService.searchbarColor = '#000000';
   }
 
   basicTheme() {
@@ -65,6 +80,12 @@ export class ThemeComponent implements OnInit {
     this.themeService.titleColor = '#1a0dab';
     this.themeService.linkColor = '#494443';
     this.themeService.descriptionColor = '#7E716E';
+    this.themeService.cardColor = '#363636';
+    this.themeService.footerbackgroundColor = '#f2f2f2';
+    this.themeService.footerborderColor = '#e4e4e4';
+    this.themeService.navbarbackgroundColor = '#f8f8f8';
+    this.themeService.searchbarbackgroundColor = '#ffffff';
+    this.themeService.searchbarColor = '#000000';
   }
 
   contrastTheme() {
@@ -72,6 +93,12 @@ export class ThemeComponent implements OnInit {
     this.themeService.titleColor = '#1a0dab';
     this.themeService.linkColor = '#006621';
     this.themeService.descriptionColor = '#800000';
+    this.themeService.cardColor = '#363636';
+    this.themeService.footerbackgroundColor = '#f2f2f2';
+    this.themeService.footerborderColor = '#e4e4e4';
+    this.themeService.navbarbackgroundColor = '#f8f8f8';
+    this.themeService.searchbarbackgroundColor = '#ffffff';
+    this.themeService.searchbarColor = '#000000';
   }
 
   terminalTheme() {
@@ -79,5 +106,24 @@ export class ThemeComponent implements OnInit {
     this.themeService.titleColor = '#00ff00';
     this.themeService.linkColor = '#FFFFFF  ';
     this.themeService.descriptionColor = '#F1C40F';
+    this.themeService.cardColor = '#363636';
+    this.themeService.footerbackgroundColor = '#f2f2f2';
+    this.themeService.footerborderColor = '#e4e4e4';
+    this.themeService.navbarbackgroundColor = '#f8f8f8';
+    this.themeService.searchbarbackgroundColor = '#ffffff';
+    this.themeService.searchbarColor = '#000000';
+  }
+
+  nightTheme() {
+    this.themeService.backgroundColor = '#222222';
+    this.themeService.titleColor = '#5a9e26';
+    this.themeService.linkColor = '#42a2f4';
+    this.themeService.descriptionColor = '#dddddd';
+    this.themeService.cardColor = '#dddddd';
+    this.themeService.footerbackgroundColor = '#373737';
+    this.themeService.footerborderColor = '#373737';
+    this.themeService.navbarbackgroundColor = '#373737';
+    this.themeService.searchbarbackgroundColor = '#323232';
+    this.themeService.searchbarColor = '#ffffff';
   }
 }

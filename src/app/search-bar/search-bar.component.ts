@@ -10,6 +10,7 @@ import * as query from '../actions/query';
 import * as queryactions from '../actions/query';
 import { SpeechService } from '../services/speech.service';
 import * as speechactions from '../actions/speech';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -39,7 +40,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private store: Store<fromRoot.State>,
-    private speech: SpeechService
+    private speech: SpeechService,
+    public themeService: ThemeService
   ) {
     this.wholequery$ = store.select(fromRoot.getwholequery);
 

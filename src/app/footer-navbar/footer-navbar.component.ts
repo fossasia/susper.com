@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-footer-navbar',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterNavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public themeService: ThemeService
+  ) { }
 
   ngOnInit() {
   }

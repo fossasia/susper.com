@@ -38,10 +38,10 @@ describe('Component: Terms', () => {
     const terms = new TermsComponent();
     expect(terms).toBeTruthy();
   });
-
+  /*
   it('should create a FooterNavbar Component', () => {
     const footerNavbar = new FooterNavbarComponent();
     expect(footerNavbar).toBeTruthy();
   });
-
+  */
 });

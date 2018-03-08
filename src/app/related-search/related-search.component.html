@@ -1,9 +1,9 @@
 <div class="container">
   <div *ngIf="results?.length > 0" class="card">
-    <h3 class="heading">Searches related to {{keyword}}</h3>
+    <h3 class="heading" [style.color]="themeService.descriptionColor">Searches related to {{keyword}}</h3>
 
       <div *ngFor="let result of results" class="related">
-        <a [routerLink]="resultsearch" [queryParams]="{query: result.label,start:0,rows:10}" class="rellink">{{result.label}}</a>
+        <a [routerLink]="resultsearch" [queryParams]="{query: result.label,start:0,rows:10}" class="rellink" [style.color]="themeService.linkColor">{{result.label}}</a>
       </div>
 
   </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +24,9 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    public themeService: ThemeService
+    ) { }
 
   ngOnInit() {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
