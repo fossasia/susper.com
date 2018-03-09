@@ -1,4 +1,4 @@
-<div *ngIf="results?.length > 0" class="card">
+<div *ngIf="results?.length > 0" class="card" [style.color]="themeService.cardColor">
   
   <div>
     <h2 class="heading"><b>{{this.results[0].label}}</b></h2>

@@ -7,6 +7,10 @@ export class ThemeService {
   public linkColor: string;
   public descriptionColor: string;
   public backgroundColor: string;
+  public cardColor: string;
+  public navbarbgColor: string;
+  public searchbarColor: string;
+  public searchbarbgColor: string;
 
   constructor() { }
 

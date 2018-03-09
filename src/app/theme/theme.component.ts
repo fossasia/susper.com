@@ -35,6 +35,9 @@ export class ThemeComponent implements OnInit {
       case "defaultTheme": {
         return this.defaultTheme();
       }
+      case "nightTheme": {
+        return this.nightTheme();
+      }
       default: {
         return;
       }
@@ -51,6 +54,11 @@ export class ThemeComponent implements OnInit {
     this.themeService.titleColor = '#050404';
     this.themeService.linkColor = '#7E716E';
     this.themeService.descriptionColor = '#494443';
+    this.themeService.cardColor = '#363636';
+    this.themeService.navbarbgColor = '#f8f8f8';
+    this.themeService.searchbarColor = '#000000';
+    this.themeService.searchbarbgColor = '#ffffff';
+    setFooter();
   }
 
   defaultTheme() {
@@ -58,6 +66,11 @@ export class ThemeComponent implements OnInit {
     this.themeService.titleColor = '#1a0dab';
     this.themeService.linkColor = '#006621';
     this.themeService.descriptionColor = '#545454';
+    this.themeService.cardColor = '#363636';
+    this.themeService.navbarbgColor = '#f8f8f8';
+    this.themeService.searchbarColor = '#000000';
+    this.themeService.searchbarbgColor = '#ffffff';
+    setFooter();
   }
 
   basicTheme() {
@@ -65,6 +78,11 @@ export class ThemeComponent implements OnInit {
     this.themeService.titleColor = '#1a0dab';
     this.themeService.linkColor = '#494443';
     this.themeService.descriptionColor = '#7E716E';
+    this.themeService.cardColor = '#363636';
+    this.themeService.navbarbgColor = '#f8f8f8';
+    this.themeService.searchbarColor = '#000000';
+    this.themeService.searchbarbgColor = '#ffffff';
+    setFooter();
   }
 
   contrastTheme() {
@@ -72,6 +90,11 @@ export class ThemeComponent implements OnInit {
     this.themeService.titleColor = '#1a0dab';
     this.themeService.linkColor = '#006621';
     this.themeService.descriptionColor = '#800000';
+    this.themeService.cardColor = '#363636';
+    this.themeService.navbarbgColor = '#f8f8f8';
+    this.themeService.searchbarColor = '#000000';
+    this.themeService.searchbarbgColor = '#ffffff';
+    setFooter();
   }
 
   terminalTheme() {
@@ -79,5 +102,28 @@ export class ThemeComponent implements OnInit {
     this.themeService.titleColor = '#00ff00';
     this.themeService.linkColor = '#FFFFFF  ';
     this.themeService.descriptionColor = '#F1C40F';
+    this.themeService.cardColor = '#363636';
+    this.themeService.navbarbgColor = '#f8f8f8';
+    this.themeService.searchbarColor = '#000000';
+    this.themeService.searchbarbgColor = '#ffffff';
+    setFooter();
   }
+
+  nightTheme() {
+    this.themeService.backgroundColor = '#222222';
+    this.themeService.titleColor = '#5a9e26';
+    this.themeService.linkColor = '#42a2f4';
+    this.themeService.descriptionColor = '#dddddd';
+    this.themeService.cardColor = '#dddddd';
+    this.themeService.navbarbgColor = '#373737';
+    this.themeService.searchbarColor = '#ffffff';
+    this.themeService.searchbarbgColor = '#323232';
+    (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.background = '#373737';
+    (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.borderTop = '#222222';
+  }
+}
+
+function setFooter() {
+  (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.background = '#f2f2f2';
+  (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.borderTop = '#e4e4e4';
 }
