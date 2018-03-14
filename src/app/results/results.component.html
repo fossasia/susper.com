@@ -142,6 +142,9 @@
             <div class="link">
               <p [style.color]="themeService.linkColor">{{item.link}}</p>
             </div>
+            <div class="description">
+              <p [style.color]="themeService.descriptionColor">{{item.pubDate|date:'MMMM d, yyyy'}} - {{item.description}}</p>
+            </div>
           </div>
         </div>
       </div>
