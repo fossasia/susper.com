@@ -98,7 +98,8 @@
             <div class="col-md-4"><label for="language">Crawling Depth</label></div>
             <div class="col-md-6">
               <input type="text" class="form-control" id="language" name="crawlingDepth" [(ngModel)]="crawlvalues.crawlingDepth" size="2" maxlength="2"><br/>
-              <input type="checkbox" [(ngModel)]="crawlvalues.directDocByURL" name="directDocByURL"><span>Also all linked non-parsable documents</span></div>
+              <input type="checkbox" [(ngModel)]="crawlvalues.directDocByURL" name="directDocByURL"><span>Also all linked non-parsable documents</span>
+            </div>
           </div>
 
           <div class="form-group">
@@ -195,7 +196,8 @@
               <img src="https://yacy.searchlab.eu/env/grafics/plus.gif"><span>must match</span>
               <input name="index" [(ngModel)]="crawlvalues.indexcontentmustmatch" type="text" size="55" class="form-control" maxlength="100000">
               <img src="https://yacy.searchlab.eu/env/grafics/minus.gif"><span>must-not-match</span>
-              <input name="index" [(ngModel)]="crawlvalues.indexcontentmustnotmatch" type="text" class="form-control"></div >
+              <input name="index" [(ngModel)]="crawlvalues.indexcontentmustnotmatch" type="text" class="form-control">
+              </div >
           </div>
         </div>
       </form>
@@ -312,21 +314,23 @@
 
           <div class="form-group">
             <div class="col-md-4"><label>Multiple Snapshot Versions</label></div>
-            <div class="col-md-6"><input name="replaceold" [(ngModel)]="crawlvalues.snapshotsReplaceOld" value="on" type="radio"><span class="span-both">Replace old snapshots with new ones</span><br/>
-              <input name="replaceold" type="radio" value="off" [(ngModel)]="crawlvalues.snapshotsReplaceOld"><span class="span-both">Add new versions for each crawl</span><br/>
-            </div>
+              <div class="col-md-6"><input name="replaceold" [(ngModel)]="crawlvalues.snapshotsReplaceOld" value="on" type="radio"><span class="span-both">Replace old snapshots with new ones</span><br/>
+                <input name="replaceold" type="radio" value="off" [(ngModel)]="crawlvalues.snapshotsReplaceOld"><span class="span-both">Add new versions for each crawl</span><br/>
+              </div>
+          </div>
+
 
             <div class="form-group">
               <div class="col-md-4 top-margin-div">
                 <label> must-not-match filter for snapshot generation </label>
               </div>
+            </div>  
 
               <div class="col-md-6">
                 <input name="mustnotmatch" type="text" [(ngModel)]="crawlvalues.snapshotsMustnotmatch" size="55" class="form-control" maxlength="100000">
               </div>
 
-            </div>
-          </div>
+           
         </div>
       </form>
     </fieldset>
@@ -368,5 +372,8 @@
   </fieldset>
 
 </div>
+<footer style="position: fixed;bottom: 0px; left: 0px;width: 100%;">
+  <app-footer-navbar></app-footer-navbar>
+</footer>
 
-<app-footer-navbar></app-footer-navbar>
+
