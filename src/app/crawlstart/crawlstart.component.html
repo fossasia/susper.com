@@ -138,7 +138,7 @@
               <input type="radio" [(ngModel)]="crawlvalues.range" id="terms appearing" value="domain" name="range"><span>Restrict to start domain(s)</span><br/>
               <input type="radio" [(ngModel)]="crawlvalues.range" value="subpath" name="range"><span>Restrict to sub-path(s)</span><br/>
               <input [(ngModel)]="crawlvalues.range" type="radio" name="range"><span>Use Filter</span><br/>
-              <input [(ngModel)]="crawlvalues.mustmatch" type="text" name="mustmatch" class="form-control" size="55" maxlength="100000" value=".*" onblur="if(this.value=='')this.value='.*;">
+              <input [(ngModel)]="crawlvalues.mustmatch" type="text" name="mustmatch" class="form-control" size="55" maxlength="100000" value=".*" onblur="if(this.value=='')this.value='.*';">
               <img src="https://yacy.searchlab.eu/env/grafics/minus.gif"><span>must-not-match</span>
               <input type="text" class="form-control" [(ngModel)]="crawlvalues.mustnotmatch" name="mustnotmatch" size="55" maxlength="100000">
             </div>
@@ -149,7 +149,7 @@
             <div class="col-md-6">
               <img src="https://yacy.searchlab.eu/env/grafics/plus.gif">
               <span>must-match</span>
-              <input [(ngModel)]="crawlvalues.ipMustmatch" name="ipMustmatch" type="text" class="form-control" size="55" maxlength="100000" value=".*" onblur="if(this.value=='')this.value='.*;">
+              <input [(ngModel)]="crawlvalues.ipMustmatch" name="ipMustmatch" type="text" class="form-control" size="55" maxlength="100000" value=".*" onblur="if(this.value=='')this.value='.*';">
               <img src="https://yacy.searchlab.eu/env/grafics/minus.gif"><span>must-not-match</span>
               <input type="text" class="form-control" [(ngModel)]="crawlvalues.ipMustnotmatch" size="55" name="ipmustnotmatch" maxlength="100000">
             </div>
