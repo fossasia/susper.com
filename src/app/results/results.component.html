@@ -108,12 +108,12 @@
           <div *ngIf="totalNumber > 0">
             <div *ngFor="let item of items;let i = index">
               <div class="item">
-                <img src="{{item.link}}" height="200px" (click)="expandImage(i)" [ngClass]="'image'+i">
-              </div>
-              <div class=" item image-viewer" *ngIf="expand && expandedrow === i">
-                <span class="helper"></span>
-                <img [src]="items[expandedkey].link" height="200px" style="vertical-align: middle;">
-              </div>
+                <img src="{{item.image}}" height="200px" (click)="expandImage(i)" [ngClass]="'image'+i">
+            </div>
+            <div class=" item image-viewer" *ngIf="expand && expandedrow === i">
+              <span class="helper"></span>
+              <img [src]="items[expandedkey].image" height="200px" style="vertical-align: middle;">
+            </div>
 
             </div>
 
