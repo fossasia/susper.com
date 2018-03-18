@@ -129,4 +129,4 @@ var WindowSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return WindowSubscriber;
 }(OuterSubscriber));
-//# sourceMappingURL=windowWhen.js.map 
+//# sourceMappingURL=windowWhen.js.map

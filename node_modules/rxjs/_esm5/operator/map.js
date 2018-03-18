@@ -36,4 +36,4 @@ import { map as higherOrderMap } from '../operators/map';
 export function map(project, thisArg) {
     return higherOrderMap(project, thisArg)(this);
 }
-//# sourceMappingURL=map.js.map 
+//# sourceMappingURL=map.js.map

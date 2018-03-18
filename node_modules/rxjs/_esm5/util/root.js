@@ -16,4 +16,4 @@ var _root = __window || __global || __self;
     }
 })();
 export { _root as root };
-//# sourceMappingURL=root.js.map 
+//# sourceMappingURL=root.js.map

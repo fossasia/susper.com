@@ -117,4 +117,4 @@ var LastSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return LastSubscriber;
 }(Subscriber));
-//# sourceMappingURL=last.js.map 
+//# sourceMappingURL=last.js.map

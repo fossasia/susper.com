@@ -133,4 +133,4 @@ var WindowCountSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return WindowCountSubscriber;
 }(Subscriber));
-//# sourceMappingURL=windowCount.js.map 
+//# sourceMappingURL=windowCount.js.map

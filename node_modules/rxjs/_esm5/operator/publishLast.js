@@ -9,4 +9,4 @@ export function publishLast() {
     //TODO(benlesh): correct type-flow through here.
     return higherOrder()(this);
 }
-//# sourceMappingURL=publishLast.js.map 
+//# sourceMappingURL=publishLast.js.map

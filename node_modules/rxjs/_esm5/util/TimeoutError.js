@@ -23,4 +23,4 @@ export var TimeoutError = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     }
     return TimeoutError;
 }(Error));
-//# sourceMappingURL=TimeoutError.js.map 
+//# sourceMappingURL=TimeoutError.js.map

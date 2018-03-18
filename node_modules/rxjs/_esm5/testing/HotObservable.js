@@ -46,4 +46,4 @@ export var HotObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     return HotObservable;
 }(Subject));
 /*@__PURE__*/ applyMixins(HotObservable, [SubscriptionLoggable]);
-//# sourceMappingURL=HotObservable.js.map 
+//# sourceMappingURL=HotObservable.js.map

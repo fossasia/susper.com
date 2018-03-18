@@ -142,4 +142,4 @@ var BufferSkipCountSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return BufferSkipCountSubscriber;
 }(Subscriber));
-//# sourceMappingURL=bufferCount.js.map 
+//# sourceMappingURL=bufferCount.js.map

@@ -46,4 +46,4 @@ export function withLatestFrom() {
     }
     return higherOrder.apply(void 0, args)(this);
 }
-//# sourceMappingURL=withLatestFrom.js.map 
+//# sourceMappingURL=withLatestFrom.js.map

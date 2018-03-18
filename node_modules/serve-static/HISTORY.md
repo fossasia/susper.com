@@ -1,3 +1,14 @@
+1.13.2 / 2018-02-07
+===================
+
+  * Fix incorrect end tag in redirects
+  * deps: encodeurl@~1.0.2
+    - Fix encoding `%` as last character
+  * deps: send@0.16.2
+    - deps: depd@~1.1.2
+    - deps: encodeurl@~1.0.2
+    - deps: statuses@~1.4.0
+
 1.13.1 / 2017-09-29
 ===================
 

@@ -58,4 +58,4 @@ export function concat() {
     }
     return higherOrder.apply(void 0, observables)(this);
 }
-//# sourceMappingURL=concat.js.map 
+//# sourceMappingURL=concat.js.map

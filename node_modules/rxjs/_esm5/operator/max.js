@@ -34,4 +34,4 @@ import { max as higherOrderMax } from '../operators/max';
 export function max(comparer) {
     return higherOrderMax(comparer)(this);
 }
-//# sourceMappingURL=max.js.map 
+//# sourceMappingURL=max.js.map

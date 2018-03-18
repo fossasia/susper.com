@@ -22,4 +22,4 @@ export function startWith() {
     }
     return higherOrder.apply(void 0, array)(this);
 }
-//# sourceMappingURL=startWith.js.map 
+//# sourceMappingURL=startWith.js.map

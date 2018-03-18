@@ -44,4 +44,4 @@ export function startWith() {
         }
     };
 }
-//# sourceMappingURL=startWith.js.map 
+//# sourceMappingURL=startWith.js.map

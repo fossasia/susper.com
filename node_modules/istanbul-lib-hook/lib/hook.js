@@ -11,20 +11,25 @@ var path = require('path'),
 
 function transformFn(matcher, transformer, verbose) {
 
-    return function (code, filename) {
-        var shouldHook = typeof filename === 'string' && matcher(path.resolve(filename)),
+    return function (code, options) {
+        options = options || {};
+        if (typeof options === 'string') {
+            options = { filename: options };
+        }
+
+        var shouldHook = typeof options.filename === 'string' && matcher(path.resolve(options.filename)),
             transformed,
             changed = false;
 
         if (shouldHook) {
             if (verbose) {
-                console.error('Module load hook: transform [' + filename + ']');
+                console.error('Module load hook: transform [' + options.filename + ']');
             }
             try {
-                transformed = transformer(code, filename);
+                transformed = transformer(code, options);
                 changed = true;
             } catch (ex) {
-                console.error('Transformation error for', filename, '; return original code');
+                console.error('Transformation error for', options.filename, '; return original code');
                 console.error(ex.message || String(ex));
                 if (verbose) {
                     console.error(ex.stack);
@@ -127,19 +132,19 @@ function unhookCreateScript() {
  * hooks `vm.runInThisContext` to return transformed code.
  * @method hookRunInThisContext
  * @static
- * @param matcher {Function(filePath)} a function that is called with the filename passed to `vm.createScript`
+ * @param matcher {Function(filePath)} a function that is called with the filename passed to `vm.runInThisContext`
  *  Should return a truthy value when transformations need to be applied to the code, a falsy value otherwise
- * @param transformer {Function(code, filePath)} a function called with the original code and the filename passed to
- *  `vm.createScript`. Should return the transformed code.
+ * @param transformer {Function(code, options)} a function called with the original code and the filename passed to
+ *  `vm.runInThisContext`. Should return the transformed code.
  * @param opts {Object} [opts={}] options
  * @param {Boolean} [opts.verbose] write a line to standard error every time the transformer is called
  */
 function hookRunInThisContext(matcher, transformer, opts) {
     opts = opts || {};
     var fn = transformFn(matcher, transformer, opts.verbose);
-    vm.runInThisContext = function (code, file) {
-        var ret = fn(code, file);
-        return originalRunInThisContext(ret.code, file);
+    vm.runInThisContext = function (code, options) {
+        var ret = fn(code, options);
+        return originalRunInThisContext(ret.code, options);
     };
 }
 /**

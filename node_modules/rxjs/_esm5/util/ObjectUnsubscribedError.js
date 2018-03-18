@@ -25,4 +25,4 @@ export var ObjectUnsubscribedError = /*@__PURE__*/ (/*@__PURE__*/ function (_sup
     }
     return ObjectUnsubscribedError;
 }(Error));
-//# sourceMappingURL=ObjectUnsubscribedError.js.map 
+//# sourceMappingURL=ObjectUnsubscribedError.js.map

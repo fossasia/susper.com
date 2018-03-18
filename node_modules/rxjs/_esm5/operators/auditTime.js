@@ -50,4 +50,4 @@ export function auditTime(duration, scheduler) {
     }
     return audit(function () { return timer(duration, scheduler); });
 }
-//# sourceMappingURL=auditTime.js.map 
+//# sourceMappingURL=auditTime.js.map

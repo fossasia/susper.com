@@ -63,4 +63,4 @@ export function bufferTime(bufferTimeSpan) {
     }
     return higherOrder(bufferTimeSpan, bufferCreationInterval, maxBufferSize, scheduler)(this);
 }
-//# sourceMappingURL=bufferTime.js.map 
+//# sourceMappingURL=bufferTime.js.map

@@ -22,4 +22,4 @@ export var Timestamp = /*@__PURE__*/ (/*@__PURE__*/ function () {
     return Timestamp;
 }());
 ;
-//# sourceMappingURL=timestamp.js.map 
+//# sourceMappingURL=timestamp.js.map

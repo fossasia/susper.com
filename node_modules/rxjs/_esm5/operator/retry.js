@@ -22,4 +22,4 @@ export function retry(count) {
     }
     return higherOrder(count)(this);
 }
-//# sourceMappingURL=retry.js.map 
+//# sourceMappingURL=retry.js.map

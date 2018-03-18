@@ -7,4 +7,4 @@ export function not(pred, thisArg) {
     notPred.thisArg = thisArg;
     return notPred;
 }
-//# sourceMappingURL=not.js.map 
+//# sourceMappingURL=not.js.map

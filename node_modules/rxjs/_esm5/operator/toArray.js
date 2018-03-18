@@ -26,4 +26,4 @@ import { toArray as higherOrder } from '../operators/toArray';
 export function toArray() {
     return higherOrder()(this);
 }
-//# sourceMappingURL=toArray.js.map 
+//# sourceMappingURL=toArray.js.map

@@ -86,4 +86,4 @@ export function merge() {
     }
     return mergeAll(concurrent)(new ArrayObservable(observables, scheduler));
 }
-//# sourceMappingURL=merge.js.map 
+//# sourceMappingURL=merge.js.map

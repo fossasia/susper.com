@@ -37,4 +37,4 @@ export function defaultIfEmpty(defaultValue) {
     }
     return higherOrder(defaultValue)(this);
 }
-//# sourceMappingURL=defaultIfEmpty.js.map 
+//# sourceMappingURL=defaultIfEmpty.js.map

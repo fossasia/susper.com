@@ -56,7 +56,8 @@ function registerHelpers(handlebars) {
             i,
             array = [];
         for (i = 0; i < maxLines; i += 1) {
-            array[i] = i + 1;
+	    var nextNum = i + 1;
+	    array[i] = "<a name='L" + nextNum + "'></a><a href='#L" + nextNum + "'>" + nextNum + "</a>";
         }
         return array.join('\n');
     });

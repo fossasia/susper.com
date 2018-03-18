@@ -37,4 +37,4 @@ import { sample as higherOrder } from '../operators/sample';
 export function sample(notifier) {
     return higherOrder(notifier)(this);
 }
-//# sourceMappingURL=sample.js.map 
+//# sourceMappingURL=sample.js.map

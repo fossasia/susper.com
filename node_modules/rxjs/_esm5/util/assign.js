@@ -21,4 +21,4 @@ export function getAssign(root) {
     return root.Object.assign || assignImpl;
 }
 export var assign = /*@__PURE__*/ getAssign(root);
-//# sourceMappingURL=assign.js.map 
+//# sourceMappingURL=assign.js.map

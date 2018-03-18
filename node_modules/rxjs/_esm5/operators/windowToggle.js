@@ -178,4 +178,4 @@ var WindowToggleSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return WindowToggleSubscriber;
 }(OuterSubscriber));
-//# sourceMappingURL=windowToggle.js.map 
+//# sourceMappingURL=windowToggle.js.map

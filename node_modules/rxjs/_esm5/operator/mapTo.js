@@ -29,4 +29,4 @@ import { mapTo as higherOrder } from '../operators/mapTo';
 export function mapTo(value) {
     return higherOrder(value)(this);
 }
-//# sourceMappingURL=mapTo.js.map 
+//# sourceMappingURL=mapTo.js.map

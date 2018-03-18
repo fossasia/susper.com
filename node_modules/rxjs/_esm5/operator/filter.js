@@ -43,4 +43,4 @@ import { filter as higherOrderFilter } from '../operators/filter';
 export function filter(predicate, thisArg) {
     return higherOrderFilter(predicate, thisArg)(this);
 }
-//# sourceMappingURL=filter.js.map 
+//# sourceMappingURL=filter.js.map

@@ -39,4 +39,4 @@ import { takeWhile as higherOrder } from '../operators/takeWhile';
 export function takeWhile(predicate) {
     return higherOrder(predicate)(this);
 }
-//# sourceMappingURL=takeWhile.js.map 
+//# sourceMappingURL=takeWhile.js.map

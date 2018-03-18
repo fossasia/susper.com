@@ -35,4 +35,4 @@ import { buffer as higherOrder } from '../operators/buffer';
 export function buffer(closingNotifier) {
     return higherOrder(closingNotifier)(this);
 }
-//# sourceMappingURL=buffer.js.map 
+//# sourceMappingURL=buffer.js.map

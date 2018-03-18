@@ -15,4 +15,4 @@ export var SubscriptionLoggable = /*@__PURE__*/ (/*@__PURE__*/ function () {
     };
     return SubscriptionLoggable;
 }());
-//# sourceMappingURL=SubscriptionLoggable.js.map 
+//# sourceMappingURL=SubscriptionLoggable.js.map

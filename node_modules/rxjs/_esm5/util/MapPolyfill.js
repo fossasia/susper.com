@@ -42,4 +42,4 @@ export var MapPolyfill = /*@__PURE__*/ (/*@__PURE__*/ function () {
     };
     return MapPolyfill;
 }());
-//# sourceMappingURL=MapPolyfill.js.map 
+//# sourceMappingURL=MapPolyfill.js.map

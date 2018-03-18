@@ -51,4 +51,4 @@ import { switchMap as higherOrderSwitchMap } from '../operators/switchMap';
 export function switchMap(project, resultSelector) {
     return higherOrderSwitchMap(project, resultSelector)(this);
 }
-//# sourceMappingURL=switchMap.js.map 
+//# sourceMappingURL=switchMap.js.map

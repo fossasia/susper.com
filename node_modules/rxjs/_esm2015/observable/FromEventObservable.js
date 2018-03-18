@@ -166,7 +166,7 @@ export class FromEventObservable extends Observable {
         else if (isEventTarget(sourceObj)) {
             const source = sourceObj;
             sourceObj.addEventListener(eventName, handler, options);
-            unsubscribe = () => source.removeEventListener(eventName, handler);
+            unsubscribe = () => source.removeEventListener(eventName, handler, options);
         }
         else if (isJQueryStyleEventEmitter(sourceObj)) {
             const source = sourceObj;

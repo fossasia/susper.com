@@ -13,4 +13,4 @@ export function timestamp(scheduler) {
     }
     return higherOrder(scheduler)(this);
 }
-//# sourceMappingURL=timestamp.js.map 
+//# sourceMappingURL=timestamp.js.map

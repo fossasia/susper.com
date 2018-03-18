@@ -47,4 +47,4 @@ import { tap as higherOrder } from '../operators/tap';
 export function _do(nextOrObserver, error, complete) {
     return higherOrder(nextOrObserver, error, complete)(this);
 }
-//# sourceMappingURL=do.js.map 
+//# sourceMappingURL=do.js.map

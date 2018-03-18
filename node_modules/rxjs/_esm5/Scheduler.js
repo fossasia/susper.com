@@ -48,4 +48,4 @@ export var Scheduler = /*@__PURE__*/ (/*@__PURE__*/ function () {
     Scheduler.now = Date.now ? Date.now : function () { return +new Date(); };
     return Scheduler;
 }());
-//# sourceMappingURL=Scheduler.js.map 
+//# sourceMappingURL=Scheduler.js.map

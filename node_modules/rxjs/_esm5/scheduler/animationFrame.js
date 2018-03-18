@@ -32,4 +32,4 @@ import { AnimationFrameScheduler } from './AnimationFrameScheduler';
  * @owner Scheduler
  */
 export var animationFrame = /*@__PURE__*/ new AnimationFrameScheduler(AnimationFrameAction);
-//# sourceMappingURL=animationFrame.js.map 
+//# sourceMappingURL=animationFrame.js.map

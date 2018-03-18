@@ -41,4 +41,4 @@ function shareReplayOperator(bufferSize, windowTime, scheduler) {
     };
 }
 ;
-//# sourceMappingURL=shareReplay.js.map 
+//# sourceMappingURL=shareReplay.js.map

@@ -20,4 +20,4 @@ export function publish(selector) {
         multicast(function () { return new Subject(); }, selector) :
         multicast(new Subject());
 }
-//# sourceMappingURL=publish.js.map 
+//# sourceMappingURL=publish.js.map

@@ -29,4 +29,4 @@ var SubscribeOnOperator = /*@__PURE__*/ (/*@__PURE__*/ function () {
     };
     return SubscribeOnOperator;
 }());
-//# sourceMappingURL=subscribeOn.js.map 
+//# sourceMappingURL=subscribeOn.js.map

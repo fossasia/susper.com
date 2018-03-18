@@ -41,4 +41,4 @@ var IsEmptySubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return IsEmptySubscriber;
 }(Subscriber));
-//# sourceMappingURL=isEmpty.js.map 
+//# sourceMappingURL=isEmpty.js.map

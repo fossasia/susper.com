@@ -44,4 +44,4 @@ import { partition as higherOrder } from '../operators/partition';
 export function partition(predicate, thisArg) {
     return higherOrder(predicate, thisArg)(this);
 }
-//# sourceMappingURL=partition.js.map 
+//# sourceMappingURL=partition.js.map

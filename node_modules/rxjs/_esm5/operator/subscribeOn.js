@@ -17,4 +17,4 @@ export function subscribeOn(scheduler, delay) {
     }
     return higherOrder(scheduler, delay)(this);
 }
-//# sourceMappingURL=subscribeOn.js.map 
+//# sourceMappingURL=subscribeOn.js.map

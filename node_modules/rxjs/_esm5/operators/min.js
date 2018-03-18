@@ -37,4 +37,4 @@ export function min(comparer) {
         : function (x, y) { return x < y ? x : y; };
     return reduce(min);
 }
-//# sourceMappingURL=min.js.map 
+//# sourceMappingURL=min.js.map

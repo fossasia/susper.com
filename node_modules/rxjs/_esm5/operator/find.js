@@ -37,4 +37,4 @@ import { find as higherOrder } from '../operators/find';
 export function find(predicate, thisArg) {
     return higherOrder(predicate, thisArg)(this);
 }
-//# sourceMappingURL=find.js.map 
+//# sourceMappingURL=find.js.map

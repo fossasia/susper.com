@@ -111,4 +111,4 @@ export var FromEventPatternObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_
     };
     return FromEventPatternObservable;
 }(Observable));
-//# sourceMappingURL=FromEventPatternObservable.js.map 
+//# sourceMappingURL=FromEventPatternObservable.js.map

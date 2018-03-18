@@ -2,4 +2,4 @@
 import { root } from './root';
 import { MapPolyfill } from './MapPolyfill';
 export var Map = root.Map || /*@__PURE__*/ (function () { return MapPolyfill; })();
-//# sourceMappingURL=Map.js.map 
+//# sourceMappingURL=Map.js.map

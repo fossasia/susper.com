@@ -19,4 +19,4 @@ import { single as higherOrder } from '../operators/single';
 export function single(predicate) {
     return higherOrder(predicate)(this);
 }
-//# sourceMappingURL=single.js.map 
+//# sourceMappingURL=single.js.map

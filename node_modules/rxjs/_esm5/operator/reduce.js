@@ -56,4 +56,4 @@ export function reduce(accumulator, seed) {
     }
     return higherOrderReduce(accumulator)(this);
 }
-//# sourceMappingURL=reduce.js.map 
+//# sourceMappingURL=reduce.js.map

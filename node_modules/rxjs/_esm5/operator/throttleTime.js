@@ -50,4 +50,4 @@ export function throttleTime(duration, scheduler, config) {
     }
     return higherOrder(duration, scheduler, config)(this);
 }
-//# sourceMappingURL=throttleTime.js.map 
+//# sourceMappingURL=throttleTime.js.map

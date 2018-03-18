@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-coverage@1.1.2...istanbul-lib-coverage@1.2.0) (2018-03-04)
+
+
+### Features
+
+* add skip-empty option for html & text reports ([#140](https://github.com/istanbuljs/istanbuljs/issues/140)) ([d2a4262](https://github.com/istanbuljs/istanbuljs/commit/d2a4262))
+
+
+
+
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-coverage@1.1.1...istanbul-lib-coverage@1.1.2) (2018-02-13)
 

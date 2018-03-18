@@ -44,4 +44,4 @@ export function scan(accumulator, seed) {
     }
     return higherOrderScan(accumulator)(this);
 }
-//# sourceMappingURL=scan.js.map 
+//# sourceMappingURL=scan.js.map

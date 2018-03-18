@@ -34,4 +34,4 @@ export var iterator = /*@__PURE__*/ symbolIteratorPonyfill(root);
  * @deprecated use iterator instead
  */
 export var $$iterator = iterator;
-//# sourceMappingURL=iterator.js.map 
+//# sourceMappingURL=iterator.js.map

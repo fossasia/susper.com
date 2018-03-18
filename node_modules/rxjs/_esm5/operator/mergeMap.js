@@ -65,4 +65,4 @@ export function mergeMap(project, resultSelector, concurrent) {
     }
     return higherOrderMergeMap(project, resultSelector, concurrent)(this);
 }
-//# sourceMappingURL=mergeMap.js.map 
+//# sourceMappingURL=mergeMap.js.map

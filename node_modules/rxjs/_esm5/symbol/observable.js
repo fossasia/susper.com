@@ -22,4 +22,4 @@ export var observable = /*@__PURE__*/ getSymbolObservable(root);
  * @deprecated use observable instead
  */
 export var $$observable = observable;
-//# sourceMappingURL=observable.js.map 
+//# sourceMappingURL=observable.js.map

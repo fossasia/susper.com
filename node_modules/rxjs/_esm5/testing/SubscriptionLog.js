@@ -8,4 +8,4 @@ export var SubscriptionLog = /*@__PURE__*/ (/*@__PURE__*/ function () {
     }
     return SubscriptionLog;
 }());
-//# sourceMappingURL=SubscriptionLog.js.map 
+//# sourceMappingURL=SubscriptionLog.js.map

@@ -12,4 +12,4 @@ import { isEmpty as higherOrder } from '../operators/isEmpty';
 export function isEmpty() {
     return higherOrder()(this);
 }
-//# sourceMappingURL=isEmpty.js.map 
+//# sourceMappingURL=isEmpty.js.map

@@ -14,4 +14,4 @@ export function timeInterval(scheduler) {
     }
     return higherOrder(scheduler)(this);
 }
-//# sourceMappingURL=timeInterval.js.map 
+//# sourceMappingURL=timeInterval.js.map

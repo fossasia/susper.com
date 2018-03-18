@@ -159,7 +159,8 @@ function createHtmlDocument (title, body) {
     '</head>\n' +
     '<body>\n' +
     '<pre>' + body + '</pre>\n' +
-    '</body>\n'
+    '</body>\n' +
+    '</html>\n'
 }
 
 /**

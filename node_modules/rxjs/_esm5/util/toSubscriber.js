@@ -16,4 +16,4 @@ export function toSubscriber(nextOrObserver, error, complete) {
     }
     return new Subscriber(nextOrObserver, error, complete);
 }
-//# sourceMappingURL=toSubscriber.js.map 
+//# sourceMappingURL=toSubscriber.js.map

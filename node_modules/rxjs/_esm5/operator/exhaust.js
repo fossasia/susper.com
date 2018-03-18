@@ -38,4 +38,4 @@ import { exhaust as higherOrder } from '../operators/exhaust';
 export function exhaust() {
     return higherOrder()(this);
 }
-//# sourceMappingURL=exhaust.js.map 
+//# sourceMappingURL=exhaust.js.map

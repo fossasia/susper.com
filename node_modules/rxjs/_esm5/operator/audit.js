@@ -43,4 +43,4 @@ import { audit as higherOrder } from '../operators/audit';
 export function audit(durationSelector) {
     return higherOrder(durationSelector)(this);
 }
-//# sourceMappingURL=audit.js.map 
+//# sourceMappingURL=audit.js.map

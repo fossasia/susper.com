@@ -44,6 +44,7 @@ function defaultOpts() {
         esModules: false,
         autoWrap: false,
         produceSourceMap: false,
+        ignoreClassMethods: [],
         sourceMapUrlCallback: null,
         debug: false
     };
@@ -60,6 +61,7 @@ function defaultOpts() {
  * @param {boolean} [opts.esModules=false] set to true to instrument ES6 modules.
  * @param {boolean} [opts.autoWrap=false] set to true to allow `return` statements outside of functions.
  * @param {boolean} [opts.produceSourceMap=false] set to true to produce a source map for the instrumented code.
+ * @param {Array} [opts.ignoreClassMethods=[]] set to array of class method names to ignore for coverage.
  * @param {Function} [opts.sourceMapUrlCallback=null] a callback function that is called when a source map URL
  *     is found in the original code. This function is called with the source file name and the source map URL.
  * @param {boolean} [opts.debug=false] - turn debugging on
@@ -125,6 +127,7 @@ var Instrumenter = function () {
             });
             var ee = (0, _visitor2.default)(t, filename, {
                 coverageVariable: opts.coverageVariable,
+                ignoreClassMethods: opts.ignoreClassMethods,
                 inputSourceMap: inputSourceMap
             });
             var output = {};

@@ -51,4 +51,4 @@ export function mergeAll(concurrent) {
     }
     return mergeMap(identity, null, concurrent);
 }
-//# sourceMappingURL=mergeAll.js.map 
+//# sourceMappingURL=mergeAll.js.map

@@ -10,4 +10,4 @@ export function publishReplay(bufferSize, windowTime, selectorOrScheduler, sched
     var subject = new ReplaySubject(bufferSize, windowTime, scheduler);
     return function (source) { return multicast(function () { return subject; }, selector)(source); };
 }
-//# sourceMappingURL=publishReplay.js.map 
+//# sourceMappingURL=publishReplay.js.map

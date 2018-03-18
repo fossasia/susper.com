@@ -58,4 +58,4 @@ export function concat() {
     }
     return function (source) { return source.lift.call(concatStatic.apply(void 0, [source].concat(observables))); };
 }
-//# sourceMappingURL=concat.js.map 
+//# sourceMappingURL=concat.js.map

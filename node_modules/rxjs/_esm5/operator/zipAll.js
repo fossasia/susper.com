@@ -9,4 +9,4 @@ import { zipAll as higherOrder } from '../operators/zipAll';
 export function zipAll(project) {
     return higherOrder(project)(this);
 }
-//# sourceMappingURL=zipAll.js.map 
+//# sourceMappingURL=zipAll.js.map

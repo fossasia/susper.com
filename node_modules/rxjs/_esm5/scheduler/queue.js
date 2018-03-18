@@ -63,4 +63,4 @@ import { QueueScheduler } from './QueueScheduler';
  * @owner Scheduler
  */
 export var queue = /*@__PURE__*/ new QueueScheduler(QueueAction);
-//# sourceMappingURL=queue.js.map 
+//# sourceMappingURL=queue.js.map

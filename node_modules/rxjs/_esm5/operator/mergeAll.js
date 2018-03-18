@@ -50,4 +50,4 @@ export function mergeAll(concurrent) {
     }
     return higherOrder(concurrent)(this);
 }
-//# sourceMappingURL=mergeAll.js.map 
+//# sourceMappingURL=mergeAll.js.map

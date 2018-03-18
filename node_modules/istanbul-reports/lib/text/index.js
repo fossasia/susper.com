@@ -127,16 +127,18 @@ function missingBranches (node, colorizer) {
     return colorizer(formatPct(missingLines.join(','), MISSING_COL), 'medium');
 }
 
-function tableRow(node, context, colorizer, maxNameCols, level) {
+function tableRow(node, context, colorizer, maxNameCols, level, skipEmpty) {
     var name = nodeName(node),
         metrics = node.getCoverageSummary(),
-        mm = {
-            statements: metrics.statements.pct,
-            branches: metrics.branches.pct,
-            functions: metrics.functions.pct,
-            lines: metrics.lines.pct,
+        isEmpty = metrics.isEmpty();
+    if (skipEmpty && isEmpty) { return ''; }
+    var mm = {
+            statements: isEmpty ? 0 : metrics.statements.pct,
+            branches: isEmpty ? 0 : metrics.branches.pct,
+            functions: isEmpty ? 0 : metrics.functions.pct,
+            lines: isEmpty ? 0 : metrics.lines.pct,
         },
-        colorize = function (str, key) {
+        colorize = isEmpty ? function(str){ return str; } : function (str, key) {
             return colorizer(str, context.classForPercent(key, mm[key]));
         },
         elements = [];
@@ -159,6 +161,7 @@ function TextReport(opts) {
     this.file = opts.file || null;
     this.maxCols = opts.maxCols || 0;
     this.cw = null;
+    this.skipEmpty = opts.skipEmpty;
 }
 
 TextReport.prototype.onStart = function (root, context) {
@@ -182,7 +185,8 @@ TextReport.prototype.onStart = function (root, context) {
 
 TextReport.prototype.onSummary = function (node, context) {
     var nodeDepth = depthFor(node);
-    this.cw.println(tableRow(node, context, this.cw.colorize.bind(this.cw),this.nameWidth, nodeDepth));
+    var row = tableRow(node, context, this.cw.colorize.bind(this.cw),this.nameWidth, nodeDepth, this.skipEmpty);
+    if (row) { this.cw.println(row); }
 };
 
 TextReport.prototype.onDetail = function (node, context) {

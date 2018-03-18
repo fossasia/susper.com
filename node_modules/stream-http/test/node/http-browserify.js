@@ -17,6 +17,20 @@ var moduleName = require.resolve('../../')
 delete require.cache[moduleName]
 var http = require('../../')
 
+test('Make sure http object has correct properties', function (t) {
+	t.ok(http.Agent, 'Agent defined')
+	t.ok(http.ClientRequest, 'ClientRequest defined')
+	t.ok(http.ClientRequest.prototype, 'ClientRequest.prototype defined')
+	t.ok(http.IncomingMessage, 'IncomingMessage defined')
+	t.ok(http.IncomingMessage.prototype, 'IncomingMessage.prototype defined')
+	t.ok(http.METHODS, 'METHODS defined')
+	t.ok(http.STATUS_CODES, 'STATUS_CODES defined')
+	t.ok(http.get, 'get defined')
+	t.ok(http.globalAgent, 'globalAgent defined')
+	t.ok(http.request, 'request defined')
+	t.end()
+})
+
 test('Test simple url string', function(t) {
 	var testUrl = { path: '/api/foo' }
 	var request = http.get(testUrl, noop)

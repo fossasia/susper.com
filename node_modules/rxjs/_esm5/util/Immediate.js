@@ -205,4 +205,4 @@ export var ImmediateDefinition = /*@__PURE__*/ (/*@__PURE__*/ function () {
     return ImmediateDefinition;
 }());
 export var Immediate = /*@__PURE__*/ new ImmediateDefinition(root);
-//# sourceMappingURL=Immediate.js.map 
+//# sourceMappingURL=Immediate.js.map

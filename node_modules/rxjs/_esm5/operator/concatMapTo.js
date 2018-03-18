@@ -60,4 +60,4 @@ import { concatMapTo as higherOrder } from '../operators/concatMapTo';
 export function concatMapTo(innerObservable, resultSelector) {
     return higherOrder(innerObservable, resultSelector)(this);
 }
-//# sourceMappingURL=concatMapTo.js.map 
+//# sourceMappingURL=concatMapTo.js.map

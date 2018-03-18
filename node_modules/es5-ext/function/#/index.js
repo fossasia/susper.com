@@ -5,6 +5,7 @@ module.exports = {
 	copy: require("./copy"),
 	curry: require("./curry"),
 	lock: require("./lock"),
+	microtaskDelay: require("./microtask-delay"),
 	not: require("./not"),
 	partial: require("./partial"),
 	spread: require("./spread"),

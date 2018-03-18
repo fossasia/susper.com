@@ -18,4 +18,4 @@ export function race() {
     }
     return higherOrder.apply(void 0, observables)(this);
 }
-//# sourceMappingURL=race.js.map 
+//# sourceMappingURL=race.js.map

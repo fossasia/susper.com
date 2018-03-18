@@ -15,4 +15,4 @@ import { skipWhile as higherOrder } from '../operators/skipWhile';
 export function skipWhile(predicate) {
     return higherOrder(predicate)(this);
 }
-//# sourceMappingURL=skipWhile.js.map 
+//# sourceMappingURL=skipWhile.js.map

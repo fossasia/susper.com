@@ -91,4 +91,4 @@ function dispatchNotification(state) {
     subscriber.notifyNext();
     this.schedule(state, period);
 }
-//# sourceMappingURL=sampleTime.js.map 
+//# sourceMappingURL=sampleTime.js.map

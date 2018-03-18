@@ -50,4 +50,4 @@ export function mergeMapTo(innerObservable, resultSelector, concurrent) {
     }
     return higherOrder(innerObservable, resultSelector, concurrent)(this);
 }
-//# sourceMappingURL=mergeMapTo.js.map 
+//# sourceMappingURL=mergeMapTo.js.map

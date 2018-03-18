@@ -26,4 +26,4 @@ export var FastMap = /*@__PURE__*/ (/*@__PURE__*/ function () {
     };
     return FastMap;
 }());
-//# sourceMappingURL=FastMap.js.map 
+//# sourceMappingURL=FastMap.js.map

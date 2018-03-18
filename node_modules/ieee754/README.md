@@ -1,12 +1,16 @@
-# ieee754 [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][npm-url]
-
-[![saucelabs][saucelabs-image]][saucelabs-url]
+# ieee754 [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]
 
 [travis-image]: https://img.shields.io/travis/feross/ieee754/master.svg
 [travis-url]: https://travis-ci.org/feross/ieee754
 [npm-image]: https://img.shields.io/npm/v/ieee754.svg
 [npm-url]: https://npmjs.org/package/ieee754
 [downloads-image]: https://img.shields.io/npm/dm/ieee754.svg
+[downloads-url]: https://npmjs.org/package/ieee754
+[standard-image]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
+[standard-url]: https://standardjs.com
+
+[![saucelabs][saucelabs-image]][saucelabs-url]
+
 [saucelabs-image]: https://saucelabs.com/browser-matrix/ieee754.svg
 [saucelabs-url]: https://saucelabs.com/u/ieee754
 

@@ -72,4 +72,4 @@ export function timeout(due, scheduler) {
     }
     return higherOrder(due, scheduler)(this);
 }
-//# sourceMappingURL=timeout.js.map 
+//# sourceMappingURL=timeout.js.map

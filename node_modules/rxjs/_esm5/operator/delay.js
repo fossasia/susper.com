@@ -46,4 +46,4 @@ export function delay(delay, scheduler) {
     }
     return higherOrder(delay, scheduler)(this);
 }
-//# sourceMappingURL=delay.js.map 
+//# sourceMappingURL=delay.js.map

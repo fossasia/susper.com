@@ -56,4 +56,4 @@ export var ScalarObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return ScalarObservable;
 }(Observable));
-//# sourceMappingURL=ScalarObservable.js.map 
+//# sourceMappingURL=ScalarObservable.js.map

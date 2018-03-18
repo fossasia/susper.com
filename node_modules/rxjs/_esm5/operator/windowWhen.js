@@ -41,4 +41,4 @@ import { windowWhen as higherOrder } from '../operators/windowWhen';
 export function windowWhen(closingSelector) {
     return higherOrder(closingSelector)(this);
 }
-//# sourceMappingURL=windowWhen.js.map 
+//# sourceMappingURL=windowWhen.js.map

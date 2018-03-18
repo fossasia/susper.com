@@ -44,4 +44,4 @@ export var ColdObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     return ColdObservable;
 }(Observable));
 /*@__PURE__*/ applyMixins(ColdObservable, [SubscriptionLoggable]);
-//# sourceMappingURL=ColdObservable.js.map 
+//# sourceMappingURL=ColdObservable.js.map

@@ -36,4 +36,4 @@ import { bufferWhen as higherOrder } from '../operators/bufferWhen';
 export function bufferWhen(closingSelector) {
     return higherOrder(closingSelector)(this);
 }
-//# sourceMappingURL=bufferWhen.js.map 
+//# sourceMappingURL=bufferWhen.js.map

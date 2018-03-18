@@ -45,4 +45,4 @@ import { switchAll as higherOrder } from '../operators/switchAll';
 export function _switch() {
     return higherOrder()(this);
 }
-//# sourceMappingURL=switch.js.map 
+//# sourceMappingURL=switch.js.map

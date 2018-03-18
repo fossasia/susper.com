@@ -44,4 +44,4 @@ import { windowToggle as higherOrder } from '../operators/windowToggle';
 export function windowToggle(openings, closingSelector) {
     return higherOrder(openings, closingSelector)(this);
 }
-//# sourceMappingURL=windowToggle.js.map 
+//# sourceMappingURL=windowToggle.js.map

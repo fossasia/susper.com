@@ -54,4 +54,4 @@ export function windowCount(windowSize, startWindowEvery) {
     }
     return higherOrder(windowSize, startWindowEvery)(this);
 }
-//# sourceMappingURL=windowCount.js.map 
+//# sourceMappingURL=windowCount.js.map

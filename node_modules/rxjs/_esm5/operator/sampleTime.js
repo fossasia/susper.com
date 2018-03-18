@@ -43,4 +43,4 @@ export function sampleTime(period, scheduler) {
     }
     return higherOrder(period, scheduler)(this);
 }
-//# sourceMappingURL=sampleTime.js.map 
+//# sourceMappingURL=sampleTime.js.map

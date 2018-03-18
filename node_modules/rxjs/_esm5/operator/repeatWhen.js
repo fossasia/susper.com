@@ -17,4 +17,4 @@ import { repeatWhen as higherOrder } from '../operators/repeatWhen';
 export function repeatWhen(notifier) {
     return higherOrder(notifier)(this);
 }
-//# sourceMappingURL=repeatWhen.js.map 
+//# sourceMappingURL=repeatWhen.js.map

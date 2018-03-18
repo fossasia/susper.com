@@ -17,4 +17,4 @@ import { every as higherOrder } from '../operators/every';
 export function every(predicate, thisArg) {
     return higherOrder(predicate, thisArg)(this);
 }
-//# sourceMappingURL=every.js.map 
+//# sourceMappingURL=every.js.map

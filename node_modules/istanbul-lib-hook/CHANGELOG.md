@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-hook@1.1.0...istanbul-lib-hook@1.2.0) (2018-03-04)
+
+
+### Features
+
+* hookRunInThisContext now takes options object rather than filename  ([#99](https://github.com/istanbuljs/istanbuljs/issues/99)) ([1504374](https://github.com/istanbuljs/istanbuljs/commit/1504374))
+
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-hook@1.0.7...istanbul-lib-hook@1.1.0) (2017-10-21)
 

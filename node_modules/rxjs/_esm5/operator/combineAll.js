@@ -43,4 +43,4 @@ import { combineAll as higherOrder } from '../operators/combineAll';
 export function combineAll(project) {
     return higherOrder(project)(this);
 }
-//# sourceMappingURL=combineAll.js.map 
+//# sourceMappingURL=combineAll.js.map

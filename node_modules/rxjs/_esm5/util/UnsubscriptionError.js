@@ -23,4 +23,4 @@ export var UnsubscriptionError = /*@__PURE__*/ (/*@__PURE__*/ function (_super) 
     }
     return UnsubscriptionError;
 }(Error));
-//# sourceMappingURL=UnsubscriptionError.js.map 
+//# sourceMappingURL=UnsubscriptionError.js.map

@@ -37,4 +37,4 @@ import { findIndex as higherOrder } from '../operators/findIndex';
 export function findIndex(predicate, thisArg) {
     return higherOrder(predicate, thisArg)(this);
 }
-//# sourceMappingURL=findIndex.js.map 
+//# sourceMappingURL=findIndex.js.map

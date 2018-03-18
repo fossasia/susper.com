@@ -52,4 +52,4 @@ var TimeIntervalSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return TimeIntervalSubscriber;
 }(Subscriber));
-//# sourceMappingURL=timeInterval.js.map 
+//# sourceMappingURL=timeInterval.js.map

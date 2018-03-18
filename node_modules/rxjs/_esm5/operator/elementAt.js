@@ -45,4 +45,4 @@ import { elementAt as higherOrder } from '../operators/elementAt';
 export function elementAt(index, defaultValue) {
     return higherOrder(index, defaultValue)(this);
 }
-//# sourceMappingURL=elementAt.js.map 
+//# sourceMappingURL=elementAt.js.map

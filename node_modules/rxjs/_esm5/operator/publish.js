@@ -17,4 +17,4 @@ import { publish as higherOrder } from '../operators/publish';
 export function publish(selector) {
     return higherOrder(selector)(this);
 }
-//# sourceMappingURL=publish.js.map 
+//# sourceMappingURL=publish.js.map

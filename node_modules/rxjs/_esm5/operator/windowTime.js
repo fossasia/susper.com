@@ -24,4 +24,4 @@ export function windowTime(windowTimeSpan) {
     }
     return higherOrder(windowTimeSpan, windowCreationInterval, maxWindowSize, scheduler)(this);
 }
-//# sourceMappingURL=windowTime.js.map 
+//# sourceMappingURL=windowTime.js.map

@@ -49,4 +49,4 @@ export function auditTime(duration, scheduler) {
     }
     return higherOrder(duration, scheduler)(this);
 }
-//# sourceMappingURL=auditTime.js.map 
+//# sourceMappingURL=auditTime.js.map

@@ -36,4 +36,4 @@ import { take as higherOrder } from '../operators/take';
 export function take(count) {
     return higherOrder(count)(this);
 }
-//# sourceMappingURL=take.js.map 
+//# sourceMappingURL=take.js.map

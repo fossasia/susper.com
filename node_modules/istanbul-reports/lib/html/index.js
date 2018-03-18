@@ -57,7 +57,13 @@ var fs = require('fs'),
         '</tbody>',
         '</table>',
         '</div>'
-    ].join('\n');
+    ].join('\n'),
+    emptyClasses = {
+        statements: 'empty',
+        lines: 'empty',
+        functions: 'empty',
+        branches: 'empty'
+    };
 
 helpers.registerHelpers(handlebars);
 
@@ -125,6 +131,9 @@ function fillTemplate(node, templateData, linkMapper, context) {
         js: linkMapper.assetPath(node, 'sorter.js'),
         image: linkMapper.assetPath(node, 'sort-arrow-sprite.png')
     };
+    templateData.blockNavigation = {
+        js: linkMapper.assetPath(node, 'block-navigation.js'),
+    };
     templateData.prettify = {
         js: linkMapper.assetPath(node, 'prettify.js'),
         css: linkMapper.assetPath(node, 'prettify.css')
@@ -136,6 +145,7 @@ function HtmlReport(opts) {
     this.linkMapper = opts.linkMapper || standardLinkMapper;
     this.subdir = opts.subdir || '';
     this.date = Date();
+    this.skipEmpty = opts.skipEmpty;
 }
 
 HtmlReport.prototype.getTemplateData = function () {
@@ -174,10 +184,18 @@ HtmlReport.prototype.onStart = function (root, context) {
     });
 };
 
+function fixPct(metrics) {
+    Object.keys(emptyClasses).forEach(function(key) {
+        metrics[key].pct = 0;
+    });
+    return metrics;
+}
+
 HtmlReport.prototype.onSummary = function (node, context) {
     var linkMapper = this.linkMapper,
         templateData = this.getTemplateData(),
         children = node.getChildren(),
+        skipEmpty = this.skipEmpty,
         cw;
 
     fillTemplate(node, templateData, linkMapper, context);
@@ -186,14 +204,16 @@ HtmlReport.prototype.onSummary = function (node, context) {
     cw.write(summaryTableHeader);
     children.forEach(function (child) {
         var metrics = child.getCoverageSummary(),
-            reportClasses = {
+            isEmpty = metrics.isEmpty();
+        if (skipEmpty && isEmpty) { return; }
+        var reportClasses = isEmpty ? emptyClasses : {
                 statements: context.classForPercent('statements', metrics.statements.pct),
                 lines: context.classForPercent('lines', metrics.lines.pct),
                 functions: context.classForPercent('functions', metrics.functions.pct),
                 branches: context.classForPercent('branches', metrics.branches.pct)
             },
             data = {
-                metrics: metrics,
+                metrics: isEmpty ? fixPct(metrics) : metrics,
                 reportClasses: reportClasses,
                 file: child.getRelativeName(),
                 output: linkMapper.relativePath(node, child)

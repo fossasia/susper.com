@@ -15,4 +15,4 @@ export function tryCatch(fn) {
     return tryCatcher;
 }
 ;
-//# sourceMappingURL=tryCatch.js.map 
+//# sourceMappingURL=tryCatch.js.map

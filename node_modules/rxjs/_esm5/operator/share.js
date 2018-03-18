@@ -20,4 +20,4 @@ export function share() {
     return higherOrder()(this);
 }
 ;
-//# sourceMappingURL=share.js.map 
+//# sourceMappingURL=share.js.map

@@ -18,4 +18,4 @@ export function repeat(count) {
     }
     return higherOrder(count)(this);
 }
-//# sourceMappingURL=repeat.js.map 
+//# sourceMappingURL=repeat.js.map

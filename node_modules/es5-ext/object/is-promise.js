@@ -1,8 +1,4 @@
 "use strict";
 
-var isCallable = require("./is-callable")
-  , isObject   = require("./is-object");
-
-module.exports = function (value) {
- return isObject(value) && isCallable(value.then);
-};
+// In next major this check will also confirm on promise constructor
+module.exports = require("./is-thenable");

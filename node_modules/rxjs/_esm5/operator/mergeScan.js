@@ -37,4 +37,4 @@ export function mergeScan(accumulator, seed, concurrent) {
     }
     return higherOrder(accumulator, seed, concurrent)(this);
 }
-//# sourceMappingURL=mergeScan.js.map 
+//# sourceMappingURL=mergeScan.js.map

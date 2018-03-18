@@ -38,4 +38,4 @@ import { pairwise as higherOrder } from '../operators/pairwise';
 export function pairwise() {
     return higherOrder()(this);
 }
-//# sourceMappingURL=pairwise.js.map 
+//# sourceMappingURL=pairwise.js.map

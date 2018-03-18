@@ -87,4 +87,4 @@ var SwitchFirstSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return SwitchFirstSubscriber;
 }(OuterSubscriber));
-//# sourceMappingURL=exhaust.js.map 
+//# sourceMappingURL=exhaust.js.map

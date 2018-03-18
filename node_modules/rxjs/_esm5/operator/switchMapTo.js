@@ -46,4 +46,4 @@ import { switchMapTo as higherOrder } from '../operators/switchMapTo';
 export function switchMapTo(innerObservable, resultSelector) {
     return higherOrder(innerObservable, resultSelector)(this);
 }
-//# sourceMappingURL=switchMapTo.js.map 
+//# sourceMappingURL=switchMapTo.js.map

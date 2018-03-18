@@ -98,4 +98,4 @@ import { multicast as higherOrder } from '../operators/multicast';
 export function multicast(subjectOrSubjectFactory, selector) {
     return higherOrder(subjectOrSubjectFactory, selector)(this);
 }
-//# sourceMappingURL=multicast.js.map 
+//# sourceMappingURL=multicast.js.map

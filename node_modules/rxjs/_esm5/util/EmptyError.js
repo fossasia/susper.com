@@ -26,4 +26,4 @@ export var EmptyError = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     }
     return EmptyError;
 }(Error));
-//# sourceMappingURL=EmptyError.js.map 
+//# sourceMappingURL=EmptyError.js.map

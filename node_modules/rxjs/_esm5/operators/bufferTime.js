@@ -199,4 +199,4 @@ function dispatchBufferClose(arg) {
     var subscriber = arg.subscriber, context = arg.context;
     subscriber.closeContext(context);
 }
-//# sourceMappingURL=bufferTime.js.map 
+//# sourceMappingURL=bufferTime.js.map

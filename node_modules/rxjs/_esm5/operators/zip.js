@@ -278,4 +278,4 @@ var ZipBufferIterator = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return ZipBufferIterator;
 }(OuterSubscriber));
-//# sourceMappingURL=zip.js.map 
+//# sourceMappingURL=zip.js.map

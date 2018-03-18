@@ -35,4 +35,4 @@ import { skipLast as higherOrder } from '../operators/skipLast';
 export function skipLast(count) {
     return higherOrder(count)(this);
 }
-//# sourceMappingURL=skipLast.js.map 
+//# sourceMappingURL=skipLast.js.map

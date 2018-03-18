@@ -972,7 +972,7 @@ function createHtmlDocument (title, body) {
     '<body>\n' +
     '<pre>' + body + '</pre>\n' +
     '</body>\n' +
-    '<html>\n'
+    '</html>\n'
 }
 
 /**

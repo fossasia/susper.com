@@ -14,4 +14,4 @@ import { skip as higherOrder } from '../operators/skip';
 export function skip(count) {
     return higherOrder(count)(this);
 }
-//# sourceMappingURL=skip.js.map 
+//# sourceMappingURL=skip.js.map

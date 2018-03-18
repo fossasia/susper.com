@@ -122,4 +122,4 @@ var BufferWhenSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return BufferWhenSubscriber;
 }(OuterSubscriber));
-//# sourceMappingURL=bufferWhen.js.map 
+//# sourceMappingURL=bufferWhen.js.map

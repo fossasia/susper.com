@@ -2,11 +2,11 @@
   "static": {
     "urls": {
       "/not-found-bg.8f346a53ee078b98deb0.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
-      "/main.af87d274097e3838ae1b.bundle.js": "556801374bbbb0413e20a0c46188938262731874",
+      "/main.0613efe553eac852c701.bundle.js": "e38a05c29d5b7d9d8f6b5db7f4cc5d8eb61dd26c",
       "/sw-register.28c36090723540135ce0.bundle.js": "b8770a453e7d4cdb124dc9ae245d86f88b2fe209",
-      "/vendor.8a5689166c9f6be4b22a.bundle.js": "380329ade11e2eb9f3d72a96e97db22147d81727",
+      "/vendor.fe2c967546e785e7e80a.bundle.js": "64d2028e4d72564055b48948b9a3bb21f6cf3c85",
       "/inline.31e1fb380eb7cf3d75b1.bundle.js": "afe1b233aaffec401067c782e7080cd11903896e",
-      "/styles.ce9210868ba5bc494de4.bundle.css": "f81bc773079ed6e5f7cf43ec03776f586d333eac",
+      "/styles.9c0ad738f18adc3d19ed.bundle.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "/assets/images/not-found-bg.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
       "/favicon.ico": "1214df2ad2bb72333b2cf64a4e5e101b25c321e2",
       "/manifest.json": "1e4647137558c4a7650ad9a06c0e0e99274a0b16",
@@ -41,7 +41,7 @@
       "/assets/images/susper.svg": "7a8cb12bd11e689754c7d9dbb8504ba2902c14d9",
       "/assets/images/terminal.png": "2aa0054d6e388a6cd5630e3eca2350cfb289955b",
       "/assets/images/YaCyLogo2011_60.png": "954f9d626d69a7861e9e84735c44b0a8bc759c97",
-      "/index.html": "1ca190cd1fc0c3f6d9504530fd884ae886843a0b"
+      "/index.html": "8b468595c3be0d129f1e5ac84cd559d9af49ea37"
     },
     "_generatedFromWebpack": true
   }

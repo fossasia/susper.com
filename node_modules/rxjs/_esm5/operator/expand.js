@@ -56,4 +56,4 @@ export function expand(project, concurrent, scheduler) {
     concurrent = (concurrent || 0) < 1 ? Number.POSITIVE_INFINITY : concurrent;
     return higherOrder(project, concurrent, scheduler)(this);
 }
-//# sourceMappingURL=expand.js.map 
+//# sourceMappingURL=expand.js.map

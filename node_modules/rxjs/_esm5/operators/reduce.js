@@ -65,4 +65,4 @@ export function reduce(accumulator, seed) {
         }), takeLast(1))(source);
     };
 }
-//# sourceMappingURL=reduce.js.map 
+//# sourceMappingURL=reduce.js.map

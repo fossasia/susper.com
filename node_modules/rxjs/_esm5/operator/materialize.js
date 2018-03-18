@@ -47,4 +47,4 @@ import { materialize as higherOrder } from '../operators/materialize';
 export function materialize() {
     return higherOrder()(this);
 }
-//# sourceMappingURL=materialize.js.map 
+//# sourceMappingURL=materialize.js.map

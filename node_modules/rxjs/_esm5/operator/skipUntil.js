@@ -15,4 +15,4 @@ import { skipUntil as higherOrder } from '../operators/skipUntil';
 export function skipUntil(notifier) {
     return higherOrder(notifier)(this);
 }
-//# sourceMappingURL=skipUntil.js.map 
+//# sourceMappingURL=skipUntil.js.map

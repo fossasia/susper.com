@@ -36,4 +36,4 @@ import { AsapScheduler } from './AsapScheduler';
  * @owner Scheduler
  */
 export var asap = /*@__PURE__*/ new AsapScheduler(AsapAction);
-//# sourceMappingURL=asap.js.map 
+//# sourceMappingURL=asap.js.map

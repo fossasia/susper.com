@@ -51,4 +51,4 @@ export function combineLatest() {
     }
     return higherOrder.apply(void 0, observables)(this);
 }
-//# sourceMappingURL=combineLatest.js.map 
+//# sourceMappingURL=combineLatest.js.map

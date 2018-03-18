@@ -55,4 +55,4 @@ export function timeoutWith(due, withObservable, scheduler) {
     }
     return higherOrder(due, withObservable, scheduler)(this);
 }
-//# sourceMappingURL=timeoutWith.js.map 
+//# sourceMappingURL=timeoutWith.js.map

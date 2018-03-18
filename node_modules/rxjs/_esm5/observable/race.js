@@ -85,4 +85,4 @@ export var RaceSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return RaceSubscriber;
 }(OuterSubscriber));
-//# sourceMappingURL=race.js.map 
+//# sourceMappingURL=race.js.map

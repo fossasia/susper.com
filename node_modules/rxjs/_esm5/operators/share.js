@@ -21,4 +21,4 @@ export function share() {
     return function (source) { return refCount()(multicast(shareSubjectFactory)(source)); };
 }
 ;
-//# sourceMappingURL=share.js.map 
+//# sourceMappingURL=share.js.map

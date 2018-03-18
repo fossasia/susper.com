@@ -24,4 +24,4 @@ export function race() {
         return source.lift.call(raceStatic.apply(void 0, [source].concat(observables)));
     };
 }
-//# sourceMappingURL=race.js.map 
+//# sourceMappingURL=race.js.map

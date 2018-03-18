@@ -52,4 +52,4 @@ import { first as higherOrder } from '../operators/first';
 export function first(predicate, resultSelector, defaultValue) {
     return higherOrder(predicate, resultSelector, defaultValue)(this);
 }
-//# sourceMappingURL=first.js.map 
+//# sourceMappingURL=first.js.map

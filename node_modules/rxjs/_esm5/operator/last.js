@@ -21,4 +21,4 @@ import { last as higherOrder } from '../operators/last';
 export function last(predicate, resultSelector, defaultValue) {
     return higherOrder(predicate, resultSelector, defaultValue)(this);
 }
-//# sourceMappingURL=last.js.map 
+//# sourceMappingURL=last.js.map

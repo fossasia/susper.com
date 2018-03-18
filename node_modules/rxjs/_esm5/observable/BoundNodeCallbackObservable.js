@@ -263,4 +263,4 @@ function dispatchError(arg) {
     var err = arg.err, subject = arg.subject;
     subject.error(err);
 }
-//# sourceMappingURL=BoundNodeCallbackObservable.js.map 
+//# sourceMappingURL=BoundNodeCallbackObservable.js.map

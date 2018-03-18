@@ -30,4 +30,4 @@ export var RequestAnimationFrameDefinition = /*@__PURE__*/ (/*@__PURE__*/ functi
     return RequestAnimationFrameDefinition;
 }());
 export var AnimationFrame = /*@__PURE__*/ new RequestAnimationFrameDefinition(root);
-//# sourceMappingURL=AnimationFrame.js.map 
+//# sourceMappingURL=AnimationFrame.js.map

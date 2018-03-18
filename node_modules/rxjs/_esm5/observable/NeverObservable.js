@@ -57,4 +57,4 @@ export var NeverObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return NeverObservable;
 }(Observable));
-//# sourceMappingURL=NeverObservable.js.map 
+//# sourceMappingURL=NeverObservable.js.map

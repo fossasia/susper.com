@@ -8,4 +8,4 @@ export function shareReplay(bufferSize, windowTime, scheduler) {
     return higherOrder(bufferSize, windowTime, scheduler)(this);
 }
 ;
-//# sourceMappingURL=shareReplay.js.map 
+//# sourceMappingURL=shareReplay.js.map

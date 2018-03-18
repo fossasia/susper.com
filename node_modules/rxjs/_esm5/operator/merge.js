@@ -55,4 +55,4 @@ export function merge() {
     }
     return higherOrder.apply(void 0, observables)(this);
 }
-//# sourceMappingURL=merge.js.map 
+//# sourceMappingURL=merge.js.map

@@ -39,4 +39,4 @@ import { window as higherOrder } from '../operators/window';
 export function window(windowBoundaries) {
     return higherOrder(windowBoundaries)(this);
 }
-//# sourceMappingURL=window.js.map 
+//# sourceMappingURL=window.js.map

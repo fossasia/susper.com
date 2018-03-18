@@ -55,4 +55,4 @@ import { sequenceEqual as higherOrder } from '../operators/sequenceEqual';
 export function sequenceEqual(compareTo, comparor) {
     return higherOrder(compareTo, comparor)(this);
 }
-//# sourceMappingURL=sequenceEqual.js.map 
+//# sourceMappingURL=sequenceEqual.js.map

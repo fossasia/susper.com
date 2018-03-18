@@ -52,4 +52,4 @@ import { concatAll as higherOrder } from '../operators/concatAll';
 export function concatAll() {
     return higherOrder()(this);
 }
-//# sourceMappingURL=concatAll.js.map 
+//# sourceMappingURL=concatAll.js.map

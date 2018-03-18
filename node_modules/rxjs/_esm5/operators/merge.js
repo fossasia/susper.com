@@ -55,4 +55,4 @@ export function merge() {
     }
     return function (source) { return source.lift.call(mergeStatic.apply(void 0, [source].concat(observables))); };
 }
-//# sourceMappingURL=merge.js.map 
+//# sourceMappingURL=merge.js.map

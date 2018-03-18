@@ -44,4 +44,4 @@ import { AsyncScheduler } from './AsyncScheduler';
  * @owner Scheduler
  */
 export var async = /*@__PURE__*/ new AsyncScheduler(AsyncAction);
-//# sourceMappingURL=async.js.map 
+//# sourceMappingURL=async.js.map

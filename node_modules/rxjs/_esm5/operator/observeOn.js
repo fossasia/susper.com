@@ -52,4 +52,4 @@ export function observeOn(scheduler, delay) {
     }
     return higherOrder(scheduler, delay)(this);
 }
-//# sourceMappingURL=observeOn.js.map 
+//# sourceMappingURL=observeOn.js.map

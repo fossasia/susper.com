@@ -34,4 +34,4 @@ import { min as higherOrderMin } from '../operators/min';
 export function min(comparer) {
     return higherOrderMin(comparer)(this);
 }
-//# sourceMappingURL=min.js.map 
+//# sourceMappingURL=min.js.map

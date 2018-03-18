@@ -99,14 +99,12 @@ function finalhandler (req, res, options) {
       // respect status code from error
       status = getErrorStatusCode(err)
 
-      // respect headers from error
-      if (status !== undefined) {
-        headers = getErrorHeaders(err)
-      }
-
-      // fallback to status code on response
       if (status === undefined) {
+        // fallback to status code on response
         status = getResponseStatusCode(res)
+      } else {
+        // respect headers from error
+        headers = getErrorHeaders(err)
       }
 
       // get error message
@@ -114,7 +112,7 @@ function finalhandler (req, res, options) {
     } else {
       // not found
       status = 404
-      msg = 'Cannot ' + req.method + ' ' + encodeUrl(parseUrl.original(req).pathname)
+      msg = 'Cannot ' + req.method + ' ' + encodeUrl(getResourceName(req))
     }
 
     debug('default %s', status)
@@ -206,6 +204,25 @@ function getErrorStatusCode (err) {
   }
 
   return undefined
+}
+
+/**
+ * Get resource name for the request.
+ *
+ * This is typically just the original pathname of the request
+ * but will fallback to "resource" is that cannot be determined.
+ *
+ * @param {IncomingMessage} req
+ * @return {string}
+ * @private
+ */
+
+function getResourceName (req) {
+  try {
+    return parseUrl.original(req).pathname
+  } catch (e) {
+    return 'resource'
+  }
 }
 
 /**

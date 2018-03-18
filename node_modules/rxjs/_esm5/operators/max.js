@@ -37,4 +37,4 @@ export function max(comparer) {
         : function (x, y) { return x > y ? x : y; };
     return reduce(max);
 }
-//# sourceMappingURL=max.js.map 
+//# sourceMappingURL=max.js.map

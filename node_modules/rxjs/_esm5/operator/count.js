@@ -51,4 +51,4 @@ import { count as higherOrder } from '../operators/count';
 export function count(predicate) {
     return higherOrder(predicate)(this);
 }
-//# sourceMappingURL=count.js.map 
+//# sourceMappingURL=count.js.map

@@ -107,4 +107,4 @@ export { windowWhen } from './operators/windowWhen';
 export { withLatestFrom } from './operators/withLatestFrom';
 export { zip } from './operators/zip';
 export { zipAll } from './operators/zipAll';
-//# sourceMappingURL=operators.js.map 
+//# sourceMappingURL=operators.js.map

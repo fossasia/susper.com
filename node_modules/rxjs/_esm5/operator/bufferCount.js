@@ -47,4 +47,4 @@ export function bufferCount(bufferSize, startBufferEvery) {
     }
     return higherOrder(bufferSize, startBufferEvery)(this);
 }
-//# sourceMappingURL=bufferCount.js.map 
+//# sourceMappingURL=bufferCount.js.map

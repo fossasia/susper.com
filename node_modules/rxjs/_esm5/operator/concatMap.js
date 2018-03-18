@@ -63,4 +63,4 @@ import { concatMap as higherOrderConcatMap } from '../operators/concatMap';
 export function concatMap(project, resultSelector) {
     return higherOrderConcatMap(project, resultSelector)(this);
 }
-//# sourceMappingURL=concatMap.js.map 
+//# sourceMappingURL=concatMap.js.map

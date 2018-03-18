@@ -47,4 +47,4 @@ export var BehaviorSubject = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return BehaviorSubject;
 }(Subject));
-//# sourceMappingURL=BehaviorSubject.js.map 
+//# sourceMappingURL=BehaviorSubject.js.map

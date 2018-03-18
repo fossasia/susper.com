@@ -189,4 +189,4 @@ export var Subscription = /*@__PURE__*/ (/*@__PURE__*/ function () {
 function flattenUnsubscriptionErrors(errors) {
     return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError) ? err.errors : err); }, []);
 }
-//# sourceMappingURL=Subscription.js.map 
+//# sourceMappingURL=Subscription.js.map

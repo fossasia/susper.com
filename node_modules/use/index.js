@@ -7,20 +7,17 @@
 
 'use strict';
 
-var utils = require('./utils');
+var typeOf = require('kind-of');
 
-module.exports = function base(app, opts) {
-  if (!utils.isObject(app) && typeof app !== 'function') {
-    throw new TypeError('use: expect `app` be an object or function');
+module.exports = function base(app, options) {
+  if (typeOf(app) !== 'object' && typeof app !== 'function') {
+    throw new TypeError('expected an object or function');
   }
 
-  if (!utils.isObject(opts)) {
-    opts = {};
-  }
-
-  var prop = utils.isString(opts.prop) ? opts.prop : 'fns';
+  var opts = typeOf(options) === 'object' ? options : {};
+  var prop = typeof opts.prop === 'string' ? opts.prop : 'fns';
   if (!Array.isArray(app[prop])) {
-    utils.define(app, prop, []);
+    define(app, prop, []);
   }
 
   /**
@@ -53,7 +50,7 @@ module.exports = function base(app, opts) {
    * @api public
    */
 
-  utils.define(app, 'use', use);
+  define(app, 'use', use);
 
   /**
    * Run all plugins on `fns`. Any plugin that returns a function
@@ -69,9 +66,17 @@ module.exports = function base(app, opts) {
    * @api public
    */
 
-  utils.define(app, 'run', function(val) {
-    if (!utils.isObject(val)) return;
-    decorate(val);
+  define(app, 'run', function(val) {
+    if (typeOf(val) !== 'object') return;
+
+    if (!val.use || !val.run) {
+      define(val, prop, val[prop] || []);
+      define(val, 'use', use);
+    }
+
+    if (!val[prop] || val[prop].indexOf(base) === -1) {
+      val.use(base);
+    }
 
     var self = this || app;
     var fns = self[prop];
@@ -89,33 +94,60 @@ module.exports = function base(app, opts) {
    * `fns` array to be called by the `run` method.
    */
 
-  function use(fn, options) {
+  function use(type, fn, options) {
+    var offset = 1;
+
+    if (typeof type === 'string' || Array.isArray(type)) {
+      fn = wrap(type, fn);
+      offset++;
+    } else {
+      options = fn;
+      fn = type;
+    }
+
     if (typeof fn !== 'function') {
-      throw new TypeError('.use expects `fn` be a function');
+      throw new TypeError('expected a function');
     }
 
     var self = this || app;
-    if (typeof opts.fn === 'function') {
-      opts.fn.call(self, self, options);
+    var fns = self[prop];
+
+    var args = [].slice.call(arguments, offset);
+    args.unshift(self);
+
+    if (typeof opts.hook === 'function') {
+      opts.hook.apply(self, args);
     }
 
-    var plugin = fn.call(self, self);
-    if (typeof plugin === 'function') {
-      var fns = self[prop];
-      fns.push(plugin);
+    var val = fn.apply(self, args);
+    if (typeof val === 'function' && fns.indexOf(val) === -1) {
+      fns.push(val);
     }
     return self;
   }
 
   /**
-   * Ensure the `.use` method exists on `val`
+   * Wrap a named plugin function so that it's only called on objects of the
+   * given `type`
+   *
+   * @param {String} `type`
+   * @param {Function} `fn` Plugin function
+   * @return {Function}
    */
 
-  function decorate(val) {
-    if (!val.use || !val.run) {
-      base(val);
-    }
+  function wrap(type, fn) {
+    return function plugin() {
+      return this.type === type ? fn.apply(this, arguments) : plugin;
+    };
   }
 
   return app;
 };
+
+function define(obj, key, val) {
+  Object.defineProperty(obj, key, {
+    configurable: true,
+    writable: true,
+    value: val
+  });
+}

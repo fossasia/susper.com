@@ -46,4 +46,4 @@ export function throttle(durationSelector, config) {
     }
     return higherOrder(durationSelector, config)(this);
 }
-//# sourceMappingURL=throttle.js.map 
+//# sourceMappingURL=throttle.js.map

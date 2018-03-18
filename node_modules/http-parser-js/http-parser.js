@@ -78,6 +78,7 @@ var methods = exports.methods = HTTPParser.methods = [
   'LINK',
   'UNLINK'
 ];
+var method_connect = methods.indexOf('CONNECT');
 HTTPParser.prototype.reinitialize = HTTPParser;
 HTTPParser.prototype.close =
 HTTPParser.prototype.pause =
@@ -224,9 +225,6 @@ HTTPParser.prototype.REQUEST_LINE = function () {
   if (this.info.method === -1) {
     throw new Error('invalid request method');
   }
-  if (match[1] === 'CONNECT') {
-    this.info.upgrade = true;
-  }
   this.info.url = match[2];
   this.info.versionMajor = +match[3];
   this.info.versionMinor = +match[4];
@@ -281,6 +279,7 @@ HTTPParser.prototype.HEADER = function () {
     var headers = info.headers;
     var hasContentLength = false;
     var currentContentLengthValue;
+    var hasUpgradeHeader = false;
     for (var i = 0; i < headers.length; i += 2) {
       switch (headers[i].toLowerCase()) {
         case 'transfer-encoding':
@@ -306,13 +305,23 @@ HTTPParser.prototype.HEADER = function () {
           this.connection += headers[i + 1].toLowerCase();
           break;
         case 'upgrade':
-          info.upgrade = true;
+          hasUpgradeHeader = true;
           break;
       }
     }
 
     if (this.isChunked && hasContentLength) {
       throw parseErrorCode('HPE_UNEXPECTED_CONTENT_LENGTH');
+    }
+
+    // Logic from https://github.com/nodejs/http-parser/blob/921d5585515a153fa00e411cf144280c59b41f90/http_parser.c#L1727-L1737
+    // "For responses, "Upgrade: foo" and "Connection: upgrade" are
+    //   mandatory only when it is a 101 Switching Protocols response,
+    //   otherwise it is purely informational, to announce support.
+    if (hasUpgradeHeader && this.connection.indexOf('upgrade') != -1) {
+      info.upgrade = this.type === HTTPParser.REQUEST || info.statusCode === 101;
+    } else {
+      info.upgrade = info.method === method_connect;
     }
 
     info.shouldKeepAlive = this.shouldKeepAlive();
@@ -325,13 +334,16 @@ HTTPParser.prototype.HEADER = function () {
           info.versionMinor, info.headers, info.method, info.url, info.statusCode,
           info.statusMessage, info.upgrade, info.shouldKeepAlive));
     }
-    if (info.upgrade || skipBody === 2) {
+    if (skipBody === 2) {
       this.nextRequest();
       return true;
     } else if (this.isChunked && !skipBody) {
       this.state = 'BODY_CHUNKHEAD';
     } else if (skipBody || this.body_bytes === 0) {
       this.nextRequest();
+      // For older versions of node (v6.x and older?), that return skipBody=1 or skipBody=true,
+      //   need this "return true;" if it's an upgrade request.
+      return info.upgrade;
     } else if (this.body_bytes === null) {
       this.state = 'BODY_RAW';
     } else {
@@ -413,6 +425,7 @@ HTTPParser.prototype.BODY_SIZED = function () {
     set: function (to) {
       // hack for backward compatibility
       this._compatMode0_11 = true;
+      method_connect = 'CONNECT';
       return (this[k] = to);
     }
   });
