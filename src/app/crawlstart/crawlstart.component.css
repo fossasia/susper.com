@@ -262,3 +262,10 @@ div {
     margin-left: -77px;
   }
 }
+
+footer{
+  position: fixed;
+bottom: 0px; 
+left: 0px;
+width: 100%;
+}
