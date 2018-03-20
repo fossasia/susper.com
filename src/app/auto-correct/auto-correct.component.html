@@ -1,3 +1,3 @@
 <div class="sug" *ngIf="sugflag === true">
-    <p class="mean"> Did you mean: <a [routerLink]="resultsearch" [queryParams]="{query: suggestion}" class="suggest-auto-correct">{{suggestion}}</a></p>
+    <p class="mean" [style.color]="themeService.descriptionColor"> Did you mean: <a [routerLink]="resultsearch" [queryParams]="{query: suggestion}" class="suggest-auto-correct" [style.color]="themeService.linkColor">{{suggestion}}</a></p>
 </div>
