@@ -18,6 +18,19 @@
   position: relative;
 }
 
+#search-setting{
+
+min-height:100vh;
+position: relative;
+
+}
+
+footer{
+    bottom: 0px;
+    position: absolute;
+    width:100%
+}
+
 .navbar-right {
   border-top:none;
 }

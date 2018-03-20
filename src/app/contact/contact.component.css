@@ -50,6 +50,18 @@
     font-weight: 700;
 }
 
+#contact{
+    min-height:100vh;
+    position: relative;
+
+}
+
+footer{
+    bottom: 0px;
+    position: absolute;
+    width:100%
+}
+
 @media screen and (max-width:990px) {
     
     .image-banner {
