@@ -1,6 +1,6 @@
 import {
   Component, OnInit, Input, Output, AfterContentInit, ContentChild,
-  AfterViewChecked, AfterViewInit, ViewChild, ViewChildren
+  AfterViewChecked, AfterViewInit, ViewChild, ViewChildren,ElementRef
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -14,7 +14,10 @@ import * as speechactions from '../actions/speech';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.css']
+  styleUrls: ['./search-bar.component.css'],
+  host: {
+'(document:click)': 'sugClose($event)'
+}
 })
 export class SearchBarComponent implements OnInit, AfterViewInit {
   @ViewChildren('input') vc;
@@ -30,6 +33,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     mode: 'text'
   };
 
+
   showspeech: boolean = false;
   wholequery$: Observable<any>;
   resultspage: any;
@@ -39,7 +43,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private store: Store<fromRoot.State>,
-    private speech: SpeechService
+    private speech: SpeechService,
+    private _eref: ElementRef
   ) {
     this.wholequery$ = store.select(fromRoot.getwholequery);
 
@@ -50,9 +55,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.resultspage = this.router.url.toString().includes('/search');
   };
 
+
+
   speechRecognition() {
     this.store.dispatch(new speechactions.SearchAction(true));
   }
+
 
   hidesuggestions(data: number) {
     if (data === 1) {
@@ -61,6 +69,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.displayStatus = 'showbox';
     }
   }
+
 
   onEnter(event: any) {
     if (event.which === 13) {
@@ -74,14 +83,19 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
           mode: this.searchdata.mode
         }));
       }
-
-      this.displayStatus = 'hidebox';
+      this.displayStatus = 'showbox';
       event.target.blur();
       event.preventDefault();
       this.submit();
     }
   }
-
+  sugClose(event)
+  {
+    if (!this._eref.nativeElement.contains(event.target)) {
+  this.displayStatus = 'hidebox';
+}
+  }
+  
   onClick() {
     if (this.searchdata.fq !== '') {
       this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq, mode: this.searchdata.mode}));
@@ -92,11 +106,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
         rows: this.searchdata.rows,
         mode: this.searchdata.mode
       }));
+      this.displayStatus = 'hidebox';
     }
-
     this.displayStatus = 'hidebox';
     this.submit();
   }
+
 
   onquery(event: any) {
     this.store.dispatch(new query.QueryAction(event));
