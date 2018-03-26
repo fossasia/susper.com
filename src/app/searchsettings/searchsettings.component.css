@@ -208,3 +208,10 @@ ul li{
 .active {
   color:#dd4b39
 }
+
+footer {
+  width: 100%;
+  bottom: 0px;
+  position: absolute;
+}
+
