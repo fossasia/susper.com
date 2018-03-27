@@ -25,6 +25,7 @@ Search results are displayed using Solr server which is embedded into YaCy. All 
 
 ## Technology Stack
 * HTML - Structure of the web page generated.
+* Bootstrap-3.3.7 - Used for responsive design
 * CSS - Styling options and details of the web page.
 * Javascript(JSON) - Used to store information for deploying the application such as dependencies.
 * Angular-4 - Structure for deployment of the web page.
