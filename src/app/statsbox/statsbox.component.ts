@@ -62,8 +62,10 @@ export class StatsboxComponent implements OnInit {
 
   changequerylook(modifier, element) {
     let querylook = Object.assign({}, this.querylook);
-
+    let check = new RegExp( decodeURIComponent(modifier));
+    if (!check.test(querylook['query'])){   
     querylook['query'] = this.querylook['query'] + ' ' + decodeURIComponent(modifier);
+  }
     return querylook;
   }
 
