@@ -23,6 +23,7 @@
       "/assets/css/yacysearch-result.css": "682035a60a631b53a2588787f4dae55079fca9c0",
       "/assets/css/yacysearch-yaml.css": "9d9792ddd7c8ae38aeb3324f904702d02df26a55",
       "/assets/images/blog.png": "b6fac88d2120ae2240046a3c0a2931e1353c852e",
+      "/assets/images/boat.png": "dc51be085582efa213bad78fc9c6beab69b54c92",
       "/assets/images/bug.png": "b1bb93eb4bde533ca084050a626dda4c760fc0a8",
       "/assets/images/code.png": "ec8e9210de7746616d4e9fe2b5fb71c8dfbb7175",
       "/assets/images/contact.png": "75673134d220e337aa86f0b32b5f80c710d2d54d",
@@ -40,7 +41,6 @@
       "/assets/images/susper.svg": "7a8cb12bd11e689754c7d9dbb8504ba2902c14d9",
       "/assets/images/terminal.png": "2aa0054d6e388a6cd5630e3eca2350cfb289955b",
       "/assets/images/YaCyLogo2011_60.png": "954f9d626d69a7861e9e84735c44b0a8bc759c97",
-      "/assets/images/boat.png": "dc51be085582efa213bad78fc9c6beab69b54c92",
       "/index.html": "d5babeccab74b90b8084c938c21a32603be6d843"
     },
     "_generatedFromWebpack": true
