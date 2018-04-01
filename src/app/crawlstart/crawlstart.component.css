@@ -29,7 +29,7 @@
 .nav-terms {
   padding: 0px;
   clear: both;
-  margin: -57px 0 0 0
+  margin: -57px 0 0 0;
 }
 
 #label-inline{
@@ -58,7 +58,7 @@
 }
 
 .form-control {
-  border-radius:0px
+  border-radius:0px;
 }
 
 .label-section {
@@ -157,7 +157,7 @@ dd{
 
 .nav-about {
   clear: both;
-  margin: -57px 0 0 0
+  margin: -57px 0 0 0;
 }
 
 .navbar-logo {
@@ -244,7 +244,7 @@ fieldset{
 
 div {
   margin-top: 0.5%;
-  font-family: Arial,SansSerif;
+  font-family: Arial,sans-serif;
 }
 
 @media only screen and (max-width: 500px) {
