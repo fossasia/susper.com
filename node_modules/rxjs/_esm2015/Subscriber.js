@@ -37,10 +37,13 @@ export class Subscriber extends Subscription {
                     break;
                 }
                 if (typeof destinationOrNext === 'object') {
-                    if (destinationOrNext instanceof Subscriber) {
-                        this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
-                        this.destination = destinationOrNext;
-                        this.destination.add(this);
+                    // HACK(benlesh): To resolve an issue where Node users may have multiple
+                    // copies of rxjs in their node_modules directory.
+                    if (isTrustedSubscriber(destinationOrNext)) {
+                        const trustedSubscriber = destinationOrNext[rxSubscriberSymbol]();
+                        this.syncErrorThrowable = trustedSubscriber.syncErrorThrowable;
+                        this.destination = trustedSubscriber;
+                        trustedSubscriber.add(this);
                     }
                     else {
                         this.syncErrorThrowable = true;
@@ -249,5 +252,8 @@ class SafeSubscriber extends Subscriber {
         this._parentSubscriber = null;
         _parentSubscriber.unsubscribe();
     }
+}
+function isTrustedSubscriber(obj) {
+    return obj instanceof Subscriber || ('syncErrorThrowable' in obj && obj[rxSubscriberSymbol]);
 }
 //# sourceMappingURL=Subscriber.js.map

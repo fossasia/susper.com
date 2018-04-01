@@ -55,7 +55,7 @@ Below is an annotated list of options that can be passed along with their defaul
   unacceptablePattern: undefined, // regex of unacceptable licenses
   abortOnUnacceptableLicense: false, // whether or not to abort the build if an unacceptable license is detected
   addBanner: false, // whether or not to add a banner to the beginning of all js files in the chunk indicating where the licenses are
-  bannerTemplate: // ejs template string of how the banner shold appear at the beginning of each js file in the chunk
+  bannerTemplate: // ejs template string of how the banner shold appear at the beginning of each js file in the chunk. There is also a licenseInfo ejs variable you can use to output out the license information.
     '/*! 3rd party license information is available at <%- filename %> */',
   includedChunks: [], // array of chunk names for which license files should be produced
   excludedChunks: [], // array of chunk names for which license files should not be produced. If a chunk is both included and excluded, then it is ultimately excluded.

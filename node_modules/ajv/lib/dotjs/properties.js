@@ -30,7 +30,7 @@ module.exports = function generate_properties(it, $keyword, $ruleType) {
     $ownProperties = it.opts.ownProperties,
     $currentBaseId = it.baseId;
   var $required = it.schema.required;
-  if ($required && !(it.opts.v5 && $required.$data) && $required.length < it.opts.loopRequired) var $requiredHash = it.util.toHash($required);
+  if ($required && !(it.opts.$data && $required.$data) && $required.length < it.opts.loopRequired) var $requiredHash = it.util.toHash($required);
   out += 'var ' + ($errs) + ' = errors;var ' + ($nextValid) + ' = true;';
   if ($ownProperties) {
     out += ' var ' + ($dataProperties) + ' = undefined;';
@@ -44,8 +44,8 @@ module.exports = function generate_properties(it, $keyword, $ruleType) {
     if ($someProperties) {
       out += ' var isAdditional' + ($lvl) + ' = !(false ';
       if ($schemaKeys.length) {
-        if ($schemaKeys.length > 5) {
-          out += ' || validate.schema' + ($schemaPath) + '[' + ($key) + '] ';
+        if ($schemaKeys.length > 8) {
+          out += ' || validate.schema' + ($schemaPath) + '.hasOwnProperty(' + ($key) + ') ';
         } else {
           var arr1 = $schemaKeys;
           if (arr1) {

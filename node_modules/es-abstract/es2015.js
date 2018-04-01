@@ -5,6 +5,7 @@ var toPrimitive = require('es-to-primitive/es6');
 
 var toStr = Object.prototype.toString;
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
+var SymbolIterator = hasSymbols ? Symbol.iterator : null;
 
 var $isNaN = require('./helpers/isNaN');
 var $isFinite = require('./helpers/isFinite');
@@ -426,6 +427,95 @@ var ES6 = assign(assign({}, ES5), {
 		var argumentsList = arraySlice(arguments, 2);
 		var func = this.GetV(O, P);
 		return this.Call(func, O, argumentsList);
+	},
+
+	// http://ecma-international.org/ecma-262/6.0/#sec-getiterator
+	GetIterator: function GetIterator(obj, method) {
+		if (!hasSymbols) {
+			throw new SyntaxError('ES.GetIterator depends on native iterator support.');
+		}
+
+		var actualMethod = method;
+		if (arguments.length < 2) {
+			actualMethod = this.GetMethod(obj, SymbolIterator);
+		}
+		var iterator = this.Call(actualMethod, obj);
+		if (this.Type(iterator) !== 'Object') {
+			throw new TypeError('iterator must return an object');
+		}
+
+		return iterator;
+	},
+
+	// http://ecma-international.org/ecma-262/6.0/#sec-iteratornext
+	IteratorNext: function IteratorNext(iterator, value) {
+		var result = this.Invoke(iterator, 'next', arguments.length < 2 ? [] : [value]);
+		if (this.Type(result) !== 'Object') {
+			throw new TypeError('iterator next must return an object');
+		}
+		return result;
+	},
+
+	// http://ecma-international.org/ecma-262/6.0/#sec-iteratorcomplete
+	IteratorComplete: function IteratorComplete(iterResult) {
+		if (this.Type(iterResult) !== 'Object') {
+			throw new TypeError('Assertion failed: Type(iterResult) is not Object');
+		}
+		return this.ToBoolean(this.Get(iterResult, 'done'));
+	},
+
+	// http://ecma-international.org/ecma-262/6.0/#sec-iteratorvalue
+	IteratorValue: function IteratorValue(iterResult) {
+		if (this.Type(iterResult) !== 'Object') {
+			throw new TypeError('Assertion failed: Type(iterResult) is not Object');
+		}
+		return this.Get(iterResult, 'value');
+	},
+
+	// http://ecma-international.org/ecma-262/6.0/#sec-iteratorstep
+	IteratorStep: function IteratorStep(iterator) {
+		var result = this.IteratorNext(iterator);
+		var done = this.IteratorComplete(result);
+		return done === true ? false : result;
+	},
+
+	// http://ecma-international.org/ecma-262/6.0/#sec-iteratorclose
+	IteratorClose: function IteratorClose(iterator, completion) {
+		if (this.Type(iterator) !== 'Object') {
+			throw new TypeError('Assertion failed: Type(iterator) is not Object');
+		}
+		if (!this.IsCallable(completion)) {
+			throw new TypeError('Assertion failed: completion is not a thunk for a Completion Record');
+		}
+		var completionThunk = completion;
+
+		var iteratorReturn = this.GetMethod(iterator, 'return');
+
+		if (typeof iteratorReturn === 'undefined') {
+			return completionThunk();
+		}
+
+		var completionRecord;
+		try {
+			var innerResult = this.Call(iteratorReturn, iterator, []);
+		} catch (e) {
+			// if we hit here, then "e" is the innerResult completion that needs re-throwing
+
+			// if the completion is of type "throw", this will throw.
+			completionRecord = completionThunk();
+			completionThunk = null; // ensure it's not called twice.
+
+			// if not, then return the innerResult completion
+			throw e;
+		}
+		completionRecord = completionThunk(); // if innerResult worked, then throw if the completion does
+		completionThunk = null; // ensure it's not called twice.
+
+		if (this.Type(innerResult) !== 'Object') {
+			throw new TypeError('iterator .return must return an object');
+		}
+
+		return completionRecord;
 	},
 
 	// http://ecma-international.org/ecma-262/6.0/#sec-createiterresultobject

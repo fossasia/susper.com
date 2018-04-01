@@ -158,10 +158,14 @@
 
     Mocha.Runner.prototype.run = function(fn: Function) {
       this.on('test', (e: any) => {
-        if (Zone.current !== rootZone) {
-          throw new Error('Unexpected zone: ' + Zone.current.name);
-        }
         testZone = rootZone.fork(new ProxyZoneSpec());
+      });
+
+      this.on('fail', (test:any, err: any) => {
+        const proxyZoneSpec = testZone && testZone.get('ProxyZoneSpec');
+        if (proxyZoneSpec && err) {
+          err.message += proxyZoneSpec.getAndClearPendingTasksInfo();
+        }
       });
 
       return originalRun.call(this, fn);

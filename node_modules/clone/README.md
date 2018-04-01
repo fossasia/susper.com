@@ -5,6 +5,8 @@
 offers foolproof _deep cloning_ of objects, arrays, numbers, strings, maps,
 sets, promises, etc. in JavaScript.
 
+**XSS vulnerability detected**
+
 
 ## Installation
 
@@ -98,6 +100,12 @@ So, `b.myself` points to `b`, not `a`. Neat!
 
 ## Changelog
 
+### v2.1.2
+
+#### 2018-03-21
+
+  - Use `Buffer.allocUnsafe()` on Node >= 4.5.0 (contributed by @ChALkeR)
+
 ### v2.1.1
 
 #### 2017-03-09
@@ -119,7 +127,15 @@ So, `b.myself` points to `b`, not `a`. Neat!
 
   - Add support for cloning ES6 Maps, Sets, Promises, and Symbols
 
-### v1.0.2
+### v1.0.3
+
+#### 2017-11-08
+
+  - Close XSS vulnerability in the NPM package, which included the file
+    `test-apart-ctx.html`. This vulnerability was disclosed by Juho Nurminen of
+    2NS - Second Nature Security.
+
+### v1.0.2 (deprecated)
 
 #### 2015-03-25
 
@@ -127,14 +143,14 @@ So, `b.myself` points to `b`, not `a`. Neat!
   - Refactor utilities
   - Refactor test suite
 
-### v1.0.1
+### v1.0.1 (deprecated)
 
 #### 2015-03-04
 
   - Fix nodeunit version
   - Directly call getRegExpFlags
 
-### v1.0.0
+### v1.0.0 (deprecated)
 
 #### 2015-02-10
 

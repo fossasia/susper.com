@@ -1,4 +1,10 @@
-1.9.0 / 2017-11-24
+1.11.0 / 2018-03-21
+=================
+  * [New] `ES2015+`: add iterator abstract ops
+  * [Dev Deps] update `eslint`, `nsp`, `object.assign`, `semver`, `tape`
+  * [Tests] up to `node` `v9.8`, `v8.10`, `v6.13`
+
+1.10.0 / 2017-11-24
 =================
   * [New] ES2015+: `AdvanceStringIndex`
   * [Dev Deps] update `eslint`, `nsp`

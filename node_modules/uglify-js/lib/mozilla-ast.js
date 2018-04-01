@@ -180,6 +180,17 @@
                 end    : my_end_token(M)
             };
             if (val === null) return new AST_Null(args);
+            var rx = M.regex;
+            if (rx && rx.pattern) {
+                // RegExpLiteral as per ESTree AST spec
+                args.value = new RegExp(rx.pattern, rx.flags);
+                args.value.raw_source = rx.pattern;
+                return new AST_RegExp(args);
+            } else if (rx) {
+                // support legacy RegExp
+                args.value = M.regex && M.raw ? M.raw : val;
+                return new AST_RegExp(args);
+            }
             switch (typeof val) {
               case "string":
                 args.value = val;
@@ -189,16 +200,6 @@
                 return new AST_Number(args);
               case "boolean":
                 return new (val ? AST_True : AST_False)(args);
-              default:
-                var rx = M.regex;
-                if (rx && rx.pattern) {
-                    // RegExpLiteral as per ESTree AST spec
-                    args.value = new RegExp(rx.pattern, rx.flags).toString();
-                } else {
-                    // support legacy RegExp
-                    args.value = M.regex && M.raw ? M.raw : val;
-                }
-                return new AST_RegExp(args);
             }
         },
         Identifier: function(M) {
@@ -410,14 +411,15 @@
     });
 
     def_to_moz(AST_RegExp, function To_Moz_RegExpLiteral(M) {
-        var value = M.value;
+        var flags = M.value.toString().match(/[gimuy]*$/)[0];
+        var value = "/" + M.value.raw_source + "/" + flags;
         return {
             type: "Literal",
             value: value,
-            raw: value.toString(),
+            raw: value,
             regex: {
-                pattern: value.source,
-                flags: value.toString().match(/[gimuy]*$/)[0]
+                pattern: M.value.raw_source,
+                flags: flags
             }
         };
     });
@@ -564,6 +566,21 @@
         FROM_MOZ_STACK = [];
         var ast = from_moz(node);
         FROM_MOZ_STACK = save_stack;
+        ast.walk(new TreeWalker(function(node) {
+            if (node instanceof AST_LabelRef) {
+                for (var level = 0, parent; parent = this.parent(level); level++) {
+                    if (parent instanceof AST_Scope) break;
+                    if (parent instanceof AST_LabeledStatement && parent.label.name == node.name) {
+                        node.thedef = parent.label;
+                        break;
+                    }
+                }
+                if (!node.thedef) {
+                    var s = node.start;
+                    js_error("Undefined label " + node.name, s.file, s.line, s.col, s.pos);
+                }
+            }
+        }));
         return ast;
     };
 

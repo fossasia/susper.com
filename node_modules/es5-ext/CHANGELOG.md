@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.10.42"></a>
+## [0.10.42](https://github.com/medikoo/es5-ext/compare/v0.10.41...v0.10.42) (2018-03-28)
+
+
+### Bug Fixes
+
+* Date.isDate to exclude NaN dates ([3b61bc6](https://github.com/medikoo/es5-ext/commit/3b61bc6))
+
+
+### Features
+
+* improve non-coercible string representation ([20bfb78](https://github.com/medikoo/es5-ext/commit/20bfb78))
+* improve non-stringifiable string representation ([2e4512d](https://github.com/medikoo/es5-ext/commit/2e4512d))
+
+
+
 <a name="0.10.41"></a>
 ## [0.10.41](https://github.com/medikoo/es5-ext/compare/v0.10.40...v0.10.41) (2018-03-16)
 

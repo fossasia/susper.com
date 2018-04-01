@@ -457,7 +457,7 @@ This functionality has been moved to [`node-sass-middleware`](https://github.com
 
 ### DocPad Plugin
 
-[@jking90](https://github.com/jking90) wrote a [DocPad](http://docpad.org/) plugin that compiles `.scss` files using node-sass: <https://github.com/jking90/docpad-plugin-nodesass>
+[@10xLaCroixDrinker](https://github.com/10xLaCroixDrinker) wrote a [DocPad](http://docpad.org/) plugin that compiles `.scss` files using node-sass: <https://github.com/10xLaCroixDrinker/docpad-plugin-nodesass>
 
 ### Duo.js extension
 
@@ -567,6 +567,7 @@ Variable name    | .npmrc parameter | Process argument   | Value
 SASS_BINARY_NAME | sass_binary_name | --sass-binary-name | path
 SASS_BINARY_SITE | sass_binary_site | --sass-binary-site | URL
 SASS_BINARY_PATH | sass_binary_path | --sass-binary-path | path
+SASS_BINARY_DIR  | sass_binary_dir  | --sass-binary-dir  | path
 
 These parameters can be used as environment variable:
 

@@ -1085,6 +1085,18 @@ var es2015 = function ES2015(ES, ops, expectedMissing) {
 		t.end();
 	});
 
+	test('GetIterator', { skip: true });
+
+	test('IteratorNext', { skip: true });
+
+	test('IteratorComplete', { skip: true });
+
+	test('IteratorValue', { skip: true });
+
+	test('IteratorStep', { skip: true });
+
+	test('IteratorClose', { skip: true });
+
 	test('CreateIterResultObject', function (t) {
 		forEach(v.nonBooleans, function (nonBoolean) {
 			t['throws'](

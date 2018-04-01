@@ -98,6 +98,7 @@ config.set({
 
 You must run the instrumentation as a post step
 
+**webpack.config.js**
 ```js
 {
   test: /\.js$|\.jsx$/,
@@ -125,6 +126,7 @@ The loader supports all options supported by `istanbul-lib-instrument`
 |**`produceSourceMap`**|`{Boolean}`|`false`|Set to `true` to produce a source map for the instrumented code|
 |**`sourceMapUrlCallback`**|`{Function}`|`null`|A callback function that is called when a source map URL is found in the original code. This function is called with the source filename and the source map URL|
 
+**webpack.config.js**
 ```js
 {
   test: /\.js$/,

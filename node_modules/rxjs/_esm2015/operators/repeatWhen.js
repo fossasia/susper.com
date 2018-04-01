@@ -55,7 +55,7 @@ class RepeatWhenSubscriber extends OuterSubscriber {
             if (!this.retries) {
                 this.subscribeToRetries();
             }
-            else if (this.retriesSubscription.closed) {
+            if (!this.retriesSubscription || this.retriesSubscription.closed) {
                 return super.complete();
             }
             this._unsubscribeAndRecycle();

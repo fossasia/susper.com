@@ -15,5 +15,5 @@ module.exports = function (t, a) {
 	);
 	// eslint-disable-next-line symbol-description
 	if (typeof Symbol === "function") a(t(Symbol()), "Symbol()");
-	a(t(Object.create(null)), "<non-stringifiable value>");
+	a(t(Object.create(null)), "[Non-coercible (to string) value]");
 };

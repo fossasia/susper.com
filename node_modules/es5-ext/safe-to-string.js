@@ -7,6 +7,6 @@ module.exports = function (value) {
 		if (value && isCallable(value.toString)) return value.toString();
 		return String(value);
 	} catch (e) {
-		return "<non-stringifiable value>";
+		return "[Non-coercible (to string) value]";
 	}
 };

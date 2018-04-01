@@ -263,7 +263,7 @@ function watch(options, emitter) {
   });
 
   gaze.on('deleted', function(file) {
-    handler(watcher.deleted(file));
+    handler(watcher.removed(file));
   });
 }
 
@@ -328,8 +328,8 @@ function run(options, emitter) {
  */
 function renderFile(file, options, emitter) {
   options = getOptions([path.resolve(file)], options);
-  if (options.watch) {
-    emitter.emit('warn', util.format('=> changed: %s', file));
+  if (options.watch && !options.quiet) {
+    emitter.emit('info', util.format('=> changed: %s', file));
   }
   render(options, emitter);
 }
@@ -355,7 +355,9 @@ function renderDir(options, emitter) {
       renderFile(subject, options, emitter);
     }, function(successful, arr) {
       var outputDir = path.join(process.cwd(), options.output);
-      emitter.emit('warn', util.format('Wrote %s CSS files to %s', arr.length, outputDir));
+      if (!options.quiet) {
+        emitter.emit('info', util.format('Wrote %s CSS files to %s', arr.length, outputDir));
+      }
       process.exit();
     });
   });
