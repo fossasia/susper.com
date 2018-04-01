@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import * as fromRoot from '../reducers';
 import {KnowledgeapiService} from '../services/knowledgeapi.service';
 import {Observable} from "rxjs";
+import {ThemeService} from '../services/theme.service';
 
 @Component({
   selector: 'app-related-search',
@@ -25,7 +26,8 @@ export class RelatedSearchComponent implements OnInit {
     private route: Router,
     private activatedroute: ActivatedRoute,
     private store: Store<fromRoot.State>,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    public themeService: ThemeService
   ) {
     this.query$ = store.select(fromRoot.getquery);
 

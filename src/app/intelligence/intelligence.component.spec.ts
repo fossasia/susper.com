@@ -27,6 +27,7 @@ import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {IntelligenceService} from "../services/intelligence.service";
 import {InfoboxComponent} from "../infobox/infobox.component";
 import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
+import { ThemeService } from '../services/theme.service';
 
 describe('IntelligenceComponent', () => {
   let component: IntelligenceComponent;
@@ -47,7 +48,8 @@ describe('IntelligenceComponent', () => {
         IntelligenceComponent
       ],
       providers: [
-        IntelligenceService
+        IntelligenceService,
+        ThemeService
       ],
     })
     .compileComponents();

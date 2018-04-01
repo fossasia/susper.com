@@ -8,6 +8,7 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { AutocompleteService } from '../services/autocomplete.service';
 import { SpeechService } from '../services/speech.service';
+import { ThemeService } from '../services/theme.service';
 /**
  * import HttpModule to avoid error -
  * No provider for Http!
@@ -46,7 +47,8 @@ describe('Component: Navbar', () => {
       ],
       providers: [
         AutocompleteService,
-        SpeechService
+        SpeechService,
+        ThemeService
       ]
     })
       .compileComponents();

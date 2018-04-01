@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
 import {IntelligenceService} from "../services/intelligence.service";
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-intelligence',
@@ -17,7 +18,8 @@ export class IntelligenceComponent implements OnInit {
 
   constructor(
     private store: Store<fromRoot.State>,
-    private intelligence: IntelligenceService
+    private intelligence: IntelligenceService,
+    public themeService: ThemeService
   ) {
     this.resultscomponentchange$ = store.select(fromRoot.getItems);
 

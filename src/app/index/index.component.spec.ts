@@ -18,6 +18,7 @@ import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import { AutocompleteService } from '../services/autocomplete.service';
 import { SpeechService } from '../services/speech.service';
 import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";
+import { ThemeService } from '../services/theme.service';
 
 describe('IndexComponent', () => {
   let component: IndexComponent;
@@ -42,7 +43,8 @@ describe('IndexComponent', () => {
       ],
       providers: [
         AutocompleteService,
-        SpeechService
+        SpeechService,
+        ThemeService
       ]
     })
       .compileComponents();

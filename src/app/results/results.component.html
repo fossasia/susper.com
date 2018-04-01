@@ -2,7 +2,7 @@
 <div class="resultContainer">
   <app-navbar></app-navbar>
   <div class="row" [style.background-color]="themeService.backgroundColor">
-    <div class="container-fluid" id="search-options-field">
+    <div class="container-fluid" id="search-options-field" [style.background-color]="themeService.navbarbgColor">
       <ul type="none" id="search-options">
         <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
         <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
