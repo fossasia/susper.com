@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Store} from '@ngrx/store';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import * as fromRoot from '../reducers';
-import {Observable} from 'rxjs';
-import {SearchService} from '../services/search.service';
+import { Observable } from 'rxjs';
+import { SearchService } from '../services/search.service';
 import { ThemeService } from '../services/theme.service';
 @Component({
   selector: 'app-statsbox',
@@ -49,7 +49,7 @@ export class StatsboxComponent implements OnInit {
   changeurl(modifier, element) {
     this.querylook['query'] = this.querylook['query'] + '+' + decodeURIComponent(modifier);
     this.selectedelements.push(element);
-    this.route.navigate(['/search'], {queryParams: this.querylook});
+    this.route.navigate(['/search'], { queryParams: this.querylook });
   }
 
   selectelement(element) {
@@ -62,14 +62,16 @@ export class StatsboxComponent implements OnInit {
 
   changequerylook(modifier, element) {
     let querylook = Object.assign({}, this.querylook);
-
-    querylook['query'] = this.querylook['query'] + ' ' + decodeURIComponent(modifier);
+    let check = new RegExp(decodeURIComponent(modifier));
+    if (!check.test(querylook['query'])) {
+      querylook['query'] = this.querylook['query'] + ' ' + decodeURIComponent(modifier);
+    }
     return querylook;
   }
 
   removeurl(modifier) {
     this.querylook['query'] = this.querylook['query'].replace('+' + decodeURIComponent(modifier), '');
-    this.route.navigate(['/search'], {queryParams: this.querylook});
+    this.route.navigate(['/search'], { queryParams: this.querylook });
   }
 
   constructor(
@@ -91,8 +93,8 @@ export class StatsboxComponent implements OnInit {
             let datalabels = [];
 
             for (let element of nav.elements) {
-                datalabels.push(element.name);
-                data.push(parseInt(element.count, 10));
+              datalabels.push(element.name);
+              data.push(parseInt(element.count, 10));
             }
 
             this.barChartData[0].data = data;
@@ -104,7 +106,7 @@ export class StatsboxComponent implements OnInit {
 
     this.searchresults$ = store.select(fromRoot.getItems);
 
-    this.searchresults$.subscribe( searchresults => {
+    this.searchresults$.subscribe(searchresults => {
       this.getChartData(searchresults);
     });
 
