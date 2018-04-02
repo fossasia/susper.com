@@ -3,7 +3,7 @@
     <h3 class="heading" [style.color]="themeService.descriptionColor">Searches related to {{keyword}}</h3>
 
       <div *ngFor="let result of results" class="related">
-        <a [routerLink]="resultsearch" [queryParams]="{query: result.label,start:0,rows:10}" class="rellink" [style.color]="themeService.linkColor">{{result.label}}</a>
+          <a [routerLink]="resultsearch" [queryParams]="{query: result.label,start:0,rows:10}" class="rellink" [style.color]="themeService.linkColor" title="{{result.label}}">{{result.label.length > 32 ? result.label.substr(0, 32) + "..." : result.label}}</a>
       </div>
 
   </div>
