@@ -64,22 +64,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onClick() {
-    if (this.searchdata.fq !== '') {
-      this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq, mode: this.searchdata.mode}));
-    } else {
-      this.store.dispatch(new queryactions.QueryServerAction({
-        'query': this.searchdata.query,
-        start: 0,
-        rows: this.searchdata.rows,
-        mode: this.searchdata.mode
-      }));
-    }
-
-    this.displayStatus = 'hidebox';
-    this.submit();
-  }
-
   onEnter(event: any) {
     if (event.which === 13) {
       if (this.searchdata.fq !== '') {
@@ -98,6 +82,22 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       event.preventDefault();
       this.submit();
     }
+  }
+
+  onClick() {
+    if (this.searchdata.fq !== '') {
+      this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq, mode: this.searchdata.mode}));
+    } else {
+      this.store.dispatch(new queryactions.QueryServerAction({
+        'query': this.searchdata.query,
+        start: 0,
+        rows: this.searchdata.rows,
+        mode: this.searchdata.mode
+      }));
+    }
+
+    this.displayStatus = 'hidebox';
+    this.submit();
   }
 
   ShowAuto() {
