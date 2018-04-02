@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { SpeechService } from '../services/speech.service';
 import { AutocompleteService } from '../services/autocomplete.service';
+import { ThemeService } from '../services/theme.service';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -33,7 +34,8 @@ describe('NotFoundComponent', () => {
       ],
       providers: [
         SpeechService,
-        AutocompleteService
+        AutocompleteService,
+        ThemeService
       ]
     })
       .compileComponents();

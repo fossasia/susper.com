@@ -4,6 +4,7 @@ import * as fromRoot from '../reducers';
 import {Store} from "@ngrx/store";
 import * as queryactions from '../actions/query';
 import {Observable} from "rxjs";
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-index',
@@ -24,7 +25,8 @@ export class IndexComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<fromRoot.State>
+    private store: Store<fromRoot.State>,
+    public themeService: ThemeService
   ) {
     this.hidespeech = store.select(fromRoot.getSpeechMode);
   }

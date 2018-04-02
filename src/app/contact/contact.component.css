@@ -26,9 +26,11 @@
 
 .image-banner {
     position: relative;
-    height: 450px;
     overflow: hidden;
+    padding:0px;
 }
+
+
 
 .navbar-logo {
     height: 30px;
@@ -72,7 +74,9 @@ footer{
         top: 0;
     }
 
+
 }
+
 
 .about-navbar {
     position: relative;

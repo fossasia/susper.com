@@ -2,7 +2,7 @@
 <div class="resultContainer">
   <app-navbar></app-navbar>
   <div class="row" [style.background-color]="themeService.backgroundColor">
-    <div class="container-fluid" id="search-options-field">
+    <div class="container-fluid" id="search-options-field" [style.background-color]="themeService.navbarbgColor">
       <ul type="none" id="search-options">
         <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
         <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
@@ -86,6 +86,7 @@
         </div>
 
       </div>
+      <!--End -->
 
       <!-- Image section -->
       <div *ngIf="Display('images')">
@@ -108,12 +109,12 @@
           <div *ngIf="totalNumber > 0">
             <div *ngFor="let item of items;let i = index">
               <div class="item">
-                <img src="{{item.link}}" height="200px" (click)="expandImage(i)" [ngClass]="'image'+i">
-              </div>
-              <div class=" item image-viewer" *ngIf="expand && expandedrow === i">
-                <span class="helper"></span>
-                <img [src]="items[expandedkey].link" height="200px" style="vertical-align: middle;">
-              </div>
+                <img src="{{item.image}}" height="200px" (click)="expandImage(i)" [ngClass]="'image'+i">
+            </div>
+            <div class=" item image-viewer" *ngIf="expand && expandedrow === i">
+              <span class="helper"></span>
+              <img [src]="items[expandedkey].image" height="200px" style="vertical-align: middle;">
+            </div>
 
             </div>
 
@@ -121,6 +122,7 @@
         </div>
       </div>
       <!-- END -->
+      <!--Video Section -->
       <div class="video-result" *ngIf="Display('videos')">
         <div *ngIf="totalNumber < 1" class="container-fluid">
           <div class="noResults">
@@ -142,9 +144,13 @@
             <div class="link">
               <p [style.color]="themeService.linkColor">{{item.link}}</p>
             </div>
+            <div class="description">
+                  <p [style.color]="themeService.descriptionColor">{{item.pubDate|date:'MMMM d, yyyy'}} - {{item.description}}</p>
+            </div>
           </div>
         </div>
       </div>
+      <!--End-->
       <br>
       <div class="clean"></div>
       <div class="card" *ngIf="totalNumber > 0">

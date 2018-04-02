@@ -1,4 +1,6 @@
 .banner {
+
+    
     width: 100%;
     position: relative;
     bottom: 0;
@@ -7,6 +9,7 @@
     top: -10%;
     overflow: hidden;
 }
+
 
 #about{
     min-height:100vh;
@@ -19,6 +22,7 @@ footer{
     width: 100%
 }
 
+
 .navbar-nav > li > a {
   text-align: left;
 }
@@ -28,14 +32,16 @@ footer{
   color: #1a0dab;
 }
 
+
 .navbar-right {
   border-top:none;
 }
 
 .image-banner {
     position: relative;
-    height: 450px;
+   
     overflow: hidden;
+    padding:0px;
 }
 
 .navbar-logo {
@@ -144,18 +150,21 @@ a:hover {
 }
 
 @media screen and (max-width:990px) {
-    .image-banner {
-        height: 190px;
-    }
+    
 
-    .banner {
-        top: 0;
-    }
+    
 
     .navbar-collapse.navbar-right {
         text-align: right;
     }
 }
+
+
+
+
+
+
+
 
 @media only screen and (max-width: 768px) {
     .navbar-logo{
