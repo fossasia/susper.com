@@ -7,7 +7,6 @@
 var toRegex = require('to-regex');
 var unique = require('array-unique');
 var extend = require('extend-shallow');
-var define = require('define-property');
 
 /**
  * Local dependencies
@@ -155,7 +154,11 @@ braces.create = function(pattern, options) {
       arr = unique(arr);
     }
 
-    define(arr, 'result', result);
+    Object.defineProperty(arr, 'result', {
+      enumerable: false,
+      value: result
+    });
+
     return arr;
   }
 

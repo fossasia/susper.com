@@ -1,3 +1,7 @@
+# 7.3.2 - 2018-04-03
+
+Fixed: ignore urls which starts with `~` ([PR##119](https://github.com/postcss/postcss-url/pull/#119))
+
 # 7.3.1 - 2018-02-25
 
 Fixed: ignore urls which starts with `//` ([PR#117](https://github.com/postcss/postcss-url/pull/117))

@@ -1,7 +1,5 @@
 'use strict';
 
-var typeOf = require('kind-of');
-var define = require('define-property');
 var extend = require('extend-shallow');
 var Snapdragon = require('snapdragon');
 var compilers = require('./compilers');
@@ -38,7 +36,7 @@ Braces.prototype.init = function(options) {
    * order and unbalance braces are properly escaped.
    */
 
-  define(this.snapdragon, 'parse', function(pattern, options) {
+  utils.define(this.snapdragon, 'parse', function(pattern, options) {
     var parsed = Snapdragon.prototype.parse.apply(this, arguments);
     this.parser.ast.input = pattern;
 
@@ -48,12 +46,12 @@ Braces.prototype.init = function(options) {
     }
 
     function addParent(node, parent) {
-      define(node, 'parent', parent);
+      utils.define(node, 'parent', parent);
       parent.nodes.push(node);
     }
 
     // add non-enumerable parser reference
-    define(parsed, 'parser', this.parser);
+    utils.define(parsed, 'parser', this.parser);
     return parsed;
   });
 };
@@ -63,7 +61,7 @@ Braces.prototype.init = function(options) {
  */
 
 Braces.prototype.parse = function(ast, options) {
-  if (typeOf(ast) === 'object' && ast.nodes) return ast;
+  if (ast && typeof ast === 'object' && ast.nodes) return ast;
   this.init(options);
   return this.snapdragon.parse(ast, options);
 };

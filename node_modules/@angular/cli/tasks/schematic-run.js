@@ -13,7 +13,7 @@ const { green, red, yellow } = chalk_1.default;
 const Task = require('../ember-cli/lib/models/task');
 exports.default = Task.extend({
     run: function (options) {
-        const { taskOptions, workingDir, emptyHost, collectionName, schematicName } = options;
+        const { taskOptions, workingDir, emptyHost, collectionName, schematicName, logger } = options;
         const ui = this.ui;
         const packageManager = config_1.CliConfig.fromGlobal().get('packageManager');
         const engineHost = schematics_2.getEngineHost();
@@ -77,7 +77,7 @@ exports.default = Task.extend({
             }
         });
         return new Promise((resolve, reject) => {
-            schematic.call(opts, host).pipe(operators_1.map((tree) => schematics_1.Tree.optimize(tree)), operators_1.concatMap((tree) => {
+            schematic.call(opts, host, { logger }).pipe(operators_1.map((tree) => schematics_1.Tree.optimize(tree)), operators_1.concatMap((tree) => {
                 return dryRunSink.commit(tree).pipe(operators_1.ignoreElements(), operators_1.concat(of_1.of(tree)));
             }), operators_1.concatMap((tree) => {
                 if (!error) {

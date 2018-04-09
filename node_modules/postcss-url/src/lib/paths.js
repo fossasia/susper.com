@@ -35,7 +35,10 @@ const isUrlWithoutPathname = (assetUrl) => {
  * @returns {Boolean}
  */
 const isUrlShouldBeIgnored = (assetUrl, options) => {
-    return isUrlWithoutPathname(assetUrl) || (assetUrl[0] === '/' && !options.basePath);
+    const isAbsolutePath = assetUrl[0] === '/';
+    const isStartsWithTilde = assetUrl[0] === '~';
+
+    return isUrlWithoutPathname(assetUrl) || ((isAbsolutePath || isStartsWithTilde) && !options.basePath);
 };
 
 /**

@@ -1,9 +1,11 @@
+import { logging } from '@angular-devkit/core';
 export interface SchematicRunOptions {
     taskOptions: SchematicOptions;
     workingDir: string;
     emptyHost: boolean;
     collectionName: string;
     schematicName: string;
+    logger: logging.Logger;
 }
 export interface SchematicOptions {
     dryRun: boolean;

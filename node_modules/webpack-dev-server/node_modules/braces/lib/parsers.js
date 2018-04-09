@@ -76,7 +76,7 @@ module.exports = function(braces, options) {
     .set('bracket', function() {
       var isInside = this.isInside('brace');
       var pos = this.position();
-      var m = this.match(/^(?:\[([!^]?)([^\]]{2,}|\]\-)(\]|[^*+?]+)|\[)/);
+      var m = this.match(/^(?:\[([!^]?)([^\]]{2,}|\]-)(\]|[^*+?]+)|\[)/);
       if (!m) return;
 
       var prev = this.prev();
@@ -278,7 +278,7 @@ module.exports = function(braces, options) {
     .set('text', function() {
       var isInside = this.isInside('brace');
       var pos = this.position();
-      var m = this.match(/^((?!\\)[^${}\[\]])+/);
+      var m = this.match(/^((?!\\)[^${}[\]])+/);
       if (!m) return;
 
       var prev = this.prev();

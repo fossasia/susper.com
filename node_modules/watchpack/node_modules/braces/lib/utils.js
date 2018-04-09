@@ -7,13 +7,21 @@ var utils = module.exports;
  * Module dependencies
  */
 
-utils.define = require('define-property');
 utils.extend = require('extend-shallow');
 utils.flatten = require('arr-flatten');
 utils.isObject = require('isobject');
 utils.fillRange = require('fill-range');
 utils.repeat = require('repeat-element');
 utils.unique = require('array-unique');
+
+utils.define = function(obj, key, val) {
+  Object.defineProperty(obj, key, {
+    writable: true,
+    configurable: true,
+    enumerable: false,
+    value: val
+  });
+};
 
 /**
  * Returns true if the given string contains only empty brace sets.
@@ -331,5 +339,5 @@ utils.last = function(arr, n) {
 };
 
 utils.escapeRegex = function(str) {
-  return str.replace(/\\?([!^*?()\[\]{}+?/])/g, '\\$1');
+  return str.replace(/\\?([!^*?()[\]{}+?/])/g, '\\$1');
 };

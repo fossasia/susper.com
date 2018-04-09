@@ -414,6 +414,8 @@ Zone['SyncTestZoneSpec'] = SyncTestZoneSpec;
     // a `beforeEach` or `it`.
     var syncZone = ambientZone.fork(new SyncTestZoneSpec('jasmine.describe'));
     var symbol = Zone.__symbol__;
+    // whether patch jasmine clock when in fakeAsync
+    var enableClockPatch = _global[symbol('fakeAsyncPatchLock')] === true;
     // Monkey patch all of the jasmine DSL so that each function runs in appropriate zone.
     var jasmineEnv = jasmine.getEnv();
     ['describe', 'xdescribe', 'fdescribe'].forEach(function (methodName) {
@@ -438,37 +440,46 @@ Zone['SyncTestZoneSpec'] = SyncTestZoneSpec;
             return originalJasmineFn.apply(this, arguments);
         };
     });
+    // need to patch jasmine.clock().mockDate and jasmine.clock().tick() so
+    // they can work properly in FakeAsyncTest
     var originalClockFn = (jasmine[symbol('clock')] = jasmine['clock']);
     jasmine['clock'] = function () {
         var clock = originalClockFn.apply(this, arguments);
-        var originalTick = (clock[symbol('tick')] = clock.tick);
-        clock.tick = function () {
-            var fakeAsyncZoneSpec = Zone.current.get('FakeAsyncTestZoneSpec');
-            if (fakeAsyncZoneSpec) {
-                return fakeAsyncZoneSpec.tick.apply(fakeAsyncZoneSpec, arguments);
-            }
-            return originalTick.apply(this, arguments);
-        };
-        var originalMockDate = (clock[symbol('mockDate')] = clock.mockDate);
-        clock.mockDate = function () {
-            var fakeAsyncZoneSpec = Zone.current.get('FakeAsyncTestZoneSpec');
-            if (fakeAsyncZoneSpec) {
-                var dateTime = arguments[0];
-                return fakeAsyncZoneSpec.setCurrentRealTime.apply(fakeAsyncZoneSpec, dateTime && typeof dateTime.getTime === 'function' ? [dateTime.getTime()] : arguments);
-            }
-            return originalMockDate.apply(this, arguments);
-        };
-        ['install', 'uninstall'].forEach(function (methodName) {
-            var originalClockFn = (clock[symbol(methodName)] = clock[methodName]);
-            clock[methodName] = function () {
-                var FakeAsyncTestZoneSpec = Zone['FakeAsyncTestZoneSpec'];
-                if (FakeAsyncTestZoneSpec) {
-                    jasmine[symbol('clockInstalled')] = 'install' === methodName;
-                    return;
+        if (!clock[symbol('patched')]) {
+            clock[symbol('patched')] = symbol('patched');
+            var originalTick_1 = (clock[symbol('tick')] = clock.tick);
+            clock.tick = function () {
+                var fakeAsyncZoneSpec = Zone.current.get('FakeAsyncTestZoneSpec');
+                if (fakeAsyncZoneSpec) {
+                    return fakeAsyncZoneSpec.tick.apply(fakeAsyncZoneSpec, arguments);
                 }
-                return originalClockFn.apply(this, arguments);
+                return originalTick_1.apply(this, arguments);
             };
-        });
+            var originalMockDate_1 = (clock[symbol('mockDate')] = clock.mockDate);
+            clock.mockDate = function () {
+                var fakeAsyncZoneSpec = Zone.current.get('FakeAsyncTestZoneSpec');
+                if (fakeAsyncZoneSpec) {
+                    var dateTime = arguments.length > 0 ? arguments[0] : new Date();
+                    return fakeAsyncZoneSpec.setCurrentRealTime.apply(fakeAsyncZoneSpec, dateTime && typeof dateTime.getTime === 'function' ? [dateTime.getTime()] :
+                        arguments);
+                }
+                return originalMockDate_1.apply(this, arguments);
+            };
+            // for auto go into fakeAsync feature, we need the flag to enable it
+            if (enableClockPatch) {
+                ['install', 'uninstall'].forEach(function (methodName) {
+                    var originalClockFn = (clock[symbol(methodName)] = clock[methodName]);
+                    clock[methodName] = function () {
+                        var FakeAsyncTestZoneSpec = Zone['FakeAsyncTestZoneSpec'];
+                        if (FakeAsyncTestZoneSpec) {
+                            jasmine[symbol('clockInstalled')] = 'install' === methodName;
+                            return;
+                        }
+                        return originalClockFn.apply(this, arguments);
+                    };
+                });
+            }
+        }
         return clock;
     };
     /**
@@ -484,32 +495,18 @@ Zone['SyncTestZoneSpec'] = SyncTestZoneSpec;
         var isClockInstalled = !!jasmine[symbol('clockInstalled')];
         var testProxyZoneSpec = queueRunner.testProxyZoneSpec;
         var testProxyZone = queueRunner.testProxyZone;
-        var lastDelegate;
-        if (isClockInstalled) {
-            var FakeAsyncTestZoneSpec = Zone['FakeAsyncTestZoneSpec'];
-            if (FakeAsyncTestZoneSpec) {
-                var _fakeAsyncTestZoneSpec = new FakeAsyncTestZoneSpec();
-                lastDelegate = testProxyZoneSpec.getDelegate();
-                testProxyZoneSpec.setDelegate(_fakeAsyncTestZoneSpec);
-                _fakeAsyncTestZoneSpec.lockDatePatch();
+        if (isClockInstalled && enableClockPatch) {
+            // auto run a fakeAsync
+            var fakeAsyncModule = Zone[Zone.__symbol__('fakeAsyncTest')];
+            if (fakeAsyncModule && typeof fakeAsyncModule.fakeAsync === 'function') {
+                testBody = fakeAsyncModule.fakeAsync(testBody);
             }
         }
-        try {
-            if (done) {
-                return testProxyZone.run(testBody, applyThis, [done]);
-            }
-            else {
-                return testProxyZone.run(testBody, applyThis);
-            }
+        if (done) {
+            return testProxyZone.run(testBody, applyThis, [done]);
         }
-        finally {
-            if (isClockInstalled) {
-                var _fakeAsyncTestZoneSpec = testProxyZoneSpec.getDelegate();
-                if (_fakeAsyncTestZoneSpec) {
-                    _fakeAsyncTestZoneSpec.unlockDatePatch();
-                }
-                testProxyZoneSpec.setDelegate(lastDelegate);
-            }
+        else {
+            return testProxyZone.run(testBody, applyThis);
         }
     }
     /**
@@ -628,6 +625,7 @@ Zone['SyncTestZoneSpec'] = SyncTestZoneSpec;
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var _global = typeof window !== 'undefined' && window || typeof self !== 'undefined' && self || global;
 var AsyncTestZoneSpec = /** @class */ (function () {
     function AsyncTestZoneSpec(finishCallback, failCallback, namePrefix) {
         this.finishCallback = finishCallback;
@@ -638,12 +636,19 @@ var AsyncTestZoneSpec = /** @class */ (function () {
         this._isSync = false;
         this.runZone = Zone.current;
         this.unresolvedChainedPromiseCount = 0;
+        this.supportWaitUnresolvedChainedPromise = false;
         this.name = 'asyncTestZone for ' + namePrefix;
         this.properties = { 'AsyncTestZoneSpec': this };
+        this.supportWaitUnresolvedChainedPromise =
+            _global[Zone.__symbol__('supportWaitUnResolvedChainedPromise')] === true;
     }
+    AsyncTestZoneSpec.prototype.isUnresolvedChainedPromisePending = function () {
+        return this.unresolvedChainedPromiseCount > 0;
+    };
     AsyncTestZoneSpec.prototype._finishCallbackIfDone = function () {
         var _this = this;
-        if (!(this._pendingMicroTasks || this._pendingMacroTasks)) {
+        if (!(this._pendingMicroTasks || this._pendingMacroTasks ||
+            (this.supportWaitUnresolvedChainedPromise && this.isUnresolvedChainedPromisePending()))) {
             // We do this because we would like to catch unhandled rejected promises.
             this.runZone.run(function () {
                 setTimeout(function () {
@@ -655,12 +660,18 @@ var AsyncTestZoneSpec = /** @class */ (function () {
         }
     };
     AsyncTestZoneSpec.prototype.patchPromiseForTest = function () {
+        if (!this.supportWaitUnresolvedChainedPromise) {
+            return;
+        }
         var patchPromiseForTest = Promise[Zone.__symbol__('patchPromiseForTest')];
         if (patchPromiseForTest) {
             patchPromiseForTest();
         }
     };
     AsyncTestZoneSpec.prototype.unPatchPromiseForTest = function () {
+        if (!this.supportWaitUnresolvedChainedPromise) {
+            return;
+        }
         var unPatchPromiseForTest = Promise[Zone.__symbol__('unPatchPromiseForTest')];
         if (unPatchPromiseForTest) {
             unPatchPromiseForTest();
@@ -742,17 +753,136 @@ Zone['AsyncTestZoneSpec'] = AsyncTestZoneSpec;
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+Zone.__load_patch('asynctest', function (global, Zone, api) {
+    /**
+     * Wraps a test function in an asynchronous test zone. The test will automatically
+     * complete when all asynchronous calls within this zone are done.
+     */
+    Zone[api.symbol('asyncTest')] = function asyncTest(fn) {
+        // If we're running using the Jasmine test framework, adapt to call the 'done'
+        // function when asynchronous activity is finished.
+        if (global.jasmine) {
+            // Not using an arrow function to preserve context passed from call site
+            return function (done) {
+                if (!done) {
+                    // if we run beforeEach in @angular/core/testing/testing_internal then we get no done
+                    // fake it here and assume sync.
+                    done = function () { };
+                    done.fail = function (e) {
+                        throw e;
+                    };
+                }
+                runInTestZone(fn, this, done, function (err) {
+                    if (typeof err === 'string') {
+                        return done.fail(new Error(err));
+                    }
+                    else {
+                        done.fail(err);
+                    }
+                });
+            };
+        }
+        // Otherwise, return a promise which will resolve when asynchronous activity
+        // is finished. This will be correctly consumed by the Mocha framework with
+        // it('...', async(myFn)); or can be used in a custom framework.
+        // Not using an arrow function to preserve context passed from call site
+        return function () {
+            var _this = this;
+            return new Promise(function (finishCallback, failCallback) {
+                runInTestZone(fn, _this, finishCallback, failCallback);
+            });
+        };
+    };
+    function runInTestZone(fn, context, finishCallback, failCallback) {
+        var currentZone = Zone.current;
+        var AsyncTestZoneSpec = Zone['AsyncTestZoneSpec'];
+        if (AsyncTestZoneSpec === undefined) {
+            throw new Error('AsyncTestZoneSpec is needed for the async() test helper but could not be found. ' +
+                'Please make sure that your environment includes zone.js/dist/async-test.js');
+        }
+        var ProxyZoneSpec = Zone['ProxyZoneSpec'];
+        if (ProxyZoneSpec === undefined) {
+            throw new Error('ProxyZoneSpec is needed for the async() test helper but could not be found. ' +
+                'Please make sure that your environment includes zone.js/dist/proxy.js');
+        }
+        var proxyZoneSpec = ProxyZoneSpec.get();
+        ProxyZoneSpec.assertPresent();
+        // We need to create the AsyncTestZoneSpec outside the ProxyZone.
+        // If we do it in ProxyZone then we will get to infinite recursion.
+        var proxyZone = Zone.current.getZoneWith('ProxyZoneSpec');
+        var previousDelegate = proxyZoneSpec.getDelegate();
+        proxyZone.parent.run(function () {
+            var testZoneSpec = new AsyncTestZoneSpec(function () {
+                // Need to restore the original zone.
+                if (proxyZoneSpec.getDelegate() == testZoneSpec) {
+                    // Only reset the zone spec if it's
+                    // sill this one. Otherwise, assume
+                    // it's OK.
+                    proxyZoneSpec.setDelegate(previousDelegate);
+                }
+                testZoneSpec.unPatchPromiseForTest();
+                currentZone.run(function () {
+                    finishCallback();
+                });
+            }, function (error) {
+                // Need to restore the original zone.
+                if (proxyZoneSpec.getDelegate() == testZoneSpec) {
+                    // Only reset the zone spec if it's sill this one. Otherwise, assume it's OK.
+                    proxyZoneSpec.setDelegate(previousDelegate);
+                }
+                testZoneSpec.unPatchPromiseForTest();
+                currentZone.run(function () {
+                    failCallback(error);
+                });
+            }, 'test');
+            proxyZoneSpec.setDelegate(testZoneSpec);
+            testZoneSpec.patchPromiseForTest();
+        });
+        return Zone.current.runGuarded(fn, context);
+    }
+});
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var __read = (undefined && undefined.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (undefined && undefined.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
 (function (global) {
     var OriginalDate = global.Date;
     var FakeDate = /** @class */ (function () {
         function FakeDate() {
-            var d = new OriginalDate();
-            d.setTime(global.Date.now());
-            return d;
+            if (arguments.length === 0) {
+                var d = new OriginalDate();
+                d.setTime(FakeDate.now());
+                return d;
+            }
+            else {
+                var args = Array.prototype.slice.call(arguments);
+                return new (OriginalDate.bind.apply(OriginalDate, __spread([void 0], args)))();
+            }
         }
-        FakeDate.UTC = function () {
-            return OriginalDate.UTC();
-        };
         FakeDate.now = function () {
             var fakeAsyncTestZoneSpec = Zone.current.get('FakeAsyncTestZoneSpec');
             if (fakeAsyncTestZoneSpec) {
@@ -760,11 +890,17 @@ Zone['AsyncTestZoneSpec'] = AsyncTestZoneSpec;
             }
             return OriginalDate.now.apply(this, arguments);
         };
-        FakeDate.parse = function () {
-            return OriginalDate.parse();
-        };
         return FakeDate;
     }());
+    FakeDate.UTC = OriginalDate.UTC;
+    FakeDate.parse = OriginalDate.parse;
+    // keep a reference for zone patched timer function
+    var timers = {
+        setTimeout: global.setTimeout,
+        setInterval: global.setInterval,
+        clearTimeout: global.clearTimeout,
+        clearInterval: global.clearInterval
+    };
     var Scheduler = /** @class */ (function () {
         function Scheduler() {
             // Next scheduler id.
@@ -774,7 +910,7 @@ Zone['AsyncTestZoneSpec'] = AsyncTestZoneSpec;
             // Current simulated time in millis.
             this._currentTime = 0;
             // Current real time in millis.
-            this._currentRealTime = Date.now();
+            this._currentRealTime = OriginalDate.now();
         }
         Scheduler.prototype.getCurrentTime = function () {
             return this._currentTime;
@@ -1033,10 +1169,24 @@ Zone['AsyncTestZoneSpec'] = AsyncTestZoneSpec;
             }
             global['Date'] = FakeDate;
             FakeDate.prototype = OriginalDate.prototype;
+            // try check and reset timers
+            // because jasmine.clock().install() may
+            // have replaced the global timer
+            FakeAsyncTestZoneSpec.checkTimerPatch();
         };
         FakeAsyncTestZoneSpec.resetDate = function () {
             if (global['Date'] === FakeDate) {
                 global['Date'] = OriginalDate;
+            }
+        };
+        FakeAsyncTestZoneSpec.checkTimerPatch = function () {
+            if (global.setTimeout !== timers.setTimeout) {
+                global.setTimeout = timers.setTimeout;
+                global.clearTimeout = timers.clearTimeout;
+            }
+            if (global.setInterval !== timers.setInterval) {
+                global.setInterval = timers.setInterval;
+                global.clearInterval = timers.clearInterval;
             }
         };
         FakeAsyncTestZoneSpec.prototype.lockDatePatch = function () {
@@ -1211,165 +1361,6 @@ Zone['AsyncTestZoneSpec'] = AsyncTestZoneSpec;
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Promise for async/fakeAsync zoneSpec test
- * can support async operation which not supported by zone.js
- * such as
- * it ('test jsonp in AsyncZone', async() => {
- *   new Promise(res => {
- *     jsonp(url, (data) => {
- *       // success callback
- *       res(data);
- *     });
- *   }).then((jsonpResult) => {
- *     // get jsonp result.
- *
- *     // user will expect AsyncZoneSpec wait for
- *     // then, but because jsonp is not zone aware
- *     // AsyncZone will finish before then is called.
- *   });
- * });
- */
-Zone.__load_patch('promisefortest', function (global, Zone, api) {
-    var symbolState = api.symbol('state');
-    var UNRESOLVED = null;
-    var symbolParentUnresolved = api.symbol('parentUnresolved');
-    // patch Promise.prototype.then to keep an internal
-    // number for tracking unresolved chained promise
-    // we will decrease this number when the parent promise
-    // being resolved/rejected and chained promise was
-    // scheduled as a microTask.
-    // so we can know such kind of chained promise still
-    // not resolved in AsyncTestZone
-    Promise[api.symbol('patchPromiseForTest')] = function patchPromiseForTest() {
-        var oriThen = Promise[Zone.__symbol__('ZonePromiseThen')];
-        if (oriThen) {
-            return;
-        }
-        oriThen = Promise[Zone.__symbol__('ZonePromiseThen')] = Promise.prototype.then;
-        Promise.prototype.then = function () {
-            var chained = oriThen.apply(this, arguments);
-            if (this[symbolState] === UNRESOLVED) {
-                // parent promise is unresolved.
-                var asyncTestZoneSpec = Zone.current.get('AsyncTestZoneSpec');
-                if (asyncTestZoneSpec) {
-                    asyncTestZoneSpec.unresolvedChainedPromiseCount++;
-                    chained[symbolParentUnresolved] = true;
-                }
-            }
-            return chained;
-        };
-    };
-    Promise[api.symbol('unPatchPromiseForTest')] = function unpatchPromiseForTest() {
-        // restore origin then
-        var oriThen = Promise[Zone.__symbol__('ZonePromiseThen')];
-        if (oriThen) {
-            Promise.prototype.then = oriThen;
-            Promise[Zone.__symbol__('ZonePromiseThen')] = undefined;
-        }
-    };
-});
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-Zone.__load_patch('asynctest', function (global, Zone, api) {
-    /**
-     * Wraps a test function in an asynchronous test zone. The test will automatically
-     * complete when all asynchronous calls within this zone are done.
-     */
-    Zone[api.symbol('asyncTest')] = function asyncTest(fn) {
-        // If we're running using the Jasmine test framework, adapt to call the 'done'
-        // function when asynchronous activity is finished.
-        if (global.jasmine) {
-            // Not using an arrow function to preserve context passed from call site
-            return function (done) {
-                if (!done) {
-                    // if we run beforeEach in @angular/core/testing/testing_internal then we get no done
-                    // fake it here and assume sync.
-                    done = function () { };
-                    done.fail = function (e) {
-                        throw e;
-                    };
-                }
-                runInTestZone(fn, this, done, function (err) {
-                    if (typeof err === 'string') {
-                        return done.fail(new Error(err));
-                    }
-                    else {
-                        done.fail(err);
-                    }
-                });
-            };
-        }
-        // Otherwise, return a promise which will resolve when asynchronous activity
-        // is finished. This will be correctly consumed by the Mocha framework with
-        // it('...', async(myFn)); or can be used in a custom framework.
-        // Not using an arrow function to preserve context passed from call site
-        return function () {
-            var _this = this;
-            return new Promise(function (finishCallback, failCallback) {
-                runInTestZone(fn, _this, finishCallback, failCallback);
-            });
-        };
-    };
-    function runInTestZone(fn, context, finishCallback, failCallback) {
-        var currentZone = Zone.current;
-        var AsyncTestZoneSpec = Zone['AsyncTestZoneSpec'];
-        if (AsyncTestZoneSpec === undefined) {
-            throw new Error('AsyncTestZoneSpec is needed for the async() test helper but could not be found. ' +
-                'Please make sure that your environment includes zone.js/dist/async-test.js');
-        }
-        var ProxyZoneSpec = Zone['ProxyZoneSpec'];
-        if (ProxyZoneSpec === undefined) {
-            throw new Error('ProxyZoneSpec is needed for the async() test helper but could not be found. ' +
-                'Please make sure that your environment includes zone.js/dist/proxy.js');
-        }
-        var proxyZoneSpec = ProxyZoneSpec.get();
-        ProxyZoneSpec.assertPresent();
-        // We need to create the AsyncTestZoneSpec outside the ProxyZone.
-        // If we do it in ProxyZone then we will get to infinite recursion.
-        var proxyZone = Zone.current.getZoneWith('ProxyZoneSpec');
-        var previousDelegate = proxyZoneSpec.getDelegate();
-        proxyZone.parent.run(function () {
-            var testZoneSpec = new AsyncTestZoneSpec(function () {
-                // Need to restore the original zone.
-                if (proxyZoneSpec.getDelegate() == testZoneSpec) {
-                    // Only reset the zone spec if it's
-                    // sill this one. Otherwise, assume
-                    // it's OK.
-                    proxyZoneSpec.setDelegate(previousDelegate);
-                }
-                currentZone.run(function () {
-                    finishCallback();
-                });
-            }, function (error) {
-                // Need to restore the original zone.
-                if (proxyZoneSpec.getDelegate() == testZoneSpec) {
-                    // Only reset the zone spec if it's sill this one. Otherwise, assume it's OK.
-                    proxyZoneSpec.setDelegate(previousDelegate);
-                }
-                currentZone.run(function () {
-                    failCallback(error);
-                });
-            }, 'test');
-            proxyZoneSpec.setDelegate(testZoneSpec);
-        });
-        return Zone.current.runGuarded(fn, context);
-    }
-});
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Zone.__load_patch('fakeasync', function (global, Zone, api) {
     var FakeAsyncTestZoneSpec = Zone && Zone['FakeAsyncTestZoneSpec'];
     var ProxyZoneSpec = Zone && Zone['ProxyZoneSpec'];
@@ -1508,6 +1499,72 @@ Zone.__load_patch('fakeasync', function (global, Zone, api) {
     }
     Zone[api.symbol('fakeAsyncTest')] =
         { resetFakeAsyncZone: resetFakeAsyncZone, flushMicrotasks: flushMicrotasks, discardPeriodicTasks: discardPeriodicTasks, tick: tick, flush: flush, fakeAsync: fakeAsync };
+});
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Promise for async/fakeAsync zoneSpec test
+ * can support async operation which not supported by zone.js
+ * such as
+ * it ('test jsonp in AsyncZone', async() => {
+ *   new Promise(res => {
+ *     jsonp(url, (data) => {
+ *       // success callback
+ *       res(data);
+ *     });
+ *   }).then((jsonpResult) => {
+ *     // get jsonp result.
+ *
+ *     // user will expect AsyncZoneSpec wait for
+ *     // then, but because jsonp is not zone aware
+ *     // AsyncZone will finish before then is called.
+ *   });
+ * });
+ */
+Zone.__load_patch('promisefortest', function (global, Zone, api) {
+    var symbolState = api.symbol('state');
+    var UNRESOLVED = null;
+    var symbolParentUnresolved = api.symbol('parentUnresolved');
+    // patch Promise.prototype.then to keep an internal
+    // number for tracking unresolved chained promise
+    // we will decrease this number when the parent promise
+    // being resolved/rejected and chained promise was
+    // scheduled as a microTask.
+    // so we can know such kind of chained promise still
+    // not resolved in AsyncTestZone
+    Promise[api.symbol('patchPromiseForTest')] = function patchPromiseForTest() {
+        var oriThen = Promise[Zone.__symbol__('ZonePromiseThen')];
+        if (oriThen) {
+            return;
+        }
+        oriThen = Promise[Zone.__symbol__('ZonePromiseThen')] = Promise.prototype.then;
+        Promise.prototype.then = function () {
+            var chained = oriThen.apply(this, arguments);
+            if (this[symbolState] === UNRESOLVED) {
+                // parent promise is unresolved.
+                var asyncTestZoneSpec = Zone.current.get('AsyncTestZoneSpec');
+                if (asyncTestZoneSpec) {
+                    asyncTestZoneSpec.unresolvedChainedPromiseCount++;
+                    chained[symbolParentUnresolved] = true;
+                }
+            }
+            return chained;
+        };
+    };
+    Promise[api.symbol('unPatchPromiseForTest')] = function unpatchPromiseForTest() {
+        // restore origin then
+        var oriThen = Promise[Zone.__symbol__('ZonePromiseThen')];
+        if (oriThen) {
+            Promise.prototype.then = oriThen;
+            Promise[Zone.__symbol__('ZonePromiseThen')] = undefined;
+        }
+    };
 });
 
 /**

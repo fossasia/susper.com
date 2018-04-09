@@ -4,6 +4,8 @@ const chalk_1 = require("chalk");
 const stringUtils = require('ember-cli-string-utils');
 const common_tags_1 = require("common-tags");
 const config_1 = require("../models/config");
+const core_1 = require("@angular-devkit/core");
+const operators_1 = require("rxjs/operators");
 const schematics_1 = require("../utilities/schematics");
 const dynamic_path_parser_1 = require("../utilities/dynamic-path-parser");
 const app_utils_1 = require("../utilities/app-utils");
@@ -170,12 +172,37 @@ exports.default = Command.extend({
         if (collectionName === '@schematics/angular' && schematicName === 'interface' && rawArgs[2]) {
             commandOptions.type = rawArgs[2];
         }
+        const logger = new core_1.logging.IndentLogger('cling');
+        const loggerSubscription = logger.pipe(operators_1.filter(entry => (entry.level != 'debug')))
+            .subscribe(entry => {
+            let color = (x) => core_1.terminal.dim(core_1.terminal.white(x));
+            let output = process.stdout;
+            switch (entry.level) {
+                case 'info':
+                    color = core_1.terminal.white;
+                    break;
+                case 'warn':
+                    color = core_1.terminal.yellow;
+                    break;
+                case 'error':
+                    color = core_1.terminal.red;
+                    output = process.stderr;
+                    break;
+                case 'fatal':
+                    color = (x) => core_1.terminal.bold(core_1.terminal.red(x));
+                    output = process.stderr;
+                    break;
+            }
+            output.write(color(entry.message) + '\n');
+        });
         return schematicRunTask.run({
             taskOptions: commandOptions,
             workingDir: cwd,
             collectionName,
-            schematicName
-        });
+            schematicName,
+            logger: this.logger
+        })
+            .then(() => loggerSubscription.unsubscribe());
     },
     printDetailedHelp: function (_options, rawArgs) {
         const engineHost = schematics_1.getEngineHost();
