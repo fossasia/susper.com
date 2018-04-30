@@ -80,7 +80,7 @@ class SwitchMapToSubscriber extends OuterSubscriber {
             super._complete();
         }
     }
-    _unsubscribe() {
+    /** @deprecated internal use only */ _unsubscribe() {
         this.innerSubscription = null;
     }
     notifyComplete(innerSub) {

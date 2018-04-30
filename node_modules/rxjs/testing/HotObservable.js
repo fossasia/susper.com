@@ -21,7 +21,7 @@ var HotObservable = (function (_super) {
         this.subscriptions = [];
         this.scheduler = scheduler;
     }
-    HotObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ HotObservable.prototype._subscribe = function (subscriber) {
         var subject = this;
         var index = subject.logSubscribedFrame();
         subscriber.add(new Subscription_1.Subscription(function () {

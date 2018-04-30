@@ -58,5 +58,5 @@ export declare class EmptyObservable<T> extends Observable<T> {
     static create<T>(scheduler?: IScheduler): Observable<T>;
     static dispatch<T>(arg: DispatchArg<T>): void;
     constructor(scheduler?: IScheduler);
-    protected _subscribe(subscriber: Subscriber<T>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): TeardownLogic;
 }

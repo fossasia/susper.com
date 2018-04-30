@@ -44,5 +44,5 @@ export declare class RangeObservable extends Observable<number> {
     private _count;
     private scheduler;
     constructor(start: number, count: number, scheduler?: IScheduler);
-    protected _subscribe(subscriber: Subscriber<number>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<number>): TeardownLogic;
 }

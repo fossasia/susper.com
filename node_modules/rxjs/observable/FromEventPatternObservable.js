@@ -71,7 +71,7 @@ var FromEventPatternObservable = (function (_super) {
     FromEventPatternObservable.create = function (addHandler, removeHandler, selector) {
         return new FromEventPatternObservable(addHandler, removeHandler, selector);
     };
-    FromEventPatternObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ FromEventPatternObservable.prototype._subscribe = function (subscriber) {
         var _this = this;
         var removeHandler = this.removeHandler;
         var handler = !!this.selector ? function () {

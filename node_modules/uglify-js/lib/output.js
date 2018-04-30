@@ -173,7 +173,7 @@ function OutputStream(options) {
           default:
             return dq > sq ? quote_single() : quote_double();
         }
-    };
+    }
 
     function encode_string(str, quote) {
         var ret = make_string(str, quote);
@@ -183,17 +183,17 @@ function OutputStream(options) {
             ret = ret.replace(/--\x3e/g, "--\\x3e");
         }
         return ret;
-    };
+    }
 
     function make_name(name) {
         name = name.toString();
         name = to_utf8(name, true);
         return name;
-    };
+    }
 
     function make_indent(back) {
         return repeat_string(" ", options.indent_start + indentation - back * options.indent_level);
-    };
+    }
 
     /* -----[ beautification/minification ]----- */
 
@@ -351,7 +351,7 @@ function OutputStream(options) {
             current_col = a[n].length;
         }
         last = str;
-    };
+    }
 
     var space = options.beautify ? function() {
         print(" ");
@@ -374,6 +374,11 @@ function OutputStream(options) {
         return ret;
     } : function(col, cont) { return cont() };
 
+    var may_add_newline = options.max_line_len ? function() {
+        ensure_line_len();
+        might_add_newline = OUTPUT.length;
+    } : noop;
+
     var newline = options.beautify ? function() {
         if (newline_insert < 0) return print("\n");
         if (OUTPUT[newline_insert] != "\n") {
@@ -382,10 +387,7 @@ function OutputStream(options) {
             current_line++;
         }
         newline_insert++;
-    } : options.max_line_len ? function() {
-        ensure_line_len();
-        might_add_newline = OUTPUT.length;
-    } : noop;
+    } : may_add_newline;
 
     var semicolon = options.beautify ? function() {
         print(";");
@@ -396,11 +398,11 @@ function OutputStream(options) {
     function force_semicolon() {
         might_need_semicolon = false;
         print(";");
-    };
+    }
 
     function next_indent() {
         return indentation + options.indent_level;
-    };
+    }
 
     function with_block(cont) {
         var ret;
@@ -412,34 +414,40 @@ function OutputStream(options) {
         indent();
         print("}");
         return ret;
-    };
+    }
 
     function with_parens(cont) {
         print("(");
+        may_add_newline();
         //XXX: still nice to have that for argument lists
         //var ret = with_indent(current_col, cont);
         var ret = cont();
+        may_add_newline();
         print(")");
         return ret;
-    };
+    }
 
     function with_square(cont) {
         print("[");
+        may_add_newline();
         //var ret = with_indent(current_col, cont);
         var ret = cont();
+        may_add_newline();
         print("]");
         return ret;
-    };
+    }
 
     function comma() {
+        may_add_newline();
         print(",");
+        may_add_newline();
         space();
-    };
+    }
 
     function colon() {
         print(":");
         space();
-    };
+    }
 
     var add_mapping = mappings ? function(token, name) {
         mapping_token = token;
@@ -451,7 +459,7 @@ function OutputStream(options) {
             ensure_line_len();
         }
         return OUTPUT;
-    };
+    }
 
     function has_nlb() {
         var index = OUTPUT.lastIndexOf("\n");
@@ -619,8 +627,7 @@ function OutputStream(options) {
             return stack[stack.length - 2 - (n || 0)];
         }
     };
-
-};
+}
 
 /* -----[ code generators ]----- */
 
@@ -630,7 +637,7 @@ function OutputStream(options) {
 
     function DEFPRINT(nodetype, generator) {
         nodetype.DEFMETHOD("_codegen", generator);
-    };
+    }
 
     var in_directive = false;
     var active_scope = null;
@@ -679,7 +686,7 @@ function OutputStream(options) {
         } else {
             nodetype.DEFMETHOD("needs_parens", func);
         }
-    };
+    }
 
     PARENS(AST_Node, return_false);
 
@@ -865,7 +872,7 @@ function OutputStream(options) {
             }
         });
         in_directive = false;
-    };
+    }
 
     AST_StatementWithBody.DEFMETHOD("_do_print_body", function(output){
         force_statement(this.body, output);
@@ -901,7 +908,7 @@ function OutputStream(options) {
                 display_body(self.body, false, output, allow_directives);
             });
         } else print_braced_empty(self, output);
-    };
+    }
     DEFPRINT(AST_BlockStatement, function(self, output){
         print_braced(self, output);
     });
@@ -1064,7 +1071,7 @@ function OutputStream(options) {
             else break;
         }
         force_statement(self.body, output);
-    };
+    }
     DEFPRINT(AST_If, function(self, output){
         output.print("if");
         output.space();
@@ -1184,7 +1191,7 @@ function OutputStream(options) {
             }
         }));
         node.print(output, parens);
-    };
+    }
 
     DEFPRINT(AST_VarDef, function(self, output){
         self.name.print(output);
@@ -1430,7 +1437,7 @@ function OutputStream(options) {
             else
                 stat.print(output);
         }
-    };
+    }
 
     // self should be AST_New.  decide if we want to show parens or not.
     function need_constructor_parens(self, output) {
@@ -1438,7 +1445,7 @@ function OutputStream(options) {
         if (self.args.length > 0) return true;
 
         return output.option("beautify");
-    };
+    }
 
     function best_of(a) {
         var best = a[0], len = best.length;
@@ -1449,27 +1456,31 @@ function OutputStream(options) {
             }
         }
         return best;
-    };
+    }
 
     function make_num(num) {
-        var str = num.toString(10), a = [ str.replace(/^0\./, ".").replace('e+', 'e') ], m;
+        var str = num.toString(10).replace(/^0\./, ".").replace("e+", "e");
+        var candidates = [ str ];
         if (Math.floor(num) === num) {
-            if (num >= 0) {
-                a.push("0x" + num.toString(16).toLowerCase(), // probably pointless
-                       "0" + num.toString(8)); // same.
+            if (num < 0) {
+                candidates.push("-0x" + (-num).toString(16).toLowerCase());
             } else {
-                a.push("-0x" + (-num).toString(16).toLowerCase(), // probably pointless
-                       "-0" + (-num).toString(8)); // same.
+                candidates.push("0x" + num.toString(16).toLowerCase());
             }
-            if ((m = /^(.*?)(0+)$/.exec(num))) {
-                a.push(m[1] + "e" + m[2].length);
-            }
-        } else if ((m = /^0?\.(0+)(.*)$/.exec(num))) {
-            a.push(m[2] + "e-" + (m[1].length + m[2].length),
-                   str.substr(str.indexOf(".")));
         }
-        return best_of(a);
-    };
+        var match, len, digits;
+        if (match = /^\.0+/.exec(str)) {
+            len = match[0].length;
+            digits = str.slice(len);
+            candidates.push(digits + "e-" + (digits.length + len - 1));
+        } else if (match = /0+$/.exec(str)) {
+            len = match[0].length;
+            candidates.push(str.slice(0, -len) + "e" + len);
+        } else if (match = /^(\d)\.(\d+)e(-?\d+)$/.exec(str)) {
+            candidates.push(match[1] + match[2] + "e" + (match[3] - match[2].length));
+        }
+        return best_of(candidates);
+    }
 
     function make_block(stmt, output) {
         if (!stmt || stmt instanceof AST_EmptyStatement)
@@ -1481,7 +1492,7 @@ function OutputStream(options) {
             stmt.print(output);
             output.newline();
         });
-    };
+    }
 
     /* -----[ source map generators ]----- */
 

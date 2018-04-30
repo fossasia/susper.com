@@ -136,12 +136,12 @@ class DelayWhenSubscriber extends OuterSubscriber {
  * @extends {Ignored}
  */
 class SubscriptionDelayObservable extends Observable {
-    constructor(source, subscriptionDelay) {
+    constructor(/** @deprecated internal use only */ source, subscriptionDelay) {
         super();
         this.source = source;
         this.subscriptionDelay = subscriptionDelay;
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         this.subscriptionDelay.subscribe(new SubscriptionDelaySubscriber(subscriber, this.source));
     }
 }

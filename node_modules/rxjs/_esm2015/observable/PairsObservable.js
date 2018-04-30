@@ -56,7 +56,7 @@ export class PairsObservable extends Observable {
     static create(obj, scheduler) {
         return new PairsObservable(obj, scheduler);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const { keys, scheduler } = this;
         const length = keys.length;
         if (scheduler) {

@@ -203,7 +203,7 @@ export class WebSocketSubject extends AnonymousSubject {
             }
         };
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const { source } = this;
         if (source) {
             return source.subscribe(subscriber);

@@ -10,7 +10,7 @@ export class AsyncSubject extends Subject {
         this.hasNext = false;
         this.hasCompleted = false;
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         if (this.hasError) {
             subscriber.error(this.thrownError);
             return Subscription.EMPTY;

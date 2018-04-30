@@ -86,7 +86,7 @@ module.exports = function (x, options) {
         } catch (jsonErr) {}
 
         if (pkg && opts.packageFilter) {
-            pkg = opts.packageFilter(pkg, pkgfile);
+            pkg = opts.packageFilter(pkg, dir);
         }
 
         return { pkg: pkg, dir: dir };

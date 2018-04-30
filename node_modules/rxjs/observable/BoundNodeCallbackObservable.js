@@ -159,7 +159,7 @@ var BoundNodeCallbackObservable = (function (_super) {
             return new BoundNodeCallbackObservable(func, selector, args, this, scheduler);
         };
     };
-    BoundNodeCallbackObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ BoundNodeCallbackObservable.prototype._subscribe = function (subscriber) {
         var callbackFunc = this.callbackFunc;
         var args = this.args;
         var scheduler = this.scheduler;

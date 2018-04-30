@@ -25,7 +25,7 @@ export var IfObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     IfObservable.create = function (condition, thenSource, elseSource) {
         return new IfObservable(condition, thenSource, elseSource);
     };
-    IfObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ IfObservable.prototype._subscribe = function (subscriber) {
         var _a = this, condition = _a.condition, thenSource = _a.thenSource, elseSource = _a.elseSource;
         return new IfSubscriber(subscriber, condition, thenSource, elseSource);
     };

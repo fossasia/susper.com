@@ -15,10 +15,10 @@ interface Ignore {
   /**
    * Filters the given array of pathnames, and returns the filtered array.
    * NOTICE that each path here should be a relative path to the root of your repository.
-   * @param  {string[]} paths the array of paths to be filtered.
-   * @returns IgnoreBase
+   * @param paths the array of paths to be filtered.
+   * @returns The filtered array of paths
    */
-  filter(paths: string[]): Ignore
+  filter(paths: string[]): string[]
   /**
    * Creates a filter function which could filter 
    * an array of paths with Array.prototype.filter.

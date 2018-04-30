@@ -52,7 +52,7 @@ export var NeverObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     NeverObservable.create = function () {
         return new NeverObservable();
     };
-    NeverObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ NeverObservable.prototype._subscribe = function (subscriber) {
         noop();
     };
     return NeverObservable;

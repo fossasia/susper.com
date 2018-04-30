@@ -12,5 +12,5 @@ export declare class IfObservable<T, R> extends Observable<T> {
     private elseSource;
     static create<T, R>(condition: () => boolean | void, thenSource?: SubscribableOrPromise<T> | void, elseSource?: SubscribableOrPromise<R> | void): Observable<T | R>;
     constructor(condition: () => boolean | void, thenSource?: SubscribableOrPromise<T> | void, elseSource?: SubscribableOrPromise<R> | void);
-    protected _subscribe(subscriber: Subscriber<T | R>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T | R>): TeardownLogic;
 }

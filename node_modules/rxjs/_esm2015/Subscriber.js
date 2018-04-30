@@ -129,7 +129,7 @@ export class Subscriber extends Subscription {
         this.destination.complete();
         this.unsubscribe();
     }
-    _unsubscribeAndRecycle() {
+    /** @deprecated internal use only */ _unsubscribeAndRecycle() {
         const { _parent, _parents } = this;
         this._parent = null;
         this._parents = null;
@@ -246,7 +246,7 @@ class SafeSubscriber extends Subscriber {
         }
         return false;
     }
-    _unsubscribe() {
+    /** @deprecated internal use only */ _unsubscribe() {
         const { _parentSubscriber } = this;
         this._context = null;
         this._parentSubscriber = null;

@@ -173,7 +173,7 @@ export var BoundCallbackObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_sup
             return new BoundCallbackObservable(func, selector, args, this, scheduler);
         };
     };
-    BoundCallbackObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ BoundCallbackObservable.prototype._subscribe = function (subscriber) {
         var callbackFunc = this.callbackFunc;
         var args = this.args;
         var scheduler = this.scheduler;

@@ -45,5 +45,5 @@ export declare class IntervalObservable extends Observable<number> {
     static create(period?: number, scheduler?: IScheduler): Observable<number>;
     static dispatch(state: any): void;
     constructor(period?: number, scheduler?: IScheduler);
-    protected _subscribe(subscriber: Subscriber<number>): void;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<number>): void;
 }

@@ -64,7 +64,7 @@ var ErrorObservable = (function (_super) {
         var error = arg.error, subscriber = arg.subscriber;
         subscriber.error(error);
     };
-    ErrorObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ ErrorObservable.prototype._subscribe = function (subscriber) {
         var error = this.error;
         var scheduler = this.scheduler;
         subscriber.syncErrorThrowable = true;

@@ -16,7 +16,7 @@ export class IfObservable extends Observable {
     static create(condition, thenSource, elseSource) {
         return new IfObservable(condition, thenSource, elseSource);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const { condition, thenSource, elseSource } = this;
         return new IfSubscriber(subscriber, condition, thenSource, elseSource);
     }

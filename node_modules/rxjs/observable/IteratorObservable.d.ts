@@ -13,5 +13,5 @@ export declare class IteratorObservable<T> extends Observable<T> {
     static create<T>(iterator: any, scheduler?: IScheduler): IteratorObservable<T>;
     static dispatch(state: any): void;
     constructor(iterator: any, scheduler?: IScheduler);
-    protected _subscribe(subscriber: Subscriber<T>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): TeardownLogic;
 }

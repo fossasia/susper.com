@@ -130,7 +130,7 @@ export class ForkJoinObservable extends Observable {
         }
         return new ForkJoinObservable(sources, resultSelector);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         return new ForkJoinSubscriber(subscriber, this.sources, this.resultSelector);
     }
 }

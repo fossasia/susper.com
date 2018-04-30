@@ -57,7 +57,7 @@ export class ErrorObservable extends Observable {
         const { error, subscriber } = arg;
         subscriber.error(error);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const error = this.error;
         const scheduler = this.scheduler;
         subscriber.syncErrorThrowable = true;

@@ -1,12 +1,15 @@
-# Neo-Async
+<h1 align="center">Neo-Async</h1>
 
-<img src="https://raw.githubusercontent.com/wiki/suguru03/neo-async/images/neo_async_v2.png" width="230px" />
+<p align="center">
+  <img src="https://raw.githubusercontent.com/wiki/suguru03/neo-async/images/neo_async_v2.png" width="250px" />
+</p>
 
-[![npm](https://img.shields.io/npm/v/neo-async.svg)](https://www.npmjs.com/package/neo-async)
-[![Travis](https://img.shields.io/travis/suguru03/neo-async.svg)](https://travis-ci.org/suguru03/neo-async)
-[![Codecov](https://img.shields.io/codecov/c/github/suguru03/neo-async.svg)](https://codecov.io/github/suguru03/neo-async?branch=master)
-[![Dependency Status](https://gemnasium.com/suguru03/neo-async.svg)](https://gemnasium.com/suguru03/neo-async)
-[![npm](https://img.shields.io/npm/dm/neo-async.svg)](https://www.npmjs.com/package/neo-async)
+<p align="center">
+  <a href="https://www.npmjs.com/package/neo-async"><img alt="npm" src="https://img.shields.io/npm/v/neo-async.svg"></a>
+  <a href="https://travis-ci.org/suguru03/neo-async"><img alt="Travis Status" src="https://img.shields.io/travis/suguru03/neo-async.svg"></a>
+  <a href="https://codecov.io/gh/suguru03/neo-async"><img alt="Coverage Status" src="https://img.shields.io/codecov/c/github/suguru03/neo-async/master.svg"></a>
+  <a href="https://www.npmjs.com/package/neo-async"><img alt="download" src="https://img.shields.io/npm/dm/neo-async.svg"></a>
+</p>
 
 Neo-Async is thought to be used as a drop-in replacement for [Async](https://github.com/caolan/async), it almost fully covers its functionality and runs [faster](#benchmark).
 
@@ -196,80 +199,68 @@ bower install neo-async
 ### How to check
 
 ```bash
-$ git clone git@github.com:suguru03/async-benchmark.git
-$ cd async-benchmark
-$ npm install
-$ node . // It might take more than one hour...
+$ node perf
 ```
 
 ### Environment
 
-* Ubuntu v12.04
-* Node.js v6.2.1
-* async v2.0.0-rc.6
-* neo-async v2.0.0-rc.1
-* benchmark v2.1.0
-* func-comparator v0.7.1
+* Darwin 17.3.0 x64
+* Node.js v8.9.4
+* async v2.6.0
+* neo-async v2.5.0
+* benchmark v2.1.4
 
 ### Result
-
-Neo-Async is 1.27 ~ 10.7 times faster than Async.
 
 The value is the ratio (Neo-Async/Async) of the average speed.
 
 #### Collections
-|function|benchmark|func-comparator|
-|---|--:|--:|
-|each|3.71|2.54|
-|eachSeries|2.14|1.90|
-|eachLimit|2.14|1.88|
-|eachOf|3.30|2.50|
-|eachOfSeries|1.97|1.83|
-|eachOfLimit|2.02|1.80|
-|map|4.20|4.11|
-|mapSeries|2.40|3.65|
-|mapLimit|2.64|2.66|
-|mapValues|5.71|5.32|
-|mapValuesSeries|3.82|3.23|
-|mapValuesLimit|3.10|2.38|
-|filter|8.11|8.76|
-|filterSeries|5.79|4.86|
-|filterLimit|4.00|3.32|
-|reject|9.47|9.52|
-|rejectSeries|7.39|4.64|
-|rejectLimit|4.54|3.49|
-|detect|6.67|6.37|
-|detectSeries|3.54|3.73|
-|detectLimit|2.38|2.62|
-|reduce|4.13|3.23|
-|reduceRight|4.23|3.24|
-|transform|5.30|5.17|
-|sortBy|2.24|2.37|
-|some|6.39|6.10|
-|someSeries|5.37|4.66|
-|someLimit|3.39|2.84|
-|every|6.85|6.27|
-|everySeries|4.53|3.90|
-|everyLimit|3.36|2.75|
-|concat|9.18|9.35|
-|concatSeries|7.49|6.09|
+|function|benchmark|
+|---|--:|
+|each/forEach|2.43|
+|eachSeries/forEachSeries|1.75|
+|eachLimit/forEachLimit|1.68|
+|eachOf|3.29|
+|eachOfSeries|1.50|
+|eachOfLimit|1.59|
+|map|3.95|
+|mapSeries|1.81|
+|mapLimit|1.27|
+|mapValues|2.73|
+|mapValuesSeries|1.59|
+|mapValuesLimit|1.23|
+|filter|3.00|
+|filterSeries|1.74|
+|filterLimit|1.17|
+|reject|4.59|
+|rejectSeries|2.31|
+|rejectLimit|1.58|
+|detect|4.30|
+|detectSeries|1.86|
+|detectLimit|1.32|
+|reduce|1.82|
+|transform|2.46|
+|sortBy|4.08|
+|some|2.19|
+|someSeries|1.83|
+|someLimit|1.32|
+|every|2.09|
+|everySeries|1.84|
+|everyLimit|1.35|
+|concat|3.79|
+|concatSeries|4.45|
 
 #### Control Flow
-|funciton|benchmark|func-comparator|
-|---|--:|--:|
-|parallel|7.54|5.45|
-|series|3.29|2.41|
-|waterfall|5.12|4.27|
-|whilst|1.96|1.95|
-|doWhilst|2.07|1.96|
-|until|2.10|1.99|
-|doUntil|1.98|2.04|
-|during|10.7|7.09|
-|doDuring|5.98|6.03|
-|queue|1.83|1.75|
-|priorityQueue|1.79|1.75|
-|times|3.84|3.65|
-|race|1.45|1.27|
-|auto|3.23|3.50|
-|retry|9.43|6.78|
-
+|funciton|benchmark|
+|---|--:|
+|parallel|2.93|
+|series|1.96|
+|waterfall|1.29|
+|whilst|1.00|
+|doWhilst|1.12|
+|until|1.12|
+|doUntil|1.12|
+|during|1.18|
+|doDuring|2.42|
+|times|4.25|
+|auto|1.97|

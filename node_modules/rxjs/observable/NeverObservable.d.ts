@@ -39,5 +39,5 @@ export declare class NeverObservable<T> extends Observable<T> {
      */
     static create<T>(): NeverObservable<T>;
     constructor();
-    protected _subscribe(subscriber: Subscriber<T>): void;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): void;
 }

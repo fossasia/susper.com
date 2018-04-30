@@ -22,7 +22,7 @@ var UsingObservable = (function (_super) {
     UsingObservable.create = function (resourceFactory, observableFactory) {
         return new UsingObservable(resourceFactory, observableFactory);
     };
-    UsingObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ UsingObservable.prototype._subscribe = function (subscriber) {
         var _a = this, resourceFactory = _a.resourceFactory, observableFactory = _a.observableFactory;
         var resource;
         try {

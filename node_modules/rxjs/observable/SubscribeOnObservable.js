@@ -37,7 +37,7 @@ var SubscribeOnObservable = (function (_super) {
         var source = arg.source, subscriber = arg.subscriber;
         return this.add(source.subscribe(subscriber));
     };
-    SubscribeOnObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ SubscribeOnObservable.prototype._subscribe = function (subscriber) {
         var delay = this.delayTime;
         var source = this.source;
         var scheduler = this.scheduler;

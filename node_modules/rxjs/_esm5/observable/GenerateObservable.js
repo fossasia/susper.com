@@ -33,7 +33,7 @@ export var GenerateObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         }
         return new GenerateObservable(initialStateOrOptions, condition, iterate, resultSelectorOrObservable, scheduler);
     };
-    GenerateObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ GenerateObservable.prototype._subscribe = function (subscriber) {
         var state = this.initialState;
         if (this.scheduler) {
             return this.scheduler.schedule(GenerateObservable.dispatch, 0, {

@@ -7,17 +7,18 @@ import { refCount as higherOrderRefCount } from '../operators/refCount';
  * @class ConnectableObservable<T>
  */
 export class ConnectableObservable extends Observable {
-    constructor(source, subjectFactory) {
+    constructor(/** @deprecated internal use only */ source, 
+        /** @deprecated internal use only */ subjectFactory) {
         super();
         this.source = source;
         this.subjectFactory = subjectFactory;
-        this._refCount = 0;
+        /** @deprecated internal use only */ this._refCount = 0;
         this._isComplete = false;
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         return this.getSubject().subscribe(subscriber);
     }
-    getSubject() {
+    /** @deprecated internal use only */ getSubject() {
         const subject = this._subject;
         if (!subject || subject.isStopped) {
             this._subject = this.subjectFactory();
@@ -71,7 +72,7 @@ class ConnectableSubscriber extends SubjectSubscriber {
         this._unsubscribe();
         super._complete();
     }
-    _unsubscribe() {
+    /** @deprecated internal use only */ _unsubscribe() {
         const connectable = this.connectable;
         if (connectable) {
             this.connectable = null;
@@ -105,7 +106,7 @@ class RefCountSubscriber extends Subscriber {
         super(destination);
         this.connectable = connectable;
     }
-    _unsubscribe() {
+    /** @deprecated internal use only */ _unsubscribe() {
         const { connectable } = this;
         if (!connectable) {
             this.connection = null;

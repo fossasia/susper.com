@@ -59,7 +59,7 @@ export class EmptyObservable extends Observable {
         const { subscriber } = arg;
         subscriber.complete();
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const scheduler = this.scheduler;
         if (scheduler) {
             return scheduler.schedule(EmptyObservable.dispatch, 0, { subscriber });

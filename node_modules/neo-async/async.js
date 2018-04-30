@@ -1715,7 +1715,7 @@
    * });
    *
    */
-  var sortBy = createSortBy(arrayEachValue, baseEachValue, symbolEachValue);
+  var sortBy = createSortBy(arrayEachIndexValue, baseEachIndexValue, symbolEachIndexValue);
 
   /**
    * @memberof async
@@ -1964,11 +1964,11 @@
   var dir = createLogger('dir');
 
   /**
-   * @version 2.5.0
+   * @version 2.5.1
    * @namespace async
    */
   var index = {
-    VERSION: '2.5.0',
+    VERSION: '2.5.1',
 
     // Collections
     each: each,
@@ -2296,27 +2296,72 @@
   /**
    * @private
    * @param {Array} array
-   * @param {string} key
+   * @param {number[]} criteria
    */
-  function pluck(array, key) {
-    var index = -1;
-    var size = array.length;
-    var result = Array(size);
-
-    while (++index < size) {
-      var item = array[index] || {};
-      result[index] = item[key];
+  function sortByCriteria(array, criteria) {
+    var l = array.length;
+    var indices = Array(l);
+    var i;
+    for (i = 0; i < l; i++) {
+      indices[i] = i;
+    }
+    quickSort(criteria, 0, l - 1, indices);
+    var result = Array(l);
+    for (var n = 0; n < l; n++) {
+      i = indices[n];
+      result[n] = i === undefined ? array[n] : array[i];
     }
     return result;
   }
 
-  /**
-   * @private
-   * @param {Object} a
-   * @param {Object} b
-   */
-  function sortIterator(a, b) {
-    return a.criteria - b.criteria;
+  function partition(array, i, j, mid, indices) {
+    var l = i;
+    var r = j;
+    while (l <= r) {
+      i = l;
+      while (l < r && array[l] < mid) {
+        l++;
+      }
+      while (r >= i && array[r] >= mid) {
+        r--;
+      }
+      if (l > r) {
+        break;
+      }
+      swap(array, indices, l++, r--);
+    }
+    return l;
+  }
+
+  function swap(array, indices, l, r) {
+    var n = array[l];
+    array[l] = array[r];
+    array[r] = n;
+    var i = indices[l];
+    indices[l] = indices[r];
+    indices[r] = i;
+  }
+
+  function quickSort(array, i, j, indices) {
+    if (i === j) {
+      return;
+    }
+    var k = i;
+    while (++k <= j && array[i] === array[k]) {
+      var l = k - 1;
+      if (indices[l] > indices[k]) {
+        var index = indices[l];
+        indices[l] = indices[k];
+        indices[k] = index;
+      }
+    }
+    if (k > j) {
+      return;
+    }
+    var p = array[i] > array[k] ? i : k;
+    k = partition(array, i, j, array[p], indices);
+    quickSort(array, i, k - 1, indices);
+    quickSort(array, k, j, indices);
   }
 
   /**
@@ -5242,45 +5287,45 @@
 
     return function sortBy(collection, iterator, callback) {
       callback = callback || noop;
-      var size, result;
+      var size, array, criteria;
       var completed = 0;
 
       if (isArray(collection)) {
         size = collection.length;
-        result = Array(size);
+        array = Array(size);
+        criteria = Array(size);
         arrayEach(collection, iterator, createCallback);
       } else if (!collection) {
       } else if (iteratorSymbol && collection[iteratorSymbol]) {
         size = collection.size;
-        result = Array(size);
+        array = Array(size);
+        criteria = Array(size);
         symbolEach(collection, iterator, createCallback);
       } else if (typeof collection === obj) {
         var keys = nativeKeys(collection);
         size = keys.length;
-        result = Array(size);
+        array = Array(size);
+        criteria = Array(size);
         baseEach(collection, iterator, createCallback, keys);
       }
       if (!size) {
         callback(null, []);
       }
 
-      function createCallback(value) {
+      function createCallback(index, value) {
         var called = false;
-        return function done(err, criteria) {
+        array[index] = value;
+        return function done(err, criterion) {
           if (called) {
             throwError();
           }
           called = true;
-          result[completed] = {
-            value: value,
-            criteria: criteria
-          };
+          criteria[index] = criterion;
           if (err) {
             callback = once(callback);
             callback(err);
           } else if (++completed === size) {
-            result.sort(sortIterator);
-            callback(null, pluck(result, 'value'));
+            callback(null, sortByCriteria(array, criteria));
           }
         };
       }
@@ -5360,27 +5405,32 @@
    */
   function sortBySeries(collection, iterator, callback) {
     callback = onlyOnce(callback || noop);
-    var size, key, value, keys, iter, result, iterate;
+    var size, key, value, keys, iter, array, criteria, iterate;
     var sync = false;
     var completed = 0;
 
     if (isArray(collection)) {
       size = collection.length;
+      array = collection;
+      criteria = Array(size);
       iterate = iterator.length === 3 ? arrayIteratorWithIndex : arrayIterator;
     } else if (!collection) {
     } else if (iteratorSymbol && collection[iteratorSymbol]) {
       size = collection.size;
+      array = Array(size);
+      criteria = Array(size);
       iter = collection[iteratorSymbol]();
       iterate = iterator.length === 3 ? symbolIteratorWithKey : symbolIterator;
     } else if (typeof collection === obj) {
       keys = nativeKeys(collection);
       size = keys.length;
+      array = Array(size);
+      criteria = Array(size);
       iterate = iterator.length === 3 ? objectIteratorWithKey : objectIterator;
     }
     if (!size) {
       return callback(null, []);
     }
-    result = Array(size);
     iterate();
 
     function arrayIterator() {
@@ -5395,36 +5445,36 @@
 
     function symbolIterator() {
       value = iter.next().value;
+      array[completed] = value;
       iterator(value, done);
     }
 
     function symbolIteratorWithKey() {
       value = iter.next().value;
+      array[completed] = value;
       iterator(value, completed, done);
     }
 
     function objectIterator() {
       value = collection[keys[completed]];
+      array[completed] = value;
       iterator(value, done);
     }
 
     function objectIteratorWithKey() {
       key = keys[completed];
       value = collection[key];
+      array[completed] = value;
       iterator(value, key, done);
     }
 
-    function done(err, criteria) {
-      result[completed] = {
-        value: value,
-        criteria: criteria
-      };
+    function done(err, criterion) {
+      criteria[completed] = criterion;
       if (err) {
         callback(err);
       } else if (++completed === size) {
         iterate = throwError;
-        result.sort(sortIterator);
-        callback(null, pluck(result, 'value'));
+        callback(null, sortByCriteria(array, criteria));
       } else if (sync) {
         nextTick(iterate);
       } else {
@@ -5509,34 +5559,37 @@
    */
   function sortByLimit(collection, limit, iterator, callback) {
     callback = callback || noop;
-    var size, index, key, value, keys, iter, item, result, iterate;
+    var size, index, key, value, array, keys, iter, item, criteria, iterate;
     var sync = false;
     var started = 0;
     var completed = 0;
 
     if (isArray(collection)) {
       size = collection.length;
+      array = collection;
       iterate = iterator.length === 3 ? arrayIteratorWithIndex : arrayIterator;
     } else if (!collection) {
     } else if (iteratorSymbol && collection[iteratorSymbol]) {
       size = collection.size;
       iter = collection[iteratorSymbol]();
+      array = Array(size);
       iterate = iterator.length === 3 ? symbolIteratorWithKey : symbolIterator;
     } else if (typeof collection === obj) {
       keys = nativeKeys(collection);
       size = keys.length;
+      array = Array(size);
       iterate = iterator.length === 3 ? objectIteratorWithKey : objectIterator;
     }
     if (!size || isNaN(limit) || limit < 1) {
       return callback(null, []);
     }
-    result = Array(size);
+    criteria = Array(size);
     timesSync(limit > size ? size : limit, iterate);
 
     function arrayIterator() {
       if (started < size) {
-        value = collection[started++];
-        iterator(value, createCallback(value));
+        value = collection[started];
+        iterator(value, createCallback(value, started++));
       }
     }
 
@@ -5544,57 +5597,57 @@
       index = started++;
       if (index < size) {
         value = collection[index];
-        iterator(value, index, createCallback(value));
+        iterator(value, index, createCallback(value, index));
       }
     }
 
     function symbolIterator() {
       if ((item = iter.next()).done === false) {
         value = item.value;
-        iterator(value, createCallback(value));
+        array[started] = value;
+        iterator(value, createCallback(value, started++));
       }
     }
 
     function symbolIteratorWithKey() {
       if ((item = iter.next()).done === false) {
         value = item.value;
-        iterator(value, started++, createCallback(value));
+        array[started] = value;
+        iterator(value, started, createCallback(value, started++));
       }
     }
 
     function objectIterator() {
       if (started < size) {
-        value = collection[keys[started++]];
-        iterator(value, createCallback(value));
+        value = collection[keys[started]];
+        array[started] = value;
+        iterator(value, createCallback(value, started++));
       }
     }
 
     function objectIteratorWithKey() {
       if (started < size) {
-        key = keys[started++];
+        key = keys[started];
         value = collection[key];
-        iterator(value, key, createCallback(value));
+        array[started] = value;
+        iterator(value, key, createCallback(value, started++));
       }
     }
 
-    function createCallback(value) {
+    function createCallback(value, index) {
       var called = false;
-      return function(err, criteria) {
+      return function(err, criterion) {
         if (called) {
           throwError();
         }
         called = true;
-        result[completed] = {
-          value: value,
-          criteria: criteria
-        };
+        criteria[index] = criterion;
         if (err) {
           iterate = noop;
           callback(err);
           callback = noop;
         } else if (++completed === size) {
-          result.sort(sortIterator);
-          callback(null, pluck(result, 'value'));
+          callback(null, sortByCriteria(array, criteria));
         } else if (sync) {
           nextTick(iterate);
         } else {
@@ -8137,10 +8190,11 @@
         if (key === null) {
           throwError();
         }
-        runningTasks--;
-        rest--;
         arg = arguments.length <= 2 ? arg : slice(arguments, 1);
         if (err) {
+          rest = 0;
+          runningTasks = 0;
+          readyTasks.length = 0;
           var safeResults = objectClone(results);
           safeResults[key] = arg;
           key = null;
@@ -8149,6 +8203,8 @@
           _callback(err, safeResults);
           return;
         }
+        runningTasks--;
+        rest--;
         results[key] = arg;
         taskComplete(key);
         key = null;
@@ -8886,7 +8942,7 @@
         result.then(function(value) {
           invokeCallback(callback, null, value);
         }, function(err) {
-          invokeCallback(callback, err.message ? err : new Error(err));
+          invokeCallback(callback, err && err.message ? err : new Error(err));
         });
       } else {
         callback(null, result);

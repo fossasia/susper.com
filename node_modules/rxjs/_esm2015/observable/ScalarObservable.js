@@ -30,7 +30,7 @@ export class ScalarObservable extends Observable {
         state.done = true;
         this.schedule(state);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const value = this.value;
         const scheduler = this.scheduler;
         if (scheduler) {

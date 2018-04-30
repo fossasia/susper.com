@@ -64,7 +64,7 @@ export class FromEventPatternObservable extends Observable {
     static create(addHandler, removeHandler, selector) {
         return new FromEventPatternObservable(addHandler, removeHandler, selector);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const removeHandler = this.removeHandler;
         const handler = !!this.selector ? (...args) => {
             this._callSelector(subscriber, args);

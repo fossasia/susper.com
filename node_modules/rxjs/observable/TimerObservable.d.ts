@@ -56,5 +56,5 @@ export declare class TimerObservable extends Observable<number> {
     private dueTime;
     private scheduler;
     constructor(dueTime?: number | Date, period?: number | IScheduler, scheduler?: IScheduler);
-    protected _subscribe(subscriber: Subscriber<number>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<number>): TeardownLogic;
 }

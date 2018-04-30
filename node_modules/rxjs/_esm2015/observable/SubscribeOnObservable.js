@@ -26,7 +26,7 @@ export class SubscribeOnObservable extends Observable {
         const { source, subscriber } = arg;
         return this.add(source.subscribe(subscriber));
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const delay = this.delayTime;
         const source = this.source;
         const scheduler = this.scheduler;

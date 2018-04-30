@@ -74,7 +74,7 @@ var RetryWhenSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
             errors.next(err);
         }
     };
-    RetryWhenSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ RetryWhenSubscriber.prototype._unsubscribe = function () {
         var _a = this, errors = _a.errors, retriesSubscription = _a.retriesSubscription;
         if (errors) {
             errors.unsubscribe();

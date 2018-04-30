@@ -1,15 +1,11 @@
-# PostCSS [![Travis Build Status][travis-img]][travis] [![AppVeyor Build Status][appveyor-img]][appveyor] [![Gitter][chat-img]][chat]
+# PostCSS [![Gitter][chat-img]][chat]
 
 <img align="right" width="95" height="95"
      alt="Philosopher’s stone, logo of PostCSS"
      src="http://postcss.github.io/postcss/logo.svg">
 
-[appveyor-img]: https://img.shields.io/appveyor/ci/ai/postcss.svg?label=windows
-[travis-img]:   https://img.shields.io/travis/postcss/postcss.svg?label=unix
-[chat-img]:     https://img.shields.io/badge/Gitter-Join_the_PostCSS_chat-brightgreen.svg
-[appveyor]:     https://ci.appveyor.com/project/ai/postcss
-[travis]:       https://travis-ci.org/postcss/postcss
-[chat]:         https://gitter.im/postcss/postcss
+[chat-img]: https://img.shields.io/badge/Gitter-Join_the_PostCSS_chat-brightgreen.svg
+[chat]:     https://gitter.im/postcss/postcss
 
 PostCSS is a tool for transforming styles with JS plugins.
 These plugins can lint your CSS, support variables and mixins,
@@ -19,10 +15,10 @@ PostCSS is used by industry leaders including Wikipedia, Twitter, Alibaba,
 and JetBrains. The [Autoprefixer] PostCSS plugin is one of the most popular
 CSS processors.
 
-**Twitter account:**      [@postcss](https://twitter.com/postcss).<br>
-**VK.com page:**          [postcss](https://vk.com/postcss).<br>
-**Support / Discussion:** [Gitter](https://gitter.im/postcss/postcss).<br>
-**中文翻译**:              [`README-cn.md`](./README-cn.md).
+**Support / Discussion:** [Gitter](https://gitter.im/postcss/postcss)<br>
+**Twitter account:**      [@postcss](https://twitter.com/postcss)<br>
+**VK.com page:**          [postcss](https://vk.com/postcss)<br>
+**中文翻译**:              [`README-cn.md`](./README-cn.md)
 
 For PostCSS commercial support (consulting, improving the front-end culture
 of your company, PostCSS plugins), contact [Evil Martians](https://evilmartians.com/?utm_source=postcss)
@@ -134,7 +130,10 @@ If there is not yet support for your favorite syntax,
 you can write a parser and/or stringifier to extend PostCSS.
 
 * [`sugarss`] is a indent-based syntax like Sass or Stylus.
-* [`postcss-html`] allows you to write styles in HTML / [Markdown](https://daringfireball.net/projects/markdown/syntax) / [Vue component](https://vue-loader.vuejs.org/)
+* [`postcss-syntax`] switch syntax automatically by file extensions.
+* [`postcss-html`] parsing styles in `<style>` tags of HTML-like files.
+* [`postcss-markdown`] parsing styles in code blocks of Markdown files.
+* [`postcss-styled`] parsing CSS in template literals of source files.
 * [`postcss-scss`] allows you to work with SCSS
   *(but does not compile SCSS to CSS)*.
 * [`postcss-sass`] allows you to work with Sass
@@ -150,7 +149,10 @@ you can write a parser and/or stringifier to extend PostCSS.
 
 [`postcss-less-engine`]: https://github.com/Crunch/postcss-less
 [`postcss-safe-parser`]: https://github.com/postcss/postcss-safe-parser
+[`postcss-syntax`]:      https://github.com/gucong3000/postcss-syntax
 [`postcss-html`]:        https://github.com/gucong3000/postcss-html
+[`postcss-markdown`]:    https://github.com/gucong3000/postcss-markdown
+[`postcss-styled`]:      https://github.com/gucong3000/postcss-styled
 [`postcss-scss`]:        https://github.com/postcss/postcss-scss
 [`postcss-sass`]:        https://github.com/AleshaOleg/postcss-sass
 [`postcss-less`]:        https://github.com/webschik/postcss-less

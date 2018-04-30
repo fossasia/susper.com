@@ -1,3 +1,9 @@
+# 2.26.2
+
+**Bugfixes:**
+
+* `forEachComment` and `forEachTokenWithTrivia` no longer duplicate comments around missing nodes
+
 # 2.26.1
 
 **Bugfixes:**

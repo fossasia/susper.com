@@ -26,5 +26,5 @@ export declare class GroupedObservable<K, T> extends Observable<T> {
     private groupSubject;
     private refCountSubscription;
     constructor(key: K, groupSubject: Subject<T>, refCountSubscription?: RefCountSubscription);
-    protected _subscribe(subscriber: Subscriber<T>): Subscription;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): Subscription;
 }

@@ -87,7 +87,7 @@ export class Subject extends Observable {
             return super._trySubscribe(subscriber);
         }
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         if (this.closed) {
             throw new ObjectUnsubscribedError();
         }
@@ -140,7 +140,7 @@ export class AnonymousSubject extends Subject {
             this.destination.complete();
         }
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const { source } = this;
         if (source) {
             return this.source.subscribe(subscriber);

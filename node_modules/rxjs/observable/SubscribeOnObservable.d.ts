@@ -19,5 +19,5 @@ export declare class SubscribeOnObservable<T> extends Observable<T> {
     static create<T>(source: Observable<T>, delay?: number, scheduler?: IScheduler): Observable<T>;
     static dispatch<T>(this: Action<T>, arg: DispatchArg<T>): Subscription;
     constructor(source: Observable<T>, delayTime?: number, scheduler?: IScheduler);
-    protected _subscribe(subscriber: Subscriber<T>): Subscription;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): Subscription;
 }

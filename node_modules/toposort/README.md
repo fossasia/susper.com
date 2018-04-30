@@ -76,6 +76,8 @@ toposort(graph).reverse()
 
 Returns: {Array} a list of vertices, sorted from "start" to "end"
 
+Throws an error if there are any cycles in the graph.
+
 ### toposort.array(nodes, edges)
 
 + nodes {Array} An array of nodes
@@ -84,6 +86,8 @@ Returns: {Array} a list of vertices, sorted from "start" to "end"
 This is a convenience method that allows you to define nodes that may or may not be connected to any other nodes. The ordering of unconnected nodes is not defined.
 
 Returns: {Array} a list of vertices, sorted from "start" to "end"
+
+Throws an error if there are any cycles in the graph.
 
 ## Tests
 

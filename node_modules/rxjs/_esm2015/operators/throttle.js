@@ -101,7 +101,7 @@ class ThrottleSubscriber extends OuterSubscriber {
             return null;
         }
     }
-    _unsubscribe() {
+    /** @deprecated internal use only */ _unsubscribe() {
         const { throttled, _trailingValue, _hasTrailingValue, _trailing } = this;
         this._trailingValue = null;
         this._hasTrailingValue = false;

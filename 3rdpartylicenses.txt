@@ -279,7 +279,7 @@ MIT
 MIT
 MIT
 
-moment@2.22.0
+moment@2.22.1
 MIT
 Copyright (c) JS Foundation and other contributors
 

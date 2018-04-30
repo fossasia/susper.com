@@ -78,6 +78,6 @@ export declare class WebSocketSubject<T> extends AnonymousSubject<T> {
     private _resetState();
     multiplex(subMsg: () => any, unsubMsg: () => any, messageFilter: (value: T) => boolean): Observable<any>;
     private _connectSocket();
-    protected _subscribe(subscriber: Subscriber<T>): Subscription;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): Subscription;
     unsubscribe(): void;
 }

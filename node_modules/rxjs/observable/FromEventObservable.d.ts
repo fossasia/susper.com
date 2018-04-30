@@ -31,5 +31,5 @@ export declare class FromEventObservable<T> extends Observable<T> {
     static create<T>(target: EventTargetLike, eventName: string, options: EventListenerOptions, selector: SelectorMethodSignature<T>): Observable<T>;
     constructor(sourceObj: EventTargetLike, eventName: string, selector?: SelectorMethodSignature<T>, options?: EventListenerOptions);
     private static setupSubscription<T>(sourceObj, eventName, handler, subscriber, options?);
-    protected _subscribe(subscriber: Subscriber<T>): void;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): void;
 }

@@ -85,7 +85,7 @@ export class TimerObservable extends Observable {
         state.index = index + 1;
         action.schedule(state, period);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const index = 0;
         const { period, dueTime, scheduler } = this;
         return scheduler.schedule(TimerObservable.dispatch, dueTime, {

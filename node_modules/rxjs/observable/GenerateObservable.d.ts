@@ -139,6 +139,6 @@ export declare class GenerateObservable<T, S> extends Observable<T> {
      * @returns {Observable<T>} The generated sequence.
      */
     static create<T, S>(options: GenerateOptions<T, S>): Observable<T>;
-    protected _subscribe(subscriber: Subscriber<any>): Subscription | Function | void;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<any>): Subscription | Function | void;
     private static dispatch<T, S>(state);
 }

@@ -41,7 +41,7 @@ export class ArrayLikeObservable extends Observable {
         state.index = index + 1;
         this.schedule(state);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         let index = 0;
         const { arrayLike, scheduler } = this;
         const length = arrayLike.length;

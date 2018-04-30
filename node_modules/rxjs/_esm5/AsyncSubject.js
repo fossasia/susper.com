@@ -19,7 +19,7 @@ export var AsyncSubject = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         this.hasNext = false;
         this.hasCompleted = false;
     }
-    AsyncSubject.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ AsyncSubject.prototype._subscribe = function (subscriber) {
         if (this.hasError) {
             subscriber.error(this.thrownError);
             return Subscription.EMPTY;

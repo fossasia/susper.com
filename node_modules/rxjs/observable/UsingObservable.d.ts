@@ -11,5 +11,5 @@ export declare class UsingObservable<T> extends Observable<T> {
     private observableFactory;
     static create<T>(resourceFactory: () => AnonymousSubscription | void, observableFactory: (resource: AnonymousSubscription) => SubscribableOrPromise<T> | void): Observable<T>;
     constructor(resourceFactory: () => AnonymousSubscription | void, observableFactory: (resource: AnonymousSubscription) => SubscribableOrPromise<T> | void);
-    protected _subscribe(subscriber: Subscriber<T>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): TeardownLogic;
 }

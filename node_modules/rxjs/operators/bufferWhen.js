@@ -80,7 +80,7 @@ var BufferWhenSubscriber = (function (_super) {
         }
         _super.prototype._complete.call(this);
     };
-    BufferWhenSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ BufferWhenSubscriber.prototype._unsubscribe = function () {
         this.buffer = null;
         this.subscribing = false;
     };

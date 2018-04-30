@@ -124,7 +124,7 @@ var WindowCountSubscriber = (function (_super) {
         }
         this.destination.complete();
     };
-    WindowCountSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ WindowCountSubscriber.prototype._unsubscribe = function () {
         this.count = 0;
         this.windows = null;
     };

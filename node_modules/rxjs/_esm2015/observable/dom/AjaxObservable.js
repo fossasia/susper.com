@@ -102,7 +102,7 @@ export class AjaxObservable extends Observable {
         }
         this.request = request;
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         return new AjaxSubscriber(subscriber, this.request);
     }
 }

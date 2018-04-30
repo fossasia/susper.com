@@ -24,7 +24,7 @@ class RefCountSubscriber extends Subscriber {
         super(destination);
         this.connectable = connectable;
     }
-    _unsubscribe() {
+    /** @deprecated internal use only */ _unsubscribe() {
         const { connectable } = this;
         if (!connectable) {
             this.connection = null;

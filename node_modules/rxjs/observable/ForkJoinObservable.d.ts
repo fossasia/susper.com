@@ -27,5 +27,5 @@ export declare class ForkJoinObservable<T> extends Observable<T> {
     static create<R>(sources: SubscribableOrPromise<any>[], project: (...values: Array<any>) => R): Observable<R>;
     static create<T>(...sources: SubscribableOrPromise<T>[]): Observable<T[]>;
     static create<R>(...sources: SubscribableOrPromise<any>[]): Observable<R>;
-    protected _subscribe(subscriber: Subscriber<any>): Subscription;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<any>): Subscription;
 }

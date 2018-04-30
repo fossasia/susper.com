@@ -14,7 +14,7 @@ export class HotObservable extends Subject {
         this.subscriptions = [];
         this.scheduler = scheduler;
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const subject = this;
         const index = subject.logSubscribedFrame();
         subscriber.add(new Subscription(() => {

@@ -23,5 +23,5 @@ export declare class AsyncAction<T> extends Action<T> {
      */
     execute(state: T, delay: number): any;
     protected _execute(state: T, delay: number): any;
-    protected _unsubscribe(): void;
+    /** @deprecated internal use only */ _unsubscribe(): void;
 }

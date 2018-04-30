@@ -63,7 +63,7 @@ export class IntervalObservable extends Observable {
         state.index += 1;
         this.schedule(state, period);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const index = 0;
         const period = this.period;
         const scheduler = this.scheduler;

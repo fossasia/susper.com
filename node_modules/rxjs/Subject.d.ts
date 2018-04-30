@@ -27,7 +27,7 @@ export declare class Subject<T> extends Observable<T> implements ISubscription {
     complete(): void;
     unsubscribe(): void;
     protected _trySubscribe(subscriber: Subscriber<T>): TeardownLogic;
-    protected _subscribe(subscriber: Subscriber<T>): Subscription;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): Subscription;
     asObservable(): Observable<T>;
 }
 /**
@@ -39,5 +39,5 @@ export declare class AnonymousSubject<T> extends Subject<T> {
     next(value: T): void;
     error(err: any): void;
     complete(): void;
-    protected _subscribe(subscriber: Subscriber<T>): Subscription;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): Subscription;
 }

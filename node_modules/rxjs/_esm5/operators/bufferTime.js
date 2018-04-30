@@ -145,7 +145,7 @@ var BufferTimeSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         }
         _super.prototype._complete.call(this);
     };
-    BufferTimeSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ BufferTimeSubscriber.prototype._unsubscribe = function () {
         this.contexts = null;
     };
     BufferTimeSubscriber.prototype.onBufferFull = function (context) {

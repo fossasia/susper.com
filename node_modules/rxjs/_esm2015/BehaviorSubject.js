@@ -11,7 +11,7 @@ export class BehaviorSubject extends Subject {
     get value() {
         return this.getValue();
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const subscription = super._subscribe(subscriber);
         if (subscription && !subscription.closed) {
             subscriber.next(this._value);

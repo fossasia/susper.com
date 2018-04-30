@@ -43,7 +43,7 @@ export class NeverObservable extends Observable {
     static create() {
         return new NeverObservable();
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         noop();
     }
 }

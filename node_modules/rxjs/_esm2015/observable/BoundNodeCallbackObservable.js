@@ -147,7 +147,7 @@ export class BoundNodeCallbackObservable extends Observable {
             return new BoundNodeCallbackObservable(func, selector, args, this, scheduler);
         };
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const callbackFunc = this.callbackFunc;
         const args = this.args;
         const scheduler = this.scheduler;

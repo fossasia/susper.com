@@ -95,7 +95,7 @@ var WindowSubscriber = (function (_super) {
         this.window.complete();
         this.destination.complete();
     };
-    WindowSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ WindowSubscriber.prototype._unsubscribe = function () {
         this.window = null;
     };
     WindowSubscriber.prototype.openWindow = function () {

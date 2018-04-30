@@ -49,6 +49,10 @@ var _versions = require('./uglify/versions');
 
 var _versions2 = _interopRequireDefault(_versions);
 
+var _utils = require('./utils');
+
+var _utils2 = _interopRequireDefault(_utils);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -98,9 +102,70 @@ var UglifyJsPlugin = function () {
         }
       }, uglifyOptions)
     };
+    this.sourceMapsCache = new WeakMap();
   }
 
   _createClass(UglifyJsPlugin, [{
+    key: 'buildError',
+    value: function buildError(err, file, inputSourceMap, requestShortener) {
+      // Handling error which should have line, col, filename and message
+      if (err.line) {
+        var sourceMapCacheKey = { file };
+        var sourceMap = this.sourceMapsCache.get(sourceMapCacheKey);
+        if (!sourceMap) {
+          sourceMap = new _sourceMap.SourceMapConsumer(inputSourceMap);
+          this.sourceMapsCache.set(sourceMapCacheKey, sourceMap);
+        }
+        var original = sourceMap && sourceMap.originalPositionFor({
+          line: err.line,
+          column: err.col
+        });
+        if (original && original.source) {
+          return new Error(`${file} from UglifyJs\n${err.message} [${requestShortener.shorten(original.source)}:${original.line},${original.column}][${file}:${err.line},${err.col}]`);
+        }
+        return new Error(`${file} from UglifyJs\n${err.message} [${file}:${err.line},${err.col}]`);
+      } else if (err.stack) {
+        return new Error(`${file} from UglifyJs\n${err.stack}`);
+      }
+      return new Error(`${file} from UglifyJs\n${err.message}`);
+    }
+  }, {
+    key: 'buildWarning',
+    value: function buildWarning(warning, file, inputSourceMap, warningsFilter, requestShortener) {
+      if (!file || !inputSourceMap) {
+        return warning;
+      }
+
+      var sourceMapCacheKey = { file };
+
+      var sourceMap = this.sourceMapsCache.get(sourceMapCacheKey);
+
+      if (!sourceMap) {
+        sourceMap = new _sourceMap.SourceMapConsumer(inputSourceMap);
+        this.sourceMapsCache.set(sourceMapCacheKey, sourceMap);
+      }
+
+      var match = warningRegex.exec(warning);
+      var line = +match[1];
+      var column = +match[2];
+      var original = sourceMap.originalPositionFor({
+        line,
+        column
+      });
+
+      var warningMessage = null;
+
+      if (warningsFilter(original.source)) {
+        warningMessage = warning.replace(warningRegex, '');
+
+        if (original && original.source && original.source !== file) {
+          warningMessage += `[${requestShortener.shorten(original.source)}:${original.line},${original.column}]`;
+        }
+      }
+
+      return warningMessage;
+    }
+  }, {
     key: 'apply',
     value: function apply(compiler) {
       var _this = this;
@@ -124,7 +189,7 @@ var UglifyJsPlugin = function () {
         chunks.reduce(function (acc, chunk) {
           return acc.concat(chunk.files || []);
         }, []).concat(compilation.additionalChunkAssets || []).filter(_ModuleFilenameHelpers2.default.matchObject.bind(null, _this.options)).forEach(function (file) {
-          var sourceMap = void 0;
+          var inputSourceMap = void 0;
           var asset = compilation.assets[file];
           if (uglifiedAssets.has(asset)) {
             return;
@@ -132,7 +197,6 @@ var UglifyJsPlugin = function () {
 
           try {
             var input = void 0;
-            var inputSourceMap = void 0;
 
             if (_this.options.sourceMap && asset.sourceAndMap) {
               var _asset$sourceAndMap = asset.sourceAndMap(),
@@ -140,9 +204,13 @@ var UglifyJsPlugin = function () {
                   map = _asset$sourceAndMap.map;
 
               input = source;
-              inputSourceMap = map;
 
-              sourceMap = new _sourceMap.SourceMapConsumer(inputSourceMap);
+              if (_utils2.default.isSourceMap(map)) {
+                inputSourceMap = map;
+              } else {
+                inputSourceMap = map;
+                compilation.warnings.push(new Error(`${file} contain invalid source map`));
+              }
             } else {
               input = asset.source();
               inputSourceMap = null;
@@ -160,7 +228,6 @@ var UglifyJsPlugin = function () {
             var task = {
               file,
               input,
-              sourceMap,
               inputSourceMap,
               commentsFile,
               extractComments: _this.options.extractComments,
@@ -179,7 +246,7 @@ var UglifyJsPlugin = function () {
 
             tasks.push(task);
           } catch (error) {
-            compilation.errors.push(UglifyJsPlugin.buildError(error, file, sourceMap, requestShortener));
+            compilation.errors.push(_this.buildError(error, file, inputSourceMap, requestShortener));
           }
         });
 
@@ -193,7 +260,6 @@ var UglifyJsPlugin = function () {
             var _tasks$index = tasks[index],
                 file = _tasks$index.file,
                 input = _tasks$index.input,
-                sourceMap = _tasks$index.sourceMap,
                 inputSourceMap = _tasks$index.inputSourceMap,
                 commentsFile = _tasks$index.commentsFile;
             var error = data.error,
@@ -206,7 +272,7 @@ var UglifyJsPlugin = function () {
             // Error case: add errors, and go to next file
 
             if (error) {
-              compilation.errors.push(UglifyJsPlugin.buildError(error, file, sourceMap, requestShortener));
+              compilation.errors.push(_this.buildError(error, file, inputSourceMap, requestShortener));
 
               return;
             }
@@ -252,12 +318,14 @@ var UglifyJsPlugin = function () {
             uglifiedAssets.add(compilation.assets[file] = outputSource);
 
             // Handling warnings
-            if (warnings) {
-              var warnArr = UglifyJsPlugin.buildWarnings(warnings, file, sourceMap, _this.options.warningsFilter, requestShortener);
+            if (warnings && warnings.length > 0) {
+              warnings.forEach(function (warning) {
+                var builtWarning = _this.buildWarning(warning, file, inputSourceMap, _this.options.warningsFilter, requestShortener);
 
-              if (warnArr.length > 0) {
-                compilation.warnings.push(new Error(`${file} from UglifyJs\n${warnArr.join('\n')}`));
-              }
+                if (builtWarning) {
+                  compilation.warnings.push(builtWarning);
+                }
+              });
             }
           });
 
@@ -286,46 +354,6 @@ var UglifyJsPlugin = function () {
           compilation.plugin('optimize-chunk-assets', optimizeFn.bind(_this, compilation));
         });
       }
-    }
-  }], [{
-    key: 'buildError',
-    value: function buildError(err, file, sourceMap, requestShortener) {
-      // Handling error which should have line, col, filename and message
-      if (err.line) {
-        var original = sourceMap && sourceMap.originalPositionFor({
-          line: err.line,
-          column: err.col
-        });
-        if (original && original.source) {
-          return new Error(`${file} from UglifyJs\n${err.message} [${requestShortener.shorten(original.source)}:${original.line},${original.column}][${file}:${err.line},${err.col}]`);
-        }
-        return new Error(`${file} from UglifyJs\n${err.message} [${file}:${err.line},${err.col}]`);
-      } else if (err.stack) {
-        return new Error(`${file} from UglifyJs\n${err.stack}`);
-      }
-      return new Error(`${file} from UglifyJs\n${err.message}`);
-    }
-  }, {
-    key: 'buildWarnings',
-    value: function buildWarnings(warnings, file, sourceMap, warningsFilter, requestShortener) {
-      if (!sourceMap) {
-        return warnings;
-      }
-      return warnings.reduce(function (accWarnings, warning) {
-        var match = warningRegex.exec(warning);
-        var line = +match[1];
-        var column = +match[2];
-        var original = sourceMap.originalPositionFor({
-          line,
-          column
-        });
-
-        if (original && original.source && original.source !== file && warningsFilter(original.source)) {
-          accWarnings.push(`${warning.replace(warningRegex, '')}[${requestShortener.shorten(original.source)}:${original.line},${original.column}]`);
-        }
-
-        return accWarnings;
-      }, []);
     }
   }]);
 

@@ -26,7 +26,13 @@ function toposort(nodes, edges) {
 
   function visit(node, i, predecessors) {
     if(predecessors.indexOf(node) >= 0) {
-      throw new Error('Cyclic dependency: '+JSON.stringify(node))
+      var nodeRep 
+      try {
+        nodeRep = ", node was:" + JSON.stringify(node)
+      } catch(e) {
+        nodeRep = ""
+      }
+      throw new Error('Cyclic dependency' + nodeRep)
     }
 
     if (!~nodes.indexOf(node)) {

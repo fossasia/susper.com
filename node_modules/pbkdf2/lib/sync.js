@@ -15,10 +15,11 @@ var defaultEncoding = require('../lib/default-encoding')
 var Buffer = require('safe-buffer').Buffer
 
 function pbkdf2 (password, salt, iterations, keylen, digest) {
+  checkParameters(password, salt, iterations, keylen)
+
   if (!Buffer.isBuffer(password)) password = Buffer.from(password, defaultEncoding)
   if (!Buffer.isBuffer(salt)) salt = Buffer.from(salt, defaultEncoding)
 
-  checkParameters(iterations, keylen)
   digest = digest || 'sha1'
 
   var DK = Buffer.allocUnsafe(keylen)

@@ -2,6 +2,8 @@
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
 */
+"use strict";
+
 var EventEmitter = require("events").EventEmitter;
 var async = require("neo-async");
 var chokidar = require("chokidar");
@@ -245,7 +247,7 @@ DirectoryWatcher.prototype.onFileAdded = function onFileAdded(filePath, stat) {
 	if(filePath.indexOf(this.path) !== 0) return;
 	if(/[\\\/]/.test(filePath.substr(this.path.length + 1))) return;
 
-	this.setFileTime(filePath, +stat.mtime, false, "add");
+	this.setFileTime(filePath, +stat.mtime || +stat.ctime || 1, false, "add");
 };
 
 DirectoryWatcher.prototype.onDirectoryAdded = function onDirectoryAdded(directoryPath /*, stat */) {
@@ -257,7 +259,7 @@ DirectoryWatcher.prototype.onDirectoryAdded = function onDirectoryAdded(director
 DirectoryWatcher.prototype.onChange = function onChange(filePath, stat) {
 	if(filePath.indexOf(this.path) !== 0) return;
 	if(/[\\\/]/.test(filePath.substr(this.path.length + 1))) return;
-	var mtime = +stat.mtime;
+	var mtime = +stat.mtime || +stat.ctime || 1;
 	ensureFsAccuracy(mtime);
 	this.setFileTime(filePath, mtime, false, "change");
 };
@@ -291,7 +293,7 @@ DirectoryWatcher.prototype.doInitialScan = function doInitialScan() {
 				if(this.watchers[withoutCase(this.path)]) {
 					this.watchers[withoutCase(this.path)].forEach(function(w) {
 						w.emit("change", this.path, mtime, type);
-					});
+					}, this);
 				}
 			}.bind(this));
 			this.initialScan = false;
@@ -307,7 +309,7 @@ DirectoryWatcher.prototype.doInitialScan = function doInitialScan() {
 				}
 				if(stat.isFile()) {
 					if(!this.files[itemPath])
-						this.setFileTime(itemPath, +stat.mtime, true);
+						this.setFileTime(itemPath, +stat.mtime || +stat.ctime || 1, true);
 				} else if(stat.isDirectory()) {
 					if(!this.directories[itemPath])
 						this.setDirectory(itemPath, true, true);

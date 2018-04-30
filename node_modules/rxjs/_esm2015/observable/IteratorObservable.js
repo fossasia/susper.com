@@ -39,7 +39,7 @@ export class IteratorObservable extends Observable {
         }
         this.schedule(state);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         let index = 0;
         const { iterator, scheduler } = this;
         if (scheduler) {

@@ -56,5 +56,5 @@ export declare class DeferObservable<T> extends Observable<T> {
      */
     static create<T>(observableFactory: () => SubscribableOrPromise<T> | void): Observable<T>;
     constructor(observableFactory: () => SubscribableOrPromise<T> | void);
-    protected _subscribe(subscriber: Subscriber<T>): Subscription;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): Subscription;
 }

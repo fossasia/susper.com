@@ -69,7 +69,7 @@ export var DeferObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     DeferObservable.create = function (observableFactory) {
         return new DeferObservable(observableFactory);
     };
-    DeferObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ DeferObservable.prototype._subscribe = function (subscriber) {
         return new DeferSubscriber(subscriber, this.observableFactory);
     };
     return DeferObservable;

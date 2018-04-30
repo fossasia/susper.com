@@ -8,7 +8,7 @@ export declare class BehaviorSubject<T> extends Subject<T> {
     private _value;
     constructor(_value: T);
     readonly value: T;
-    protected _subscribe(subscriber: Subscriber<T>): Subscription;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): Subscription;
     getValue(): T;
     next(value: T): void;
 }

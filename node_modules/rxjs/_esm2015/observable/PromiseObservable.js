@@ -40,7 +40,7 @@ export class PromiseObservable extends Observable {
     static create(promise, scheduler) {
         return new PromiseObservable(promise, scheduler);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const promise = this.promise;
         const scheduler = this.scheduler;
         if (scheduler == null) {

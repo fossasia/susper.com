@@ -50,7 +50,7 @@ var NeverObservable = (function (_super) {
     NeverObservable.create = function () {
         return new NeverObservable();
     };
-    NeverObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ NeverObservable.prototype._subscribe = function (subscriber) {
         noop_1.noop();
     };
     return NeverObservable;

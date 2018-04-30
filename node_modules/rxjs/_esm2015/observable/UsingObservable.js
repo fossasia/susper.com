@@ -15,7 +15,7 @@ export class UsingObservable extends Observable {
     static create(resourceFactory, observableFactory) {
         return new UsingObservable(resourceFactory, observableFactory);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const { resourceFactory, observableFactory } = this;
         let resource;
         try {

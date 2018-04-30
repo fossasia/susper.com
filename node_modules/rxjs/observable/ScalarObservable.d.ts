@@ -14,5 +14,5 @@ export declare class ScalarObservable<T> extends Observable<T> {
     static dispatch(state: any): void;
     _isScalar: boolean;
     constructor(value: T, scheduler?: IScheduler);
-    protected _subscribe(subscriber: Subscriber<T>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): TeardownLogic;
 }

@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.5"></a>
+## [1.2.5](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/compare/v1.2.4...v1.2.5) (2018-04-18)
+
+
+### Bug Fixes
+
+* don't handle invalid source map ([#268](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/268)) ([693e45e](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/693e45e))
+
+
+### Performance Improvements
+
+* **sourcemaps:** reduce memory usage ([#276](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/276)) ([0b11134](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/0b11134))
+
+
+
 <a name="1.2.4"></a>
 ## [1.2.4](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/compare/v1.2.3...v1.2.4) (2018-03-16)
 

@@ -60,6 +60,8 @@ options are:
 * opts.isFile - function to asynchronously test whether a file exists
 
 * `opts.packageFilter(pkg, pkgfile)` - transform the parsed package.json contents before looking at the "main" field
+  * pkg - package data
+  * pkgfile - path to package.json
 
 * `opts.pathFilter(pkg, path, relativePath)` - transform a path within a package
   * pkg - package data
@@ -113,7 +115,9 @@ options are:
 
 * opts.isFile - function to synchronously test whether a file exists
 
-* `opts.packageFilter(pkg, pkgfile)` - transform the parsed package.json contents before looking at the "main" field
+* `opts.packageFilter(pkg, dir)` - transform the parsed package.json contents before looking at the "main" field
+  * pkg - package data
+  * dir - directory for package.json (Note: the second argument will change to "pkgfile" in v2)
 
 * `opts.pathFilter(pkg, path, relativePath)` - transform a path within a package
   * pkg - package data

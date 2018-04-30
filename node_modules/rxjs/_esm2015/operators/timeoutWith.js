@@ -108,7 +108,7 @@ class TimeoutWithSubscriber extends OuterSubscriber {
         }
         super._next(value);
     }
-    _unsubscribe() {
+    /** @deprecated internal use only */ _unsubscribe() {
         this.action = null;
         this.scheduler = null;
         this.withObservable = null;

@@ -134,7 +134,7 @@ class BufferTimeSubscriber extends Subscriber {
         }
         super._complete();
     }
-    _unsubscribe() {
+    /** @deprecated internal use only */ _unsubscribe() {
         this.contexts = null;
     }
     onBufferFull(context) {

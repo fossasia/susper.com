@@ -310,8 +310,11 @@ HTTPParser.prototype.HEADER = function () {
       }
     }
 
+    // See https://github.com/creationix/http-parser-js/pull/53
+    // if both isChunked and hasContentLength, content length wins
+    // because it has been verified to match the body length already
     if (this.isChunked && hasContentLength) {
-      throw parseErrorCode('HPE_UNEXPECTED_CONTENT_LENGTH');
+      this.isChunked = false;
     }
 
     // Logic from https://github.com/nodejs/http-parser/blob/921d5585515a153fa00e411cf144280c59b41f90/http_parser.c#L1727-L1737

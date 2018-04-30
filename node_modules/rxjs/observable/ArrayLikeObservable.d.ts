@@ -14,5 +14,5 @@ export declare class ArrayLikeObservable<T> extends Observable<T> {
     static dispatch(state: any): void;
     private value;
     constructor(arrayLike: ArrayLike<T>, scheduler?: IScheduler);
-    protected _subscribe(subscriber: Subscriber<T>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): TeardownLogic;
 }

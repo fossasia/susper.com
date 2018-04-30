@@ -62,7 +62,7 @@ class RepeatWhenSubscriber extends OuterSubscriber {
             this.notifications.next();
         }
     }
-    _unsubscribe() {
+    /** @deprecated internal use only */ _unsubscribe() {
         const { notifications, retriesSubscription } = this;
         if (notifications) {
             notifications.unsubscribe();
@@ -74,7 +74,7 @@ class RepeatWhenSubscriber extends OuterSubscriber {
         }
         this.retries = null;
     }
-    _unsubscribeAndRecycle() {
+    /** @deprecated internal use only */ _unsubscribeAndRecycle() {
         const { notifications, retries, retriesSubscription } = this;
         this.notifications = null;
         this.retries = null;

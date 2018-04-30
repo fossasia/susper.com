@@ -44,5 +44,5 @@ export declare class PairsObservable<T> extends Observable<Array<string | T>> {
      */
     static create<T>(obj: Object, scheduler?: IScheduler): Observable<Array<string | T>>;
     constructor(obj: Object, scheduler?: IScheduler);
-    protected _subscribe(subscriber: Subscriber<Array<string | T>>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<Array<string | T>>): TeardownLogic;
 }

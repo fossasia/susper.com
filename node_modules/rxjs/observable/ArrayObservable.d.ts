@@ -21,5 +21,5 @@ export declare class ArrayObservable<T> extends Observable<T> {
     static dispatch(state: any): void;
     value: any;
     constructor(array: T[], scheduler?: IScheduler);
-    protected _subscribe(subscriber: Subscriber<T>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): TeardownLogic;
 }

@@ -211,7 +211,7 @@ var WebSocketSubject = (function (_super) {
             }
         };
     };
-    WebSocketSubject.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ WebSocketSubject.prototype._subscribe = function (subscriber) {
         var _this = this;
         var source = this.source;
         if (source) {

@@ -136,7 +136,8 @@ suite.addBatch(
   {
     topic: function() {
       var graph = []
-      for (var i = 0; i < 100000; i++) {
+        , nodeCount = 10000
+      for (var i = 0; i < nodeCount; i++) {
         graph.push([i, i + 1])
       }
       return graph
@@ -152,4 +153,5 @@ suite.addBatch(
 })
 .run(null, function() {
   (suite.results.broken+suite.results.errored) > 0 && process.exit(1)
+  process.exit(0)
 })

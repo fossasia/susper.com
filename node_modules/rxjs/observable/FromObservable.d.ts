@@ -12,5 +12,5 @@ export declare class FromObservable<T> extends Observable<T> {
     constructor(ish: ObservableInput<T>, scheduler?: IScheduler);
     static create<T>(ish: ObservableInput<T>, scheduler?: IScheduler): Observable<T>;
     static create<T, R>(ish: ArrayLike<T>, scheduler?: IScheduler): Observable<R>;
-    protected _subscribe(subscriber: Subscriber<T>): any;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): any;
 }

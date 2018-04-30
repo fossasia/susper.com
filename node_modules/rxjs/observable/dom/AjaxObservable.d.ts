@@ -67,7 +67,7 @@ export declare class AjaxObservable<T> extends Observable<T> {
     static create: AjaxCreationMethod;
     private request;
     constructor(urlOrRequest: string | AjaxRequest);
-    protected _subscribe(subscriber: Subscriber<T>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): TeardownLogic;
 }
 /**
  * We need this JSDoc comment for affecting ESDoc.

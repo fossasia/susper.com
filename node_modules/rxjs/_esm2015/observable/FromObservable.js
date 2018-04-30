@@ -99,7 +99,7 @@ export class FromObservable extends Observable {
         }
         throw new TypeError((ish !== null && typeof ish || ish) + ' is not observable');
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const ish = this.ish;
         const scheduler = this.scheduler;
         if (scheduler == null) {

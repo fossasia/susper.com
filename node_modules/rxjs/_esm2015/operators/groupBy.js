@@ -199,7 +199,7 @@ class GroupDurationSubscriber extends Subscriber {
     _next(value) {
         this.complete();
     }
-    _unsubscribe() {
+    /** @deprecated internal use only */ _unsubscribe() {
         const { parent, key } = this;
         this.key = this.parent = null;
         if (parent) {
@@ -222,7 +222,7 @@ export class GroupedObservable extends Observable {
         this.groupSubject = groupSubject;
         this.refCountSubscription = refCountSubscription;
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         const subscription = new Subscription();
         const { refCountSubscription, groupSubject } = this;
         if (refCountSubscription && !refCountSubscription.closed) {

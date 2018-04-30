@@ -86,7 +86,7 @@ class WindowSubscriber extends OuterSubscriber {
         this.window.complete();
         this.destination.complete();
     }
-    _unsubscribe() {
+    /** @deprecated internal use only */ _unsubscribe() {
         this.window = null;
     }
     openWindow() {

@@ -14,5 +14,6 @@ module.exports = {
   formatMaximum: require('./formatMaximum'),
   patternRequired: require('./patternRequired'),
   'switch': require('./switch'),
-  select: require('./select')
+  select: require('./select'),
+  transform: require('./transform')
 };

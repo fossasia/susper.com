@@ -57,5 +57,5 @@ export declare class ErrorObservable extends Observable<any> {
     static create(error: any, scheduler?: IScheduler): ErrorObservable;
     static dispatch(arg: DispatchArg): void;
     constructor(error: any, scheduler?: IScheduler);
-    protected _subscribe(subscriber: Subscriber<any>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<any>): TeardownLogic;
 }

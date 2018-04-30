@@ -12,7 +12,7 @@ export declare class ReplaySubject<T> extends Subject<T> {
     private _windowTime;
     constructor(bufferSize?: number, windowTime?: number, scheduler?: IScheduler);
     next(value: T): void;
-    protected _subscribe(subscriber: Subscriber<T>): Subscription;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): Subscription;
     _getNow(): number;
     private _trimBufferThenGetEvents();
 }

@@ -39,5 +39,5 @@ export declare class PromiseObservable<T> extends Observable<T> {
      */
     static create<T>(promise: PromiseLike<T>, scheduler?: IScheduler): Observable<T>;
     constructor(promise: PromiseLike<T>, scheduler?: IScheduler);
-    protected _subscribe(subscriber: Subscriber<T>): TeardownLogic;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T>): TeardownLogic;
 }

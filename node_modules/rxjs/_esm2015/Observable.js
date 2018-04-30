@@ -225,7 +225,7 @@ export class Observable {
             }, reject, resolve);
         });
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         return this.source.subscribe(subscriber);
     }
     /**

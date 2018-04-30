@@ -60,7 +60,7 @@ export class DeferObservable extends Observable {
     static create(observableFactory) {
         return new DeferObservable(observableFactory);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         return new DeferSubscriber(subscriber, this.observableFactory);
     }
 }

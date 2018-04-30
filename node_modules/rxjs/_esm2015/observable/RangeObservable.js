@@ -58,7 +58,7 @@ export class RangeObservable extends Observable {
         state.start = start + 1;
         this.schedule(state);
     }
-    _subscribe(subscriber) {
+    /** @deprecated internal use only */ _subscribe(subscriber) {
         let index = 0;
         let start = this.start;
         const count = this._count;

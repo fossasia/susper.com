@@ -74,7 +74,7 @@ var IntervalObservable = (function (_super) {
         state.index += 1;
         this.schedule(state, period);
     };
-    IntervalObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ IntervalObservable.prototype._subscribe = function (subscriber) {
         var index = 0;
         var period = this.period;
         var scheduler = this.scheduler;

@@ -1,15 +1,11 @@
-# PostCSS [![Travis Build Status][travis-img]][travis] [![AppVeyor Build Status][appveyor-img]][appveyor] [![Gitter][chat-img]][chat]
+# PostCSS [![Gitter][chat-img]][chat]
 
 <img align="right" width="95" height="95"
      alt="哲学家的石头 - PostCSS 的 logo"
      src="http://postcss.github.io/postcss/logo.svg">
 
-[appveyor-img]: https://img.shields.io/appveyor/ci/ai/postcss.svg?label=windows
-[travis-img]:   https://img.shields.io/travis/postcss/postcss.svg?label=unix
-[chat-img]:     https://img.shields.io/badge/Gitter-Join_the_PostCSS_chat-brightgreen.svg
-[appveyor]:     https://ci.appveyor.com/project/ai/postcss
-[travis]:       https://travis-ci.org/postcss/postcss
-[chat]:         https://gitter.im/postcss/postcss
+[chat-img]: https://img.shields.io/badge/Gitter-Join_the_PostCSS_chat-brightgreen.svg
+[chat]:     https://gitter.im/postcss/postcss
 
 PostCSS 是一个允许使用 JS 插件转换样式的工具。
 这些插件可以检查（lint）你的 CSS，支持 CSS Variables 和 Mixins，
@@ -18,8 +14,8 @@ PostCSS 是一个允许使用 JS 插件转换样式的工具。
 PostCSS 在工业界被广泛地应用，其中不乏很多有名的行业领导者，如：维基百科，Twitter，阿里巴巴，
 JetBrains。PostCSS 的 [Autoprefixer] 插件是最流行的 CSS 处理工具之一。
 
-**Twitter 账号:** [@postcss](https://twitter.com/postcss)。<br>
-**支持 / 讨论:**   [Gitter](https://gitter.im/postcss/postcss)。<br>
+**Twitter 账号:** [@postcss](https://twitter.com/postcss)<br>
+**支持 / 讨论:**   [Gitter](https://gitter.im/postcss/postcss)<br>
 
 如果需要 PostCSS 商业支持（如咨询，提升公司的前端文化，
 PostCSS 插件），请联系 [Evil Martians](https://evilmartians.com/?utm_source=postcss)
@@ -121,7 +117,10 @@ PostCSS 可以转化样式到任意语法，不仅仅是 CSS。
 如果还没有支持你最喜欢的语法，你可以编写一个解释器以及（或者）一个 stringifier 来拓展 PostCSS。
 
 * [`sugarss`] 是一个以缩进为基础的语法，类似于 Sass 和 Stylus。
-* [`postcss-html`] 允许你在 HTML / [Markdown](https://daringfireball.net/projects/markdown/syntax) / [Vue component](https://vue-loader.vuejs.org/) 里编写样式。
+* [`postcss-syntax`] 通过文件扩展名自动切换语法。
+* [`postcss-html`] 解析类 HTML 文件里`<style>`标签中的样式。
+* [`postcss-markdown`] 解析 Markdown 文件里代码块中的样式。
+* [`postcss-styled`] 解析源文件里模板字面量中的CSS。
 * [`postcss-scss`] 允许你使用 SCSS *(但并没有将 SCSS 编译到 CSS)*。
 * [`postcss-sass`] 允许你使用 Sass *(但并没有将 Sass 编译到 CSS)*。
 * [`postcss-less`] 允许你使用 Less *(但并没有将 LESS 编译到 CSS)*。
@@ -132,7 +131,10 @@ PostCSS 可以转化样式到任意语法，不仅仅是 CSS。
 
 [`postcss-less-engine`]: https://github.com/Crunch/postcss-less
 [`postcss-safe-parser`]: https://github.com/postcss/postcss-safe-parser
+[`postcss-syntax`]:      https://github.com/gucong3000/postcss-syntax
 [`postcss-html`]:        https://github.com/gucong3000/postcss-html
+[`postcss-markdown`]:    https://github.com/gucong3000/postcss-markdown
+[`postcss-styled`]:      https://github.com/gucong3000/postcss-styled
 [`postcss-scss`]:        https://github.com/postcss/postcss-scss
 [`postcss-sass`]:        https://github.com/AleshaOleg/postcss-sass
 [`postcss-less`]:        https://github.com/webschik/postcss-less

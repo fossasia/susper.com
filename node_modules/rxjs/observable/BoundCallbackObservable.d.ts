@@ -33,7 +33,7 @@ export declare class BoundCallbackObservable<T> extends Observable<T> {
     static create<T>(callbackFunc: Function, selector?: void, scheduler?: IScheduler): (...args: any[]) => Observable<T>;
     static create<T>(callbackFunc: Function, selector?: (...args: any[]) => T, scheduler?: IScheduler): (...args: any[]) => Observable<T>;
     constructor(callbackFunc: Function, selector: Function, args: any[], context: any, scheduler: IScheduler);
-    protected _subscribe(subscriber: Subscriber<T | T[]>): Subscription;
+    /** @deprecated internal use only */ _subscribe(subscriber: Subscriber<T | T[]>): Subscription;
     static dispatch<T>(state: {
         source: BoundCallbackObservable<T>;
         subscriber: Subscriber<T>;
