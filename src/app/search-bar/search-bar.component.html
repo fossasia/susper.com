@@ -4,7 +4,7 @@
   <div class="input-group" id="nav-group" [style.background-color]="themeService.searchbarbgColor">
 
     <div class="input-text">
-      <input #input type="text" name="query" class="form-control" id="nav-input" (ngModelChange)="onquery($event)"
+      <input #input type="text" name="query" class="form-control" id="nav-input"
            [(ngModel)]="searchdata.query" autocomplete="off" (keypress)="onEnter($event)" [style.width]="navbarWidth" 
            [style.background-color]="themeService.searchbarbgColor" [style.color]="themeService.searchbarColor">
     </div>
