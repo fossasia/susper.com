@@ -1,6 +1,7 @@
 import {
   Component, OnInit, Input, Output, AfterContentInit, ContentChild,
-  AfterViewChecked, AfterViewInit, ViewChild, ViewChildren
+  AfterViewChecked, AfterViewInit, ViewChild, ViewChildren, ElementRef,
+  HostListener
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -41,7 +42,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     private router: Router,
     private store: Store<fromRoot.State>,
     private speech: SpeechService,
-    public themeService: ThemeService
+    public themeService: ThemeService,
+    private _eref: ElementRef
   ) {
     this.wholequery$ = store.select(fromRoot.getwholequery);
 
@@ -81,6 +83,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       event.target.blur();
       event.preventDefault();
       this.submit();
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  sugClose(event: Event) {
+    if (!this._eref.nativeElement.contains(event.target)) {
+      this.displayStatus = 'hidebox';
     }
   }
 
