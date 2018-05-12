@@ -11,6 +11,17 @@
 }
 
 
+#about{
+    min-height:100vh;
+    position: relative;
+}
+
+footer{
+    position: absolute;
+    bottom: 0px;
+    width: 100%
+}
+
 
 .navbar-nav > li > a {
   text-align: left;
