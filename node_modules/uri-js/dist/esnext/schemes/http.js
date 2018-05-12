@@ -1,4 +1,4 @@
-export default {
+const handler = {
     scheme: "http",
     domainHost: true,
     parse: function (components, options) {
@@ -23,4 +23,5 @@ export default {
         return components;
     }
 };
+export default handler;
 //# sourceMappingURL=http.js.map

@@ -56,7 +56,7 @@ var _DEFAULT_LOCALS_NAME = 'locals';
 var _NAME = 'ejs';
 var _REGEX_STRING = '(<%%|%%>|<%=|<%-|<%_|<%#|<%|%>|-%>|_%>)';
 var _OPTS_PASSABLE_WITH_DATA = ['delimiter', 'scope', 'context', 'debug', 'compileDebug',
-  'client', '_with', 'rmWhitespace', 'strict', 'filename'];
+  'client', '_with', 'rmWhitespace', 'strict', 'filename', 'async'];
 // We don't allow 'cache' option to be passed in the data obj for
 // the normal `render` call, but this is where Express 2 & 3 put it
 // so we make an exception for `renderFile`
@@ -366,6 +366,7 @@ function stripSemi(str){
  *
  * @return {(TemplateFunction|ClientFunction)}
  * Depending on the value of `opts.client`, either type might be returned.
+ * Note that the return type of the function also depends on the value of `opts.async`.
  * @public
  */
 
@@ -398,7 +399,8 @@ exports.compile = function compile(template, opts) {
  * @param {String}   template EJS template
  * @param {Object}  [data={}] template data
  * @param {Options} [opts={}] compilation and rendering options
- * @return {String}
+ * @return {(String|Promise<String>)}
+ * Return value type depends on `opts.async`.
  * @public
  */
 
@@ -510,8 +512,10 @@ function Template(text, opts) {
   options.cache = opts.cache || false;
   options.rmWhitespace = opts.rmWhitespace;
   options.root = opts.root;
+  options.outputFunctionName = opts.outputFunctionName;
   options.localsName = opts.localsName || exports.localsName || _DEFAULT_LOCALS_NAME;
   options.views = opts.views;
+  options.async = opts.async;
 
   if (options.strict) {
     options._with = false;
@@ -548,10 +552,14 @@ Template.prototype = {
     var prepended = '';
     var appended = '';
     var escapeFn = opts.escapeFunction;
+    var asyncCtor;
 
     if (!this.source) {
       this.generateSource();
       prepended += '  var __output = [], __append = __output.push.bind(__output);' + '\n';
+      if (opts.outputFunctionName) {
+        prepended += '  var ' + opts.outputFunctionName + ' = __append;' + '\n';
+      }
       if (opts._with !== false) {
         prepended +=  '  with (' + opts.localsName + ' || {}) {' + '\n';
         appended += '  }' + '\n';
@@ -590,7 +598,25 @@ Template.prototype = {
     }
 
     try {
-      fn = new Function(opts.localsName + ', escapeFn, include, rethrow', src);
+      if (opts.async) {
+        // Have to use generated function for this, since in envs without support,
+        // it breaks in parsing
+        try {
+          asyncCtor = (new Function('return (async function(){}).constructor;'))();
+        }
+        catch(e) {
+          if (e instanceof SyntaxError) {
+            throw new Error('This environment does not support async/await');
+          }
+          else {
+            throw e;
+          }
+        }
+      }
+      else {
+        asyncCtor = Function;
+      }
+      fn = new asyncCtor(opts.localsName + ', escapeFn, include, rethrow', src);
     }
     catch(e) {
       // istanbul ignore else
@@ -601,6 +627,10 @@ Template.prototype = {
         e.message += ' while compiling ejs\n\n';
         e.message += 'If the above error is not helpful, you may want to try EJS-Lint:\n';
         e.message += 'https://github.com/RyanZim/EJS-Lint';
+        if (!e.async) {
+          e.message += '\n';
+          e.message += 'Or, if you meant to create an async function, pass async: true as an option.';
+        }
       }
       throw e;
     }
@@ -1500,7 +1530,7 @@ module.exports={
     "engine",
     "ejs"
   ],
-  "version": "2.5.8",
+  "version": "2.6.0",
   "author": "Matthew Eernisse <mde@fleegix.org> (http://fleegix.org)",
   "contributors": [
     "Timothy Gu <timothygu99@gmail.com> (https://timothygu.github.io)"

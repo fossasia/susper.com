@@ -179,3 +179,30 @@ tape('preserves error', function (t) {
   s.resume()
   s.write('hi')
 })
+
+tape('preserves error again', function (t) {
+  var ws = new stream.Writable()
+  var rs = new stream.Readable()
+
+  ws._write = function (data, enc, cb) {
+    cb(null)
+  }
+  rs._read = function () {
+    this.push(Buffer.alloc(16 * 1024))
+  }
+
+  var pumpifyErr = pumpify(
+    through(),
+    through(function(chunk, _, cb) {
+      cb(new Error('test'))
+    }),
+    ws
+  )
+
+  rs.pipe(pumpifyErr)
+    .on('error', function (err) {
+      t.ok(err)
+      t.ok(err.message !== 'premature close', 'does not close with premature close')
+      t.end()
+    })
+})

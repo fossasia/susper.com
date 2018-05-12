@@ -2,9 +2,9 @@
   "static": {
     "urls": {
       "/not-found-bg.8f346a53ee078b98deb0.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
-      "/main.a8c0b5d4a195e2aea774.bundle.js": "f14ece57907b3bc5b52426a27b3ea01f61059179",
+      "/main.703c47202d89eadb94f0.bundle.js": "896a7edabb0f1a4297a66964a22b099557a72310",
       "/sw-register.28c36090723540135ce0.bundle.js": "b8770a453e7d4cdb124dc9ae245d86f88b2fe209",
-      "/vendor.64e6ed846213d9952782.bundle.js": "39664b009f3cd688929de08f45bd215334d1720d",
+      "/vendor.41c7b3522bb4c793c6ba.bundle.js": "b04afb2b52a8848c213d54c0585f283c6e64e305",
       "/inline.31e1fb380eb7cf3d75b1.bundle.js": "afe1b233aaffec401067c782e7080cd11903896e",
       "/styles.9c0ad738f18adc3d19ed.bundle.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "/assets/images/not-found-bg.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
@@ -23,8 +23,8 @@
       "/assets/css/yacysearch-result.css": "682035a60a631b53a2588787f4dae55079fca9c0",
       "/assets/css/yacysearch-yaml.css": "9d9792ddd7c8ae38aeb3324f904702d02df26a55",
       "/assets/images/blog.png": "b6fac88d2120ae2240046a3c0a2931e1353c852e",
-      "/assets/images/boat.png": "dc51be085582efa213bad78fc9c6beab69b54c92",
       "/assets/images/bug.png": "b1bb93eb4bde533ca084050a626dda4c760fc0a8",
+      "/assets/images/boat.png": "dc51be085582efa213bad78fc9c6beab69b54c92",
       "/assets/images/code.png": "ec8e9210de7746616d4e9fe2b5fb71c8dfbb7175",
       "/assets/images/contact.png": "75673134d220e337aa86f0b32b5f80c710d2d54d",
       "/assets/images/eventyay.png": "9e46f8a2634f4d9fbbdb7cb4fb35869243e8fc72",
@@ -41,7 +41,7 @@
       "/assets/images/susper.svg": "7a8cb12bd11e689754c7d9dbb8504ba2902c14d9",
       "/assets/images/terminal.png": "2aa0054d6e388a6cd5630e3eca2350cfb289955b",
       "/assets/images/YaCyLogo2011_60.png": "954f9d626d69a7861e9e84735c44b0a8bc759c97",
-      "/index.html": "4d53a4a8c70dc2fdea848d7b207c93eb94fb67d0"
+      "/index.html": "b7ac591119114524b4b41bde8dd06ce7cf9d5dbb"
     },
     "_generatedFromWebpack": true
   }

@@ -1,3 +1,20 @@
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/karma-runner/karma-jasmine/compare/v1.1.0...v1.1.2) (2018-05-02)
+
+
+### Bug Fixes
+
+* **adapter:** Remove incorrect function and its call. ([#183](https://github.com/karma-runner/karma-jasmine/issues/183)) ([cada4a9](https://github.com/karma-runner/karma-jasmine/commit/cada4a9))
+* **time:** report correct time since Jasmine v2.9.0 ([#197](https://github.com/karma-runner/karma-jasmine/issues/197)) ([022ee04](https://github.com/karma-runner/karma-jasmine/commit/022ee04)), closes [#196](https://github.com/karma-runner/karma-jasmine/issues/196)
+
+
+### Features
+
+* Propagate errors thrown in afterAll blocks ([f3fa264](https://github.com/karma-runner/karma-jasmine/commit/f3fa264)), closes [#161](https://github.com/karma-runner/karma-jasmine/issues/161)
+* update the version to 2.0.0 and restrict node version available to 4.0 ([c84316e](https://github.com/karma-runner/karma-jasmine/commit/c84316e))
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/karma-runner/karma-jasmine/compare/v1.1.0...v1.1.1) (2017-12-01)
 

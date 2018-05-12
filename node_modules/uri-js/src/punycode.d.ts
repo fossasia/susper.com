@@ -6,15 +6,19 @@ declare module 'punycode' {
 	function toASCII(string:string):string;
 	function toUnicode(string:string):string;
 
-	export default {
-		'version': '2.2.0',
+	interface Punycode {
+		'version': '2.2.0';
 		'ucs2': {
-			'decode': ucs2decode,
-			'encode': ucs2encode
+			'decode': typeof ucs2decode;
+			'encode': typeof ucs2encode;
 		},
-		'decode': decode,
-		'encode': encode,
-		'toASCII': toASCII,
-		'toUnicode': toUnicode
-	};
+		'decode': typeof decode;
+		'encode': typeof encode;
+		'toASCII': typeof toASCII;
+		'toUnicode': typeof toUnicode;
+	}
+
+	const punycode:Punycode;
+
+	export default punycode;
 }

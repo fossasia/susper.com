@@ -1,3 +1,19 @@
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/karma-runner/karma-coverage/compare/v1.1.1...v1.1.2) (2018-05-03)
+
+
+### Bug Fixes
+
+* **build:** Update to lodash 4 ([d6d21d2](https://github.com/karma-runner/karma-coverage/commit/d6d21d2)), closes [#242](https://github.com/karma-runner/karma-coverage/issues/242)
+* **reporter:** replace colons in the output path ([3b2bffa](https://github.com/karma-runner/karma-coverage/commit/3b2bffa))
+
+
+### BREAKING CHANGES
+
+* **reporter:** the output folder names change, they no longer contain `:`
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/karma-runner/karma-coverage/compare/v1.1.0...v1.1.1) (2016-07-23)
 

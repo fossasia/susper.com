@@ -266,7 +266,8 @@ var CoverageReporter = function (rootConfig, helper, logger, emitter) {
 
         var mainDir = reporterConfig.dir || config.dir
         var subDir = reporterConfig.subdir || config.subdir
-        var simpleOutputDir = generateOutputDir(browser.name, mainDir, subDir)
+        var browserName = browser.name.replace(':', '')
+        var simpleOutputDir = generateOutputDir(browserName, mainDir, subDir)
         var resolvedOutputDir = path.resolve(basePath, simpleOutputDir)
 
         var outputDir = helper.normalizeWinPath(resolvedOutputDir)

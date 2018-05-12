@@ -1,7 +1,10 @@
-import { URIComponents, URIOptions } from "../uri";
-declare var _default: {
-    scheme: string;
-    parse: (components: URIComponents, options: URIOptions) => URIComponents;
-    serialize: (components: URIComponents, options: URIOptions) => URIComponents;
-};
-export default _default;
+import { URISchemeHandler, URIComponents, URIOptions } from "../uri";
+export interface URNComponents extends URIComponents {
+    nid?: string;
+    nss?: string;
+}
+export interface URNOptions extends URIOptions {
+    nid?: string;
+}
+declare const handler: URISchemeHandler<URNComponents, URNOptions>;
+export default handler;

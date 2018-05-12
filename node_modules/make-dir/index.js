@@ -25,10 +25,12 @@ const checkPath = pth => {
 module.exports = (input, opts) => Promise.resolve().then(() => {
 	checkPath(input);
 	opts = Object.assign({}, defaults, opts);
-	const fsP = pify(opts.fs);
+
+	const mkdir = pify(opts.fs.mkdir);
+	const stat = pify(opts.fs.stat);
 
 	const make = pth => {
-		return fsP.mkdir(pth, opts.mode)
+		return mkdir(pth, opts.mode)
 			.then(() => pth)
 			.catch(err => {
 				if (err.code === 'ENOENT') {
@@ -39,7 +41,7 @@ module.exports = (input, opts) => Promise.resolve().then(() => {
 					return make(path.dirname(pth)).then(() => make(pth));
 				}
 
-				return fsP.stat(pth)
+				return stat(pth)
 					.then(stats => stats.isDirectory() ? pth : Promise.reject())
 					.catch(() => {
 						throw err;

@@ -1,25 +1,23 @@
-import { SCHEMES } from "../uri";
 const UUID = /^[0-9A-Fa-f]{8}(?:\-[0-9A-Fa-f]{4}){3}\-[0-9A-Fa-f]{12}$/;
+const UUID_PARSE = /^[0-9A-Fa-f\-]{36}/;
 //RFC 4122
-export default {
+const handler = {
     scheme: "urn:uuid",
-    parse: function (components, options) {
-        if (!options.tolerant && (!components.path || !components.path.match(UUID))) {
-            components.error = components.error || "UUID is not valid.";
+    parse: function (urnComponents, options) {
+        const uuidComponents = urnComponents;
+        uuidComponents.uuid = uuidComponents.nss;
+        uuidComponents.nss = undefined;
+        if (!options.tolerant && (!uuidComponents.uuid || !uuidComponents.uuid.match(UUID))) {
+            uuidComponents.error = uuidComponents.error || "UUID is not valid.";
         }
-        return components;
+        return uuidComponents;
     },
-    serialize: function (components, options) {
-        //ensure UUID is valid
-        if (!options.tolerant && (!components.path || !components.path.match(UUID))) {
-            //invalid UUIDs can not have this scheme
-            components.scheme = undefined;
-        }
-        else {
-            //normalize UUID
-            components.path = (components.path || "").toLowerCase();
-        }
-        return SCHEMES["urn"].serialize(components, options);
-    }
+    serialize: function (uuidComponents, options) {
+        const urnComponents = uuidComponents;
+        //normalize UUID
+        urnComponents.nss = (uuidComponents.uuid || "").toLowerCase();
+        return urnComponents;
+    },
 };
+export default handler;
 //# sourceMappingURL=urn-uuid.js.map

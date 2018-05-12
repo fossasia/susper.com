@@ -163,14 +163,7 @@ function KarmaReporter (tc, jasmineEnv) {
   // Save link on native Date object
   // because user can mock it
   var _Date = Date
-
-  /**
-   * @param suite
-   * @returns {boolean} Return true if it is system jasmine top level suite
-   */
-  function isTopLevelSuite (suite) {
-    return suite.description === 'Jasmine_TopLevel_Suite'
-  }
+  var startTimeCurrentSpec = new _Date().getTime()
 
   function handleGlobalErrors (result) {
     if (result.failedExpectations && result.failedExpectations.length) {
@@ -216,9 +209,7 @@ function KarmaReporter (tc, jasmineEnv) {
   }
 
   this.suiteStarted = function (result) {
-    if (!isTopLevelSuite(result)) {
-      currentSuite = currentSuite.addChild(result.description)
-    }
+    currentSuite = currentSuite.addChild(result.description)
   }
 
   this.suiteDone = function (result) {
@@ -235,23 +226,24 @@ function KarmaReporter (tc, jasmineEnv) {
     currentSuite = currentSuite.parent
   }
 
-  this.specStarted = function (specResult) {
-    specResult.startTime = new _Date().getTime()
+  this.specStarted = function () {
+    startTimeCurrentSpec = new _Date().getTime()
   }
 
   this.specDone = function (specResult) {
-    var skipped = specResult.status === 'disabled' || specResult.status === 'pending'
+    var skipped = specResult.status === 'disabled' || specResult.status === 'pending' || specResult.status === 'excluded'
 
     var result = {
+      fullName: specResult.fullName,
       description: specResult.description,
       id: specResult.id,
       log: [],
       skipped: skipped,
-      disabled: specResult.status === 'disabled',
+      disabled: specResult.status === 'disabled' || specResult.status === 'excluded',
       pending: specResult.status === 'pending',
       success: specResult.failedExpectations.length === 0,
       suite: [],
-      time: skipped ? 0 : new _Date().getTime() - specResult.startTime,
+      time: skipped ? 0 : new _Date().getTime() - startTimeCurrentSpec,
       executedExpectationsCount: specResult.failedExpectations.length + specResult.passedExpectations.length
     }
 
@@ -349,6 +341,7 @@ function createStartFn (karma, jasmineEnv) {
     jasmineEnv = jasmineEnv || window.jasmine.getEnv()
 
     setOption(jasmineConfig.stopOnFailure, jasmineEnv.throwOnExpectationFailure)
+    setOption(jasmineConfig.failFast, jasmineEnv.stopOnSpecFailure)
     setOption(jasmineConfig.seed, jasmineEnv.seed)
     setOption(jasmineConfig.random, jasmineEnv.randomizeTests)
 
@@ -357,7 +350,7 @@ function createStartFn (karma, jasmineEnv) {
   }
 
   function setOption (option, set) {
-    if (option != null) {
+    if (option != null && typeof set === 'function') {
       set(option)
     }
   }

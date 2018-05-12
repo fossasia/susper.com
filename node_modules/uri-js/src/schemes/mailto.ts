@@ -1,4 +1,4 @@
-import { URIComponents, URIOptions } from "../uri";
+import { URISchemeHandler, URIComponents, URIOptions } from "../uri";
 import { pctEncChar, pctDecChars, unescapeComponent } from "../uri";
 import punycode from "punycode";
 import { merge, subexp, toUpperCase, toArray } from "../util";
@@ -70,17 +70,18 @@ function decodeUnreserved(str:string):string {
 	return (!decStr.match(UNRESERVED) ? str : decStr);
 }
 
-export default {
+const handler:URISchemeHandler<MailtoComponents> =  {
 	scheme : "mailto",
 
-	parse : function (components:MailtoComponents, options:URIOptions):MailtoComponents {
-		const to = components.to = (components.path ? components.path.split(",") : []);
-		components.path = undefined;
+	parse : function (components:URIComponents, options:URIOptions):MailtoComponents {
+		const mailtoComponents = components as MailtoComponents;
+		const to = mailtoComponents.to = (mailtoComponents.path ? mailtoComponents.path.split(",") : []);
+		mailtoComponents.path = undefined;
 
-		if (components.query) {
+		if (mailtoComponents.query) {
 			let unknownHeaders = false
 			const headers:MailtoHeaders = {};
-			const hfields = components.query.split("&");
+			const hfields = mailtoComponents.query.split("&");
 
 			for (let x = 0, xl = hfields.length; x < xl; ++x) {
 				const hfield = hfields[x].split("=");
@@ -93,10 +94,10 @@ export default {
 						}
 						break;
 					case "subject":
-						components.subject = unescapeComponent(hfield[1], options);
+						mailtoComponents.subject = unescapeComponent(hfield[1], options);
 						break;
 					case "body":
-						components.body = unescapeComponent(hfield[1], options);
+						mailtoComponents.body = unescapeComponent(hfield[1], options);
 						break;
 					default:
 						unknownHeaders = true;
@@ -105,10 +106,10 @@ export default {
 				}
 			}
 
-			if (unknownHeaders) components.headers = headers;
+			if (unknownHeaders) mailtoComponents.headers = headers;
 		}
 
-		components.query = undefined;
+		mailtoComponents.query = undefined;
 
 		for (let x = 0, xl = to.length; x < xl; ++x) {
 			const addr = to[x].split("@");
@@ -120,7 +121,7 @@ export default {
 				try {
 					addr[1] = punycode.toASCII(unescapeComponent(addr[1], options).toLowerCase());
 				} catch (e) {
-					components.error = components.error || "Email address's domain name can not be converted to ASCII via punycode: " + e;
+					mailtoComponents.error = mailtoComponents.error || "Email address's domain name can not be converted to ASCII via punycode: " + e;
 				}
 			} else {
 				addr[1] = unescapeComponent(addr[1], options).toLowerCase();
@@ -129,11 +130,12 @@ export default {
 			to[x] = addr.join("@");
 		}
 
-		return components;
+		return mailtoComponents;
 	},
 
-	serialize : function (components:MailtoComponents, options:URIOptions):URIComponents {
-		const to = toArray(components.to);
+	serialize : function (mailtoComponents:MailtoComponents, options:URIOptions):URIComponents {
+		const components = mailtoComponents as URIComponents;
+		const to = toArray(mailtoComponents.to);
 		if (to) {
 			for (let x = 0, xl = to.length; x < xl; ++x) {
 				const toAddr = String(to[x]);
@@ -154,10 +156,10 @@ export default {
 			components.path = to.join(",");
 		}
 
-		const headers = components.headers = components.headers || {};
+		const headers = mailtoComponents.headers = mailtoComponents.headers || {};
 
-		if (components.subject) headers["subject"] = components.subject;
-		if (components.body) headers["body"] = components.body;
+		if (mailtoComponents.subject) headers["subject"] = mailtoComponents.subject;
+		if (mailtoComponents.body) headers["body"] = mailtoComponents.body;
 
 		const fields = [];
 		for (const name in headers) {
@@ -176,3 +178,5 @@ export default {
 		return components;
 	}
 }
+
+export default handler;

@@ -38,7 +38,7 @@ var define = function(opts) {
 
     pump(streams, function(err) {
       self.removeListener('close', onclose)
-      if (err) return self.destroy(err)
+      if (err) return self.destroy(err.message === 'premature close' ? null : err)
       ended = true
       self.uncork()
     })
@@ -51,6 +51,6 @@ var define = function(opts) {
   return Pumpify
 }
 
-module.exports = define({destroy:false})
-module.exports.obj = define({destroy:false, objectMode:true, highWaterMark:16})
+module.exports = define({autoDestroy:false, destroy:false})
+module.exports.obj = define({autoDestroy: false, destroy:false, objectMode:true, highWaterMark:16})
 module.exports.ctor = define

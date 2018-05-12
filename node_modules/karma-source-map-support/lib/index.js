@@ -8,7 +8,9 @@ var createPattern = function(pattern) {
 
 var init = function(files) {
   files.unshift(createPattern(path.join(__dirname, 'client.js')));
-  files.unshift(createPattern(path.join(smsPath, 'browser-source-map-support.js')));
+  files.unshift(
+    createPattern(path.join(smsPath, 'browser-source-map-support.js'))
+  );
 };
 
 init.$inject = ['config.files'];

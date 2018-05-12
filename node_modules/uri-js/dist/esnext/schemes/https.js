@@ -1,8 +1,9 @@
 import http from "./http";
-export default {
+const handler = {
     scheme: "https",
     domainHost: http.domainHost,
     parse: http.parse,
     serialize: http.serialize
 };
+export default handler;
 //# sourceMappingURL=https.js.map

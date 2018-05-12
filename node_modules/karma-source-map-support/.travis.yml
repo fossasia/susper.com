@@ -1,7 +1,7 @@
 sudo: false
 language: node_js
 node_js:
-  - "6"
+  - "10"
 
 cache:
   directories:
@@ -10,3 +10,4 @@ cache:
 branches:
   only:
     - master
+    - /^greenkeeper/.*$/

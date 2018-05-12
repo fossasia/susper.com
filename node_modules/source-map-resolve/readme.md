@@ -1,8 +1,6 @@
 Overview [![Build Status](https://travis-ci.org/lydell/source-map-resolve.svg?branch=master)](https://travis-ci.org/lydell/source-map-resolve)
 ========
 
-[![browser support](https://ci.testling.com/lydell/source-map-resolve.png)](https://ci.testling.com/lydell/source-map-resolve)
-
 Resolve the source map and/or sources for a generated file.
 
 ```js
@@ -209,9 +207,6 @@ Tests
 First off, run `npm install` to install testing modules and browser polyfills.
 
 `npm test` lints the code and runs the test suite in Node.js.
-
-To run the tests in a browser, run `testling` (`npm install -g testling`) or
-`testling -u`.
 
 x-package.json5
 ---------------

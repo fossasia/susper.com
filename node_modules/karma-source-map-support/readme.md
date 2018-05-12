@@ -1,5 +1,7 @@
 # karma-source-map-support
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/tschaub/karma-source-map-support.svg)](https://greenkeeper.io/)
+
 Karma plugin for inline sourcemap support.
 
 ## Motivation

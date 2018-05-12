@@ -1,4 +1,4 @@
-import { URIComponents, URIOptions } from "../uri";
+import { URISchemeHandler, URIComponents } from "../uri";
 export interface MailtoHeaders {
     [hfname: string]: string;
 }
@@ -8,9 +8,5 @@ export interface MailtoComponents extends URIComponents {
     subject?: string;
     body?: string;
 }
-declare var _default: {
-    scheme: string;
-    parse: (components: MailtoComponents, options: URIOptions) => MailtoComponents;
-    serialize: (components: MailtoComponents, options: URIOptions) => URIComponents;
-};
-export default _default;
+declare const handler: URISchemeHandler<MailtoComponents>;
+export default handler;

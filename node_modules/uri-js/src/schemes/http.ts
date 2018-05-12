@@ -1,6 +1,6 @@
-import { URIComponents, URIOptions } from "../uri";
+import { URISchemeHandler, URIComponents, URIOptions } from "../uri";
 
-export default {
+const handler:URISchemeHandler = {
 	scheme : "http",
 
 	domainHost : true,
@@ -32,3 +32,5 @@ export default {
 		return components;
 	}
 };
+
+export default handler;

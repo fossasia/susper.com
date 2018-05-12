@@ -1,4 +1,4 @@
-core-js@2.5.5
+core-js@2.5.6
 MIT
 Copyright (c) 2014-2018 Denis Pushkarev
 
