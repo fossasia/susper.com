@@ -7,6 +7,7 @@
         <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
         <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
         <li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li>
+        <li [class.active_view]="Display('documents')" (click)="dcmntClick()">Documents</li>
         <li class="dropdown">
           <a href="#" id="settings" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             Settings
@@ -128,6 +129,35 @@
           <div class="noResults">
             <p>Your search -
               <em>{{searchdata.query}}</em> - did not match any videos.</p>
+            <p>Suggestions:</p>
+            <ul>
+              <li>Make sure that all words are spelled correctly.</li>
+              <li>Try different keywords.</li>
+              <li>Try more general keywords.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="feed container">
+          <div *ngFor="let item of items$|async" class="result">
+            <div class="title">
+              <a class="title-pointer" href="{{item.link}}" [style.color]="themeService.titleColor">{{item.title}}</a>
+            </div>
+            <div class="link">
+              <p [style.color]="themeService.linkColor">{{item.link}}</p>
+            </div>
+            <div class="description">
+                  <p [style.color]="themeService.descriptionColor">{{item.pubDate|date:'MMMM d, yyyy'}} - {{item.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End-->
+      <!--Documents Section -->
+      <div class="video-result" *ngIf="Display('documents')">
+        <div *ngIf="totalNumber < 1" class="container-fluid">
+          <div class="noResults">
+            <p>Your search -
+              <em>{{searchdata.query}}</em> - did not match any documents.</p>
             <p>Suggestions:</p>
             <ul>
               <li>Make sure that all words are spelled correctly.</li>

@@ -121,6 +121,19 @@ export class ResultsComponent implements OnInit {
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
 
+  dcmntClick() {
+     let urldata = Object.assign({}, this.searchdata);
+    this.getPresentPage(1);
+    this.resultDisplay = 'documents';
+    urldata.start = 0;
+    urldata.rows = 100;
+    urldata.nopagechange = false;
+    urldata.append = false;
+    urldata.fq = 'url_file_ext_s:(pdf+OR+doc+OR+ppt)';
+    urldata.resultDisplay = this.resultDisplay;
+    this.store.dispatch(new queryactions.QueryServerAction(urldata));
+  }
+
   docClick() {
     let urldata = Object.assign({}, this.searchdata);
     this.getPresentPage(1);
@@ -164,6 +177,10 @@ export class ResultsComponent implements OnInit {
           urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
         } else if (query['fq'].includes('avi')) {
           this.resultDisplay = 'videos';
+          urldata.fq = 'url_file_ext_s:(avi+OR+mov+OR+flw+OR+mp4)';
+        } else if (query['fq'].includes('pdf')) {
+           this.resultDisplay = 'documents';
+          urldata.fq = 'url_file_ext_s:(pdf+OR+doc+OR+ppt)';
         } else {
           this.resultDisplay = 'all';
         }

@@ -178,6 +178,9 @@ describe('ResultsComponent', () => {
     } else if (component.resultDisplay.toLocaleLowerCase() === 'videos') {
       expect(compiled.querySelector('div.video-result div.title'));
       expect(compiled.querySelector('div.video-result div.link'));
+    } else if (component.resultDisplay.toLocaleLowerCase() === 'documents') {
+      expect(compiled.querySelector('div.document-result div.title'));
+      expect(compiled.querySelector('div.document-result div.link'));
     }
   });
 
