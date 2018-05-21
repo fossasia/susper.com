@@ -118,8 +118,8 @@ export class ThemeComponent implements OnInit {
     this.themeService.navbarbgColor = '#373737';
     this.themeService.searchbarColor = '#ffffff';
     this.themeService.searchbarbgColor = '#323232';
-    // (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.background = '#373737';
-    // (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.borderTop = '#222222';
+    (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.background = '#373737';
+    (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.borderTop = '#222222';
   }
 }
 
