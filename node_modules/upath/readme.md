@@ -1,4 +1,4 @@
-# upath v1.0.5
+# upath v1.1.0
 
 [![Build Status](https://travis-ci.org/anodynos/upath.svg?branch=master)](https://travis-ci.org/anodynos/upath)
 [![Up to date Status](https://david-dm.org/anodynos/upath.png)](https://david-dm.org/anodynos/upath)
@@ -20,7 +20,8 @@ Notes:
  * `upath.sep` is set to `'/'` for seamless replacement (as of 1.0.3).
 
  * upath has no runtime dependencies, except built-in `path` (as of 1.0.4)
-      
+ 
+ * travis-ci tested in node versions 4 to 10      
 
 ## Why ?
 

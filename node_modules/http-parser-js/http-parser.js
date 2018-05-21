@@ -20,6 +20,7 @@ function HTTPParser(type) {
   this.isUserCall = false;
   this.hadError = false;
 }
+HTTPParser.encoding = 'ascii';
 HTTPParser.maxHeaderSize = 80 * 1024; // maxHeaderSize (in bytes) is configurable, but 80kb by default;
 HTTPParser.REQUEST = 'REQUEST';
 HTTPParser.RESPONSE = 'RESPONSE';
@@ -174,7 +175,7 @@ HTTPParser.prototype.consumeLine = function () {
       chunk = this.chunk;
   for (var i = this.offset; i < end; i++) {
     if (chunk[i] === 0x0a) { // \n
-      var line = this.line + chunk.toString('ascii', this.offset, i);
+      var line = this.line + chunk.toString(HTTPParser.encoding, this.offset, i);
       if (line.charAt(line.length - 1) === '\r') {
         line = line.substr(0, line.length - 1);
       }
@@ -184,7 +185,7 @@ HTTPParser.prototype.consumeLine = function () {
     }
   }
   //line split over multiple chunks
-  this.line += chunk.toString('ascii', this.offset, this.end);
+  this.line += chunk.toString(HTTPParser.encoding, this.offset, this.end);
   this.offset = this.end;
 };
 

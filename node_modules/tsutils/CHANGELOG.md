@@ -1,3 +1,13 @@
+# 2.27.1
+
+Added support for TypeScript@3.0.0 nightly builds.
+
+# 2.27.0
+
+**Features:**
+
+* added `getIIFE` utility
+
 # 2.26.2
 
 **Bugfixes:**

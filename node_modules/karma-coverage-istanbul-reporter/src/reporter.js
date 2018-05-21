@@ -36,7 +36,10 @@ function CoverageIstanbulReporter(baseReporterDecorator, logger, config) {
     Object.keys(coverage).forEach(filename => {
       const fileCoverage = coverage[filename];
       if (fileCoverage.inputSourceMap && coverageConfig.fixWebpackSourcePaths) {
-        fileCoverage.inputSourceMap = util.fixWebpackSourcePaths(fileCoverage.inputSourceMap, config.webpack);
+        fileCoverage.inputSourceMap = util.fixWebpackSourcePaths(
+          fileCoverage.inputSourceMap,
+          config.webpack
+        );
       }
       if (
         coverageConfig.skipFilesWithNoCoverage &&
@@ -60,16 +63,19 @@ function CoverageIstanbulReporter(baseReporterDecorator, logger, config) {
   }
 
   function createReport(browserOrBrowsers, results) {
-    const reportConfigOverride = (!coverageConfig.combineBrowserReports && coverageConfig.dir) ?
-      {dir: coverageConfig.dir.replace(BROWSER_PLACEHOLDER, browserOrBrowsers.name)} :
-      {};
+    const reportConfigOverride =
+      !coverageConfig.combineBrowserReports && coverageConfig.dir
+        ? {
+            dir: coverageConfig.dir.replace(
+              BROWSER_PLACEHOLDER,
+              browserOrBrowsers.name
+            )
+          }
+        : {};
 
     const reportConfig = istanbul.config.loadObject({
-      reporting: Object.assign(
-        {},
-        coverageConfig,
-        reportConfigOverride
-      )
+      verbose: coverageConfig.verbose === true,
+      reporting: Object.assign({}, coverageConfig, reportConfigOverride)
     });
     const reportTypes = reportConfig.reporting.config.reports;
 
@@ -85,7 +91,8 @@ function CoverageIstanbulReporter(baseReporterDecorator, logger, config) {
       addCoverage(coverageMap, browserOrBrowsers);
     }
 
-    const remappedCoverageMap = sourceMapStore.transformCoverage(coverageMap).map;
+    const remappedCoverageMap = sourceMapStore.transformCoverage(coverageMap)
+      .map;
 
     log.debug('Writing coverage reports:', reportTypes);
     reporter.write(remappedCoverageMap);
@@ -128,13 +135,27 @@ function CoverageIstanbulReporter(baseReporterDecorator, logger, config) {
     const failedGlobalTypes = checkThresholds(thresholds.global, globalSummary);
     failedGlobalTypes.forEach(type => {
       thresholdCheckFailed = true;
-      logThresholdMessage(thresholds, `Coverage for ${type} (${globalSummary[type].pct}%) does not meet global threshold (${thresholds.global[type]}%)`);
+      logThresholdMessage(
+        thresholds,
+        `Coverage for ${type} (${
+          globalSummary[type].pct
+        }%) does not meet global threshold (${thresholds.global[type]}%)`
+      );
     });
 
     remappedCoverageMap.files().forEach(file => {
-      const fileThresholds = Object.assign({}, thresholds.each, util.overrideThresholds(file, thresholds.each.overrides, config.basePath));
+      const fileThresholds = Object.assign(
+        {},
+        thresholds.each,
+        util.overrideThresholds(
+          file,
+          thresholds.each.overrides,
+          config.basePath
+        )
+      );
       delete fileThresholds.overrides;
-      const fileSummary = remappedCoverageMap.fileCoverageFor(file).toSummary().data;
+      const fileSummary = remappedCoverageMap.fileCoverageFor(file).toSummary()
+        .data;
       const failedFileTypes = checkThresholds(fileThresholds, fileSummary);
 
       failedFileTypes.forEach(type => {
@@ -142,7 +163,14 @@ function CoverageIstanbulReporter(baseReporterDecorator, logger, config) {
         if (coverageConfig.fixWebpackSourcePaths) {
           file = util.fixWebpackFilePath(file);
         }
-        logThresholdMessage(thresholds, `Coverage for ${type} (${fileSummary[type].pct}%) in file ${file} does not meet per file threshold (${fileThresholds[type]}%)`);
+        logThresholdMessage(
+          thresholds,
+          `Coverage for ${type} (${
+            fileSummary[type].pct
+          }%) in file ${file} does not meet per file threshold (${
+            fileThresholds[type]
+          }%)`
+        );
       });
     });
 
@@ -151,14 +179,14 @@ function CoverageIstanbulReporter(baseReporterDecorator, logger, config) {
     }
   }
 
-  this.onBrowserComplete = function (browser, result) {
+  this.onBrowserComplete = function(browser, result) {
     if (result && result.coverage) {
       browserCoverage.set(browser, result.coverage);
     }
   };
 
   const baseReporterOnRunComplete = this.onRunComplete;
-  this.onRunComplete = function (browsers, results) {
+  this.onRunComplete = function(browsers, results) {
     baseReporterOnRunComplete.apply(this, arguments);
 
     if (coverageConfig.combineBrowserReports) {
@@ -171,7 +199,11 @@ function CoverageIstanbulReporter(baseReporterDecorator, logger, config) {
   };
 }
 
-CoverageIstanbulReporter.$inject = ['baseReporterDecorator', 'logger', 'config'];
+CoverageIstanbulReporter.$inject = [
+  'baseReporterDecorator',
+  'logger',
+  'config'
+];
 
 module.exports = {
   'reporter:coverage-istanbul': ['type', CoverageIstanbulReporter]

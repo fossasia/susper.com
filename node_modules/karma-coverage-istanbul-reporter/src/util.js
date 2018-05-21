@@ -70,7 +70,8 @@ function overrideThresholds(key, overrides, basePath) {
 
   // First match wins
   Object.keys(overrides).some(pattern => {
-    if (minimatch(normalize(key, basePath), pattern, {dot: true})) {
+    // eslint-disable-next-line prettier/prettier
+    if (minimatch(normalize(key, basePath), pattern, { dot: true })) {
       thresholds = overrides[pattern];
       return true;
     }

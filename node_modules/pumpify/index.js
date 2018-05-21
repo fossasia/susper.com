@@ -40,6 +40,10 @@ var define = function(opts) {
       self.removeListener('close', onclose)
       if (err) return self.destroy(err.message === 'premature close' ? null : err)
       ended = true
+      // pump ends after the last stream is not writable *but*
+      // pumpify still forwards the readable part so we need to catch errors
+      // still, so reenable autoDestroy in this case
+      if (self._autoDestroy === false) self._autoDestroy = true
       self.uncork()
     })
 

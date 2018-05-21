@@ -2,7 +2,7 @@
   "static": {
     "urls": {
       "/not-found-bg.8f346a53ee078b98deb0.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
-      "/main.703c47202d89eadb94f0.bundle.js": "896a7edabb0f1a4297a66964a22b099557a72310",
+      "/main.0963e4a82188b1e0c088.bundle.js": "c637806ad535e7f53ffd308ca3dd6812b70ffd5e",
       "/sw-register.28c36090723540135ce0.bundle.js": "b8770a453e7d4cdb124dc9ae245d86f88b2fe209",
       "/vendor.41c7b3522bb4c793c6ba.bundle.js": "b04afb2b52a8848c213d54c0585f283c6e64e305",
       "/inline.31e1fb380eb7cf3d75b1.bundle.js": "afe1b233aaffec401067c782e7080cd11903896e",
@@ -26,7 +26,6 @@
       "/assets/images/boat.png": "dc51be085582efa213bad78fc9c6beab69b54c92",
       "/assets/images/bug.png": "b1bb93eb4bde533ca084050a626dda4c760fc0a8",
       "/assets/images/code.png": "ec8e9210de7746616d4e9fe2b5fb71c8dfbb7175",
-      "/assets/images/contact.png": "75673134d220e337aa86f0b32b5f80c710d2d54d",
       "/assets/images/eventyay.png": "9e46f8a2634f4d9fbbdb7cb4fb35869243e8fc72",
       "/assets/images/external.png": "59ee36a5af34b4e5ee0e13b1775eabfc8d790899",
       "/assets/images/fossasia.png": "112b3f76569597200fac2b0ba9532357fae9e1e0",
@@ -34,6 +33,7 @@
       "/assets/images/loklak.png": "96bff0518b5f2285dccf720481e89aa4286a5441",
       "/assets/images/microphone.png": "c0f1e88007368d123ab49c28397ed22d1913f5dc",
       "/assets/images/mountain.jpg": "af7d0d9a086ba468c13b1c064e8fa8c24fbb7601",
+      "/assets/images/contact.png": "75673134d220e337aa86f0b32b5f80c710d2d54d",
       "/assets/images/Pslab.png": "9cf27193837c420226e05afd505890be65011175",
       "/assets/images/search.png": "dbd3a14d4dafedfd8449e5ca136f7004a2242379",
       "/assets/images/susi_60x12.png": "e0a1b65b582f4cf784b2ca29297bccd538245ec9",
@@ -41,7 +41,7 @@
       "/assets/images/susper.svg": "7a8cb12bd11e689754c7d9dbb8504ba2902c14d9",
       "/assets/images/terminal.png": "2aa0054d6e388a6cd5630e3eca2350cfb289955b",
       "/assets/images/YaCyLogo2011_60.png": "954f9d626d69a7861e9e84735c44b0a8bc759c97",
-      "/index.html": "b7ac591119114524b4b41bde8dd06ce7cf9d5dbb"
+      "/index.html": "534239dc59ad7c892bd5bf2ed8dcd6beb33f9a00"
     },
     "_generatedFromWebpack": true
   }

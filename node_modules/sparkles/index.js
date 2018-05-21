@@ -5,17 +5,17 @@ var EventEmitter = require('events').EventEmitter;
 var sparklesNamespace = 'store@sparkles';
 var defaultNamespace = 'default';
 
-function getStore(){
+function getStore() {
   var store = global[sparklesNamespace];
 
-  if(!store){
+  if (!store) {
     store = global[sparklesNamespace] = {};
   }
 
   return store;
 }
 
-function getEmitter(namespace){
+function getEmitter(namespace) {
 
   var store = getStore();
 
@@ -23,10 +23,10 @@ function getEmitter(namespace){
 
   var ee = store[namespace];
 
-  if(!ee){
+  if (!ee) {
     ee = store[namespace] = new EventEmitter();
     ee.setMaxListeners(0);
-    ee.remove = function remove(){
+    ee.remove = function remove() {
       ee.removeAllListeners();
       delete store[namespace];
     };
@@ -35,7 +35,7 @@ function getEmitter(namespace){
   return ee;
 }
 
-function exists(namespace){
+function exists(namespace) {
   var store = getStore();
 
   return !!(store[namespace]);

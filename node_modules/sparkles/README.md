@@ -1,7 +1,12 @@
-sparkles
-========
+<p align="center">
+  <a href="http://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+</p>
 
-[![Build Status](https://travis-ci.org/phated/sparkles.svg?branch=master)](https://travis-ci.org/phated/sparkles)
+# sparkles
+
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Travis Build Status][travis-image]][travis-url] [![AppVeyor Build Status][appveyor-image]][appveyor-url] [![Coveralls Status][coveralls-image]][coveralls-url] [![Gitter chat][gitter-image]][gitter-url]
 
 Namespaced global event emitter
 
@@ -39,3 +44,19 @@ This is a "global emitter"; shortened: "glitter" but it was already taken; so we
 ## License
 
 MIT
+
+[downloads-image]: http://img.shields.io/npm/dm/sparkles.svg
+[npm-url]: https://www.npmjs.com/package/sparkles
+[npm-image]: http://img.shields.io/npm/v/sparkles.svg
+
+[travis-url]: https://travis-ci.org/gulpjs/sparkles
+[travis-image]: http://img.shields.io/travis/gulpjs/sparkles.svg?label=travis-ci
+
+[appveyor-url]: https://ci.appveyor.com/project/gulpjs/sparkles
+[appveyor-image]: https://img.shields.io/appveyor/ci/gulpjs/sparkles.svg?label=appveyor
+
+[coveralls-url]: https://coveralls.io/r/gulpjs/sparkles
+[coveralls-image]: http://img.shields.io/coveralls/gulpjs/sparkles/master.svg
+
+[gitter-url]: https://gitter.im/gulpjs/gulp
+[gitter-image]: https://badges.gitter.im/gulpjs/gulp.svg

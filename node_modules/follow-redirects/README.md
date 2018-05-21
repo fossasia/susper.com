@@ -79,6 +79,8 @@ the following per-request options are supported:
 
 - `agents` (default: `undefined`) – sets the `agent` option per protocol, since HTTP and HTTPS use different agents. Example value: `{ http: new http.Agent(), https: new https.Agent() }`
 
+- `trackRedirects` (default: `false`) – whether to store the redirected response details into the `redirects` array on the response object.
+
 
 ### Advanced usage
 By default, `follow-redirects` will use the Node.js default implementations

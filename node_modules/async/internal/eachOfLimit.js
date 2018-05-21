@@ -36,6 +36,7 @@ function _eachOfLimit(limit) {
         var nextElem = (0, _iterator2.default)(obj);
         var done = false;
         var running = 0;
+        var looping = false;
 
         function iterateeCallback(err, value) {
             running -= 1;
@@ -45,12 +46,13 @@ function _eachOfLimit(limit) {
             } else if (value === _breakLoop2.default || done && running <= 0) {
                 done = true;
                 return callback(null);
-            } else {
+            } else if (!looping) {
                 replenish();
             }
         }
 
         function replenish() {
+            looping = true;
             while (running < limit && !done) {
                 var elem = nextElem();
                 if (elem === null) {
@@ -63,6 +65,7 @@ function _eachOfLimit(limit) {
                 running += 1;
                 iteratee(elem.value, elem.key, (0, _onlyOnce2.default)(iterateeCallback));
             }
+            looping = false;
         }
 
         replenish();

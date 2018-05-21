@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.3"></a>
+## [1.4.3](https://github.com/mattlewis92/karma-coverage-istanbul-reporter/compare/v1.4.2...v1.4.3) (2018-05-17)
+
+
+### Bug Fixes
+
+* **verbose:** pass the verbose option to istanbul if set ([9473517](https://github.com/mattlewis92/karma-coverage-istanbul-reporter/commit/9473517)), closes [#43](https://github.com/mattlewis92/karma-coverage-istanbul-reporter/issues/43)
+
+
+
 <a name="1.4.2"></a>
 ## [1.4.2](https://github.com/mattlewis92/karma-coverage-istanbul-reporter/compare/v1.4.1...v1.4.2) (2018-03-06)
 
