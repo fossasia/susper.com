@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {URLSearchParams, Http, Jsonp} from "@angular/http";
+import { HttpClient } from '@angular/common/http';
+import {URLSearchParams, Jsonp} from "@angular/http";
 import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
 import {Observable} from "rxjs";
@@ -11,7 +12,7 @@ export class IntelligenceService {
   private timezoneOffset = new Date().getTimezoneOffset().toString();
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private jsonp: Jsonp,
     private store: Store<fromRoot.State>
   ) {}
@@ -24,7 +25,9 @@ export class IntelligenceService {
     params.set('timezoneOffset', this.timezoneOffset);
 
     return this.jsonp
-      .get('https://api.susi.ai/susi/chat.json', {search: params}).map(res =>
+      .get('https://api.susi.ai/susi/chat.json', {search: params});
+    }
+    /*.map(res =>
         res.json()
       );
   }
@@ -35,5 +38,5 @@ export class IntelligenceService {
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // Right now we are logging to console itself
     return Observable.throw(errMsg);
-  }
+  }*/
 }

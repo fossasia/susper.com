@@ -26,7 +26,7 @@ describe('Service: Search', () => {
       imports: [
         HttpModule,
         JsonpModule,
-        StoreModule.provideStore(reducer)
+        StoreModule.forRoot(reducer)
       ],
       providers: [
         SearchService,

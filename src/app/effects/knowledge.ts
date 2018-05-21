@@ -56,7 +56,7 @@ export class KnowledgeEffects {
 
       this.knowledgeservice.getsearchresults(querypay.query)
         .takeUntil(nextSearch$)
-        .subscribe((response) => {
+        .subscribe((response:any) => {
           if (response.results) {
             if (response.results[0]) {
               this.store.dispatch(new knowledge.SearchAction(response));

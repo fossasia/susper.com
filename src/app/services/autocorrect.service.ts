@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Http, URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import {URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@angular/http';
 import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
 
@@ -13,7 +14,7 @@ export class AutocorrectService {
   logo = '../images/susper.svg';
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private jsonp: Jsonp,
     private store: Store<fromRoot.State>
   ) { }
@@ -28,13 +29,13 @@ export class AutocorrectService {
     headers.set('Accept', 'application/json');
     headers.set('X-Mashape-Key', 'MNy1dDOsyMmshBCz70BwQ51vfeuzp19LReMjsnKtccAQkuB9WM');
 
-    let options = new RequestOptions({ headers: headers, search: params });
+    let options:any = new RequestOptions({ headers: headers, search: params });
     return this.http
-      .get(this.searchURL, options).map(res =>
+      .get(this.searchURL, options);/*.map(res =>
 
         res.json()
 
-      ).catch(this.handleError);
+      ).catch(this.handleError);*/
   }
 
   private handleError (error: any) {

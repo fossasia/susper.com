@@ -1,4 +1,4 @@
-export const MockKnowledgeApi = {
+export const MockKnowledgeApi:any = {
     results:  [
       {
         "uri": "http://dbpedia.org/resource/India",

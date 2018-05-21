@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Injectable } from '@angular/core';
-import {Http, URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import {URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Store} from '@ngrx/store';
@@ -17,7 +18,7 @@ export class AutocompleteService {
   logo = '../images/susper.svg';
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private jsonp: Jsonp,
     private store: Store<fromRoot.State>
   ) { }
@@ -41,11 +42,11 @@ export class AutocompleteService {
     let headers = new Headers({ 'Accept': 'application/json' });
     let options = new RequestOptions({ headers: headers, search: params });
     return this.jsonp
-      .get('https://yacy.searchlab.eu/suggest.json', {search: params}).map(res =>
+      .get('https://yacy.searchlab.eu/suggest.json', {search: params})[0];/*.map(res =>
 
         res.json()[0]
 
-      ).catch(this.handleError);
+      ).catch(this.handleError);*/
   }
 
   private handleError(error: any) {
