@@ -3,6 +3,7 @@ import {URLSearchParams, Http, Jsonp} from "@angular/http";
 import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
 import {Observable} from "rxjs";
+import 'rxjs/add/operator/retry';
 
 @Injectable()
 export class IntelligenceService {
@@ -26,7 +27,8 @@ export class IntelligenceService {
     return this.jsonp
       .get('https://api.susi.ai/susi/chat.json', {search: params}).map(res =>
         res.json()
-      );
+      ).retry(2)
+      .catch(this.handleError);
   }
 
   private handleError(error: any) {

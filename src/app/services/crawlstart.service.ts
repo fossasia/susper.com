@@ -3,6 +3,7 @@ import {Http, Jsonp, Headers, RequestOptions, URLSearchParams} from "@angular/ht
 import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
 import {Observable} from "rxjs";
+import 'rxjs/add/operator/retry';
 @Injectable()
 export class CrawlstartService {
   server = 'yacy.searchlab.eu';
@@ -17,7 +18,9 @@ export class CrawlstartService {
   getcrawldefaults() {
     return this.jsonp.get('https://yacygrid.com:8300/yacy/grid/crawler/defaultValues.json?CALLBACK=JSONP_CALLBACK').map(res => {
       res.json();
-    });
+    }).retry(2)
+      .catch(this.handleError);
+
   }
 
   private handleError (error: any) {
@@ -43,6 +46,7 @@ export class CrawlstartService {
     return this.jsonp
       .get('https://yacy.searchlab.eu/Crawler_p.json', options).map(res => {
         res.json();
-      });
+      }).retry(2)
+      .catch(this.handleError);
   }
 }

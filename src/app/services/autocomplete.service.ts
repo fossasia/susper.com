@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {Http, URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/retry';
 import {Store} from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Rx';
@@ -45,7 +46,8 @@ export class AutocompleteService {
 
         res.json()[0]
 
-      ).catch(this.handleError);
+      ).retry(2)
+      .catch(this.handleError);
   }
 
   private handleError(error: any) {
