@@ -17,7 +17,7 @@ before_install:
 
 # Build a production build of the project
 before_script:
-  - ng build --prod
+  - ng build --prod --build-optimizer
 
 # Check for coverage, and linting
 script:
