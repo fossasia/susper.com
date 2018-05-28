@@ -163,7 +163,6 @@
                   <li class="page-item2" *ngIf="!getStyle(1)">
                     <span class="spl" id="left-arrow" (click)="decPresentPage()">
                       <div class="arrow" (click)="decreasePage()">
-                          &lt;
                         </div>
                           <div class="side-text">Previous</div>
                     </span>
@@ -194,7 +193,7 @@
                   <div class="next-page-mobile">Page {{count}}</div>
                   <li class="page-item2" *ngIf="!getStyle(noOfPages)">
                     <span class="spl" (click)="incPresentPage()">
-                      <div class="arrow" (click)="increasePage()">&gt;</div>
+                      <div class="arrow" (click)="increasePage()">></div>
                       <div class="side-text">Next</div>
                     </span>
                   </li>

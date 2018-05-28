@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Http, URLSearchParams, Jsonp, Response} from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import { URLSearchParams, Jsonp, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Store} from '@ngrx/store';
@@ -20,7 +21,7 @@ export class SearchService {
   queryplaceholder: string;
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private jsonp: Jsonp,
     private store: Store<fromRoot.State>
   ) {}
@@ -45,11 +46,11 @@ export class SearchService {
     params.append('facet.field', 'collection_sxt');
 
     return this.jsonp
-      .get('https://yacy.searchlab.eu/solr/select', {search: params}).map(res =>
+      .get('https://yacy.searchlab.eu/solr/select', {search: params})[0];/*.map(res =>
 
         res.json()[0]
 
-      ).catch(this.handleError);
+      ).catch(this.handleError);*/
   }
 
   private handleError (error: any) {

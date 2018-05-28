@@ -26,8 +26,8 @@ describe('AutoCorrectComponent', () => {
               FormsModule,
               HttpModule,
               JsonpModule,
-              StoreModule.provideStore(reducer),
-              StoreDevtoolsModule.instrumentOnlyWithExtension(),
+              StoreModule.forRoot(reducer),
+              StoreDevtoolsModule.instrument(),
             ],
             declarations: [
               AutoCorrectComponent,

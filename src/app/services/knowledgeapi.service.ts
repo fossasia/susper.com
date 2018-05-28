@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Http, URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import {URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Store} from '@ngrx/store';
@@ -16,21 +17,23 @@ export class KnowledgeapiService {
   logo = '../images/susper.svg';
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private jsonp: Jsonp,
     private store: Store<fromRoot.State>
   ) {}
 
-  public getsearchresults(searchquery) {
+  public getsearchresults(searchquery){
     let params = new URLSearchParams();
 
     params.set('QueryString', searchquery);
 
     let headers = new Headers({ 'Accept': 'application/json' });
-    let options = new RequestOptions({ headers: headers, search: params });
+    let options:any = new RequestOptions({ headers: headers, search: params });
 
     return this.http
-      .get(this.searchURL, options).map(res =>
+      .get(this.searchURL, options);
+
+      }/*.map(res =>
 
         res.json()
 
@@ -43,5 +46,5 @@ export class KnowledgeapiService {
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // Right now we are logging to console itself
     return Observable.throw(errMsg);
-  }
+  }*/
 }

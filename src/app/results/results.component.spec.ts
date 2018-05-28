@@ -7,7 +7,8 @@ import { ResultsComponent } from './results.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { JsonpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducer } from '../reducers/index';
@@ -52,12 +53,12 @@ describe('ResultsComponent', () => {
         BrowserModule,
         CommonModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         InfiniteScrollModule,
         JsonpModule,
         ChartsModule,
-        StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension()
+        StoreModule.forRoot(reducer),
+        StoreDevtoolsModule.instrument()
       ],
       declarations: [
         AppComponent,

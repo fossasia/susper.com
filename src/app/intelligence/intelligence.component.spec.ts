@@ -14,7 +14,8 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {BrowserModule} from "@angular/platform-browser";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {HttpModule, JsonpModule} from "@angular/http";
+import { HttpClientModule } from '@angular/common/http';
+import { JsonpModule } from "@angular/http";
 import {KnowledgeapiService} from "../services/knowledgeapi.service";
 import {reducer} from "../reducers/index";
 import {StoreModule} from "@ngrx/store";
@@ -40,9 +41,9 @@ describe('IntelligenceComponent', () => {
         BrowserModule,
         CommonModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         JsonpModule,
-        StoreModule.provideStore(reducer),
+        StoreModule.forRoot(reducer),
       ],
       declarations: [
         IntelligenceComponent

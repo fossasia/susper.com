@@ -13,7 +13,8 @@ import { ThemeService } from '../services/theme.service';
  * import HttpModule to avoid error -
  * No provider for Http!
  */
-import { HttpModule, JsonpModule } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
+import { JsonpModule } from '@angular/http';
 /**
  * import StoreModule and reducer to avoid error -
  * No provider for Store!
@@ -35,9 +36,9 @@ describe('Component: Navbar', () => {
       imports: [
         RouterTestingModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         JsonpModule,
-        StoreModule.provideStore(reducer)
+        StoreModule.forRoot(reducer)
       ],
       declarations: [
         NavbarComponent,

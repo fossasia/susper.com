@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { JsonpModule,HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { IndexComponent } from './index/index.component';
@@ -34,7 +35,7 @@ import { ThemeService } from './services/theme.service';
 import { CrawlstartComponent } from './crawlstart/crawlstart.component';
 import { CrawlstartService } from "./services/crawlstart.service";
 import { SearchsettingsComponent } from './searchsettings/searchsettings.component';
-import { KnowledgeEffects } from "./effects/knowledge";
+import { KnowledgeEffects }  from "./effects/knowledge";
 import { SpeechService } from './services/speech.service';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { IntelligenceComponent } from './intelligence/intelligence.component';
@@ -86,7 +87,8 @@ const appRoutes: Routes = [
     IntelligenceComponent,
     SpeechtotextComponent,
     AutoCorrectComponent,
-    StatsboxComponent,
+    StatsboxComponent
+    
   ],
 
   imports: [
@@ -94,13 +96,13 @@ const appRoutes: Routes = [
     InfiniteScrollModule,
     CommonModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     JsonpModule,
     RouterModule.forRoot(appRoutes),
-    StoreModule.provideStore(reducer),
-    EffectsModule.run(ApiSearchEffects),
-    EffectsModule.run(KnowledgeEffects),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    StoreModule.forRoot(reducer),
+    EffectsModule.forFeature([ApiSearchEffects]),
+    EffectsModule.forFeature([KnowledgeEffects]),
+    StoreDevtoolsModule.instrument(),
     Ng2Bs3ModalModule,
     ChartsModule
   ],
@@ -115,6 +117,7 @@ const appRoutes: Routes = [
     IntelligenceService,
     AutocorrectService,
     SpeechSynthesisService
+    
   ],
 
   bootstrap: [AppComponent]

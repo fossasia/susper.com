@@ -12,7 +12,8 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { JsonpModule } from '@angular/http';;
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -43,11 +44,11 @@ describe('AppComponent', () => {
         BrowserModule,
         CommonModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         JsonpModule,
         ChartsModule,
-        StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
+        StoreModule.forRoot(reducer),
+        StoreDevtoolsModule.instrument(),
       ],
       declarations: [
         AppComponent,

@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpModule, JsonpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http'
+import { JsonpModule } from '@angular/http';
 import { InfoboxComponent } from './infobox.component';
 import { RouterTestingModule } from "@angular/router/testing";
 
@@ -17,9 +18,9 @@ describe('Component: InfoboxComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        HttpModule,
+        HttpClientModule,
         JsonpModule,
-        StoreModule.provideStore(reducer),
+        StoreModule.forRoot(reducer),
       ],
       declarations: [
         InfoboxComponent,

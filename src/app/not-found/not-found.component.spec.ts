@@ -3,7 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NotFoundComponent } from './not-found.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CommonModule } from '@angular/common';
-import { HttpModule, JsonpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { JsonpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from '../reducers/index';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
@@ -23,9 +24,9 @@ describe('NotFoundComponent', () => {
         RouterTestingModule,
         CommonModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         JsonpModule,
-        StoreModule.provideStore(reducer),
+        StoreModule.forRoot(reducer)
       ],
       declarations: [
         NotFoundComponent,
