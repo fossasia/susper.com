@@ -15,17 +15,14 @@ import {BrowserModule} from "@angular/platform-browser";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {HttpModule, JsonpModule} from "@angular/http";
-import {KnowledgeapiService} from "../services/knowledgeapi.service";
 import {reducer} from "../reducers/index";
 import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import {RelatedSearchComponent} from "../related-search/related-search.component";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import { ThemeComponent } from '../theme/theme.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {IntelligenceComponent} from "../intelligence/intelligence.component";
 import {IntelligenceService} from "../services/intelligence.service";
-import {InfoboxComponent} from "../infobox/infobox.component";
 import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
 import { ThemeService } from '../services/theme.service';
 
