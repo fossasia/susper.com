@@ -174,11 +174,6 @@ a {
   cursor: pointer;
 }
 
-.infobox {
-  display: inline-block;
-  float: left;
-}
-
 .item img {
   max-width: 100%;
   max-height: 100%;
@@ -270,7 +265,9 @@ a {
 .dropdown-menu {
   float: right;
 }
-
+.infobox{
+  margin-top: -110px;
+}
 .dropdown {
   left: 38%;
   width: 0;

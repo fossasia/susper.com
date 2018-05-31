@@ -42,6 +42,8 @@ import {AutocorrectService} from "./services/autocorrect.service";
 import { SpeechSynthesisService } from './services/speech-synthesis.service';
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { InfoboxComponent } from './infobox/infobox.component';
+import { KnowledgeapiService } from './services/knowledgeapi.service';
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -81,6 +83,7 @@ const appRoutes: Routes = [
     SpeechtotextComponent,
     AutoCorrectComponent,
     StatsboxComponent,
+    InfoboxComponent,
   ],
 
   imports: [
@@ -106,7 +109,8 @@ const appRoutes: Routes = [
     CrawlstartService,
     IntelligenceService,
     AutocorrectService,
-    SpeechSynthesisService
+    SpeechSynthesisService,
+    KnowledgeapiService
   ],
 
   bootstrap: [AppComponent]

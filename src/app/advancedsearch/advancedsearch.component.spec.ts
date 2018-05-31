@@ -28,7 +28,7 @@ describe('AdvancedsearchComponent', () => {
         StoreModule.provideStore(reducer)
       ],
       declarations: [
-        AdvancedsearchComponent,
+        AdvancedsearchComponent
       ]
     })
       .compileComponents();
