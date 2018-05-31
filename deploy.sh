@@ -46,7 +46,7 @@ git checkout $SOURCE_BRANCH
 
 # Actual building and setup of current push or PR. Move to `TARGET_BRANCH` and move the `dist` folder
 npm install
-ng build --prod --aot
+ng build --prod --build-optimizer
 mv susper.xml dist/
 mv 404.html dist/
 
