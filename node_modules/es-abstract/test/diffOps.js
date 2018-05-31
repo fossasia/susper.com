@@ -3,7 +3,7 @@
 var keys = require('object-keys');
 var forEach = require('foreach');
 
-module.exports = function diffOperations(actual, expected) {
+module.exports = function diffOperations(actual, expected, expectedMissing) {
 	var actualKeys = keys(actual);
 	var expectedKeys = keys(expected);
 
@@ -15,7 +15,7 @@ module.exports = function diffOperations(actual, expected) {
 		}
 	});
 	forEach(expectedKeys, function (op) {
-		if (!(op in actual)) {
+		if (!(op in actual) && expectedMissing.indexOf(op) === -1) {
 			missing.push(op);
 		}
 	});

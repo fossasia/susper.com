@@ -4,7 +4,7 @@ var test = require('tape');
 
 var forEach = require('foreach');
 var is = require('object-is');
-var debug = require('util').format;
+var debug = require('object-inspect');
 var assign = require('object.assign');
 
 var v = require('./helpers/values');
@@ -28,13 +28,18 @@ var getArraySubclassWithSpeciesConstructor = function getArraySubclass(speciesCo
 
 var hasSpecies = v.hasSymbols && Symbol.species;
 
+var hasGroups = 'groups' in (/a/).exec('a');
+var groups = function groups(matchObject) {
+	return hasGroups ? assign(matchObject, { groups: matchObject.groups }) : matchObject;
+};
+
 var es2015 = function ES2015(ES, ops, expectedMissing) {
 	test('has expected operations', function (t) {
-		var diff = diffOps(ES, ops);
+		var diff = diffOps(ES, ops, expectedMissing);
 
 		t.deepEqual(diff.extra, [], 'no extra ops');
 
-		t.deepEqual(diff.missing, expectedMissing, 'no unexpected missing ops');
+		t.deepEqual(diff.missing, [], 'no unexpected missing ops');
 
 		t.end();
 	});
@@ -1170,8 +1175,8 @@ var es2015 = function ES2015(ES, ops, expectedMissing) {
 			var match1 = ES.RegExpExec(R, S);
 			var match2 = ES.RegExpExec(R, S);
 			var match3 = ES.RegExpExec(R, S);
-			st.deepEqual(match1, assign(['a'], { index: 0, input: S }), 'match object 1 is as expected');
-			st.deepEqual(match2, assign(['a'], { index: 1, input: S }), 'match object 2 is as expected');
+			st.deepEqual(match1, assign(['a'], groups({ index: 0, input: S })), 'match object 1 is as expected');
+			st.deepEqual(match2, assign(['a'], groups({ index: 1, input: S })), 'match object 2 is as expected');
 			st.equal(match3, null, 'match 3 is null as expected');
 			st.end();
 		});
@@ -1183,8 +1188,8 @@ var es2015 = function ES2015(ES, ops, expectedMissing) {
 			var match1 = ES.RegExpExec(R, S);
 			var match2 = ES.RegExpExec(R, S);
 			var match3 = ES.RegExpExec(R, S);
-			st.deepEqual(match1, assign(['a'], { index: 0, input: S }), 'match object 1 is as expected');
-			st.deepEqual(match2, assign(['a'], { index: 1, input: S }), 'match object 2 is as expected');
+			st.deepEqual(match1, assign(['a'], groups({ index: 0, input: S })), 'match object 1 is as expected');
+			st.deepEqual(match2, assign(['a'], groups({ index: 1, input: S })), 'match object 2 is as expected');
 			st.equal(match3, null, 'match 3 is null as expected');
 			st.end();
 		});
@@ -1430,6 +1435,57 @@ var es2015 = function ES2015(ES, ops, expectedMissing) {
 		t.end();
 	});
 
+	test('ObjectCreate', function (t) {
+		forEach(v.nonNullPrimitives, function (value) {
+			t['throws'](
+				function () { ES.ObjectCreate(value); },
+				TypeError,
+				debug(value) + ' is not null, or an object'
+			);
+		});
+
+		t.test('proto arg', function (st) {
+			var Parent = function Parent() {};
+			Parent.prototype.foo = {};
+			var child = ES.ObjectCreate(Parent.prototype);
+			st.equal(child instanceof Parent, true, 'child is instanceof Parent');
+			st.equal(child.foo, Parent.prototype.foo, 'child inherits properties from Parent.prototype');
+
+			st.end();
+		});
+
+		t.test('internal slots arg', function (st) {
+			st.doesNotThrow(function () { ES.ObjectCreate(null, []); }, 'an empty slot list is valid');
+
+			st['throws'](
+				function () { ES.ObjectCreate(null, ['a']); },
+				SyntaxError,
+				'internal slots are not supported'
+			);
+
+			st.end();
+		});
+
+		t.test('null proto', { skip: !Object.create }, function (st) {
+			st.equal('toString' in ({}), true, 'normal objects have toString');
+			st.equal('toString' in ES.ObjectCreate(null), false, 'makes a null object');
+
+			st.end();
+		});
+
+		t.test('null proto when no native Object.create', { skip: Object.create }, function (st) {
+			st['throws'](
+				function () { ES.ObjectCreate(null); },
+				SyntaxError,
+				'without a native Object.create, can not create null objects'
+			);
+
+			st.end();
+		});
+
+		t.end();
+	});
+
 	test('AdvanceStringIndex', function (t) {
 		forEach(v.nonStrings, function (nonString) {
 			t['throws'](
@@ -1439,74 +1495,65 @@ var es2015 = function ES2015(ES, ops, expectedMissing) {
 			);
 		});
 
-		forEach(v.nonIntegerNumbers, function (nonInteger) {
-			t['throws'](
-				function () { ES.AdvanceStringIndex('', nonInteger, false); },
-				TypeError,
-				'"index" argument must be an integer; ' + debug(nonInteger) + ' is not'
-			);
-		});
-		forEach([-1, -42], function (negative) {
-			t['throws'](
-				function () { ES.AdvanceStringIndex('', negative, false); },
-				RangeError,
-				'"index" argument must be a non-negative integer; ' + debug(negative) + ' is not'
-			);
-		});
-		t['throws'](
-			function () { ES.AdvanceStringIndex('', MAX_SAFE_INTEGER + 1, false); },
-			RangeError,
-			'too large integers throw'
+		var notInts = v.nonNumbers.concat(
+			v.nonIntegerNumbers,
+			[Infinity, -Infinity, NaN, [], new Date(), Math.pow(2, 53), -1]
 		);
+		forEach(notInts, function (nonInt) {
+			t['throws'](
+				function () { ES.AdvanceStringIndex('abc', nonInt); },
+				TypeError,
+				'"index" argument must be an integer, ' + debug(nonInt) + ' is not.'
+			);
+		});
 
 		forEach(v.nonBooleans, function (nonBoolean) {
 			t['throws'](
-				function () { ES.AdvanceStringIndex('', 0, nonBoolean); },
+				function () { ES.AdvanceStringIndex('abc', 0, nonBoolean); },
 				TypeError,
-				'"unicode" argument must be a Boolean; ' + debug(nonBoolean) + ' is not'
+				debug(nonBoolean) + ' is not a Boolean'
 			);
 		});
 
-		t.test('when unicode is false', function (st) {
-			st.equal(ES.AdvanceStringIndex('', 0, false), 1, 'index is incremented by 1');
-			st.equal(ES.AdvanceStringIndex('abc', 0, false), 1, 'index is incremented by 1');
-			st.equal(ES.AdvanceStringIndex('', 3, false), 4, 'index is incremented by 1');
-			st.equal(ES.AdvanceStringIndex('abc', 3, false), 4, 'index is incremented by 1');
+		var str = 'a\uD83D\uDCA9c';
 
-			st.test('when the index is within the string', function (s2t) {
-				s2t.equal(ES.AdvanceStringIndex('abc', 0, false), 1, '0 -> 1');
-				s2t.equal(ES.AdvanceStringIndex('abc', 1, false), 2, '1 -> 2');
-				s2t.equal(ES.AdvanceStringIndex('abc', 2, false), 3, '2 -> 3');
-				s2t.end();
-			});
+		t.test('non-unicode mode', function (st) {
+			for (var i = 0; i < str.length + 2; i += 1) {
+				st.equal(ES.AdvanceStringIndex(str, i, false), i + 1, i + ' advances to ' + (i + 1));
+			}
 
 			st.end();
 		});
 
-		t.test('when unicode is true', function (st) {
-			st.test('when index + 1 >= length', function (s2t) {
-				t.equal(ES.AdvanceStringIndex('', 0, true), 1, 'index is incremented by 1');
-				t.equal(ES.AdvanceStringIndex('a', 0, true), 1, 'index is incremented by 1');
-				t.equal(ES.AdvanceStringIndex('a', 5, true), 6, 'index is incremented by 1');
-				s2t.end();
-			});
+		t.test('unicode mode', function (st) {
+			st.equal(ES.AdvanceStringIndex(str, 0, true), 1, '0 advances to 1');
+			st.equal(ES.AdvanceStringIndex(str, 1, true), 3, '1 advances to 3');
+			st.equal(ES.AdvanceStringIndex(str, 2, true), 3, '2 advances to 3');
+			st.equal(ES.AdvanceStringIndex(str, 3, true), 4, '3 advances to 4');
+			st.equal(ES.AdvanceStringIndex(str, 4, true), 5, '4 advances to 5');
 
-			st.test('when the index is within the string', function (s2t) {
-				s2t.equal(ES.AdvanceStringIndex('abc', 0, true), 1, '0 -> 1');
-				s2t.equal(ES.AdvanceStringIndex('abc', 1, true), 2, '1 -> 2');
-				s2t.equal(ES.AdvanceStringIndex('abc', 2, true), 3, '2 -> 3');
-				s2t.end();
-			});
+			st.end();
+		});
 
-			st.test('surrogate pairs', function (s2t) {
-				var lowestPair = String.fromCharCode('0xD800') + String.fromCharCode('0xDC00');
-				var highestPair = String.fromCharCode('0xDBFF') + String.fromCharCode('0xDFFF');
-				var poop = String.fromCharCode('0xD83D') + String.fromCharCode('0xDCA9');
-				s2t.equal(ES.AdvanceStringIndex(lowestPair, 0, true), 2, 'lowest surrogate pair, 0 -> 2');
-				s2t.equal(ES.AdvanceStringIndex(highestPair, 0, true), 2, 'highest surrogate pair, 0 -> 2');
-				s2t.equal(ES.AdvanceStringIndex(poop, 0, true), 2, 'poop, 0 -> 2');
-				s2t.end();
-			});
+		t.test('lone surrogates', function (st) {
+			var halfPoo = 'a\uD83Dc';
+
+			st.equal(ES.AdvanceStringIndex(halfPoo, 0, true), 1, '0 advances to 1');
+			st.equal(ES.AdvanceStringIndex(halfPoo, 1, true), 2, '1 advances to 2');
+			st.equal(ES.AdvanceStringIndex(halfPoo, 2, true), 3, '2 advances to 3');
+			st.equal(ES.AdvanceStringIndex(halfPoo, 3, true), 4, '3 advances to 4');
+
+			st.end();
+		});
+
+		t.test('surrogate pairs', function (st) {
+			var lowestPair = String.fromCharCode('0xD800') + String.fromCharCode('0xDC00');
+			var highestPair = String.fromCharCode('0xDBFF') + String.fromCharCode('0xDFFF');
+			var poop = String.fromCharCode('0xD83D') + String.fromCharCode('0xDCA9');
+
+			st.equal(ES.AdvanceStringIndex(lowestPair, 0, true), 2, 'lowest surrogate pair, 0 -> 2');
+			st.equal(ES.AdvanceStringIndex(highestPair, 0, true), 2, 'highest surrogate pair, 0 -> 2');
+			st.equal(ES.AdvanceStringIndex(poop, 0, true), 2, 'poop, 0 -> 2');
 
 			st.end();
 		});

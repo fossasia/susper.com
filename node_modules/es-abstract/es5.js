@@ -1,5 +1,11 @@
 'use strict';
 
+var GetIntrinsic = require('./GetIntrinsic');
+
+var $Object = GetIntrinsic('%Object%');
+var $TypeError = GetIntrinsic('%TypeError%');
+var $String = GetIntrinsic('%String%');
+
 var $isNaN = require('./helpers/isNaN');
 var $isFinite = require('./helpers/isFinite');
 
@@ -19,7 +25,7 @@ var ES5 = {
 		return !!value;
 	},
 	ToNumber: function ToNumber(value) {
-		return Number(value);
+		return +value; // eslint-disable-line no-implicit-coercion
 	},
 	ToInteger: function ToInteger(value) {
 		var number = this.ToNumber(value);
@@ -40,16 +46,16 @@ var ES5 = {
 		return mod(posInt, 0x10000);
 	},
 	ToString: function ToString(value) {
-		return String(value);
+		return $String(value);
 	},
 	ToObject: function ToObject(value) {
 		this.CheckObjectCoercible(value);
-		return Object(value);
+		return $Object(value);
 	},
 	CheckObjectCoercible: function CheckObjectCoercible(value, optMessage) {
 		/* jshint eqnull:true */
 		if (value == null) {
-			throw new TypeError(optMessage || 'Cannot call method on ' + value);
+			throw new $TypeError(optMessage || 'Cannot call method on ' + value);
 		}
 		return value;
 	},
@@ -62,7 +68,7 @@ var ES5 = {
 		return $isNaN(x) && $isNaN(y);
 	},
 
-	// http://www.ecma-international.org/ecma-262/5.1/#sec-8
+	// https://www.ecma-international.org/ecma-262/5.1/#sec-8
 	Type: function Type(x) {
 		if (x === null) {
 			return 'Null';
@@ -84,7 +90,7 @@ var ES5 = {
 		}
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-property-descriptor-specification-type
+	// https://ecma-international.org/ecma-262/6.0/#sec-property-descriptor-specification-type
 	IsPropertyDescriptor: function IsPropertyDescriptor(Desc) {
 		if (this.Type(Desc) !== 'Object') {
 			return false;
@@ -107,19 +113,19 @@ var ES5 = {
 		var isData = has(Desc, '[[Value]]');
 		var IsAccessor = has(Desc, '[[Get]]') || has(Desc, '[[Set]]');
 		if (isData && IsAccessor) {
-			throw new TypeError('Property Descriptors may not be both accessor and data descriptors');
+			throw new $TypeError('Property Descriptors may not be both accessor and data descriptors');
 		}
 		return true;
 	},
 
-	// http://ecma-international.org/ecma-262/5.1/#sec-8.10.1
+	// https://ecma-international.org/ecma-262/5.1/#sec-8.10.1
 	IsAccessorDescriptor: function IsAccessorDescriptor(Desc) {
 		if (typeof Desc === 'undefined') {
 			return false;
 		}
 
 		if (!this.IsPropertyDescriptor(Desc)) {
-			throw new TypeError('Desc must be a Property Descriptor');
+			throw new $TypeError('Desc must be a Property Descriptor');
 		}
 
 		if (!has(Desc, '[[Get]]') && !has(Desc, '[[Set]]')) {
@@ -129,14 +135,14 @@ var ES5 = {
 		return true;
 	},
 
-	// http://ecma-international.org/ecma-262/5.1/#sec-8.10.2
+	// https://ecma-international.org/ecma-262/5.1/#sec-8.10.2
 	IsDataDescriptor: function IsDataDescriptor(Desc) {
 		if (typeof Desc === 'undefined') {
 			return false;
 		}
 
 		if (!this.IsPropertyDescriptor(Desc)) {
-			throw new TypeError('Desc must be a Property Descriptor');
+			throw new $TypeError('Desc must be a Property Descriptor');
 		}
 
 		if (!has(Desc, '[[Value]]') && !has(Desc, '[[Writable]]')) {
@@ -146,14 +152,14 @@ var ES5 = {
 		return true;
 	},
 
-	// http://ecma-international.org/ecma-262/5.1/#sec-8.10.3
+	// https://ecma-international.org/ecma-262/5.1/#sec-8.10.3
 	IsGenericDescriptor: function IsGenericDescriptor(Desc) {
 		if (typeof Desc === 'undefined') {
 			return false;
 		}
 
 		if (!this.IsPropertyDescriptor(Desc)) {
-			throw new TypeError('Desc must be a Property Descriptor');
+			throw new $TypeError('Desc must be a Property Descriptor');
 		}
 
 		if (!this.IsAccessorDescriptor(Desc) && !this.IsDataDescriptor(Desc)) {
@@ -163,14 +169,14 @@ var ES5 = {
 		return false;
 	},
 
-	// http://ecma-international.org/ecma-262/5.1/#sec-8.10.4
+	// https://ecma-international.org/ecma-262/5.1/#sec-8.10.4
 	FromPropertyDescriptor: function FromPropertyDescriptor(Desc) {
 		if (typeof Desc === 'undefined') {
 			return Desc;
 		}
 
 		if (!this.IsPropertyDescriptor(Desc)) {
-			throw new TypeError('Desc must be a Property Descriptor');
+			throw new $TypeError('Desc must be a Property Descriptor');
 		}
 
 		if (this.IsDataDescriptor(Desc)) {
@@ -188,14 +194,14 @@ var ES5 = {
 				configurable: !!Desc['[[Configurable]]']
 			};
 		} else {
-			throw new TypeError('FromPropertyDescriptor must be called with a fully populated Property Descriptor');
+			throw new $TypeError('FromPropertyDescriptor must be called with a fully populated Property Descriptor');
 		}
 	},
 
-	// http://ecma-international.org/ecma-262/5.1/#sec-8.10.5
+	// https://ecma-international.org/ecma-262/5.1/#sec-8.10.5
 	ToPropertyDescriptor: function ToPropertyDescriptor(Obj) {
 		if (this.Type(Obj) !== 'Object') {
-			throw new TypeError('ToPropertyDescriptor requires an object');
+			throw new $TypeError('ToPropertyDescriptor requires an object');
 		}
 
 		var desc = {};
@@ -221,13 +227,13 @@ var ES5 = {
 		if (has(Obj, 'set')) {
 			var setter = Obj.set;
 			if (typeof setter !== 'undefined' && !this.IsCallable(setter)) {
-				throw new TypeError('setter must be a function');
+				throw new $TypeError('setter must be a function');
 			}
 			desc['[[Set]]'] = setter;
 		}
 
 		if ((has(desc, '[[Get]]') || has(desc, '[[Set]]')) && (has(desc, '[[Value]]') || has(desc, '[[Writable]]'))) {
-			throw new TypeError('Invalid property descriptor. Cannot both specify accessors and a value or writable attribute');
+			throw new $TypeError('Invalid property descriptor. Cannot both specify accessors and a value or writable attribute');
 		}
 		return desc;
 	}

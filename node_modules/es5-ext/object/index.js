@@ -18,6 +18,7 @@ module.exports = {
 	ensurePlainFunction: require("./ensure-plain-function"),
 	ensurePromise: require("./ensure-promise"),
 	ensureThenable: require("./ensure-thenable"),
+	entries: require("./entries"),
 	eq: require("./eq"),
 	every: require("./every"),
 	filter: require("./filter"),

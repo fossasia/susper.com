@@ -3,13 +3,22 @@
 var has = require('has');
 var toPrimitive = require('es-to-primitive/es6');
 
-var toStr = Object.prototype.toString;
-var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
-var SymbolIterator = hasSymbols ? Symbol.iterator : null;
+var GetIntrinsic = require('./GetIntrinsic');
+
+var $TypeError = GetIntrinsic('%TypeError%');
+var $SyntaxError = GetIntrinsic('%SyntaxError%');
+var $Array = GetIntrinsic('%Array%');
+var $String = GetIntrinsic('%String%');
+var $Object = GetIntrinsic('%Object%');
+var $Number = GetIntrinsic('%Number%');
+var $Symbol = GetIntrinsic('%Symbol%', true);
+var $RegExp = GetIntrinsic('%RegExp%');
+
+var hasSymbols = !!$Symbol;
 
 var $isNaN = require('./helpers/isNaN');
 var $isFinite = require('./helpers/isFinite');
-var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
+var MAX_SAFE_INTEGER = $Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
 
 var assign = require('./helpers/assign');
 var sign = require('./helpers/sign');
@@ -17,16 +26,27 @@ var mod = require('./helpers/mod');
 var isPrimitive = require('./helpers/isPrimitive');
 var parseInteger = parseInt;
 var bind = require('function-bind');
-var arraySlice = bind.call(Function.call, Array.prototype.slice);
-var strSlice = bind.call(Function.call, String.prototype.slice);
-var isBinary = bind.call(Function.call, RegExp.prototype.test, /^0b[01]+$/i);
-var isOctal = bind.call(Function.call, RegExp.prototype.test, /^0o[0-7]+$/i);
-var regexExec = bind.call(Function.call, RegExp.prototype.exec);
+var arraySlice = bind.call(Function.call, $Array.prototype.slice);
+var strSlice = bind.call(Function.call, $String.prototype.slice);
+var isBinary = bind.call(Function.call, $RegExp.prototype.test, /^0b[01]+$/i);
+var isOctal = bind.call(Function.call, $RegExp.prototype.test, /^0o[0-7]+$/i);
+var regexExec = bind.call(Function.call, $RegExp.prototype.exec);
 var nonWS = ['\u0085', '\u200b', '\ufffe'].join('');
-var nonWSregex = new RegExp('[' + nonWS + ']', 'g');
-var hasNonWS = bind.call(Function.call, RegExp.prototype.test, nonWSregex);
+var nonWSregex = new $RegExp('[' + nonWS + ']', 'g');
+var hasNonWS = bind.call(Function.call, $RegExp.prototype.test, nonWSregex);
 var invalidHexLiteral = /^[-+]0x[0-9a-f]+$/i;
-var isInvalidHexLiteral = bind.call(Function.call, RegExp.prototype.test, invalidHexLiteral);
+var isInvalidHexLiteral = bind.call(Function.call, $RegExp.prototype.test, invalidHexLiteral);
+var $charCodeAt = bind.call(Function.call, $String.prototype.charCodeAt);
+
+var toStr = bind.call(Function.call, Object.prototype.toString);
+
+var $floor = Math.floor;
+var $abs = Math.abs;
+
+var $ObjectCreate = Object.create;
+var $gOPD = $Object.getOwnPropertyDescriptor;
+
+var $isExtensible = $Object.isExtensible;
 
 // whitespace from: http://es5.github.io/#x15.5.4.20
 // implementation from https://github.com/es-shims/es5-shim/blob/v3.4.0/es5-shim.js#L1304-L1324
@@ -36,7 +56,7 @@ var ws = [
 	'\u2029\uFEFF'
 ].join('');
 var trimRegex = new RegExp('(^[' + ws + ']+)|([' + ws + ']+$)', 'g');
-var replace = bind.call(Function.call, String.prototype.replace);
+var replace = bind.call(Function.call, $String.prototype.replace);
 var trim = function (value) {
 	return replace(value, trimRegex, '');
 };
@@ -52,7 +72,7 @@ var ES6 = assign(assign({}, ES5), {
 	Call: function Call(F, V) {
 		var args = arguments.length > 2 ? arguments[2] : [];
 		if (!this.IsCallable(F)) {
-			throw new TypeError(F + ' is not a function');
+			throw new $TypeError(F + ' is not a function');
 		}
 		return F.apply(V, args);
 	},
@@ -63,11 +83,11 @@ var ES6 = assign(assign({}, ES5), {
 	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-toboolean
 	// ToBoolean: ES5.ToBoolean,
 
-	// http://www.ecma-international.org/ecma-262/6.0/#sec-tonumber
+	// https://ecma-international.org/ecma-262/6.0/#sec-tonumber
 	ToNumber: function ToNumber(argument) {
-		var value = isPrimitive(argument) ? argument : toPrimitive(argument, Number);
+		var value = isPrimitive(argument) ? argument : toPrimitive(argument, $Number);
 		if (typeof value === 'symbol') {
-			throw new TypeError('Cannot convert a Symbol value to a number');
+			throw new $TypeError('Cannot convert a Symbol value to a number');
 		}
 		if (typeof value === 'string') {
 			if (isBinary(value)) {
@@ -83,7 +103,7 @@ var ES6 = assign(assign({}, ES5), {
 				}
 			}
 		}
-		return Number(value);
+		return $Number(value);
 	},
 
 	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tointeger
@@ -114,7 +134,7 @@ var ES6 = assign(assign({}, ES5), {
 	ToUint8: function ToUint8(argument) {
 		var number = this.ToNumber(argument);
 		if ($isNaN(number) || number === 0 || !$isFinite(number)) { return 0; }
-		var posInt = sign(number) * Math.floor(Math.abs(number));
+		var posInt = sign(number) * $floor($abs(number));
 		return mod(posInt, 0x100);
 	},
 
@@ -123,7 +143,7 @@ var ES6 = assign(assign({}, ES5), {
 		var number = this.ToNumber(argument);
 		if ($isNaN(number) || number <= 0) { return 0; }
 		if (number >= 0xFF) { return 0xFF; }
-		var f = Math.floor(argument);
+		var f = $floor(argument);
 		if (f + 0.5 < number) { return f + 1; }
 		if (number < f + 0.5) { return f; }
 		if (f % 2 !== 0) { return f + 1; }
@@ -133,20 +153,20 @@ var ES6 = assign(assign({}, ES5), {
 	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tostring
 	ToString: function ToString(argument) {
 		if (typeof argument === 'symbol') {
-			throw new TypeError('Cannot convert a Symbol value to a string');
+			throw new $TypeError('Cannot convert a Symbol value to a string');
 		}
-		return String(argument);
+		return $String(argument);
 	},
 
 	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-toobject
 	ToObject: function ToObject(value) {
 		this.RequireObjectCoercible(value);
-		return Object(value);
+		return $Object(value);
 	},
 
 	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-topropertykey
 	ToPropertyKey: function ToPropertyKey(argument) {
-		var key = this.ToPrimitive(argument, String);
+		var key = this.ToPrimitive(argument, $String);
 		return typeof key === 'symbol' ? key : this.ToString(key);
 	},
 
@@ -158,10 +178,10 @@ var ES6 = assign(assign({}, ES5), {
 		return len;
 	},
 
-	// http://www.ecma-international.org/ecma-262/6.0/#sec-canonicalnumericindexstring
+	// https://ecma-international.org/ecma-262/6.0/#sec-canonicalnumericindexstring
 	CanonicalNumericIndexString: function CanonicalNumericIndexString(argument) {
-		if (toStr.call(argument) !== '[object String]') {
-			throw new TypeError('must be a string');
+		if (toStr(argument) !== '[object String]') {
+			throw new $TypeError('must be a string');
 		}
 		if (argument === '-0') { return -0; }
 		var n = this.ToNumber(argument);
@@ -173,8 +193,8 @@ var ES6 = assign(assign({}, ES5), {
 	RequireObjectCoercible: ES5.CheckObjectCoercible,
 
 	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-isarray
-	IsArray: Array.isArray || function IsArray(argument) {
-		return toStr.call(argument) === '[object Array]';
+	IsArray: $Array.isArray || function IsArray(argument) {
+		return toStr(argument) === '[object Array]';
 	},
 
 	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-iscallable
@@ -186,21 +206,22 @@ var ES6 = assign(assign({}, ES5), {
 	},
 
 	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-isextensible-o
-	IsExtensible: function IsExtensible(obj) {
-		if (!Object.preventExtensions) { return true; }
-		if (isPrimitive(obj)) {
-			return false;
+	IsExtensible: Object.preventExtensions
+		? function IsExtensible(obj) {
+			if (isPrimitive(obj)) {
+				return false;
+			}
+			return $isExtensible(obj);
 		}
-		return Object.isExtensible(obj);
-	},
+		: function isExtensible(obj) { return true; }, // eslint-disable-line no-unused-vars
 
 	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-isinteger
 	IsInteger: function IsInteger(argument) {
 		if (typeof argument !== 'number' || $isNaN(argument) || !$isFinite(argument)) {
 			return false;
 		}
-		var abs = Math.abs(argument);
-		return Math.floor(abs) === abs;
+		var abs = $abs(argument);
+		return $floor(abs) === abs;
 	},
 
 	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ispropertykey
@@ -208,13 +229,13 @@ var ES6 = assign(assign({}, ES5), {
 		return typeof argument === 'string' || typeof argument === 'symbol';
 	},
 
-	// http://www.ecma-international.org/ecma-262/6.0/#sec-isregexp
+	// https://ecma-international.org/ecma-262/6.0/#sec-isregexp
 	IsRegExp: function IsRegExp(argument) {
 		if (!argument || typeof argument !== 'object') {
 			return false;
 		}
 		if (hasSymbols) {
-			var isRegExp = argument[Symbol.match];
+			var isRegExp = argument[$Symbol.match];
 			if (typeof isRegExp !== 'undefined') {
 				return ES5.ToBoolean(isRegExp);
 			}
@@ -240,7 +261,7 @@ var ES6 = assign(assign({}, ES5), {
 	GetV: function GetV(V, P) {
 		// 7.3.2.1
 		if (!this.IsPropertyKey(P)) {
-			throw new TypeError('Assertion failed: IsPropertyKey(P) is not true');
+			throw new $TypeError('Assertion failed: IsPropertyKey(P) is not true');
 		}
 
 		// 7.3.2.2-3
@@ -251,7 +272,7 @@ var ES6 = assign(assign({}, ES5), {
 	},
 
 	/**
-	 * 7.3.9 - http://www.ecma-international.org/ecma-262/6.0/#sec-getmethod
+	 * 7.3.9 - https://ecma-international.org/ecma-262/6.0/#sec-getmethod
 	 * 1. Assert: IsPropertyKey(P) is true.
 	 * 2. Let func be GetV(O, P).
 	 * 3. ReturnIfAbrupt(func).
@@ -262,7 +283,7 @@ var ES6 = assign(assign({}, ES5), {
 	GetMethod: function GetMethod(O, P) {
 		// 7.3.9.1
 		if (!this.IsPropertyKey(P)) {
-			throw new TypeError('Assertion failed: IsPropertyKey(P) is not true');
+			throw new $TypeError('Assertion failed: IsPropertyKey(P) is not true');
 		}
 
 		// 7.3.9.2
@@ -275,7 +296,7 @@ var ES6 = assign(assign({}, ES5), {
 
 		// 7.3.9.5
 		if (!this.IsCallable(func)) {
-			throw new TypeError(P + 'is not a function');
+			throw new $TypeError(P + 'is not a function');
 		}
 
 		// 7.3.9.6
@@ -283,7 +304,7 @@ var ES6 = assign(assign({}, ES5), {
 	},
 
 	/**
-	 * 7.3.1 Get (O, P) - http://www.ecma-international.org/ecma-262/6.0/#sec-get-o-p
+	 * 7.3.1 Get (O, P) - https://ecma-international.org/ecma-262/6.0/#sec-get-o-p
 	 * 1. Assert: Type(O) is Object.
 	 * 2. Assert: IsPropertyKey(P) is true.
 	 * 3. Return O.[[Get]](P, O).
@@ -291,11 +312,11 @@ var ES6 = assign(assign({}, ES5), {
 	Get: function Get(O, P) {
 		// 7.3.1.1
 		if (this.Type(O) !== 'Object') {
-			throw new TypeError('Assertion failed: Type(O) is not Object');
+			throw new $TypeError('Assertion failed: Type(O) is not Object');
 		}
 		// 7.3.1.2
 		if (!this.IsPropertyKey(P)) {
-			throw new TypeError('Assertion failed: IsPropertyKey(P) is not true');
+			throw new $TypeError('Assertion failed: IsPropertyKey(P) is not true');
 		}
 		// 7.3.1.3
 		return O[P];
@@ -308,32 +329,32 @@ var ES6 = assign(assign({}, ES5), {
 		return ES5.Type(x);
 	},
 
-	// http://www.ecma-international.org/ecma-262/6.0/#sec-speciesconstructor
+	// https://ecma-international.org/ecma-262/6.0/#sec-speciesconstructor
 	SpeciesConstructor: function SpeciesConstructor(O, defaultConstructor) {
 		if (this.Type(O) !== 'Object') {
-			throw new TypeError('Assertion failed: Type(O) is not Object');
+			throw new $TypeError('Assertion failed: Type(O) is not Object');
 		}
 		var C = O.constructor;
 		if (typeof C === 'undefined') {
 			return defaultConstructor;
 		}
 		if (this.Type(C) !== 'Object') {
-			throw new TypeError('O.constructor is not an Object');
+			throw new $TypeError('O.constructor is not an Object');
 		}
-		var S = hasSymbols && Symbol.species ? C[Symbol.species] : void 0;
+		var S = hasSymbols && $Symbol.species ? C[$Symbol.species] : void 0;
 		if (S == null) {
 			return defaultConstructor;
 		}
 		if (this.IsConstructor(S)) {
 			return S;
 		}
-		throw new TypeError('no constructor found');
+		throw new $TypeError('no constructor found');
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-completepropertydescriptor
+	// https://ecma-international.org/ecma-262/6.0/#sec-completepropertydescriptor
 	CompletePropertyDescriptor: function CompletePropertyDescriptor(Desc) {
 		if (!this.IsPropertyDescriptor(Desc)) {
-			throw new TypeError('Desc must be a Property Descriptor');
+			throw new $TypeError('Desc must be a Property Descriptor');
 		}
 
 		if (this.IsGenericDescriptor(Desc) || this.IsDataDescriptor(Desc)) {
@@ -360,16 +381,16 @@ var ES6 = assign(assign({}, ES5), {
 		return Desc;
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-set-o-p-v-throw
+	// https://ecma-international.org/ecma-262/6.0/#sec-set-o-p-v-throw
 	Set: function Set(O, P, V, Throw) {
 		if (this.Type(O) !== 'Object') {
-			throw new TypeError('O must be an Object');
+			throw new $TypeError('O must be an Object');
 		}
 		if (!this.IsPropertyKey(P)) {
-			throw new TypeError('P must be a Property Key');
+			throw new $TypeError('P must be a Property Key');
 		}
 		if (this.Type(Throw) !== 'Boolean') {
-			throw new TypeError('Throw must be a Boolean');
+			throw new $TypeError('Throw must be a Boolean');
 		}
 		if (Throw) {
 			O[P] = V;
@@ -383,34 +404,34 @@ var ES6 = assign(assign({}, ES5), {
 		}
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-hasownproperty
+	// https://ecma-international.org/ecma-262/6.0/#sec-hasownproperty
 	HasOwnProperty: function HasOwnProperty(O, P) {
 		if (this.Type(O) !== 'Object') {
-			throw new TypeError('O must be an Object');
+			throw new $TypeError('O must be an Object');
 		}
 		if (!this.IsPropertyKey(P)) {
-			throw new TypeError('P must be a Property Key');
+			throw new $TypeError('P must be a Property Key');
 		}
 		return has(O, P);
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-hasproperty
+	// https://ecma-international.org/ecma-262/6.0/#sec-hasproperty
 	HasProperty: function HasProperty(O, P) {
 		if (this.Type(O) !== 'Object') {
-			throw new TypeError('O must be an Object');
+			throw new $TypeError('O must be an Object');
 		}
 		if (!this.IsPropertyKey(P)) {
-			throw new TypeError('P must be a Property Key');
+			throw new $TypeError('P must be a Property Key');
 		}
 		return P in O;
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-isconcatspreadable
+	// https://ecma-international.org/ecma-262/6.0/#sec-isconcatspreadable
 	IsConcatSpreadable: function IsConcatSpreadable(O) {
 		if (this.Type(O) !== 'Object') {
 			return false;
 		}
-		if (hasSymbols && typeof Symbol.isConcatSpreadable === 'symbol') {
+		if (hasSymbols && typeof $Symbol.isConcatSpreadable === 'symbol') {
 			var spreadable = this.Get(O, Symbol.isConcatSpreadable);
 			if (typeof spreadable !== 'undefined') {
 				return this.ToBoolean(spreadable);
@@ -419,17 +440,17 @@ var ES6 = assign(assign({}, ES5), {
 		return this.IsArray(O);
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-invoke
+	// https://ecma-international.org/ecma-262/6.0/#sec-invoke
 	Invoke: function Invoke(O, P) {
 		if (!this.IsPropertyKey(P)) {
-			throw new TypeError('P must be a Property Key');
+			throw new $TypeError('P must be a Property Key');
 		}
 		var argumentsList = arraySlice(arguments, 2);
 		var func = this.GetV(O, P);
 		return this.Call(func, O, argumentsList);
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-getiterator
+	// https://ecma-international.org/ecma-262/6.0/#sec-getiterator
 	GetIterator: function GetIterator(obj, method) {
 		if (!hasSymbols) {
 			throw new SyntaxError('ES.GetIterator depends on native iterator support.');
@@ -437,55 +458,55 @@ var ES6 = assign(assign({}, ES5), {
 
 		var actualMethod = method;
 		if (arguments.length < 2) {
-			actualMethod = this.GetMethod(obj, SymbolIterator);
+			actualMethod = this.GetMethod(obj, $Symbol.iterator);
 		}
 		var iterator = this.Call(actualMethod, obj);
 		if (this.Type(iterator) !== 'Object') {
-			throw new TypeError('iterator must return an object');
+			throw new $TypeError('iterator must return an object');
 		}
 
 		return iterator;
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-iteratornext
+	// https://ecma-international.org/ecma-262/6.0/#sec-iteratornext
 	IteratorNext: function IteratorNext(iterator, value) {
 		var result = this.Invoke(iterator, 'next', arguments.length < 2 ? [] : [value]);
 		if (this.Type(result) !== 'Object') {
-			throw new TypeError('iterator next must return an object');
+			throw new $TypeError('iterator next must return an object');
 		}
 		return result;
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-iteratorcomplete
+	// https://ecma-international.org/ecma-262/6.0/#sec-iteratorcomplete
 	IteratorComplete: function IteratorComplete(iterResult) {
 		if (this.Type(iterResult) !== 'Object') {
-			throw new TypeError('Assertion failed: Type(iterResult) is not Object');
+			throw new $TypeError('Assertion failed: Type(iterResult) is not Object');
 		}
 		return this.ToBoolean(this.Get(iterResult, 'done'));
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-iteratorvalue
+	// https://ecma-international.org/ecma-262/6.0/#sec-iteratorvalue
 	IteratorValue: function IteratorValue(iterResult) {
 		if (this.Type(iterResult) !== 'Object') {
-			throw new TypeError('Assertion failed: Type(iterResult) is not Object');
+			throw new $TypeError('Assertion failed: Type(iterResult) is not Object');
 		}
 		return this.Get(iterResult, 'value');
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-iteratorstep
+	// https://ecma-international.org/ecma-262/6.0/#sec-iteratorstep
 	IteratorStep: function IteratorStep(iterator) {
 		var result = this.IteratorNext(iterator);
 		var done = this.IteratorComplete(result);
 		return done === true ? false : result;
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-iteratorclose
+	// https://ecma-international.org/ecma-262/6.0/#sec-iteratorclose
 	IteratorClose: function IteratorClose(iterator, completion) {
 		if (this.Type(iterator) !== 'Object') {
-			throw new TypeError('Assertion failed: Type(iterator) is not Object');
+			throw new $TypeError('Assertion failed: Type(iterator) is not Object');
 		}
 		if (!this.IsCallable(completion)) {
-			throw new TypeError('Assertion failed: completion is not a thunk for a Completion Record');
+			throw new $TypeError('Assertion failed: completion is not a thunk for a Completion Record');
 		}
 		var completionThunk = completion;
 
@@ -512,16 +533,16 @@ var ES6 = assign(assign({}, ES5), {
 		completionThunk = null; // ensure it's not called twice.
 
 		if (this.Type(innerResult) !== 'Object') {
-			throw new TypeError('iterator .return must return an object');
+			throw new $TypeError('iterator .return must return an object');
 		}
 
 		return completionRecord;
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-createiterresultobject
+	// https://ecma-international.org/ecma-262/6.0/#sec-createiterresultobject
 	CreateIterResultObject: function CreateIterResultObject(value, done) {
 		if (this.Type(done) !== 'Boolean') {
-			throw new TypeError('Assertion failed: Type(done) is not Boolean');
+			throw new $TypeError('Assertion failed: Type(done) is not Boolean');
 		}
 		return {
 			value: value,
@@ -529,13 +550,13 @@ var ES6 = assign(assign({}, ES5), {
 		};
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-regexpexec
+	// https://ecma-international.org/ecma-262/6.0/#sec-regexpexec
 	RegExpExec: function RegExpExec(R, S) {
 		if (this.Type(R) !== 'Object') {
-			throw new TypeError('R must be an Object');
+			throw new $TypeError('R must be an Object');
 		}
 		if (this.Type(S) !== 'String') {
-			throw new TypeError('S must be a String');
+			throw new $TypeError('S must be a String');
 		}
 		var exec = this.Get(R, 'exec');
 		if (this.IsCallable(exec)) {
@@ -543,15 +564,15 @@ var ES6 = assign(assign({}, ES5), {
 			if (result === null || this.Type(result) === 'Object') {
 				return result;
 			}
-			throw new TypeError('"exec" method must return `null` or an Object');
+			throw new $TypeError('"exec" method must return `null` or an Object');
 		}
 		return regexExec(R, S);
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-arrayspeciescreate
+	// https://ecma-international.org/ecma-262/6.0/#sec-arrayspeciescreate
 	ArraySpeciesCreate: function ArraySpeciesCreate(originalArray, length) {
 		if (!this.IsInteger(length) || length < 0) {
-			throw new TypeError('Assertion failed: length must be an integer >= 0');
+			throw new $TypeError('Assertion failed: length must be an integer >= 0');
 		}
 		var len = length === 0 ? 0 : length;
 		var C;
@@ -563,31 +584,31 @@ var ES6 = assign(assign({}, ES5), {
 			// 	if C is another realm's Array, C = undefined
 			// 	Object.getPrototypeOf(Object.getPrototypeOf(Object.getPrototypeOf(Array))) === null ?
 			// }
-			if (this.Type(C) === 'Object' && hasSymbols && Symbol.species) {
-				C = this.Get(C, Symbol.species);
+			if (this.Type(C) === 'Object' && hasSymbols && $Symbol.species) {
+				C = this.Get(C, $Symbol.species);
 				if (C === null) {
 					C = void 0;
 				}
 			}
 		}
 		if (typeof C === 'undefined') {
-			return Array(len);
+			return $Array(len);
 		}
 		if (!this.IsConstructor(C)) {
-			throw new TypeError('C must be a constructor');
+			throw new $TypeError('C must be a constructor');
 		}
 		return new C(len); // this.Construct(C, len);
 	},
 
 	CreateDataProperty: function CreateDataProperty(O, P, V) {
 		if (this.Type(O) !== 'Object') {
-			throw new TypeError('Assertion failed: Type(O) is not Object');
+			throw new $TypeError('Assertion failed: Type(O) is not Object');
 		}
 		if (!this.IsPropertyKey(P)) {
-			throw new TypeError('Assertion failed: IsPropertyKey(P) is not true');
+			throw new $TypeError('Assertion failed: IsPropertyKey(P) is not true');
 		}
-		var oldDesc = Object.getOwnPropertyDescriptor(O, P);
-		var extensible = oldDesc || (typeof Object.isExtensible !== 'function' || Object.isExtensible(O));
+		var oldDesc = $gOPD(O, P);
+		var extensible = oldDesc || (typeof $isExtensible !== 'function' || $isExtensible(O));
 		var immutable = oldDesc && (!oldDesc.writable || !oldDesc.configurable);
 		if (immutable || !extensible) {
 			return false;
@@ -602,34 +623,48 @@ var ES6 = assign(assign({}, ES5), {
 		return true;
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-createdatapropertyorthrow
+	// https://ecma-international.org/ecma-262/6.0/#sec-createdatapropertyorthrow
 	CreateDataPropertyOrThrow: function CreateDataPropertyOrThrow(O, P, V) {
 		if (this.Type(O) !== 'Object') {
-			throw new TypeError('Assertion failed: Type(O) is not Object');
+			throw new $TypeError('Assertion failed: Type(O) is not Object');
 		}
 		if (!this.IsPropertyKey(P)) {
-			throw new TypeError('Assertion failed: IsPropertyKey(P) is not true');
+			throw new $TypeError('Assertion failed: IsPropertyKey(P) is not true');
 		}
 		var success = this.CreateDataProperty(O, P, V);
 		if (!success) {
-			throw new TypeError('unable to create data property');
+			throw new $TypeError('unable to create data property');
 		}
 		return success;
 	},
 
-	// http://ecma-international.org/ecma-262/6.0/#sec-advancestringindex
+	// https://www.ecma-international.org/ecma-262/6.0/#sec-objectcreate
+	ObjectCreate: function ObjectCreate(proto, internalSlotsList) {
+		if (proto !== null && this.Type(proto) !== 'Object') {
+			throw new $TypeError('Assertion failed: proto must be null or an object');
+		}
+		var slots = arguments.length < 2 ? [] : internalSlotsList;
+		if (slots.length > 0) {
+			throw new $SyntaxError('es-abstract does not yet support internal slots');
+		}
+
+		if (proto === null && !$ObjectCreate) {
+			throw new $SyntaxError('native Object.create support is required to create null objects');
+		}
+
+		return $ObjectCreate(proto);
+	},
+
+	// https://ecma-international.org/ecma-262/6.0/#sec-advancestringindex
 	AdvanceStringIndex: function AdvanceStringIndex(S, index, unicode) {
 		if (this.Type(S) !== 'String') {
-			throw new TypeError('Assertion failed: Type(S) is not String');
+			throw new $TypeError('S must be a String');
 		}
-		if (!this.IsInteger(index)) {
-			throw new TypeError('Assertion failed: length must be an integer >= 0 and <= (2**53 - 1)');
-		}
-		if (index < 0 || index > MAX_SAFE_INTEGER) {
-			throw new RangeError('Assertion failed: length must be an integer >= 0 and <= (2**53 - 1)');
+		if (!this.IsInteger(index) || index < 0 || index > MAX_SAFE_INTEGER) {
+			throw new $TypeError('Assertion failed: length must be an integer >= 0 and <= 2**53');
 		}
 		if (this.Type(unicode) !== 'Boolean') {
-			throw new TypeError('Assertion failed: Type(unicode) is not Boolean');
+			throw new $TypeError('Assertion failed: unicode must be a Boolean');
 		}
 		if (!unicode) {
 			return index + 1;
@@ -638,14 +673,17 @@ var ES6 = assign(assign({}, ES5), {
 		if ((index + 1) >= length) {
 			return index + 1;
 		}
-		var first = S.charCodeAt(index);
+
+		var first = $charCodeAt(S, index);
 		if (first < 0xD800 || first > 0xDBFF) {
 			return index + 1;
 		}
-		var second = S.charCodeAt(index + 1);
+
+		var second = $charCodeAt(S, index + 1);
 		if (second < 0xDC00 || second > 0xDFFF) {
 			return index + 1;
 		}
+
 		return index + 2;
 	}
 });

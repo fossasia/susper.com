@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.2.5"></a>
+## [1.2.5](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-source-maps@1.2.4...istanbul-lib-source-maps@1.2.5) (2018-05-31)
+
+
+### Bug Fixes
+
+* process.cwd is a function not a string ([#163](https://github.com/istanbuljs/istanbuljs/issues/163)). ([#171](https://github.com/istanbuljs/istanbuljs/issues/171)) ([9c7802c](https://github.com/istanbuljs/istanbuljs/commit/9c7802c))
+
+
+
+
 <a name="1.2.4"></a>
 ## [1.2.4](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-source-maps@1.2.3...istanbul-lib-source-maps@1.2.4) (2018-03-04)
 

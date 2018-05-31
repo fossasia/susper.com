@@ -2,7 +2,7 @@
  * globule
  * https://github.com/cowboy/node-globule
  *
- * Copyright (c) 2017 "Cowboy" Ben Alman
+ * Copyright (c) 2018 "Cowboy" Ben Alman
  * Licensed under the MIT license.
  */
 

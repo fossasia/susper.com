@@ -1,3 +1,9 @@
+1.12.0 / 2018-05-31
+=================
+  * [New] add `GetIntrinsic` entry point
+  * [New] `ES2015`+: add `ObjectCreate`
+  * [Robustness]: `ES2015+`: ensure `Math.{abs,floor}` and `Function.call` are cached
+
 1.11.0 / 2018-03-21
 =================
   * [New] `ES2015+`: add iterator abstract ops

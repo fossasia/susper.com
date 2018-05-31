@@ -38,7 +38,7 @@ Simply clone the repo, `npm install`, and run `npm test`
 [testling-svg]: https://ci.testling.com/ljharb/es-abstract.png
 [testling-url]: https://ci.testling.com/ljharb/es-abstract
 [npm-badge-png]: https://nodei.co/npm/es-abstract.png?downloads=true&stars=true
-[license-image]: http://img.shields.io/npm/l/es-abstract.svg
+[license-image]: https://img.shields.io/npm/l/es-abstract.svg
 [license-url]: LICENSE
-[downloads-image]: http://img.shields.io/npm/dm/es-abstract.svg
-[downloads-url]: http://npm-stat.com/charts.html?package=es-abstract
+[downloads-image]: https://img.shields.io/npm/dm/es-abstract.svg
+[downloads-url]: https://npm-stat.com/charts.html?package=es-abstract

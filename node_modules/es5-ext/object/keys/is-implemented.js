@@ -5,6 +5,6 @@ module.exports = function () {
 		Object.keys("primitive");
 		return true;
 	} catch (e) {
- return false;
-}
+		return false;
+	}
 };

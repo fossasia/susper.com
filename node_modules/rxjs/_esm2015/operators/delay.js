@@ -82,6 +82,7 @@ class DelaySubscriber extends Subscriber {
             this.schedule(state, delay);
         }
         else {
+            this.unsubscribe();
             source.active = false;
         }
     }

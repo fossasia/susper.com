@@ -17,6 +17,7 @@
 		"no-magic-numbers": 0,
 		"new-cap": 0,
 		"no-extra-parens": 1,
+		"operator-linebreak": [2, "before"],
 		"sort-keys": 0
 	}
 }

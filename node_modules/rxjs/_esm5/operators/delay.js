@@ -95,6 +95,7 @@ var DelaySubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
             this.schedule(state, delay_1);
         }
         else {
+            this.unsubscribe();
             source.active = false;
         }
     };

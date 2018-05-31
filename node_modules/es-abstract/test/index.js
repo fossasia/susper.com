@@ -18,6 +18,8 @@ test('methods match', function (t) {
 	t.end();
 });
 
+require('./GetIntrinsic');
+
 require('./es5');
 require('./es6');
 require('./es2015');

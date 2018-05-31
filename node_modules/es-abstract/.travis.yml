@@ -2,12 +2,13 @@ language: node_js
 os:
  - linux
 node_js:
-  - "9.8"
-  - "8.10"
+  - "10.2"
+  - "9.11"
+  - "8.11"
   - "7.10"
-  - "6.13"
+  - "6.14"
   - "5.12"
-  - "4.8"
+  - "4.9"
   - "iojs-v3.3"
   - "iojs-v2.5"
   - "iojs-v1.8"
@@ -15,7 +16,15 @@ node_js:
   - "0.10"
   - "0.8"
   - "0.6"
+cache:
+  directories:
+    - "$HOME/.npm"
+    - "$(nvm cache dir)"
+    - "$(nvm_version_path $(nvm_version_remote 0.4))"
+    - "$(nvm_version_path $(nvm_version_remote 0.6))"
+    - "$(nvm_version_path $(nvm_version_remote 0.10))"
 before_install:
+  - 'case "${TRAVIS_NODE_VERSION}" in 0.*) export NPM_CONFIG_STRICT_SSL=false ;; esac'
   - 'nvm install-latest-npm'
 install:
   - 'if [ "${TRAVIS_NODE_VERSION}" = "0.6" ] || [ "${TRAVIS_NODE_VERSION}" = "0.9" ]; then nvm install --latest-npm 0.8 && npm install && nvm use "${TRAVIS_NODE_VERSION}"; else npm install; fi;'
@@ -42,6 +51,16 @@ matrix:
       env: COVERAGE=true
     - node_js: "8"
       env: COVERAGE=true
+    - node_js: "10.1"
+      env: TEST=true ALLOW_FAILURE=true
+    - node_js: "10.0"
+      env: TEST=true ALLOW_FAILURE=true
+    - node_js: "9.10"
+      env: TEST=true ALLOW_FAILURE=true
+    - node_js: "9.9"
+      env: TEST=true ALLOW_FAILURE=true
+    - node_js: "9.8"
+      env: TEST=true ALLOW_FAILURE=true
     - node_js: "9.7"
       env: TEST=true ALLOW_FAILURE=true
     - node_js: "9.6"
@@ -57,6 +76,8 @@ matrix:
     - node_js: "9.1"
       env: TEST=true ALLOW_FAILURE=true
     - node_js: "9.0"
+      env: TEST=true ALLOW_FAILURE=true
+    - node_js: "8.10"
       env: TEST=true ALLOW_FAILURE=true
     - node_js: "8.9"
       env: TEST=true ALLOW_FAILURE=true
@@ -97,6 +118,8 @@ matrix:
     - node_js: "7.1"
       env: TEST=true ALLOW_FAILURE=true
     - node_js: "7.0"
+      env: TEST=true ALLOW_FAILURE=true
+    - node_js: "6.13"
       env: TEST=true ALLOW_FAILURE=true
     - node_js: "6.12"
       env: TEST=true ALLOW_FAILURE=true
@@ -147,6 +170,8 @@ matrix:
     - node_js: "5.1"
       env: TEST=true ALLOW_FAILURE=true
     - node_js: "5.0"
+      env: TEST=true ALLOW_FAILURE=true
+    - node_js: "4.8"
       env: TEST=true ALLOW_FAILURE=true
     - node_js: "4.7"
       env: TEST=true ALLOW_FAILURE=true

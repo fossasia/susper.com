@@ -1,10 +1,15 @@
-var has = Object.prototype.hasOwnProperty;
+var bind = require('function-bind');
+var has = bind.call(Function.call, Object.prototype.hasOwnProperty);
+
+var $assign = Object.assign;
+
 module.exports = function assign(target, source) {
-	if (Object.assign) {
-		return Object.assign(target, source);
+	if ($assign) {
+		return $assign(target, source);
 	}
+
 	for (var key in source) {
-		if (has.call(source, key)) {
+		if (has(source, key)) {
 			target[key] = source[key];
 		}
 	}
