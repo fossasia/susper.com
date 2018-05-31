@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {Http, URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@angular/http';
 import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
+import 'rxjs/add/operator/retry';
 
 
 @Injectable()
@@ -34,7 +35,8 @@ export class AutocorrectService {
 
         res.json()
 
-      ).catch(this.handleError);
+      ).retry(2)
+      .catch(this.handleError);
   }
 
   private handleError (error: any) {

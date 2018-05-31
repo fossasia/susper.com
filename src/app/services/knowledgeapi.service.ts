@@ -6,6 +6,7 @@ import {Store} from '@ngrx/store';
 import * as fromRoot from '../reducers';
 import * as search from '../actions/search';
 import {Observable} from 'rxjs';
+import 'rxjs/add/operator/retry';
 
 @Injectable()
 export class KnowledgeapiService {
@@ -34,7 +35,8 @@ export class KnowledgeapiService {
 
         res.json()
 
-      ).catch(this.handleError);
+      ).retry(1)
+      .catch(this.handleError);
   }
 
   private handleError (error: any) {
