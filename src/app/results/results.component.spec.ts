@@ -22,9 +22,6 @@ import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component'
 import { AboutComponent } from '../about/about.component';
 import { ModalComponent, Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ContactComponent } from '../contact/contact.component';
-import {InfoboxComponent} from "../infobox/infobox.component";
-import {KnowledgeapiService} from "../services/knowledgeapi.service";
-import {RelatedSearchComponent} from "../related-search/related-search.component";
 import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
 import {AutocompleteService} from "../services/autocomplete.service";
 import { ThemeComponent } from '../theme/theme.component';
@@ -71,8 +68,6 @@ describe('ResultsComponent', () => {
         AboutComponent,
         ContactComponent,
         ModalComponent,
-        InfoboxComponent,
-        RelatedSearchComponent,
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
@@ -83,7 +78,6 @@ describe('ResultsComponent', () => {
       ],
       providers: [
         SearchService,
-        KnowledgeapiService,
         AutocompleteService,
         ThemeService,
         SpeechService,
@@ -117,22 +111,10 @@ describe('ResultsComponent', () => {
     expect(compiled.querySelector('app-advancedsearch')).toBeTruthy();
   });
 
-  it('should have an app-related-search element', () => {
-    let compiled = fixture.debugElement.nativeElement;
-
-    expect(compiled.querySelector('app-related-search')).toBeTruthy();
-  });
-
   it('should have an footer-navbar element', () => {
     let compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
-  });
-
-  it('should have an app-infobox element', () => {
-    let compiled = fixture.debugElement.nativeElement;
-
-    expect(compiled.querySelector('app-infobox')).toBeTruthy();
   });
 
   it('should have an app-theme element', () => {

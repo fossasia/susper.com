@@ -24,9 +24,6 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { EffectsModule } from '@ngrx/effects';
 import { ApiSearchEffects } from './effects/search-effects';
 import { NewadvancedsearchComponent } from './newadvancedsearch/newadvancedsearch.component';
-import { InfoboxComponent } from './infobox/infobox.component';
-import { KnowledgeapiService } from './services/knowledgeapi.service';
-import { RelatedSearchComponent } from './related-search/related-search.component';
 import { AutocompleteService } from "./services/autocomplete.service";
 import { AutoCompleteComponent } from './auto-complete/auto-complete.component';
 import { ThemeComponent } from './theme/theme.component';
@@ -34,7 +31,6 @@ import { ThemeService } from './services/theme.service';
 import { CrawlstartComponent } from './crawlstart/crawlstart.component';
 import { CrawlstartService } from "./services/crawlstart.service";
 import { SearchsettingsComponent } from './searchsettings/searchsettings.component';
-import { KnowledgeEffects } from "./effects/knowledge";
 import { SpeechService } from './services/speech.service';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { IntelligenceComponent } from './intelligence/intelligence.component';
@@ -76,8 +72,6 @@ const appRoutes: Routes = [
     TermsComponent,
     PrivacyComponent,
     NewadvancedsearchComponent,
-    InfoboxComponent,
-    RelatedSearchComponent,
     AutoCompleteComponent,
     ThemeComponent,
     CrawlstartComponent,
@@ -99,7 +93,6 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     StoreModule.provideStore(reducer),
     EffectsModule.run(ApiSearchEffects),
-    EffectsModule.run(KnowledgeEffects),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     Ng2Bs3ModalModule,
     ChartsModule
@@ -107,7 +100,6 @@ const appRoutes: Routes = [
 
   providers: [
     SearchService,
-    KnowledgeapiService,
     AutocompleteService,
     ThemeService,
     SpeechService,

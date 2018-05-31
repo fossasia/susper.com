@@ -55,7 +55,6 @@
         </div>
         <div class="container-fluid">
           <div class="combo-box">
-            <app-infobox></app-infobox>
             <button class="btn" id="toggle-button" (click)="BoxToggle()" type="button" data-toggle="collapse" data-target="#statbox"
               aria-expanded="false" aria-controls="collapseExample" *ngIf="totalNumber > 0">
               {{boxMessage}} Analytics
@@ -77,10 +76,8 @@
                 </div>
               </div>
             </div>
-            <app-related-search [hidden]="hidefooter"></app-related-search>
           </div>
           <div class="infobox">
-            <app-infobox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" *ngIf="Display('all')"></app-infobox>
             <app-statsbox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" *ngIf="Display('all')"></app-statsbox>
           </div>
         </div>
