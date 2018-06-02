@@ -1,4 +1,4 @@
-moment@2.22.1
+moment@2.22.2
 MIT
 Copyright (c) JS Foundation and other contributors
 

@@ -323,6 +323,5 @@ var unsafeHeaders = [
 	'trailer',
 	'transfer-encoding',
 	'upgrade',
-	'user-agent',
 	'via'
 ]

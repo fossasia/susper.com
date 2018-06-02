@@ -2,7 +2,7 @@
   "static": {
     "urls": {
       "/not-found-bg.8f346a53ee078b98deb0.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
-      "/main.01d17f535586f7240d97.bundle.js": "70285eaeb7d6d556a0a169b85b9e32236f5c4577",
+      "/main.790ba707e408aa86a1e3.bundle.js": "9bddb3e24acdf05d5a4e09483a780c7be67e6602",
       "/sw-register.28c36090723540135ce0.bundle.js": "b8770a453e7d4cdb124dc9ae245d86f88b2fe209",
       "/inline.318b50c57b4eba3d437b.bundle.js": "998c6060446975e566fd17509558ddc68d72eec3",
       "/styles.9c0ad738f18adc3d19ed.bundle.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
@@ -10,6 +10,7 @@
       "/favicon.ico": "1214df2ad2bb72333b2cf64a4e5e101b25c321e2",
       "/manifest.json": "1e4647137558c4a7650ad9a06c0e0e99274a0b16",
       "/assets/Chart.bundle.min.js": "37f92d10cdf56f5c78afd05abdb72f93ee8d2686",
+      "/assets/css/base.css": "f33d855f3fd7c059981974cf51853ae776db7e24",
       "/assets/css/bootstrap-base.css": "04286a6357f4cf16b53b800f72e0c13a2d293d22",
       "/assets/css/dashboard.css": "9a79198285f8bfd83a01c311d9a1929c1f138864",
       "/assets/css/ie6.css": "3edd745eb42f7defcd95d1e49431bfbd67482f65",
@@ -39,8 +40,7 @@
       "/assets/images/susper.svg": "7a8cb12bd11e689754c7d9dbb8504ba2902c14d9",
       "/assets/images/terminal.png": "2aa0054d6e388a6cd5630e3eca2350cfb289955b",
       "/assets/images/YaCyLogo2011_60.png": "954f9d626d69a7861e9e84735c44b0a8bc759c97",
-      "/assets/css/base.css": "f33d855f3fd7c059981974cf51853ae776db7e24",
-      "/index.html": "cae1523328e46d1f4037982831855a893147cbfb"
+      "/index.html": "cd4f2cc5e3826d7c06ced4d753db405cf1f960b8"
     },
     "_generatedFromWebpack": true
   }

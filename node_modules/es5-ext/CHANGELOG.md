@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.10.45"></a>
+## [0.10.45](https://github.com/medikoo/es5-ext/compare/v0.10.44...v0.10.45) (2018-06-01)
+
+
+### Bug Fixes
+
+* improve error message readbility ([adc91b9](https://github.com/medikoo/es5-ext/commit/adc91b9))
+
+
+
 <a name="0.10.44"></a>
 ## [0.10.44](https://github.com/medikoo/es5-ext/compare/v0.10.43...v0.10.44) (2018-05-30)
 
