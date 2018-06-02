@@ -265,9 +265,7 @@ a {
 .dropdown-menu {
   float: right;
 }
-.infobox{
-  margin-top: -110px;
-}
+
 .dropdown {
   left: 38%;
   width: 0;
@@ -401,6 +399,14 @@ div.autocorrect {
     margin-left: 174px;
   }
 }
+
+@media screen and (min-width:1100px) and (max-width:1250px){
+  .infobox {
+    float:right!important;
+    margin-right: 1%;
+  }
+}
+
 @media screen and (max-width:1100px){
   .infobox {
     display: none;
