@@ -90,7 +90,7 @@ p {
     padding: 10px;
 }
 
-#side-menu{
+.side-menu{
   width:0;
   float: right;
 }
@@ -117,16 +117,25 @@ div#labs {
     }
 }
 
-@media screen and (min-width: 802px) and (max-width: 828px) {
+@media screen and (min-width: 812px) and (max-width: 860px) {
     .dropdown-menu-box {
+        margin-left: -20%;
+    }
+    .navbar-right {
+        float: right!important;
+        margin-right: -30px;
+    }
+}
+@media screen and (min-width: 801px) and (max-width: 811px) {
+    li.dropdown-menu-box {
         margin-left: -14%;
     }
 }
 
-@media screen and (max-width: 768px) {   
-    .dropdown-menu-box {
-        margin-left: 60%;
-        margin-top: 60%;
+@media screen and (min-width: 768px) and (max-width: 800px) {
+    li.dropdown-menu-box {
+        margin-left: -14%;
+        top:40px;
     }
 }
 

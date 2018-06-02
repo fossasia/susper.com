@@ -5,8 +5,7 @@
   margin-bottom: 16px;
   padding: 22px 22px 18px 22px;
   transition: 0.3s;
-  width: 100%;
-  margin-left: 20px;
+  width: 454px;
 }
 
 /* Add some padding inside the card container */
@@ -28,4 +27,32 @@ p {
 a {
   color: #1a0dab;
   text-decoration: none;
+}
+/** Screen Responsiveness **/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @media screen and (max-width: 1307px) {
+    .card {
+      width: 366px;
+    }
+  }
+}
+
+@media screen and (max-width: 1307px) {
+  .card {
+    width: 366px;
+  }
+}
+
+@media screen and (max-width: 1219px) {
+  .card {
+    width: 278px;
+  }
+}
+
+
+@media screen and (max-width: 1100px) {
+  .card {
+    width: 95vw;
+    margin-left: 4vw;
+  }
 }

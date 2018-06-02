@@ -83,6 +83,16 @@
   }
 }
 
+@media screen and (max-width: 811px) and (min-width: 768px) {
+  #nav-input{
+    width: 60vw;
+  }
+  #nav-group{
+    width: 60vw;
+  }
+}
+
+
 @media screen and (max-width: 823px) and (min-width: 768px) {
   .navbar-form {
     width: 100px;
