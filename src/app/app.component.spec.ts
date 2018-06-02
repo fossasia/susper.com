@@ -31,6 +31,7 @@ import {StatsboxComponent} from "./statsbox/statsbox.component";
 import {SpeechService} from "./services/speech.service";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {ChartsModule} from "ng2-charts";
+import { InfoboxComponent } from './infobox/infobox.component';
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -45,7 +46,7 @@ describe('AppComponent', () => {
         JsonpModule,
         ChartsModule,
         StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
+        StoreDevtoolsModule.instrumentOnlyWithExtension()
       ],
       declarations: [
         AppComponent,
@@ -65,7 +66,8 @@ describe('AppComponent', () => {
         IntelligenceComponent,
         SpeechtotextComponent,
         AutoCorrectComponent,
-        StatsboxComponent
+        StatsboxComponent,
+        InfoboxComponent
       ],
       providers: [
         SpeechService

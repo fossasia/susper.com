@@ -78,6 +78,7 @@
             </div>
           </div>
           <div class="infobox">
+            <app-infobox [hidden]="hidefooter" class="infobox col-md-4" *ngIf="Display('all')"></app-infobox>
             <app-statsbox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" *ngIf="Display('all')"></app-statsbox>
           </div>
         </div>

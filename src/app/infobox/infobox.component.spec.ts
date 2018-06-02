@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { InfoboxComponent } from './infobox.component';
 import {AppComponent} from "../app.component";
 import {NavbarComponent} from "../navbar/navbar.component";
 import {IndexComponent} from "../index/index.component";
@@ -15,22 +16,14 @@ import {BrowserModule} from "@angular/platform-browser";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {HttpModule, JsonpModule} from "@angular/http";
+import {KnowledgeapiService} from "../services/knowledgeapi.service";
 import {reducer} from "../reducers/index";
 import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import {AutoCompleteComponent} from "../auto-complete/auto-complete.component";
-import { ThemeComponent } from '../theme/theme.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
-import {IntelligenceComponent} from "../intelligence/intelligence.component";
-import {IntelligenceService} from "../services/intelligence.service";
-import {AutoCorrectComponent} from "../auto-correct/auto-correct.component";
-import { ThemeService } from '../services/theme.service';
-import {KnowledgeapiService} from "../services/knowledgeapi.service";
-import {InfoboxComponent} from "../infobox/infobox.component";
 
-describe('IntelligenceComponent', () => {
-  let component: IntelligenceComponent;
-  let fixture: ComponentFixture<IntelligenceComponent>;
+describe('InfoboxComponent', () => {
+  let component: InfoboxComponent;
+  let fixture: ComponentFixture<InfoboxComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -42,25 +35,31 @@ describe('IntelligenceComponent', () => {
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
+        StoreDevtoolsModule.instrumentOnlyWithExtension(),
       ],
       declarations: [
-        IntelligenceComponent
-      ],
+        AppComponent,
+        NavbarComponent,
+        IndexComponent,
+        ResultsComponent,
+        NotFoundComponent,
+        AdvancedsearchComponent,
+        SearchBarComponent,
+        FooterNavbarComponent,
+        AboutComponent,
+        ContactComponent,
+        ModalComponent,
+        InfoboxComponent ],
       providers: [
-        IntelligenceService,
-        ThemeService
+        KnowledgeapiService
       ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IntelligenceComponent);
+    fixture = TestBed.createComponent(InfoboxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

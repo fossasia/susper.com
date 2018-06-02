@@ -37,6 +37,8 @@ import {AutocorrectService} from "../services/autocorrect.service";
 import { SpeechSynthesisService } from "../services/speech-synthesis.service";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {ChartsModule} from "ng2-charts";
+import {InfoboxComponent} from "../infobox/infobox.component";
+import {KnowledgeapiService} from "../services/knowledgeapi.service";
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -74,7 +76,8 @@ describe('ResultsComponent', () => {
         IntelligenceComponent,
         SpeechtotextComponent,
         AutoCorrectComponent,
-        StatsboxComponent
+        StatsboxComponent,
+        InfoboxComponent
       ],
       providers: [
         SearchService,
@@ -83,7 +86,8 @@ describe('ResultsComponent', () => {
         SpeechService,
         IntelligenceService,
         AutocorrectService,
-        SpeechSynthesisService
+        SpeechSynthesisService,
+        KnowledgeapiService
       ]
     })
       .compileComponents();
@@ -122,6 +126,12 @@ describe('ResultsComponent', () => {
 
     expect(compiled.querySelector('app-theme')).toBeTruthy();
   });
+
+  it('should have an app-infobox element', () => {
+        let compiled = fixture.debugElement.nativeElement;
+
+        expect(compiled.querySelector('app-infobox')).toBeTruthy();
+      });
 
 
   it('should have a search options menu', () => {

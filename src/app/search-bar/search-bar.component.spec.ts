@@ -10,6 +10,7 @@ import { AutocompleteService } from "../services/autocomplete.service";
 import { AutoCompleteComponent } from "../auto-complete/auto-complete.component";
 import { SpeechService } from '../services/speech.service';
 import { ThemeService } from '../services/theme.service';
+import {InfoboxComponent} from "../infobox/infobox.component";
 
 describe('Component: SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -27,6 +28,7 @@ describe('Component: SearchBarComponent', () => {
       declarations: [
         SearchBarComponent,
         AutoCompleteComponent,
+        InfoboxComponent
       ],
       providers: [
         AutocompleteService,
