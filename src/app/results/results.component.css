@@ -249,7 +249,7 @@ a {
   text-decoration: none;
   color: #777;
   position: relative;
-  left: 5%;
+  left: -5%;
 }
 
 #tools:hover {
@@ -260,7 +260,7 @@ a {
   text-decoration: none;
   color: #777;
   position: relative;
-  left: 5%;
+  left: -5%;
 }
 
 #settings:hover {

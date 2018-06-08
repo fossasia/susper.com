@@ -120,6 +120,20 @@ export class ResultsComponent implements OnInit {
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
+  newsClick() {
+    let urldata = Object.assign({}, this.searchdata);
+    this.getPresentPage(1);
+    this.resultDisplay = 'news';
+    delete urldata.fq;
+    urldata.rows = 10;
+    if (urldata.query.substr(urldata.query.length - 25, 25) !== " site:www.dailymail.co.uk") {
+      urldata.query += " site:www.dailymail.co.uk";
+    } else {
+      urldata.query += "";
+    }
+    urldata.resultDisplay = this.resultDisplay;
+    this.store.dispatch(new queryactions.QueryServerAction(urldata));
+    }
 
   docClick() {
     let urldata = Object.assign({}, this.searchdata);
