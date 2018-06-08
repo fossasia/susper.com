@@ -44,6 +44,7 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { InfoboxComponent } from './infobox/infobox.component';
 import { KnowledgeapiService } from './services/knowledgeapi.service';
+import { KnowledgeEffects } from "./effects/knowledge";
 
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
@@ -96,6 +97,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     StoreModule.provideStore(reducer),
     EffectsModule.run(ApiSearchEffects),
+    EffectsModule.run(KnowledgeEffects),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     Ng2Bs3ModalModule,
     ChartsModule

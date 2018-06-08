@@ -34,7 +34,7 @@ export class KnowledgeapiService {
     let options = new RequestOptions({ headers: headers, search: params });
     return this.http
       .get(this.searchURL, options).map(res =>
-          res.json().query.pages
+          res.json()
       ).catch(this.handleError);
 
   }
