@@ -18,6 +18,11 @@
   overflow: hidden !important;
   text-overflow: ellipsis;
 }
+.infobox{
+  float:right;
+  margin-right: 15px;
+  margin-top: auto;
+}
 
 .link > p {
   color: #006621;
@@ -265,9 +270,7 @@ a {
 .dropdown-menu {
   float: right;
 }
-.infobox{
-  margin-top: -110px;
-}
+
 .dropdown {
   left: 38%;
   width: 0;
@@ -333,7 +336,7 @@ a {
 }
 
 #toggle-button{
-  margin-left: 2vw;
+  margin-left: 4vw;
   margin-top: 1vh;
   margin-bottom: 1vh;
   background-color: white;
@@ -374,6 +377,15 @@ div.autocorrect {
 
 
  /*Responsiveness*/
+ @media screen and (max-width: 811px) and (min-width: 768px) {
+  #settings{
+    left: -5%;
+  }
+  #tools{
+    left: -7%;
+  }
+}
+
 @media screen and (min-width: 426px) and (max-width: 2560px) {
   .next-page-mobile {
     display: none;
@@ -401,7 +413,8 @@ div.autocorrect {
     margin-left: 174px;
   }
 }
-@media screen and (max-width:1100px){
+
+@media screen and (max-width:1131px){
   .infobox {
     display: none;
   }
