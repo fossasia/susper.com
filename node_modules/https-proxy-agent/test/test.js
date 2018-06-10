@@ -9,8 +9,6 @@ var http = require('http');
 var https = require('https');
 var assert = require('assert');
 var Proxy = require('proxy');
-var Semver = require('semver');
-var version = new Semver(process.version);
 var HttpsProxyAgent = require('../');
 
 describe('HttpsProxyAgent', function () {
@@ -109,6 +107,11 @@ describe('HttpsProxyAgent', function () {
       assert.equal('127.0.0.1', agent.proxy.host);
       assert.equal(proxyPort, agent.proxy.port);
     });
+    it('should set a `defaultPort` property', function () {
+      var opts = url.parse("http://127.0.0.1:" + proxyPort);
+      var agent = new HttpsProxyAgent(opts);
+      assert.equal(443, agent.defaultPort);
+    });
     describe('secureProxy', function () {
       it('should default to `false`', function () {
         var agent = new HttpsProxyAgent({ port: proxyPort });
@@ -181,7 +184,6 @@ describe('HttpsProxyAgent', function () {
         });
         res.on('end', function () {
           data = JSON.parse(data);
-          console.log(data);
           assert.equal('127.0.0.1:' + serverPort, data.host);
           done();
         });
@@ -224,6 +226,31 @@ describe('HttpsProxyAgent', function () {
         done();
       });
     });
+
+    it('should allow custom proxy "headers"', function (done) {
+      server.once('connect', function (req, socket, head) {
+        assert.equal('CONNECT', req.method);
+        assert.equal('bar', req.headers.foo);
+        socket.destroy();
+        done();
+      });
+
+      var uri = 'http://127.0.0.1:' + serverPort;
+      var proxyOpts = url.parse(uri);
+      proxyOpts.headers = {
+        'Foo': 'bar'
+      };
+      var agent = new HttpsProxyAgent(proxyOpts);
+
+      var opts = {};
+      // `host` and `port` don't really matter since the proxy will reject anyways
+      opts.host = '127.0.0.1';
+      opts.port = 80;
+      opts.agent = agent;
+
+      http.get(opts);
+    });
+
   });
 
   describe('"https" module', function () {
@@ -253,40 +280,62 @@ describe('HttpsProxyAgent', function () {
       });
     });
 
-    if (version.compare('0.11.3') < 0 || version.compare('0.11.8') >= 0) {
-      // This test is disabled on node >= 0.11.3 && < 0.11.8, since it segfaults :(
-      // See: https://github.com/joyent/node/issues/6204
+    it('should work over an HTTPS proxy', function (done) {
+      sslServer.once('request', function (req, res) {
+        res.end(JSON.stringify(req.headers));
+      });
 
-      it('should work over an HTTPS proxy', function (done) {
-        sslServer.once('request', function (req, res) {
-          res.end(JSON.stringify(req.headers));
+      var proxy = process.env.HTTPS_PROXY || process.env.https_proxy || 'https://127.0.0.1:' + sslProxyPort;
+      proxy = url.parse(proxy);
+      proxy.rejectUnauthorized = false;
+      var agent = new HttpsProxyAgent(proxy);
+
+      var opts = url.parse('https://127.0.0.1:' + sslServerPort);
+      opts.agent = agent;
+      opts.rejectUnauthorized = false;
+
+      https.get(opts, function (res) {
+        var data = '';
+        res.setEncoding('utf8');
+        res.on('data', function (b) {
+          data += b;
         });
-
-        var proxy = process.env.HTTPS_PROXY || process.env.https_proxy || 'https://127.0.0.1:' + sslProxyPort;
-        proxy = url.parse(proxy);
-        proxy.rejectUnauthorized = false;
-        var agent = new HttpsProxyAgent(proxy);
-
-        var opts = url.parse('https://127.0.0.1:' + sslServerPort);
-        opts.agent = agent;
-        opts.rejectUnauthorized = false;
-
-        https.get(opts, function (res) {
-          var data = '';
-          res.setEncoding('utf8');
-          res.on('data', function (b) {
-            data += b;
-          });
-          res.on('end', function () {
-            data = JSON.parse(data);
-            assert.equal('127.0.0.1:' + sslServerPort, data.host);
-            done();
-          });
+        res.on('end', function () {
+          data = JSON.parse(data);
+          assert.equal('127.0.0.1:' + sslServerPort, data.host);
+          done();
         });
       });
-    } else {
-      it('should work over an HTTPS proxy');
-    }
+    });
+
+    it('should not send a port number for the default port', function (done) {
+      sslServer.once('request', function (req, res) {
+        res.end(JSON.stringify(req.headers));
+      });
+
+      var proxy = process.env.HTTPS_PROXY || process.env.https_proxy || "https://127.0.0.1:" + sslProxyPort;
+      proxy = url.parse(proxy);
+      proxy.rejectUnauthorized = false;
+      var agent = new HttpsProxyAgent(proxy);
+      agent.defaultPort = sslServerPort;
+
+      var opts = url.parse("https://127.0.0.1:" + sslServerPort);
+      opts.agent = agent;
+      opts.rejectUnauthorized = false;
+
+      https.get(opts, function(res) {
+        var data = "";
+        res.setEncoding("utf8");
+        res.on("data", function(b) {
+          data += b;
+        });
+        res.on("end", function() {
+          data = JSON.parse(data);
+          assert.equal("127.0.0.1", data.host);
+          done();
+        });
+      });
+    });
 
   });
 

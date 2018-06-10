@@ -162,8 +162,8 @@ export declare class ElementArrayFinder extends WebdriverWebElement {
      */
     filter(filterFn: (element: ElementFinder, index?: number) => boolean | wdpromise.Promise<boolean>): ElementArrayFinder;
     /**
-     * Get an element within the ElementArrayFinder by index. The index starts at
-     * 0\. Negative indices are wrapped (i.e. -i means ith element from last)
+     * Get an element within the ElementArrayFinder by index. The index starts at 0.
+     * Negative indices are wrapped (i.e. -i means ith element from last)
      * This does not actually retrieve the underlying element.
      *
      * @alias element.all(locator).get(index)

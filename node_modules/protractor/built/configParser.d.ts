@@ -11,13 +11,13 @@ export declare class ConfigParser {
      *
      * @return {Array} The resolved file paths.
      */
-    static resolveFilePatterns(patterns: Array<string> | string, opt_omitWarnings?: boolean, opt_relativeTo?: string): Array<string>;
+    static resolveFilePatterns(patterns: string[] | string, opt_omitWarnings?: boolean, opt_relativeTo?: string): string[];
     /**
      * Returns only the specs that should run currently based on `config.suite`
      *
      * @return {Array} An array of globs locating the spec files
      */
-    static getSpecs(config: Config): Array<string>;
+    static getSpecs(config: Config): string[];
     /**
      * Add the options in the parameter config to this runner instance.
      *

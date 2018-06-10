@@ -1,9 +1,10 @@
 "use strict";
-const http = require('http');
-const angular_wait_barrier_1 = require('./angular_wait_barrier');
-const highlight_delay_barrier_1 = require('./highlight_delay_barrier');
-const simple_webdriver_client_1 = require('./simple_webdriver_client');
-const webdriver_proxy_1 = require('./webdriver_proxy');
+Object.defineProperty(exports, "__esModule", { value: true });
+const http = require("http");
+const angular_wait_barrier_1 = require("./angular_wait_barrier");
+const highlight_delay_barrier_1 = require("./highlight_delay_barrier");
+const simple_webdriver_client_1 = require("./simple_webdriver_client");
+const webdriver_proxy_1 = require("./webdriver_proxy");
 exports.BP_PREFIX = 'bpproxy';
 /**
  * The stability proxy is an http server responsible for intercepting

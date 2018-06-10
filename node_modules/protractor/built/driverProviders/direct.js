@@ -78,14 +78,23 @@ class Direct extends driverProvider_1.DriverProvider {
                 break;
             case 'firefox':
                 let geckoDriverFile;
-                try {
-                    let updateJson = path.resolve(SeleniumConfig.getSeleniumDir(), 'update-config.json');
-                    let updateConfig = JSON.parse(fs.readFileSync(updateJson).toString());
-                    geckoDriverFile = updateConfig.gecko.last;
+                if (this.config_.geckoDriver) {
+                    geckoDriverFile = this.config_.geckoDriver;
                 }
-                catch (e) {
-                    throw new exitCodes_1.BrowserError(logger, 'Could not find update-config.json. ' +
-                        'Run \'webdriver-manager update\' to download binaries.');
+                else {
+                    try {
+                        let updateJson = path.resolve(SeleniumConfig.getSeleniumDir(), 'update-config.json');
+                        let updateConfig = JSON.parse(fs.readFileSync(updateJson).toString());
+                        geckoDriverFile = updateConfig.gecko.last;
+                    }
+                    catch (e) {
+                        throw new exitCodes_1.BrowserError(logger, 'Could not find update-config.json. ' +
+                            'Run \'webdriver-manager update\' to download binaries.');
+                    }
+                }
+                if (!fs.existsSync(geckoDriverFile)) {
+                    throw new exitCodes_1.BrowserError(logger, 'Could not find geckodriver at ' + geckoDriverFile +
+                        '. Run \'webdriver-manager update\' to download binaries.');
                 }
                 // TODO (mgiambalvo): Turn this into an import when the selenium typings are updated.
                 const FirefoxServiceBuilder = require('selenium-webdriver/firefox').ServiceBuilder;

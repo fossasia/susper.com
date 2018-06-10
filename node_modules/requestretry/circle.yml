@@ -1,0 +1,10 @@
+machine:
+  node:
+    version: 6.3
+  environment:
+    COVERALLS_SERVICE_NAME: circleci
+
+test:
+  override:
+    - npm run test
+    - npm run test-coverage && npm run send-coverage

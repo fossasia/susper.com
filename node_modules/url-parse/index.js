@@ -50,7 +50,8 @@ var ignore = { hash: 1, query: 1 };
  * @api public
  */
 function lolcation(loc) {
-  loc = loc || global.location || {};
+  var location = global && global.location || {};
+  loc = loc || location;
 
   var finaldestination = {}
     , type = typeof loc

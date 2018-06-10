@@ -265,6 +265,20 @@ SauceLabs.prototype.send = function (message, callback) {
   makeRequest(options, body, callback);
 };
 
+SauceLabs.prototype.getSubAccountList = function (callback) {
+  this.send({
+    method: 'GET',
+    path: 'users/:username/list-subaccounts'
+  }, callback);
+};
+
+SauceLabs.prototype.getSubAccounts = function (callback) {
+  this.send({
+    method: 'GET',
+    path: 'users/:username/subaccounts'
+  }, callback);
+};
+
 // Helpers
 
 function formatDate(date, useHour) {

@@ -1,10 +1,9 @@
 'use strict';
-
-var js = require('default-require-extensions/js');
+const js = require('default-require-extensions/js');
 
 module.exports = appendTransform;
 
-var count = 0;
+let count = 0;
 
 function appendTransform(transform, ext, extensions) {
 	// Generate a unique key for this transform
@@ -13,10 +12,10 @@ function appendTransform(transform, ext, extensions) {
 	ext = ext || '.js';
 	extensions = extensions || require.extensions;
 
-	var forwardGet;
-	var forwardSet;
+	let forwardGet;
+	let forwardSet;
 
-	var descriptor = Object.getOwnPropertyDescriptor(extensions, ext) || {value: js, configurable: true};
+	const descriptor = Object.getOwnPropertyDescriptor(extensions, ext) || {value: js, configurable: true};
 
 	if (
 		((descriptor.get || descriptor.set) && !(descriptor.get && descriptor.set)) ||
@@ -26,7 +25,7 @@ function appendTransform(transform, ext, extensions) {
 	}
 
 	if (descriptor.get) {
-		// wrap a previous append-transform install and pass through to the getter/setter pair it created
+		// Wrap a previous append-transform install and pass through to the getter/setter pair it created
 		forwardGet = function () {
 			return descriptor.get();
 		};
@@ -50,8 +49,9 @@ function appendTransform(transform, ext, extensions) {
 			if (!module[key]) {
 				module[key] = true;
 
-				var originalCompile = module._compile;
+				const originalCompile = module._compile;
 
+				// eslint-disable-next-line func-name-matching func-names
 				module._compile = function replacementCompile(code, filename) {
 					module._compile = originalCompile;
 					code = transform(code, filename);
@@ -63,17 +63,18 @@ function appendTransform(transform, ext, extensions) {
 		};
 	}
 
-	// wrap the original
+	// Wrap the original
 	forwardSet(wrapCustomHook(forwardGet()));
 
-	var hooks = [forwardGet()];
+	const hooks = [forwardGet()];
 
 	function setCurrentHook(hook) {
-		var restoreIndex = hooks.indexOf(hook);
+		const restoreIndex = hooks.indexOf(hook);
+
 		if (restoreIndex === -1) {
 			hooks.push(forwardSet(wrapCustomHook(hook)));
 		} else {
-			// we have already scene this hook, and it is being reverted (proxyquire, etc) - don't wrap again.
+			// We have already scene this hook, and it is being reverted (proxyquire, etc) - don't wrap again.
 			hooks.splice(restoreIndex + 1, hooks.length);
 			forwardSet(hook);
 		}

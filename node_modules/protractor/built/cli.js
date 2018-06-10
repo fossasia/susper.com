@@ -47,6 +47,10 @@ let allowedNames = [
     'sauceSeleniumAddress',
     'browserstackUser',
     'browserstackKey',
+    'kobitonUser',
+    'kobitonKey',
+    'testobjectUser',
+    'testobjectKey',
     'directConnect',
     'firefoxPath',
     'noGlobals',
@@ -93,6 +97,7 @@ let allowedNames = [
     'frameworkPath',
     'elementExplorer',
     'debug',
+    'logLevel',
     'disableChecks',
     'browser',
     'name',
@@ -126,7 +131,8 @@ let optimistOptions = {
         troubleshoot: 'Turn on troubleshooting output',
         elementExplorer: 'Interactively test Protractor commands',
         debuggerServerPort: 'Start a debugger server at specified port instead of repl',
-        disableChecks: 'disable cli checks'
+        disableChecks: 'Disable cli checks',
+        logLevel: 'Define Protractor log level [ERROR, WARN, INFO, DEBUG]'
     },
     aliases: {
         browser: 'capabilities.browserName',

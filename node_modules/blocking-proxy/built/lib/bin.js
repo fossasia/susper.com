@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 "use strict";
-const blockingproxy_1 = require('./blockingproxy');
-const config_1 = require('./config');
+Object.defineProperty(exports, "__esModule", { value: true });
+const blockingproxy_1 = require("./blockingproxy");
+const config_1 = require("./config");
 /**
  * Starts up a proxy server which modifies calls between the test process
  * and the selenium server.
@@ -16,6 +17,7 @@ if (argv.logDir) {
     proxy.enableLogging(argv.logDir);
 }
 let port = proxy.listen(argv.port);
+console.log(`Listening on :${port}`);
 if (argv.fork) {
     process.send({ ready: true, port: port });
     process.on('disconnect', function () {

@@ -1,5 +1,6 @@
 "use strict";
-const webdriver_logger_1 = require('./webdriver_logger');
+Object.defineProperty(exports, "__esModule", { value: true });
+const webdriver_logger_1 = require("./webdriver_logger");
 const angularWaits = require('./client_scripts/wait.js');
 /**
  * A barrier that uses Angular's Testability API to block commands until the application is stable.

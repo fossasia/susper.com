@@ -12,6 +12,13 @@ try {
 catch (e) {
     // Intentionally blank - ignore if coffee-script is not available.
 }
+// CoffeeScript lost the hyphen in the module name a long time ago, all new version are named this:
+try {
+    require('coffeescript').register();
+}
+catch (e) {
+    // Intentionally blank - ignore if coffeescript is not available.
+}
 // LiveScript is required here to enable config files written in LiveScript.
 try {
     require('LiveScript');
@@ -103,7 +110,9 @@ class ConfigParser {
     addConfig_(additionalConfig, relativeTo) {
         // All filepaths should be kept relative to the current config location.
         // This will not affect absolute paths.
-        ['seleniumServerJar', 'chromeDriver', 'onPrepare', 'firefoxPath', 'frameworkPath'].forEach((name) => {
+        ['seleniumServerJar', 'chromeDriver', 'firefoxPath', 'frameworkPath', 'geckoDriver',
+            'onPrepare']
+            .forEach((name) => {
             if (additionalConfig[name] && typeof additionalConfig[name] === 'string') {
                 additionalConfig[name] = path.resolve(relativeTo, additionalConfig[name]);
             }
@@ -188,8 +197,8 @@ let makeArray = function (item) {
  * Adds to an array all the elements in another array without adding any
  * duplicates
  *
- * @param {Array<string>} dest The array to add to
- * @param {Array<string>} src The array to copy from
+ * @param {string[]} dest The array to add to
+ * @param {string[]} src The array to copy from
  */
 let union = function (dest, src) {
     let elems = {};

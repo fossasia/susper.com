@@ -287,6 +287,24 @@ var sauce = new SauceLabs({
         createPublicLink(job_id, cb) -> cb(err, url)
       </td>
     </tr>
+    <tr>
+      <td>
+        GET /users/:username/list-subaccounts <br />
+        Access list of subaccounts
+      </td>
+      <td>
+        getSubAccountList(cb) -> cb(err, res)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        GET /users/:username/subaccounts <br />
+        Get information about a sub accounts
+      </td>
+      <td>
+        getSubAccounts(cb) -> cb(err, res)
+      </td>
+    </tr>
   </tbody>
 </table>
 

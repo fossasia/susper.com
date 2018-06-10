@@ -1,8 +1,10 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Utilities for parsing WebDriver commands from HTTP Requests.
  */
-const events = require('events');
+const events = require("events");
+var CommandName;
 (function (CommandName) {
     CommandName[CommandName["NewSession"] = 0] = "NewSession";
     CommandName[CommandName["DeleteSession"] = 1] = "DeleteSession";
@@ -37,8 +39,7 @@ const events = require('events');
     CommandName[CommandName["AcceptAlert"] = 30] = "AcceptAlert";
     CommandName[CommandName["DismissAlert"] = 31] = "DismissAlert";
     CommandName[CommandName["UNKNOWN"] = 32] = "UNKNOWN";
-})(exports.CommandName || (exports.CommandName = {}));
-var CommandName = exports.CommandName;
+})(CommandName = exports.CommandName || (exports.CommandName = {}));
 /**
  * Represents an endpoint in the WebDriver spec. Endpoints are defined by
  * the CommandName enum and the url pattern that they match.

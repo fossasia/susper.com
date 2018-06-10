@@ -1,5 +1,8 @@
 # Changelog
 
+## [3.3.0](https://github.com/omichelsen/compare-versions/releases/tag/v3.3.0) - 2018-06-10
+- Add TypeScript declarations.
+
 ## [3.2.1](https://github.com/omichelsen/compare-versions/releases/tag/v3.2.1) - 2018-05-14
 - Fix rare bug in handling optional metadata.
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 "use strict";
-const minimist = require('minimist');
+Object.defineProperty(exports, "__esModule", { value: true });
+const minimist = require("minimist");
 const opts = {
     boolean: ['help', 'fork'],
     string: ['port', 'seleniumAddress', 'highlightDelay', 'logDir'],

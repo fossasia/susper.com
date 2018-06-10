@@ -403,7 +403,7 @@ describe('WebDriver', function() {
 
       var driver =
           WebDriver.createSession(executor, {'browserName': 'firefox'},
-              null, null, () => called = true);
+              null, () => called = true);
       return driver.getSession().then(fail, err => {
         assert.ok(called);
         assertIsStubError(err);
@@ -464,8 +464,7 @@ describe('WebDriver', function() {
               .end();
 
           WebDriver.createSession(
-              executor, {'browserName': 'firefox'}, null, null,
-              () => {throw e});
+              executor, {'browserName': 'firefox'}, null, () => {throw e});
           return waitForAbort().then(err => assert.strictEqual(err, e));
         });
       });
@@ -1446,6 +1445,7 @@ describe('WebDriver', function() {
       let executor = new FakeExecutor().
           expect(CName.SEND_KEYS_TO_ELEMENT,
                  {'id': WebElement.buildId('one'),
+                  'text': '12abc3',
                   'value':'12abc3'.split('')}).
               andReturnSuccess().
           end();
@@ -1463,6 +1463,7 @@ describe('WebDriver', function() {
               andReturnSuccess(WebElement.buildId('one')).
           expect(CName.SEND_KEYS_TO_ELEMENT,
                  {'id':WebElement.buildId('one'),
+                  'text': 'abc123def',
                   'value':'abc123def'.split('')}).
               andReturnSuccess().
           end();
@@ -1482,6 +1483,7 @@ describe('WebDriver', function() {
               andReturnSuccess(WebElement.buildId('one')).
           expect(CName.SEND_KEYS_TO_ELEMENT,
                  {'id': WebElement.buildId('one'),
+                  'text': 'modified/path',
                   'value':'modified/path'.split('')}).
               andReturnSuccess().
           end();
@@ -1949,6 +1951,108 @@ describe('WebDriver', function() {
           .move({x: 3, y: 4})
           .release({x: 5, y: 6})
           .perform();
+    });
+  });
+
+  describe('manage()', function() {
+    describe('setTimeouts()', function() {
+      describe('throws if no timeouts are specified', function() {
+        let driver;
+        before(() => driver = new FakeExecutor().createDriver());
+
+        it('; no arguments', function() {
+          assert.throws(() => driver.manage().setTimeouts(), TypeError);
+        });
+
+        it('; ignores unrecognized timeout keys', function() {
+          assert.throws(
+              () => driver.manage().setTimeouts({foo: 123}), TypeError);
+        });
+
+        it('; ignores positional arguments', function() {
+          assert.throws(
+              () => driver.manage().setTimeouts(1234, 56), TypeError);
+        });
+      });
+
+      describe('throws timeout is not a number, null, or undefined', () => {
+        let driver;
+        before(() => driver = new FakeExecutor().createDriver());
+
+        function checkError(e) {
+          return e instanceof TypeError
+              && /expected "(script|pageLoad|implicit)" to be a number/.test(
+                  e.message);
+        }
+
+        it('script', function() {
+          assert.throws(
+              () => driver.manage().setTimeouts({script: 'abc'}),
+              checkError);
+        });
+
+        it('pageLoad', function() {
+          assert.throws(
+              () => driver.manage().setTimeouts({pageLoad: 'abc'}),
+              checkError);
+        });
+
+        it('implicit', function() {
+          assert.throws(
+              () => driver.manage().setTimeouts({implicit: 'abc'}),
+              checkError);
+        });
+      });
+
+      it('can set multiple timeouts', function() {
+        let executor = new FakeExecutor()
+            .expect(CName.SET_TIMEOUT, {script:1, pageLoad: 2, implicit: 3})
+            .andReturnSuccess()
+            .end();
+        let driver = executor.createDriver();
+        return driver.manage()
+            .setTimeouts({script: 1, pageLoad: 2, implicit: 3});
+      });
+
+      it('falls back to legacy wire format if W3C version fails', () => {
+        let executor = new FakeExecutor()
+            .expect(CName.SET_TIMEOUT, {implicit: 3})
+            .andReturnError(Error('oops'))
+            .expect(CName.SET_TIMEOUT, {type: 'implicit', ms: 3})
+            .andReturnSuccess()
+            .end();
+        let driver = executor.createDriver();
+        return driver.manage().setTimeouts({implicit: 3});
+      });
+
+      describe('deprecated API calls setTimeouts()', function() {
+        it('implicitlyWait()', function() {
+          let executor = new FakeExecutor()
+              .expect(CName.SET_TIMEOUT, {implicit: 3})
+              .andReturnSuccess()
+              .end();
+          let driver = executor.createDriver();
+          return driver.manage().timeouts().implicitlyWait(3);
+        });
+
+        it('setScriptTimeout()', function() {
+          let executor = new FakeExecutor()
+              .expect(CName.SET_TIMEOUT, {script: 3})
+              .andReturnSuccess()
+              .end();
+          let driver = executor.createDriver();
+          return driver.manage().timeouts().setScriptTimeout(3);
+        });
+
+        it('pageLoadTimeout()', function() {
+          let executor = new FakeExecutor()
+              .expect(CName.SET_TIMEOUT, {pageLoad: 3})
+              .andReturnSuccess()
+              .end();
+          let driver = executor.createDriver();
+          return driver.manage().timeouts().pageLoadTimeout(3);
+        });
+      });
     });
   });
 

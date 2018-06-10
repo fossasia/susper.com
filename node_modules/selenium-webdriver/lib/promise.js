@@ -33,13 +33,12 @@
  * > style tests:
  * >
  * > ```js
- * > const {Builder, By, promise, until} = require('selenium-webdriver');
+ * > const {Builder, By, Key, promise, until} = require('selenium-webdriver');
  * >
  * > let result = promise.consume(function* doGoogleSearch() {
  * >   let driver = new Builder().forBrowser('firefox').build();
  * >   yield driver.get('http://www.google.com/ncr');
- * >   yield driver.findElement(By.name('q')).sendKeys('webdriver');
- * >   yield driver.findElement(By.name('btnG')).click();
+ * >   yield driver.findElement(By.name('q')).sendKeys('webdriver', Key.RETURN);
  * >   yield driver.wait(until.titleIs('webdriver - Google Search'), 1000);
  * >   yield driver.quit();
  * > });
@@ -48,7 +47,7 @@
  * >             e => console.error('FAILURE: ' + e));
  * > ```
  * >
- * > The motiviation behind this change and full deprecation plan are documented
+ * > The motivation behind this change and full deprecation plan are documented
  * > in [issue 2969](https://github.com/SeleniumHQ/selenium/issues/2969).
  * >
  * >
@@ -63,8 +62,7 @@
  * control flow, allowing users to write
  *
  *     driver.get('http://www.google.com/ncr');
- *     driver.findElement({name: 'q'}).sendKeys('webdriver');
- *     driver.findElement({name: 'btnGn'}).click();
+ *     driver.findElement({name: 'q'}).sendKeys('webdriver', Key.RETURN);
  *
  * instead of
  *
@@ -73,13 +71,7 @@
  *       return driver.findElement({name: 'q'});
  *     })
  *     .then(function(q) {
- *       return q.sendKeys('webdriver');
- *     })
- *     .then(function() {
- *       return driver.findElement({name: 'btnG'});
- *     })
- *     .then(function(btnG) {
- *       return btnG.click();
+ *       return q.sendKeys('webdriver', Key.RETURN);
  *     });
  *
  * ## Tasks and Task Queues
@@ -87,8 +79,7 @@
  * The control flow is based on the concept of tasks and task queues. Tasks are
  * functions that define the basic unit of work for the control flow to execute.
  * Each task is scheduled via {@link ControlFlow#execute()}, which will return
- * a {@link ManagedPromise ManagedPromise} that will be resolved with the task's
- * result.
+ * a {@link ManagedPromise} that will be resolved with the task's result.
  *
  * A task queue contains all of the tasks scheduled within a single turn of the
  * [JavaScript event loop][JSEL]. The control flow will create a new task queue
@@ -103,13 +94,13 @@
  *
  * Whenever the control flow creates a new task queue, it will automatically
  * begin executing tasks in the next available turn of the event loop. This
- * execution is scheduled using a "micro-task" timer, such as a (native)
- * `ManagedPromise.then()` callback.
+ * execution is [scheduled as a microtask][MicrotasksArticle] like e.g. a
+ * (native) `Promise.then()` callback.
  *
  *     setTimeout(() => console.log('a'));
- *     ManagedPromise.resolve().then(() => console.log('b'));  // A native promise.
+ *     Promise.resolve().then(() => console.log('b'));  // A native promise.
  *     flow.execute(() => console.log('c'));
- *     ManagedPromise.resolve().then(() => console.log('d'));
+ *     Promise.resolve().then(() => console.log('d'));
  *     setTimeout(() => console.log('fin'));
  *     // b
  *     // c
@@ -118,13 +109,13 @@
  *     // fin
  *
  * In the example above, b/c/d is logged before a/fin because native promises
- * and this module use "micro-task" timers, which have a higher priority than
- * "macro-tasks" like `setTimeout`.
+ * and this module use "microtask" timers, which have a higher priority than
+ * "macrotasks" like `setTimeout`.
  *
  * ## Task Execution
  *
- * Upon creating a task queue, and whenever an exisiting queue completes a task,
- * the control flow will schedule a micro-task timer to process any scheduled
+ * Upon creating a task queue, and whenever an existing queue completes a task,
+ * the control flow will schedule a microtask timer to process any scheduled
  * tasks. This ensures no task is ever started within the same turn of the
  * JavaScript event loop in which it was scheduled, nor is a task ever started
  * within the same turn that another finishes.
@@ -140,13 +131,13 @@
  *    discarded and the task's promised result (previously returned by
  *    {@link ControlFlow#execute()}) is immediately rejected with the thrown
  *    error.
- * 3. The task function returns sucessfully.
+ * 3. The task function returns successfully.
  *
  * If a task function created a new task queue, the control flow will wait for
  * that queue to complete before processing the task result. If the queue
  * completes without error, the flow will settle the task's promise with the
- * value originaly returned by the task function. On the other hand, if the task
- * queue termintes with an error, the task's promise will be rejected with that
+ * value originally returned by the task function. On the other hand, if the task
+ * queue terminates with an error, the task's promise will be rejected with that
  * error.
  *
  *     flow.execute(function() {
@@ -161,7 +152,7 @@
  * ## ManagedPromise Integration
  *
  * In addition to the {@link ControlFlow} class, the promise module also exports
- * a [ManagedPromise/A+] {@linkplain ManagedPromise implementation} that is deeply
+ * a [Promises/A+] {@linkplain ManagedPromise implementation} that is deeply
  * integrated with the ControlFlow. First and foremost, each promise
  * {@linkplain ManagedPromise#then() callback} is scheduled with the
  * control flow as a task. As a result, each callback is invoked in its own turn
@@ -328,7 +319,7 @@
  * Even though a subtask's promised result will never resolve while the task
  * function is on the stack, it will be treated as a promise resolved within the
  * task. In all other scenarios, a task's promise behaves just like a normal
- * promise. In the sample below, `C/D` is loggged before `B` because the
+ * promise. In the sample below, `C/D` is logged before `B` because the
  * resolution of `subtask1` interrupts the flow of the enclosing task. Within
  * the final subtask, `E/F` is logged in order because `subtask1` is a resolved
  * promise when that task runs.
@@ -467,17 +458,17 @@
  *
  * ES6 promises do not require users to handle a promise rejections. This can
  * result in subtle bugs as the rejections are silently "swallowed" by the
- * ManagedPromise class.
+ * Promise class.
  *
- *     ManagedPromise.reject(Error('boom'));
+ *     Promise.reject(Error('boom'));
  *     // ... *crickets* ...
  *
  * Selenium's promise module, on the other hand, requires that every rejection
  * be explicitly handled. When a {@linkplain ManagedPromise ManagedPromise} is
  * rejected and no callbacks are defined on that promise, it is considered an
- * _unhandled rejection_ and reproted to the active task queue. If the rejection
+ * _unhandled rejection_ and reported to the active task queue. If the rejection
  * remains unhandled after a single turn of the [event loop][JSEL] (scheduled
- * with a micro-task), it will propagate up the stack.
+ * with a microtask), it will propagate up the stack.
  *
  * ## Error Propagation
  *
@@ -534,7 +525,7 @@
  *
  * When a subtask is discarded due to an unreported rejection in its parent
  * frame, the existing callbacks on that task will never settle and the
- * callbacks will not be invoked. If a new callback is attached ot the subtask
+ * callbacks will not be invoked. If a new callback is attached to the subtask
  * _after_ it has been discarded, it is handled the same as adding a callback
  * to a cancelled promise: the error-callback path is invoked. This behavior is
  * intended to handle cases where the user saves a reference to a task promise,
@@ -582,9 +573,9 @@
  *
  * Bottom line: you __*must*__ handle rejected promises.
  *
- * # ManagedPromise/A+ Compatibility
+ * # Promises/A+ Compatibility
  *
- * This `promise` module is compliant with the [ManagedPromise/A+][] specification
+ * This `promise` module is compliant with the [Promises/A+] specification
  * except for sections `2.2.6.1` and `2.2.6.2`:
  *
  * >
@@ -595,10 +586,10 @@
  * >      must execute in the order of their originating calls to `then`.
  * >
  *
- * Specifically, the conformance tests contains the following scenario (for
+ * Specifically, the conformance tests contain the following scenario (for
  * brevity, only the fulfillment version is shown):
  *
- *     var p1 = ManagedPromise.resolve();
+ *     var p1 = Promise.resolve();
  *     p1.then(function() {
  *       console.log('A');
  *       p1.then(() => console.log('B'));
@@ -609,7 +600,7 @@
  *     // B
  *
  * Since the [ControlFlow](#scheduling_callbacks) executes promise callbacks as
- * tasks, with this module, the result would be
+ * tasks, with this module, the result would be:
  *
  *     var p2 = promise.fulfilled();
  *     p2.then(function() {
@@ -623,7 +614,8 @@
  *
  * [JSEL]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop
  * [GF]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*
- * [ManagedPromise/A+]: https://promisesaplus.com/
+ * [Promises/A+]: https://promisesaplus.com/
+ * [MicrotasksArticle]: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
  */
 
 'use strict';
@@ -667,7 +659,7 @@ function getUid(obj) {
 
 
 /**
- * Runs the given function after a micro-task yield.
+ * Runs the given function after a microtask yield.
  * @param {function()} fn The function to run.
  */
 function asyncRun(fn) {
@@ -942,7 +934,7 @@ class Thenable {
 
 /**
  * Marker interface for objects that allow consumers to request the cancellation
- * of a promies-based operation. A cancelled promise will be rejected with a
+ * of a promise-based operation. A cancelled promise will be rejected with a
  * {@link CancellationError}.
  *
  * This interface is considered package-private and should not be used outside
@@ -1003,6 +995,9 @@ const PromiseState = {
  */
 const ON_CANCEL_HANDLER = new WeakMap;
 
+const SKIP_LOG = Symbol('skip-log');
+const FLOW_LOG = logging.getLogger('promise.ControlFlow');
+
 
 /**
  * Represents the eventual value of a completed operation. Each promise may be
@@ -1025,14 +1020,29 @@ class ManagedPromise {
    *     functions, one for fulfilling the promise and another for rejecting it.
    * @param {ControlFlow=} opt_flow The control flow
    *     this instance was created under. Defaults to the currently active flow.
+   * @param {?=} opt_skipLog An internal parameter used to skip logging the
+   *     creation of this promise. This parameter has no effect unless it is
+   *     strictly equal to an internal symbol. In other words, this parameter
+   *     is always ignored for external code.
    */
-  constructor(resolver, opt_flow) {
+  constructor(resolver, opt_flow, opt_skipLog) {
     if (!usePromiseManager()) {
       throw TypeError(
         'Unable to create a managed promise instance: the promise manager has'
             + ' been disabled by the SELENIUM_PROMISE_MANAGER environment'
             + ' variable: ' + process.env['SELENIUM_PROMISE_MANAGER']);
+    } else if (opt_skipLog !== SKIP_LOG) {
+      FLOW_LOG.warning(() => {
+        let e =
+            captureStackTrace(
+                'ManagedPromiseError',
+                'Creating a new managed Promise. This call will fail when the'
+                    + ' promise manager is disabled',
+            ManagedPromise)
+        return e.stack;
+      });
     }
+
     getUid(this);
 
     /** @private {!ControlFlow} */
@@ -1308,7 +1318,7 @@ class ManagedPromise {
    * @param {!Function} fn The function to use as the top of the stack when
    *     recording the callback's creation point.
    * @return {!ManagedPromise<R>} A new promise which will be resolved with the
-   *     esult of the invoked callback.
+   *     result of the invoked callback.
    * @template R
    * @private
    */
@@ -1384,6 +1394,37 @@ function isPending(promise) {
 
 
 /**
+ * Structural interface for a deferred promise resolver.
+ * @record
+ * @template T
+ */
+function Resolver() {}
+
+
+/**
+ * The promised value for this resolver.
+ * @type {!Thenable<T>}
+ */
+Resolver.prototype.promise;
+
+
+/**
+ * Resolves the promised value with the given `value`.
+ * @param {T|Thenable<T>} value
+ * @return {void}
+ */
+Resolver.prototype.resolve;
+
+
+/**
+ * Rejects the promised value with the given `reason`.
+ * @param {*} reason
+ * @return {void}
+ */
+Resolver.prototype.reject;
+
+
+/**
  * Represents a value that will be resolved at some point in the future. This
  * class represents the protected "producer" half of a ManagedPromise - each Deferred
  * has a {@code promise} property that may be returned to consumers for
@@ -1395,20 +1436,25 @@ function isPending(promise) {
  * {@link ControlFlow} as an unhandled failure.
  *
  * @template T
+ * @implements {Resolver<T>}
  */
 class Deferred {
   /**
    * @param {ControlFlow=} opt_flow The control flow this instance was
    *     created under. This should only be provided during unit tests.
+   * @param {?=} opt_skipLog An internal parameter used to skip logging the
+   *     creation of this promise. This parameter has no effect unless it is
+   *     strictly equal to an internal symbol. In other words, this parameter
+   *     is always ignored for external code.
    */
-  constructor(opt_flow) {
+  constructor(opt_flow, opt_skipLog) {
     var fulfill, reject;
 
     /** @type {!ManagedPromise<T>} */
     this.promise = new ManagedPromise(function(f, r) {
       fulfill = f;
       reject = r;
-    }, opt_flow);
+    }, opt_flow, opt_skipLog);
 
     var self = this;
     var checkNotSelf = function(value) {
@@ -1421,16 +1467,24 @@ class Deferred {
      * Resolves this deferred with the given value. It is safe to call this as a
      * normal function (with no bound "this").
      * @param {(T|IThenable<T>|Thenable)=} opt_value The fulfilled value.
+     * @const
      */
-    this.fulfill = function(opt_value) {
+    this.resolve = function(opt_value) {
       checkNotSelf(opt_value);
       fulfill(opt_value);
     };
 
     /**
+     * An alias for {@link #resolve}.
+     * @const
+     */
+    this.fulfill = this.resolve;
+
+    /**
      * Rejects this promise with the given reason. It is safe to call this as a
      * normal function (with no bound "this").
      * @param {*=} opt_reason The rejection reason.
+     * @const
      */
     this.reject = function(opt_reason) {
       checkNotSelf(opt_reason);
@@ -1487,36 +1541,76 @@ function delayed(ms) {
 
 
 /**
- * Creates a new deferred object.
- * @return {!Deferred<T>} The new deferred object.
+ * Creates a new deferred resolver.
+ *
+ * If the promise manager is currently enabled, this function will return a
+ * {@link Deferred} instance. Otherwise, it will return a resolver for a
+ * {@linkplain NativePromise native promise}.
+ *
+ * @return {!Resolver<T>} A new deferred resolver.
  * @template T
  */
 function defer() {
-  return new Deferred();
+  if (usePromiseManager()) {
+    return new Deferred();
+  }
+  let resolve, reject;
+  let promise = new NativePromise((_resolve, _reject) => {
+    resolve = _resolve;
+    reject = _reject;
+  });
+  return {promise, resolve, reject};
 }
 
 
 /**
  * Creates a promise that has been resolved with the given value.
+ *
+ * If the promise manager is currently enabled, this function will return a
+ * {@linkplain ManagedPromise managed promise}. Otherwise, it will return a
+ * {@linkplain NativePromise native promise}.
+ *
  * @param {T=} opt_value The resolved value.
- * @return {!ManagedPromise<T>} The resolved promise.
- * @deprecated Use {@link ManagedPromise#resolve Promise.resolve(value)}.
+ * @return {!Thenable<T>} The resolved promise.
  * @template T
  */
 function fulfilled(opt_value) {
-  return ManagedPromise.resolve(opt_value);
+  let ctor = usePromiseManager() ? ManagedPromise : NativePromise;
+  if (opt_value instanceof ctor) {
+    return /** @type {!Thenable} */(opt_value);
+  }
+
+  if (usePromiseManager()) {
+    // We can skip logging warnings about creating a managed promise because
+    // this function will automatically switch to use a native promise when
+    // the promise manager is disabled.
+    return new ManagedPromise(
+        resolve => resolve(opt_value), undefined, SKIP_LOG);
+  }
+  return NativePromise.resolve(opt_value);
 }
 
 
 /**
  * Creates a promise that has been rejected with the given reason.
+ *
+ * If the promise manager is currently enabled, this function will return a
+ * {@linkplain ManagedPromise managed promise}. Otherwise, it will return a
+ * {@linkplain NativePromise native promise}.
+ *
  * @param {*=} opt_reason The rejection reason; may be any value, but is
  *     usually an Error or a string.
- * @return {!ManagedPromise<?>} The rejected promise.
- * @deprecated Use {@link ManagedPromise#reject Promise.reject(reason)}.
+ * @return {!Thenable<?>} The rejected promise.
  */
 function rejected(opt_reason) {
-  return ManagedPromise.reject(opt_reason);
+  if (usePromiseManager()) {
+    // We can skip logging warnings about creating a managed promise because
+    // this function will automatically switch to use a native promise when
+    // the promise manager is disabled.
+    return new ManagedPromise(
+        (_, reject) => reject(opt_reason), undefined, SKIP_LOG);
+  }
+  return NativePromise.reject(opt_reason);
 }
 
 
@@ -1610,21 +1704,17 @@ function thenFinally(promise, callback) {
  * @param {Function=} opt_errback The function to call when the value is
  *     rejected.
  * @return {!Thenable} A new promise.
+ * @deprecated Use `promise.fulfilled(value).then(opt_callback, opt_errback)`
  */
 function when(value, opt_callback, opt_errback) {
-  if (Thenable.isImplementation(value)) {
-    return value.then(opt_callback, opt_errback);
-  }
-
-  return createPromise(resolve => resolve(value))
-      .then(opt_callback, opt_errback);
+  return fulfilled(value).then(opt_callback, opt_errback);
 }
 
 
 /**
  * Invokes the appropriate callback function as soon as a promised `value` is
- * resolved. This function is similar to `when()`, except it does not return
- * a new promise.
+ * resolved.
+ *
  * @param {*} value The value to observe.
  * @param {Function} callback The function to call when the value is
  *     resolved successfully.
@@ -1826,7 +1916,7 @@ function filter(arr, fn, opt_self) {
  */
 function fullyResolved(value) {
   if (isPromise(value)) {
-    return when(value, fullyResolveValue);
+    return fulfilled(value).then(fullyResolveValue);
   }
   return fullyResolveValue(value);
 }
@@ -1973,7 +2063,7 @@ class Scheduler {
   /**
    * Schedules a task to wait for a condition to hold.
    *
-   * If the condition is defined as a function, it may return any value. Promies
+   * If the condition is defined as a function, it may return any value. Promise
    * will be resolved before testing if the condition holds (resolution time
    * counts towards the timeout). Once resolved, values are always evaluated as
    * booleans.
@@ -1997,7 +2087,7 @@ class Scheduler {
    * @param {string=} opt_message An optional error message to include if the
    *     wait times out; defaults to the empty string.
    * @return {!Thenable<T>} A promise that will be fulfilled
-   *     when the condition has been satisified. The promise shall be rejected
+   *     when the condition has been satisfied. The promise shall be rejected
    *     if the wait times out waiting for the condition.
    * @throws {TypeError} If condition is not a function or promise or if timeout
    *     is not a number >= 0.
@@ -2018,6 +2108,10 @@ function usePromiseManager() {
 
 
 /**
+ * Creates a new promise with the given `resolver` function. If the promise
+ * manager is currently enabled, the returned promise will be a
+ * {@linkplain ManagedPromise} instance. Otherwise, it will be a native promise.
+ *
  * @param {function(
  *             function((T|IThenable<T>|Thenable|null)=),
  *             function(*=))} resolver
@@ -2040,7 +2134,7 @@ function createPromise(resolver) {
  * @param {string=} opt_message An optional error message to include if the
  *     wait times out; defaults to the empty string.
  * @return {!Thenable<T>} A promise that will be fulfilled
- *     when the condition has been satisified. The promise shall be rejected
+ *     when the condition has been satisfied. The promise shall be rejected
  *     if the wait times out waiting for the condition.
  * @throws {TypeError} If condition is not a function or promise or if timeout
  *     is not a number >= 0.
@@ -2164,7 +2258,7 @@ const SIMPLE_SCHEDULER = new SimpleScheduler;
 /**
  * Handles the execution of scheduled tasks, each of which may be an
  * asynchronous operation. The control flow will ensure tasks are executed in
- * the ordered scheduled, starting each task only once those before it have
+ * the order scheduled, starting each task only once those before it have
  * completed.
  *
  * Each task scheduled within this flow may return a {@link ManagedPromise} to
@@ -2172,21 +2266,21 @@ const SIMPLE_SCHEDULER = new SimpleScheduler;
  * promises to be resolved before marking the task as completed.
  *
  * Tasks and each callback registered on a {@link ManagedPromise} will be run
- * in their own ControlFlow frame.  Any tasks scheduled within a frame will take
+ * in their own ControlFlow frame. Any tasks scheduled within a frame will take
  * priority over previously scheduled tasks. Furthermore, if any of the tasks in
  * the frame fail, the remainder of the tasks in that frame will be discarded
  * and the failure will be propagated to the user through the callback/task's
  * promised result.
  *
  * Each time a ControlFlow empties its task queue, it will fire an
- * {@link ControlFlow.EventType.IDLE IDLE} event. Conversely,
- * whenever the flow terminates due to an unhandled error, it will remove all
+ * {@link ControlFlow.EventType.IDLE IDLE} event. Conversely, whenever
+ * the flow terminates due to an unhandled error, it will remove all
  * remaining tasks in its queue and fire an
  * {@link ControlFlow.EventType.UNCAUGHT_EXCEPTION UNCAUGHT_EXCEPTION} event.
  * If there are no listeners registered with the flow, the error will be
  * rethrown to the global error handler.
  *
- * Refer to the {@link ./promise} module documentation for a  detailed
+ * Refer to the {@link ./promise} module documentation for a detailed
  * explanation of how the ControlFlow coordinates task execution.
  *
  * @implements {Scheduler}
@@ -2212,7 +2306,7 @@ class ControlFlow extends events.EventEmitter {
     this.taskQueues_ = null;
 
     /**
-     * Micro task that controls shutting down the control flow. Upon shut down,
+     * Microtask that controls shutting down the control flow. Upon shut down,
      * the flow will emit an
      * {@link ControlFlow.EventType.IDLE} event. Idle events
      * always follow a brief timeout in order to catch latent errors from the
@@ -2221,8 +2315,8 @@ class ControlFlow extends events.EventEmitter {
      * by the promise system until the next turn of the event loop:
      *
      *   // Schedule 1 task that fails.
-     *   var result = promise.controlFlow().schedule('example',
-     *       function() { return promise.rejected('failed'); });
+     *   var result = promise.controlFlow().execute(
+     *       () => promise.rejected('failed'), 'example');
      *   // Set a callback on the result. This delays reporting the unhandled
      *   // failure for 1 turn of the event loop.
      *   result.then(function() {});
@@ -2246,7 +2340,7 @@ class ControlFlow extends events.EventEmitter {
   /**
    * Returns a string representation of this control flow, which is its current
    * {@linkplain #getSchedule() schedule}, sans task stack traces.
-   * @return {string} The string representation of this contorl flow.
+   * @return {string} The string representation of this control flow.
    * @override
    */
   toString() {
@@ -2258,8 +2352,7 @@ class ControlFlow extends events.EventEmitter {
    * control flow stack and cause rejections within parent tasks. If error
    * propagation is disabled, tasks will not be aborted when an unhandled
    * promise rejection is detected, but the rejection _will_ trigger an
-   * {@link ControlFlow.EventType.UNCAUGHT_EXCEPTION}
-   * event.
+   * {@link ControlFlow.EventType.UNCAUGHT_EXCEPTION} event.
    *
    * The default behavior is to propagate all unhandled rejections. _The use
    * of this option is highly discouraged._
@@ -2293,7 +2386,7 @@ class ControlFlow extends events.EventEmitter {
    * {@code opt_includeStackTraces === true}, the string will include the
    * stack trace from when each task was scheduled.
    * @param {string=} opt_includeStackTraces Whether to include the stack traces
-   *     from when each task was scheduled. Defaults to false.
+   * from when each task was scheduled. Defaults to false.
    * @return {string} String representation of this flow's internal state.
    */
   getSchedule(opt_includeStackTraces) {
@@ -2345,7 +2438,7 @@ class ControlFlow extends events.EventEmitter {
   }
 
   /**
-   * Returns the currently actively task queue for this flow. If there is no
+   * Returns the currently active task queue for this flow. If there is no
    * active queue, one will be created.
    * @return {!TaskQueue} the currently active task queue for this flow.
    * @private
@@ -2377,15 +2470,31 @@ class ControlFlow extends events.EventEmitter {
     }
 
     if (!this.hold_) {
-      var holdIntervalMs = 2147483647;  // 2^31-1; max timer length for Node.js
+      let holdIntervalMs = 2147483647;  // 2^31-1; max timer length for Node.js
       this.hold_ = setInterval(function() {}, holdIntervalMs);
     }
 
-    var task = new Task(
+    let task = new Task(
         this, fn, opt_description || '<anonymous>',
-        {name: 'Task', top: ControlFlow.prototype.execute});
+        {name: 'Task', top: ControlFlow.prototype.execute},
+        true);
 
-    var q = this.getActiveQueue_();
+    let q = this.getActiveQueue_();
+
+    for (let i = q.tasks_.length; i > 0; i--) {
+      let previousTask = q.tasks_[i - 1];
+      if (previousTask.userTask_) {
+        FLOW_LOG.warning(() => {
+          return `Detected scheduling of an unchained task.
+When the promise manager is disabled, unchained tasks will not wait for
+previously scheduled tasks to finish before starting to execute.
+New task: ${task.promise.stack_.stack}
+Previous task: ${previousTask.promise.stack_.stack}`.split(/\n/).join('\n    ');
+        });
+        break;
+      }
+    }
+
     q.enqueue(task);
     this.emit(ControlFlow.EventType.SCHEDULE_TASK, task.description);
     return task.promise;
@@ -2393,7 +2502,7 @@ class ControlFlow extends events.EventEmitter {
 
   /** @override */
   promise(resolver) {
-    return new ManagedPromise(resolver, this);
+    return new ManagedPromise(resolver, this, SKIP_LOG);
   }
 
   /** @override */
@@ -2622,7 +2731,7 @@ class MicroTask {
   }
 
   /**
-   * Runs the given function after a micro-task yield.
+   * Runs the given function after a microtask yield.
    * @param {function()} fn The function to run.
    */
   static run(fn) {
@@ -2662,9 +2771,11 @@ class Task extends Deferred {
    * @param {string} description A description of the task for debugging.
    * @param {{name: string, top: !Function}=} opt_stackOptions Options to use
    *     when capturing the stacktrace for when this task was created.
+   * @param {boolean=} opt_isUserTask Whether this task was explicitly scheduled
+   *     by the use of the promise manager.
    */
-  constructor(flow, fn, description, opt_stackOptions) {
-    super(flow);
+  constructor(flow, fn, description, opt_stackOptions, opt_isUserTask) {
+    super(flow, SKIP_LOG);
     getUid(this);
 
     /** @type {function(): (T|!ManagedPromise<T>)} */
@@ -2675,6 +2786,9 @@ class Task extends Deferred {
 
     /** @type {TaskQueue} */
     this.queue = null;
+
+    /** @private @const {boolean} */
+    this.userTask_ = !!opt_isUserTask;
 
     /**
      * Whether this task is considered block. A blocked task may be registered
@@ -2889,7 +3003,7 @@ class TaskQueue extends events.EventEmitter {
     }
 
     // Now that all of the remaining tasks have been silently cancelled (e.g. no
-    // exisitng callbacks on those tasks will fire), clear the silence bit on
+    // existing callbacks on those tasks will fire), clear the silence bit on
     // the cancellation error. This ensures additional callbacks registered in
     // the future will actually execute.
     cancellation.silent_ = false;
@@ -2935,7 +3049,7 @@ class TaskQueue extends events.EventEmitter {
 
     this.subQ_.once('end', () => {  // On task completion.
       this.subQ_ = null;
-      this.pending_ && this.pending_.task.fulfill(result);
+      this.pending_ && this.pending_.task.resolve(result);
     });
 
     this.subQ_.once('error', e => {  // On task failure.
@@ -3068,7 +3182,7 @@ class TaskQueue extends events.EventEmitter {
     }
     return task;
   }
-};
+}
 
 
 
@@ -3214,7 +3328,7 @@ function consume(generatorFn, opt_self, ...var_args) {
 
     function pump(fn, opt_arg) {
       if (ret instanceof ManagedPromise && !isPending(ret)) {
-        return;  // Defererd was cancelled; silently abort.
+        return;  // Deferred was cancelled; silently abort.
       }
 
       try {
@@ -3246,6 +3360,7 @@ module.exports = {
   MultipleUnhandledRejectionError: MultipleUnhandledRejectionError,
   Thenable: Thenable,
   Promise: ManagedPromise,
+  Resolver: Resolver,
   Scheduler: Scheduler,
   all: all,
   asap: asap,
@@ -3254,6 +3369,7 @@ module.exports = {
   consume: consume,
   controlFlow: controlFlow,
   createFlow: createFlow,
+  createPromise: createPromise,
   defer: defer,
   delayed: delayed,
   filter: filter,
@@ -3275,7 +3391,7 @@ module.exports = {
    * The promise manager is currently enabled by default, but may be disabled
    * by setting the environment variable `SELENIUM_PROMISE_MANAGER=0` or by
    * setting this property to false. Setting this property will always take
-   * precedence ove the use of the environment variable.
+   * precedence over the use of the environment variable.
    *
    * @return {boolean} Whether the promise manager is enabled.
    * @see <https://github.com/SeleniumHQ/selenium/issues/2969>

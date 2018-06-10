@@ -28,6 +28,14 @@ class WebDriverError extends Error {
 
     /** @override */
     this.name = this.constructor.name;
+
+    /**
+     * A stacktrace reported by the remote webdriver endpoint that initially
+     * reported this error. This property will be an empty string if the remote
+     * end did not provide a stacktrace.
+     * @type {string}
+     */
+    this.remoteStacktrace = '';
   }
 }
 
@@ -44,10 +52,26 @@ class ElementNotSelectableError extends WebDriverError {
 
 
 /**
+ * Indicates a command could not be completed because the target element is
+ * not pointer or keyboard interactable. This will often occur if an element
+ * is present in the DOM, but not rendered (i.e. its CSS style has
+ * "display: none").
+ */
+class ElementNotInteractableError extends WebDriverError {
+  /** @param {string=} opt_error the error message, if any. */
+  constructor(opt_error) {
+    super(opt_error);
+  }
+}
+
+
+/**
  * An element command could not be completed because the element is not visible
  * on the page.
+ *
+ * @deprecated Use {@link ElementNotInteractable} instead.
  */
-class ElementNotVisibleError extends WebDriverError {
+class ElementNotVisibleError extends ElementNotInteractableError {
   /** @param {string=} opt_error the error message, if any. */
   constructor(opt_error) {
     super(opt_error);
@@ -311,7 +335,7 @@ class UnknownMethodError extends WebDriverError {
 
 
 /**
- * Reports an unsupport operation.
+ * Reports an unsupported operation.
  */
 class UnsupportedOperationError extends WebDriverError {
   /** @param {string=} opt_error the error message, if any. */
@@ -392,6 +416,7 @@ const LEGACY_ERROR_CODE_TO_TYPE = new Map([
 
 const ERROR_CODE_TO_TYPE = new Map([
     ['unknown error', WebDriverError],
+    ['element not interactable', ElementNotInteractableError],
     ['element not selectable', ElementNotSelectableError],
     ['element not visible', ElementNotVisibleError],
     ['invalid argument', InvalidArgumentError],
@@ -462,19 +487,35 @@ function checkResponse(data) {
   return data;
 }
 
+/**
+ * Tests if the given value is a valid error response object according to the
+ * W3C WebDriver spec.
+ *
+ * @param {?} data The value to test.
+ * @return {boolean} Whether the given value data object is a valid error
+ *     response.
+ * @see https://w3c.github.io/webdriver/webdriver-spec.html#protocol
+ */
+function isErrorResponse(data) {
+  return data && typeof data === 'object' && typeof data.error === 'string';
+}
 
 /**
  * Throws an error coded from the W3C protocol. A generic error will be thrown
- * if the privded `data` is not a valid encoded error.
+ * if the provided `data` is not a valid encoded error.
  *
  * @param {{error: string, message: string}} data The error data to decode.
  * @throws {WebDriverError} the decoded error.
  * @see https://w3c.github.io/webdriver/webdriver-spec.html#protocol
  */
 function throwDecodedError(data) {
-  if (data && typeof data === 'object' && typeof data.error === 'string') {
+  if (isErrorResponse(data)) {
     let ctor = ERROR_CODE_TO_TYPE.get(data.error) || WebDriverError;
-    throw new ctor(data.message);
+    let err = new ctor(data.message);
+    if (typeof data.stacktrace === 'string') {
+      err.remoteStacktrace = data.stacktrace;
+    }
+    throw err;
   }
   throw new WebDriverError('Unknown error: ' + JSON.stringify(data));
 }
@@ -523,6 +564,7 @@ module.exports = {
   ErrorCode: ErrorCode,
 
   WebDriverError: WebDriverError,
+  ElementNotInteractableError: ElementNotInteractableError,
   ElementNotSelectableError: ElementNotSelectableError,
   ElementNotVisibleError: ElementNotVisibleError,
   InvalidArgumentError: InvalidArgumentError,
@@ -551,5 +593,6 @@ module.exports = {
   checkResponse: checkResponse,
   checkLegacyResponse: checkLegacyResponse,
   encodeError: encodeError,
+  isErrorResponse: isErrorResponse,
   throwDecodedError: throwDecodedError,
 };

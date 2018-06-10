@@ -4,7 +4,7 @@ export declare class WebdriverBy {
     css: (css: string) => By;
     id: (id: string) => By;
     linkText: (linkText: string) => By;
-    js: (js: string) => By;
+    js: (js: string | Function, ...var_args: any[]) => By;
     name: (name: string) => By;
     partialLinkText: (partialText: string) => By;
     tagName: (tagName: string) => By;
@@ -15,6 +15,7 @@ export interface ProtractorLocator {
     findElementsOverride: (driver: WebDriver, using: WebElement, rootSelector: string) => wdpromise.Promise<WebElement[]>;
     row?: (index: number) => Locator;
     column?: (index: string) => Locator;
+    toString?: () => string;
 }
 export declare type Locator = ProtractorLocator | WebDriverLocator;
 export declare function isProtractorLocator(x: Locator): x is ProtractorLocator;
@@ -244,10 +245,10 @@ export declare class ProtractorBy extends WebdriverBy {
      * var dog = element(by.cssContainingText('.pet', 'Dog'));
      *
      * @param {string} cssSelector css selector
-     * @param {string} searchString text search
+     * @param {string|RegExp} searchString text search
      * @returns {ProtractorLocator} location strategy
      */
-    cssContainingText(cssSelector: string, searchText: string): ProtractorLocator;
+    cssContainingText(cssSelector: string, searchText: string | RegExp): ProtractorLocator;
     /**
      * Find an element by ng-options expression.
      *

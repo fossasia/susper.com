@@ -1,3 +1,134 @@
+## v3.6.0
+
+### Bug Fixes
+
+* The Capabilities factory methods should only specify the name of the browser.
+* Protect against the remote end sometimes not returning a list to findElements
+  commands.
+* Properly reset state in `remote.DriverService#kill()`
+* The firefox module will no longer apply the preferences required by the legacy
+  FirefoxDriver. These preferences were only required when using the legacy
+  driver, support for which was dropped in v3.5.0.
+
+### API Changes
+
+* Added new methods to `selenium-webdriver/firefox.Options`:
+  - addArguments()
+  - headless()
+  - windowSize()
+* Deprecated `selenium-webdriver/firefox/binary.Binary`
+* Removed `selenium-webdriver/firefox.Options#useGeckoDriver()`
+* Removed the unused `selenium-webdriver/firefox/profile.decode()`
+* Removed methods from `selenium-webdriver/firefox/profile.Profile` that had
+  no effect since support for the legacy FirefoxDriver was dropped in 3.5.0:
+  - setNativeEventsEnabled
+  - nativeEventsEnabled
+  - getPort
+  - setPort
+* Removed `selenium-webdriver/firefox.ServiceBuilder#setFirefoxBinary()`; custom
+  binaries should be configured through the `firefox.Options` class.
+* Removed `selenium-webdriver/firefox.Capability`. These hold overs from the
+  legacy FirefoxDriver are no longer supported.
+
+### Changes for W3C WebDriver Spec Compliance
+
+* Deprecated `error.ElementNotVisibleError` in favor of the more generic
+  `error.ElementNotInteractableError`.
+* Support the `httpOnly` option when adding a cookie.
+
+
+## v3.5.0
+
+### Notice
+
+Native support for Firefox 45 (ESR) has been removed. Users will have to connect
+to a remote Selenium server that supports Firefox 45.
+
+### Changes
+
+* Removed native support for Firefox 46 and older.
+  - The `SELENIUM_MARIONETTE` enviornment variable no longer has an effect.
+  - `selenium-webdriver/firefox.Capability.MARIONETTE` is deprecated.
+  - `selenium-webdriver/firefox.Options#useGeckoDriver()` is deprecated and now a no-op.
+* `firefox.Options` will no longer discard the `"moz:firefoxOptions"` set in
+  user provided capabilities (via `Builder.withCapabilities({})`). When both
+  are used, the settings in `firefox.Options` will be applied _last_.
+* Added `chrome.Options#headless()` and `chrome.Options#windowSize()`, which
+  may be used to start Chrome in headless mode (requires Chrome 59+) and to set
+  the initial window size, respectively.
+
+
+### Changes for W3C WebDriver Spec Compliance
+
+* Added `error.WebDriverError#remoteStacktrace` to capture the stacktrace
+  reported by a remote WebDriver endpoint (if any).
+* Fixed `WebElement#sendKeys` to send text as a string instead of an array of
+  strings.
+
+## v3.4.0
+
+### Notice
+
+This release requires [geckodriver 0.15.0](https://github.com/mozilla/geckodriver/releases/tag/v0.15.0) or newer.
+
+### API Changes
+
+* Added `Options#getTimeouts()` for retrieving the currently configured session
+  timeouts (i.e. implicit wait). This method will only work with W3C compatible
+  WebDriver implementations.
+* Deprecated the `Timeouts` class in favor of `Options#setTimeouts()`, which
+  supports setting multiple timeouts at once.
+* Added support for emulating different network conditions (e.g., offline, 2G, WiFi) on Chrome.
+
+### Changes for W3C WebDriver Spec Compliance
+
+* Fixed W3C response parsing, which expects response data to always be a JSON
+  object with a `value` key.
+* Added W3C endpoints for interacting with various types of
+  [user prompts](https://w3c.github.io/webdriver/webdriver-spec.html#user-prompts).
+* Added W3C endpoints for remotely executing scripts.
+* Added W3C endpoints to get current window handle and all windows handles.
+
+
+## v3.3.0
+
+* Added warning log messages when the user creates new managed promises, or
+  schedules unchained tasks. Users may opt in to printing these log messages
+  with
+
+  ```js
+  const {logging} = require('selenium-webdriver');
+  logging.installConsoleHandler();
+  logging.getLogger('promise.ControlFlow').setLevel(logging.Level.WARNING);
+  ```
+* If the `JAVA_HOME` environment variable is set, use it to locate java.exe.
+
+
+## v3.2.0
+
+* Release skipped to stay in sync with the main Selenium project.
+
+
+## v3.1.0
+
+* The `lib` package is once again platform agnostic (excluding `lib/devmode`).
+* Deprecated `promise.when(value, callback, errback)`.
+  Use `promise.fulfilled(value).then(callback, errback)`
+* Changed `promise.fulfilled(value)`, `promise.rejected(reason)` and
+  `promise.defer()` to all use native promises when the promise manager is
+  disabled.
+* Properly handle W3C error responses to new session commands.
+* Updated `selenium-webdriver/testing` to export `describe.only` along with
+  `describe.skip`.
+* Fixed `selenium-webdriver/lib/until.ableToSwitchToFrame`. It was previously
+  dropping arguments and would never work.
+* Added the ability to use Firefox Nightly
+* If Firefox cannot be found in the default location, look for it on the PATH
+* Allow SafariDriver to use Safari Technology Preview.
+* Use the proper wire command for WebElement.getLocation() and
+  WebElement.getSize() for W3C compliant drivers.
+
+
 ## v3.0.1
 
 * More API adjustments to align with native Promises

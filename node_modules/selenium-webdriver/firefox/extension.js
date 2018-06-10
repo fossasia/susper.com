@@ -19,12 +19,12 @@
 
 'use strict';
 
-const AdmZip = require('adm-zip'),
-    fs = require('fs'),
+const fs = require('fs'),
     path = require('path'),
     xml = require('xml2js');
 
 const io = require('../io');
+const zip = require('../io/zip');
 
 
 /**
@@ -56,11 +56,7 @@ function install(extension, dir) {
       if (!details.unpack) {
         return io.copy(extension, dst + '.xpi').then(() => details.id);
       } else {
-        return Promise.resolve().then(function() {
-          // TODO: find an async library for inflating a zip archive.
-          new AdmZip(extension).extractAllTo(dst, true);
-          return details.id;
-        });
+        return zip.unzip(extension, dst).then(() => details.id);
       }
     } else {
       return io.copyDir(extension, dst).then(() => details.id);
@@ -79,105 +75,146 @@ var AddonDetails;
 var RdfRoot;
 
 
-
 /**
  * Extracts the details needed to install an add-on.
  * @param {string} addonPath Path to the extension directory.
  * @return {!Promise<!AddonDetails>} A promise for the add-on details.
  */
 function getDetails(addonPath) {
-  return readManifest(addonPath).then(function(doc) {
-    var em = getNamespaceId(doc, 'http://www.mozilla.org/2004/em-rdf#');
-    var rdf = getNamespaceId(
-        doc, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+  return io.stat(addonPath).then((stats) => {
+    if (stats.isDirectory()) {
+      return parseDirectory(addonPath);
+    } else if (addonPath.slice(-4) === '.xpi') {
+      return parseXpiFile(addonPath);
+    } else {
+      throw Error('Add-on path is not an xpi or a directory: ' + addonPath);
+    }
+  });
 
-    var description = doc[rdf + 'RDF'][rdf + 'Description'][0];
-    var details = {
-      id: getNodeText(description, em + 'id'),
-      name: getNodeText(description, em + 'name'),
-      version: getNodeText(description, em + 'version'),
-      unpack: getNodeText(description, em + 'unpack') || false
-    };
+  /**
+   * Parse an install.rdf for a Firefox add-on.
+   * @param {string} rdf The contents of install.rdf for the add-on.
+   * @return {!Promise<!AddonDetails>} A promise for the add-on details.
+   */
+  function parseInstallRdf(rdf) {
+    return parseXml(rdf).then(function(doc) {
+      var em = getNamespaceId(doc, 'http://www.mozilla.org/2004/em-rdf#');
+      var rdf = getNamespaceId(
+          doc, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 
-    if (typeof details.unpack === 'string') {
-      details.unpack = details.unpack.toLowerCase() === 'true';
+      var description = doc[rdf + 'RDF'][rdf + 'Description'][0];
+      var details = {
+        id: getNodeText(description, em + 'id'),
+        name: getNodeText(description, em + 'name'),
+        version: getNodeText(description, em + 'version'),
+        unpack: getNodeText(description, em + 'unpack') || false
+      };
+
+      if (typeof details.unpack === 'string') {
+        details.unpack = details.unpack.toLowerCase() === 'true';
+      }
+
+      if (!details.id) {
+        throw new AddonFormatError('Could not find add-on ID for ' + addonPath);
+      }
+
+      return details;
+    });
+
+    function parseXml(text) {
+      return new Promise((resolve, reject) => {
+        xml.parseString(text, (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        });
+      });
     }
 
-    if (!details.id) {
+    function getNodeText(node, name) {
+      return node[name] && node[name][0] || '';
+    }
+
+    function getNamespaceId(doc, url) {
+      var keys = Object.keys(doc);
+      if (keys.length !== 1) {
+        throw new AddonFormatError('Malformed manifest for add-on ' + addonPath);
+      }
+
+      var namespaces = /** @type {!RdfRoot} */(doc[keys[0]]).$;
+      var id = '';
+      Object.keys(namespaces).some(function(ns) {
+        if (namespaces[ns] !== url) {
+          return false;
+        }
+
+        if (ns.indexOf(':') != -1) {
+          id = ns.split(':')[1] + ':';
+        }
+        return true;
+      });
+      return id;
+    }
+  }
+
+  /**
+   * Parse a manifest for a Firefox WebExtension.
+   * @param {{
+   *   name: string,
+   *   version: string,
+   *   applications: {gecko:{id:string}}
+   * }} json JSON representation of the manifest.
+   * @return {!AddonDetails} The add-on details.
+   */
+  function parseManifestJson({name, version, applications}) {
+    if (!(applications && applications.gecko && applications.gecko.id)) {
       throw new AddonFormatError('Could not find add-on ID for ' + addonPath);
     }
 
-    return details;
-  });
-
-  function getNodeText(node, name) {
-    return node[name] && node[name][0] || '';
+    return {id: applications.gecko.id, name, version, unpack: false};
   }
 
-  function getNamespaceId(doc, url) {
-    var keys = Object.keys(doc);
-    if (keys.length !== 1) {
-      throw new AddonFormatError('Malformed manifest for add-on ' + addonPath);
-    }
-
-    var namespaces = /** @type {!RdfRoot} */(doc[keys[0]]).$;
-    var id = '';
-    Object.keys(namespaces).some(function(ns) {
-      if (namespaces[ns] !== url) {
-        return false;
+  function parseXpiFile(filePath) {
+    return zip.load(filePath).then(archive => {
+      if (archive.has('install.rdf')) {
+        return archive.getFile('install.rdf')
+            .then(buf => parseInstallRdf(buf.toString('utf8')));
       }
 
-      if (ns.indexOf(':') != -1) {
-        id = ns.split(':')[1] + ':';
-      }
-      return true;
-    });
-    return id;
-  }
-}
-
-
-/**
- * Reads the manifest for a Firefox add-on.
- * @param {string} addonPath Path to a Firefox add-on as a xpi or an extension.
- * @return {!Promise<!Object>} A promise for the parsed manifest.
- */
-function readManifest(addonPath) {
-  var manifest;
-
-  if (addonPath.slice(-4) === '.xpi') {
-    manifest = new Promise((resolve, reject) => {
-      let zip = new AdmZip(addonPath);
-
-      if (!zip.getEntry('install.rdf')) {
-        reject(new AddonFormatError(
-            'Could not find install.rdf in ' + addonPath));
-        return;
+      if (archive.has('manifest.json')) {
+        return archive.getFile('manifest.json')
+            .then(buf => JSON.parse(buf.toString('utf8')))
+            .then(parseManifestJson);
       }
 
-      zip.readAsTextAsync('install.rdf', resolve);
-    });
-  } else {
-    manifest = io.stat(addonPath).then(function(stats) {
-      if (!stats.isDirectory()) {
-        throw Error(
-            'Add-on path is niether a xpi nor a directory: ' + addonPath);
-      }
-      return io.read(path.join(addonPath, 'install.rdf'));
+      throw new AddonFormatError(
+          `Couldn't find install.rdf or manifest.json in ${filePath}`);
     });
   }
 
-  return manifest.then(function(content) {
-    return new Promise((resolve, reject) => {
-      xml.parseString(content, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
-  });
+  function parseDirectory(dirPath) {
+    const rdfPath = path.join(dirPath, 'install.rdf');
+    const jsonPath = path.join(dirPath, 'manifest.json');
+    return io.exists(rdfPath)
+        .then(rdfExists => {
+          if (rdfExists) {
+            return io.read(rdfPath)
+                .then(buf => parseInstallRdf(buf.toString('utf8')));
+          }
+          return io.exists(jsonPath)
+              .then(jsonExists => {
+                if (jsonExists) {
+                  return io.read(jsonPath)
+                      .then(buf => JSON.parse(buf.toString('utf8')))
+                      .then(parseManifestJson);
+                }
+                throw new AddonFormatError(
+                    `Couldn't find install.rdf or manifest.json in ${dirPath}`);
+              });
+        })
+  }
 }
 
 

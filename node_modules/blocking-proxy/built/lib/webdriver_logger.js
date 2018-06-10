@@ -1,7 +1,8 @@
 "use strict";
-const fs = require('fs');
-const path = require('path');
-const webdriver_commands_1 = require('./webdriver_commands');
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs = require("fs");
+const path = require("path");
+const webdriver_commands_1 = require("./webdriver_commands");
 // Generate a random 8 character ID to avoid collisions.
 function getLogId() {
     return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(36).slice(0, 8);
@@ -115,8 +116,9 @@ class WebDriverLogger {
     }
     renderResponse(command) {
         let respLine = '';
-        if (command.responseStatus != 200) {
-            respLine = `ERROR: ${command.responseData['state']}`;
+        const data = command.responseData;
+        if (data['status'] > 0) {
+            respLine = `ERROR ${data['status']}: ${data['value']['message']}`;
         }
         else if (FINDERS.indexOf(command.commandName) !== -1) {
             let els = command.responseData['value'];

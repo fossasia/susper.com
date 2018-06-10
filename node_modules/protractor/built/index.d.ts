@@ -9,7 +9,7 @@ export { ElementHelper, ProtractorBrowser } from './browser';
 export { Config } from './config';
 export { ElementArrayFinder, ElementFinder } from './element';
 export { ProtractorExpectedConditions } from './expectedConditions';
-export { ProtractorBy } from './locators';
+export { Locator, ProtractorBy } from './locators';
 export { Ptor } from './ptor';
 export { Runner } from './runner';
 export declare type PluginConfig = PluginConfig;

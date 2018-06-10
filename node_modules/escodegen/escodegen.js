@@ -43,7 +43,6 @@
         SourceNode,
         estraverse,
         esutils,
-        isArray,
         base,
         indent,
         json,
@@ -216,13 +215,6 @@
         }
 
         return result;
-    }
-
-    isArray = Array.isArray;
-    if (!isArray) {
-        isArray = function isArray(array) {
-            return Object.prototype.toString.call(array) === '[object Array]';
-        };
     }
 
     function hasLineTerminator(str) {
@@ -505,7 +497,7 @@
         var i, iz, elem, result = '';
         for (i = 0, iz = arr.length; i < iz; ++i) {
             elem = arr[i];
-            result += isArray(elem) ? flattenToString(elem) : elem;
+            result += Array.isArray(elem) ? flattenToString(elem) : elem;
         }
         return result;
     }
@@ -518,7 +510,7 @@
             // with no source maps, generated is either an
             // array or a string.  if an array, flatten it.
             // if a string, just return it
-            if (isArray(generated)) {
+            if (Array.isArray(generated)) {
                 return flattenToString(generated);
             } else {
                 return generated;
@@ -980,18 +972,14 @@
         return result;
     };
 
-    CodeGenerator.prototype.generatePropertyKey = function (expr, computed, value) {
+    CodeGenerator.prototype.generatePropertyKey = function (expr, computed) {
         var result = [];
 
         if (computed) {
             result.push('[');
         }
 
-        if (value.type === 'AssignmentPattern') {
-            result.push(this.AssignmentPattern(value, Precedence.Sequence, E_TTT));
-        } else {
-            result.push(this.generateExpression(expr, Precedence.Sequence, E_TTT));
-        }
+        result.push(this.generateExpression(expr, Precedence.Sequence, E_TTT));
 
         if (computed) {
             result.push(']');
@@ -1525,7 +1513,7 @@
 
                 // new interface
                 if (stmt.handler) {
-                    if (isArray(stmt.handler)) {
+                    if (Array.isArray(stmt.handler)) {
                         for (i = 0, iz = stmt.handler.length; i < iz; ++i) {
                             result = join(result, this.generateStatement(stmt.handler[i], S_TFFF));
                             if (stmt.finalizer || i + 1 !== iz) {
@@ -1942,7 +1930,7 @@
                             esutils.code.isDecimalDigit(fragment.charCodeAt(fragment.length - 1)) &&
                             !(fragment.length >= 2 && fragment.charCodeAt(0) === 48)  // '0'
                             ) {
-                        result.push('.');
+                        result.push(' ');
                     }
                 }
                 result.push('.');
@@ -2118,13 +2106,13 @@
             }
             if (expr.kind === 'get' || expr.kind === 'set') {
                 fragment = [
-                    join(expr.kind, this.generatePropertyKey(expr.key, expr.computed, expr.value)),
+                    join(expr.kind, this.generatePropertyKey(expr.key, expr.computed)),
                     this.generateFunctionBody(expr.value)
                 ];
             } else {
                 fragment = [
                     generateMethodPrefix(expr),
-                    this.generatePropertyKey(expr.key, expr.computed, expr.value),
+                    this.generatePropertyKey(expr.key, expr.computed),
                     this.generateFunctionBody(expr.value)
                 ];
             }
@@ -2135,25 +2123,28 @@
             if (expr.kind === 'get' || expr.kind === 'set') {
                 return [
                     expr.kind, noEmptySpace(),
-                    this.generatePropertyKey(expr.key, expr.computed, expr.value),
+                    this.generatePropertyKey(expr.key, expr.computed),
                     this.generateFunctionBody(expr.value)
                 ];
             }
 
             if (expr.shorthand) {
-                return this.generatePropertyKey(expr.key, expr.computed, expr.value);
+                if (expr.value.type === "AssignmentPattern") {
+                    return this.AssignmentPattern(expr.value, Precedence.Sequence, E_TTT);
+                }
+                return this.generatePropertyKey(expr.key, expr.computed);
             }
 
             if (expr.method) {
                 return [
                     generateMethodPrefix(expr),
-                    this.generatePropertyKey(expr.key, expr.computed, expr.value),
+                    this.generatePropertyKey(expr.key, expr.computed),
                     this.generateFunctionBody(expr.value)
                 ];
             }
 
             return [
-                this.generatePropertyKey(expr.key, expr.computed, expr.value),
+                this.generatePropertyKey(expr.key, expr.computed),
                 ':' + space,
                 this.generateExpression(expr.value, Precedence.Assignment, E_TTT)
             ];
@@ -2331,6 +2322,9 @@
                 return expr.value ? 'true' : 'false';
             }
 
+            if (expr.regex) {
+              return '/' + expr.regex.pattern + '/' + expr.regex.flags;
+            }
             return generateRegExp(expr.value);
         },
 

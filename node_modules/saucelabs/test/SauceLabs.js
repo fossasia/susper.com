@@ -273,6 +273,20 @@ describe('SauceLabs', function () {
         });
       });
     });
+
+    describe('#getSubAccountList', function () {
+      it('GETs `/rest/v1/users/:username/list-subaccounts`', function (done) {
+        var mock = nockle.get('/rest/v1/users/:username/list-subaccounts');
+        sauce.getSubAccountList(verifySuccess(mock, done));
+      });
+    });
+
+    describe('#getSubAccounts', function () {
+      it('GETs `/rest/v1/users/:username/subaccounts`', function (done) {
+        var mock = nockle.get('/rest/v1/users/:username/subaccounts');
+        sauce.getSubAccounts(verifySuccess(mock, done));
+      });
+    });
   });
 });
 

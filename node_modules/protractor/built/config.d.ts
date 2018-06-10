@@ -42,15 +42,20 @@ export interface Config {
         jvmArgs?: string[];
     };
     /**
-     * ChromeDriver location is used to help find the chromedriver binary.
-     * This will be passed to the Selenium jar as the system property
-     * webdriver.chrome.driver. If null, Selenium will attempt to find
-     * ChromeDriver using PATH.
+     * ChromeDriver location is used to help find the chromedriver binary. This will be passed to the
+     * Selenium jar as the system property webdriver.chrome.driver. If the value is not set when
+     * launching locally, it will use the default values downloaded from webdriver-manager.
      *
      * example:
      * chromeDriver: './node_modules/webdriver-manager/selenium/chromedriver_2.20'
      */
     chromeDriver?: string;
+    /**
+     * geckoDriver location is used to help find the gecko binary. This will be passed to the Selenium
+     * jar as the system property webdriver.gecko.driver. If the value is not set when launching
+     * locally, it will use the default values downloaded from webdriver-manager.
+     */
+    geckoDriver?: string;
     /**
      * The address of a running Selenium Server. If specified, Protractor will
      * connect to an already running instance of Selenium. This usually looks like
@@ -64,9 +69,13 @@ export interface Config {
      */
     seleniumSessionId?: string;
     /**
-     * The address of a proxy server to use for the connection to the
-     * Selenium Server. If not specified no proxy is configured. Looks like
-     * webDriverProxy: 'http://localhost:3128'
+     * The address of a proxy server to use for communicating to Sauce Labs rest APIs via the
+     * saucelabs node module. For example, the Sauce Labs Proxy can be setup with: sauceProxy:
+     * 'http://localhost:3128'
+     */
+    sauceProxy?: string;
+    /**
+     * The proxy address that browser traffic will go through which is tied to the browser session.
      */
     webDriverProxy?: string;
     /**
@@ -118,6 +127,30 @@ export interface Config {
      * ondemand.saucelabs.com:80/wd/hub
      */
     sauceSeleniumAddress?: string;
+    /**
+     * If testobjectUser and testobjectKey are specified, kobitonUser, kobitonKey, browserstackUser,
+     * browserStackKey and seleniumServerJar will be ignored. The tests will be run remotely using
+     * TestObject.
+     */
+    testobjectUser?: string;
+    /**
+     * If testobjectUser and testobjectKey are specified, kobitonUser, kobitonKey, browserStackUser,
+     * browserStackKey and seleniumServerJar will be ignored. The tests will be run remotely using
+     * TestObject.
+     */
+    testobjectKey?: string;
+    /**
+     * If kobitonUser and kobitonKey are specified, testobjectUser, testojbectKey, browserstackUser,
+     * browserStackKey and seleniumServerJar will be ignored. The tests will be run remotely using
+     * TestObject.
+     */
+    kobitonUser?: string;
+    /**
+     * If kobitonUser and kobitonKey are specified, testobjectUser, testojbectKey, browserStackUser,
+     * browserStackKey and seleniumServerJar will be ignored. The tests will be run remotely using
+     * TestObject.
+     */
+    kobitonKey?: string;
     /**
      * If browserstackUser and browserstackKey are specified, seleniumServerJar
      * will be ignored. The tests will be run remotely using BrowserStack.
@@ -432,6 +465,12 @@ export interface Config {
      * synchronization, which is also experimental.
      */
     highlightDelay?: number;
+    /**
+     * Protractor log level
+     *
+     * default: INFO
+     */
+    logLevel?: 'ERROR' | 'WARN' | 'INFO' | 'DEBUG';
     /**
      * Test framework to use. This may be one of: jasmine, mocha or custom.
      * Default value is 'jasmine'

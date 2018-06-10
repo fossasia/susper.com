@@ -67,6 +67,7 @@ Ultron.prototype.once = function once(event, fn, context) {
  */
 Ultron.prototype.remove = function remove() {
   var args = arguments
+    , ee = this.ee
     , event;
 
   //
@@ -76,15 +77,23 @@ Ultron.prototype.remove = function remove() {
   if (args.length === 1 && 'string' === typeof args[0]) {
     args = args[0].split(/[, ]+/);
   } else if (!args.length) {
-    args = [];
+    if (ee.eventNames) {
+      args = ee.eventNames();
+    } else if (ee._events) {
+      args = [];
 
-    for (event in this.ee._events) {
-      if (has.call(this.ee._events, event)) args.push(event);
+      for (event in ee._events) {
+        if (has.call(ee._events, event)) args.push(event);
+      }
+
+      if (Object.getOwnPropertySymbols) {
+        args = args.concat(Object.getOwnPropertySymbols(ee._events));
+      }
     }
   }
 
   for (var i = 0; i < args.length; i++) {
-    var listeners = this.ee.listeners(args[i]);
+    var listeners = ee.listeners(args[i]);
 
     for (var j = 0; j < listeners.length; j++) {
       event = listeners[j];
@@ -95,13 +104,11 @@ Ultron.prototype.remove = function remove() {
       //
       if (event.listener) {
         if (event.listener.__ultron !== this.id) continue;
-        delete event.listener.__ultron;
-      } else {
-        if (event.__ultron !== this.id) continue;
-        delete event.__ultron;
+      } else if (event.__ultron !== this.id) {
+        continue;
       }
 
-      this.ee.removeListener(args[i], event);
+      ee.removeListener(args[i], event);
     }
   }
 

@@ -11,6 +11,8 @@ __export(require("./hosted"));
 __export(require("./local"));
 __export(require("./mock"));
 __export(require("./sauce"));
+__export(require("./testObject"));
+__export(require("./kobiton"));
 const attachSession_1 = require("./attachSession");
 const browserStack_1 = require("./browserStack");
 const direct_1 = require("./direct");
@@ -18,6 +20,8 @@ const hosted_1 = require("./hosted");
 const local_1 = require("./local");
 const mock_1 = require("./mock");
 const sauce_1 = require("./sauce");
+const testObject_1 = require("./testObject");
+const kobiton_1 = require("./kobiton");
 const logger_1 = require("../logger");
 let logger = new logger_1.Logger('driverProviders');
 exports.buildDriverProvider = (config) => {
@@ -35,6 +39,14 @@ exports.buildDriverProvider = (config) => {
             driverProvider = new hosted_1.Hosted(config);
             exports.logWarnings('hosted', config);
         }
+    }
+    else if (config.testobjectUser && config.testobjectKey) {
+        driverProvider = new testObject_1.TestObject(config);
+        exports.logWarnings('testObject', config);
+    }
+    else if (config.kobitonUser && config.kobitonKey) {
+        driverProvider = new kobiton_1.Kobiton(config);
+        exports.logWarnings('kobiton', config);
     }
     else if (config.browserstackUser && config.browserstackKey) {
         driverProvider = new browserStack_1.BrowserStack(config);
@@ -70,6 +82,18 @@ exports.logWarnings = (providerType, config) => {
     }
     if ('attachSession' !== providerType && config.seleniumSessionId) {
         warnList.push('seleniumSessionId');
+    }
+    if ('testObject' !== providerType && config.testObjectUser) {
+        warnList.push('testobjectUser');
+    }
+    if ('testObject' !== providerType && config.testObjectKey) {
+        warnList.push('testobjectKey');
+    }
+    if ('kobitonUser' !== providerType && config.kobitonUser) {
+        warnList.push('kobitonUser');
+    }
+    if ('kobitonKey' !== providerType && config.kobitonKey) {
+        warnList.push('kobitonKey');
     }
     if ('browserStack' !== providerType && config.browserstackUser) {
         warnList.push('browserstackUser');

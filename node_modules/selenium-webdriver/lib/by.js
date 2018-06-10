@@ -153,7 +153,7 @@ class By {
   }
 
   /**
-   * Locates eleemnts by the ID attribute. This locator uses the CSS selector
+   * Locates elements by the ID attribute. This locator uses the CSS selector
    * `*[id="$ID"]`, _not_ `document.getElementById`.
    *
    * @param {string} id The ID to search for.
@@ -259,6 +259,14 @@ function check(locator) {
   if (locator instanceof By || typeof locator === 'function') {
     return locator;
   }
+
+  if (locator
+      && typeof locator === 'object'
+      && typeof locator.using === 'string'
+      && typeof locator.value === 'string') {
+    return new By(locator.using, locator.value);
+  }
+
   for (let key in locator) {
     if (locator.hasOwnProperty(key) && By.hasOwnProperty(key)) {
       return By[key](locator[key]);

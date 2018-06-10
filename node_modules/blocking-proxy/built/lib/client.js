@@ -1,7 +1,8 @@
 "use strict";
-const http = require('http');
-const url = require('url');
-const blockingproxy_1 = require('./blockingproxy');
+Object.defineProperty(exports, "__esModule", { value: true });
+const http = require("http");
+const url = require("url");
+const blockingproxy_1 = require("./blockingproxy");
 class BPClient {
     constructor(bpUrlValue) {
         let bpUrl = url.parse(bpUrlValue);

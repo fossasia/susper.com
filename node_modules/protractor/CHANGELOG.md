@@ -1,3 +1,216 @@
+# 5.3.2
+
+## Fixes
+
+- ([4e0a57c](https://github.com/angular/protractor/commit/4e0a57cff88b470dc5d05698a1341040f65dceb4))
+  fix(test): fix async tests
+
+  Increase the scripts timeout
+
+- ([c6703a5](https://github.com/angular/protractor/commit/c6703a5ea8ce7a837193ecf478c2096d8c6e99e9))
+  fix(doc): Spelling updates to comments in plugin.ts(#4797)
+
+  Updated some of the spelling errors/ punctuation mistakes for clearer understanding.
+- ([76324b8](https://github.com/angular/protractor/commit/76324b80063152ce67c164b6f048682e71771bb6))
+  fix(cli): add more verbose warning if '_debugger' module cannot be found. (#4800)
+
+
+- ([f8f490a](https://github.com/angular/protractor/commit/f8f490a82d0ed6965248e1f78bd2ac7ca91548d9))
+  updated CHANGELOG based on sauceSeleniumAddress and sauceSeleniumUseHttp (#4793)
+
+
+- ([6290f27](https://github.com/angular/protractor/commit/6290f27720816dd574ff7a1eccfec6ade1539b71))
+  fix(generate-docs): fix generate-docs.sh. (#4765)
+
+  Ignore generated unstaged files before checking out to new branch; otherwise, the git checkout
+  will fail.
+
+## Dependencies
+
+- ([948c7f2](https://github.com/angular/protractor/commit/948c7f267feebfd4c6997d8bc02485b573100197))
+  fix(deps): Update saucelabs for security issue. (#4805)
+
+
+# 5.3.1
+
+## Features
+
+- ([cc2234c](https://github.com/angular/protractor/commit/cc2234c762268acab85b6e5d1c13b6480738651b))
+  feat(logger): Add log level configuration (#1451) (#4068)
+
+## Fixes
+
+- ([c63b99e](https://github.com/angular/protractor/commit/c63b99ee029b6730e4b0702ac7c22b4076049e2a))
+  fix(grep): change excluded tests to disabled instead of pending (#4673)
+
+- ([9348ccf](https://github.com/angular/protractor/commit/9348ccfe65a0488d2929f624e70aef585f72e3ab))
+  docs(page_objects): Remove unnecessary "await" and "async" (#4732)
+
+- ([4898db0](https://github.com/angular/protractor/commit/4898db0940e0c0084e7c538a40986f94dc21e7ec))
+  docs(plugins) add protractor-cucumber-steps plugin to plugins.md (#4721)
+
+- ([a7411b6](https://github.com/angular/protractor/commit/a7411b6a156d45ec2e61f1b6ec951a19d854f5b2))
+  docs(page_objects): Add async / await example (#4675)
+
+
+# 5.3.0
+
+## Features
+
+- ([9d87982](https://github.com/angular/protractor/commit/9d8798243d23dd9d338c2eabd11d5a43ab3c31d9))
+  feat(config): allow to use newer versions of CoffeeScript (#4567)
+  CoffeeScript lost the hyphen in the module name about 9 months ago, all the new versions are
+  going to be released as coffeescript not the coffee-script
+
+- ([6ba30e0](https://github.com/angular/protractor/commit/6ba30e0b356fdb980cf1f2870ef0b5c6bb22ec4e))
+  feat(driverProviders): Add TestObject and Kobiton as driverProviders
+  Add TestObject and Kobiton as driverProviders
+  1. Add testObject and kobiton to driverProviders
+  2. Add testObject and kobiton items to cli, config and index
+  3. Add instructions for using testObject and kobiton to server-setup
+
+## Fixes
+
+- ([a62a154](https://github.com/angular/protractor/commit/a62a15417d559346a75fb6e208359ffa5b6b65f1))
+  fix(script): fix compile-to-es5 script (#4676)
+  make compile-to-es5 script rely on native es6-promise typing
+
+- ([964baba](https://github.com/angular/protractor/commit/964baba5eac52452350bf1d29a191558595c5f1b))
+  fix(clientsidescript): avoid returning the value of test callback in waitForAngular (#4667)
+  The return value could be interpreted as an error by mistake in some situation
+  Also fix a wrong if-condition in error reporting
+
+- ([83e2ba8](https://github.com/angular/protractor/commit/83e2ba878257e9c85775cd52bf70960f0c45917b))
+  fix(website): Locator by.name('field_name') (#4653)
+
+- ([02746dd](https://github.com/angular/protractor/commit/02746dd37726b2647f8f8dbeb1152cd7f902acb0))
+  fix(browser): Add space after full stop in error message. (#4594)
+  Linkifiers interpret the ".If" at the end of the URL as part of the URL.
+
+- ([7f968e0](https://github.com/angular/protractor/commit/7f968e022a7f7ebcda8955651f2907c1a25ecc22))
+  fix(direct): Use config's geckoDriver when specified (#4554)
+  This change makes the `firefox` capability more closely match `chrome`'s. The `firefox`
+  capability was not looking for `config_.geckoDriver` like `chrome` was.
+
+- ([f9df456](https://github.com/angular/protractor/commit/f9df45619b1744e6615e183965fe093f0e4526e6))
+  docs(element): fix minor typo in element.ts (#4471)
+
+- ([65f206e](https://github.com/angular/protractor/commit/65f206e70a2d13762c841da247557b0ebb7fde7d))
+  docs(website): updated reference from ignoreSynchronization to waitForAngularEnabled(false).
+  (#4632)
+
+## Dependencies
+
+- ([335680f](https://github.com/angular/protractor/commit/335680f10ab3c5d1de1eab92868c7b30fb7e3d23))
+  fix(circleCI): lock the currect version of all dependencies (#4669)
+  CircleCI was broken by the new release of gulp-clang-format and jasmine
+  1. pin the version of gulp-clang-format to 1.0.23
+  2. pin jasmine version to 2.8.0
+  3. add lock file
+
+# 5.2.2
+## Fixes
+- ([b3c7404](https://github.com/angular/protractor/commit/b3c7404258db55a71e7bc4520973c0665cb0ff06))
+  Revert "fix(jasmine): Update Jasmine to support Node8 async/await (#4608)"
+  This reverts commit 5d13b00bca651227eb55616363f7d7eb8a91f8e8.
+  This commit is unnecessary now, revert this commit to avoid breaking changes in 5.2.1
+
+- ([8e5ad1f](https://github.com/angular/protractor/commit/8e5ad1f9b01ec4629fa079609aa8bedee52f0722))
+  fix(doc): remove unnecessary config in debugging doc/example (#4622)
+
+# 5.2.1
+## Features
+- ([a62efc6](https://github.com/angular/protractor/commit/a62efc6e401bc1aa7408e3008ccdaa219b528636))
+  feat(locators): Add support for regex in cssContainingText (#4532)
+
+## Fixes
+- ([e51f0ec](https://github.com/angular/protractor/commit/e51f0ecb31b7eb361dbf8feaa201ad2fccf9cf14))
+  fix(doc): update doc for testing with node 8 async/await and chrome inspector. (#4613)
+- ([b204a83](https://github.com/angular/protractor/commit/b204a835976088131f209a5f873f9f786fa05a2e))
+  doc(browser-support) improved Firefox documentation (#4553)
+- ([8d71a1b](https://github.com/angular/protractor/commit/8d71a1b1b1d314bf0a4ef8c7ecefdd1c7688032e))
+  docs(page-objects.md): Refactor the existing Page Object example (#4576)
+- ([95dd3ca](https://github.com/angular/protractor/commit/95dd3caf4b90b2d42aa1d5b35b0fd48504f802c3))
+  doc(tutorial): added example for element.getAttribute('value') to read text from an input (#4566)
+
+## Dependencies
+
+- ([bb63ab0](https://github.com/angular/protractor/commit/bb63ab00046fc300d898a39c03fb6d974fe20b57))
+  Update to the latest blocking proxy (#4546)
+
+## Breaking Changes
+
+- ([5d13b00](https://github.com/angular/protractor/commit/5d13b00bca651227eb55616363f7d7eb8a91f8e8))
+  fix(jasmine): Update Jasmine to support Node8 async/await (#4608)
+
+  Breaking change for TypeScript:
+  JasmineWD doesn't know anything about async/await, turns off JasmineWD if control flow was
+  disabled.
+
+  It will affect TypeScript tests that are using async/await and
+
+  a. miss some await keyword in the test.(Previously, this might cause the
+  test failed silently and be reported as pass), or
+
+  b. use Promise in jasmine expect function
+
+  **Before**
+    ```ts
+  await expect(getPromise()).toEqual(42);
+    ```
+  **After**
+    ```ts
+  expect(await getPromise()).toEqual(42);
+    ```
+
+# 5.2.0
+
+## Fixes
+- ([f7e17f3](https://github.com/angular/protractor/commit/f7e17f348e738e1a594870d7ff735f2b7ea1853f))
+  fix(clientSideScripts): change protractor to support waiting for hybrid app (#4512)
+
+- ([4b7cada](https://github.com/angular/protractor/commit/4b7cada1317079c20ddf1bb105303e21adba6e32))
+  fix(sauce): bring back sauceProxy as a configuration option (#4419)
+
+- ([b87159b](https://github.com/angular/protractor/commit/b87159b3fcb379b85727a1beb6fd41a914235cf8))
+  fix(website): fix all locator examples to use `element` over `browser.findElement` (#4413)
+
+- ([768fd39](https://github.com/angular/protractor/commit/768fd393d1084a8da0ec6eeaa57508bf17519a3f))
+  fix(local): allow local driver provider to use gecko driver from config (#4412)
+
+- ([c0b8770](https://github.com/angular/protractor/commit/c0b8770ff1a508205b5cf38b5611918e20028fe3))
+  docs(website): fix issue 4246
+
+- ([f79938e](https://github.com/angular/protractor/commit/f79938e3d138c7bedc66f8c6748704402ea721c4))
+  docs(plugins): add ng-apimock plugin to plugins.md
+
+- ([ab1afb0](https://github.com/angular/protractor/commit/ab1afb093107f3a63f6e15f8f315e33576bb414d))
+  fix(blockingproxy): Start bpRunner strictly after setupDriverEnv
+
+- ([b85e7ee](https://github.com/angular/protractor/commit/b85e7ee1c53cdc4cfb23dc3d06d40317a27e50e7))
+  fix(npmignore): .map files in built directory cause stacktrace lines to nowhere Fixes #4371
+
+- ([299fc8d](https://github.com/angular/protractor/commit/299fc8d96b3e5daf632a1c584728214ababcebf8))
+  docs(browser-support): Fixed incorrect example
+
+- ([e5a5d59](https://github.com/angular/protractor/commit/e5a5d59fcabe15860b30944e714bbd8e81ceaeae))
+  docs(frameworks) align cucumberOpts comments
+
+- ([fe8c480](https://github.com/angular/protractor/commit/fe8c480bd860209cc68768de884d050cbf1a5b27))
+  docs(frameworks) update cucumber dry run option
+
+- ([2e9acf5](https://github.com/angular/protractor/commit/2e9acf58b76b553c558f56b6a38c161ad50324de))
+  docs(plugins) add protractor-numerator plugin to plugins.md
+
+- ([3f861ae](https://github.com/angular/protractor/commit/3f861ae069df98a06cfa1ede89f56a8d0ec9d5d2))
+  By.js locator should accept functions
+
+## Dependencies
+
+- ([0fbc2c0](https://github.com/angular/protractor/commit/0fbc2c0ac12992bd61712188a96aef6684bef0c1))
+  chore(release): update selenium-webdriverjs
+
+
 # 5.1.2
 
 ## Features
@@ -5,17 +218,20 @@
 - ([dd2ccbb](https://github.com/angular/protractor/commit/dd2ccbb1b73b7c90647837cd1c4f6b16b3f6b0ac))
   feat(saucelabs): Add Sauce Labs protocol customization support
 
+  New option `sauceSeleniumUseHttp` available in `protractor.conf.js`
+  If true, uses 'http' instead of 'https' to connect to Sauce Labs defined by `sauceSeleniumAddress`
+
 ## Fixes
 
-- ([1a47076](https://github.com/angular/protractor/commit/1a47076875395648038a39fcd258a77bfcabe05c)) 
+- ([1a47076](https://github.com/angular/protractor/commit/1a47076875395648038a39fcd258a77bfcabe05c))
   fix(ci): Use latest pip on CircleCI
 
-- ([fd59c78](https://github.com/angular/protractor/commit/fd59c78407ced4f17e1b4ed4451ce463439aa3c9)) 
+- ([fd59c78](https://github.com/angular/protractor/commit/fd59c78407ced4f17e1b4ed4451ce463439aa3c9))
   fix(elementexplorer): Set script breakpoints with cross-platform safe paths.
 
   Fixes #4011
 
-- ([1250278](https://github.com/angular/protractor/commit/12502784b306cbedca8684486c31eeb361da5897)) 
+- ([1250278](https://github.com/angular/protractor/commit/12502784b306cbedca8684486c31eeb361da5897))
   fix(cli): Correctly parse list chromeOptions
 
   Chromedriver requires that certain options always be passed as an array. Optimist passes
@@ -24,33 +240,33 @@
 
   Fixes #4050
 
-- ([183cd80](https://github.com/angular/protractor/commit/183cd803254f7a3ccb3a8650e8ef06b4fff03446)) 
+- ([183cd80](https://github.com/angular/protractor/commit/183cd803254f7a3ccb3a8650e8ef06b4fff03446))
   fix(browser): Fix browser.angularAppRoot()
 
   By default, it wasn't returning anything. Now it returns a promise that resolves to
   internalAngularAppRoot. Fixes #4233
 
-- ([bd534fb](https://github.com/angular/protractor/commit/bd534fb8b2dfaca9072914dc84ad662891a8c7b2)) 
+- ([bd534fb](https://github.com/angular/protractor/commit/bd534fb8b2dfaca9072914dc84ad662891a8c7b2))
   fix: Add "stackTrace" option to allowedNames in cli.ts
 
   This fixes a problem I encountered similar to #4196 - where `stackTrace` is listed as an option
   but an error is given saying it's an "unknown extra flag"
 
-- ([8249167](https://github.com/angular/protractor/commit/82491678de71b43311ea68d496ff807e1c72ee5e)) 
+- ([8249167](https://github.com/angular/protractor/commit/82491678de71b43311ea68d496ff807e1c72ee5e))
   fix: export Runner, not just its type. (#4227)
 
-- ([0eb5b76](https://github.com/angular/protractor/commit/0eb5b7608e4bfb770878fe443d97ed9aa426c070)) 
+- ([0eb5b76](https://github.com/angular/protractor/commit/0eb5b7608e4bfb770878fe443d97ed9aa426c070))
   fix(navigation): ignore unknown JS errors in IE (#4149)
 
   The `err` object doesn't have the `code` property any more (Selenium Server Standalone 3.3.1 +
   IEDriver win32 3.3.0), so we need a new way to detect those errors. See #841
-- ([4752ad1](https://github.com/angular/protractor/commit/4752ad1287af536c6dd442dd8c74546f978627d9)) 
+- ([4752ad1](https://github.com/angular/protractor/commit/4752ad1287af536c6dd442dd8c74546f978627d9))
   chore(examples): Fix TSC issues with exampleTypescript (#4132)
 
 
 ## Dependencies
 
-- ([a0a1fac](https://github.com/angular/protractor/commit/a0a1fac8568f2bfbd6d5721db438aed390e30d23)) 
+- ([a0a1fac](https://github.com/angular/protractor/commit/a0a1fac8568f2bfbd6d5721db438aed390e30d23))
   chore(deps): Updating webdriver-manager and jasminewd2
 
 
@@ -74,6 +290,12 @@
   - move noCF tests to install and fix reference to protractor
   - changed element.ts to not use keyof
   - remove gulp task tsc:spec
+
+## Breaking Changes
+
+- The protocol for a Sauce Labs selenium relay (sauceSeleniumAddress in protractor.conf.js)
+  is 'https' (previously used 'http'). The protocol is not configurable in this version.
+
 
 # 5.1.0
 

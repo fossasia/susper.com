@@ -2,14 +2,15 @@
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator.throw(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const http = require('http');
-const url = require('url');
-const webdriver_commands_1 = require('./webdriver_commands');
+Object.defineProperty(exports, "__esModule", { value: true });
+const http = require("http");
+const url = require("url");
+const webdriver_commands_1 = require("./webdriver_commands");
 /**
  * A proxy that understands WebDriver commands. Users can add barriers (similar to middleware in
  * express) that will be called before forwarding the request to WebDriver. The proxy will wait for
@@ -27,8 +28,10 @@ class WebDriverProxy {
         return __awaiter(this, void 0, void 0, function* () {
             let command = webdriver_commands_1.parseWebDriverCommand(originalRequest.url, originalRequest.method);
             let replyWithError = (err) => {
-                response.writeHead(500);
-                response.write(err.toString());
+                response.writeHead(502);
+                if (err && err.toString) {
+                    response.write(err.toString());
+                }
                 response.end();
             };
             // Process barriers in order, one at a time.

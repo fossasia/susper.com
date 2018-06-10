@@ -374,10 +374,11 @@ class ProtractorBy extends WebdriverBy {
      * var dog = element(by.cssContainingText('.pet', 'Dog'));
      *
      * @param {string} cssSelector css selector
-     * @param {string} searchString text search
+     * @param {string|RegExp} searchString text search
      * @returns {ProtractorLocator} location strategy
      */
     cssContainingText(cssSelector, searchText) {
+        searchText = (searchText instanceof RegExp) ? '__REGEXP__' + searchText.toString() : searchText;
         return {
             findElementsOverride: (driver, using, rootSelector) => {
                 return driver.findElements(selenium_webdriver_1.By.js(clientSideScripts.findByCssContainingText, cssSelector, searchText, using, rootSelector));

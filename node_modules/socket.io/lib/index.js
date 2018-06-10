@@ -5,13 +5,15 @@
 
 var http = require('http');
 var read = require('fs').readFileSync;
+var path = require('path');
+var exists = require('fs').existsSync;
 var engine = require('engine.io');
-var client = require('socket.io-client');
-var clientVersion = require('socket.io-client/package').version;
+var clientVersion = require('socket.io-client/package.json').version;
 var Client = require('./client');
 var Emitter = require('events').EventEmitter;
 var Namespace = require('./namespace');
 var Adapter = require('socket.io-adapter');
+var parser = require('socket.io-parser');
 var debug = require('debug')('socket.io:server');
 var url = require('url');
 
@@ -38,7 +40,7 @@ var clientSourceMap = undefined;
 
 function Server(srv, opts){
   if (!(this instanceof Server)) return new Server(srv, opts);
-  if ('object' == typeof srv && !srv.listen) {
+  if ('object' == typeof srv && srv instanceof Object && !srv.listen) {
     opts = srv;
     srv = null;
   }
@@ -46,6 +48,8 @@ function Server(srv, opts){
   this.nsps = {};
   this.path(opts.path || '/socket.io');
   this.serveClient(false !== opts.serveClient);
+  this.parser = opts.parser || parser;
+  this.encoder = new this.parser.Encoder();
   this.adapter(opts.adapter || Adapter);
   this.origins(opts.origins || '*:*');
   this.sockets = this.of('/');
@@ -96,16 +100,21 @@ Server.prototype.checkRequest = function(req, fn) {
 Server.prototype.serveClient = function(v){
   if (!arguments.length) return this._serveClient;
   this._serveClient = v;
-
+  var resolvePath = function(file){
+    var filepath = path.resolve(__dirname, './../../', file);
+    if (exists(filepath)) {
+      return filepath;
+    }
+    return require.resolve(file);
+  };
   if (v && !clientSource) {
-    clientSource = read(require.resolve('socket.io-client/dist/socket.io.min.js'), 'utf-8');
+    clientSource = read(resolvePath( 'socket.io-client/dist/socket.io.js'), 'utf-8');
     try {
-      clientSourceMap = read(require.resolve('socket.io-client/dist/socket.io.js.map'), 'utf-8');
+      clientSourceMap = read(resolvePath( 'socket.io-client/dist/socket.io.js.map'), 'utf-8');
     } catch(err) {
       debug('could not load sourcemap file');
     }
   }
-
   return this;
 };
 
@@ -235,6 +244,31 @@ Server.prototype.attach = function(srv, opts){
   // set origins verification
   opts.allowRequest = opts.allowRequest || this.checkRequest.bind(this);
 
+  if (this.sockets.fns.length > 0) {
+    this.initEngine(srv, opts);
+    return this;
+  }
+
+  var self = this;
+  var connectPacket = { type: parser.CONNECT, nsp: '/' };
+  this.encoder.encode(connectPacket, function (encodedPacket){
+    // the CONNECT packet will be merged with Engine.IO handshake,
+    // to reduce the number of round trips
+    opts.initialPacket = encodedPacket;
+
+    self.initEngine(srv, opts);
+  });
+  return this;
+};
+
+/**
+ * Initialize engine
+ *
+ * @param {Object} options passed to engine.io
+ * @api private
+ */
+
+Server.prototype.initEngine = function(srv, opts){
   // initialize engine
   debug('creating engine.io instance with opts %j', opts);
   this.eio = engine.attach(srv, opts);
@@ -247,8 +281,6 @@ Server.prototype.attach = function(srv, opts){
 
   // bind to engine events
   this.bind(this.eio);
-
-  return this;
 };
 
 /**
@@ -304,7 +336,6 @@ Server.prototype.serve = function(req, res){
   debug('serve client source');
   res.setHeader('Content-Type', 'application/javascript');
   res.setHeader('ETag', expectedEtag);
-  res.setHeader('X-SourceMap', 'socket.io.js.map');
   res.writeHead(200);
   res.end(clientSource);
 };
@@ -378,7 +409,7 @@ Server.prototype.onconnection = function(conn){
 
 Server.prototype.of = function(name, fn){
   if (String(name)[0] !== '/') name = '/' + name;
-  
+
   var nsp = this.nsps[name];
   if (!nsp) {
     debug('initializing namespace %s', name);
@@ -392,7 +423,7 @@ Server.prototype.of = function(name, fn){
 /**
  * Closes server connection
  *
- * @param {Function} [fn] optional, called as `fn([err])` on error OR all conns closed 
+ * @param {Function} [fn] optional, called as `fn([err])` on error OR all conns closed
  * @api public
  */
 

@@ -3,7 +3,7 @@ import * as http from 'http';
 import { AngularWaitBarrier } from './angular_wait_barrier';
 import { HighlightDelayBarrier } from './highlight_delay_barrier';
 import { WebDriverLogger } from './webdriver_logger';
-export declare const BP_PREFIX: string;
+export declare const BP_PREFIX = "bpproxy";
 /**
  * The stability proxy is an http server responsible for intercepting
  * JSON webdriver commands. It keeps track of whether the page under test

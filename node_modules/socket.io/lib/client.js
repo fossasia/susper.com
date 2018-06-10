@@ -24,8 +24,8 @@ module.exports = Client;
 function Client(server, conn){
   this.server = server;
   this.conn = conn;
-  this.encoder = new parser.Encoder();
-  this.decoder = new parser.Decoder();
+  this.encoder = server.encoder;
+  this.decoder = new server.parser.Decoder();
   this.id = conn.id;
   this.request = conn.request;
   this.setup();
@@ -153,9 +153,7 @@ Client.prototype.packet = function(packet, opts){
   if ('open' == this.conn.readyState) {
     debug('writing packet %j', packet);
     if (!opts.preEncoded) { // not broadcasting, need to encode
-      this.encoder.encode(packet, function (encodedPackets) { // encode, then write results to engine
-        writeToEngine(encodedPackets);
-      });
+      this.encoder.encode(packet, writeToEngine); // encode, then write results to engine
     } else { // a broadcast pre-encodes a packet
       writeToEngine(packet);
     }
@@ -213,7 +211,7 @@ Client.prototype.onerror = function(err){
       this.sockets[id].onerror(err);
     }
   }
-  this.onclose('client error');
+  this.conn.close();
 };
 
 /**

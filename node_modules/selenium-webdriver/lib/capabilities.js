@@ -103,7 +103,7 @@ const Capability = {
    */
   PROXY: 'proxy',
 
-  /** Whether the driver supports changing the brower's orientation. */
+  /** Whether the driver supports changing the browser's orientation. */
   ROTATABLE: 'rotatable',
 
   /**
@@ -130,9 +130,9 @@ const Capability = {
 
   /**
    * Defines how the driver should handle unexpected alerts. The value should
-   * be one of "accept", "dismiss", or "ignore.
+   * be one of "accept", "dismiss", or "ignore".
    */
-  UNEXPECTED_ALERT_BEHAVIOR: 'unexpectedAlertBehavior',
+  UNEXPECTED_ALERT_BEHAVIOR: 'unexpectedAlertBehaviour',
 
   /** Defines the browser version. */
   VERSION: 'version'
@@ -204,16 +204,19 @@ function toMap(hash) {
 /**
  * Describes a set of capabilities for a WebDriver session.
  */
-class Capabilities extends Map {
+class Capabilities {
   /**
-   * @param {(Capabilities|Map<string, ?>|Object)=} opt_other Another set of
+   * @param {(Capabilities|Map<string, ?>|Object)=} other Another set of
    *     capabilities to initialize this instance from.
    */
-  constructor(opt_other) {
-    if (opt_other && !(opt_other instanceof Map)) {
-      opt_other = toMap(opt_other);
+  constructor(other = undefined) {
+    if (other instanceof Capabilities) {
+      other = other.map_;
+    } else if (other && !(other instanceof Map)) {
+      other = toMap(other);
     }
-    super(opt_other);
+    /** @private @const {!Map<string, ?>} */
+    this.map_ = new Map(other);
   }
 
   /**
@@ -221,8 +224,7 @@ class Capabilities extends Map {
    */
   static android() {
     return new Capabilities()
-        .set(Capability.BROWSER_NAME, Browser.ANDROID)
-        .set(Capability.PLATFORM, 'ANDROID');
+        .set(Capability.BROWSER_NAME, Browser.ANDROID);
   }
 
   /**
@@ -237,8 +239,7 @@ class Capabilities extends Map {
    */
   static edge() {
     return new Capabilities()
-        .set(Capability.BROWSER_NAME, Browser.EDGE)
-        .set(Capability.PLATFORM, 'WINDOWS');
+        .set(Capability.BROWSER_NAME, Browser.EDGE);
   }
 
   /**
@@ -253,8 +254,7 @@ class Capabilities extends Map {
    */
   static ie() {
     return new Capabilities().
-        set(Capability.BROWSER_NAME, Browser.INTERNET_EXPLORER).
-        set(Capability.PLATFORM, 'WINDOWS');
+        set(Capability.BROWSER_NAME, Browser.INTERNET_EXPLORER);
   }
 
   /**
@@ -262,8 +262,7 @@ class Capabilities extends Map {
    */
   static ipad() {
     return new Capabilities().
-        set(Capability.BROWSER_NAME, Browser.IPAD).
-        set(Capability.PLATFORM, 'MAC');
+        set(Capability.BROWSER_NAME, Browser.IPAD);
   }
 
   /**
@@ -271,8 +270,7 @@ class Capabilities extends Map {
    */
   static iphone() {
     return new Capabilities().
-        set(Capability.BROWSER_NAME, Browser.IPHONE).
-        set(Capability.PLATFORM, 'MAC');
+        set(Capability.BROWSER_NAME, Browser.IPHONE);
   }
 
   /**
@@ -296,8 +294,7 @@ class Capabilities extends Map {
    */
   static safari() {
     return new Capabilities().
-        set(Capability.BROWSER_NAME, Browser.SAFARI).
-        set(Capability.PLATFORM, 'MAC');
+        set(Capability.BROWSER_NAME, Browser.SAFARI);
   }
 
   /**
@@ -329,6 +326,35 @@ class Capabilities extends Map {
   }
 
   /**
+   * @param {string} key the parameter key to get.
+   * @return {T} the stored parameter value.
+   * @template T
+   */
+  get(key) {
+    return this.map_.get(key);
+  }
+
+  /**
+   * @param {string} key the key to test.
+   * @return {boolean} whether this capability set has the specified key.
+   */
+  has(key) {
+    return this.map_.has(key);
+  }
+
+  /**
+   * @return {!Iterator<string>} an iterator of the keys set.
+   */
+  keys() {
+    return this.map_.keys();
+  }
+
+  /** @return {number} The number of capabilities set. */
+  get size() {
+    return this.map_.size;
+  }
+
+  /**
    * Merges another set of capabilities into this instance.
    * @param {!(Capabilities|Map<String, ?>|Object<string, ?>)} other The other
    *     set of capabilities to merge.
@@ -339,7 +365,12 @@ class Capabilities extends Map {
       throw new TypeError('no capabilities provided for merge');
     }
 
-    if (!(other instanceof Map)) {
+    let map;
+    if (other instanceof Capabilities) {
+      map = other.map_;
+    } else if (other instanceof Map) {
+      map = other;
+    } else {
       other = toMap(other);
     }
 
@@ -351,23 +382,31 @@ class Capabilities extends Map {
   }
 
   /**
+   * Deletes an entry from this set of capabilities.
+   *
+   * @param {string} key the capability key to delete.
+   */
+  delete(key) {
+    this.map_.delete(key);
+  }
+
+  /**
    * @param {string} key The capability key.
    * @param {*} value The capability value.
    * @return {!Capabilities} A self reference.
    * @throws {TypeError} If the `key` is not a string.
-   * @override
    */
   set(key, value) {
     if (typeof key !== 'string') {
       throw new TypeError('Capability keys must be strings: ' + typeof key);
     }
-    super.set(key, value);
+    this.map_.set(key, value);
     return this;
   }
 
   /**
    * Sets the logging preferences. Preferences may be specified as a
-   * {@link ./logging.Preferences} instance, or a as a map of log-type to
+   * {@link ./logging.Preferences} instance, or as a map of log-type to
    * log-level.
    * @param {!(./logging.Preferences|Object<string>)} prefs The logging
    *     preferences.
@@ -408,7 +447,7 @@ class Capabilities extends Map {
   /**
    * Sets the default action to take with an unexpected alert before returning
    * an error.
-   * @param {string} behavior The desired behavior; should be "accept",
+   * @param {string} behavior The desired behavior should be "accept",
    *     "dismiss", or "ignore". Defaults to "dismiss".
    * @return {!Capabilities} A self reference.
    */

@@ -4,10 +4,12 @@
  * MIT Licensed
  */
 
+'use strict';
+
 module.exports = {
-  isValidErrorCode: function(code) {
-    return (code >= 1000 && code <= 1011 && code != 1004 && code != 1005 && code != 1006) ||
-         (code >= 3000 && code <= 4999);
+  isValidErrorCode: function (code) {
+    return (code >= 1000 && code <= 1013 && code !== 1004 && code !== 1005 && code !== 1006) ||
+      (code >= 3000 && code <= 4999);
   },
   1000: 'normal',
   1001: 'going away',
@@ -21,4 +23,6 @@ module.exports = {
   1009: 'message too big',
   1010: 'extension handshake missing',
   1011: 'an unexpected condition prevented the request from being fulfilled',
+  1012: 'service restart',
+  1013: 'try again later'
 };

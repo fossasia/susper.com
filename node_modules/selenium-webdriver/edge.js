@@ -58,7 +58,7 @@
  *     var options = new edge.Options();
  *     // configure browser options ...
  *
- *     var driver = new edge.Driver(options, service);
+ *     var driver = edge.Driver.createSession(options, service);
  *
  * Users should only instantiate the {@link Driver} class directly when they
  * need a custom driver service configuration (as shown above). For normal
@@ -278,8 +278,8 @@ class Driver extends webdriver.WebDriver {
         opt_config instanceof Options ? opt_config.toCapabilities() :
         (opt_config || capabilities.Capabilities.edge());
 
-    return /** @type {!Driver} */(webdriver.WebDriver.createSession(
-        executor, caps, opt_flow, this, () => service.kill()));
+    return /** @type {!Driver} */(super.createSession(
+        executor, caps, opt_flow, () => service.kill()));
   }
 
   /**

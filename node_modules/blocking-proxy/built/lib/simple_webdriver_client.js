@@ -1,6 +1,7 @@
 "use strict";
-const http = require('http');
-const url = require('url');
+Object.defineProperty(exports, "__esModule", { value: true });
+const http = require("http");
+const url = require("url");
 /**
  * Super dumb and simple WebDriver client. Works with selenium standalone, may or may not work yet
  * directly with other drivers.
@@ -74,8 +75,15 @@ class SimpleWebDriverClient {
                 });
                 resp.on('end', () => {
                     let response = JSON.parse(respData);
-                    if (response.state !== 'success') {
-                        reject(response.value);
+                    // Selenium 3.5.x or greater
+                    if (response.status && response.status > 0) {
+                        console.error(`Got status ${response.status} from selenium`, response.value);
+                        reject(JSON.stringify(response.value));
+                    }
+                    // Selenium 3.0.x
+                    if (response.state && response.state !== 'success') {
+                        console.error(`Got response ${response.state} from selenium`, response.value);
+                        reject(JSON.stringify(response.value));
                     }
                     resolve(response.value);
                 });

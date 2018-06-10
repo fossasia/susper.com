@@ -59,10 +59,26 @@ context param:
 ultron.on('event-name', handler, { custom: 'function context' });
 ```
 
+Just like you would expect, it can also be chained together.
+
+```js
+ultron
+.on('event-name', handler)
+.on('another event', handler);
+```
+
 ### Ultron.once
 
 Exactly the same as the [Ultron.on](#ultronon) but it only allows the execution
 once.
+
+Just like you would expect, it can also be chained together.
+
+```js
+ultron
+.once('event-name', handler, { custom: 'this value' })
+.once('another event', handler);
+```
 
 ### Ultron.remove
 
@@ -88,7 +104,7 @@ you can still use the EventEmitter's `removeListener(event, fn)` API:
 ```js
 function foo() {}
 
-ulton.on('foo', foo);
+ultron.on('foo', foo);
 events.removeListener('foo', foo);
 ```
 

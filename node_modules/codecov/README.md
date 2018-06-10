@@ -91,3 +91,4 @@ nyc report --reporter=text-lcov > coverage.lcov
 - v2.1.0 Flags supported http://docs.codecov.io/docs/flags
 - v2.2.0 Support for Jenkins Blue Ocean. Clean reports after upload. Fix for Gitlab.
 - v2.3.0 Added support for Windows. Updated dependencies.
+- v3.0.0 No longer supports node v0.12 because of new version of request

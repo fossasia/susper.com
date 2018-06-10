@@ -36,6 +36,20 @@
  *     a unique browser session with a clean user profile (unless otherwise
  *     configured through the {@link Options} class).
  *
+ * __Headless Chrome__ <a id="headless"></a>
+ *
+ * To start Chrome in headless mode, simply call
+ * {@linkplain Options#headless Options.headless()}. Note, starting in headless
+ * mode currently also disables GPU acceleration.
+ *
+ *     let chrome = require('selenium-webdriver/chrome');
+ *     let {Builder} = require('selenium-webdriver');
+ *
+ *     let driver = new Builder()
+ *         .forBrowser('chrome')
+ *         .setChromeOptions(new chrome.Options().headless())
+ *         .build();
+ *
  * __Customizing the ChromeDriver Server__ <a id="custom-server"></a>
  *
  * By default, every Chrome session will use a single driver service, which is
@@ -59,7 +73,7 @@
  *     let options = new chrome.Options();
  *     // configure browser options ...
  *
- *     let driver = new chrome.Driver(options, service);
+ *     let driver = chrome.Driver.createSession(options, service);
  *
  * Users should only instantiate the {@link Driver} class directly when they
  * need a custom driver service configuration (as shown above). For normal
@@ -114,19 +128,19 @@
 
 'use strict';
 
-const fs = require('fs'),
-    util = require('util');
+const fs = require('fs');
+const util = require('util');
 
-const http = require('./http'),
-    io = require('./io'),
-    {Capabilities, Capability} = require('./lib/capabilities'),
-    command = require('./lib/command'),
-    logging = require('./lib/logging'),
-    promise = require('./lib/promise'),
-    Symbols = require('./lib/symbols'),
-    webdriver = require('./lib/webdriver'),
-    portprober = require('./net/portprober'),
-    remote = require('./remote');
+const http = require('./http');
+const io = require('./io');
+const {Capabilities, Capability} = require('./lib/capabilities');
+const command = require('./lib/command');
+const logging = require('./lib/logging');
+const promise = require('./lib/promise');
+const Symbols = require('./lib/symbols');
+const webdriver = require('./lib/webdriver');
+const portprober = require('./net/portprober');
+const remote = require('./remote');
 
 
 /**
@@ -143,7 +157,9 @@ const CHROMEDRIVER_EXE =
  * @enum {string}
  */
 const Command = {
-  LAUNCH_APP: 'launchApp'
+  LAUNCH_APP: 'launchApp',
+  GET_NETWORK_CONDITIONS: 'getNetworkConditions',
+  SET_NETWORK_CONDITIONS: 'setNetworkConditions'
 };
 
 
@@ -169,6 +185,14 @@ function configureExecutor(executor) {
       Command.LAUNCH_APP,
       'POST',
       '/session/:sessionId/chromium/launch_app');
+  executor.defineCommand(
+      Command.GET_NETWORK_CONDITIONS,
+      'GET',
+      '/session/:sessionId/chromium/network_conditions');
+  executor.defineCommand(
+      Command.SET_NETWORK_CONDITIONS,
+      'POST',
+      '/session/:sessionId/chromium/network_conditions');
 }
 
 
@@ -283,11 +307,7 @@ function getDefaultService() {
 }
 
 
-/**
- * @type {string}
- * @const
- */
-let OPTIONS_CAPABILITY_KEY = 'chromeOptions';
+const OPTIONS_CAPABILITY_KEY = 'chromeOptions';
 
 
 /**
@@ -352,28 +372,61 @@ class Options {
    * browser.  Each argument may be specified with or without the "--" prefix
    * (e.g. "--foo" and "foo"). Arguments with an associated value should be
    * delimited by an "=": "foo=bar".
-   * @param {...(string|!Array<string>)} var_args The arguments to add.
+   *
+   * @param {...(string|!Array<string>)} args The arguments to add.
    * @return {!Options} A self reference.
    */
-  addArguments(var_args) {
-    let args = this.options_.args || [];
-    args = args.concat.apply(args, arguments);
-    if (args.length) {
-      this.options_.args = args;
+  addArguments(...args) {
+    let newArgs = (this.options_.args || []).concat(...args);
+    if (newArgs.length) {
+      this.options_.args = newArgs;
     }
     return this;
+  }
+
+  /**
+   * Configures the chromedriver to start Chrome in headless mode.
+   *
+   * > __NOTE:__ Resizing the browser window in headless mode is only supported
+   * > in Chrome 60. Users are encouraged to set an initial window size with
+   * > the {@link #windowSize windowSize({width, height})} option.
+   *
+   * @return {!Options} A self reference.
+   */
+  headless() {
+    // TODO(jleyba): Remove `disable-gpu` once head Chrome no longer requires
+    // that to be set.
+    return this.addArguments('headless', 'disable-gpu');
+  }
+
+  /**
+   * Sets the initial window size.
+   *
+   * @param {{width: number, height: number}} size The desired window size.
+   * @return {!Options} A self reference.
+   * @throws {TypeError} if width or height is unspecified, not a number, or
+   *     less than or equal to 0.
+   */
+  windowSize({width, height}) {
+    function checkArg(arg) {
+      if (typeof arg !== 'number' || arg <= 0) {
+        throw TypeError('Arguments must be {width, height} with numbers > 0');
+      }
+    }
+    checkArg(width);
+    checkArg(height);
+    return this.addArguments(`window-size=${width},${height}`);
   }
 
   /**
    * List of Chrome command line switches to exclude that ChromeDriver by default
    * passes when starting Chrome.  Do not prefix switches with "--".
    *
-   * @param {...(string|!Array<string>)} var_args The switches to exclude.
+   * @param {...(string|!Array<string>)} args The switches to exclude.
    * @return {!Options} A self reference.
    */
-  excludeSwitches(var_args) {
-    let switches = this.options_.excludeSwitches || [];
-    switches = switches.concat.apply(switches, arguments);
+  excludeSwitches(...args) {
+    let switches = (this.options_.excludeSwitches || []).concat(...args);
     if (switches.length) {
       this.options_.excludeSwitches = switches;
     }
@@ -384,13 +437,12 @@ class Options {
    * Add additional extensions to install when launching Chrome. Each extension
    * should be specified as the path to the packed CRX file, or a Buffer for an
    * extension.
-   * @param {...(string|!Buffer|!Array<(string|!Buffer)>)} var_args The
+   * @param {...(string|!Buffer|!Array<(string|!Buffer)>)} args The
    *     extensions to add.
    * @return {!Options} A self reference.
    */
-  addExtensions(var_args) {
-    this.extensions_ =
-        this.extensions_.concat.apply(this.extensions_, arguments);
+  addExtensions(...args) {
+    this.extensions_ = this.extensions_.concat(...args);
     return this;
   }
 
@@ -595,7 +647,7 @@ class Options {
    *     let options = new chrome.Options().setMobileEmulation(
    *         {deviceName: 'Google Nexus 5'});
    *
-   *     let driver = new chrome.Driver(options);
+   *     let driver = chrome.Driver.createSession(options);
    *
    * __Example 2: Using Custom Screen Configuration__
    *
@@ -605,7 +657,7 @@ class Options {
    *         pixelRatio: 3.0
    *     });
    *
-   *     let driver = new chrome.Driver(options);
+   *     let driver = chrome.Driver.createSession(options);
    *
    *
    * [em]: https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation
@@ -706,7 +758,7 @@ class Driver extends webdriver.WebDriver {
         (opt_config || Capabilities.chrome());
 
     return /** @type {!Driver} */(
-        webdriver.WebDriver.createSession(executor, caps, opt_flow, this));
+        super.createSession(executor, caps, opt_flow));
   }
 
   /**
@@ -726,6 +778,43 @@ class Driver extends webdriver.WebDriver {
     return this.schedule(
         new command.Command(Command.LAUNCH_APP).setParameter('id', id),
         'Driver.launchApp()');
+  }
+
+  /**
+   * Schedules a command to get Chrome network emulation settings.
+   * @return {!promise.Thenable<T>} A promise that will be resolved
+   *     when network emulation settings are retrievied.
+   */
+  getNetworkConditions() {
+    return this.schedule(
+        new command.Command(Command.GET_NETWORK_CONDITIONS),
+        'Driver.getNetworkConditions()');
+  }
+
+  /**
+   * Schedules a command to set Chrome network emulation settings.
+   *
+   * __Sample Usage:__
+   *
+   *  driver.setNetworkConditions({
+   *    offline: false,
+   *    latency: 5, // Additional latency (ms).
+   *    download_throughput: 500 * 1024, // Maximal aggregated download throughput.
+   *    upload_throughput: 500 * 1024 // Maximal aggregated upload throughput.
+   * });
+   *
+   * @param {Object} spec Defines the network conditions to set
+   * @return {!promise.Thenable<void>} A promise that will be resolved
+   *     when network emulation settings are set.
+   */
+  setNetworkConditions(spec) {
+    if (!spec || typeof spec !== 'object') {
+      throw TypeError('setNetworkConditions called with non-network-conditions parameter');
+    }
+
+    return this.schedule(
+        new command.Command(Command.SET_NETWORK_CONDITIONS).setParameter('network_conditions', spec),
+        'Driver.setNetworkConditions(' + JSON.stringify(spec) + ')');
   }
 }
 

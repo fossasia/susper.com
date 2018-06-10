@@ -1,4 +1,38 @@
 
+2.2.0 / 2018-03-03
+==================
+
+  * Add "engines" to package.json - requires Node.js >= 4.5.0
+  * Use `Buffer.from()`
+
+2.1.1 / 2017-11-28
+==================
+
+  * Update `debug` - Security Problems with Previous Version (#38)
+
+2.1.0 / 2017-08-08
+==================
+
+  * only include the port number in the Host header when non-default port (#22)
+  * set ALPN to "http 1.1" by default when using tlsproxy (#25)
+  * only set `ALPNProtocols` when the property does not already exist
+  * support SNI (#14)
+
+2.0.0 / 2017-06-26
+==================
+
+  * rename https-proxy-agent.js to index.js
+  * update dependencies and remove semver-specific test case
+  * update `agent-base` to v4
+  * remove `extend` dependency
+  * :arrow_up: update minimum version of debug dependency
+  * opts/options
+  * drop Node versions < v4 from Travis-CI
+  * test Node.js 5, 6, 7 and 8 on Travis-CI
+  * README: remove outdated `secureEndpoint` reference
+  * README: remove `secureEndpoint` docs, add `headers`
+  * https-proxy-agent: add support for proxy "headers"
+
 1.0.0 / 2015-07-10
 ==================
 

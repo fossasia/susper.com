@@ -457,12 +457,12 @@ class IWebDriver {
    * while evaluating the condition, they will be allowed to propagate. In the
    * event a condition returns a {@link promise.Promise promise}, the polling
    * loop will wait for it to be resolved and use the resolved value for whether
-   * the condition has been satisified. Note the resolution time for a promise
+   * the condition has been satisfied. Note the resolution time for a promise
    * is factored into whether a wait has timed out.
    *
    * Note, if the provided condition is a {@link WebElementCondition}, then
    * the wait will return a {@link WebElementPromise} that will resolve to the
-   * element that satisified the condition.
+   * element that satisfied the condition.
    *
    * _Example:_ waiting up to 10 seconds for an element to be present on the
    * page.
@@ -750,20 +750,12 @@ class WebDriver {
    *     commands should execute under, including the initial session creation.
    *     Defaults to the {@link promise.controlFlow() currently active}
    *     control flow.
-   * @param {(function(new: WebDriver,
-   *                   !IThenable<!Session>,
-   *                   !command.Executor,
-   *                   promise.ControlFlow=))=} opt_ctor
-   *    A reference to the constructor of the specific type of WebDriver client
-   *    to instantiate. Will create a vanilla {@linkplain WebDriver} instance
-   *    if a constructor is not provided.
    * @param {(function(this: void): ?)=} opt_onQuit A callback to invoke when
    *    the newly created session is terminated. This should be used to clean
    *    up any resources associated with the session.
    * @return {!WebDriver} The driver for the newly created session.
    */
-  static createSession(
-        executor, capabilities, opt_flow, opt_ctor, opt_onQuit) {
+  static createSession(executor, capabilities, opt_flow, opt_onQuit) {
     let flow = opt_flow || promise.controlFlow();
     let cmd = new command.Command(command.Name.NEW_SESSION);
 
@@ -779,11 +771,10 @@ class WebDriver {
         'WebDriver.createSession()');
     if (typeof opt_onQuit === 'function') {
       session = session.catch(err => {
-        return Promise.resolve(opt_onQuit.call(void 0)).then(_ => {throw err});
+        return Promise.resolve(opt_onQuit.call(void 0)).then(_ => {throw err;});
       });
     }
-    const ctor = opt_ctor || WebDriver;
-    return new ctor(session, executor, flow, opt_onQuit);
+    return new this(session, executor, flow, opt_onQuit);
   }
 
   /** @override */
@@ -850,7 +841,7 @@ class WebDriver {
         new command.Command(command.Name.QUIT),
         'WebDriver.quit()');
     // Delete our session ID when the quit command finishes; this will allow us
-    // to throw an error when attemnpting to use a driver post-quit.
+    // to throw an error when attempting to use a driver post-quit.
     return /** @type {!promise.Thenable} */(promise.finally(result, () => {
       this.session_ = this.flow_.promise((_, reject) => {
         reject(new error.NoSuchSessionError(
@@ -1054,13 +1045,15 @@ class WebDriver {
       let cmd = new command.Command(command.Name.FIND_ELEMENTS).
           setParameter('using', locator.using).
           setParameter('value', locator.value);
-      let res = this.schedule(cmd, 'WebDriver.findElements(' + locator + ')');
-      return res.catch(function(e) {
-        if (e instanceof error.NoSuchElementError) {
-          return [];
-        }
-        throw e;
-      });
+      return this.schedule(cmd, 'WebDriver.findElements(' + locator + ')')
+          .then(
+              (res) => Array.isArray(res) ? res : [],
+              (e) =>  {
+                if (e instanceof error.NoSuchElementError) {
+                  return [];
+                }
+                throw e;
+              });
     }
   }
 
@@ -1181,7 +1174,7 @@ class Navigation {
 /**
  * Provides methods for managing browser and driver state.
  *
- * This class should never be instantiated directly. Insead, obtain an instance
+ * This class should never be instantiated directly. Instead, obtain an instance
  * with {@linkplain WebDriver#manage() webdriver.manage()}.
  */
 class Options {
@@ -1200,14 +1193,14 @@ class Options {
    * __Sample Usage:__
    *
    *     // Set a basic cookie.
-   *     driver.options().addCookie({name: 'foo', value: 'bar'});
+   *     driver.manage().addCookie({name: 'foo', value: 'bar'});
    *
    *     // Set a cookie that expires in 10 minutes.
    *     let expiry = new Date(Date.now() + (10 * 60 * 1000));
-   *     driver.options().addCookie({name: 'foo', value: 'bar', expiry});
+   *     driver.manage().addCookie({name: 'foo', value: 'bar', expiry});
    *
    *     // The cookie expiration may also be specified in seconds since epoch.
-   *     driver.options().addCookie({
+   *     driver.manage().addCookie({
    *       name: 'foo',
    *       value: 'bar',
    *       expiry: Math.floor(Date.now() / 1000)
@@ -1220,36 +1213,29 @@ class Options {
    *     invalid.
    * @throws {TypeError} if `spec` is not a cookie object.
    */
-  addCookie(spec) {
-    if (!spec || typeof spec !== 'object') {
-      throw TypeError('addCookie called with non-cookie parameter');
-    }
-
+  addCookie({name, value, path, domain, secure, httpOnly, expiry}) {
     // We do not allow '=' or ';' in the name.
-    let name = spec.name;
     if (/[;=]/.test(name)) {
       throw new error.InvalidArgumentError(
           'Invalid cookie name "' + name + '"');
     }
 
     // We do not allow ';' in value.
-    let value = spec.value;
     if (/;/.test(value)) {
       throw new error.InvalidArgumentError(
           'Invalid cookie value "' + value + '"');
     }
 
     let cookieString = name + '=' + value +
-        (spec.domain ? ';domain=' + spec.domain : '') +
-        (spec.path ? ';path=' + spec.path : '') +
-        (spec.secure ? ';secure' : '');
+        (domain ? ';domain=' + domain : '') +
+        (path ? ';path=' + path : '') +
+        (secure ? ';secure' : '');
 
-    let expiry;
-    if (typeof spec.expiry === 'number') {
-      expiry = Math.floor(spec.expiry);
-      cookieString += ';expires=' + new Date(spec.expiry * 1000).toUTCString();
-    } else if (spec.expiry instanceof Date) {
-      let date = /** @type {!Date} */(spec.expiry);
+    if (typeof expiry === 'number') {
+      expiry = Math.floor(expiry);
+      cookieString += ';expires=' + new Date(expiry * 1000).toUTCString();
+    } else if (expiry instanceof Date) {
+      let date = /** @type {!Date} */(expiry);
       expiry = Math.floor(date.getTime() / 1000);
       cookieString += ';expires=' + date.toUTCString();
     }
@@ -1259,9 +1245,10 @@ class Options {
             setParameter('cookie', {
               'name': name,
               'value': value,
-              'path': spec.path,
-              'domain': spec.domain,
-              'secure': !!spec.secure,
+              'path': path,
+              'domain': domain,
+              'secure': !!secure,
+              'httpOnly': !!httpOnly,
               'expiry': expiry
             }),
         'WebDriver.manage().addCookie(' + cookieString + ')');
@@ -1327,6 +1314,91 @@ class Options {
   }
 
   /**
+   * Schedules a command to fetch the timeouts currently configured for the
+   * current session.
+   *
+   * @return {!promise.Thenable<{script: number,
+   *                             pageLoad: number,
+   *                             implicit: number}>} A promise that will be
+   *     resolved with the timeouts currently configured for the current
+   *     session.
+   * @see #setTimeouts()
+   */
+  getTimeouts() {
+    return this.driver_.schedule(
+        new command.Command(command.Name.GET_TIMEOUT),
+        `WebDriver.manage().getTimeouts()`)
+  }
+
+  /**
+   * Schedules a command to set timeout durations associated with the current
+   * session.
+   *
+   * The following timeouts are supported (all timeouts are specified in
+   * milliseconds):
+   *
+   * -  `implicit` specifies the maximum amount of time to wait for an element
+   *    locator to succeed when {@linkplain WebDriver#findElement locating}
+   *    {@linkplain WebDriver#findElements elements} on the page.
+   *    Defaults to 0 milliseconds.
+   *
+   * -  `pageLoad` specifies the maximum amount of time to wait for a page to
+   *    finishing loading. Defaults to 300000 milliseconds.
+   *
+   * -  `script` specifies the maximum amount of time to wait for an
+   *    {@linkplain WebDriver#executeScript evaluated script} to run. If set to
+   *    `null`, the script timeout will be indefinite.
+   *    Defaults to 30000 milliseconds.
+   *
+   * @param {{script: (number|null|undefined),
+   *          pageLoad: (number|null|undefined),
+   *          implicit: (number|null|undefined)}} conf
+   *     The desired timeout configuration.
+   * @return {!promise.Thenable<void>} A promise that will be resolved when the
+   *     timeouts have been set.
+   * @throws {!TypeError} if an invalid options object is provided.
+   * @see #getTimeouts()
+   * @see <https://w3c.github.io/webdriver/webdriver-spec.html#dfn-set-timeouts>
+   */
+  setTimeouts({script, pageLoad, implicit} = {}) {
+    let cmd = new command.Command(command.Name.SET_TIMEOUT);
+
+    let valid = false;
+    function setParam(key, value) {
+      if (value === null || typeof value === 'number') {
+        valid = true;
+        cmd.setParameter(key, value);
+      } else if (typeof value !== 'undefined') {
+        throw TypeError(
+            'invalid timeouts configuration:'
+                + ` expected "${key}" to be a number, got ${typeof value}`);
+      }
+    }
+    setParam('implicit', implicit);
+    setParam('pageLoad', pageLoad);
+    setParam('script', script);
+
+    if (valid) {
+      return this.driver_.schedule(cmd, `WebDriver.manage().setTimeouts()`)
+          .catch(() => {
+            // Fallback to the legacy method.
+            let cmds = [];
+            if (typeof script === 'number') {
+              cmds.push(legacyTimeout(this.driver_, 'script', script));
+            }
+            if (typeof implicit === 'number') {
+              cmds.push(legacyTimeout(this.driver_, 'implicit', implicit));
+            }
+            if (typeof pageLoad === 'number') {
+              cmds.push(legacyTimeout(this.driver_, 'page load', pageLoad));
+            }
+            return Promise.all(cmds);
+          });
+    }
+    throw TypeError('no timeouts specified');
+  }
+
+  /**
    * @return {!Logs} The interface for managing driver
    *     logs.
    */
@@ -1336,6 +1408,7 @@ class Options {
 
   /**
    * @return {!Timeouts} The interface for managing driver timeouts.
+   * @deprecated Use {@link #setTimeouts()} instead.
    */
   timeouts() {
     return new Timeouts(this.driver_);
@@ -1348,6 +1421,22 @@ class Options {
     return new Window(this.driver_);
   }
 }
+
+
+/**
+ * @param {!WebDriver} driver
+ * @param {string} type
+ * @param {number} ms
+ * @return {!promise.Thenable<void>}
+ */
+function legacyTimeout(driver, type, ms) {
+  return driver.schedule(
+      new command.Command(command.Name.SET_TIMEOUT)
+          .setParameter('type', type)
+          .setParameter('ms', ms),
+      `WebDriver.manage().setTimeouts({${type}: ${ms}})`);
+}
+
 
 
 /**
@@ -1413,8 +1502,7 @@ Options.Cookie.prototype.httpOnly;
  * When the cookie expires.
  *
  * When {@linkplain Options#addCookie() adding a cookie}, this may be specified
- * in _seconds_ since Unix epoch (January 1, 1970). The expiry will default to
- * 20 years in the future if omitted.
+ * as a {@link Date} object, or in _seconds_ since Unix epoch (January 1, 1970).
  *
  * The expiry is always returned in seconds since epoch when
  * {@linkplain Options#getCookies() retrieving cookies} from the browser.
@@ -1427,11 +1515,14 @@ Options.Cookie.prototype.expiry;
 /**
  * An interface for managing timeout behavior for WebDriver instances.
  *
- * This class should never be instantiated directly. Insead, obtain an instance
+ * This class should never be instantiated directly. Instead, obtain an instance
  * with
  *
  *    webdriver.manage().timeouts()
  *
+ * @deprecated This has been deprecated in favor of
+ *     {@link Options#setTimeouts()}, which supports setting multiple timeouts
+ *     at once.
  * @see WebDriver#manage()
  * @see Options#timeouts()
  */
@@ -1465,9 +1556,11 @@ class Timeouts {
    * @param {number} ms The amount of time to wait, in milliseconds.
    * @return {!promise.Thenable<void>} A promise that will be resolved
    *     when the implicit wait timeout has been set.
+   * @deprecated Use {@link Options#setTimeouts()
+   *     driver.manage().setTimeouts({implicit: ms})}.
    */
   implicitlyWait(ms) {
-    return this._scheduleCommand(ms, 'implicit', 'implicitlyWait');
+    return this.driver_.manage().setTimeouts({implicit: ms});
   }
 
   /**
@@ -1478,9 +1571,11 @@ class Timeouts {
    * @param {number} ms The amount of time to wait, in milliseconds.
    * @return {!promise.Thenable<void>} A promise that will be resolved
    *     when the script timeout has been set.
+   * @deprecated Use {@link Options#setTimeouts()
+   *     driver.manage().setTimeouts({script: ms})}.
    */
   setScriptTimeout(ms) {
-    return this._scheduleCommand(ms, 'script', 'setScriptTimeout');
+    return this.driver_.manage().setTimeouts({script: ms});
   }
 
   /**
@@ -1491,17 +1586,11 @@ class Timeouts {
    * @param {number} ms The amount of time to wait, in milliseconds.
    * @return {!promise.Thenable<void>} A promise that will be resolved
    *     when the timeout has been set.
+   * @deprecated Use {@link Options#setTimeouts()
+   *     driver.manage().setTimeouts({pageLoad: ms})}.
    */
   pageLoadTimeout(ms) {
-    return this._scheduleCommand(ms, 'page load', 'pageLoadTimeout');
-  }
-
-  _scheduleCommand(ms, timeoutIdentifier, timeoutName) {
-    return this.driver_.schedule(
-        new command.Command(command.Name.SET_TIMEOUT).
-            setParameter('type', timeoutIdentifier).
-            setParameter('ms', ms),
-        `WebDriver.manage().timeouts().${timeoutName}(${ms})`);
+    return this.driver_.manage().setTimeouts({pageLoad: ms});
   }
 }
 
@@ -1989,7 +2078,8 @@ class WebElement {
           command.Name.FIND_CHILD_ELEMENTS).
           setParameter('using', locator.using).
           setParameter('value', locator.value);
-      return this.schedule_(cmd, 'WebElement.findElements(' + locator + ')');
+      return this.schedule_(cmd, 'WebElement.findElements(' + locator + ')')
+          .then(result => Array.isArray(result) ? result : []);
     }
   }
 
@@ -2009,7 +2099,7 @@ class WebElement {
    * this instance.
    *
    * Modifier keys (SHIFT, CONTROL, ALT, META) are stateful; once a modifier is
-   * processed in the keysequence, that key state is toggled until one of the
+   * processed in the key sequence, that key state is toggled until one of the
    * following occurs:
    *
    * - The modifier key is encountered again in the sequence. At this point the
@@ -2028,13 +2118,13 @@ class WebElement {
    *                          Key.chord(Key.CONTROL, "a"),
    *                          "now text is");
    *
-   * - The end of the keysequence is encountered. When there are no more keys
+   * - The end of the key sequence is encountered. When there are no more keys
    *   to type, all depressed modifier keys are released (with accompanying
    *   keyup events).
    *
    * If this element is a file input ({@code <input type="file">}), the
    * specified key sequence should specify the path to the file to attach to
-   * the element. This is analgous to the user clicking "Browse..." and entering
+   * the element. This is analogous to the user clicking "Browse..." and entering
    * the path into the file select dialog.
    *
    *     var form = driver.findElement(By.css('form'));
@@ -2050,7 +2140,7 @@ class WebElement {
    *
    * __Note:__ On browsers where native keyboard events are not supported
    * (e.g. Firefox on OS X), key events will be synthesized. Special
-   * punctionation keys will be synthesized according to a standard QWERTY en-us
+   * punctuation keys will be synthesized according to a standard QWERTY en-us
    * keyboard layout.
    *
    * @param {...(number|string|!IThenable<(number|string)>)} var_args The
@@ -2083,6 +2173,7 @@ class WebElement {
     if (!this.driver_.fileDetector_) {
       return this.schedule_(
           new command.Command(command.Name.SEND_KEYS_TO_ELEMENT).
+              setParameter('text', keys.then(keys => keys.join(''))).
               setParameter('value', keys),
           'WebElement.sendKeys()');
     }
@@ -2098,6 +2189,7 @@ class WebElement {
       }).then(function(keys) {
         return element.schedule_(
             new command.Command(command.Name.SEND_KEYS_TO_ELEMENT).
+                setParameter('text', keys).
                 setParameter('value', keys.split('')),
             'WebElement.sendKeys()');
       });
@@ -2214,7 +2306,7 @@ class WebElement {
 
   /**
    * Schedules a command to query whether the DOM element represented by this
-   * instance is enabled, as dicted by the {@code disabled} attribute.
+   * instance is enabled, as dictated by the {@code disabled} attribute.
    * @return {!promise.Thenable<boolean>} A promise that will be
    *     resolved with whether this element is currently enabled.
    */
@@ -2327,7 +2419,7 @@ class WebElementPromise extends WebElement {
       if (promise.CancellableThenable.isImplementation(el)) {
         /** @type {!promise.CancellableThenable} */(el).cancel(opt_reason);
       }
-    }
+    };
 
     /** @override */
     this.then = el.then.bind(el);
