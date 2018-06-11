@@ -39,7 +39,7 @@ export class KnowledgeEffects {
 
       const nextSearch$ = this.actions$.ofType(query.ActionTypes.QUERYSERVER).skip(1);
 
-      this.knowledgeservice.getsearchresults(querypay.query)
+      this.knowledgeservice.getSearchResults(querypay.query)
         .takeUntil(nextSearch$)
         .subscribe((response) => {
             const res = response.query.pages;

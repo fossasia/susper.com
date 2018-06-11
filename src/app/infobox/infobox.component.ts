@@ -3,6 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../reducers';
 import { Observable } from 'rxjs/Observable';
+import {KnowledgeapiService} from '../services/knowledgeapi.service';
 @Component({
   selector: 'app-infobox',
   templateUrl: './infobox.component.html',
@@ -12,9 +13,11 @@ export class InfoboxComponent implements OnInit {
   title: string;
   description: string;
   query$: any;
+  image: string;
   resultsearch = '/search';
   response$: Observable<any>;
   constructor(private route: Router,
+              private knowledgeservice: KnowledgeapiService,
               private activatedroute: ActivatedRoute,
               private store: Store<fromRoot.State>,
               private ref: ChangeDetectorRef) {
@@ -29,6 +32,20 @@ export class InfoboxComponent implements OnInit {
         this.description = '';
       }
     });
+    this.query$.subscribe( query => {
+      if (query) {
+        this.knowledgeservice.getImage(query).subscribe(res => {
+          if (res.RelatedTopics.length > 0) {
+            this.image = res.RelatedTopics[0].Icon.URL;
+          } else {
+            this.image = '';
+          }
+          }
+
+        );
+      }
+    }
+    );
   }
 
   ngOnInit() {
