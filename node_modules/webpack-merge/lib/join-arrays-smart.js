@@ -9,10 +9,6 @@ var _differenceWith2 = require('lodash/differenceWith');
 
 var _differenceWith3 = _interopRequireDefault(_differenceWith2);
 
-var _unionWith2 = require('lodash/unionWith');
-
-var _unionWith3 = _interopRequireDefault(_unionWith2);
-
 var _mergeWith2 = require('lodash/mergeWith');
 
 var _mergeWith3 = _interopRequireDefault(_mergeWith2);
@@ -90,10 +86,7 @@ function uniteRules(rules, key, newRule, rule) {
         rule[loadersKey] = newRule.use || newRule.loaders;
         break;
       default:
-        rule[loadersKey] = (0, _unionWith3.default)(
-        // Remove existing entries so that we can respect the order of the new
-        // entries
-        (0, _differenceWith3.default)(entries, newEntries, _isEqual3.default), newEntries, uniteEntries).map(unwrapEntry);
+        rule[loadersKey] = combineEntries(newEntries, entries).map(unwrapEntry);
     }
   }
 
@@ -124,7 +117,7 @@ function isSameValue(a, b) {
   return (0, _isEqual3.default)(propA, propB);
 }
 
-function uniteEntries(newEntry, entry) {
+function areEqualEntries(newEntry, entry) {
   var loaderNameRe = /^([^?]+)/ig;
 
   var _entry$loader$match = entry.loader.match(loaderNameRe),
@@ -135,13 +128,90 @@ function uniteEntries(newEntry, entry) {
       _newEntry$loader$matc2 = _slicedToArray(_newEntry$loader$matc, 1),
       newLoaderName = _newEntry$loader$matc2[0];
 
-  if (loaderName !== newLoaderName) {
-    return false;
+  return loaderName === newLoaderName;
+}
+
+function uniteEntries(newEntry, entry) {
+  if (areEqualEntries(newEntry, entry)) {
+    // Replace query values with newer ones
+    (0, _mergeWith3.default)(entry, newEntry);
+    return true;
+  }
+  return false;
+}
+
+/* Combines entries and newEntries, while respecting the order of loaders in each.
+
+Iterates through new entries. If the new entry also exists in existing entries,
+we'll put in all of the loaders from existing entries that come before it (in case
+those are pre-requisites). Any remaining existing entries are added at the end.
+
+Since webpack processes right-to-left, we're working backwards through the arrays
+*/
+function combineEntries(newEntries, existingEntries) {
+  var resultSet = [];
+
+  // We're iterating through newEntries, this keeps track of where we are in the existingEntries
+  var existingEntriesIteratorIndex = existingEntries.length - 1;
+
+  for (var i = newEntries.length - 1; i >= 0; i -= 1) {
+    var currentEntry = newEntries[i];
+    var indexInExistingEntries = findLastIndexUsingComparinator(existingEntries, currentEntry, areEqualEntries, existingEntriesIteratorIndex);
+    var hasEquivalentEntryInExistingEntries = indexInExistingEntries !== -1;
+
+    if (hasEquivalentEntryInExistingEntries) {
+      // If the same entry exists in existing entries, we should add all of the entries that
+      // come before to maintain order
+      for (var j = existingEntriesIteratorIndex; j > indexInExistingEntries; j -= 1) {
+        var existingEntry = existingEntries[j];
+
+        // If this entry also exists in new entries, we'll add as part of iterating through
+        // new entries so that if there's a conflict between existing entries and new entries,
+        // new entries order wins
+        var hasMatchingEntryInNewEntries = findLastIndexUsingComparinator(newEntries, existingEntry, areEqualEntries, i) !== -1;
+
+        if (!hasMatchingEntryInNewEntries) {
+          resultSet.unshift(existingEntry);
+        }
+        existingEntriesIteratorIndex -= 1;
+      }
+
+      uniteEntries(currentEntry, existingEntries[existingEntriesIteratorIndex]);
+      // uniteEntries mutates the second parameter to be a merged version, so that's what's pushed
+      resultSet.unshift(existingEntries[existingEntriesIteratorIndex]);
+
+      existingEntriesIteratorIndex -= 1;
+    } else {
+      var alreadyHasMatchingEntryInResultSet = findLastIndexUsingComparinator(resultSet, currentEntry, areEqualEntries) !== -1;
+
+      if (!alreadyHasMatchingEntryInResultSet) {
+        resultSet.unshift(currentEntry);
+      }
+    }
   }
 
-  // Replace query values with newer ones
-  (0, _mergeWith3.default)(entry, newEntry);
-  return true;
+  // Add remaining existing entries
+  for (existingEntriesIteratorIndex; existingEntriesIteratorIndex >= 0; existingEntriesIteratorIndex -= 1) {
+
+    var _existingEntry = existingEntries[existingEntriesIteratorIndex];
+    var _alreadyHasMatchingEntryInResultSet = findLastIndexUsingComparinator(resultSet, _existingEntry, areEqualEntries) !== -1;
+
+    if (!_alreadyHasMatchingEntryInResultSet) {
+      resultSet.unshift(_existingEntry);
+    }
+  }
+
+  return resultSet;
+}
+
+function findLastIndexUsingComparinator(entries, entryToFind, comparinator, startingIndex) {
+  startingIndex = startingIndex || entries.length - 1;
+  for (var i = startingIndex; i >= 0; i -= 1) {
+    if (areEqualEntries(entryToFind, entries[i])) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 exports.uniteRules = uniteRules;
