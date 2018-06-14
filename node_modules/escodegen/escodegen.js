@@ -951,7 +951,7 @@
     };
 
     CodeGenerator.prototype.generateIterationForStatement = function (operator, stmt, flags) {
-        var result = ['for' + space + '('], that = this;
+        var result = ['for' + space + (stmt.await ? 'await' + space : '') + '('], that = this;
         withIndent(function () {
             if (stmt.left.type === Syntax.VariableDeclaration) {
                 withIndent(function () {
@@ -1943,9 +1943,9 @@
         MetaProperty: function (expr, precedence, flags) {
             var result;
             result = [];
-            result.push(expr.meta);
+            result.push(typeof expr.meta === "string" ? expr.meta : generateIdentifier(expr.meta));
             result.push('.');
-            result.push(expr.property);
+            result.push(typeof expr.property === "string" ? expr.property : generateIdentifier(expr.property));
             return parenthesize(result, Precedence.Member, precedence);
         },
 

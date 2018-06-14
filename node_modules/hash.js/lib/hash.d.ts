@@ -1,7 +1,7 @@
 declare var hash: Hash;
 
 declare module "hash.js" {
-    export default hash;
+    export = hash;
 }
 
 interface BlockHash<T> {
