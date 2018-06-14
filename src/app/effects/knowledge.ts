@@ -17,8 +17,8 @@ export const CHANGE: Action = {
 }
 import * as fromRoot from '../reducers';
 import * as knowledge from '../actions/knowledge';
-import {SearchService} from '../services/search.service';
-import {KnowledgeapiService} from "../services/knowledgeapi.service";
+import { SearchService } from '../services/search.service';
+import { KnowledgeapiService } from "../services/knowledgeapi.service";
 export interface State {
   query: string;
 }
@@ -33,7 +33,7 @@ export class KnowledgeEffects {
     .map((action: query.QueryServerAction) => action.payload)
     .switchMap(querypay => {
       if (querypay === '') {
-        this.store.dispatch(new knowledge.SearchAction([]));
+        this.store.dispatch(new knowledge.SearchContentAction([]));
         return empty();
       }
 
@@ -45,15 +45,27 @@ export class KnowledgeEffects {
             const res = response.query.pages;
             const pageID = Object.keys(res)[0];
        if (res[pageID].extract) {
-        this.store.dispatch(new knowledge.SearchAction(res[pageID]));
+        this.store.dispatch(new knowledge.SearchContentAction(res[pageID]));
         return empty();
        } else {
-                   this.store.dispatch(new knowledge.SearchAction([]));
+                   this.store.dispatch(new knowledge.SearchContentAction([]));
                     return empty();
             }
 
 
         });
+        this.knowledgeservice.getImage(querypay.query)
+        .takeUntil(nextSearch$)
+        .subscribe((response) => {
+          if (response.RelatedTopics.length > 0) {
+            this.store.dispatch(new knowledge.SearchImageAction(response));
+            return empty();
+             } else {
+                         this.store.dispatch(new knowledge.SearchImageAction([]));
+                          return empty();
+                  }
+
+});
       return empty();
     });
   constructor(

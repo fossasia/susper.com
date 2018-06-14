@@ -1,12 +1,17 @@
 import { Action } from '@ngrx/store';
 import { type } from '../utils';
 export const ActionTypes = {
-  CHANGE: type('[Knowledge] Change')
+  CONTENT_CHANGE: type('[Knowledge] Content Change'),
+  IMAGE_CHANGE: type('[Knowledge] Image Change')
 };
-export class SearchAction implements Action {
-  type = ActionTypes.CHANGE;
-  constructor(public payload: any) {}
+export class SearchContentAction implements Action {
+  type = ActionTypes.CONTENT_CHANGE;
+  constructor(public payload: object) {}
+}
+export class SearchImageAction implements Action {
+  type = ActionTypes.IMAGE_CHANGE;
+  constructor(public payload: object) {}
 }
 
 export type Actions
-  = SearchAction ;
+  = SearchContentAction | SearchImageAction ;

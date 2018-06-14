@@ -3,7 +3,6 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../reducers';
 import { Observable } from 'rxjs/Observable';
-import {KnowledgeapiService} from '../services/knowledgeapi.service';
 @Component({
   selector: 'app-infobox',
   templateUrl: './infobox.component.html',
@@ -15,15 +14,15 @@ export class InfoboxComponent implements OnInit {
   query$: any;
   image: string;
   resultsearch = '/search';
-  response$: Observable<any>;
+  content_response$: Observable<any>;
+  image_response$: Observable<any>;
   constructor(private route: Router,
-              private knowledgeservice: KnowledgeapiService,
               private activatedroute: ActivatedRoute,
               private store: Store<fromRoot.State>,
               private ref: ChangeDetectorRef) {
     this.query$ = store.select(fromRoot.getquery);
-    this.response$ = store.select(fromRoot.getKnowledge);
-    this.response$.subscribe(res => {
+    this.content_response$ = store.select(fromRoot.getKnowledgeContent);
+    this.content_response$.subscribe(res => {
       if (res.extract) {
       this.title = res.title;
       this.description = res.extract;
@@ -32,20 +31,14 @@ export class InfoboxComponent implements OnInit {
         this.description = '';
       }
     });
-    this.query$.subscribe( query => {
-      if (query) {
-        this.knowledgeservice.getImage(query).subscribe(res => {
-          if (res.RelatedTopics.length > 0) {
-            this.image = res.RelatedTopics[0].Icon.URL;
-          } else {
-            this.image = '';
-          }
-          }
-
-        );
+    this.image_response$ = store.select(fromRoot.getKnowledgeImage);
+    this.image_response$.subscribe(res => {
+      if (typeof res.RelatedTopics !== 'undefined') {
+      this.image = res.RelatedTopics[0].Icon.URL;
+      } else {
+        this.image = '';
       }
-    }
-    );
+    });
   }
 
   ngOnInit() {
