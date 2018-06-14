@@ -14,11 +14,13 @@ export class KnowledgeapiService {
   searchURL = this.server + '/w/api.php?';
   homepage = 'http://susper.com';
   logo = '../images/susper.svg';
+  imgUrl = 'https://api.duckduckgo.com/?';
   constructor(private http: Http,
               private jsonp: Jsonp,
               private store: Store<fromRoot.State>) {
   }
-  getsearchresults(searchquery) {
+
+  getSearchResults(searchquery) {
 
     let params = new URLSearchParams();
 
@@ -38,6 +40,22 @@ export class KnowledgeapiService {
       ).catch(this.handleError);
 
   }
+
+  getImage(searchquery) {
+    let params = new URLSearchParams();
+
+    params.set('origin', '*');
+    params.set('q', searchquery);
+    params.set('format', 'json');
+    params.set('pretty', '1');
+    let headers = new Headers({ 'Accept': 'application/json' });
+    let options = new RequestOptions({ headers: headers, search: params });
+
+    return this.http.get(this.imgUrl, options).map(res =>
+      res.json()
+      ).catch(this.handleError);
+    }
+
   private handleError (error: any) {
     // In some advance version we can include a remote logging of errors
     const errMsg = (error.message) ? error.message :

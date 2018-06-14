@@ -1,3 +1,11 @@
+img{
+  border-radius: 8px;
+  width: 40%;
+  height: 40%;
+  float: right;
+  margin-right:10px;
+  margin-top:-50px;
+}
 .card {
   /* Add shadows to create the "card" effect */
   border: 1px solid rgba(150,150,150,0.3);
