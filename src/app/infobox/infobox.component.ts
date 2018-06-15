@@ -1,8 +1,9 @@
-import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../reducers';
 import { Observable } from 'rxjs/Observable';
+import { ThemeService } from '../services/theme.service';
+
 @Component({
   selector: 'app-infobox',
   templateUrl: './infobox.component.html',
@@ -14,12 +15,11 @@ export class InfoboxComponent implements OnInit {
   query$: any;
   image: string;
   resultsearch = '/search';
+  speechMode: any;
   content_response$: Observable<any>;
   image_response$: Observable<any>;
-  constructor(private route: Router,
-              private activatedroute: ActivatedRoute,
-              private store: Store<fromRoot.State>,
-              private ref: ChangeDetectorRef) {
+  constructor(private store: Store<fromRoot.State>,
+              public themeService: ThemeService) {
     this.query$ = store.select(fromRoot.getquery);
     this.content_response$ = store.select(fromRoot.getKnowledgeContent);
     this.content_response$.subscribe(res => {
