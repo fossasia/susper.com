@@ -73,6 +73,7 @@ describe('ResultsComponent', () => {
         AutoCompleteComponent,
         ThemeComponent,
         DropdownComponent,
+        InfoboxComponent,
         IntelligenceComponent,
         SpeechtotextComponent,
         AutoCorrectComponent,
@@ -126,6 +127,12 @@ describe('ResultsComponent', () => {
 
     expect(compiled.querySelector('app-theme')).toBeTruthy();
   });
+
+  it('should have an app-infobox element', () => {
+        let compiled = fixture.debugElement.nativeElement;
+
+        expect(compiled.querySelector('app-infobox')).toBeTruthy();
+      });
 
   it('should have an app-infobox element', () => {
         let compiled = fixture.debugElement.nativeElement;

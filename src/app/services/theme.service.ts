@@ -13,5 +13,4 @@ export class ThemeService {
   public searchbarbgColor: string;
 
   constructor() { }
-
 }
