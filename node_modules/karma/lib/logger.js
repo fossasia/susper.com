@@ -21,7 +21,7 @@ var constant = require('./constants')
 //   to allow for fine grained configuration of log4js. For more information
 //   see https://github.com/nomiddlename/log4js-node.
 //   *Array* is also accepted for backwards compatibility.
-var setup = function (level, colors, appenders) {
+function setup (level, colors, appenders) {
   // Turn color on/off on the console appenders with pattern layout
   var pattern = colors ? constant.COLOR_PATTERN : constant.NO_COLOR_PATTERN
   if (appenders) {
@@ -45,7 +45,7 @@ var setup = function (level, colors, appenders) {
       })
     }
   } else {
-    appenders = {'console' : constant.CONSOLE_APPENDER}
+    appenders = {'console': constant.CONSOLE_APPENDER}
   }
 
   log4js.configure({
@@ -69,7 +69,7 @@ var setup = function (level, colors, appenders) {
 //   to allow for fine grained configuration of log4js. For more information
 //   see https://github.com/nomiddlename/log4js-node.
 //   *Array* is also accepted for backwards compatibility.
-var setupFromConfig = function (config, appenders) {
+function setupFromConfig (config, appenders) {
   var useColors = true
   var logLevel = constant.LOG_INFO
 
@@ -90,7 +90,7 @@ const loggerCache = {}
 //   If the `name = 'socket.io'` this will create a special wrapper
 //   to be used as a logger for socket.io.
 // * `level`, which defaults to the global level.
-var create = function (name, level) {
+function create (name, level) {
   name = name || 'karma'
   var logger
   if (loggerCache.hasOwnProperty(name)) {
@@ -110,6 +110,6 @@ var create = function (name, level) {
 exports.create = create
 exports.setup = setup
 exports.setupFromConfig = setupFromConfig
-exports._rebindLog4js4testing = function(mockLog4js) {
+exports._rebindLog4js4testing = function (mockLog4js) {
   log4js = mockLog4js
 }

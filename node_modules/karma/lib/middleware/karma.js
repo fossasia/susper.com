@@ -14,12 +14,11 @@
 var path = require('path')
 var util = require('util')
 var url = require('url')
-var useragent = require('useragent')
 var _ = require('lodash')
 
 var log = require('../logger').create('middleware:karma')
 
-var urlparse = function (urlStr) {
+function urlparse (urlStr) {
   var urlObj = url.parse(urlStr, true)
   urlObj.query = urlObj.query || {}
   return urlObj
@@ -45,7 +44,7 @@ var FILE_TYPES = [
   'module'
 ]
 
-var filePathToUrlPath = function (filePath, basePath, urlRoot, proxyPath) {
+function filePathToUrlPath (filePath, basePath, urlRoot, proxyPath) {
   if (filePath.indexOf(basePath) === 0) {
     return proxyPath + urlRoot.substr(1) + 'base' + filePath.substr(basePath.length)
   }
@@ -53,7 +52,7 @@ var filePathToUrlPath = function (filePath, basePath, urlRoot, proxyPath) {
   return proxyPath + urlRoot.substr(1) + 'absolute' + filePath
 }
 
-var getXUACompatibleMetaElement = function (url) {
+function getXUACompatibleMetaElement (url) {
   var tag = ''
   var urlObj = urlparse(url)
   if (urlObj.query['x-ua-compatible']) {
@@ -63,7 +62,7 @@ var getXUACompatibleMetaElement = function (url) {
   return tag
 }
 
-var getXUACompatibleUrl = function (url) {
+function getXUACompatibleUrl (url) {
   var value = ''
   var urlObj = urlparse(url)
   if (urlObj.query['x-ua-compatible']) {
@@ -72,18 +71,7 @@ var getXUACompatibleUrl = function (url) {
   return value
 }
 
-var isFirefox = function (req) {
-  if (!(req && req.headers)) {
-    return false
-  }
-
-  // Browser check
-  var firefox = useragent.is(req.headers['user-agent']).firefox
-
-  return firefox
-}
-
-var createKarmaMiddleware = function (
+function createKarmaMiddleware (
   filesPromise,
   serveStaticFile,
   serveFile,
@@ -99,7 +87,6 @@ var createKarmaMiddleware = function (
     var customContextFile = injector.get('config.customContextFile')
     var customDebugFile = injector.get('config.customDebugFile')
     var customClientContextFile = injector.get('config.customClientContextFile')
-    var jsVersion = injector.get('config.jsVersion')
     var includeCrossOriginAttribute = injector.get('config.crossOriginAttribute')
 
     var requestUrl = request.normalizedUrl.replace(/\?.*/, '')
@@ -220,19 +207,6 @@ var createKarmaMiddleware = function (
             // The script tag to be placed
             var scriptFileType = (fileType || fileExt.substring(1))
             var scriptType = (SCRIPT_TYPE[scriptFileType] || 'text/javascript')
-
-            // In case there is a JavaScript version specified and this is a Firefox browser
-            if (jsVersion && jsVersion > 0 && isFirefox(request)) {
-              var agent = useragent.parse(request.headers['user-agent'])
-
-              log.warn('jsVersion configuration property is deprecated and will be removed in the next major release of Karma.')
-
-              if (agent.major < 59) {
-                scriptType += ';version=' + jsVersion
-              } else {
-                log.warn('jsVersion is not supported in Firefox 59+ (see https://bugzilla.mozilla.org/show_bug.cgi?id=1428745 for more details). Ignoring.')
-              }
-            }
 
             var crossOriginAttribute = includeCrossOriginAttribute ? CROSSORIGIN_ATTRIBUTE : ''
             scriptTags.push(util.format(SCRIPT_TAG, scriptType, filePath, crossOriginAttribute))

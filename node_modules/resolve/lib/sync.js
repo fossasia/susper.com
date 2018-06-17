@@ -24,22 +24,23 @@ module.exports = function (x, options) {
 
     var extensions = opts.extensions || ['.js'];
     var basedir = opts.basedir || path.dirname(caller());
+    var parent = opts.filename || basedir;
 
     opts.paths = opts.paths || [];
 
     if (/^(?:\.\.?(?:\/|$)|\/|([A-Za-z]:)?[/\\])/.test(x)) {
-        var res = path.resolve(basedir, x);
+        var res = path.resolve(parent, x);
         if (x === '..' || x.slice(-1) === '/') res += '/';
         var m = loadAsFileSync(res) || loadAsDirectorySync(res);
         if (m) return m;
     } else {
-        var n = loadNodeModulesSync(x, basedir);
+        var n = loadNodeModulesSync(x, parent);
         if (n) return n;
     }
 
     if (core[x]) return x;
 
-    var err = new Error("Cannot find module '" + x + "' from '" + basedir + "'");
+    var err = new Error("Cannot find module '" + x + "' from '" + parent + "'");
     err.code = 'MODULE_NOT_FOUND';
     throw err;
 

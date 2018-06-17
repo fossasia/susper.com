@@ -39,7 +39,7 @@ function ancestor(node, visitors, baseVisitor, state) {
   if (!baseVisitor) { baseVisitor = base
   ; }(function c(node, st, override) {
     var type = override || node.type, found = visitors[type];
-    var isNew = node != ancestors[ancestors.length - 1];
+    var isNew = node !== ancestors[ancestors.length - 1];
     if (isNew) { ancestors.push(node); }
     baseVisitor[type](node, st, c);
     if (found) { found(node, st || ancestors, ancestors); }
@@ -59,8 +59,8 @@ function recursive(node, state, funcs, baseVisitor, override) {
 }
 
 function makeTest(test) {
-  if (typeof test == "string")
-    { return function (type) { return type == test; } }
+  if (typeof test === "string")
+    { return function (type) { return type === test; } }
   else if (!test)
     { return function () { return true; } }
   else
@@ -85,7 +85,7 @@ function fullAncestor(node, callback, baseVisitor, state) {
   if (!baseVisitor) { baseVisitor = base; }
   var ancestors = [];(function c(node, st, override) {
     var type = override || node.type;
-    var isNew = node != ancestors[ancestors.length - 1];
+    var isNew = node !== ancestors[ancestors.length - 1];
     if (isNew) { ancestors.push(node); }
     baseVisitor[type](node, st, c);
     if (!override) { callback(node, st || ancestors, ancestors, type); }
@@ -105,8 +105,8 @@ function findNodeAt(node, start, end, test, baseVisitor, state) {
       if ((start == null || node.start <= start) &&
           (end == null || node.end >= end))
         { baseVisitor[type](node, st, c); }
-      if ((start == null || node.start == start) &&
-          (end == null || node.end == end) &&
+      if ((start == null || node.start === start) &&
+          (end == null || node.end === end) &&
           test(type, node))
         { throw new Found(node, st) }
     })(node, state);
@@ -244,7 +244,7 @@ base.TryStatement = function (node, st, c) {
   if (node.finalizer) { c(node.finalizer, st, "Statement"); }
 };
 base.CatchClause = function (node, st, c) {
-  c(node.param, st, "Pattern");
+  if (node.param) { c(node.param, st, "Pattern"); }
   c(node.body, st, "ScopeBody");
 };
 base.WhileStatement = base.DoWhileStatement = function (node, st, c) {
@@ -263,7 +263,7 @@ base.ForInStatement = base.ForOfStatement = function (node, st, c) {
   c(node.body, st, "Statement");
 };
 base.ForInit = function (node, st, c) {
-  if (node.type == "VariableDeclaration") { c(node, st); }
+  if (node.type === "VariableDeclaration") { c(node, st); }
   else { c(node, st, "Expression"); }
 };
 base.DebuggerStatement = ignore;
@@ -298,9 +298,9 @@ base.ScopeBody = function (node, st, c) { return c(node, st, "Statement"); };
 base.ScopeExpression = function (node, st, c) { return c(node, st, "Expression"); };
 
 base.Pattern = function (node, st, c) {
-  if (node.type == "Identifier")
+  if (node.type === "Identifier")
     { c(node, st, "VariablePattern"); }
-  else if (node.type == "MemberExpression")
+  else if (node.type === "MemberExpression")
     { c(node, st, "MemberPattern"); }
   else
     { c(node, st); }
@@ -386,7 +386,7 @@ base.MemberExpression = function (node, st, c) {
 };
 base.ExportNamedDeclaration = base.ExportDefaultDeclaration = function (node, st, c) {
   if (node.declaration)
-    { c(node.declaration, st, node.type == "ExportNamedDeclaration" || node.declaration.id ? "Statement" : "Expression"); }
+    { c(node.declaration, st, node.type === "ExportNamedDeclaration" || node.declaration.id ? "Statement" : "Expression"); }
   if (node.source) { c(node.source, st, "Expression"); }
 };
 base.ExportAllDeclaration = function (node, st, c) {

@@ -33,21 +33,22 @@ module.exports = function resolve(x, options, callback) {
 
     var extensions = opts.extensions || ['.js'];
     var basedir = opts.basedir || path.dirname(caller());
+    var parent = opts.filename || basedir;
 
     opts.paths = opts.paths || [];
 
     if (/^(?:\.\.?(?:\/|$)|\/|([A-Za-z]:)?[/\\])/.test(x)) {
-        var res = path.resolve(basedir, x);
+        var res = path.resolve(parent, x);
         if (x === '..' || x.slice(-1) === '/') res += '/';
-        if (/\/$/.test(x) && res === basedir) {
+        if (/\/$/.test(x) && res === parent) {
             loadAsDirectory(res, opts.package, onfile);
         } else loadAsFile(res, opts.package, onfile);
-    } else loadNodeModules(x, basedir, function (err, n, pkg) {
+    } else loadNodeModules(x, parent, function (err, n, pkg) {
         if (err) cb(err);
         else if (n) cb(null, n, pkg);
         else if (core[x]) return cb(null, x);
         else {
-            var moduleError = new Error("Cannot find module '" + x + "' from '" + basedir + "'");
+            var moduleError = new Error("Cannot find module '" + x + "' from '" + parent + "'");
             moduleError.code = 'MODULE_NOT_FOUND';
             cb(moduleError);
         }
@@ -60,7 +61,7 @@ module.exports = function resolve(x, options, callback) {
             if (err) cb(err);
             else if (d) cb(null, d, pkg);
             else {
-                var moduleError = new Error("Cannot find module '" + x + "' from '" + basedir + "'");
+                var moduleError = new Error("Cannot find module '" + x + "' from '" + parent + "'");
                 moduleError.code = 'MODULE_NOT_FOUND';
                 cb(moduleError);
             }

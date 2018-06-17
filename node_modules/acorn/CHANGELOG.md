@@ -1,3 +1,19 @@
+## 5.7.1 (2018-06-15)
+
+### Bug fixes
+
+Make sure the walker and bin files are rebuilt on release (the previous release didn't get the up-to-date versions).
+
+## 5.7.0 (2018-06-15)
+
+### Bug fixes
+
+Fix crash in walker when walking a binding-less catch node.
+
+### New features
+
+Upgraded to Unicode 11.
+
 ## 5.6.2 (2018-06-05)
 
 ### Bug fixes
