@@ -81,7 +81,6 @@ a {
   padding-left: 2%;
   padding-right: 2%;
   border: 0;
-  background-color: white;
   text-align: center;
   cursor: pointer;
 }
@@ -318,17 +317,12 @@ a {
 }
 
 .page-item span {
-   background-color: white;
    border: 0 ;
    font-size: 13px;
 }
 
 .page-item span {
   padding: 6px 0.4px ;
-}
-
- .active_page {
-       color: black;
 }
 
 .clean {
@@ -635,7 +629,6 @@ div.autocorrect {
   }
 
   .page-item2 span {
-    background-color: #ffffff;
     margin-top: -13%;
   }
 

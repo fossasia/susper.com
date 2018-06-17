@@ -43,7 +43,7 @@
 
       <div class="text-result" *ngIf="Display('all')">
         <div *ngIf="totalNumber < 1" class="container-fluid">
-          <div class="noResults">
+          <div [style.color]="themeService.descriptionColor" class="noResults">
             <p>Your search -
               <em>{{searchdata.query}}</em> - did not match any documents.</p>
             <p>Suggestions:</p>
@@ -91,7 +91,7 @@
       <!-- Image section -->
       <div *ngIf="Display('images')">
         <div *ngIf="totalNumber < 1" class="container-fluid">
-          <div class="noResults">
+          <div [style.color]="themeService.descriptionColor" class="noResults">
             <p>Your search -
               <em>{{searchdata.query}}</em> - did not match any images.</p>
             <p>Suggestions:</p>
@@ -125,7 +125,7 @@
       <!--Video Section -->
       <div class="video-result" *ngIf="Display('videos')">
         <div *ngIf="totalNumber < 1" class="container-fluid">
-          <div class="noResults">
+          <div [style.color]="themeService.descriptionColor" class="noResults">
             <p>Your search -
               <em>{{searchdata.query}}</em> - did not match any videos.</p>
             <p>Suggestions:</p>
@@ -187,7 +187,7 @@
               <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
                 <ul class="pagination" id="pag-bar">
                   <li class="page-item2" *ngIf="!getStyle(1)">
-                    <span class="spl" id="left-arrow" (click)="decPresentPage()">
+                    <span [style.background-color]='themeService.backgroundColor' class="spl" id="left-arrow" (click)="decPresentPage()">
                       <div class="arrow" (click)="decreasePage()">
                           &lt;
                         </div>
@@ -195,31 +195,31 @@
                     </span>
                   </li>
                   <li class="page-item">
-                    <span class="page-link" href="#" (click)="decPresentPage()">
+                    <span [style.background-color]='themeService.backgroundColor' class="page-link" href="#" (click)="decPresentPage()">
                       <div class="page-text prev">S</div>
                       <br/>
                     </span>
                   </li>
                   <li class="page-item" *ngFor="let num of getNumber(maxPage)">
-                    <span class="page-link" *ngIf="presentPage>=4 && presentPage-3+num<=noOfPages" [class.active_page]="getStyle(presentPage-3+num)"
+                    <span [style.background-color]='themeService.backgroundColor' class="page-link" *ngIf="presentPage>=4 && presentPage-3+num<=noOfPages" [class.active_page]="getStyle(presentPage-3+num)"
                       (click)="getPresentPage(presentPage-3+num)" href="#">
                       <div [class.active_page]="getStyle(presentPage-3+num)" class="page-text">U</div>
                       <span class="page-number">{{presentPage-3+num}}</span>
                     </span>
-                    <span class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="num+1 == presentPage" (click)="getPresentPage(num+1)"
+                    <span [style.background-color]='themeService.backgroundColor' class="page-link" *ngIf="presentPage<4 && num<=noOfPages" [class.active_page]="num+1 == presentPage" (click)="getPresentPage(num+1)"
                       href="#">
                       <div [class.active_page]="num+1 == presentPage" class="page-text">U</div>
                       <span class="page-number">{{num+1}}</span>
                     </span>
                   </li>
                   <li class="page-item">
-                    <span class="page-link" (click)="incPresentPage()">
+                    <span [style.background-color]='themeService.backgroundColor' class="page-link" (click)="incPresentPage()">
                       <div class="page-text next">SPER</div>
                     </span>
                   </li>
                   <div class="next-page-mobile">Page {{count}}</div>
                   <li class="page-item2" *ngIf="!getStyle(noOfPages)">
-                    <span class="spl" (click)="incPresentPage()">
+                    <span [style.background-color]='themeService.backgroundColor' class="spl" (click)="incPresentPage()">
                       <div class="arrow" (click)="increasePage()">&gt;</div>
                       <div class="side-text">Next</div>
                     </span>
