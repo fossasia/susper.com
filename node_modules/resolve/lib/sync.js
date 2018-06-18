@@ -29,12 +29,12 @@ module.exports = function (x, options) {
     opts.paths = opts.paths || [];
 
     if (/^(?:\.\.?(?:\/|$)|\/|([A-Za-z]:)?[/\\])/.test(x)) {
-        var res = path.resolve(parent, x);
+        var res = path.resolve(basedir, x);
         if (x === '..' || x.slice(-1) === '/') res += '/';
         var m = loadAsFileSync(res) || loadAsDirectorySync(res);
         if (m) return m;
     } else {
-        var n = loadNodeModulesSync(x, parent);
+        var n = loadNodeModulesSync(x, basedir);
         if (n) return n;
     }
 

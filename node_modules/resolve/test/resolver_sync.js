@@ -15,6 +15,11 @@ test('foo', function (t) {
         path.join(dir, 'foo.js')
     );
 
+    t.equal(
+        resolve.sync('./foo.js', { basedir: dir, filename: path.join(dir, 'bar.js') }),
+        path.join(dir, 'foo.js')
+    );
+
     t.throws(function () {
         resolve.sync('foo', { basedir: dir });
     });

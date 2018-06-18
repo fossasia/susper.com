@@ -3,7 +3,7 @@ var test = require('tape');
 var resolve = require('../');
 
 test('async foo', function (t) {
-    t.plan(11);
+    t.plan(12);
     var dir = path.join(__dirname, 'resolver');
 
     resolve('./foo', { basedir: dir }, function (err, res, pkg) {
@@ -28,6 +28,11 @@ test('async foo', function (t) {
         if (err) t.fail(err);
         t.equal(res, path.join(dir, 'foo.js'));
         t.equal(pkg.main, 'resolver');
+    });
+
+    resolve('./foo', { basedir: dir, filename: path.join(dir, 'baz.js') }, function (err, res) {
+        if (err) t.fail(err);
+        t.equal(res, path.join(dir, 'foo.js'));
     });
 
     resolve('foo', { basedir: dir }, function (err) {

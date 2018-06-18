@@ -2,7 +2,7 @@ language: node_js
 os:
  - linux
 node_js:
-  - "10.1"
+  - "10.4"
   - "9.11"
   - "8.11"
   - "7.10"
@@ -34,6 +34,12 @@ matrix:
   include:
     - node_js: "lts/*"
       env: PRETEST=true
+    - node_js: "10.3"
+      env: TEST=true ALLOW_FAILURE=true
+    - node_js: "10.2"
+      env: TEST=true ALLOW_FAILURE=true
+    - node_js: "10.1"
+      env: TEST=true ALLOW_FAILURE=true
     - node_js: "10.0"
       env: TEST=true ALLOW_FAILURE=true
     - node_js: "9.10"
