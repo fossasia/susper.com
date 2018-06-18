@@ -4,8 +4,6 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     exit 0
 fi
 
-angular build production
-
 npm i -g surge
 
 export SURGE_LOGIN=test@example.co.in
