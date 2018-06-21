@@ -14,6 +14,8 @@ PostCSS 是一个允许使用 JS 插件转换样式的工具。
 PostCSS 在工业界被广泛地应用，其中不乏很多有名的行业领导者，如：维基百科，Twitter，阿里巴巴，
 JetBrains。PostCSS 的 [Autoprefixer] 插件是最流行的 CSS 处理工具之一。
 
+PostCSS 接收一个 CSS 文件并提供了一个 API 来分析、修改它的规则（通过把 CSS 规则转换成一个[抽象语法树]的方式）。在这之后，这个 API 便可被许多[插件]利用来做有用的事情，比如寻错或自动添加 CSS vendor 前缀。
+
 **Twitter 账号:** [@postcss](https://twitter.com/postcss)<br>
 **支持 / 讨论:**   [Gitter](https://gitter.im/postcss/postcss)<br>
 
@@ -21,7 +23,9 @@ JetBrains。PostCSS 的 [Autoprefixer] 插件是最流行的 CSS 处理工具之
 PostCSS 插件），请联系 [Evil Martians](https://evilmartians.com/?utm_source=postcss)
 邮箱 <surrender@evilmartians.com>。
 
+[抽象语法树]:     https://zh.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E8%AA%9E%E6%B3%95%E6%A8%B9
 [Autoprefixer]: https://github.com/postcss/autoprefixer
+[插件]:          https://github.com/postcss/postcss/blob/master/README-cn.md#%E6%8F%92%E4%BB%B6
 
 <a href="https://evilmartians.com/?utm_source=postcss">
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
@@ -50,7 +54,6 @@ PostCSS 插件），请联系 [Evil Martians](https://evilmartians.com/?utm_sou
 
 * [`autoprefixer`] 添加了 vendor 浏览器前缀，它使用 Can I Use 上面的数据。
 * [`postcss-preset-env`] 允许你使用未来的 CSS 特性。
-* [`postcss-image-set-polyfill`] 为所有浏览器模拟了 [`image-set`] 函数逻辑。
 
 ### 更佳的 CSS 可读性
 
@@ -81,7 +84,6 @@ PostCSS 插件），请联系 [Evil Martians](https://evilmartians.com/?utm_sou
 * [`lost`] 是一个功能强大的 `calc()` 栅格系统。
 * [`rtlcss`] 镜像翻转 CSS 样式，适用于 right-to-left 的应用场景。
 
-[`postcss-image-set-polyfill`]: https://github.com/SuperOl3g/postcss-image-set-polyfill
 [`postcss-inline-svg`]:         https://github.com/TrySound/postcss-inline-svg
 [`postcss-preset-env`]:         https://github.com/jonathantneal/postcss-preset-env
 [`react-css-modules`]:          https://github.com/gajus/react-css-modules
@@ -102,7 +104,6 @@ PostCSS 插件），请联系 [Evil Martians](https://evilmartians.com/?utm_sou
 [`css-modules`]:                https://github.com/css-modules/css-modules
 [`colorguard`]:                 https://github.com/SlexAxton/css-colorguard
 [`stylelint`]:                  https://github.com/stylelint/stylelint
-[`image-set`]:                  https://drafts.csswg.org/css-images-4/#image-set-notation
 [`stylefmt`]:                   https://github.com/morishitter/stylefmt
 [`cssnano`]:                    http://cssnano.co
 [`precss`]:                     https://github.com/jonathantneal/precss
@@ -120,6 +121,7 @@ PostCSS 可以转化样式到任意语法，不仅仅是 CSS。
 * [`postcss-syntax`] 通过文件扩展名自动切换语法。
 * [`postcss-html`] 解析类 HTML 文件里`<style>`标签中的样式。
 * [`postcss-markdown`] 解析 Markdown 文件里代码块中的样式。
+* [`postcss-jsx`] 解析源文件里模板或对象字面量中的CSS。
 * [`postcss-styled`] 解析源文件里模板字面量中的CSS。
 * [`postcss-scss`] 允许你使用 SCSS *(但并没有将 SCSS 编译到 CSS)*。
 * [`postcss-sass`] 允许你使用 Sass *(但并没有将 Sass 编译到 CSS)*。
@@ -134,6 +136,7 @@ PostCSS 可以转化样式到任意语法，不仅仅是 CSS。
 [`postcss-syntax`]:      https://github.com/gucong3000/postcss-syntax
 [`postcss-html`]:        https://github.com/gucong3000/postcss-html
 [`postcss-markdown`]:    https://github.com/gucong3000/postcss-markdown
+[`postcss-jsx`]:         https://github.com/gucong3000/postcss-jsx
 [`postcss-styled`]:      https://github.com/gucong3000/postcss-styled
 [`postcss-scss`]:        https://github.com/postcss/postcss-scss
 [`postcss-sass`]:        https://github.com/AleshaOleg/postcss-sass

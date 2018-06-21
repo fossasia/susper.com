@@ -15,6 +15,11 @@ PostCSS is used by industry leaders including Wikipedia, Twitter, Alibaba,
 and JetBrains. The [Autoprefixer] PostCSS plugin is one of the most popular
 CSS processors.
 
+PostCSS takes a CSS file and provides an API to analyze and modify its rules
+(by transforming them into an [Abstract Syntax Tree]).
+This API can then be used by [plugins] to do a lot of useful things,
+e.g. to find errors automatically insert vendor prefixes.
+
 **Support / Discussion:** [Gitter](https://gitter.im/postcss/postcss)<br>
 **Twitter account:**      [@postcss](https://twitter.com/postcss)<br>
 **VK.com page:**          [postcss](https://vk.com/postcss)<br>
@@ -24,7 +29,9 @@ For PostCSS commercial support (consulting, improving the front-end culture
 of your company, PostCSS plugins), contact [Evil Martians](https://evilmartians.com/?utm_source=postcss)
 at <surrender@evilmartians.com>.
 
-[Autoprefixer]: https://github.com/postcss/autoprefixer
+[Abstract Syntax Tree]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
+[Autoprefixer]:         https://github.com/postcss/autoprefixer
+[plugins]:              https://github.com/postcss/postcss#plugins
 
 <a href="https://evilmartians.com/?utm_source=postcss">
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
@@ -60,7 +67,6 @@ If you have any new ideas, [PostCSS plugin development] is really easy.
 
 * [`autoprefixer`] adds vendor prefixes, using data from Can I Use.
 * [`postcss-preset-env`] allows you to use future CSS features today.
-* [`postcss-image-set-polyfill`] emulates [`image-set`] function logic for all browsers
 
 ### Better CSS Readability
 
@@ -93,7 +99,6 @@ If you have any new ideas, [PostCSS plugin development] is really easy.
 * [`lost`] is a feature-rich `calc()` grid system.
 * [`rtlcss`] mirrors styles for right-to-left locales.
 
-[`postcss-image-set-polyfill`]: https://github.com/SuperOl3g/postcss-image-set-polyfill
 [PostCSS plugin development]:   https://github.com/postcss/postcss/blob/master/docs/writing-a-plugin.md
 [`postcss-inline-svg`]:         https://github.com/TrySound/postcss-inline-svg
 [`postcss-preset-env`]:         https://github.com/jonathantneal/postcss-preset-env
@@ -114,7 +119,6 @@ If you have any new ideas, [PostCSS plugin development] is really easy.
 [`css-modules`]:                https://github.com/css-modules/css-modules
 [`colorguard`]:                 https://github.com/SlexAxton/css-colorguard
 [`stylelint`]:                  https://github.com/stylelint/stylelint
-[`image-set`]:                  https://drafts.csswg.org/css-images-4/#image-set-notation
 [`stylefmt`]:                   https://github.com/morishitter/stylefmt
 [`cssnano`]:                    http://cssnano.co
 [`precss`]:                     https://github.com/jonathantneal/precss
@@ -133,6 +137,7 @@ you can write a parser and/or stringifier to extend PostCSS.
 * [`postcss-syntax`] switch syntax automatically by file extensions.
 * [`postcss-html`] parsing styles in `<style>` tags of HTML-like files.
 * [`postcss-markdown`] parsing styles in code blocks of Markdown files.
+* [`postcss-jsx`] parsing CSS in template / object literals of source files.
 * [`postcss-styled`] parsing CSS in template literals of source files.
 * [`postcss-scss`] allows you to work with SCSS
   *(but does not compile SCSS to CSS)*.
@@ -152,6 +157,7 @@ you can write a parser and/or stringifier to extend PostCSS.
 [`postcss-syntax`]:      https://github.com/gucong3000/postcss-syntax
 [`postcss-html`]:        https://github.com/gucong3000/postcss-html
 [`postcss-markdown`]:    https://github.com/gucong3000/postcss-markdown
+[`postcss-jsx`]:         https://github.com/gucong3000/postcss-jsx
 [`postcss-styled`]:      https://github.com/gucong3000/postcss-styled
 [`postcss-scss`]:        https://github.com/postcss/postcss-scss
 [`postcss-sass`]:        https://github.com/AleshaOleg/postcss-sass
@@ -305,8 +311,10 @@ fs.readFile('src/app.css', (err, css) => {
     postcss([precss, autoprefixer])
         .process(css, { from: 'src/app.css', to: 'dest/app.css' })
         .then(result => {
-            fs.writeFile('dest/app.css', result.css);
-            if ( result.map ) fs.writeFile('dest/app.css.map', result.map);
+            fs.writeFile('dest/app.css', result.css, () => true);
+            if ( result.map ) {
+                fs.writeFile('dest/app.css.map', result.map, () => true);
+            }
         });
 });
 ```
