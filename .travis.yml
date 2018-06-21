@@ -5,7 +5,7 @@ dist: trusty
 # versions of node to use
 language: node_js
 node_js:
-- 6
+- 8.11
 
 # Running javascript tests in browser
 before_install:
@@ -15,14 +15,13 @@ before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 
-# Build a production build of the project
-before_script:
-  - ng build --prod --build-optimizer
+matrix:
+  include:
+  - before_script:
+    - ng build --prod --build-optimizer
 
-# Check for coverage, and linting
-script:
-  - ng test --single-run --code-coverage --reporters=coverage-istanbul
-  - ng lint
+  - script:
+    - ng lint
 
 # Notify codecov, deploy to surge
 after_success:
