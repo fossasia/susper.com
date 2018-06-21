@@ -10,8 +10,9 @@ import { ThemeService } from '../services/theme.service';
   styleUrls: ['./infobox.component.css']
 })
 export class InfoboxComponent implements OnInit {
-  title: string;
-  description: string;
+  title: string = '';
+  description: string = '';
+  results: object;
   query$: any;
   image: string;
   resultsearch = '/search';
@@ -23,18 +24,16 @@ export class InfoboxComponent implements OnInit {
     this.query$ = store.select(fromRoot.getquery);
     this.content_response$ = store.select(fromRoot.getKnowledgeContent);
     this.content_response$.subscribe(res => {
+    this.results = res;
       if (res.extract) {
-      this.title = res.title;
-      this.description = res.extract;
-      } else {
-        this.title = '';
-        this.description = '';
+        this.title = res.title;
+        this.description = res.extract;
       }
     });
     this.image_response$ = store.select(fromRoot.getKnowledgeImage);
     this.image_response$.subscribe(res => {
       if (typeof res.RelatedTopics !== 'undefined') {
-      this.image = res.RelatedTopics[0].Icon.URL;
+        this.image = res.RelatedTopics[0].Icon.URL;
       } else {
         this.image = '';
       }
