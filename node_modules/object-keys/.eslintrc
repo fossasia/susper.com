@@ -4,7 +4,7 @@
 	"extends": "@ljharb",
 
 	"rules": {
-		"complexity": [2, 11],
+		"complexity": [2, 23],
 		"id-length": [2, { "min": 1, "max": 40 }],
 		"max-params": [2, 3],
 		"max-statements": [2, 23],

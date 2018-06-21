@@ -30,16 +30,17 @@ var buildUglifyOptions = function buildUglifyOptions() {
   return {
     ecma,
     warnings,
-    parse,
-    compress,
-    mangle: mangle == null ? true : mangle,
+    parse: Object.assign({}, parse),
+    compress: typeof compress === 'boolean' ? compress : Object.assign({}, compress),
+    // eslint-disable-next-line no-nested-ternary
+    mangle: mangle == null ? true : typeof mangle === 'boolean' ? mangle : Object.assign({}, mangle),
     output: Object.assign({
       shebang: true,
       comments: false,
       beautify: false,
       semicolons: true
     }, output),
-    // Ignoring sourcemap from options
+    // Ignoring sourceMap from options
     sourceMap: null,
     toplevel,
     nameCache,

@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.6"></a>
+## [1.2.6](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/compare/v1.2.5...v1.2.6) (2018-06-20)
+
+
+### Bug Fixes
+
+* disable inline optimization by default ([#308](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/308)) ([6ab0918](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/6ab0918))
+* don't use a worker farm unless more than one process is required ([#280](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/280)) ([3f0767b](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/3f0767b))
+* better handle invalid source map ([#284](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/284)) ([dbebb3b](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/dbebb3b))
+* perf regression with memory usage for source maps ([#305](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/305)) ([3ca5eaf](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/3ca5eaf))
+* return missing important information for uglify warnings ([#306](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/306)) ([4f50156](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/4f50156))
+
+
+
 <a name="1.2.5"></a>
 ## [1.2.5](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/compare/v1.2.4...v1.2.5) (2018-04-18)
 

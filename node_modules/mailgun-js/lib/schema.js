@@ -75,14 +75,11 @@ module.exports = {
           'name': {
             'type': 'string'
           },
-          'smtp_password': {
-            'type': 'string'
-          },
           'wildcard': {
             'type': 'boolean'
           }
         },
-        'required': ['name', 'smtp_password']
+        'required': ['name']
       },
       {
         'description': 'Delete a domain from your account.',

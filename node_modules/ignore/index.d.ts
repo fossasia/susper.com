@@ -20,10 +20,10 @@ interface Ignore {
    */
   filter(paths: string[]): string[]
   /**
-   * Creates a filter function which could filter 
+   * Creates a filter function which could filter
    * an array of paths with Array.prototype.filter.
    */
-  createFilter(): (path: string) => Ignore
+  createFilter(): (path: string) => boolean
 
   /**
    * Returns Boolean whether pathname should be ignored.
@@ -38,4 +38,4 @@ interface Ignore {
  */
 declare function ignore(): Ignore
 
-export = ignore 
+export default ignore
