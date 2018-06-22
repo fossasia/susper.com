@@ -1,6 +1,4 @@
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { Component, Input, Output } from '@angular/core';
-
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AboutComponent } from './about.component';
 import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
 import { HttpModule } from '@angular/http';

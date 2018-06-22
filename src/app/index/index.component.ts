@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as fromRoot from '../reducers';
 import {Store} from "@ngrx/store";
-import * as queryactions from '../actions/query';
 import {Observable} from "rxjs";
 import { ThemeService } from '../services/theme.service';
 
@@ -35,5 +34,4 @@ export class IndexComponent implements OnInit {
     document.getElementById('nav-group').style.width = '584px';
     document.getElementById('nav-input').style.width = '528px';
   }
-
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SpeechService } from "../services/speech.service";
 import { Store } from "@ngrx/store";
 import * as fromRoot from '../reducers';
-import * as query from '../actions/query';
 import * as queryactions from '../actions/query';
 import * as speechactions from '../actions/speech';
 import { Observable } from "rxjs";

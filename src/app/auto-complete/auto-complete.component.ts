@@ -1,7 +1,7 @@
-import {Component, OnInit, ChangeDetectorRef, Output, EventEmitter} from '@angular/core';
-import {AutocompleteService} from "../services/autocomplete.service";
-import {Router, ActivatedRoute} from "@angular/router";
-import {Store} from "@ngrx/store";
+import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { AutocompleteService } from "../services/autocomplete.service";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Store } from "@ngrx/store";
 import * as fromRoot from '../reducers';
 
 @Component({

@@ -1,18 +1,13 @@
 import { Injectable } from '@angular/core';
-import {Http, Jsonp, Headers, RequestOptions, URLSearchParams} from "@angular/http";
-import {Store} from "@ngrx/store";
-import * as fromRoot from '../reducers';
+import { Jsonp, RequestOptions, URLSearchParams } from "@angular/http";
+
 import {Observable} from "rxjs";
 import 'rxjs/add/operator/retry';
 @Injectable()
 export class CrawlstartService {
-  server = 'yacy.searchlab.eu';
-  searchURL = 'https://' + this.server + '/solr/select?callback=?';
 
   constructor(
-    private http: Http,
-    private jsonp: Jsonp,
-    private store: Store<fromRoot.State>
+    private jsonp: Jsonp
   ) { }
 
   getcrawldefaults() {

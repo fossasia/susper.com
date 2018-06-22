@@ -2,7 +2,6 @@
 
 import { TestBed, inject } from '@angular/core/testing';
 import { AutocompleteService } from './autocomplete.service';
-import { RouterTestingModule } from '@angular/router/testing';
 import {HttpModule, JsonpModule} from "@angular/http";
 import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
