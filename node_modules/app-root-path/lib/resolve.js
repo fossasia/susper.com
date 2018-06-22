@@ -32,6 +32,11 @@ module.exports = function resolve(dirname) {
 		return remote.require('app-root-path').path;
 	}
 
+	// Defer to AWS Lambda when executing there
+	if (process.env.LAMBDA_TASK_ROOT && process.env.AWS_EXECUTION_ENV) {
+		return process.env.LAMBDA_TASK_ROOT;
+	}
+
 	var resolved = path.resolve(dirname);
 	var alternateMethod = false;
 	var appRootPath = null;
@@ -46,7 +51,7 @@ module.exports = function resolve(dirname) {
 		}
 	});
 
-	// If the app-root-path library isn't loaded globally, 
+	// If the app-root-path library isn't loaded globally,
 	// and node_modules exists in the path, just split __dirname
 	var nodeModulesDir = sep + 'node_modules';
 	if (!alternateMethod && -1 !== resolved.indexOf(nodeModulesDir)) {
