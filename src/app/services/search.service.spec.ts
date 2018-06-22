@@ -1,8 +1,8 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, inject, async, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { Http, Jsonp, BaseRequestOptions, RequestMethod, Response, ResponseOptions, HttpModule, JsonpModule } from '@angular/http';
+import { Http, BaseRequestOptions, RequestMethod, Response, ResponseOptions, HttpModule, JsonpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from '../reducers/index';
 
@@ -41,10 +41,6 @@ describe('Service: Search', () => {
     service = searchService;
     backend = mockBackend;
   }));
-
-  const searchquery = 'India';
-
-  const _queryResult = MockSearchApi;
 
   it('should create an instance SearchService',
     inject([SearchService, MockBackend], () => {

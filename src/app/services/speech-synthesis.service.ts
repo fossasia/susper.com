@@ -1,6 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-
+import { Injectable } from '@angular/core';
 interface IWindow extends Window {
   SpeechSynthesisUtterance: any;
   speechSynthesis: any;
@@ -11,12 +9,10 @@ export class SpeechSynthesisService {
 
   utterence: any;
 
-  constructor(private zone: NgZone) { }
+  constructor() { }
 
   speak(text: string): void {
     const { SpeechSynthesisUtterance }: IWindow = <IWindow>window;
-    const { speechSynthesis }: IWindow = <IWindow>window;
-
     this.utterence = new SpeechSynthesisUtterance();
     this.utterence.text = text;
     this.utterence.lang = 'en-US';
@@ -28,7 +24,6 @@ export class SpeechSynthesisService {
   }
 
   pause(): void {
-    const { speechSynthesis }: IWindow = <IWindow>window;
     const { SpeechSynthesisUtterance }: IWindow = <IWindow>window;
 
     this.utterence = new SpeechSynthesisUtterance();

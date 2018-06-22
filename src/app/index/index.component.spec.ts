@@ -3,18 +3,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule, JsonpModule } from '@angular/http';
-
 import { IndexComponent } from './index.component';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from '../reducers/index';
 import { FormsModule } from '@angular/forms';
-
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
-import {IntelligenceComponent} from "../intelligence/intelligence.component";
-
 import { AutocompleteService } from '../services/autocomplete.service';
 import { SpeechService } from '../services/speech.service';
 import {SpeechtotextComponent} from "../speechtotext/speechtotext.component";

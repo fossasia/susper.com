@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import { RouterModule, Router, NavigationEnd } from '@angular/router';
-import {Store} from "@ngrx/store";
+import { Router, NavigationEnd } from '@angular/router';
+import { Store } from "@ngrx/store";
 import * as fromRoot from './reducers';
-import {Observable} from "rxjs";
+import { Observable } from "rxjs";
 import * as queryactions from './actions/query';
-import {SpeechService} from "./services/speech.service";
+import { SpeechService } from "./services/speech.service";
 
 @Component({
   selector: 'app-root',

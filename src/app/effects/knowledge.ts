@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Location } from '@angular/common';
-import {Effect, Actions, toPayload} from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
 import {Action, Store} from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { empty } from 'rxjs/observable/empty';
-import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
@@ -17,7 +15,6 @@ export const CHANGE: Action = {
 }
 import * as fromRoot from '../reducers';
 import * as knowledge from '../actions/knowledge';
-import { SearchService } from '../services/search.service';
 import { KnowledgeapiService } from "../services/knowledgeapi.service";
 export interface State {
   query: string;

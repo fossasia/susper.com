@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 @Component({

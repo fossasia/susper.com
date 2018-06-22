@@ -1,5 +1,4 @@
 import { TestBed, inject } from '@angular/core/testing';
-
 import { IntelligenceService } from './intelligence.service';
 import {HttpModule, JsonpModule} from "@angular/http";
 import {StoreModule} from "@ngrx/store";

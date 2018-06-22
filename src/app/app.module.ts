@@ -34,13 +34,13 @@ import { SearchsettingsComponent } from './searchsettings/searchsettings.compone
 import { SpeechService } from './services/speech.service';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { IntelligenceComponent } from './intelligence/intelligence.component';
-import {IntelligenceService} from "./services/intelligence.service";
+import { IntelligenceService } from "./services/intelligence.service";
 import { SpeechtotextComponent } from './speechtotext/speechtotext.component';
 import { AutoCorrectComponent } from './auto-correct/auto-correct.component';
 import { StatsboxComponent } from './statsbox/statsbox.component';
-import {AutocorrectService} from "./services/autocorrect.service";
+import { AutocorrectService } from "./services/autocorrect.service";
 import { SpeechSynthesisService } from './services/speech-synthesis.service';
-import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { InfoboxComponent } from './infobox/infobox.component';
 import { KnowledgeapiService } from './services/knowledgeapi.service';

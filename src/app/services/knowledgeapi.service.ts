@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import {Http, URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@angular/http';
+import { Http, URLSearchParams, Jsonp, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import {Store} from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromRoot from '../reducers';
 import * as search from '../actions/search';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class KnowledgeapiService {
