@@ -212,6 +212,9 @@ export class ResultsComponent implements OnInit {
       urldata.rows = Number(query['rows']) || 10;
       this.presentPage = Math.abs(query['start'] / urldata.rows) + 1;
       let querydata = Object.assign({}, urldata);
+      if (this.resultDisplay !== 'news') {
+        querydata.query = querydata.query.replace(" site:www.dailymail.co.uk", "");
+      }
       this.store.dispatch(new queryactions.QueryServerAction(querydata));
 
       if (this.presentPage === 1) {
