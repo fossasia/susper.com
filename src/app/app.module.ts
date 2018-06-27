@@ -45,7 +45,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { InfoboxComponent } from './infobox/infobox.component';
 import { KnowledgeapiService } from './services/knowledgeapi.service';
 import { KnowledgeEffects } from "./effects/knowledge";
-
+import { NewsService } from './services/news.service';
+import { GetJsonService } from './services/get-json.service';
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
   {path: '', component: IndexComponent},
@@ -112,7 +113,9 @@ const appRoutes: Routes = [
     IntelligenceService,
     AutocorrectService,
     SpeechSynthesisService,
-    KnowledgeapiService
+    KnowledgeapiService,
+    NewsService,
+    GetJsonService
   ],
 
   bootstrap: [AppComponent]
