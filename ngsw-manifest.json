@@ -2,7 +2,7 @@
   "static": {
     "urls": {
       "/not-found-bg.8f346a53ee078b98deb0.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
-      "/main.3ef0107ab28493611562.bundle.js": "53927fd952e7ce029a9f49800b0848a2d7858827",
+      "/main.5c0de54e87699fe243eb.bundle.js": "286c153c7f4b5bc5f448918d097dc25ff4ba819c",
       "/sw-register.28c36090723540135ce0.bundle.js": "b8770a453e7d4cdb124dc9ae245d86f88b2fe209",
       "/inline.318b50c57b4eba3d437b.bundle.js": "998c6060446975e566fd17509558ddc68d72eec3",
       "/styles.9c0ad738f18adc3d19ed.bundle.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
@@ -36,11 +36,12 @@
       "/assets/images/Pslab.png": "9cf27193837c420226e05afd505890be65011175",
       "/assets/images/search.png": "dbd3a14d4dafedfd8449e5ca136f7004a2242379",
       "/assets/images/susi_60x12.png": "e0a1b65b582f4cf784b2ca29297bccd538245ec9",
-      "/assets/images/susper.png": "d7700454ad2ac24da17ced66200bc8ceefe7f161",
       "/assets/images/susper.svg": "7a8cb12bd11e689754c7d9dbb8504ba2902c14d9",
       "/assets/images/terminal.png": "2aa0054d6e388a6cd5630e3eca2350cfb289955b",
       "/assets/images/YaCyLogo2011_60.png": "954f9d626d69a7861e9e84735c44b0a8bc759c97",
-      "/index.html": "48fdb0f2323c452f0bd3fa8ed78af817eb2a0398"
+      "/assets/newsFile.json": "27e5625a066cc836436ec21fb61fffb82eb225a4",
+      "/assets/images/susper.png": "d7700454ad2ac24da17ced66200bc8ceefe7f161",
+      "/index.html": "6daeda3b62eb3e2ec94817ab218d1fc9e84ff51a"
     },
     "_generatedFromWebpack": true
   }

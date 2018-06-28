@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.7"></a>
+## [1.2.7](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/compare/v1.2.6...v1.2.7) (2018-06-25)
+
+
+### Bug Fixes
+
+* no warning when `warningsFilter` return false ([#317](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/317)) ([cabee6c](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/cabee6c))
+
+
+
 <a name="1.2.6"></a>
 ## [1.2.6](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/compare/v1.2.5...v1.2.6) (2018-06-20)
 

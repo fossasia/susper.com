@@ -2,7 +2,6 @@
 
 var regexNot = require('regex-not');
 var toRegex = require('to-regex');
-var isOdd = require('is-odd');
 
 /**
  * Characters to use in negation regex (we want to "not" match
@@ -94,7 +93,7 @@ module.exports = function(nanomatch, options) {
       if (!m) return;
       var val = m[0];
 
-      var isNegated = isOdd(val.length);
+      var isNegated = (val.length % 2) === 1;
       if (parsed === '' && !isNegated) {
         val = '';
       }
