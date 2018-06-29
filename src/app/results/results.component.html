@@ -36,7 +36,7 @@
     <div [hidden]="hidefooter">
       <!-- Basic results 'All' -->
       <div class="container-fluid">
-        <div class="result message-bar" *ngIf="totalNumber > 0 && !Display('images')">
+        <div class="result message-bar" *ngIf="totalNumber > 0 && !Display('images') && !Display('news')">
           {{message}}
         </div>
         <div class="autocorrect">
