@@ -102,3 +102,9 @@ div a:active {
     padding-right: 1%;
   }
 }
+
+@media screen and (max-height:350px){
+  .footer-bar{
+    display:none;
+  }
+}
