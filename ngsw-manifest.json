@@ -2,7 +2,7 @@
   "static": {
     "urls": {
       "/not-found-bg.8f346a53ee078b98deb0.jpg": "f41afa13621425291e1a9bd20dc050c17fbde946",
-      "/main.152e5d66ab7b9e549472.bundle.js": "ec88a3c97f2026548f6f4fc95049a72750dae180",
+      "/main.4fb41e7d7489341efd5b.bundle.js": "828b3e36faa5483068258c04365397612e8713df",
       "/sw-register.28c36090723540135ce0.bundle.js": "b8770a453e7d4cdb124dc9ae245d86f88b2fe209",
       "/inline.318b50c57b4eba3d437b.bundle.js": "998c6060446975e566fd17509558ddc68d72eec3",
       "/styles.9c0ad738f18adc3d19ed.bundle.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
@@ -41,7 +41,7 @@
       "/assets/images/terminal.png": "2aa0054d6e388a6cd5630e3eca2350cfb289955b",
       "/assets/images/YaCyLogo2011_60.png": "954f9d626d69a7861e9e84735c44b0a8bc759c97",
       "/assets/newsFile.json": "27e5625a066cc836436ec21fb61fffb82eb225a4",
-      "/index.html": "a5b6c4c7aaae3002f3695aeab4e78a386873fa6f"
+      "/index.html": "9b6221510d6a59b5762d4a7235e57cbe6c6d6143"
     },
     "_generatedFromWebpack": true
   }
