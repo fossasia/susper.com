@@ -371,12 +371,48 @@ div.autocorrect {
 
 
  /*Responsiveness*/
- @media screen and (max-width: 811px) and (min-width: 768px) {
+@media screen and (max-width: 811px) and (min-width: 768px) {
   #settings{
-    left: -5%;
+    left: -15%;
   }
   #tools{
-    left: -7%;
+    left: -15%;
+  }
+}
+@media screen and (max-width: 767px) and (min-width: 736px) {
+  #settings{
+    left: 5%;
+  }
+  #tools{
+    left: 5%;
+  }
+}
+@media screen and (max-width: 735px) and (min-width: 640px) {
+  #tools{
+    left: -5%;
+  }
+}
+
+@media screen and (max-width: 560px) and (min-width: 495px) {
+  #settings{
+    left: 27%;
+  }
+  #tools{
+    left: 27%;
+  }
+}
+
+@media screen and (max-width: 495px) {
+  #settings{
+    left: 10%;
+  }
+  #tools{
+    display:none;
+  }
+}
+@media screen and (max-width: 420px) {
+  #settings{
+    left: 5%;
   }
 }
 
@@ -474,14 +510,6 @@ div.autocorrect {
     padding-top: 8%;
   }
 
-  #settings {
-    left: 4.5%;
-  }
-
-  #tools {
-    left: 4.5%;
-  }
-
   #setting-dropdown {
     min-width: 100px;
     margin-left: 0;
@@ -531,19 +559,6 @@ div.autocorrect {
 @media screen and (max-width:560px) {
   li.dropdown {
     left:0;
-  }
-
-  #settings {
-    left:0;
-  }
-
-  #tools {
-    left:0;
-  }
-
-  #search-options li {
-    padding-left: 5vw;
-    padding-right: 5vw;
   }
 
   #setting-dropdown li {
