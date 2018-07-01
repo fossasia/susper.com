@@ -33,7 +33,6 @@ after_success:
 # enable node_modules dir to avoid re-download everytime
 cache:
     bundler: true
-    yarn: true
     directories:
     - node_modules
 
