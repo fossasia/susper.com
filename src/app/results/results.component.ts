@@ -5,8 +5,6 @@ import { Observable } from 'rxjs';
 import * as fromRoot from '../reducers';
 import { Store } from '@ngrx/store';
 import * as queryactions from '../actions/query';
-import { GetJsonService } from '../services/get-json.service';
-import { NewsService } from '../services/news.service';
 declare var $: any;
 
 @Component({
@@ -29,6 +27,7 @@ export class ResultsComponent implements OnInit {
   query: any;
   count: number = 1;
   boxMessage = 'Show';
+  newsItems$: Observable<any>;
   newsResponse: Array<any>;
   searchdata: any = {
     query: '',
@@ -163,8 +162,6 @@ export class ResultsComponent implements OnInit {
     private store: Store<fromRoot.State>,
     private ref: ChangeDetectorRef,
     public themeService: ThemeService,
-    public getJsonService: GetJsonService,
-    public getNewsService: NewsService
   ) {
     this.activatedroute.queryParams.subscribe(query => {
       let urldata = Object.assign({}, this.searchdata);
@@ -210,20 +207,30 @@ export class ResultsComponent implements OnInit {
       this.presentPage = Math.abs(query['start'] / urldata.rows) + 1;
       let querydata = Object.assign({}, urldata);
       this.store.dispatch(new queryactions.QueryServerAction(querydata));
-        this.getJsonService.getJSON().subscribe(res => { this.newsResponse = [];
-          for (let i = 0; i < res.newsOrgs.length; i++) {
-          this.getNewsService.getSearchResults(querydata, res.newsOrgs[i].provider).subscribe(
-            response => {
-                if (response.channels[0].items[0] !== undefined) {
-                this.newsResponse.push(response.channels[0].items[0]);
-                }
-                if (response.channels[0].items[1] !== undefined) {
-                this.newsResponse.push(response.channels[0].items[1]);
-                }
-            }
-          );
-        }
-        });
+
+      this.newsItems$ = store.select(fromRoot.getNews);
+      // this.newsItems$.subscribe(
+      //   res=>{
+      //     if(res !== undefined)
+      //     {
+      //     this.newsResponse.push(res);
+      //     }
+      //   }
+      // );
+        // this.getJsonService.getJSON().subscribe(res => { this.newsResponse = [];
+        //   for (let i = 0; i < res.newsOrgs.length; i++) {
+        //   this.getNewsService.getSearchResults(querydata, res.newsOrgs[i].provider).subscribe(
+        //     response => {
+        //         if (response.channels[0].items[0] !== undefined) {
+        //         this.newsResponse.push(response.channels[0].items[0]);
+        //         }
+        //         if (response.channels[0].items[1] !== undefined) {
+        //         this.newsResponse.push(response.channels[0].items[1]);
+        //         }
+        //     }
+        //   );
+        // }
+        // });
 
 
       if (this.presentPage === 1) {
