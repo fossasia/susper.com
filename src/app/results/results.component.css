@@ -194,8 +194,9 @@ a {
 /** END **/
 
 #search-options-field {
-  background-color: #f8f8f8;
+  background-color: #fafafa;
   padding-bottom: 3px;
+  padding-top: 8%;
 }
 
 .helper {
@@ -504,10 +505,6 @@ div.autocorrect {
 
   #search-options li {
     padding: 0 2.3% 12px;
-  }
-
-  #search-options-field {
-    padding-top: 8%;
   }
 
   #setting-dropdown {
