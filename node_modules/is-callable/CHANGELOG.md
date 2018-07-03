@@ -1,3 +1,9 @@
+1.1.4 / 2018-07-02
+=================
+  * [Fix] improve `class` and arrow function detection (#30, #31)
+  * [Tests] on all latest node minors; improve matrix
+  * [Dev Deps] update all dev deps
+
 1.1.3 / 2016-02-27
 =================
   * [Fix] ensure “class “ doesn’t screw up “class” detection

@@ -4,25 +4,48 @@
 
 var test = require('tape');
 var isCallable = require('./');
-var hasSymbols = typeof Symbol === 'function' && typeof Symbol() === 'symbol';
+var hasSymbols = typeof Symbol === 'function' && typeof Symbol('foo') === 'symbol';
 var genFn = require('make-generator-function');
 var arrowFn = require('make-arrow-function')();
+var weirdlyCommentedArrowFn;
+var asyncFn;
+var asyncArrowFn;
+try {
+	/* eslint no-new-func: 0 */
+	weirdlyCommentedArrowFn = Function('return cl/*/**/=>/**/ass - 1;')();
+	asyncFn = Function('return async function foo() {};')();
+	asyncArrowFn = Function('return async () => {};')();
+} catch (e) { /**/ }
 var forEach = require('foreach');
 
-var invokeFunction = function invokeFunction(str) {
-    var result;
+var noop = function () {};
+var classFake = function classFake() { }; // eslint-disable-line func-name-matching
+var returnClass = function () { return ' class '; };
+var return3 = function () { return 3; };
+/* for coverage */
+noop();
+classFake();
+returnClass();
+return3();
+/* end for coverage */
+
+var invokeFunction = function invokeFunctionString(str) {
+	var result;
 	try {
 		/* eslint-disable no-new-func */
 		var fn = Function(str);
 		/* eslint-enable no-new-func */
 		result = fn();
-	} catch (e) { /**/ }
+	} catch (e) {}
 	return result;
 };
 
 var classConstructor = invokeFunction('"use strict"; return class Foo {}');
 
-var commentedClass = invokeFunction('"use strict"; return class/*kkk*/\n\/\/blah\n Bar\n\/\/blah\n {}');
+var commentedClass = invokeFunction('"use strict"; return class/*kkk*/\n//blah\n Bar\n//blah\n {}');
+var commentedClassOneLine = invokeFunction('"use strict"; return class/**/A{}');
+var classAnonymous = invokeFunction('"use strict"; return class{}');
+var classAnonymousCommentedOneLine = invokeFunction('"use strict"; return class/*/*/{}');
 
 test('not callables', function (t) {
 	t.test('non-number/string primitives', function (st) {
@@ -55,7 +78,7 @@ test('not callables', function (t) {
 
 	t.test('non-function with function in its [[Prototype]] chain', function (st) {
 		var Foo = function Bar() {};
-		Foo.prototype = function () {};
+		Foo.prototype = noop;
 		st.equal(true, isCallable(Foo), 'sanity check: Foo is callable');
 		st.equal(false, isCallable(new Foo()), 'instance of Foo is not callable');
 		st.end();
@@ -65,12 +88,13 @@ test('not callables', function (t) {
 });
 
 test('@@toStringTag', { skip: !hasSymbols || !Symbol.toStringTag }, function (t) {
-	var fn = function () { return 3; };
 	var fakeFunction = {
-		toString: function () { return String(fn); },
-		valueOf: function () { return fn; }
+		toString: function () { return String(return3); },
+		valueOf: return3
 	};
 	fakeFunction[Symbol.toStringTag] = 'Function';
+	t.equal(String(fakeFunction), String(return3));
+	t.equal(Number(fakeFunction), return3());
 	t.notOk(isCallable(fakeFunction), 'fake Function with @@toStringTag "Function" is not callable');
 	t.end();
 });
@@ -88,16 +112,19 @@ var typedArrayNames = [
 ];
 
 test('Functions', function (t) {
-	t.ok(isCallable(function () {}), 'function is callable');
-	t.ok(isCallable(function classFake() { }), 'function with name containing "class" is callable');
-	t.ok(isCallable(function () { return ' class '; }), 'function with string " class " is callable');
+	t.ok(isCallable(noop), 'function is callable');
+	t.ok(isCallable(classFake), 'function with name containing "class" is callable');
+	t.ok(isCallable(returnClass), 'function with string " class " is callable');
 	t.ok(isCallable(isCallable), 'isCallable is callable');
 	t.end();
 });
 
 test('Typed Arrays', function (st) {
 	forEach(typedArrayNames, function (typedArray) {
-		if (typeof global[typedArray] !== 'undefined') {
+		/* istanbul ignore if : covered in node 0.6 */
+		if (typeof global[typedArray] === 'undefined') {
+			st.comment('# SKIP typed array "' + typedArray + '" not supported');
+		} else {
 			st.ok(isCallable(global[typedArray]), typedArray + ' is callable');
 		}
 	});
@@ -111,11 +138,21 @@ test('Generators', { skip: !genFn }, function (t) {
 
 test('Arrow functions', { skip: !arrowFn }, function (t) {
 	t.ok(isCallable(arrowFn), 'arrow function is callable');
+	t.ok(isCallable(weirdlyCommentedArrowFn), 'weirdly commented arrow functions are callable');
 	t.end();
 });
 
-test('"Class" constructors', { skip: !classConstructor || !commentedClass }, function (t) {
+test('"Class" constructors', { skip: !classConstructor || !commentedClass || !commentedClassOneLine || !classAnonymous }, function (t) {
 	t.notOk(isCallable(classConstructor), 'class constructors are not callable');
 	t.notOk(isCallable(commentedClass), 'class constructors with comments in the signature are not callable');
+	t.notOk(isCallable(commentedClassOneLine), 'one-line class constructors with comments in the signature are not callable');
+	t.notOk(isCallable(classAnonymous), 'anonymous class constructors are not callable');
+	t.notOk(isCallable(classAnonymousCommentedOneLine), 'anonymous one-line class constructors with comments in the signature are not callable');
+	t.end();
+});
+
+test('`async function`s', { skip: !asyncFn }, function (t) {
+	t.ok(isCallable(asyncFn), '`async function`s are callable');
+	t.ok(isCallable(asyncArrowFn), '`async` arrow functions are callable');
 	t.end();
 });
