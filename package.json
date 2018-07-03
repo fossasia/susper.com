@@ -80,7 +80,7 @@
     "webdriver-manager": "12.0.6"
   },
   "engines": {
-    "node": "6.0.0",
+    "node": "8.2.1",
     "npm": "6.0.1"
   }
 }
