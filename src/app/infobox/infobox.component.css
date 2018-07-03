@@ -44,15 +44,9 @@ a {
   }
 }
 
-@media screen and (max-width: 1307px) {
+@media screen and (max-width: 1205px) {
   .card {
-    width: 366px;
-  }
-}
-
-@media screen and (max-width: 1219px) {
-  .card {
-    width: 278px;
+    width: 320px;
   }
 }
 
