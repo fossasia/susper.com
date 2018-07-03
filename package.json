@@ -37,6 +37,7 @@
     "codecov.io": "^0.1.6",
     "core-js": "^2.4.1",
     "express": "^4.16.3",
+    "hoek": "^5.0.3",
     "ng2-bs3-modal": "^0.10.4",
     "ng2-charts": "^1.6.0",
     "ngrx-store-freeze": "^0.1.9",
@@ -79,7 +80,7 @@
     "webdriver-manager": "12.0.6"
   },
   "engines": {
-    "node": "6.0.0",
+    "node": "8.2.1",
     "npm": "6.0.1"
   }
 }
