@@ -47,6 +47,7 @@ import { KnowledgeapiService } from './services/knowledgeapi.service';
 import { KnowledgeEffects } from "./effects/knowledge";
 import { NewsService } from './services/news.service';
 import { GetJsonService } from './services/get-json.service';
+import { NewsEffects } from './effects/news';
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
   {path: '', component: IndexComponent},
@@ -99,6 +100,7 @@ const appRoutes: Routes = [
     StoreModule.provideStore(reducer),
     EffectsModule.run(ApiSearchEffects),
     EffectsModule.run(KnowledgeEffects),
+    EffectsModule.run(NewsEffects),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     Ng2Bs3ModalModule,
     ChartsModule
