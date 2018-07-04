@@ -19,7 +19,7 @@
   text-overflow: ellipsis;
 }
 .infobox{
-  float:right;
+  float:left;
   margin-right: 15px;
   margin-top: auto;
 }
@@ -387,6 +387,11 @@ div.autocorrect {
     left: 5%;
   }
 }
+@media screen and (min-width: 1400px){
+  .infobox{
+    float: left;
+  }
+}
 @media screen and (max-width: 735px) and (min-width: 640px) {
   #tools{
     left: -5%;
@@ -444,7 +449,7 @@ div.autocorrect {
   }
 }
 
-@media screen and (max-width:1131px){
+@media screen and (max-width:1159px){
   .infobox {
     display: none;
   }

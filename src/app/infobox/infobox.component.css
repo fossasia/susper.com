@@ -1,7 +1,7 @@
 img{
   border-radius: 8px;
   width: 40%;
-  height: 40%;
+  height: 150px;
   float: right;
   margin-right:10px;
   margin-top:-50px;
@@ -44,15 +44,9 @@ a {
   }
 }
 
-@media screen and (max-width: 1307px) {
+@media screen and (max-width: 1205px) {
   .card {
-    width: 366px;
-  }
-}
-
-@media screen and (max-width: 1219px) {
-  .card {
-    width: 278px;
+    width: 320px;
   }
 }
 
