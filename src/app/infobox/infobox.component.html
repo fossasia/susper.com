@@ -1,4 +1,4 @@
-<div *ngIf="this.description" class="card">
+<div *ngIf="this.description" class="card" [style.color]="themeService.cardColor">
     <div>
       <h2><b [style.color]="themeService.cardColor">{{this.title}}</b></h2><img *ngIf="this.image"  src={{this.image}}>
       <p [style.color]="themeService.descriptionColor">{{this.description | slice:0:600}}<a [style.color]="themeService.linkColor" href='https://en.wikipedia.org/wiki/{{this.title}}'>..More at Wikipedia</a></p>
