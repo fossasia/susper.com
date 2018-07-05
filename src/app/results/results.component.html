@@ -33,7 +33,7 @@
     <div [hidden]="hidefooter">
       <!-- Basic results 'All' -->
       <div class="container-fluid">
-        <div class="result message-bar" *ngIf="totalNumber > 0 && !Display('images') && !Display('news')">
+        <div id="result-message" class="result message-bar" *ngIf="totalNumber > 0 && !Display('images') && !Display('news')">
           {{message}}
         </div>
         <div class="autocorrect">
@@ -56,7 +56,9 @@
         </div>
         <div class="container-fluid">
           <div class="combo-box">
+              <div class="small-info">
               <app-infobox></app-infobox>
+              </div>
               <div class="intelligence">
               <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
               </div>
@@ -176,13 +178,6 @@
     </div>
   </div>
   <!-- END -->
-  <div class="combo-box">
-  <button class="btn" id="toggle-button" (click)="BoxToggle()" type="button" data-toggle="collapse" data-target="#statbox"
-    aria-expanded="false" aria-controls="collapseExample" *ngIf="totalNumber > 0">
-    {{boxMessage}} Analytics
-  </button>
-  <app-statsbox class="collapse" id="statbox"></app-statsbox>
-  </div>
       <br>
       <div class="clean"></div>
       <div class="card" *ngIf="totalNumber > 0">
@@ -246,5 +241,12 @@
         <!--footer navigation bar goes here-->
       </div>
     </div>
+    <div class="combo-box">
+        <button class="btn" id="toggle-button" (click)="BoxToggle()" type="button" data-toggle="collapse" data-target="#statbox"
+          aria-expanded="false" aria-controls="collapseExample" *ngIf="totalNumber > 0">
+          {{boxMessage}} Analytics
+        </button>
+        <app-statsbox class="collapse" id="statbox"></app-statsbox>
+        </div>
     <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
   </div>

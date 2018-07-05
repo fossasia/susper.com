@@ -482,35 +482,90 @@ div.autocorrect {
     display: none;
   }
 }
-
-@media screen and (max-width: 1159px) and (min-width: 850px){
-  div.combo-box {
-    margin-left: 13vw;
-  }
-}
-@media screen and (max-width: 849px) and (min-width: 768px){
-  div.combo-box {
-    margin-left: 15vw;
-  }
-}
 @media screen and (max-width: 1159px) and (min-width: 1080px){
-  #toggle-button {
-    margin-left: 4%;
+  div.combo-box {
+    margin-left: 13%;
+  }
+  .result{
+    margin-left: -2%;
+  }
+  #toggle-button{
+    margin-left: 0%;
+  }
+  #result-message{
+    margin-left: 14%;
   }
 }
-@media screen and (max-width: 1079px) and (min-width: 1021px){
-  #toggle-button {
+@media screen and (max-width: 1079px) and (min-width: 1001px){
+  div.combo-box {
+    margin-left: 10%;
+  }
+  .result{
+    margin-left: -2%;
+  }
+  #toggle-button{
+    margin-left: -0.5%;
+  }
+  #result-message{
+    margin-left: 12%;
+  }
+}
+
+@media screen and (max-width: 1000px) and (min-width: 960px){
+  div.combo-box {
+    margin-left: 11%;
+  }
+  .result{
+    margin-left: -2%;
+  }
+  #toggle-button{
+    margin-left: 0%;
+  }
+  #result-message{
+    margin-left: 13%;
+  }
+}
+@media screen and (max-width: 960px) and (min-width: 931px){
+  div.combo-box {
+    margin-left: 11.2%;
+  }
+  .result{
+    margin-left: -2%;
+  }
+  #toggle-button{
+    margin-left: 0%;
+  }
+  #result-message{
+    margin-left: 13%;
+  }
+}
+
+@media screen and (max-width: 930px) and (min-width: 816px){
+  div.combo-box {
+    margin-left: 12.2%;
+  }
+  .result{
+    margin-left: -2%;
+  }
+  #toggle-button{
+    margin-left: 0%;
+  }
+  #result-message{
+    margin-left: 13.5%;
+  }
+}
+@media screen and (max-width: 815px) and (min-width: 768px){
+  div.combo-box {
+    margin-left: 14%;
+  }
+  .result{
+    margin-left: -2%;
+  }
+  #toggle-button{
     margin-left: 1%;
   }
-}
-@media screen and (max-width: 1020px) and (min-width: 950px){
-  #toggle-button {
-    margin-left: 2%;
-  }
-}
-@media screen and (max-width: 949px) and (min-width: 890px){
-  #toggle-button {
-    margin-left: 3%;
+  #result-message{
+    margin-left: 14%;
   }
 }
 @media screen and (max-width: 768px) {
