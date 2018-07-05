@@ -477,9 +477,45 @@ div.autocorrect {
   }
 }
 
-@media screen and (min-width:768px) {
+@media screen and (min-width: 1160px) {
   div.combo-box {
     display: none;
+  }
+}
+
+@media screen and (max-width: 1159px) and (min-width: 850px){
+  div.combo-box {
+    margin-left: 13vw;
+  }
+}
+@media screen and (max-width: 849px) and (min-width: 768px){
+  div.combo-box {
+    margin-left: 15vw;
+  }
+}
+@media screen and (max-width: 1159px) and (min-width: 1080px){
+  #toggle-button {
+    margin-left: 4%;
+  }
+}
+@media screen and (max-width: 1079px) and (min-width: 1021px){
+  #toggle-button {
+    margin-left: 1%;
+  }
+}
+@media screen and (max-width: 1020px) and (min-width: 950px){
+  #toggle-button {
+    margin-left: 2%;
+  }
+}
+@media screen and (max-width: 949px) and (min-width: 890px){
+  #toggle-button {
+    margin-left: 3%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .intelligence {
+    margin-left: 4%;
   }
 }
 

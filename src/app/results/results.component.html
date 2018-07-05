@@ -57,14 +57,11 @@
         <div class="container-fluid">
           <div class="combo-box">
               <app-infobox></app-infobox>
-            <button class="btn" id="toggle-button" (click)="BoxToggle()" type="button" data-toggle="collapse" data-target="#statbox"
-              aria-expanded="false" aria-controls="collapseExample" *ngIf="totalNumber > 0">
-              {{boxMessage}} Analytics
-            </button>
-            <app-statsbox class="collapse" id="statbox"></app-statsbox>
+              <div class="intelligence">
+              <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
+              </div>
           </div>
           <div class="feed">
-            <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
             <div class="result">
               <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
@@ -179,6 +176,13 @@
     </div>
   </div>
   <!-- END -->
+  <div class="combo-box">
+  <button class="btn" id="toggle-button" (click)="BoxToggle()" type="button" data-toggle="collapse" data-target="#statbox"
+    aria-expanded="false" aria-controls="collapseExample" *ngIf="totalNumber > 0">
+    {{boxMessage}} Analytics
+  </button>
+  <app-statsbox class="collapse" id="statbox"></app-statsbox>
+  </div>
       <br>
       <div class="clean"></div>
       <div class="card" *ngIf="totalNumber > 0">
