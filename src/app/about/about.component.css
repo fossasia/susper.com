@@ -1,6 +1,4 @@
 .banner {
-
-    
     width: 100%;
     position: relative;
     bottom: 0;
@@ -8,6 +6,7 @@
     right: 0;
     top: -10%;
     overflow: hidden;
+    height:500px;
 }
 
 
@@ -21,7 +20,6 @@ footer{
     bottom: 0px;
     width: 100%
 }
-
 
 .navbar-nav > li > a {
   text-align: left;
@@ -39,7 +37,6 @@ footer{
 
 .image-banner {
     position: relative;
-   
     overflow: hidden;
     padding:0px;
 }
@@ -150,25 +147,20 @@ a:hover {
 }
 
 @media screen and (max-width:990px) {
-    
-
-    
-
     .navbar-collapse.navbar-right {
         text-align: right;
     }
 }
 
-
-
-
-
-
-
-
 @media only screen and (max-width: 768px) {
     .navbar-logo{
         margin-left: -77px;
         margin-top: 0px;
+    }
+}
+
+@media only screen and (min-height: 750px) {
+    .banner{
+     height:auto;   
     }
 }
