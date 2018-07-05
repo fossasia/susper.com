@@ -16,7 +16,7 @@
 </table>
 
 [![Build Status](https://travis-ci.org/sass/node-sass.svg?branch=master&style=flat)](https://travis-ci.org/sass/node-sass)
-[![Build status](https://ci.appveyor.com/api/projects/status/22mjbk59kvd55m9y/branch/master)](https://ci.appveyor.com/project/sass/node-sass/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/22mjbk59kvd55m9y/branch/master?svg=true)](https://ci.appveyor.com/project/sass/node-sass/branch/master)
 [![npm version](https://badge.fury.io/js/node-sass.svg)](http://badge.fury.io/js/node-sass)
 [![Dependency Status](https://david-dm.org/sass/node-sass.svg?theme=shields.io)](https://david-dm.org/sass/node-sass)
 [![devDependency Status](https://david-dm.org/sass/node-sass/dev-status.svg?theme=shields.io)](https://david-dm.org/sass/node-sass#info=devDependencies)
@@ -42,13 +42,13 @@ Some users have reported issues installing on Ubuntu due to `node` being registe
 
 Compiling on Windows machines requires the [node-gyp prerequisites](https://github.com/nodejs/node-gyp#on-windows).
 
-Are you seeing the following error? Check out our [Troubleshooting guide](/TROUBLESHOOTING.md#installing-node-sass-4x-with-node--4).**
+Are you seeing the following error? Check out our [Troubleshooting guide](https://github.com/sass/node-sass/blob/master/TROUBLESHOOTING.md#installing-node-sass-4x-with-node--4).**
 
 ```
 SyntaxError: Use of const in strict mode.
 ```
 
-**Having installation troubles? Check out our [Troubleshooting guide](/TROUBLESHOOTING.md).**
+**Having installation troubles? Check out our [Troubleshooting guide](https://github.com/sass/node-sass/blob/master/TROUBLESHOOTING.md).**
 
 ### Install from mirror in China
 

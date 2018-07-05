@@ -1,3 +1,7 @@
+# 2.27.2
+
+Avoid crash caused by removed function in `typescript@3.0.0`.
+
 # 2.27.1
 
 Added support for TypeScript@3.0.0 nightly builds.
