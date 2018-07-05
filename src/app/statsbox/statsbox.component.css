@@ -9,6 +9,11 @@
   margin-top: 10px;
 }
 
+.badge{
+  font-weight: 500;
+  border-radius: 3px;
+}
+
 .badge-info {
   background-color: #468847;
   padding: 0.25em;
