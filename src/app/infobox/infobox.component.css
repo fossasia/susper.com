@@ -14,11 +14,7 @@ img{
   padding: 22px 22px 18px 22px;
   transition: 0.3s;
   width: 454px;
-}
-
-/* Add some padding inside the card container */
-.card-container {
-  padding: 2px 16px;
+  min-height: 200px;
 }
 
 /* Heading */

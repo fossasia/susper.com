@@ -1,9 +1,7 @@
 @media screen and (max-width:990px) {
-    
     .navbar-collapse.navbar-right {
         text-align: right;
     }
-
 }
 
 .navbar-nav > li > a {
@@ -22,6 +20,7 @@
     right: 0;
     top: -10%;
     overflow: hidden;
+    height:500px;
 }
 
 .image-banner {
@@ -29,8 +28,6 @@
     overflow: hidden;
     padding:0px;
 }
-
-
 
 .navbar-logo {
     height: 30px;
@@ -64,17 +61,11 @@ footer{
     width:100%
 }
 
-@media screen and (max-width:990px) {
-    
-    .image-banner {
-        height: 190px;
-    }
-
+@media screen and (max-width:990px) {   
     .banner {
         top: 0;
+        height: 300px;
     }
-
-
 }
 
 
@@ -189,5 +180,10 @@ a {
     .navbar-logo {
         margin-left: -77px;
         margin-top: -5px;
+    }
+}
+@media only screen and (min-height: 750px) {
+    .banner{
+     height:auto;   
     }
 }
