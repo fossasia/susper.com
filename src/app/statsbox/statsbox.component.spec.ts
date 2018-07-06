@@ -32,7 +32,35 @@ describe('StatsboxComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create StatsboxComponent', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have querychange$ Observables', () => {
+    expect(component.querychange$).toBeTruthy();
+  });
+
+  it('should have navigation$ Observables', () => {
+    expect(component.navigation$).toBeTruthy();
+  });
+
+  it('should have searchresults$ Observables', () => {
+    expect(component.searchresults$).toBeTruthy();
+  });
+
+  it('should have selectedelement number', () => {
+    expect(component.selectedelement).toBeTruthy();
+  });
+
+  it('should have selectedelements Array', () => {
+    expect(component.selectedelements).toBeTruthy();
+  });
+
+  it('should have querylook to be an object', () => {
+    expect(component.querylook).toBeTruthy();
+  });
+
+  it('should have analyticsStatus variable declared as string', () => {
+    expect(component.analyticsStatus).toBeTruthy();
   });
 });
