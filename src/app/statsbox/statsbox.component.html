@@ -22,8 +22,11 @@
       </a>
     </div>
   </div>
-
-  <div style="display: block;">
+  <button class="btn" id="toggle-chart-button" (click)="BoxToggle()">
+            {{analyticsStatus}} Analytics
+  </button>
+  <div class="graph" [hidden]="analyticsStatus!=='Hide Chart'">
+  <div class="linegraph">
     <canvas baseChart
             [datasets]="lineChartData"
             [labels]="lineChartLabels"
@@ -33,7 +36,7 @@
     ></canvas>
   </div>
 
-  <div style="display: block;">
+  <div class="bargraph">
     <canvas baseChart
             [datasets]="barChartData"
             [labels]="barChartLabels"
@@ -42,4 +45,5 @@
             [colors]="lineChartColors"
     ></canvas>
   </div>
+</div>
 </div>
