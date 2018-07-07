@@ -25,7 +25,8 @@
   <button class="btn" id="toggle-chart-button" (click)="BoxToggle()">
             {{analyticsStatus}} Analytics
   </button>
-  <div class="graph" [hidden]="analyticsStatus!=='Hide Chart'">
+  <div id="light" class="white_content">
+  <div class="graph large">
   <div class="linegraph">
     <canvas baseChart
             [datasets]="lineChartData"
@@ -47,3 +48,26 @@
   </div>
 </div>
 </div>
+<div class="graph small" [hidden]="analyticsStatus!=='Hide Chart'">
+  <div class="linegraph">
+    <canvas baseChart
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [chartType]="lineChartType"
+            [colors]="lineChartColors"
+    ></canvas>
+  </div>
+
+  <div class="bargraph">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [chartType]="barChartType"
+            [colors]="lineChartColors"
+    ></canvas>
+  </div>
+</div>
+</div>
+<div id="fade" class="black_overlay" (click)='BoxToggle()'><a class="closeX" id="closeX">&#10006;</a></div>
