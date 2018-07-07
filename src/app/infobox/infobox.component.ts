@@ -15,6 +15,7 @@ export class InfoboxComponent implements OnInit {
   results: object;
   query$: any;
   image: string;
+  isVisible: boolean;
   resultsearch = '/search';
   speechMode: any;
   content_response$: Observable<any>;
@@ -24,10 +25,12 @@ export class InfoboxComponent implements OnInit {
     this.query$ = store.select(fromRoot.getquery);
     this.content_response$ = store.select(fromRoot.getKnowledgeContent);
     this.content_response$.subscribe(res => {
+    this.isVisible = false;
     this.results = res;
       if (res.extract) {
         this.title = res.title;
         this.description = res.extract;
+        this.isVisible = true;
       }
     });
     this.image_response$ = store.select(fromRoot.getKnowledgeImage);
@@ -42,5 +45,4 @@ export class InfoboxComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
