@@ -69,9 +69,14 @@ a {
   }
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 767px){
   .card {
     width: 95vw;
     margin-left: 4vw;
+  }
+}
+@media screen and (max-width: 1159px) and (min-width: 768px){
+  .card {
+    width: 50vw;
   }
 }
