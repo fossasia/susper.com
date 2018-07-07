@@ -220,6 +220,9 @@ RedirectableRequest.prototype._processResponse = function (response) {
     Object.assign(this._options, url.parse(redirectUrl));
     this._isRedirect = true;
     this._performRequest();
+
+    // Discard the remainder of the response to avoid waiting for data
+    response.destroy();
   }
   else {
     // The response is not a redirect; return it as-is

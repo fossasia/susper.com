@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var request = require('request');
 var urlgrey = require('urlgrey');
+var walk = require('ignore-walk');
 var execSync = require('child_process').execSync;
 
 var detectProvider = require('./detect');
@@ -288,8 +289,12 @@ var upload = function(args, on_success, on_failure){
   // List git files
   var root = path.resolve(args.options.root || query.root || '.');
   console.log('==> Building file structure');
-  upload += execSync('git ls-files || hg locate', { cwd: root }).toString().trim() + '\n<<<<<< network\n';
-
+  try {
+    upload += execSync('git ls-files || hg locate', { cwd: root }).toString().trim() + '\n<<<<<< network\n';
+  } catch (err) {
+    // not a git/hg dir, emulating git/hg ignore behavior
+    upload += walk.sync({path: root, ignoreFiles: ['.gitignore', '.hgignore']}).join('\n').trim() + '\n<<<<<< network\n';
+  }
   // Make gcov reports
   if ((args.options.disable || '').split(',').indexOf('gcov') === -1) {
     try {

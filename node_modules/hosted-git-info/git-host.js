@@ -1,5 +1,6 @@
 'use strict'
 var gitHosts = require('./git-host-info.js')
+/* eslint-disable node/no-deprecated-api */
 var extend = Object.assign || require('util')._extend
 
 var GitHost = module.exports = function (type, user, auth, project, committish, defaultRepresentation, opts) {
@@ -50,8 +51,8 @@ GitHost.prototype._fill = function (template, opts) {
   } else {
     vars['#committish'] = rawComittish ? '#' + rawComittish : ''
     vars['/tree/committish'] = vars.committish
-                            ? '/' + vars.treepath + '/' + vars.committish
-                            : ''
+      ? '/' + vars.treepath + '/' + vars.committish
+      : ''
     vars['/committish'] = vars.committish ? '/' + vars.committish : ''
     vars.committish = vars.committish || 'master'
   }
