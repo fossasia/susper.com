@@ -135,11 +135,16 @@ export class StatsboxComponent implements OnInit {
       return;
     };
   }
+
   BoxToggle() {
     if (this.analyticsStatus === 'Show Chart') {
       this.analyticsStatus = 'Hide Chart';
+      document.getElementById('light').style.display = 'block';
+      document.getElementById('fade').style.display = 'block';
     } else {
       this.analyticsStatus = 'Show Chart';
+      document.getElementById('light').style.display = 'none';
+      document.getElementById('fade').style.display = 'none';
     }
   }
 
