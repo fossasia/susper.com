@@ -425,6 +425,33 @@ div.autocorrect {
     left: 27%;
   }
 }
+@media screen and (max-width: 890px) and (min-width: 768px){
+  #tool-dropdown {
+    margin-left: -150%;
+    min-width: 120px;
+  }
+  #setting-dropdown {
+    min-width: 100px!important;
+    margin-left: -100%!important;
+}
+}
+@media screen and (max-width: 735px) {
+  #tool-dropdown {
+    margin-left: -150%!important;
+    min-width: 100px!important;
+  }
+} 
+
+@media screen and (max-width: 560px) {
+  #tool-dropdown {
+    margin-left: 200%!important;
+    min-width: 100px!important;
+  }
+  #setting-dropdown {
+    min-width: 100px!important;
+    margin-left: 200%!important;
+}
+} 
 
 @media screen and (max-width: 495px) {
   #settings {
@@ -433,6 +460,15 @@ div.autocorrect {
   #tools {
     left: 0;
   }
+  #tool-dropdown {
+    right: 0;
+    margin-left: -150%!important;
+    min-width: 100px!important;
+  }
+  #setting-dropdown {
+    min-width: 100px!important;
+    margin-left: 0%!important;
+}
 }
  @media screen and (max-width: 387px) {
   #search-options li {
@@ -443,6 +479,9 @@ div.autocorrect {
   @media screen and (max-width: 327px) {
     #search-options li {
       padding: 0 1vw 12px!important;
+    }
+    #tool-dropdown {
+      margin-left: -200%!important;
     }
     }
 @media screen and (max-width: 283px) {
@@ -660,7 +699,6 @@ div.autocorrect {
   }
 
   #tool-dropdown {
-    right: 0;
     margin-left: -58%;
     min-width: 123px;
   }
