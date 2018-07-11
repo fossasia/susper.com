@@ -418,27 +418,38 @@ div.autocorrect {
 }
 
 @media screen and (max-width: 560px) and (min-width: 495px) {
-  #settings{
+  #settings {
     left: 27%;
   }
-  #tools{
+  #tools {
     left: 27%;
   }
 }
 
 @media screen and (max-width: 495px) {
-  #settings{
-    left: 10%;
+  #settings {
+    left: 0;
   }
-  #tools{
-    display:none;
-  }
-}
-@media screen and (max-width: 420px) {
-  #settings{
-    left: 5%;
+  #tools {
+    left: 0;
   }
 }
+ @media screen and (max-width: 387px) {
+  #search-options li {
+    padding: 0 2vw 12px!important;
+  }
+  }
+
+  @media screen and (max-width: 327px) {
+    #search-options li {
+      padding: 0 1vw 12px!important;
+    }
+    }
+@media screen and (max-width: 283px) {
+    #search-options li {
+      padding: 0 0vw 12px!important;
+    }
+  }
 
 @media screen and (min-width: 426px) and (max-width: 2560px) {
   .next-page-mobile {
@@ -709,7 +720,7 @@ div.autocorrect {
   }
 
   #search-options li {
-    padding: 0 4vw 12px;
+    padding: 0 3vw 12px;
   }
 }
 
