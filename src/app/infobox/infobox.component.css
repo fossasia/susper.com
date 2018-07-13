@@ -2,7 +2,6 @@ img{
   width: 100%;
   height: 100%; 
   max-height: 150px;
-  border-radius: 8px;
 }
 .info-img{
   width: 40%;
@@ -33,7 +32,7 @@ p {
   font-family: Arial, sans-serif;
   font-size: 13px;
 }
-a {
+a:hover, a:visited, a:link, a:active {
   text-decoration: none;
 }
 /** Screen Responsiveness **/
@@ -42,12 +41,22 @@ a {
     .card {
       width: 366px;
     }
+    h2 {
+      font-size: 2em;
+    }
   }
 }
 
 @media screen and (max-width: 1205px) {
   .card {
     width: 320px;
+  }
+  h2 {
+    font-size: 1.9em;
+  }
+  img {
+    margin-top: 15px;
+    margin-left: 10px;
   }
 }
 
@@ -62,5 +71,11 @@ a {
 @media screen and (max-width: 1159px) and (min-width: 768px){
   .card {
     width: 50vw;
+  }
+}
+
+@media screen and (max-width: 330px){
+  h2{
+    font-size: 1.7em;
   }
 }
