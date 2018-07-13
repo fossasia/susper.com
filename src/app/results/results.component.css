@@ -418,27 +418,77 @@ div.autocorrect {
 }
 
 @media screen and (max-width: 560px) and (min-width: 495px) {
-  #settings{
+  #settings {
     left: 27%;
   }
-  #tools{
+  #tools {
     left: 27%;
   }
 }
+@media screen and (max-width: 890px) and (min-width: 768px){
+  #tool-dropdown {
+    margin-left: -150%;
+    min-width: 120px;
+  }
+  #setting-dropdown {
+    min-width: 100px!important;
+    margin-left: -100%!important;
+}
+}
+@media screen and (max-width: 735px) {
+  #tool-dropdown {
+    margin-left: -150%!important;
+    min-width: 100px!important;
+  }
+} 
+
+@media screen and (max-width: 560px) {
+  #tool-dropdown {
+    margin-left: 200%!important;
+    min-width: 100px!important;
+  }
+  #setting-dropdown {
+    min-width: 100px!important;
+    margin-left: 200%!important;
+}
+} 
 
 @media screen and (max-width: 495px) {
-  #settings{
-    left: 10%;
+  #settings {
+    left: 0;
   }
-  #tools{
-    display:none;
+  #tools {
+    left: 0;
   }
+  #tool-dropdown {
+    right: 0;
+    margin-left: -150%!important;
+    min-width: 100px!important;
+  }
+  #setting-dropdown {
+    min-width: 100px!important;
+    margin-left: 0%!important;
 }
-@media screen and (max-width: 420px) {
-  #settings{
-    left: 5%;
-  }
 }
+ @media screen and (max-width: 387px) {
+  #search-options li {
+    padding: 0 2vw 12px!important;
+  }
+  }
+
+  @media screen and (max-width: 327px) {
+    #search-options li {
+      padding: 0 1vw 12px!important;
+    }
+    #tool-dropdown {
+      margin-left: -200%!important;
+    }
+    }
+@media screen and (max-width: 283px) {
+    #search-options li {
+      padding: 0 0vw 12px!important;
+    }
+  }
 
 @media screen and (min-width: 426px) and (max-width: 2560px) {
   .next-page-mobile {
@@ -649,7 +699,6 @@ div.autocorrect {
   }
 
   #tool-dropdown {
-    right: 0;
     margin-left: -58%;
     min-width: 123px;
   }
@@ -709,7 +758,7 @@ div.autocorrect {
   }
 
   #search-options li {
-    padding: 0 4vw 12px;
+    padding: 0 3vw 12px;
   }
 }
 
