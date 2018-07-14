@@ -39,6 +39,8 @@ export class KnowledgeEffects {
       this.knowledgeservice.getSearchResults(querypay.query)
         .takeUntil(nextSearch$)
         .subscribe((response) => {
+          if (response.query) {
+            if (response.query.pages) {
             const res = response.query.pages;
             const pageID = Object.keys(res)[0];
        if (res[pageID].extract) {
@@ -48,9 +50,9 @@ export class KnowledgeEffects {
                    this.store.dispatch(new knowledge.SearchContentAction([]));
                     return empty();
             }
-
-
-        });
+        }
+      }
+    });
         this.knowledgeservice.getImage(querypay.query)
         .takeUntil(nextSearch$)
         .subscribe((response) => {
