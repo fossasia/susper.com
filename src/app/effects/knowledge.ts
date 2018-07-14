@@ -36,7 +36,7 @@ export class KnowledgeEffects {
 
       const nextSearch$ = this.actions$.ofType(query.ActionTypes.QUERYSERVER).skip(1);
 
-      this.knowledgeservice.getSearchResults(querypay.query)
+      this.knowledgeservice.getSearchResults(this.toTitleCase(querypay.query))
         .takeUntil(nextSearch$)
         .subscribe((response) => {
           if (response.query) {
@@ -67,6 +67,15 @@ export class KnowledgeEffects {
 });
       return empty();
     });
+
+  toTitleCase(str) {
+    return str.replace(
+        /\w\S*/g,
+        function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }
+    );
+}
   constructor(
     private actions$: Actions,
     private knowledgeservice: KnowledgeapiService,
