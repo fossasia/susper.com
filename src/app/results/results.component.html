@@ -4,10 +4,10 @@
   <div class="row" [style.background-color]="themeService.backgroundColor">
     <div class="container-fluid" id="search-options-field" [style.background-color]="themeService.navbarbgColor">
       <ul type="none" id="search-options">
-        <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
-        <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
-        <li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li>
-        <li [class.active_view]="Display('news')" (click)="newsClick()">News</li>
+        <a [routerLink]="['/search']" [queryParams]="{query:this.searchdata.query,start:this.searchdata.start,rows:this.searchdata.rows,resultDisplay:'all',mode:'text',nopagechange:'false',append:'false'}"><li [class.active_view]="Display('all')" (click)="docClick()">All</li></a>
+        <a [routerLink]="['/search']" [queryParams]="{query:this.searchdata.query,start:this.searchdata.start,rows:this.searchdata.rows,mode:'text',nopagechange:'false',append:'false',fq:'url_file_ext_s%3A(png%2BOR%2Bjpeg%2BOR%2Bjpg%2BOR%2Bgif)',resultDisplay:'images'}"><li [class.active_view]="Display('images')" (click)="imageClick()">Images</li></a>
+        <a [routerLink]="['/search']" [queryParams]="{query:this.searchdata.query,start:this.searchdata.start,rows:this.searchdata.rows,resultDisplay:'videos',mode:'text',nopagechange:'false',append:'false',fq:'url_file_ext_s%3A(avi%2BOR%2Bmov%2BOR%2Bflv%2BOR%2Bmp4)'}"><li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li></a>
+        <a [routerLink]="['/search']" [queryParams]="{query:this.searchdata.query,start:this.searchdata.start,rows:this.searchdata.rows,resultDisplay:'news',mode:'text',nopagechange:'false',append:'false'}"><li [class.active_view]="Display('news')" (click)="newsClick()">News</li></a>
         <li class="dropdown">
           <a href="#" id="settings" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             Settings
