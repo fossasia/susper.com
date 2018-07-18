@@ -325,6 +325,11 @@ a {
   padding: 6px 0.4px ;
 }
 
+.pagination>li>span.active_page{
+    color: #000000;
+    background-color: #c9cdef;
+}
+
 .clean {
   clear: both;
 }
@@ -671,9 +676,9 @@ div.autocorrect {
     padding: 0 2.3% 12px;
   }
 
-  #search-options-field {	
-   padding-top: 8%;	
-  }	
+  #search-options-field {
+   padding-top: 8%;
+  }
 
   #setting-dropdown {
     min-width: 100px;
