@@ -53,6 +53,7 @@ export class KnowledgeEffects {
         }
       }
     });
+    if (querypay.query !== '') {
         this.knowledgeservice.getImage(querypay.query)
         .takeUntil(nextSearch$)
         .subscribe((response) => {
@@ -65,6 +66,7 @@ export class KnowledgeEffects {
                   }
 
 });
+    }
       return empty();
     });
 
