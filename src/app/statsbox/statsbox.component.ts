@@ -16,6 +16,7 @@ export class StatsboxComponent implements OnInit {
   selectedelement: number = -1;
   querychange$: Observable<any>;
   searchresults$: Observable<any>;
+  analyticsStatus: string = 'Show Chart';
 
   public lineChartColors: Array<any> = [
     {
@@ -133,6 +134,18 @@ export class StatsboxComponent implements OnInit {
       this.lineChartLabels = [2015, 2016, 2017];
       return;
     };
+  }
+
+  BoxToggle() {
+    if (this.analyticsStatus === 'Show Chart') {
+      this.analyticsStatus = 'Hide Chart';
+      document.getElementById('light').style.display = 'block';
+      document.getElementById('fade').style.display = 'block';
+    } else {
+      this.analyticsStatus = 'Show Chart';
+      document.getElementById('light').style.display = 'none';
+      document.getElementById('fade').style.display = 'none';
+    }
   }
 
   ngOnInit() {

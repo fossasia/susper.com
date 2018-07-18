@@ -36,9 +36,11 @@ export class KnowledgeEffects {
 
       const nextSearch$ = this.actions$.ofType(query.ActionTypes.QUERYSERVER).skip(1);
 
-      this.knowledgeservice.getSearchResults(querypay.query)
+      this.knowledgeservice.getSearchResults(this.toTitleCase(querypay.query))
         .takeUntil(nextSearch$)
         .subscribe((response) => {
+          if (response.query) {
+            if (response.query.pages) {
             const res = response.query.pages;
             const pageID = Object.keys(res)[0];
        if (res[pageID].extract) {
@@ -48,9 +50,9 @@ export class KnowledgeEffects {
                    this.store.dispatch(new knowledge.SearchContentAction([]));
                     return empty();
             }
-
-
-        });
+        }
+      }
+    });
         this.knowledgeservice.getImage(querypay.query)
         .takeUntil(nextSearch$)
         .subscribe((response) => {
@@ -65,6 +67,15 @@ export class KnowledgeEffects {
 });
       return empty();
     });
+
+  toTitleCase(str) {
+    return str.replace(
+        /\w\S*/g,
+        function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }
+    );
+}
   constructor(
     private actions$: Actions,
     private knowledgeservice: KnowledgeapiService,

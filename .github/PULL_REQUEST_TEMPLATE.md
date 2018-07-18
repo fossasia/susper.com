@@ -16,7 +16,7 @@ Fixes #
 
 <!-- Demo Link: Add here the link where you changes can be seen. -->
 
--
+- https://pr-XXXX-fossasia-susper.surge.sh
 
 <!-- Screenshots for the change: Add here the screenshot of the fix. -->
 -

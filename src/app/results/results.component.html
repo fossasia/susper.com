@@ -4,10 +4,14 @@
   <div class="row" [style.background-color]="themeService.backgroundColor">
     <div class="container-fluid" id="search-options-field" [style.background-color]="themeService.navbarbgColor">
       <ul type="none" id="search-options">
-        <li [class.active_view]="Display('all')" (click)="docClick()">All</li>
-        <li [class.active_view]="Display('images')" (click)="imageClick()">Images</li>
-        <li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li>
-        <li [class.active_view]="Display('news')" (click)="newsClick()">News</li>
+        <a [routerLink]="['/search']" [queryParams]="{query:this.searchdata.query,start:this.searchdata.start,rows:this.searchdata.rows,resultDisplay:'all',mode:'text',nopagechange:'false',append:'false'}" [hidden]="this.resultDisplay==='all'"><li [class.active_view]="Display('all')" (click)="docClick()">All</li></a>
+        <li [class.active_view]="Display('all')" (click)="docClick()" *ngIf="Display('all')">All</li>
+        <a [routerLink]="['/search']" [queryParams]="{query:this.searchdata.query,start:this.searchdata.start,rows:this.searchdata.rows,mode:'text',nopagechange:'false',append:'false',fq:'url_file_ext_s%3A(png%2BOR%2Bjpeg%2BOR%2Bjpg%2BOR%2Bgif)',resultDisplay:'images'}" [hidden]="this.resultDisplay==='images'"><li [class.active_view]="Display('images')" (click)="imageClick()">Images</li></a>
+        <li [class.active_view]="Display('images')" (click)="imageClick()" *ngIf="Display('images')">Images</li>
+        <a [routerLink]="['/search']" [queryParams]="{query:this.searchdata.query,start:this.searchdata.start,rows:this.searchdata.rows,resultDisplay:'videos',mode:'text',nopagechange:'false',append:'false',fq:'url_file_ext_s%3A(avi%2BOR%2Bmov%2BOR%2Bflv%2BOR%2Bmp4)'}" [hidden]="this.resultDisplay==='videos'"><li [class.active_view]="Display('videos')" (click)="videoClick()">Videos</li></a>
+        <li [class.active_view]="Display('videos')" (click)="videoClick()" *ngIf="Display('videos')">Videos</li>
+        <a [routerLink]="['/search']" [queryParams]="{query:this.searchdata.query,start:this.searchdata.start,rows:this.searchdata.rows,resultDisplay:'news',mode:'text',nopagechange:'false',append:'false'}" [hidden]="this.resultDisplay==='news'"><li [class.active_view]="Display('news')" (click)="newsClick()">News</li></a>
+        <li [class.active_view]="Display('news')" (click)="newsClick()" *ngIf="Display('news')">News</li>
         <li class="dropdown">
           <a href="#" id="settings" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             Settings
@@ -33,7 +37,7 @@
     <div [hidden]="hidefooter">
       <!-- Basic results 'All' -->
       <div class="container-fluid">
-        <div class="result message-bar" *ngIf="totalNumber > 0 && !Display('images') && !Display('news')">
+        <div id="result-message" class="result message-bar" *ngIf="totalNumber > 0 && !Display('images') && !Display('news')">
           {{message}}
         </div>
         <div class="autocorrect">
@@ -56,15 +60,14 @@
         </div>
         <div class="container-fluid">
           <div class="combo-box">
+              <div class="small-info">
               <app-infobox></app-infobox>
-            <button class="btn" id="toggle-button" (click)="BoxToggle()" type="button" data-toggle="collapse" data-target="#statbox"
-              aria-expanded="false" aria-controls="collapseExample" *ngIf="totalNumber > 0">
-              {{boxMessage}} Analytics
-            </button>
-            <app-statsbox class="collapse" id="statbox"></app-statsbox>
+              </div>
+              <div class="intelligence">
+              <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
+              </div>
           </div>
           <div class="feed">
-            <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
             <div class="result">
               <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
@@ -242,5 +245,12 @@
         <!--footer navigation bar goes here-->
       </div>
     </div>
+    <div class="combo-box">
+        <button class="btn" id="toggle-button" (click)="BoxToggle()" type="button" data-toggle="collapse" data-target="#statbox"
+          aria-expanded="false" aria-controls="collapseExample" *ngIf="totalNumber > 0">
+          {{boxMessage}} Analytics
+        </button>
+        <app-statsbox class="collapse" id="statbox"></app-statsbox>
+        </div>
     <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
   </div>
