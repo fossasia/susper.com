@@ -47,7 +47,19 @@ describe('AutoCorrectComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should create an instance of AutoCorrectComponent', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have query$ variable', () => {
+    expect(component.query$).toBeTruthy();
+  });
+
+  it('should have resultsearch variable equal to "/search"', () => {
+    expect(component.resultsearch).toEqual('/search');
+  });
+
+  it('should have resultscomponentchange$ variable as Observables', () => {
+    expect(component.resultscomponentchange$).toBeTruthy();
   });
 });

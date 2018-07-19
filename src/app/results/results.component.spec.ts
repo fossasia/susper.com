@@ -180,6 +180,11 @@ describe('ResultsComponent', () => {
     } else if (component.resultDisplay.toLocaleLowerCase() === 'videos') {
       expect(compiled.querySelector('div.video-result div.title'));
       expect(compiled.querySelector('div.video-result div.link'));
+      expect(compiled.querySelector('div.video-result div.description'));
+    } else if (component.resultDisplay.toLocaleLowerCase() === 'news') {
+      expect(compiled.querySelector('div.news-result div.title'));
+      expect(compiled.querySelector('div.news-result div.link'));
+      expect(compiled.querySelector('div.news-result div.description'));
     }
   });
 

@@ -1,5 +1,4 @@
 import { TestBed, inject } from '@angular/core/testing';
-
 import { NewsService } from './news.service';
 
 describe('NewsService', () => {
