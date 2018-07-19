@@ -23,6 +23,9 @@ export class InfoboxComponent implements OnInit {
   speechMode: any;
   content_response$: Observable<any>;
   image_response$: Observable<any>;
+  getPosition(string, subString, index) {
+    return string.split(subString, index).join(subString).length;
+ }
   constructor(private store: Store<fromRoot.State>,
               private synthesis: SpeechSynthesisService,
               public themeService: ThemeService) {
@@ -37,6 +40,7 @@ export class InfoboxComponent implements OnInit {
       if (res.extract) {
         this.title = res.title;
         this.description = res.extract;
+        this.description = this.description.slice(0, this.getPosition(this.description, '.', 4) + 1);
         this.isVisible = true;
         if (this.speechMode === 'speech') {
           this.startSpeaking(this.description);
