@@ -15,6 +15,7 @@ declare var SpeechSynthesisUtterance: any;
 export class InfoboxComponent implements OnInit {
   title: string = '';
   description: string = '';
+  querydescription: string = '';
   results: object;
   query$: any;
   image: string;
@@ -23,16 +24,19 @@ export class InfoboxComponent implements OnInit {
   speechMode: any;
   content_response$: Observable<any>;
   image_response$: Observable<any>;
-  getPosition(string, subString, index) {
-    return string.split(subString, index).join(subString).length;
+  description_response$: Observable<any>;
+  getString(string, subString, index) {
+    return string.split(subString, index).join(subString);
  }
   constructor(private store: Store<fromRoot.State>,
               private synthesis: SpeechSynthesisService,
-              public themeService: ThemeService) {
+              public themeService: ThemeService
+            ) {
     this.query$ = store.select(fromRoot.getwholequery);
     this.query$.subscribe(query => {
       this.speechMode = query.mode;
     });
+
     this.content_response$ = store.select(fromRoot.getKnowledgeContent);
     this.content_response$.subscribe(res => {
     this.isVisible = false;
@@ -40,7 +44,7 @@ export class InfoboxComponent implements OnInit {
       if (res.extract) {
         this.title = res.title;
         this.description = res.extract;
-        this.description = this.description.slice(0, this.getPosition(this.description, '.', 4) + 1);
+        this.description = this.getString(this.description, '.', 4) + '.';
         this.isVisible = true;
         if (this.speechMode === 'speech') {
           this.startSpeaking(this.description);
@@ -55,6 +59,13 @@ export class InfoboxComponent implements OnInit {
         this.image = '';
       }
     });
+    this.description_response$ = store.select(fromRoot.getDescription);
+    this.description_response$.subscribe(res => {
+      if (res['search']) {
+        this.querydescription = res['search'][0]['description'];
+      }
+    }
+    );
   }
   startSpeaking(description) {
         let msg = new SpeechSynthesisUtterance(description);

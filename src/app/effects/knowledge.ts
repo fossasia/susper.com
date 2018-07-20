@@ -67,6 +67,18 @@ export class KnowledgeEffects {
 
 });
     }
+    this.knowledgeservice.getQueryDescription(querypay.query)
+        .takeUntil(nextSearch$)
+        .subscribe((response) => {
+          if (response['search']) {
+            this.store.dispatch(new knowledge.DescriptionAction(response));
+            return empty();
+             } else {
+                         this.store.dispatch(new knowledge.DescriptionAction([]));
+                          return empty();
+                  }
+
+});
       return empty();
     });
 

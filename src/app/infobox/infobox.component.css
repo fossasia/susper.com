@@ -8,7 +8,7 @@ img{
   height: 40%;
   float: right;
   margin-right:10px;
-  margin-top:-50px;
+  margin-top:-100px;
 }
 .card {
   /* Add shadows to create the "card" effect */
@@ -35,6 +35,16 @@ p {
 a:hover, a:visited, a:link, a:active {
   text-decoration: none;
 }
+.query_description{
+  color: #777;
+  font-family: arial,sans-serif;
+  margin-top: -25px;
+  font-size: 1em;
+  max-width: 200px;
+}
+hr{
+  margin-top: 0px;
+}
 /** Screen Responsiveness **/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @media screen and (max-width: 1307px) {
@@ -43,6 +53,10 @@ a:hover, a:visited, a:link, a:active {
     }
     h2 {
       font-size: 2em;
+    }
+    .query_description{
+      font-size: 0.8em;
+      max-width: 180px;
     }
   }
 }
@@ -77,5 +91,9 @@ a:hover, a:visited, a:link, a:active {
 @media screen and (max-width: 330px){
   h2{
     font-size: 1.7em;
+  }
+  .query_description{
+    font-size: 0.7em;
+    max-width: 160px;
   }
 }
