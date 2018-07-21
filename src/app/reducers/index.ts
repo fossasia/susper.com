@@ -88,6 +88,7 @@ export const getNavigation = createSelector(getSearchState, fromSearch.getNaviga
 export const getquery = createSelector(getQueryState, fromQuery.getpresentquery);
 export const getKnowledgeContent = createSelector(getKnowledgeState, fromKnowledge.getContentResponse);
 export const getKnowledgeImage = createSelector(getKnowledgeState, fromKnowledge.getImageResponse);
+export const getDescription = createSelector(getKnowledgeState, fromKnowledge.getDescriptionResponse);
 export const getwholequery = createSelector(getQueryState, fromQuery.getpresentwholequery);
 export const getResponseTime = createSelector(getSearchState, fromSearch.getresponsetime);
 export const getSpeechMode = createSelector(getSpeechState, fromSpeech.getspeechmode);

@@ -12,6 +12,7 @@ export class KnowledgeapiService {
 
   server = 'https://en.wikipedia.org';
   searchURL = this.server + '/w/api.php?';
+  descriptionURL = 'https://www.wikidata.org/w/api.php?';
   homepage = 'http://susper.com';
   logo = '../images/susper.svg';
   imgUrl = 'https://api.duckduckgo.com/?';
@@ -22,7 +23,7 @@ export class KnowledgeapiService {
 
   getSearchResults(searchquery) {
 
-    let params = new URLSearchParams();
+    const params = new URLSearchParams();
 
     params.set('origin', '*');
     params.set('format', 'json');
@@ -32,8 +33,8 @@ export class KnowledgeapiService {
     params.set('explaintext', '');
     params.set('titles', searchquery);
 
-    let headers = new Headers({ 'Accept': 'application/json' });
-    let options = new RequestOptions({ headers: headers, search: params });
+    const headers = new Headers({ 'Accept': 'application/json' });
+    const options = new RequestOptions({ headers: headers, search: params });
     return this.http
       .get(this.searchURL, options).map(res =>
           res.json()
@@ -42,19 +43,34 @@ export class KnowledgeapiService {
   }
 
   getImage(searchquery) {
-    let params = new URLSearchParams();
+    const params = new URLSearchParams();
 
     params.set('origin', '*');
     params.set('q', searchquery);
     params.set('format', 'json');
     params.set('pretty', '1');
-    let headers = new Headers({ 'Accept': 'application/json' });
-    let options = new RequestOptions({ headers: headers, search: params });
+    const headers = new Headers({ 'Accept': 'application/json' });
+    const options = new RequestOptions({ headers: headers, search: params });
 
     return this.http.get(this.imgUrl, options).map(res =>
       res.json()
       ).catch(this.handleError);
     }
+  getQueryDescription(searchquery) {
+    const params = new URLSearchParams();
+
+    params.set('origin', '*');
+    params.set('action', 'wbsearchentities');
+    params.set('search', searchquery);
+    params.set('language', 'en');
+    params.set('format', 'json');
+    const headers = new Headers({ 'Accept': 'application/json' });
+    const options = new RequestOptions({ headers: headers, search: params });
+
+    return this.http.get(this.descriptionURL, options).map(res =>
+      res.json()
+      ).catch(this.handleError);
+  }
 
   private handleError (error: any) {
     // In some advance version we can include a remote logging of errors
