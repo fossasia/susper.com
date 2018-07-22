@@ -1,10 +1,7 @@
 # susper.com
 
-Susper is a decentralized Search Engine that uses the peer to peer system yacy and Apache Solr to crawl and index search results.
-
-* **master:** [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=master)](https://travis-ci.org/fossasia/susper.com) **(Deployed on https://susper.com)**
-* **development:** [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=development)](https://travis-ci.org/fossasia/susper.com) **(Deployed on http://susper-dev.herokuapp.com)**
-
+master: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=master)](https://travis-ci.org/fossasia/susper.com) 
+development: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=development)](https://travis-ci.org/fossasia/susper.com) 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ba119419e7444b3b505bb37b4525deb)](https://www.codacy.com/app/shiven15094/susper-com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fossasia/susper.com&amp;utm_campaign=Badge_Grade)
 [![Code Climate](https://codeclimate.com/github/fossasia/susper.com/badges/gpa.svg?branch=gh-pages)](https://codeclimate.com/github/fossasia/susper.com)
 [![codecov](https://codecov.io/gh/fossasia/susper.com/branch/master/graph/badge.svg)](https://codecov.io/gh/fossasia/susper.com)
@@ -12,8 +9,13 @@ Susper is a decentralized Search Engine that uses the peer to peer system yacy a
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/fossasia/susper.com.svg)](http://isitmaintained.com/project/fossasia/susper.com "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/fossasia/susper.com.svg)](http://isitmaintained.com/project/fossasia/susper.com "Percentage of issues still open")
 
-[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/fossasia/susper.com) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/fossasia/susper.com)
 
+Susper is a decentralized Search Engine that uses the peer to peer system yacy and Apache Solr to crawl and index search results.
+
+You can test the branches of susper here:
+* Development branch: http://susper-dev.herokuapp.com
+* Master branch: https://susper.com
+ 
 ## Communication
 
 Our chat channel is on gitter: https://gitter.im/fossasia/susper.com
@@ -48,6 +50,9 @@ After installing angular-cli we need to install our required node modules, so we
 $ npm install
 ```
 ## How to deploy?
+
+[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/fossasia/susper.com) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/fossasia/susper.com)
+
 ### Running on localhost:
 * **Step 1:** Fork susper repository and clone it to your desktop
 * **Step 2:** Then cd into that cloned folder
