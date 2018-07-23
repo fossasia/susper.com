@@ -4,6 +4,7 @@ import * as fromRoot from '../reducers';
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import { ThemeService } from '../services/theme.service';
+import { url } from 'assets/url_configuration';
 
 @Component({
   selector: 'app-index',
@@ -12,6 +13,7 @@ import { ThemeService } from '../services/theme.service';
 })
 
 export class IndexComponent implements OnInit {
+  fossasia_repo = url.github_repo.fossasia;
   searchdata: any = {
     query: '',
     start: 0,

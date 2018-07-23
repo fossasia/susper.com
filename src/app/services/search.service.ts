@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
 import { url } from '../../assets/url_configuration';
 @Injectable()
 export class SearchService {
-  searchServer = url[1];
+  searchServer = url.yacy.api_server;
   searchUrl = 'https://' + this.searchServer + '/solr/select';
   Items: any;
   headline: string;

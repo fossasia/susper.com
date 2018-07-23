@@ -13,9 +13,9 @@ import { url } from '../../assets/url_configuration';
 
 @Injectable()
 export class AutocompleteService {
-  server = url[1];
+  server = url.yacy.api_server;
   suggestUrl = 'https://' + this.server + '/suggest.json';
-  homepage = 'https://' + url[0];
+  homepage = 'https://' + url.susper.site;
   logo = '../images/susper.svg';
 
   constructor(

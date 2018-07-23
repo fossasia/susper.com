@@ -10,7 +10,7 @@ export class NewsService {
   }
 
   getSearchResults(searchquery, org) {
-    let searchURL = 'https://' + url[1] + '/solr/select?query=';
+    let searchURL = 'https://' + url.yacy.api_server + '/solr/select?query=';
     searchURL += searchquery.query + ' site:' + org;
     let params = new URLSearchParams();
 

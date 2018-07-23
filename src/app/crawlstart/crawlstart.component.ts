@@ -8,9 +8,9 @@ import { url } from '../../assets/url_configuration';
   styleUrls: ['./crawlstart.component.css']
 })
 export class CrawlstartComponent implements OnInit {
-  susperUrl = url[0];
-  yacySearchlabUrl = url[1];
-  yacyWebSearchUrl = url[4];
+  susperUrl = url.susper.site;
+  yacySearchlabUrl = url.yacy.api_server;
+  yacyWebSearchUrl = url.yacy.websearch_api;
   crawlvalues: any = {
     "crawlingMode": "url",
     "crawlingURL": "",

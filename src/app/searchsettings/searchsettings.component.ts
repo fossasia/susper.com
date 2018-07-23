@@ -12,7 +12,7 @@ import { url } from '../../assets/url_configuration';
 })
 export class SearchsettingsComponent implements OnInit {
   resultCount = 10;
-  public susperUrl = url[0];
+  public susperUrl = url.susper.site;
   instantresults: boolean;
   wholequery$: Observable<any>;
   searchdata: Array<any> = [];

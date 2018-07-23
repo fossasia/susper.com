@@ -6,8 +6,9 @@ import { url } from '../../assets/url_configuration';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
-  susperUrl = url[0];
-  yacyUrl = url[3];
+  susperUrl = url.susper.site;
+  yacyUrl = url.yacy.api_server;
+  fossasia_repo = url.github_repo.fossasia;
   constructor() { }
   ngOnInit() {
   }

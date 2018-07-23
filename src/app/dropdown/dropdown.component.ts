@@ -7,14 +7,16 @@ import { url } from '../../assets/url_configuration';
 })
 export class DropdownComponent implements OnInit {
 
-  susperUrl = url[0];
-  fossasiaBlogUrl = url[5];
-  fossasiaUrl = url[6];
-  loklakUrl = url[7];
-  susiUrl = url[8];
-  eventyayUrl = url[9];
-  pslabUrl = url[10];
-  fossasiaLabsUrl = url[11];
+  susperUrl = url.susper.site;
+  fossasiaBlogUrl = url.fossasia.blog;
+  fossasiaUrl = url.fossasia.site;
+  loklakUrl = url.loklak.site;
+  susiUrl = url.susi.site;
+  eventyayUrl = url.eventyay.site;
+  pslabUrl = url.pslab.site;
+  fossasiaLabsUrl = url.fossasia.labs;
+  fossasia_repo = url.github_repo.fossasia;
+
   constructor() { }
   ngOnInit() {
   }

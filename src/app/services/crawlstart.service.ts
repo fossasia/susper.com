@@ -6,7 +6,7 @@ import 'rxjs/add/operator/retry';
 
 @Injectable()
 export class CrawlstartService {
-  crawlStartUrl = 'https://' + url[2] + '/yacy/grid/crawler/defaultValues.json?CALLBACK=JSONP_CALLBACK';
+  crawlStartUrl = 'https://' + url.yacy.crawl_start_api + '/yacy/grid/crawler/defaultValues.json?CALLBACK=JSONP_CALLBACK';
   constructor(
     private jsonp: Jsonp
   ) {

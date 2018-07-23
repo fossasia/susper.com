@@ -57,7 +57,7 @@ describe('Service: Search', () => {
       connection.mockRespond(new Response(options));
       expect(connection.request.method).toEqual(RequestMethod.Get);
       expect(connection.request.url).toBe(
-        `https://${url[1]}/solr/select` +
+        `https://${url.yacy.api_server}/solr/select` +
                       `?0=I&1=n&2=d&3=i&4=a&wt=yjson` +
                       `&callback=JSONP_CALLBACK` +
                       `&facet=true` +

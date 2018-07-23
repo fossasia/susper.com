@@ -13,7 +13,7 @@ export class KnowledgeapiService {
   server = 'https://en.wikipedia.org';
   searchURL = this.server + '/w/api.php?';
   descriptionURL = 'https://www.wikidata.org/w/api.php?';
-  homepage = 'http://' + url[0];
+  homepage = 'http://' + url.susper.site;
   logo = '../images/susper.svg';
   imgUrl = 'https://api.duckduckgo.com/?';
   constructor(private http: Http,
