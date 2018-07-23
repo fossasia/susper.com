@@ -5,7 +5,7 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 import { Http, BaseRequestOptions, RequestMethod, Response, ResponseOptions, HttpModule, JsonpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from '../reducers/index';
-
+import { url } from '../../assets/url_configuration';
 import { SearchService } from './search.service';
 import { MockSearchApi } from '../shared/mocks/search.mock';
 
@@ -57,7 +57,7 @@ describe('Service: Search', () => {
       connection.mockRespond(new Response(options));
       expect(connection.request.method).toEqual(RequestMethod.Get);
       expect(connection.request.url).toBe(
-        `https://yacy.searchlab.eu/solr/select` +
+        `https://${url.yacy.api_server}/solr/select` +
                       `?0=I&1=n&2=d&3=i&4=a&wt=yjson` +
                       `&callback=JSONP_CALLBACK` +
                       `&facet=true` +

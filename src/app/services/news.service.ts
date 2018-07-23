@@ -3,14 +3,14 @@ import { Http, URLSearchParams, Jsonp } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
-
+import { url } from '../../assets/url_configuration';
 @Injectable()
 export class NewsService {
   constructor(private jsonp: Jsonp) {
   }
 
   getSearchResults(searchquery, org) {
-    let searchURL = 'https://yacy.searchlab.eu/solr/select?query=';
+    let searchURL = 'https://' + url.yacy.api_server + '/solr/select?query=';
     searchURL += searchquery.query + ' site:' + org;
     let params = new URLSearchParams();
 

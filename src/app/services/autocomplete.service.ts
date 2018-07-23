@@ -9,12 +9,13 @@ import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Rx';
 import * as search from '../actions/search';
 import * as fromRoot from '../reducers';
+import { url } from '../../assets/url_configuration';
 
 @Injectable()
 export class AutocompleteService {
-  server = 'yacy.searchlab.eu';
-  suggestUrl = 'https://' + this.server + '/suggest.json?callback=?';
-  homepage = 'https://susper.com';
+  server = url.yacy.api_server;
+  suggestUrl = 'https://' + this.server + '/suggest.json';
+  homepage = 'https://' + url.susper.site;
   logo = '../images/susper.svg';
 
   constructor(
@@ -27,7 +28,6 @@ export class AutocompleteService {
 
     let params = new URLSearchParams();
     params.set('q', searchquery);
-    // params.set('QueryClass', 'MaxHits=5');
 
     params.set('wt', 'yjson');
     params.set('callback', 'JSONP_CALLBACK');
@@ -42,7 +42,7 @@ export class AutocompleteService {
     let headers = new Headers({ 'Accept': 'application/json' });
     let options = new RequestOptions({ headers: headers, search: params });
     return this.jsonp
-      .get('https://yacy.searchlab.eu/suggest.json', {search: params}).map(res =>
+      .get(this.suggestUrl, {search: params}).map(res =>
 
         res.json()[0]
 

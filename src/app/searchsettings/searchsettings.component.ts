@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import * as fromRoot from '../reducers';
 import * as queryactions from '../actions/query';
-
+import { url } from '../../assets/url_configuration';
 @Component({
   selector: 'app-searchsettings',
   templateUrl: './searchsettings.component.html',
@@ -12,6 +12,7 @@ import * as queryactions from '../actions/query';
 })
 export class SearchsettingsComponent implements OnInit {
   resultCount = 10;
+  public susperUrl = url.susper.site;
   instantresults: boolean;
   wholequery$: Observable<any>;
   searchdata: Array<any> = [];

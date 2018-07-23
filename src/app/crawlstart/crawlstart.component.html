@@ -8,7 +8,7 @@
         <span class = "icon-bar"></span>
         <span class = "icon-bar"></span>
       </button>
-      <a class="navbar-brand advsearch-navbar" href="//susper.com">
+      <a class="navbar-brand advsearch-navbar" href="//{{susperUrl}}">
         <img alt="brand" class="navbar-logo" src="../../assets/images/susper.svg">
       </a>
     </div>
@@ -32,7 +32,7 @@
     You can define URLs as start points for Web page crawling and start crawling here.
     "Crawling" implies that YaCy will download the given website, extract all links in it and then download the content behind these links.
     This is repeated as long as specified under "Crawling Depth".
-    A crawl can also be started using wget and the <a href="http://www.yacy-websearch.net/wiki/index.php/Dev:APICrawler" target="_blank">post arguments</a> for this web page.
+    A crawl can also be started using wget and the <a href="http://www.{{yacyWebSearchUrl}}/wiki/index.php/Dev:APICrawler" target="_blank">post arguments</a> for this web page.
   </p>
   
   <hr>
@@ -133,13 +133,13 @@
             </div>
 
             <div class="col-md-6">
-              <img src="https://yacy.searchlab.eu/env/grafics/plus.gif">
+              <img src="https://{{yacySearchlabUrl}}/env/grafics/plus.gif">
               <span>must-match</span><br/>
               <input type="radio" [(ngModel)]="crawlvalues.range" id="terms appearing" value="domain" name="range"><span>Restrict to start domain(s)</span><br/>
               <input type="radio" [(ngModel)]="crawlvalues.range" value="subpath" name="range"><span>Restrict to sub-path(s)</span><br/>
               <input [(ngModel)]="crawlvalues.range" type="radio" name="range"><span>Use Filter</span><br/>
               <input [(ngModel)]="crawlvalues.mustmatch" type="text" name="mustmatch" class="form-control" size="55" maxlength="100000" value=".*" onblur="if(this.value=='')this.value='.*';">
-              <img src="https://yacy.searchlab.eu/env/grafics/minus.gif"><span>must-not-match</span>
+              <img src="https://{{yacySearchlabUrl}}/env/grafics/minus.gif"><span>must-not-match</span>
               <input type="text" class="form-control" [(ngModel)]="crawlvalues.mustnotmatch" name="mustnotmatch" size="55" maxlength="100000">
             </div>
           </div>
@@ -147,10 +147,10 @@
           <div class="form-group">
             <div class="col-md-4"><label for="terms appearing">Load Filter on IPs</label></div> 
             <div class="col-md-6">
-              <img src="https://yacy.searchlab.eu/env/grafics/plus.gif">
+              <img src="https://{{yacySearchlabUrl}}/env/grafics/plus.gif">
               <span>must-match</span>
               <input [(ngModel)]="crawlvalues.ipMustmatch" name="ipMustmatch" type="text" class="form-control" size="55" maxlength="100000" value=".*" onblur="if(this.value=='')this.value='.*';">
-              <img src="https://yacy.searchlab.eu/env/grafics/minus.gif"><span>must-not-match</span>
+              <img src="https://{{yacySearchlabUrl}}/env/grafics/minus.gif"><span>must-not-match</span>
               <input type="text" class="form-control" [(ngModel)]="crawlvalues.ipMustnotmatch" size="55" name="ipmustnotmatch" maxlength="100000">
             </div>
           </div>
@@ -179,9 +179,9 @@
               <label>Filter On URLs</label>
             </div>
             <div class="col-md-6">
-              <img src="https://yacy.searchlab.eu/env/grafics/plus.gif"><span>must match</span>
+              <img src="https://{{yacySearchlabUrl}}/env/grafics/plus.gif"><span>must match</span>
               <input name="index" [(ngModel)]="crawlvalues.indexmustmatch" type="text" class="form-control">
-              <img src="https://yacy.searchlab.eu/env/grafics/minus.gif"><span>must-not-match</span>
+              <img src="https://{{yacySearchlabUrl}}/env/grafics/minus.gif"><span>must-not-match</span>
               <input name="index" [(ngModel)]="crawlvalues.indexmustnotmatch" type="text" class="form-control">
             </div>
           </div>
@@ -192,9 +192,9 @@
               (all visible text, including camel-case-tokenized url and title)</label>
             </div>
             <div class="col-md-6">
-              <img src="https://yacy.searchlab.eu/env/grafics/plus.gif"><span>must match</span>
+              <img src="https://{{yacySearchlabUrl}}/env/grafics/plus.gif"><span>must match</span>
               <input name="index" [(ngModel)]="crawlvalues.indexcontentmustmatch" type="text" size="55" class="form-control" maxlength="100000">
-              <img src="https://yacy.searchlab.eu/env/grafics/minus.gif"><span>must-not-match</span>
+              <img src="https://{{yacySearchlabUrl}}/env/grafics/minus.gif"><span>must-not-match</span>
               <input name="index" [(ngModel)]="crawlvalues.indexcontentmustnotmatch" type="text" class="form-control"></div >
           </div>
         </div>

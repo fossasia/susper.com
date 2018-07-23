@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Jsonp, RequestOptions, URLSearchParams } from "@angular/http";
-
+import { url } from '../../assets/url_configuration';
 import {Observable} from "rxjs";
 import 'rxjs/add/operator/retry';
+
 @Injectable()
 export class CrawlstartService {
-
+  crawlStartUrl = 'https://' + url.yacy.crawl_start_api + '/yacy/grid/crawler/defaultValues.json?CALLBACK=JSONP_CALLBACK';
   constructor(
     private jsonp: Jsonp
-  ) { }
+  ) {
+
+  }
 
   getcrawldefaults() {
-    return this.jsonp.get('https://yacygrid.com:8300/yacy/grid/crawler/defaultValues.json?CALLBACK=JSONP_CALLBACK').map(res => {
+    return this.jsonp.get(this.crawlStartUrl).map(res => {
       res.json();
     }).retry(2)
       .catch(this.handleError);

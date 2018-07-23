@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CrawlstartService } from "../services/crawlstart.service";
 import { Router } from "@angular/router";
-
+import { url } from '../../assets/url_configuration';
 @Component({
   selector: 'app-crawlstart',
   templateUrl: './crawlstart.component.html',
   styleUrls: ['./crawlstart.component.css']
 })
 export class CrawlstartComponent implements OnInit {
+  susperUrl = url.susper.site;
+  yacySearchlabUrl = url.yacy.api_server;
+  yacyWebSearchUrl = url.yacy.websearch_api;
   crawlvalues: any = {
     "crawlingMode": "url",
     "crawlingURL": "",

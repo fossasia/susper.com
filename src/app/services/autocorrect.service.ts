@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { Http, URLSearchParams, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/retry';
 
-
 @Injectable()
 export class AutocorrectService {
   server = 'https://montanaflynn-spellcheck.p.mashape.com';
