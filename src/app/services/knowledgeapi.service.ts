@@ -6,14 +6,14 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../reducers';
 import * as search from '../actions/search';
 import { Observable } from 'rxjs';
-
+import { url } from '../../assets/url_configuration';
 @Injectable()
 export class KnowledgeapiService {
 
   server = 'https://en.wikipedia.org';
   searchURL = this.server + '/w/api.php?';
   descriptionURL = 'https://www.wikidata.org/w/api.php?';
-  homepage = 'http://susper.com';
+  homepage = 'http://' + url[0];
   logo = '../images/susper.svg';
   imgUrl = 'https://api.duckduckgo.com/?';
   constructor(private http: Http,
@@ -39,7 +39,6 @@ export class KnowledgeapiService {
       .get(this.searchURL, options).map(res =>
           res.json()
       ).catch(this.handleError);
-
   }
 
   getImage(searchquery) {

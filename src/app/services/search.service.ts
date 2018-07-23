@@ -6,9 +6,11 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../reducers';
 import * as search from '../actions/search';
 import {Observable} from 'rxjs';
-
+import { url } from '../../assets/url_configuration';
 @Injectable()
 export class SearchService {
+  searchServer = url[1];
+  searchUrl = 'https://' + this.searchServer + '/solr/select';
   Items: any;
   headline: string;
   greeting: string;
@@ -39,7 +41,7 @@ export class SearchService {
     params.append('facet.field', 'collection_sxt');
 
     return this.jsonp
-      .get('https://yacy.searchlab.eu/solr/select', {search: params}).map(res =>
+      .get(this.searchUrl, {search: params}).map(res =>
 
         res.json()[0]
 
