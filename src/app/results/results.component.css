@@ -167,7 +167,7 @@ a {
 /** Rendered image properties **/
 /*clearfix*/
 .container {
-  min-width: 100%;
+  min-width: 45%;
   margin-top: 10px;
 }
 
@@ -311,9 +311,6 @@ a {
   margin-left: 200px;
 }
 
-.pagination>li>span.active_page,.pagination>li>span>div.page-text.active_page{
-  color: #7f7f7f;
-}
 .pagination-property {
   max-width: 100%;
   padding-bottom: 30px;
@@ -443,7 +440,7 @@ div.autocorrect {
     margin-left: -150%!important;
     min-width: 100px!important;
   }
-}
+} 
 
 @media screen and (max-width: 560px) {
   #tool-dropdown {
@@ -454,7 +451,7 @@ div.autocorrect {
     min-width: 100px!important;
     margin-left: 200%!important;
 }
-}
+} 
 
 @media screen and (max-width: 495px) {
   #settings {
@@ -674,9 +671,9 @@ div.autocorrect {
     padding: 0 2.3% 12px;
   }
 
-  #search-options-field {
-   padding-top: 8%;
-  }
+  #search-options-field {	
+   padding-top: 8%;	
+  }	
 
   #setting-dropdown {
     min-width: 100px;
