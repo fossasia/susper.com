@@ -9,6 +9,7 @@ img{
   float: right;
   margin-right:10px;
   margin-top:-110px;
+  margin-left: 3px;
 }
 .card {
   /* Add shadows to create the "card" effect */
@@ -45,8 +46,16 @@ a:hover, a:visited, a:link, a:active {
 hr{
   margin-top: 0px;
 }
+/**Browser Specific CSS**/
+@-moz-document url-prefix(){
+    .query_description{
+      margin-top: -13px!important;
+    }
+    h2{
+      font-size: 2.3em!important;
+    }
+}
 /** Screen Responsiveness **/
-@media screen and (-webkit-min-device-pixel-ratio:0) {
   @media screen and (max-width: 1307px) {
     .card {
       width: 366px;
@@ -63,8 +72,17 @@ hr{
       margin-left: 10px;
       margin-right: -25px;
     }
-  }
-}
+    @-moz-document url-prefix(){
+      h2 {
+        font-size: 1.6em!important;
+      }
+        .query_description{
+          font-size: 0.7em!important;
+          max-width: 180px!important;
+        }
+      }
+    }
+
 
 @media screen and (max-width: 1205px) {
   .card {
@@ -98,12 +116,25 @@ hr{
   }
 }
 
-@media screen and (max-width: 330px){
-  h2{
-    font-size: 1.7em;
+
+  @media screen and (max-width: 390px) {
+    h2{
+      font-size: 1.5em;
+    }
+    .info-img{
+        width: 40%;
+        height: 40%;
+    }
   }
+
+@media screen and (max-width: 320px){
   .query_description{
     font-size: 0.7em;
-    max-width: 160px;
+  }
+  @-moz-document url-prefix(){  
+  h2{
+    font-size: 1.2em!important;
   }
 }
+}
+

@@ -19,4 +19,4 @@ export class DescriptionAction implements Action {
 }
 
 export type Actions
-  = SearchContentAction | SearchImageAction ;
+  = SearchContentAction | SearchImageAction | DescriptionAction ;
