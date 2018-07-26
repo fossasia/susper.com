@@ -63,10 +63,10 @@
               <div class="small-info">
               <app-infobox></app-infobox>
               </div>
-              <div class="intelligence">
-              <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
-              </div>
           </div>
+          <div class="intelligence">
+            <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
+            </div>
           <div class="feed">
             <div class="result">
               <div *ngFor="let item of items$|async" class="result">

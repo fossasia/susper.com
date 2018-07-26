@@ -21,7 +21,7 @@
 .infobox{
   float:left;
   margin-right: 15px;
-  margin-top: auto;
+  margin-top: -95px;
 }
 
 .link > p {
@@ -498,6 +498,11 @@ div.autocorrect {
     display: none;
   }
 }
+@media screen and (min-width: 1160px) and (max-width: 1919px){
+  .intelligence{
+    margin-left: 165px;
+  }
+}
 
 @media screen and (min-width:1920px) {
   div.autocorrect {
@@ -518,6 +523,9 @@ div.autocorrect {
 
   #search-options{
     margin-left: 174px;
+  }
+  .intelligence{
+    margin-left: 185px;
   }
 }
 
@@ -558,6 +566,9 @@ div.autocorrect {
   div.combo-box {
     margin-left: 13%;
   }
+  .intelligence{
+    margin-left: 13%;
+  }
   .result{
     margin-left: -2%;
   }
@@ -570,6 +581,9 @@ div.autocorrect {
 }
 @media screen and (max-width: 1079px) and (min-width: 1001px){
   div.combo-box {
+    margin-left: 10%;
+  }
+  .intelligence{
     margin-left: 10%;
   }
   .result{
@@ -587,6 +601,9 @@ div.autocorrect {
   div.combo-box {
     margin-left: 11%;
   }
+  .intelligence{
+    margin-left: 11%;
+  }
   .result{
     margin-left: -2%;
   }
@@ -599,6 +616,9 @@ div.autocorrect {
 }
 @media screen and (max-width: 960px) and (min-width: 931px){
   div.combo-box {
+    margin-left: 11.2%;
+  }
+  .intelligence{
     margin-left: 11.2%;
   }
   .result{
@@ -616,6 +636,9 @@ div.autocorrect {
   div.combo-box {
     margin-left: 12.2%;
   }
+  .intelligence{
+    margin-left: 12.2%;
+  }
   .result{
     margin-left: -2%;
   }
@@ -628,6 +651,9 @@ div.autocorrect {
 }
 @media screen and (max-width: 815px) and (min-width: 768px){
   div.combo-box {
+    margin-left: 14%;
+  }
+  .intelligence{
     margin-left: 14%;
   }
   .result{
