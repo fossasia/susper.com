@@ -62,7 +62,9 @@ export class InfoboxComponent implements OnInit {
     this.description_response$ = store.select(fromRoot.getDescription);
     this.description_response$.subscribe(res => {
       if (res['search']) {
-        this.querydescription = res['search'][0]['description'];
+        if (res['search'][0]) {
+          this.querydescription = res['search'][0]['description'];
+        }
       }
     }
     );
