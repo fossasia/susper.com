@@ -30,6 +30,10 @@ export class ResultsComponent implements OnInit {
   count: number = 1;
   boxMessage = 'Show';
   newsResponse: Array<any>;
+  newsResults: object = {
+    totalNewsResults: 0,
+    count: 0
+  };
   searchdata: any = {
     query: '',
     start: 0,
@@ -218,6 +222,10 @@ export class ResultsComponent implements OnInit {
                 this.newsResponse.push(response.channels[0].items[0]);
                 }
                 if (response.channels[0].items[1] !== undefined) {
+                  if (this.newsResults['count'] < 5) {
+                  this.newsResults['totalNewsResults'] += parseInt(response.channels[0].totalResults, 10);
+                  this.newsResults['count']++;
+                  }
                 this.newsResponse.push(response.channels[0].items[1]);
                 }
             }
@@ -314,5 +322,6 @@ export class ResultsComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 }
