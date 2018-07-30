@@ -310,6 +310,10 @@ a {
   margin-left: 200px;
 }
 
+.pagination>li>span.active_page,.pagination>li>span>div.page-text.active_page{
+  color: #7f7f7f;
+}
+
 .pagination-property {
   max-width: 100%;
   padding-bottom: 30px;
@@ -494,11 +498,6 @@ div.autocorrect {
     display: none;
   }
 }
-@media screen and (min-width: 1160px) and (max-width: 1919px){
-  .intelligence{
-    margin-left: 165px;
-  }
-}
 
 @media screen and (min-width:1920px) {
   div.autocorrect {
@@ -519,9 +518,6 @@ div.autocorrect {
 
   #search-options{
     margin-left: 174px;
-  }
-  .intelligence{
-    margin-left: 185px;
   }
 }
 
@@ -558,11 +554,13 @@ div.autocorrect {
     display: none;
   }
 }
+@media screen and (max-width: 1159px) and (min-width: 768px){
+  .intelligence{
+    margin-left: -4%;
+  }
+}
 @media screen and (max-width: 1159px) and (min-width: 1080px){
   div.combo-box {
-    margin-left: 13%;
-  }
-  .intelligence{
     margin-left: 13%;
   }
   .result{
@@ -577,9 +575,6 @@ div.autocorrect {
 }
 @media screen and (max-width: 1079px) and (min-width: 1001px){
   div.combo-box {
-    margin-left: 10%;
-  }
-  .intelligence{
     margin-left: 10%;
   }
   .result{
@@ -597,9 +592,6 @@ div.autocorrect {
   div.combo-box {
     margin-left: 11%;
   }
-  .intelligence{
-    margin-left: 11%;
-  }
   .result{
     margin-left: -2%;
   }
@@ -612,9 +604,6 @@ div.autocorrect {
 }
 @media screen and (max-width: 960px) and (min-width: 931px){
   div.combo-box {
-    margin-left: 11.2%;
-  }
-  .intelligence{
     margin-left: 11.2%;
   }
   .result{
@@ -632,9 +621,6 @@ div.autocorrect {
   div.combo-box {
     margin-left: 12.2%;
   }
-  .intelligence{
-    margin-left: 12.2%;
-  }
   .result{
     margin-left: -2%;
   }
@@ -649,9 +635,6 @@ div.autocorrect {
   div.combo-box {
     margin-left: 14%;
   }
-  .intelligence{
-    margin-left: 14%;
-  }
   .result{
     margin-left: -2%;
   }
@@ -660,11 +643,6 @@ div.autocorrect {
   }
   #result-message{
     margin-left: 14%;
-  }
-}
-@media screen and (max-width: 768px) {
-  .intelligence {
-    margin-left: 4%;
   }
 }
 
