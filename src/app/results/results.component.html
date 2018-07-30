@@ -64,10 +64,10 @@
               <app-infobox></app-infobox>
               </div>
           </div>
-          <div class="intelligence">
-            <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
-            </div>
           <div class="feed">
+              <div class="intelligence">
+                  <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
+                  </div>
             <div class="result">
               <div *ngFor="let item of items$|async" class="result">
                 <div class="title">
