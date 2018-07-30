@@ -1,6 +1,6 @@
 <div *ngIf="this.description" class="card" [hidden]="!isVisible" [style.color]="themeService.cardColor">
     <div>
-      <h2><b [style.color]="themeService.cardColor">{{this.title}}</b></h2><br><p class="query_description">{{this.querydescription}}</p><hr width="50%" align="left" *ngIf="this.image"><hr *ngIf="!this.image"><div class="info-img"><img *ngIf="this.image"  src={{this.image}}></div>
-      <p [style.color]="themeService.descriptionColor">{{this.description}}<a [style.color]="themeService.linkColor" href='https://en.wikipedia.org/wiki/{{this.title}}'><br>More at Wikipedia</a></p>
+      <h2><b [style.color]="themeService.cardColor">{{this.title}}</b></h2><br><p class="query_description">{{this.querydescription}}</p><hr width="50%" align="left" *ngIf="this.image"><hr *ngIf="!this.image"><div class="info-img"><img class="main_image" *ngIf="this.image"  src={{this.image}}></div>
+      <p [style.color]="themeService.descriptionColor">{{this.description}}<a [style.color]="themeService.linkColor" href='https://en.wikipedia.org/wiki/{{this.title}}'><br><div class="wiki_logo"><img src="../../assets/images/wikipedia-w-brands.svg"></div>More at Wikipedia</a></p>
     </div>
 </div>
