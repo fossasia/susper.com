@@ -84,8 +84,8 @@ div a:active {
 }
 
 #fsett a:hover {
-  text-decoration: underline;
-  background-color: white;
+  text-decoration: none;
+  background-color: rgb(0,0,0,0.1);
 }
 
 @media screen and (min-width: 320px) {
