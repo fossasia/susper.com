@@ -12,6 +12,7 @@ import * as queryactions from '../actions/query';
 import { SpeechService } from '../services/speech.service';
 import * as speechactions from '../actions/speech';
 import { ThemeService } from '../services/theme.service';
+import { url } from 'assets/url_configuration';
 
 @Component({
   selector: 'app-search-bar',
@@ -23,7 +24,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   query$: Observable<any>;
   displayStatus: any;
-
+  microphoneLogo = url.logos.microphone;
   searchdata = {
     query: '',
     rows: 10,
