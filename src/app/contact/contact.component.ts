@@ -1,12 +1,14 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
-
+import { url } from 'assets/url_configuration';
 @Component({
     selector: 'app-contact',
     templateUrl: './contact.component.html',
     styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
+
+    boatImage = url.logos.boat_image;
 
     @ViewChild('submitButton') submitButton;
     @ViewChild('emailInput') emailInput;
