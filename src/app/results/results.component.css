@@ -293,13 +293,13 @@ a {
 
 #setting-dropdown {
   margin-top: 8%;
-  margin-left: 15%;
+  margin-left: -66%;
   border-radius: 0;
 }
 
 #tool-dropdown {
   margin-top: 8%;
-  margin-left: 15%;
+  margin-left: -66%;
   border-radius: 0;
 }
 
@@ -430,12 +430,12 @@ div.autocorrect {
 }
 @media screen and (max-width: 890px) and (min-width: 768px){
   #tool-dropdown {
-    margin-left: -150%;
+    margin-left: -121%;
     min-width: 120px;
   }
   #setting-dropdown {
     min-width: 100px!important;
-    margin-left: -100%!important;
+    margin-left: -60%!important;
 }
 }
 @media screen and (max-width: 735px) {
