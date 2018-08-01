@@ -179,13 +179,13 @@ a {
   }
 }
 
-@media screen and (min-width: 1160px){
+@media screen and (min-width: 1159px){
   .small {
     display: none;
   }
 }
 
-@media screen and (max-width: 1160px){
+@media screen and (max-width: 1159px){
   .large {
     display: none;
   }

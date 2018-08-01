@@ -78,7 +78,7 @@
         <div class="card-container" id="relate" *ngIf="nav.displayname =='Provider' || nav.displayname =='Authors'">
           <h3  class="related-searches" *ngIf="i===currentelement"><b>Top {{nav.displayname}}</b></h3>
           <div style="display: block;cursor:pointer;cursor: hand;" *ngFor="let element of  ((i != currentelement)? (nav.elements | slice:0:0) :nav.elements)">
-            <a [routerLink]="['/search']" [queryParams]="changequerylook(element.modifier,element)" *ngIf="element.name" href="#" [style.color]="themeService.linkColor">
+            <a [routerLink]="['/search']" (click)='showMore()' [queryParams]="changequerylook(element.modifier,element)" *ngIf="element.name" href="#" [style.color]="themeService.linkColor">
               {{element.name}} <span class="badge badge-info">{{element.count}}</span>
             </a>
             <a  *ngIf="!element.name" style="color: black;cursor: default" href="#" [style.color]="themeService.linkColor">
