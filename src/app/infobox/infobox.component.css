@@ -1,15 +1,21 @@
-img{
+.main_image{
   width: 100%;
   height: 100%; 
   max-height: 200px;
   max-width: 165px;
 }
 .info-img{
-  /* width: 40%; */
   float: right;
   margin-right:10px;
   margin-top:-110px;
   margin-left: 3px;
+}
+.wiki_logo{
+  display: inline-block;
+  position: relative;
+  margin: 0 6px 0 0;
+  width: 20px;
+  height: 20px;
 }
 .card {
   /* Add shadows to create the "card" effect */
@@ -35,6 +41,7 @@ p {
 }
 a:hover, a:visited, a:link, a:active {
   text-decoration: none;
+  color: #006621;
 }
 .query_description{
   color: #777;
@@ -49,7 +56,7 @@ hr{
 /**Browser Specific CSS**/
 @-moz-document url-prefix(){
     .query_description{
-      margin-top: -13px!important;
+      margin-top: -8px!important;
     }
     h2{
       font-size: 2.3em!important;
@@ -67,7 +74,7 @@ hr{
       font-size: 0.8em;
       max-width: 180px;
     }
-    img {
+   .main_image{
       margin-top: 15px;
       margin-left: 10px;
       margin-right: -25px;
@@ -91,7 +98,7 @@ hr{
   h2 {
     font-size: 1.9em;
   }
-  img {
+  .main_image{
     margin-top: 15px;
     margin-left: 10px;
     max-width: 150px;
@@ -105,7 +112,7 @@ hr{
     width: 95vw;
     margin-left: 4vw;
   }
-  img{
+  .main_image{
     margin-right: 0;
   }
 }
