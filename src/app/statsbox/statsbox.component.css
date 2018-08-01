@@ -50,6 +50,10 @@ a.closeX {
   font-size:20px; 
   top: 1%;
 }
+.show_more{
+  display:block;
+  cursor:pointer;
+}
 
   .black_overlay {
     display: none;
@@ -79,6 +83,18 @@ a.closeX {
     margin-left: 6vw;
     border-radius: 2%;
   }
+  .white_content_analytics {
+    display: none;
+    position: fixed;
+    top: 10%;
+    left: 35%;
+    width: 454px;
+    height: 520px;
+    padding: 16px;
+    background-color: white;
+    z-index:1002;
+    overflow: auto;
+  }
 .large{
   width: 500px;
   height: 450px;
@@ -95,12 +111,12 @@ a.closeX {
 
 .badge{
   font-weight: 500;
-  border-radius: 3px;
+  border-radius: 1px;
 }
 
 .badge-info {
   background-color: #468847;
-  padding: 0.25em;
+  padding: 0.1em;
 }
 
 .badge-info:hover {
@@ -171,6 +187,9 @@ a {
 
 @media screen and (max-width: 1160px){
   .large {
+    display: none;
+  }
+  .show_more{
     display: none;
   }
 }
