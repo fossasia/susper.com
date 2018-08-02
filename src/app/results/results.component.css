@@ -77,7 +77,7 @@ a {
 }
 
 .page-item2 span {
-  padding-top: 2%;
+  padding-top: 8px;
   padding-left: 2%;
   padding-right: 2%;
   border: 0;
@@ -490,7 +490,7 @@ div.autocorrect {
     }
   }
 
-@media screen and (min-width: 426px) and (max-width: 2560px) {
+@media screen and (min-width: 425px) and (max-width: 2560px) {
   .next-page-mobile {
     display: none;
   }
