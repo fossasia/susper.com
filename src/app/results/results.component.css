@@ -103,7 +103,10 @@ a {
   color: #808080;
   margin-left: 172px;
 }
-
+.newsUrl {
+  font-size: small;
+  color: #808080;
+}
 .container-fluid {
   position: relative;
 }
@@ -388,9 +391,6 @@ div.autocorrect {
   margin-bottom: 7px;
   margin-left: 172px;
 }
-
-
-
 
  /*Responsiveness*/
 @media screen and (max-width: 811px) and (min-width: 768px) {

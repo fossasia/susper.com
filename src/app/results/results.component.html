@@ -41,7 +41,8 @@
           {{message}}
         </div>
         <div id="result-message" class="result message-bar" *ngIf="totalNumber > 0 && Display('news')">
-          About {{newsResults['totalNewsResults']}} results
+          About {{newsResults['totalNewsResults']}} results <br>
+          <a href="{{newsFileUrl}}" class="newsUrl">Configure News Organisations</a>
         </div>
         <div class="autocorrect">
           <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>

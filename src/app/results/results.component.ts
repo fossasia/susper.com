@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import * as queryactions from '../actions/query';
 import { GetJsonService } from '../services/get-json.service';
 import { NewsService } from '../services/news.service';
+import { url } from '../../assets/url_configuration';
 declare var $: any;
 
 @Component({
@@ -55,6 +56,7 @@ export class ResultsComponent implements OnInit {
   expand: boolean = false;
   items: Array<any>;
   expandedrow: number;
+  newsFileUrl: string = url.susper.newsFile;
 
   getNumber(N) {
     let result = Array.apply(null, { length: N }).map(Number.call, Number);
