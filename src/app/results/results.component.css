@@ -391,7 +391,13 @@ a {
 div.autocorrect {
   margin-bottom: 7px;
   margin-left: 172px;
+  height:5px;
 }
+
+.intelligence{
+  margin-top: 3%;
+}
+
 
  /*Responsiveness*/
 @media screen and (max-width: 811px) and (min-width: 768px) {
