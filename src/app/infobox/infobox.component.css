@@ -10,13 +10,7 @@
   margin-top:-110px;
   margin-left: 3px;
 }
-.wiki_logo{
-  display: inline-block;
-  position: relative;
-  margin: 0 6px 0 0;
-  width: 20px;
-  height: 20px;
-}
+
 .card {
   /* Add shadows to create the "card" effect */
   border: 1px solid rgba(150,150,150,0.3);
