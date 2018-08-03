@@ -3,7 +3,7 @@
 
   <div id="filtersearch" *ngFor="let nav of navigation$|async; let i = index">
     <div class="card-container" id="relate" *ngIf="nav.displayname =='Provider' || nav.displayname =='Authors'">
-      <h3  class="related-searches"><b>Top {{nav.displayname}}</b></h3>
+      <h3  class="related-searches"><b>Top {{nav.displayname}}<span *ngIf="nav.displayname.slice(-1)!=='s'">s</span></b></h3>
 
       <div style="display: block;cursor:pointer;cursor: hand;" *ngFor="let element of ((i != selectedelement)? (nav.elements | slice:0:5) :(nav.elements | slice:0:50) )">
         <a [routerLink]="['/search']" [queryParams]="changequerylook(element.modifier,element)" *ngIf="element.name" href="#" [style.color]="themeService.linkColor">
@@ -20,7 +20,7 @@
       <a style="display: block;cursor:pointer;" (click)="deselectelement(i)" *ngIf="selectedelement===i" [style.color]="themeService.linkColor">
         less..
       </a>
-      <a class="show_more" (click)="showMore()" *ngIf="selectedelement===i" [style.color]="themeService.linkColor">Show All {{nav.displayname}}</a>
+      <button class="showMoreBtn" (click)="showMore()" *ngIf="selectedelement===i" [style.color]="themeService.linkColor">Show All {{nav.displayname}}<span *ngIf="nav.displayname.slice(-1)!=='s'">s</span></button>
     </div>
   </div>
   <button class="btn" id="toggle-chart-button" (click)="BoxToggle()">
@@ -76,7 +76,7 @@
       <h2 class="heading"><b>Analytics</b></h2>
       <div id="filtersearch" *ngFor="let nav of navigation$|async; let i = index">
         <div class="card-container" id="relate" *ngIf="nav.displayname =='Provider' || nav.displayname =='Authors'">
-          <h3  class="related-searches" *ngIf="i===currentelement"><b>Top {{nav.displayname}}</b></h3>
+          <h3  class="related-searches" *ngIf="i===currentelement"><b>Top {{nav.displayname}}<span *ngIf="nav.displayname.slice(-1)!=='s'">s</span></b></h3>
           <div style="display: block;cursor:pointer;cursor: hand;" *ngFor="let element of  ((i != currentelement)? (nav.elements | slice:0:0) :nav.elements)">
             <a [routerLink]="['/search']" (click)='showMore()' [queryParams]="changequerylook(element.modifier,element)" *ngIf="element.name" href="#" [style.color]="themeService.linkColor">
               {{element.name}} <span class="badge badge-info">{{element.count}}</span>
