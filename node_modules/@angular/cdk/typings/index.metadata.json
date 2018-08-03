@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":3,"metadata":{"VERSION":{"__symbolic":"new","expression":{"__symbolic":"reference","module":"@angular/core","name":"Version"},"arguments":["2.0.0-beta.12"]}},"origins":{"VERSION":"./version"},"importAs":"@angular/cdk"}

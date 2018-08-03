@@ -1,0 +1,13 @@
+machine:
+  node:
+    version: 4
+
+test:
+  post:
+    - ./bin/codecov -f coverage/coverage.json
+
+deployment:
+  suite:
+    branch: /.*/
+    commands:
+      - make testsuite

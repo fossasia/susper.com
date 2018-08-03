@@ -1,0 +1,6 @@
+test/
+coverage/
+.gitignore
+.travis.yml
+.idea
+.nyc_output

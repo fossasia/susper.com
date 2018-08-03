@@ -1,0 +1,55 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Task = require('../ember-cli/lib/models/task');
+const stringUtils = require('ember-cli-string-utils');
+const config_1 = require("../models/config");
+const schematics_1 = require("../utilities/schematics");
+exports.default = Task.extend({
+    run: function (options) {
+        const collectionName = options.collectionName ||
+            config_1.CliConfig.getValue('defaults.schematics.collection');
+        const collection = schematics_1.getCollection(collectionName);
+        const schematic = schematics_1.getSchematic(collection, options.schematicName);
+        if (!schematic.description.schemaJson) {
+            return Promise.resolve(null);
+        }
+        const properties = schematic.description.schemaJson.properties;
+        const keys = Object.keys(properties);
+        const availableOptions = keys
+            .map(key => (Object.assign({}, properties[key], { name: stringUtils.dasherize(key) })))
+            .map(opt => {
+            let type;
+            const schematicType = opt.type;
+            switch (opt.type) {
+                case 'string':
+                    type = String;
+                    break;
+                case 'boolean':
+                    type = Boolean;
+                    break;
+                case 'integer':
+                case 'number':
+                    type = Number;
+                    break;
+                // Ignore arrays / objects.
+                default:
+                    return null;
+            }
+            let aliases = [];
+            if (opt.alias) {
+                aliases = [...aliases, opt.alias];
+            }
+            if (opt.aliases) {
+                aliases = [...aliases, ...opt.aliases];
+            }
+            const schematicDefault = opt.default;
+            return Object.assign({}, opt, { aliases,
+                type,
+                schematicType, default: undefined, // do not carry over schematics defaults
+                schematicDefault, hidden: opt.visible === false });
+        })
+            .filter(x => x);
+        return Promise.resolve(availableOptions);
+    }
+});
+//# sourceMappingURL=/users/hansl/sources/hansl/angular-cli/tasks/schematic-get-options.js.map

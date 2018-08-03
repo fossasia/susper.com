@@ -1,0 +1,25 @@
+{
+    "newsOrgs": [
+            {
+                "name":"bbc",
+                "provider":"www.bbc.com"
+            },
+            {
+                "name":"aljazeera",
+                "provider":"www.aljazeera.com"
+            },
+            {
+                "name":"indian_express",
+                "provider":"indianexpress.com"
+            },
+            {
+                "name":"the_guardian",
+                "provider":"www.theguardian.com"
+            },
+            {
+                "name":"ndtv",
+                "provider":"www.ndtv.com"
+            }
+            
+    ]
+}

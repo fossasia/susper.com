@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsAngularEnum",
+  "title": "Angular Enum Options Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the enum."
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the enum.",
+      "default": "app",
+      "visible": false
+    },
+    "sourceDir": {
+      "type": "string",
+      "format": "path",
+      "description": "The path of the source directory.",
+      "default": "src",
+      "visible": false
+    },
+    "appRoot": {
+      "type": "string",
+      "format": "path",
+      "description": "The root of the application.",
+      "visible": false
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

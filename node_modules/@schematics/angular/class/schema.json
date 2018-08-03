@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsAngularClass",
+  "title": "Angular Class Options Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the class."
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the class.",
+      "default": "app",
+      "visible": false
+    },
+    "sourceDir": {
+      "type": "string",
+      "format": "path",
+      "description": "The path of the source directory.",
+      "default": "src",
+      "visible": false
+    },
+    "appRoot": {
+      "type": "string",
+      "format": "path",
+      "description": "The root of the application.",
+      "visible": false
+    },
+    "spec": {
+      "type": "boolean",
+      "description": "Specifies if a spec file is generated.",
+      "default": false
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of class.",
+      "default": ""
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

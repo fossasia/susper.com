@@ -1,0 +1,18 @@
+{
+  "checkbuild": {
+    "enable": ["jshint", "jsinspect", "nsp", "david"],
+    // don't exit immediately if one of the tools reports an error
+    "continueOnError": true,
+    // don't exit(1) even if we had some failures
+    "allowFailures": false
+  },
+  "jshint": {
+    "args": ["**/*.js", "!*node_modules/**","!*test/**"]
+  },
+  "jsinspect": {
+    "args": ["**/*.js", "!*node_modules/**","!*test/**"],
+    "diff": true,
+    "threshold": 40
+  },
+  "nsp": {}
+}
