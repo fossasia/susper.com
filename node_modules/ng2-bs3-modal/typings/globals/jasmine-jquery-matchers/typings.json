@@ -1,8 +1,0 @@
-{
-  "resolution": "main",
-  "tree": {
-    "src": "/Users/doug/Source/dougludlow/ng2-bs3-modal/typings/custom/jasmine-jquery-matchers.d.ts",
-    "raw": "file:typings/custom/jasmine-jquery-matchers.d.ts",
-    "typings": "/Users/doug/Source/dougludlow/ng2-bs3-modal/typings/custom/jasmine-jquery-matchers.d.ts"
-  }
-}
