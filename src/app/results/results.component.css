@@ -106,6 +106,7 @@ a {
 .newsUrl {
   font-size: small;
   color: #808080;
+  max-width: 590px;
 }
 .container-fluid {
   position: relative;

@@ -40,9 +40,9 @@
         <div id="result-message" class="result message-bar" *ngIf="totalNumber > 0 && !Display('images') && !Display('news')">
           {{message}}
         </div>
-        <div id="result-message" class="result message-bar" *ngIf="totalNumber > 0 && Display('news')">
-          About {{newsResults['totalNewsResults']}} results <br>
-          <a href="{{newsFileUrl}}" class="newsUrl">Configure News Organisations</a>
+        <div id="result-message" class="result message-bar" *ngIf="Display('news')">
+          <p *ngIf="totalNumber>0">About {{newsResults['totalNewsResults']}} results<br></p>
+          <div class="newsUrl">News tab shows results filtered according to news organizations. If you wish to propose or change this list, please check <a href="{{newsFileUrl}}">here</a></div>
         </div>
         <div class="autocorrect">
           <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
