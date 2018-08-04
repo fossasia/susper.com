@@ -89,6 +89,16 @@
             <app-infobox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" *ngIf="Display('all')"></app-infobox>
             <app-statsbox [hidden]="hidefooter || hideAutoCorrect || totalNumber < 1" *ngIf="Display('all')"></app-statsbox>
           </div>
+          <div class="apidata_large">
+                <a class="rss" href="https://yacy.searchlab.eu/solr/select?query={{searchdata.query}}&start={{searchdata.start}}&rows={{searchdata.rows}}&mode=text&callback=__ng_jsonp__.__req3.finished&facet=true&facet.mincount=1&facet.field=host_s&facet.field=url_protocol_s&facet.field=author_sxt&facet.field=collection_sxt" target="_blank">
+                  <img src="assets/images/RssOrange.jpg"/>
+                  <span><b>RSS</b></span>
+                </a>
+                <a class="json" href="https://yacy.searchlab.eu/solr/select?query={{searchdata.query}}&start={{searchdata.start}}&rows={{searchdata.rows}}&mode=text&wt=yjson&callback=__ng_jsonp__.__req3.finished&facet=true&facet.mincount=1&facet.field=host_s&facet.field=url_protocol_s&facet.field=author_sxt&facet.field=collection_sxt" target="_blank">
+                  <img src="assets/images/JsonGreen.jpg"/>
+                  <span><b>JSON</b></span>
+                </a>
+          </div>
         </div>
       </div>
       <!--End -->
@@ -255,5 +265,16 @@
         </button>
         <app-statsbox class="collapse" id="statbox"></app-statsbox>
         </div>
+        <div class="apidata_small">
+            <a class="rss" href="https://yacy.searchlab.eu/solr/select?query={{searchdata.query}}&start={{searchdata.start}}&rows={{searchdata.rows}}&mode=text&callback=__ng_jsonp__.__req3.finished&facet=true&facet.mincount=1&facet.field=host_s&facet.field=url_protocol_s&facet.field=author_sxt&facet.field=collection_sxt" target="_blank">
+              <img src="assets/images/RssOrange.jpg"/>
+              <b>RSS</b>
+            </a>
+            
+            <a class="json" href="https://yacy.searchlab.eu/solr/select?query={{searchdata.query}}&start={{searchdata.start}}&rows={{searchdata.rows}}&mode=text&wt=yjson&callback=__ng_jsonp__.__req3.finished&facet=true&facet.mincount=1&facet.field=host_s&facet.field=url_protocol_s&facet.field=author_sxt&facet.field=collection_sxt" target="_blank">
+              <img src="assets/images/JsonGreen.jpg"/>
+              <b>JSON</b>
+            </a>
+      </div>
     <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
   </div>

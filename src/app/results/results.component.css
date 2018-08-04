@@ -116,6 +116,15 @@ a {
   line-height: 18px;
 }
 
+.apidata_large{
+  float:left;
+}
+
+.apidata_small{
+  margin-left: 4%;
+  margin-bottom: 4px;
+}
+
 .container-fluid li a {
   position: relative;
 }
@@ -376,7 +385,10 @@ a {
 .noResults >ul {
   padding-left: 16px;
 }
-
+.rss{
+  padding: 0 0 0 0;
+  margin-right: 5px;
+}
 
 
 .noResults em {
@@ -525,6 +537,9 @@ div.autocorrect {
   .infobox {
     display: none;
   }
+  .apidata_large{
+    display: none;
+  }
 }
 
 @media screen and (max-width:1079px) {
@@ -553,6 +568,9 @@ div.autocorrect {
   div.combo-box {
     display: none;
   }
+  .apidata_small{
+    display: none;
+  }
 }
 @media screen and (max-width: 1159px) and (min-width: 768px){
   .intelligence{
@@ -569,6 +587,9 @@ div.autocorrect {
   #toggle-button{
     margin-left: 0%;
   }
+  .apidata_small{
+    margin-left: 13%;
+  }
   #result-message{
     margin-left: 14%;
   }
@@ -582,6 +603,9 @@ div.autocorrect {
   }
   #toggle-button{
     margin-left: -0.5%;
+  }
+  .apidata_small{
+    margin-left: 10%;
   }
   #result-message{
     margin-left: 12%;
@@ -598,6 +622,9 @@ div.autocorrect {
   #toggle-button{
     margin-left: 0%;
   }
+  .apidata_small{
+    margin-left: 11%;
+  }
   #result-message{
     margin-left: 13%;
   }
@@ -611,6 +638,9 @@ div.autocorrect {
   }
   #toggle-button{
     margin-left: 0%;
+  }
+  .apidata_small{
+    margin-left: 11%;
   }
   #result-message{
     margin-left: 13%;
@@ -627,6 +657,9 @@ div.autocorrect {
   #toggle-button{
     margin-left: 0%;
   }
+  .apidata_small{
+    margin-left: 12%;
+  }
   #result-message{
     margin-left: 13.5%;
   }
@@ -640,6 +673,9 @@ div.autocorrect {
   }
   #toggle-button{
     margin-left: 1%;
+  }
+  .apidata_small{
+    margin-left: 15%;
   }
   #result-message{
     margin-left: 14%;
