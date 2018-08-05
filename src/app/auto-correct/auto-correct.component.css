@@ -12,6 +12,17 @@
   margin-bottom: -2px;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 768px) {
+  .mean{
+      margin-left: -3%;
+  }
+}
+@media screen and (max-width: 1160px) and (min-width: 1081px) {
+  .mean{
+      margin-left: -2%;
+  }
+}
+
 .suggest-auto-correct {
   font-style: italic;
   font-weight: bold;
