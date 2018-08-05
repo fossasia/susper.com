@@ -13,7 +13,7 @@ development: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?bran
 Susper is a decentralized Search Engine that uses the peer to peer system yacy and Apache Solr to crawl and index search results.
 
 You can test the branches of susper here:
-* Development branch: http://susper-dev.herokuapp.com
+* Development branch: https://susper-dev.herokuapp.com
 * Master branch: https://susper.com
  
 ## Communication
