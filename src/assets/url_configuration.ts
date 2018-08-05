@@ -1,6 +1,7 @@
 export const url = {
     'susper': {
-            'site': 'susper.com'
+            'site': 'susper.com',
+            'newsFile': 'https://github.com/fossasia/susper.com/blob/master/src/assets/newsFile.json'
                 },
     'yacy': {
             'site': 'yacy.net',
