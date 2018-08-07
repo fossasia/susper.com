@@ -5,7 +5,7 @@ dist: trusty
 # versions of node to use
 language: node_js
 node_js:
-- 8.2.1
+- 6
 
 # Running javascript tests in browser
 before_install:
