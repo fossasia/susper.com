@@ -48,6 +48,8 @@ export const url = {
                 'susper_png': 'https://raw.githubusercontent.com/fossasia/susper.com/master/src/assets/images/susper.png',
                 'susper_svg': 'https://raw.githubusercontent.com/fossasia/susper.com/master/src/assets/images/susper.svg',
                 'terminal': 'https://raw.githubusercontent.com/fossasia/susper.com/master/src/assets/images/terminal.png',
+                'json': 'https://raw.githubusercontent.com/fossasia/susper.com/development/src/assets/images/JsonGreen.jpg',
+                'rss': 'https://raw.githubusercontent.com/fossasia/susper.com/development/src/assets/images/RssOrange.jpg'
 
         }
 }

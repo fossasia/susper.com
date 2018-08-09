@@ -57,6 +57,9 @@ export class ResultsComponent implements OnInit {
   items: Array<any>;
   expandedrow: number;
   newsFileUrl: string = url.susper.newsFile;
+  yacyApiUrl: string = url.yacy.api_server;
+  rssLogo: string = url.logos.rss;
+  jsonLogo: string = url.logos.json;
 
   getNumber(N) {
     let result = Array.apply(null, { length: N }).map(Number.call, Number);
