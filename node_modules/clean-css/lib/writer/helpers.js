@@ -1,4 +1,3 @@
-var lineBreak = require('os').EOL;
 var emptyCharacter = '';
 
 var Breaks = require('../options/format').Breaks;
@@ -79,7 +78,20 @@ function property(context, tokens, position, lastPropertyAt) {
   var store = context.store;
   var token = tokens[position];
   var isPropertyBlock = token[2][0] == Token.PROPERTY_BLOCK;
-  var needsSemicolon = position < lastPropertyAt || isPropertyBlock;
+
+  var needsSemicolon;
+  if ( context.format ) {
+    if ( context.format.semicolonAfterLastProperty || isPropertyBlock ) {
+      needsSemicolon = true;
+    } else if ( position < lastPropertyAt ) {
+      needsSemicolon = true;
+    } else {
+      needsSemicolon = false;
+    }
+  } else {
+    needsSemicolon = position < lastPropertyAt || isPropertyBlock;
+  }
+
   var isLast = position === lastPropertyAt;
 
   switch (token[0]) {
@@ -101,6 +113,9 @@ function property(context, tokens, position, lastPropertyAt) {
       store(context, colon(context));
       value(context, token);
       store(context, needsSemicolon ? semicolon(context, Breaks.AfterProperty, isLast) : emptyCharacter);
+      break;
+    case Token.RAW:
+      store(context, token);
   }
 }
 
@@ -137,7 +152,7 @@ function openBrace(context, where, needsPrefixSpace) {
     context.indentWith = context.format.indentWith.repeat(context.indentBy);
     return (needsPrefixSpace && allowsSpace(context, Spaces.BeforeBlockBegins) ? Marker.SPACE : emptyCharacter) +
       Marker.OPEN_CURLY_BRACKET +
-      (allowsBreak(context, where) ? lineBreak : emptyCharacter) +
+      (allowsBreak(context, where) ? context.format.breakWith : emptyCharacter) +
       context.indentWith;
   } else {
     return Marker.OPEN_CURLY_BRACKET;
@@ -148,10 +163,10 @@ function closeBrace(context, where, beforeBlockEnd, isLast) {
   if (context.format) {
     context.indentBy -= context.format.indentBy;
     context.indentWith = context.format.indentWith.repeat(context.indentBy);
-    return (allowsBreak(context, Breaks.AfterProperty) || beforeBlockEnd && allowsBreak(context, Breaks.BeforeBlockEnds) ? lineBreak : emptyCharacter) +
+    return (allowsBreak(context, Breaks.AfterProperty) || beforeBlockEnd && allowsBreak(context, Breaks.BeforeBlockEnds) ? context.format.breakWith : emptyCharacter) +
       context.indentWith +
       Marker.CLOSE_CURLY_BRACKET +
-      (isLast ? emptyCharacter : (allowsBreak(context, where) ? lineBreak : emptyCharacter) + context.indentWith);
+      (isLast ? emptyCharacter : (allowsBreak(context, where) ? context.format.breakWith : emptyCharacter) + context.indentWith);
   } else {
     return Marker.CLOSE_CURLY_BRACKET;
   }
@@ -165,13 +180,13 @@ function colon(context) {
 
 function semicolon(context, where, isLast) {
   return context.format ?
-    Marker.SEMICOLON + (isLast || !allowsBreak(context, where) ? emptyCharacter : lineBreak + context.indentWith) :
+    Marker.SEMICOLON + (isLast || !allowsBreak(context, where) ? emptyCharacter : context.format.breakWith + context.indentWith) :
     Marker.SEMICOLON;
 }
 
 function comma(context) {
   return context.format ?
-    Marker.COMMA + (allowsBreak(context, Breaks.BetweenSelectors) ? lineBreak : emptyCharacter) + context.indentWith :
+    Marker.COMMA + (allowsBreak(context, Breaks.BetweenSelectors) ? context.format.breakWith : emptyCharacter) + context.indentWith :
     Marker.COMMA;
 }
 
@@ -204,7 +219,10 @@ function all(context, tokens) {
         break;
       case Token.COMMENT:
         store(context, token);
-        store(context, allowsBreak(context, Breaks.AfterComment) ? lineBreak : emptyCharacter);
+        store(context, allowsBreak(context, Breaks.AfterComment) ? context.format.breakWith : emptyCharacter);
+        break;
+      case Token.RAW:
+        store(context, token);
         break;
       case Token.RULE:
         rules(context, token[1]);

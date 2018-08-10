@@ -8,7 +8,7 @@ var offlineErrorCodes = [
   'ENONET',
   'EHOSTUNREACH',
   'EOPNOTSUPP',
-  'ENETUNREACH'
+  'ENETUNREACH',
 ]
 
-module.exports = offlineErrorCodes;
+module.exports = offlineErrorCodes

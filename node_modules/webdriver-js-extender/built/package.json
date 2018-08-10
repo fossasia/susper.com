@@ -1,6 +1,6 @@
 {
   "name": "webdriver-js-extender",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A plugin which adds additional commands to selenium's javascript implementation of the webdriver client side API",
   "scripts": {
     "prepublish": "gulp prepublish",
@@ -22,13 +22,11 @@
   "license": "MIT",
   "typings": "built/lib/index.d.ts",
   "dependencies": {
-    "@types/selenium-webdriver": "^2.53.35",
-    "selenium-webdriver": "^2.53.2"
+    "@types/selenium-webdriver": "^3.0.0",
+    "selenium-webdriver": "^3.0.1"
   },
   "devDependencies": {
-    "@types/es6-promise": "0.0.32",
     "@types/jasmine": "^2.5.37",
-    "@types/node": "^6.0.46",
     "clang-format": "^1.0.42",
     "gulp": "^3.9.1",
     "gulp-clang-format": "^1.0.23",
@@ -37,5 +35,8 @@
     "run-sequence": "^1.2.2",
     "selenium-mock": "^0.1.5",
     "typescript": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=6.9.x"
   }
 }

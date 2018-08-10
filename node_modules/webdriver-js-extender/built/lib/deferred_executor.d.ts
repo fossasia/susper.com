@@ -1,4 +1,3 @@
-/// <reference types="selenium-webdriver" />
 import { promise as wdpromise } from 'selenium-webdriver';
 export declare class DeferredExecutor {
     execute: (command: any) => wdpromise.Promise<any>;

@@ -61,11 +61,19 @@ RedirectableRequest.prototype.write = function (data, encoding, callback) {
   if (!(typeof data === "string" || typeof data === "object" && ("length" in data))) {
     throw new Error("data should be a string, Buffer or Uint8Array");
   }
+  // Ignore empty buffers, since writing them doesn't invoke the callback
+  // https://github.com/nodejs/node/issues/22066
+  if (data.length === 0) {
+    callback();
+    return;
+  }
+  // Only write when we don't exceed the maximum body length
   if (this._requestBodyLength + data.length <= this._options.maxBodyLength) {
     this._requestBodyLength += data.length;
     this._requestBodyBuffers.push({ data: data, encoding: encoding });
     this._currentRequest.write(data, encoding, callback);
   }
+  // Error when we exceed the maximum body length
   else {
     this.emit("error", new Error("Request body larger than maxBodyLength limit"));
     this.abort();

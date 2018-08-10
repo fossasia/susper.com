@@ -1,5 +1,6 @@
 var fs = require('fs');
-var path = require("path");
+var path = require('path');
+var alloc = require('buffer-alloc');
 var MAX_BYTES = 512;
 
 module.exports = function(bytes, size, cb) {
@@ -13,7 +14,7 @@ module.exports = function(bytes, size, cb) {
 
       fs.open(file, 'r', function(r_err, descriptor){
           if (r_err) return cb(r_err);
-          bytes = new Buffer(MAX_BYTES);
+          bytes = alloc(MAX_BYTES);
           // Read the file with no encoding for raw buffer access.
           fs.read(descriptor, bytes, 0, bytes.length, 0, function(err, size, bytes){
             fs.close(descriptor, function(c_err){
@@ -116,7 +117,7 @@ module.exports.sync = function(bytes, size) {
     var descriptor = fs.openSync(file, 'r');
     try {
       // Read the file with no encoding for raw buffer access.
-      bytes = new Buffer(MAX_BYTES);
+      bytes = alloc(MAX_BYTES);
       size = fs.readSync(descriptor, bytes, 0, bytes.length, 0);
     } finally {
       fs.closeSync(descriptor);

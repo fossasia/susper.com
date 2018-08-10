@@ -1,8 +1,12 @@
-// Type definitions for Selenium WebDriverJS 2.53
+// Type definitions for Selenium WebDriverJS 3.0
 // Project: https://github.com/SeleniumHQ/selenium/tree/master/javascript/node/selenium-webdriver
-// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>, Craig Nishina <https://github.com/cnishina>
+// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>,
+//   Yuki Kokubun <https://github.com/Kuniwak>,
+//   Craig Nishina <https://github.com/cnishina>,
+//   Simon Gellis <https://github.com/SupernaviX>,
+//   Ben Dixon <https://github.com/bendxn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as chrome from './chrome';
 import * as edge from './edge';
@@ -14,8 +18,6 @@ import * as safari from './safari';
 export namespace error {
   class IError extends Error {
     constructor(opt_error?: string);
-
-    code(): number;
   }
 
   /**
@@ -240,7 +242,6 @@ export namespace error {
 }
 
 export namespace logging {
-
   /**
    * A hash describing log preferences.
    * @typedef {Object.<logging.Type, logging.LevelName>}
@@ -267,7 +268,7 @@ export namespace logging {
    * Common log types.
    * @enum {string}
    */
-  var Type: IType;
+  const Type: IType;
 
   /**
    * Defines a message level that may be used to control logging output.
@@ -557,6 +558,13 @@ export namespace promise {
   // region Functions
 
   /**
+   * Set `USE_PROMISE_MANAGER` to `false` to disable the promise manager.
+   * This is useful, if you use async/await (see https://github.com/SeleniumHQ/selenium/issues/2969
+   * and https://github.com/SeleniumHQ/selenium/issues/3037).
+   */
+  let USE_PROMISE_MANAGER: boolean;
+
+  /**
    * Given an array of promises, will return a promise that will be fulfilled
    * with the fulfillment values of the input array's values. If any of the
    * input array's promises are rejected, the returned promise will be rejected
@@ -657,7 +665,8 @@ export namespace promise {
   /**
    * Creates a promise that has been resolved with the given value.
    * @param {T=} opt_value The resolved value.
-   * @return {!ManagedPromise<T>} The resolved promise.
+   * @return {!Promise<T>} The resolved promise.
+   * @deprecated Use {@link Promise#resolve Promise.resolve(value)}.
    * @template T
    */
   function fulfilled<T>(opt_value?: T): Promise<T>;
@@ -690,8 +699,8 @@ export namespace promise {
    * Creates a promise that has been rejected with the given reason.
    * @param {*=} opt_reason The rejection reason; may be any value, but is
    *     usually an Error or a string.
-   * @return {!ManagedPromise<T>} The rejected promise.
-   * @template T
+   * @return {!Promise<?>} The rejected promise.
+   * @deprecated Use {@link Promise#reject Promise.Promise(reason)}.
    */
   function rejected<T>(opt_reason?: any): Promise<T>;
 
@@ -802,34 +811,23 @@ export namespace promise {
     constructor(opt_msg?: string);
   }
 
-  interface IThenable<T> {
-    /**
-     * Cancels the computation of this promise's value, rejecting the promise in
-     * the process. This method is a no-op if the promise has already been
-     * resolved.
-     *
-     * @param {(string|Error)=} opt_reason The reason this promise is being
-     *     cancelled. This value will be wrapped in a {@link CancellationError}.
-     */
-    cancel(opt_reason?: string | Error): void;
-
-    /** @return {boolean} Whether this promise's value is still being computed. */
-    isPending(): boolean;
-
+  interface IThenable<T> extends PromiseLike<T> {
     /**
      * Registers listeners for when this instance is resolved.
      *
-     * @param {?(function(T): (R|IThenable<R>))=} opt_callback The
-     *     function to call if this promise is successfully resolved. The function
+     * @param onfulfilled
+     *     The function to call if this promise is successfully resolved. The function
      *     should expect a single argument: the promise's resolved value.
-     * @param {?(function(*): (R|IThenable<R>))=} opt_errback
+     * @param onrejected
      *     The function to call if this promise is rejected. The function should
      *     expect a single argument: the rejection reason.
-     * @return {!ManagedPromise<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
+     * @return A new promise which will be resolved with the result
+     *     of the invoked callback.
      * @template R
      */
-    then<R>(opt_callback?: (value: T) => R | IThenable<R>, opt_errback?: (error: any) => any): Promise<R>;
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): PromiseLike<TResult1 | TResult2>;
 
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
@@ -854,7 +852,7 @@ export namespace promise {
      *     resolved with the result of the invoked callback.
      * @template R
      */
-    catch<R>(errback: Function): Promise<R>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
   }
 
   /**
@@ -864,60 +862,8 @@ export namespace promise {
    * @interface
    * @template T
    */
-  class Thenable<T> implements IThenable<T> {
-    /**
-     * Cancels the computation of this promise's value, rejecting the promise in
-     * the process. This method is a no-op if the promise has already been
-     * resolved.
-     *
-     * @param {(string|Error)=} opt_reason The reason this promise is being
-     *     cancelled. This value will be wrapped in a {@link CancellationError}.
-     */
-    cancel(opt_reason?: string | Error): void;
-
-    /** @return {boolean} Whether this promise's value is still being computed. */
-    isPending(): boolean;
-
-    /**
-     * Registers listeners for when this instance is resolved.
-     *
-     * @param {?(function(T): (R|IThenable<R>))=} opt_callback The
-     *     function to call if this promise is successfully resolved. The function
-     *     should expect a single argument: the promise's resolved value.
-     * @param {?(function(*): (R|IThenable<R>))=} opt_errback
-     *     The function to call if this promise is rejected. The function should
-     *     expect a single argument: the rejection reason.
-     * @return {!ManagedPromise<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
-     * @template R
-     */
-    then<R>(opt_callback?: (value: T) => R | IThenable<R>, opt_errback?: (error: any) => R | IThenable<R>): Promise<R>;
-
-    /**
-     * Registers a listener for when this promise is rejected. This is synonymous
-     * with the {@code catch} clause in a synchronous API:
-     *
-     *     // Synchronous API:
-     *     try {
-     *       doSynchronousWork();
-     *     } catch (ex) {
-     *       console.error(ex);
-     *     }
-     *
-     *     // Asynchronous promise API:
-     *     doAsynchronousWork().catch(function(ex) {
-     *       console.error(ex);
-     *     });
-     *
-     * @param {function(*): (R|IThenable<R>)} errback The
-     *     function to call if this promise is rejected. The function should
-     *     expect a single argument: the rejection reason.
-     * @return {!ManagedPromise<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
-     * @template R
-     */
-    catch<R>(errback: Function): Promise<R>;
-
+  interface Thenable<T> extends IThenable<T> {}
+  class Thenable<T> {
     /**
      * Registers a listener to invoke when this promise is resolved, regardless
      * of whether the promise's value was successfully computed. This function
@@ -995,7 +941,7 @@ export namespace promise {
    * @template T
    * @see http://promises-aplus.github.io/promises-spec/
    */
-  class Promise<T> implements IThenable<T> {
+  class Promise<T> implements IThenable<T>, PromiseLike<T> {
     /**
      * @param {function(
      *           function((T|IThenable<T>|Thenable)=),
@@ -1008,60 +954,38 @@ export namespace promise {
      */
     constructor(resolver: (resolve: IFulfilledCallback<T>, reject: IRejectedCallback) => void, opt_flow?: ControlFlow);
 
-    // region Methods
+    /**
+     * Creates a promise that is immediately resolved with the given value.
+     *
+     * @param {T=} opt_value The value to resolve.
+     * @return {!ManagedPromise<T>} A promise resolved with the given value.
+     * @template T
+     */
+    static resolve<T>(opt_value?: T): Promise<T>;
 
     /**
-     * Cancels the computation of this promise's value, rejecting the promise in the
-     * process.
-     * @param {*} reason The reason this promise is being cancelled. If not an
-     *     {@code Error}, one will be created using the value's string
-     *     representation.
+     * Creates a promise that is immediately rejected with the given reason.
+     *
+     * @param {*=} opt_reason The rejection reason.
+     * @return {!ManagedPromise<?>} A new rejected promise.
      */
-    cancel(opt_reason?: string | Error): void;
-
-    /** @return {boolean} Whether this promise's value is still being computed. */
-    isPending(): boolean;
+    static reject(opt_reason?: any): Promise<never>;
 
     /**
-     * Registers listeners for when this instance is resolved. This function most
-     * overridden by subtypes.
+     * Registers listeners for when this instance is resolved.
      *
-     * @param opt_callback The function to call if this promise is
-     *     successfully resolved. The function should expect a single argument: the
-     *     promise's resolved value.
-     * @param opt_errback The function to call if this promise is
-     *     rejected. The function should expect a single argument: the rejection
-     *     reason.
-     * @return A new promise which will be resolved
-     *     with the result of the invoked callback.
+     * @param onfulfilled
+     *     The function to call if this promise is successfully resolved. The function
+     *     should expect a single argument: the promise's resolved value.
+     * @param onrejected
+     *     The function to call if this promise is rejected. The function should
+     *     expect a single argument: the rejection reason.
+     * @return A new promise which will be resolved with the result
+     *     of the invoked callback.
      */
-    then<R>(opt_callback?: (value: T) => IThenable<R> | R, opt_errback?: (error: any) => any): Promise<R>;
-
-    /**
-     * Registers a listener for when this promise is rejected. This is synonymous
-     * with the {@code catch} clause in a synchronous API:
-     * <pre><code>
-     *   // Synchronous API:
-     *   try {
-     *     doSynchronousWork();
-     *   } catch (ex) {
-     *     console.error(ex);
-     *   }
-     *
-     *   // Asynchronous promise API:
-     *   doAsynchronousWork().thenCatch(function(ex) {
-     *     console.error(ex);
-     *   });
-     * </code></pre>
-     *
-     * @param {function(*): (R|promise.Promise.<R>)} errback The function
-     *     to call if this promise is rejected. The function should expect a single
-     *     argument: the rejection reason.
-     * @return {!promise.Promise.<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
-     * @template R
-     */
-    thenCatch<R>(errback: (error: any) => any): Promise<R>;
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
 
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
@@ -1079,58 +1003,12 @@ export namespace promise {
      *       console.error(ex);
      *     });
      *
-     * @param {function(*): (R|IThenable<R>)} errback The
-     *     function to call if this promise is rejected. The function should
+     * @param onrejected
+     *     The function to call if this promise is rejected. The function should
      *     expect a single argument: the rejection reason.
-     * @return {!ManagedPromise<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
-     * @template R
+     * @return A new promise which will be resolved with the result of the invoked callback.
      */
-    catch<R>(errback: Function): Promise<R>;
-
-
-    /**
-     * Registers a listener to invoke when this promise is resolved, regardless
-     * of whether the promise's value was successfully computed. This function
-     * is synonymous with the {@code finally} clause in a synchronous API:
-     * <pre><code>
-     *   // Synchronous API:
-     *   try {
-     *     doSynchronousWork();
-     *   } finally {
-     *     cleanUp();
-     *   }
-     *
-     *   // Asynchronous promise API:
-     *   doAsynchronousWork().thenFinally(cleanUp);
-     * </code></pre>
-     *
-     * <b>Note:</b> similar to the {@code finally} clause, if the registered
-     * callback returns a rejected promise or throws an error, it will silently
-     * replace the rejection error (if any) from this promise:
-     * <pre><code>
-     *   try {
-     *     throw Error('one');
-     *   } finally {
-     *     throw Error('two');  // Hides Error: one
-     *   }
-     *
-     *   promise.rejected(Error('one'))
-     *       .thenFinally(function() {
-     *         throw Error('two');  // Hides Error: one
-     *       });
-     * </code></pre>
-     *
-     *
-     * @param {function(): (R|promise.Promise.<R>)} callback The function
-     *     to call when this promise is resolved.
-     * @return {!promise.Promise.<R>} A promise that will be fulfilled
-     *     with the callback result.
-     * @template R
-     */
-    thenFinally<R>(callback: Function): Promise<R>;
-
-    // endregion
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
   }
 
   /**
@@ -1144,13 +1022,8 @@ export namespace promise {
    * the next turn of the event loop, the rejection will be passed to the
    * {@link promise.ControlFlow} as an unhandled failure.
    *
-   * <p>If this Deferred is cancelled, the cancellation reason will be forward to
-   * the Deferred's canceller function (if provided). The canceller may return a
-   * truth-y value to override the reason provided for rejection.
-   *
-   * @extends {promise.Promise}
    */
-  class Deferred<T> extends Promise<T> {
+  class Deferred<T> {
     // region Constructors
 
     /**
@@ -1211,10 +1084,10 @@ export namespace promise {
   }
 
   interface IControlFlowTimer {
-    clearInterval: (ms: number) => void;
-    clearTimeout: (ms: number) => void;
-    setInterval: (fn: Function, ms: number) => number;
-    setTimeout: (fn: Function, ms: number) => number;
+    clearInterval(ms: number): void;
+    clearTimeout(ms: number): void;
+    setInterval(fn: Function, ms: number): number;
+    setTimeout(fn: Function, ms: number): number;
   }
 
   interface IEventType {
@@ -1369,28 +1242,39 @@ export namespace promise {
   }
 }
 
-export namespace until {
+/**
+ * Defines a condition for use with WebDriver's WebDriver#wait wait command.
+ */
+export class Condition<T> {
   /**
-   * Defines a condition to
+   * @param {string} message A descriptive error message. Should complete the
+   *     sentence 'Waiting [...]'
+   * @param {function(!WebDriver): OUT} fn The condition function to
+   *     evaluate on each iteration of the wait loop.
+   * @constructor
    */
-  class Condition<T> {
+  constructor(message: string, fn: (webdriver: WebDriver) => any);
+
+  /** @return {string} A description of this condition. */
+  description(): string;
+
+  /** @type {function(!WebDriver): OUT} */
+  fn(webdriver: WebDriver): any;
+}
+
+/**
+ * Defines a condition that will result in a {@link WebElement}.
+ *
+ * @extends {Condition<!(WebElement|IThenable<!WebElement>)>}
+ */
+export class WebElementCondition extends Condition<WebElement> {
+  // add an unused private member so the compiler treats this
+  // class distinct from other Conditions
+  private _nominal: undefined;
+}
+
+export namespace until {
     /**
-     * @param {string} message A descriptive error message. Should complete the
-     *     sentence 'Waiting [...]'
-     * @param {function(!WebDriver): OUT} fn The condition function to
-     *     evaluate on each iteration of the wait loop.
-     * @constructor
-     */
-    constructor(message: string, fn: (webdriver: WebDriver) => any);
-
-    /** @return {string} A description of this condition. */
-    description(): string;
-
-    /** @type {function(!WebDriver): OUT} */
-    fn(webdriver: WebDriver): any;
-  }
-
-  /**
    * Creates a condition that will wait until the input driver is able to switch
    * to the designated frame. The target frame may be specified as
    *
@@ -1410,7 +1294,7 @@ export namespace until {
    *     The frame identifier.
    * @return {!Condition<boolean>} A new condition.
    */
-  function ableToSwitchToFrame(frame: number | WebElement | By | ((webdriver: WebDriver) => WebElement)): Condition<boolean>;
+  function ableToSwitchToFrame(frame: number | WebElement | By | ((webdriver: WebDriver) => WebElement) | ByHash): Condition<boolean>;
 
   /**
    * Creates a condition that waits for an alert to be opened. Upon success, the
@@ -1424,64 +1308,64 @@ export namespace until {
    * Creates a condition that will wait for the given element to be disabled.
    *
    * @param {!WebElement} element The element to test.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#isEnabled
    */
-  function elementIsDisabled(element: WebElement): Condition<boolean>;
+  function elementIsDisabled(element: WebElement): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element to be enabled.
    *
    * @param {!WebElement} element The element to test.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#isEnabled
    */
-  function elementIsEnabled(element: WebElement): Condition<boolean>;
+  function elementIsEnabled(element: WebElement): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element to be deselected.
    *
    * @param {!WebElement} element The element to test.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#isSelected
    */
-  function elementIsNotSelected(element: WebElement): Condition<boolean>;
+  function elementIsNotSelected(element: WebElement): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element to be in the DOM,
    * yet not visible to the user.
    *
    * @param {!WebElement} element The element to test.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#isDisplayed
    */
-  function elementIsNotVisible(element: WebElement): Condition<boolean>;
+  function elementIsNotVisible(element: WebElement): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element to be selected.
    * @param {!WebElement} element The element to test.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#isSelected
    */
-  function elementIsSelected(element: WebElement): Condition<boolean>;
+  function elementIsSelected(element: WebElement): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element to become visible.
    *
    * @param {!WebElement} element The element to test.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#isDisplayed
    */
-  function elementIsVisible(element: WebElement): Condition<boolean>;
+  function elementIsVisible(element: WebElement): WebElementCondition;
 
   /**
    * Creates a condition that will loop until an element is
    * {@link ./WebDriver#findElement found} with the given locator.
    *
    * @param {!(By|Function)} locator The locator to use.
-   * @return {!until.Condition.<!WebElement>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    */
-  function elementLocated(locator: By | Function): Condition<WebElement>;
+  function elementLocated(locator: Locator): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element's
@@ -1490,10 +1374,10 @@ export namespace until {
    *
    * @param {!WebElement} element The element to test.
    * @param {string} substr The substring to search for.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#getText
    */
-  function elementTextContains(element: WebElement, substr: string): Condition<boolean>;
+  function elementTextContains(element: WebElement, substr: string): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element's
@@ -1502,10 +1386,10 @@ export namespace until {
    *
    * @param {!WebElement} element The element to test.
    * @param {string} text The expected text.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#getText
    */
-  function elementTextIs(element: WebElement, text: string): Condition<boolean>;
+  function elementTextIs(element: WebElement, text: string): WebElementCondition;
 
   /**
    * Creates a condition that will wait for the given element's
@@ -1514,10 +1398,10 @@ export namespace until {
    *
    * @param {!WebElement} element The element to test.
    * @param {!RegExp} regex The regular expression to test against.
-   * @return {!until.Condition<boolean>} The new condition.
+   * @return {!WebElementCondition} The new condition.
    * @see WebDriver#getText
    */
-  function elementTextMatches(element: WebElement, regex: RegExp): Condition<boolean>;
+  function elementTextMatches(element: WebElement, regex: RegExp): WebElementCondition;
 
   /**
    * Creates a condition that will loop until at least one element is
@@ -1525,10 +1409,10 @@ export namespace until {
    *
    * @param {!(Locator|By.Hash|Function)} locator The locator
    *     to use.
-   * @return {!until.Condition.<!Array.<!WebElement>>} The new
+   * @return {!Condition.<!Array.<!WebElement>>} The new
    *     condition.
    */
-  function elementsLocated(locator: By | Function): Condition<WebElement[]>;
+  function elementsLocated(locator: Locator): Condition<WebElement[]>;
 
   /**
    * Creates a condition that will wait for the given element to become stale. An
@@ -1536,7 +1420,7 @@ export namespace until {
    * has loaded.
    *
    * @param {!WebElement} element The element that should become stale.
-   * @return {!until.Condition<boolean>} The new condition.
+   * @return {!Condition<boolean>} The new condition.
    */
   function stalenessOf(element: WebElement): Condition<boolean>;
 
@@ -1546,7 +1430,7 @@ export namespace until {
    *
    * @param {string} substr The substring that should be present in the page
    *     title.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!Condition.<boolean>} The new condition.
    */
   function titleContains(substr: string): Condition<boolean>;
 
@@ -1555,7 +1439,7 @@ export namespace until {
    * given value.
    *
    * @param {string} title The expected page title.
-   * @return {!until.Condition<boolean>} The new condition.
+   * @return {!Condition<boolean>} The new condition.
    */
   function titleIs(title: string): Condition<boolean>;
 
@@ -1564,22 +1448,50 @@ export namespace until {
    * given regular expression.
    *
    * @param {!RegExp} regex The regular expression to test against.
-   * @return {!until.Condition.<boolean>} The new condition.
+   * @return {!Condition.<boolean>} The new condition.
    */
   function titleMatches(regex: RegExp): Condition<boolean>;
+
+  /**
+   * Creates a condition that will wait for the current page's url to contain
+   * the given substring.
+   *
+   * @param {string} substrUrl The substring that should be present in the current
+   *     URL.
+   * @return {!Condition<boolean>} The new condition.
+   */
+  function urlContains(substrUrl: string): Condition<boolean>;
+
+  /**
+   * Creates a condition that will wait for the current page's url to match the
+   * given value.
+   *
+   * @param {string} url The expected page url.
+   * @return {!Condition<boolean>} The new condition.
+   */
+  function urlIs(url: string): Condition<boolean>;
+
+  /**
+   * Creates a condition that will wait for the current page's url to match the
+   * given regular expression.
+   *
+   * @param {!RegExp} regex The regular expression to test against.
+   * @return {!Condition<boolean>} The new condition.
+   */
+  function urlMatches(regex: RegExp): Condition<boolean>;
 }
 
-interface ILocation {
+export interface ILocation {
   x: number;
   y: number;
 }
 
-interface ISize {
+export interface ISize {
   width: number;
   height: number;
 }
 
-interface IButton {
+export interface IButton {
   LEFT: string;
   MIDDLE: string;
   RIGHT: string;
@@ -1592,9 +1504,9 @@ interface IButton {
  *
  * @enum {string}
  */
-export var Button: IButton;
+export const Button: IButton;
 
-interface IKey {
+export interface IKey {
   NULL: string;
   CANCEL: string;  // ^break
   HELP: string;
@@ -1671,7 +1583,7 @@ interface IKey {
     * @param {...string} var_args The key sequence to concatenate.
     * @return {string} The null-terminated key sequence.
     */
-  chord: (...var_args: Array<string|IKey>) => string;
+  chord(...var_args: Array<string|IKey>): string;
 }
 
 /**
@@ -1681,7 +1593,7 @@ interface IKey {
  *
  * @enum {string}
  */
-export var Key: IKey;
+export const Key: IKey;
 
 /**
  * Class for defining sequences of complex user interactions. Each sequence
@@ -1699,7 +1611,6 @@ export var Key: IKey;
  *
  */
 export class ActionSequence {
-
   // region Constructors
 
   /**
@@ -1874,7 +1785,6 @@ export class ActionSequence {
   // endregion
 }
 
-
 /**
  * Class for defining sequences of user touch interactions. Each sequence
  * will not be executed until {@link #perform} is called.
@@ -1894,14 +1804,12 @@ export class TouchSequence {
     */
   constructor(driver: WebDriver);
 
-
   /**
    * Executes this action sequence.
    * @return {!promise.Promise} A promise that will be resolved once
    *     this sequence has completed.
    */
   perform(): promise.Promise<void>;
-
 
   /**
    * Taps an element.
@@ -1911,7 +1819,6 @@ export class TouchSequence {
    */
   tap(elem: WebElement): TouchSequence;
 
-
   /**
    * Double taps an element.
    *
@@ -1919,7 +1826,6 @@ export class TouchSequence {
    * @return {!TouchSequence} A self reference.
    */
   doubleTap(elem: WebElement): TouchSequence;
-
 
   /**
    * Long press on an element.
@@ -1929,7 +1835,6 @@ export class TouchSequence {
    */
   longPress(elem: WebElement): TouchSequence;
 
-
   /**
    * Touch down at the given location.
    *
@@ -1937,7 +1842,6 @@ export class TouchSequence {
    * @return {!TouchSequence} A self reference.
    */
   tapAndHold(location: ILocation): TouchSequence;
-
 
   /**
    * Move a held {@linkplain #tapAndHold touch} to the specified location.
@@ -1947,7 +1851,6 @@ export class TouchSequence {
    */
   move(location: ILocation): TouchSequence;
 
-
   /**
    * Release a held {@linkplain #tapAndHold touch} at the specified location.
    *
@@ -1955,7 +1858,6 @@ export class TouchSequence {
    * @return {!TouchSequence} A self reference.
    */
   release(location: ILocation): TouchSequence;
-
 
   /**
    * Scrolls the touch screen by the given offset.
@@ -1995,12 +1897,12 @@ export class TouchSequence {
   flickElement(elem: WebElement, offset: IOffset, speed: number): TouchSequence;
 }
 
-interface IOffset {
+export interface IOffset {
   x: number;
   y: number;
 }
 
-interface ISpeed {
+export interface ISpeed {
   xspeed: number;
   yspeed: number;
 }
@@ -2066,7 +1968,6 @@ export class Alert {
   sendKeys(text: string): promise.Promise<void>;
 
   // endregion
-
 }
 
 /**
@@ -2083,7 +1984,8 @@ export class Alert {
  * @implements {promise.Thenable.<!Alert>}
  * @final
  */
-export class AlertPromise extends Alert implements promise.IThenable<Alert> {
+export interface AlertPromise extends promise.IThenable<Alert> {}
+export class AlertPromise extends Alert {
   /**
    * @param {!WebDriver} driver The driver controlling the browser this
    *     alert is attached to.
@@ -2091,139 +1993,13 @@ export class AlertPromise extends Alert implements promise.IThenable<Alert> {
    *     that will be fulfilled with the promised alert.
    */
   constructor(driver: WebDriver, alert: promise.Promise<Alert>);
-
-  // region Methods
-
-  /**
-   * Cancels the computation of this promise's value, rejecting the promise in the
-   * process.
-   * @param {*} reason The reason this promise is being cancelled. If not an
-   *     {@code Error}, one will be created using the value's string
-   *     representation.
-   */
-  cancel(opt_reason?: string | Error): void;
-
-  /** @return {boolean} Whether this promise's value is still being computed. */
-  isPending(): boolean;
-
-  /**
-   * Registers listeners for when this instance is resolved. This function most
-   * overridden by subtypes.
-   *
-   * @param opt_callback The function to call if this promise is
-   *     successfully resolved. The function should expect a single argument: the
-   *     promise's resolved value.
-   * @param opt_errback The function to call if this promise is
-   *     rejected. The function should expect a single argument: the rejection
-   *     reason.
-   * @return A new promise which will be resolved
-   *     with the result of the invoked callback.
-   */
-  then(opt_callback?: Function, opt_errback?: Function): promise.Promise<any>;
-
-  /**
-   * Registers a listener for when this promise is rejected. This is synonymous
-   * with the {@code catch} clause in a synchronous API:
-   * <pre><code>
-   *   // Synchronous API:
-   *   try {
-   *     doSynchronousWork();
-   *   } catch (ex) {
-   *     console.error(ex);
-   *   }
-   *
-   *   // Asynchronous promise API:
-   *   doAsynchronousWork().thenCatch(function(ex) {
-   *     console.error(ex);
-   *   });
-   * </code></pre>
-   *
-   * @param {function(*): (R|promise.Promise.<R>)} errback The function
-   *     to call if this promise is rejected. The function should expect a single
-   *     argument: the rejection reason.
-   * @return {!promise.Promise.<R>} A new promise which will be
-   *     resolved with the result of the invoked callback.
-   * @template R
-   */
-  thenCatch<R>(errback: (error: any) => any): promise.Promise<R>;
-
-  /**
-   * Registers a listener for when this promise is rejected. This is synonymous
-   * with the {@code catch} clause in a synchronous API:
-   *
-   *     // Synchronous API:
-   *     try {
-   *       doSynchronousWork();
-   *     } catch (ex) {
-   *       console.error(ex);
-   *     }
-   *
-   *     // Asynchronous promise API:
-   *     doAsynchronousWork().catch(function(ex) {
-   *       console.error(ex);
-   *     });
-   *
-   * @param {function(*): (R|IThenable<R>)} errback The
-   *     function to call if this promise is rejected. The function should
-   *     expect a single argument: the rejection reason.
-   * @return {!ManagedPromise<R>} A new promise which will be
-   *     resolved with the result of the invoked callback.
-   * @template R
-   */
-  catch<R>(errback: Function): promise.Promise<R>;
-
-
-  /**
-   * Registers a listener to invoke when this promise is resolved, regardless
-   * of whether the promise's value was successfully computed. This function
-   * is synonymous with the {@code finally} clause in a synchronous API:
-   * <pre><code>
-   *   // Synchronous API:
-   *   try {
-   *     doSynchronousWork();
-   *   } finally {
-   *     cleanUp();
-   *   }
-   *
-   *   // Asynchronous promise API:
-   *   doAsynchronousWork().thenFinally(cleanUp);
-   * </code></pre>
-   *
-   * <b>Note:</b> similar to the {@code finally} clause, if the registered
-   * callback returns a rejected promise or throws an error, it will silently
-   * replace the rejection error (if any) from this promise:
-   * <pre><code>
-   *   try {
-   *     throw Error('one');
-   *   } finally {
-   *     throw Error('two');  // Hides Error: one
-   *   }
-   *
-   *   promise.rejected(Error('one'))
-   *       .thenFinally(function() {
-   *         throw Error('two');  // Hides Error: one
-   *       });
-   * </code></pre>
-   *
-   *
-   * @param {function(): (R|promise.Promise.<R>)} callback The function
-   *     to call when this promise is resolved.
-   * @return {!promise.Promise.<R>} A promise that will be fulfilled
-   *     with the callback result.
-   * @template R
-   */
-  thenFinally<R>(callback: Function): promise.Promise<R>;
-}
-
-/** @deprecated Use {@link error.UnexpectedAlertOpenError} instead. */
-export class UnhandledAlertError extends error.UnexpectedAlertOpenError {
 }
 
 /**
  * Recognized browser names.
  * @enum {string}
  */
-interface IBrowser {
+export interface IBrowser {
   ANDROID: string;
   CHROME: string;
   EDGE: string;
@@ -2238,15 +2014,18 @@ interface IBrowser {
   HTMLUNIT: string;
 }
 
-export var Browser: IBrowser;
+export const Browser: IBrowser;
 
-interface ProxyConfig {
+export interface ProxyConfig {
   proxyType: string;
   proxyAutoconfigUrl?: string;
   ftpProxy?: string;
   httpProxy?: string;
   sslProxy?: string;
   noProxy?: string;
+  socksProxy?: string;
+  socksUsername?: string;
+  socksPassword?: string;
 }
 
 /**
@@ -2289,7 +2068,6 @@ interface ProxyConfig {
  *     node mytest.js
  */
 export class Builder {
-
   // region Constructors
 
   /**
@@ -2313,32 +2091,16 @@ export class Builder {
    * Creates a new WebDriver client based on this builder's current
    * configuration.
    *
-   * While this method will immediately return a new WebDriver instance, any
-   * commands issued against it will be deferred until the associated browser
-   * has been fully initialized. Users may call {@link #buildAsync()} to obtain
-   * a promise that will not be fulfilled until the browser has been created
-   * (the difference is purely in style).
+   * This method will return a {@linkplain ThenableWebDriver} instance, allowing
+   * users to issue commands directly without calling `then()`. The returned
+   * thenable wraps a promise that will resolve to a concrete
+   * {@linkplain webdriver.WebDriver WebDriver} instance. The promise will be
+   * rejected if the remote end fails to create a new session.
    *
-   * @return {!WebDriver} A new WebDriver instance.
+   * @return {!ThenableWebDriver} A new WebDriver instance.
    * @throws {Error} If the current configuration is invalid.
-   * @see #buildAsync()
    */
-  build(): WebDriver;
-
-  /**
-   * Creates a new WebDriver client based on this builder's current
-   * configuration. This method returns a promise that will not be fulfilled
-   * until the new browser session has been fully initialized.
-   *
-   * __Note:__ this method is purely a convenience wrapper around
-   * {@link #build()}.
-   *
-   * @return {!promise.Promise<!WebDriver>} A promise that will be
-   *    fulfilled with the newly created WebDriver instance once the browser
-   *    has been fully initialized.
-   * @see #build()
-   */
-  buildAsync(): promise.Promise<WebDriver>;
+  build(): ThenableWebDriver;
 
   /**
    * Configures the target browser for clients created by this instance.
@@ -2399,6 +2161,21 @@ export class Builder {
   setChromeOptions(options: chrome.Options): Builder;
 
   /**
+   * @return {chrome.Options} the Chrome specific options currently configured
+   *     for this builder.
+   */
+  getChromeOptions(): chrome.Options;
+
+  /**
+   * Sets the service builder to use for managing the chromedriver child process
+   * when creating new Chrome sessions.
+   *
+   * @param {chrome.ServiceBuilder} service the service to use.
+   * @return {!Builder} A self reference.
+   */
+  setChromeService(service: chrome.ServiceBuilder): Builder;
+
+  /**
    * Sets the control flow that created drivers should execute actions in. If
    * the flow is never set, or is set to {@code null}, it will use the active
    * flow at the time {@link #build()} is called.
@@ -2420,6 +2197,15 @@ export class Builder {
   setEdgeOptions(options: edge.Options): Builder;
 
   /**
+   * Sets the {@link edge.ServiceBuilder} to use to manage the
+   * MicrosoftEdgeDriver child process when creating sessions locally.
+   *
+   * @param {edge.ServiceBuilder} service the service to use.
+   * @return {!Builder} a self reference.
+   */
+  setEdgeService(service: edge.ServiceBuilder): Builder;
+
+  /**
    * Sets whether native events should be used.
    * @param {boolean} enabled Whether to enable native events.
    * @return {!Builder} A self reference.
@@ -2436,6 +2222,21 @@ export class Builder {
    * @return {!Builder} A self reference.
    */
   setFirefoxOptions(options: firefox.Options): Builder;
+
+  /**
+   * @return {firefox.Options} the Firefox specific options currently configured
+   *     for this instance.
+   */
+  getFirefoxOptions(): firefox.Options;
+
+  /**
+   * Sets the {@link firefox.ServiceBuilder} to use to manage the geckodriver
+   * child process when creating Firefox sessions locally.
+   *
+   * @param {firefox.ServiceBuilder} service the service to use.
+   * @return {!Builder} a self reference.
+   */
+  setFirefoxService(service: firefox.ServiceBuilder): Builder;
 
   /**
    * Set Internet Explorer specific {@linkplain ie.Options options} for drivers
@@ -2484,7 +2285,13 @@ export class Builder {
    * @param {!safari.Options} options The Safari options to use.
    * @return {!Builder} A self reference.
    */
-  setSafari(options: safari.Options): Builder;
+  setSafariOptions(options: safari.Options): Builder;
+
+  /**
+   * @return {safari.Options} the Safari specific options currently configured
+   *     for this instance.
+   */
+  getSafariOptions(): safari.Options;
 
   /**
    * Sets how elements should be scrolled into view for interaction.
@@ -2493,6 +2300,15 @@ export class Builder {
    * @return {!Builder} A self reference.
    */
   setScrollBehavior(behavior: number): Builder;
+
+  /**
+   * Sets the http agent to use for each request.
+   * If this method is not called, the Builder will use http.globalAgent by default.
+   *
+   * @param {http.Agent} agent The agent to use for each request.
+   * @return {!Builder} A self reference.
+   */
+  usingHttpAgent(agent: any): Builder;
 
   /**
    * Sets the URL of a remote WebDriver server to use. Once a remote URL has been
@@ -2534,7 +2350,6 @@ export class Builder {
  * @final
  */
 export class By {
-
   /**
    * @param {string} using the name of the location strategy to use.
    * @param {string} value the value to search for.
@@ -2657,7 +2472,7 @@ export class By {
  *     {tagName: string}|
  *     {xpath: string})}
  */
-type ByHash = { className: string } |
+export type ByHash = { className: string } |
   { css: string } |
   { id: string } |
   { js: string } |
@@ -2667,12 +2482,13 @@ type ByHash = { className: string } |
   { tagName: string } |
   { xpath: string };
 
+export type Locator = By | Function | ByHash;
+
 /**
  * Common webdriver capability keys.
  * @enum {string}
  */
-interface ICapability {
-
+export interface ICapability {
   /**
    * Indicates whether a driver should accept all SSL certs by default. This
    * capability only applies when requesting a new session. To query whether
@@ -2680,7 +2496,6 @@ interface ICapability {
    * {@link Capability.SECURE_SSL}.
    */
   ACCEPT_SSL_CERTS: string;
-
 
   /**
    * The browser name. Common browser names are defined in the
@@ -2761,7 +2576,7 @@ interface ICapability {
   VERSION: string;
 }
 
-export var Capability: ICapability;
+export const Capability: ICapability;
 
 export class Capabilities {
   // region Constructors
@@ -2814,14 +2629,12 @@ export class Capabilities {
    */
   setProxy(proxy: ProxyConfig): Capabilities;
 
-
   /**
    * Sets whether native events should be used.
    * @param {boolean} enabled Whether to enable native events.
    * @return {!Capabilities} A self reference.
    */
   setEnableNativeEvents(enabled: boolean): Capabilities;
-
 
   /**
    * Sets how elements should be scrolled into view for interaction.
@@ -2926,7 +2739,7 @@ export class Capabilities {
 /**
  * An enumeration of valid command string.
  */
-interface ICommandName {
+export interface ICommandName {
   GET_SERVER_STATUS: string;
 
   NEW_SESSION: string;
@@ -3049,7 +2862,7 @@ interface ICommandName {
   UPLOAD_FILE: string;
 }
 
-export var CommandName: ICommandName;
+export const CommandName: ICommandName;
 
 /**
  * Describes a command to be executed by the WebDriverJS framework.
@@ -3123,19 +2936,6 @@ export class Executor {
 }
 
 /**
- * Wraps a promised {@link Executor}, ensuring no commands are executed until
- * the wrapped executor has been fully resolved.
- * @implements {Executor}
- */
-export class DeferredExecutor {
-  /**
-   * @param {!promise.Promise<Executor>} delegate The promised delegate, which
-   *     may be provided by any promise-like thenable object.
-   */
-  constructor(delegate: promise.Promise<Executor>);
-}
-
-/**
  * Describes an event listener registered on an {@linkplain EventEmitter}.
  */
 export class Listener {
@@ -3192,7 +2992,6 @@ export class EventEmitter {
    */
   addListener(type: string, fn: Function, opt_scope?: any, opt_oneshot?: boolean): EventEmitter;
 
-
   /**
    * Registers a one-time listener which will be called only the first time an
    * event is emitted, after which it will be removed.
@@ -3230,7 +3029,6 @@ export class EventEmitter {
 
   // endregion
 }
-
 
 /**
  * Interface for navigating back and forth in the browser history.
@@ -3286,13 +3084,65 @@ export class Navigation {
   // endregion
 }
 
-interface IWebDriverOptionsCookie {
+export interface IWebDriverOptionsCookie {
+  /**
+   * The name of the cookie.
+   */
   name: string;
+
+  /**
+   * The cookie value.
+   */
   value: string;
+
+  /**
+   * The cookie path. Defaults to "/" when adding a cookie.
+   */
   path?: string;
+
+  /**
+   * The domain the cookie is visible to. Defaults to the current browsing
+   * context's document's URL when adding a cookie.
+   */
   domain?: string;
+
+  /**
+   * Whether the cookie is a secure cookie. Defaults to false when adding a new
+   * cookie.
+   */
   secure?: boolean;
-  expiry?: number;
+
+  /**
+   * Whether the cookie is an HTTP only cookie. Defaults to false when adding a
+   * new cookie.
+   */
+  httpOnly?: boolean;
+
+  /**
+   * When the cookie expires.
+   *
+   * When {@linkplain Options#addCookie() adding a cookie}, this may be specified
+   * in _seconds_ since Unix epoch (January 1, 1970). The expiry will default to
+   * 20 years in the future if omitted.
+   *
+   * The expiry is always returned in seconds since epoch when
+   * {@linkplain Options#getCookies() retrieving cookies} from the browser.
+   *
+   * @type {(!Date|number|undefined)}
+   */
+  expiry?: number | Date;
+}
+
+export interface IWebDriverCookie extends IWebDriverOptionsCookie {
+    /**
+     * When the cookie expires.
+     *
+     * The expiry is always returned in seconds since epoch when
+     * {@linkplain Options#getCookies() retrieving cookies} from the browser.
+     *
+     * @type {(!number|undefined)}
+     */
+    expiry?: number;
 }
 
 /**
@@ -3313,18 +3163,14 @@ export class Options {
 
   /**
    * Schedules a command to add a cookie.
-   * @param {string} name The cookie name.
-   * @param {string} value The cookie value.
-   * @param {string=} opt_path The cookie path.
-   * @param {string=} opt_domain The cookie domain.
-   * @param {boolean=} opt_isSecure Whether the cookie is secure.
-   * @param {(number|!Date)=} opt_expiry When the cookie expires. If specified
-   *     as a number, should be in milliseconds since midnight,
-   *     January 1, 1970 UTC.
+   * @param {IWebDriverOptionsCookie} spec Defines the cookie to add.
    * @return {!promise.Promise<void>} A promise that will be resolved
    *     when the cookie has been added to the page.
+   * @throws {error.InvalidArgumentError} if any of the cookie parameters are
+   *     invalid.
+   * @throws {TypeError} if `spec` is not a cookie object.
    */
-  addCookie(name: string, value: string, opt_path?: string, opt_domain?: string, opt_isSecure?: boolean, opt_expiry?: number | Date): promise.Promise<void>;
+  addCookie(spec: IWebDriverOptionsCookie): promise.Promise<void>;
 
   /**
    * Schedules a command to delete all cookies visible to the current page.
@@ -3451,7 +3297,6 @@ export class Timeouts {
  * An interface for managing the current window.
  */
 export class Window {
-
   // region Constructors
 
   /**
@@ -3514,7 +3359,6 @@ export class Window {
  * Interface for managing WebDriver log records.
  */
 export class Logs {
-
   // region Constructors
 
   /**
@@ -3557,7 +3401,6 @@ export class Logs {
  * An interface for changing the focus of the driver to another frame or window.
  */
 export class TargetLocator {
-
   // region Constructors
 
   /**
@@ -3670,6 +3513,11 @@ export class FileDetector {
   handleFile(driver: WebDriver, path: string): promise.Promise<string>;
 }
 
+export type CreateSessionCapabilities = Capabilities | {
+  desired?: Capabilities,
+  required?: Capabilities
+};
+
 /**
  * Creates a new WebDriver client, which provides control over a browser.
  *
@@ -3720,17 +3568,63 @@ export class WebDriver {
 
   /**
    * Creates a new WebDriver session.
+   *
+   * By default, the requested session `capabilities` are merely "desired" and
+   * the remote end will still create a new session even if it cannot satisfy
+   * all of the requested capabilities. You can query which capabilities a
+   * session actually has using the
+   * {@linkplain #getCapabilities() getCapabilities()} method on the returned
+   * WebDriver instance.
+   *
+   * To define _required capabilities_, provide the `capabilities` as an object
+   * literal with `required` and `desired` keys. The `desired` key may be
+   * omitted if all capabilities are required, and vice versa. If the server
+   * cannot create a session with all of the required capabilities, it will
+   * return an {@linkplain error.SessionNotCreatedError}.
+   *
+   *     let required = new Capabilities().set('browserName', 'firefox');
+   *     let desired = new Capabilities().set('version', '45');
+   *     let driver = WebDriver.createSession(executor, {required, desired});
+   *
+   * This function will always return a WebDriver instance. If there is an error
+   * creating the session, such as the aforementioned SessionNotCreatedError,
+   * the driver will have a rejected {@linkplain #getSession session} promise.
+   * It is recommended that this promise is left _unhandled_ so it will
+   * propagate through the {@linkplain promise.ControlFlow control flow} and
+   * cause subsequent commands to fail.
+   *
+   *     let required = Capabilities.firefox();
+   *     let driver = WebDriver.createSession(executor, {required});
+   *
+   *     // If the createSession operation failed, then this command will also
+   *     // also fail, propagating the creation failure.
+   *     driver.get('http://www.google.com').catch(e => console.log(e));
+   *
    * @param {!command.Executor} executor The executor to create the new session
    *     with.
-   * @param {!./capabilities.Capabilities} desiredCapabilities The desired
+   * @param {(!Capabilities|
+   *          {desired: (Capabilities|undefined),
+   *           required: (Capabilities|undefined)})} capabilities The desired
    *     capabilities for the new session.
    * @param {promise.ControlFlow=} opt_flow The control flow all driver
    *     commands should execute under, including the initial session creation.
    *     Defaults to the {@link promise.controlFlow() currently active}
    *     control flow.
+   * @param {(function(new: WebDriver,
+   *                   !IThenable<!Session>,
+   *                   !command.Executor,
+   *                   promise.ControlFlow=))=} opt_ctor
+   *    A reference to the constructor of the specific type of WebDriver client
+   *    to instantiate. Will create a vanilla {@linkplain WebDriver} instance
+   *    if a constructor is not provided.
+   * @param {(function(this: void): ?)=} opt_onQuit A callback to invoke when
+   *    the newly created session is terminated. This should be used to clean
+   *    up any resources associated with the session.
    * @return {!WebDriver} The driver for the newly created session.
    */
-  static createSession(executor: Executor, desiredCapabilities: Capabilities, opt_flow?: promise.ControlFlow): WebDriver;
+  // This method's arguments are untyped so that its overloads can have correct types.
+  // Typescript doesn't allow static methods to be overridden with incompatible signatures.
+  static createSession(...var_args: any[]): WebDriver;
 
   // endregion
 
@@ -3754,7 +3648,6 @@ export class WebDriver {
    */
   schedule<T>(command: Command, description: string): promise.Promise<T>;
 
-
   /**
    * Sets the {@linkplain input.FileDetector file detector} that should be
    * used with this instance.
@@ -3762,20 +3655,17 @@ export class WebDriver {
    */
   setFileDetector(detector: FileDetector): void;
 
-
   /**
    * @return {!promise.Promise.<!Session>} A promise for this
    *     client's session.
    */
   getSession(): promise.Promise<Session>;
 
-
   /**
    * @return {!promise.Promise.<!Capabilities>} A promise
    *     that will resolve with the this instance's capabilities.
    */
   getCapabilities(): promise.Promise<Capabilities>;
-
 
   /**
    * Schedules a command to quit the current session. After calling quit, this
@@ -3801,7 +3691,6 @@ export class WebDriver {
    */
   actions(): ActionSequence;
 
-
   /**
    * Creates a new touch sequence using this driver. The sequence will not be
    * scheduled for execution until {@link actions.TouchSequence#perform} is
@@ -3815,7 +3704,6 @@ export class WebDriver {
    * @return {!actions.TouchSequence} A new touch sequence for this instance.
    */
   touchActions(): TouchSequence;
-
 
   /**
    * Schedules a command to execute JavaScript in the context of the currently
@@ -3948,16 +3836,20 @@ export class WebDriver {
 
   /**
    * Schedules a command to wait for a condition to hold. The condition may be
-   * specified by a {@link until.Condition}, as a custom function, or
+   * specified by a {@link Condition}, as a custom function, or
    * as a {@link promise.Promise}.
    *
-   * For a {@link until.Condition} or function, the wait will repeatedly
+   * For a {@link Condition} or function, the wait will repeatedly
    * evaluate the condition until it returns a truthy value. If any errors occur
    * while evaluating the condition, they will be allowed to propagate. In the
    * event a condition returns a {@link promise.Promise promise}, the
    * polling loop will wait for it to be resolved and use the resolved value for
    * whether the condition has been satisified. Note the resolution time for
    * a promise is factored into whether a wait has timed out.
+   *
+   * Note, if the provided condition is a {@link WebElementCondition}, then
+   * the wait will return a {@link WebElementPromise} that will resolve to the
+   * element that satisified the condition.
    *
    * *Example:* waiting up to 10 seconds for an element to be present and visible
    * on the page.
@@ -3979,8 +3871,58 @@ export class WebDriver {
    *     driver.wait(started, 5 * 1000, 'Server should start within 5 seconds');
    *     driver.get(getServerUrl());
    *
+   * @param {!WebElementCondition} condition The condition to
+   *     wait on, defined as a promise, condition object, or  a function to
+   *     evaluate as a condition.
+   * @param {number=} opt_timeout How long to wait for the condition to be true.
+   * @param {string=} opt_message An optional message to use if the wait times
+   *     out.
+   * @return {!WebElementPromise} A promise that will be fulfilled
+   *     with the first truthy value returned by the condition function, or
+   *     rejected if the condition times out.
+   * @template T
+   */
+  wait(condition: WebElementCondition, opt_timeout?: number, opt_message?: string): WebElementPromise;
+
+  /**
+   * Schedules a command to wait for a condition to hold. The condition may be
+   * specified by a {@link webdriver.Condition}, as a custom function, or
+   * as a {@link webdriver.promise.Promise}.
+   *
+   * For a {@link webdriver.Condition} or function, the wait will repeatedly
+   * evaluate the condition until it returns a truthy value. If any errors occur
+   * while evaluating the condition, they will be allowed to propagate. In the
+   * event a condition returns a {@link webdriver.promise.Promise promise}, the
+   * polling loop will wait for it to be resolved and use the resolved value for
+   * whether the condition has been satisified. Note the resolution time for
+   * a promise is factored into whether a wait has timed out.
+   *
+   * Note, if the provided condition is a {@link WebElementCondition}, then
+   * the wait will return a {@link WebElementPromise} that will resolve to the
+   * element that satisified the condition.
+   *
+   * *Example:* waiting up to 10 seconds for an element to be present and visible
+   * on the page.
+   *
+   *     var button = driver.wait(until.elementLocated(By.id('foo'), 10000);
+   *     button.click();
+   *
+   * This function may also be used to block the command flow on the resolution
+   * of a {@link webdriver.promise.Promise promise}. When given a promise, the
+   * command will simply wait for its resolution before completing. A timeout may
+   * be provided to fail the command if the promise does not resolve before the
+   * timeout expires.
+   *
+   * *Example:* Suppose you have a function, `startTestServer`, that returns a
+   * promise for when a server is ready for requests. You can block a `WebDriver`
+   * client on this promise with:
+   *
+   *     var started = startTestServer();
+   *     driver.wait(started, 5 * 1000, 'Server should start within 5 seconds');
+   *     driver.get(getServerUrl());
+   *
    * @param {!(promise.Promise<T>|
-   *           until.Condition<T>|
+   *           Condition<T>|
    *           function(!WebDriver): T)} condition The condition to
    *     wait on, defined as a promise, condition object, or  a function to
    *     evaluate as a condition.
@@ -3992,7 +3934,7 @@ export class WebDriver {
    *     rejected if the condition times out.
    * @template T
    */
-  wait<T>(condition: promise.Promise<T> | until.Condition<T> | ((driver: WebDriver) => T) | Function, timeout?: number, opt_message?: string): promise.Promise<T>;
+  wait<T>(condition: PromiseLike<T> | Condition<T> | ((driver: WebDriver) => T | PromiseLike<T>) | Function, opt_timeout?: number, opt_message?: string): promise.Promise<T>;
 
   /**
    * Schedules a command to make the driver sleep for the given amount of time.
@@ -4061,7 +4003,7 @@ export class WebDriver {
    * by the driver. Unlike other commands, this error cannot be suppressed. In
    * other words, scheduling a command to find an element doubles as an assert
    * that the element is present on the page. To test whether an element is
-   * present on the page, use {@link #isElementPresent} instead.
+   * present on the page, use {@link #findElements}.
    *
    * The search criteria for an element may be defined using one of the
    * factories in the {@link By} namespace, or as a short-hand
@@ -4091,25 +4033,7 @@ export class WebDriver {
    *     commands against the located element. If the element is not found, the
    *     element will be invalidated and all scheduled commands aborted.
    */
-  findElement(locator: By | Function): WebElementPromise;
-
-  /**
-   * Schedules a command to test if an element is present on the page.
-   *
-   * If given a DOM element, this function will check if it belongs to the
-   * document the driver is currently focused on. Otherwise, the function will
-   * test if at least one element can be found with the given search criteria.
-   *
-   * @param {!(by.By|Function)} locator The locator to use.
-   * @return {!promise.Promise<boolean>} A promise that will resolve
-   *     with whether the element is present on the page.
-   * @deprecated This method will be removed in Selenium 3.0 for consistency
-   *     with the other Selenium language bindings. This method is equivalent
-   *     to
-   *
-   *      driver.findElements(locator).then(e => !!e.length);
-   */
-  isElementPresent(locatorOrElement: By | Function): promise.Promise<boolean>;
+  findElement(locator: Locator): WebElementPromise;
 
   /**
    * Schedule a command to search for multiple elements on the page.
@@ -4118,7 +4042,7 @@ export class WebDriver {
    * @return {!promise.Promise.<!Array.<!WebElement>>} A
    *     promise that will resolve to an array of WebElements.
    */
-  findElements(locator: By | Function): promise.Promise<WebElement[]>;
+  findElements(locator: Locator): promise.Promise<WebElement[]>;
 
   /**
    * Schedule a command to take a screenshot. The driver makes a best effort to
@@ -4155,7 +4079,25 @@ export class WebDriver {
   // endregion
 }
 
-interface IWebElementId {
+/**
+ * A thenable wrapper around a {@linkplain webdriver.IWebDriver IWebDriver}
+ * instance that allows commands to be issued directly instead of having to
+ * repeatedly call `then`:
+ *
+ *     let driver = new Builder().build();
+ *     driver.then(d => d.get(url));  // You can do this...
+ *     driver.get(url);               // ...or this
+ *
+ * If the driver instance fails to resolve (e.g. the session cannot be created),
+ * every issued command will fail.
+ *
+ * @extends {webdriver.IWebDriver}
+ * @extends {promise.IThenable<!webdriver.IWebDriver>}
+ * @interface
+ */
+export interface ThenableWebDriver extends WebDriver, promise.IThenable<WebDriver> { }
+
+export interface IWebElementId {
   [ELEMENT: string]: string;
 }
 
@@ -4182,7 +4124,7 @@ interface IWebElementId {
  *   });
  * </code></pre>
  */
-interface IWebElement {
+export interface IWebElement {
   // region Methods
 
   /**
@@ -4367,13 +4309,6 @@ interface IWebElement {
   isDisplayed(): promise.Promise<boolean>;
 
   /**
-   * Schedules a command to retrieve the outer HTML of this element.
-   * @return {!promise.Promise} A promise that will be resolved with
-   *     the element's outer HTML.
-   */
-  getOuterHtml(): promise.Promise<string>;
-
-  /**
    * @return {!promise.Promise.<WebElement.Id>} A promise
    *     that resolves to this element's JSON representation as defined by the
    *     WebDriver wire protocol.
@@ -4381,24 +4316,17 @@ interface IWebElement {
    */
   getId(): promise.Promise<IWebElementId>;
 
-  /**
-   * Schedules a command to retrieve the inner HTML of this element.
-   * @return {!promise.Promise} A promise that will be resolved with the
-   *     element's inner HTML.
-   */
-  getInnerHtml(): promise.Promise<string>;
-
   // endregion
 }
 
-interface IWebElementFinders {
+export interface IWebElementFinders {
   /**
    * Schedule a command to find a descendant of this element. If the element
    * cannot be found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will
    * be returned by the driver. Unlike other commands, this error cannot be
    * suppressed. In other words, scheduling a command to find an element doubles
    * as an assert that the element is present on the page. To test whether an
-   * element is present on the page, use {@code #isElementPresent} instead.
+   * element is present on the page, use {@code #findElements}.
    *
    * <p>The search criteria for an element may be defined using one of the
    * factories in the {@link By} namespace, or as a short-hand
@@ -4432,18 +4360,7 @@ interface IWebElementFinders {
    *     commands against the located element. If the element is not found, the
    *     element will be invalidated and all scheduled commands aborted.
    */
-  findElement(locator: By | Function): WebElementPromise;
-
-  /**
-   * Schedules a command to test if there is at least one descendant of this
-   * element that matches the given search criteria.
-   *
-   * @param {!(Locator|By.Hash|Function)} locator The
-   *     locator strategy to use when searching for the element.
-   * @return {!promise.Promise.<boolean>} A promise that will be
-   *     resolved with whether an element could be located on the page.
-   */
-  isElementPresent(locator: By | Function): promise.Promise<boolean>;
+  findElement(locator: Locator): WebElementPromise;
 
   /**
    * Schedules a command to find all of the descendants of this element that
@@ -4454,7 +4371,7 @@ interface IWebElementFinders {
    * @return {!promise.Promise.<!Array.<!WebElement>>} A
    *     promise that will resolve to an array of WebElements.
    */
-  findElements(locator: By | Function): promise.Promise<WebElement[]>;
+  findElements(locator: Locator): promise.Promise<WebElement[]>;
 }
 
 /**
@@ -4464,7 +4381,7 @@ interface IWebElementFinders {
  * @constructor
  * @template T
  */
-interface Serializable<T> {
+export interface Serializable<T> {
   /**
    * Returns either this instance's serialized represention, if immediately
    * available, or a promise for its serialized representation. This function is
@@ -4552,17 +4469,12 @@ export class WebElement implements Serializable<IWebElementId> {
   getId(): promise.Promise<string>;
 
   /**
-   * @deprecated Use {@link #getId()} instead.
-   */
-  getRawId(): any;
-
-  /**
    * Schedule a command to find a descendant of this element. If the element
    * cannot be found, a {@link bot.ErrorCode.NO_SUCH_ELEMENT} result will
    * be returned by the driver. Unlike other commands, this error cannot be
    * suppressed. In other words, scheduling a command to find an element doubles
    * as an assert that the element is present on the page. To test whether an
-   * element is present on the page, use {@link #isElementPresent} instead.
+   * element is present on the page, use {@link #findElements}.
    *
    * The search criteria for an element may be defined using one of the
    * factories in the {@link By} namespace, or as a short-hand
@@ -4594,23 +4506,7 @@ export class WebElement implements Serializable<IWebElementId> {
    *     commands against the located element. If the element is not found, the
    *     element will be invalidated and all scheduled commands aborted.
    */
-  findElement(locator: By | Function): WebElementPromise;
-
-  /**
-   * Schedules a command to test if there is at least one descendant of this
-   * element that matches the given search criteria.
-   *
-   * @param {!(by.By|Function)} locator The locator strategy to use when
-   *     searching for the element.
-   * @return {!promise.Promise<boolean>} A promise that will be
-   *     resolved with whether an element could be located on the page.
-   * @deprecated This method will be removed in Selenium 3.0 for consistency
-   *     with the other Selenium language bindings. This method is equivalent
-   *     to
-   *
-   *      element.findElements(locator).then(e => !!e.length);
-   */
-  isElementPresent(locator: By | Function): promise.Promise<boolean>;
+  findElement(locator: Locator): WebElementPromise;
 
   /**
    * Schedules a command to find all of the descendants of this element that
@@ -4621,7 +4517,7 @@ export class WebElement implements Serializable<IWebElementId> {
    * @return {!promise.Promise<!Array<!WebElement>>} A
    *     promise that will resolve to an array of WebElements.
    */
-  findElements(locator: By | Function): promise.Promise<WebElement[]>;
+  findElements(locator: Locator): promise.Promise<WebElement[]>;
 
   /**
    * Schedules a command to click on this element.
@@ -4817,20 +4713,6 @@ export class WebElement implements Serializable<IWebElementId> {
    */
   takeScreenshot(opt_scroll?: boolean): promise.Promise<string>;
 
-  /**
-   * Schedules a command to retrieve the outer HTML of this element.
-   * @return {!promise.Promise.<string>} A promise that will be
-   *     resolved with the element's outer HTML.
-   */
-  getOuterHtml(): promise.Promise<string>;
-
-  /**
-   * Schedules a command to retrieve the inner HTML of this element.
-   * @return {!promise.Promise} A promise that will be resolved with the
-   *     element's inner HTML.
-   */
-  getInnerHtml(): promise.Promise<string>;
-
   /** @override */
   serialize(): promise.Promise<IWebElementId>;
 }
@@ -4857,7 +4739,8 @@ export class WebElement implements Serializable<IWebElementId> {
  * @implements {promise.Thenable.<!WebElement>}
  * @final
  */
-export class WebElementPromise extends WebElement implements promise.IThenable<WebElement> {
+export interface WebElementPromise extends promise.IThenable<WebElement> {}
+export class WebElementPromise extends WebElement {
   /**
    * @param {!WebDriver} driver The parent WebDriver instance for this
    *     element.
@@ -4865,148 +4748,12 @@ export class WebElementPromise extends WebElement implements promise.IThenable<W
    *     that will resolve to the promised element.
    */
   constructor(driver: WebDriver, el: promise.Promise<WebElement>);
-
-  /**
-   * Cancels the computation of this promise's value, rejecting the promise in the
-   * process. This method is a no-op if the promise has alreayd been resolved.
-   *
-   * @param {string=} opt_reason The reason this promise is being cancelled.
-   */
-  cancel(opt_reason?: string): void;
-
-
-  /** @return {boolean} Whether this promise's value is still being computed. */
-  isPending(): boolean;
-
-
-  /**
-   * Registers listeners for when this instance is resolved.
-   *
-   * @param opt_callback The
-   *     function to call if this promise is successfully resolved. The function
-   *     should expect a single argument: the promise's resolved value.
-   * @param opt_errback The
-   *     function to call if this promise is rejected. The function should expect
-   *     a single argument: the rejection reason.
-   * @return A new promise which will be
-   *     resolved with the result of the invoked callback.
-   */
-  then<R>(opt_callback?: (value: WebElement) => promise.Promise<R>, opt_errback?: (error: any) => any): promise.Promise<R>;
-
-  /**
-   * Registers listeners for when this instance is resolved.
-   *
-   * @param opt_callback The
-   *     function to call if this promise is successfully resolved. The function
-   *     should expect a single argument: the promise's resolved value.
-   * @param opt_errback The
-   *     function to call if this promise is rejected. The function should expect
-   *     a single argument: the rejection reason.
-   * @return A new promise which will be
-   *     resolved with the result of the invoked callback.
-   */
-  then<R>(opt_callback?: (value: WebElement) => R, opt_errback?: (error: any) => any): promise.Promise<R>;
-
-
-  /**
-   * Registers a listener for when this promise is rejected. This is synonymous
-   * with the {@code catch} clause in a synchronous API:
-   * <pre><code>
-   *   // Synchronous API:
-   *   try {
-   *     doSynchronousWork();
-   *   } catch (ex) {
-   *     console.error(ex);
-   *   }
-   *
-   *   // Asynchronous promise API:
-   *   doAsynchronousWork().thenCatch(function(ex) {
-   *     console.error(ex);
-   *   });
-   * </code></pre>
-   *
-   * @param {function(*): (R|promise.Promise.<R>)} errback The function
-   *     to call if this promise is rejected. The function should expect a single
-   *     argument: the rejection reason.
-   * @return {!promise.Promise.<R>} A new promise which will be
-   *     resolved with the result of the invoked callback.
-   * @template R
-   */
-  thenCatch<R>(errback: (error: any) => any): promise.Promise<R>;
-
-
-  /**
-   * Registers a listener to invoke when this promise is resolved, regardless
-   * of whether the promise's value was successfully computed. This function
-   * is synonymous with the {@code finally} clause in a synchronous API:
-   * <pre><code>
-   *   // Synchronous API:
-   *   try {
-   *     doSynchronousWork();
-   *   } finally {
-   *     cleanUp();
-   *   }
-   *
-   *   // Asynchronous promise API:
-   *   doAsynchronousWork().thenFinally(cleanUp);
-   * </code></pre>
-   *
-   * <b>Note:</b> similar to the {@code finally} clause, if the registered
-   * callback returns a rejected promise or throws an error, it will silently
-   * replace the rejection error (if any) from this promise:
-   * <pre><code>
-   *   try {
-   *     throw Error('one');
-   *   } finally {
-   *     throw Error('two');  // Hides Error: one
-   *   }
-   *
-   *   promise.rejected(Error('one'))
-   *       .thenFinally(function() {
-   *         throw Error('two');  // Hides Error: one
-   *       });
-   * </code></pre>
-   *
-   *
-   * @param {function(): (R|promise.Promise.<R>)} callback The function
-   *     to call when this promise is resolved.
-   * @return {!promise.Promise.<R>} A promise that will be fulfilled
-   *     with the callback result.
-   * @template R
-   */
-  thenFinally<R>(callback: () => any): promise.Promise<R>;
-
-  /**
-   * Registers a listener for when this promise is rejected. This is synonymous
-   * with the {@code catch} clause in a synchronous API:
-   *
-   *     // Synchronous API:
-   *     try {
-   *       doSynchronousWork();
-   *     } catch (ex) {
-   *       console.error(ex);
-   *     }
-   *
-   *     // Asynchronous promise API:
-   *     doAsynchronousWork().catch(function(ex) {
-   *       console.error(ex);
-   *     });
-   *
-   * @param {function(*): (R|IThenable<R>)} errback The
-   *     function to call if this promise is rejected. The function should
-   *     expect a single argument: the rejection reason.
-   * @return {!ManagedPromise<R>} A new promise which will be
-   *     resolved with the result of the invoked callback.
-   * @template R
-   */
-  catch<R>(errback: Function): promise.Promise<R>;
 }
 
 /**
  * Contains information about a WebDriver session.
  */
 export class Session {
-
   // region Constructors
 
   /**

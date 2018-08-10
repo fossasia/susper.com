@@ -9,7 +9,7 @@
 [![Linux Build Status](https://img.shields.io/travis/jakubpawlowicz/clean-css/master.svg?style=flat&label=Linux%20build)](https://travis-ci.org/jakubpawlowicz/clean-css)
 [![Windows Build status](https://img.shields.io/appveyor/ci/jakubpawlowicz/clean-css/master.svg?style=flat&label=Windows%20build)](https://ci.appveyor.com/project/jakubpawlowicz/clean-css/branch/master)
 [![Dependency Status](https://img.shields.io/david/jakubpawlowicz/clean-css.svg?style=flat)](https://david-dm.org/jakubpawlowicz/clean-css)
-[![NPM Downloads](https://img.shields.io/npm/dm/clean-css.svg)](https://www.npmjs.com/package/clean-css)
+[![NPM Downloads](https://img.shields.io/npm/dm/clean-css.svg)](https://npmcharts.com/compare/clean-css?minimal=true)
 [![Twitter](https://img.shields.io/badge/Twitter-@cleancss-blue.svg)](https://twitter.com/cleancss)
 
 clean-css is a fast and efficient CSS optimizer for [Node.js](http://nodejs.org/) platform and [any modern browser](https://jakubpawlowicz.github.io/clean-css).
@@ -23,6 +23,7 @@ According to [tests](http://goalsmashers.github.io/css-minification-benchmark/) 
 - [Use](#use)
   * [Important: 4.0 breaking changes](#important-40-breaking-changes)
   * [What's new in version 4.1](#whats-new-in-version-41)
+  * [What's new in version 4.2](#whats-new-in-version-42)
   * [Constructor options](#constructor-options)
   * [Compatibility modes](#compatibility-modes)
   * [Fetch option](#fetch-option)
@@ -40,6 +41,7 @@ According to [tests](http://goalsmashers.github.io/css-minification-benchmark/) 
   * [How to process remote `@import`s correctly?](#how-to-process-remote-imports-correctly)
   * [How to apply arbitrary transformations to CSS properties?](#how-to-apply-arbitrary-transformations-to-css-properties)
   * [How to specify a custom rounding precision?](#how-to-specify-a-custom-rounding-precision)
+  * [How to keep a CSS fragment intact?](#how-to-keep-a-css-fragment-intact)
   * [How to preserve a comment block?](#how-to-preserve-a-comment-block)
   * [How to rebase relative image URLs?](#how-to-rebase-relative-image-urls)
   * [How to work with source maps?](#how-to-work-with-source-maps)
@@ -59,7 +61,7 @@ clean-css requires Node.js 4.0+ (tested on Linux, OS X, and Windows)
 # Install
 
 ```
-npm install clean-css
+npm install --save-dev clean-css
 ```
 
 # Use
@@ -111,6 +113,16 @@ clean-css 4.1 introduces the following changes / features:
 * new `animation` shorthand and `animation-*` longhand optimizers;
 * `removeUnusedAtRules` level 2 optimization controlling removal of unused `@counter-style`, `@font-face`, `@keyframes`, and `@namespace` at rules;
 * the [web interface](https://jakubpawlowicz.github.io/clean-css) gets an improved settings panel with "reset to defaults", instant option changes, and settings being persisted across sessions.
+
+## What's new in version 4.2
+
+clean-css 4.2 introduces the following changes / features:
+
+* Adds `process` method for compatibility with optimize-css-assets-webpack-plugin;
+* new `transition` property optimizer;
+* preserves any CSS content between `/* clean-css ignore:start */` and `/* clean-css ignore:end */` comments;
+* allows filtering based on selector in `transform` callback, see [example](#how-to-apply-arbitrary-transformations-to-css-properties);
+* adds configurable line breaks via `format: { breakWith: 'lf' }` option.
 
 ## Constructor options
 
@@ -253,6 +265,7 @@ new CleanCSS({
       beforeBlockEnds: false, // controls if a line break comes before a block ends; defaults to `false`
       betweenSelectors: false // controls if a line break comes between selectors; defaults to `false`
     },
+    breakWith: '\n', // controls the new line character, can be `'\r\n'` or `'\n'` (aliased as `'windows'` and `'unix'` or `'crlf'` and `'lf'`); defaults to system one, so former on Windows and latter on Unix
     indentBy: 0, // controls number of characters to indent with; defaults to `0`
     indentWith: 'space', // controls a character to indent with, can be `'space'` or `'tab'`; defaults to `'space'`
     spaces: { // controls where to insert spaces
@@ -356,6 +369,7 @@ new CleanCSS({
       tidyAtRules: true, // controls at-rules (e.g. `@charset`, `@import`) optimizing; defaults to `true`
       tidyBlockScopes: true, // controls block scopes (e.g. `@media`) optimizing; defaults to `true`
       tidySelectors: true, // controls selectors optimizing; defaults to `true`,
+      semicolonAfterLastProperty: false, // controls removing trailing semicolons in rule; defaults to `false` - means remove
       transform: function () {} // defines a callback for fine-grained property optimization; defaults to no-op
     }
   }
@@ -523,7 +537,7 @@ var source = '.block{background-image:url(/path/to/image.png)}';
 var output = new CleanCSS({
   level: {
     1: {
-      transform: function (propertyName, propertyValue) {
+      transform: function (propertyName, propertyValue, selector /* `selector` available since 4.2.0-pre */) {
         if (propertyName == 'background-image' && propertyValue.indexOf('/path/to') > -1) {
           return propertyValue.replace('/path/to', '../valid/path/to');
         }
@@ -552,6 +566,36 @@ new CleanCSS({
 ```
 
 which sets all units rounding precision to 3 digits except `px` unit precision of 5 digits.
+
+## How to keep a CSS fragment intact?
+
+Note: available in the current master, to be released in 4.2.0.
+
+Wrap the CSS fragment in special comments which instruct clean-css to preserve it, e.g.
+
+```css
+.block-1 {
+  color: red
+}
+/* clean-css ignore:start */
+.block-special {
+  color: transparent
+}
+/* clean-css ignore:end */
+.block-2 {
+  margin: 0
+}
+```
+
+Optimizing this CSS will result in the following output:
+
+```css
+.block-1{color:red}
+.block-special {
+  color: transparent
+}
+.block-2{margin:0}
+```
 
 ## How to preserve a comment block?
 

@@ -1,4 +1,3 @@
-/// <reference types="selenium-webdriver" />
 import { promise as wdpromise, WebDriver } from 'selenium-webdriver';
 export declare class Extender {
     driver_: WebDriver;

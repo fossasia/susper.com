@@ -19,6 +19,8 @@ var Marker = require('../../tokenizer/marker');
 var formatPosition = require('../../utils/format-position');
 var split = require('../../utils/split');
 
+var serializeRules = require('../../writer/one-time').rules;
+
 var IgnoreProperty = 'ignore-property';
 
 var CHARSET_TOKEN = '@charset';
@@ -334,7 +336,7 @@ function optimizeZeroUnits(name, value) {
 }
 
 function removeQuotes(name, value) {
-  if (name == 'content' || name.indexOf('font-feature-settings') > -1 || name.indexOf('grid-') > -1) {
+  if (name == 'content' || name.indexOf('font-variation-settings') > -1 || name.indexOf('font-feature-settings') > -1 || name.indexOf('grid-') > -1) {
     return value;
   }
 
@@ -349,8 +351,9 @@ function removeUrlQuotes(value) {
     value;
 }
 
-function transformValue(propertyName, propertyValue, transformCallback) {
-  var transformedValue = transformCallback(propertyName, propertyValue);
+function transformValue(propertyName, propertyValue, rule, transformCallback) {
+  var selector = serializeRules(rule);
+  var transformedValue = transformCallback(propertyName, propertyValue, selector);
 
   if (transformedValue === undefined) {
     return propertyValue;
@@ -363,7 +366,7 @@ function transformValue(propertyName, propertyValue, transformCallback) {
 
 //
 
-function optimizeBody(properties, context) {
+function optimizeBody(rule, properties, context) {
   var options = context.options;
   var levelOptions = options.level[OptimizationLevel.One];
   var property, name, type, value;
@@ -408,7 +411,7 @@ function optimizeBody(properties, context) {
     }
 
     if (property.block) {
-      optimizeBody(property.value[0][1], context);
+      optimizeBody(rule, property.value[0][1], context);
       continue;
     }
 
@@ -467,7 +470,7 @@ function optimizeBody(properties, context) {
         }
       }
 
-      value = transformValue(name, value, levelOptions.transform);
+      value = transformValue(name, value, rule, levelOptions.transform);
 
       if (value === IgnoreProperty) {
         property.unused = true;
@@ -637,7 +640,7 @@ function level1Optimize(tokens, context) {
         mayHaveCharset = true;
         break;
       case Token.AT_RULE_BLOCK:
-        optimizeBody(token[2], context);
+        optimizeBody(token[1], token[2], context);
         afterRules = true;
         break;
       case Token.NESTED_BLOCK:
@@ -651,7 +654,7 @@ function level1Optimize(tokens, context) {
       case Token.RULE:
         token[1] = levelOptions.tidySelectors ? tidyRules(token[1], !ie7Hack, adjacentSpace, format, context.warnings) : token[1];
         token[1] = token[1].length > 1 ? sortSelectors(token[1], levelOptions.selectorsSortingMethod) : token[1];
-        optimizeBody(token[2], context);
+        optimizeBody(token[1], token[2], context);
         afterRules = true;
         break;
     }

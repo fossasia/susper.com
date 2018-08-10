@@ -1,0 +1,11 @@
+sudo: false
+language: node_js
+node_js:
+  - "4.0"
+  - "4.1"
+
+env:
+  global:
+  - BROWSERSTACK_USERNAME=bm9kZWJyb3dzZXJzdGFjazE=
+  - BROWSERSTACK_KEY=TGhydml6U2QzanVxOHB0TVA2UFE=
+ 

@@ -1,16 +1,11 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var commands_1 = require("./commands");
-var selenium_mock_1 = require("selenium-mock");
-var MockAppium = (function (_super) {
-    __extends(MockAppium, _super);
-    function MockAppium(port) {
-        var _this = _super.call(this, port, function (basicSession) {
-            var session = basicSession;
+Object.defineProperty(exports, "__esModule", { value: true });
+const commands_1 = require("./commands");
+const selenium_mock_1 = require("selenium-mock");
+class MockAppium extends selenium_mock_1.Server {
+    constructor(port) {
+        super(port, (basicSession) => {
+            let session = basicSession;
             session.currentContext = 'WEBVIEW_1';
             session.installedApps = [];
             session.locked = false;
@@ -24,12 +19,12 @@ var MockAppium = (function (_super) {
             session.activity = null;
             session.networkConnection = 6;
             return session;
-        }) || this;
-        var addCommands = function (commandList) {
-            for (var commandName in commandList) {
-                var command = commandList[commandName];
+        });
+        let addCommands = (commandList) => {
+            for (let commandName in commandList) {
+                let command = commandList[commandName];
                 if (command instanceof selenium_mock_1.Command) {
-                    _this.addCommand(command);
+                    this.addCommand(command);
                 }
                 else {
                     addCommands(command);
@@ -37,9 +32,7 @@ var MockAppium = (function (_super) {
             }
         };
         addCommands(commands_1.session);
-        return _this;
     }
-    return MockAppium;
-}(selenium_mock_1.Server));
+}
 exports.MockAppium = MockAppium;
 //# sourceMappingURL=index.js.map

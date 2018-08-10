@@ -3,6 +3,7 @@ import * as q from 'q';
 import { Config } from '../config';
 import { DriverProvider } from './driverProvider';
 export declare class BrowserStack extends DriverProvider {
+    browserstackClient: any;
     constructor(config: Config);
     /**
      * Hook to update the BrowserStack job status.

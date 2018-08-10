@@ -1,4 +1,3 @@
-/// <reference types="selenium-webdriver" />
 import { promise as wdpromise, WebDriver } from 'selenium-webdriver';
 export interface ExtendedWebDriver extends WebDriver {
     getNetworkConnection: () => wdpromise.Promise<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7>;
@@ -23,6 +22,7 @@ export interface ExtendedWebDriver extends WebDriver {
     }) => wdpromise.Promise<void>;
     getCurrentContext: () => wdpromise.Promise<string>;
     selectContext: (name: string) => wdpromise.Promise<void>;
+    listContexts: () => wdpromise.Promise<string[]>;
     getScreenOrientation: () => wdpromise.Promise<'LANDSCAPE' | 'PORTRAIT'>;
     setScreenOrientation: (orientation: string) => wdpromise.Promise<void>;
     isDeviceLocked: () => wdpromise.Promise<boolean>;
@@ -34,7 +34,6 @@ export interface ExtendedWebDriver extends WebDriver {
     pullFileFromDevice: (path: string) => wdpromise.Promise<string>;
     pullFolderFromDevice: (path: string) => wdpromise.Promise<any>;
     pushFileToDevice: (path: string, base64Data: string) => wdpromise.Promise<void>;
-    listContexts: () => wdpromise.Promise<string[]>;
     uploadFile: (base64Data: string) => wdpromise.Promise<void>;
     switchToParentFrame: () => wdpromise.Promise<void>;
     fullscreen: () => wdpromise.Promise<void>;
@@ -50,16 +49,3 @@ export interface ExtendedWebDriver extends WebDriver {
     shakeDevice: () => wdpromise.Promise<void>;
 }
 export declare function extend(baseDriver: WebDriver, fallbackGracefully?: boolean): ExtendedWebDriver;
-/**
- * Patches webdriver so that the extender can defie new commands.
- *
- * @example
- * patch(require('selenium-webdriver/lib/command'),
- *     require('selenium-webdriver/executors'),
- *     require('selenium-webdriver/http'));
- *
- * @param {*} lib_command The object at 'selenium-webdriver/lib/command'
- * @param {*} executors The object at 'selenium-webdriver/executors'
- * @param {*} http The object at 'selenium-webdriver/http'
- */
-export declare function patch(lib_command: any, executors: any, http: any): void;

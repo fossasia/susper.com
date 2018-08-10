@@ -1,7 +1,7 @@
 /*!
  * time-stamp <https://github.com/jonschlinkert/time-stamp>
  *
- * Copyright (c) 2015-2017, Jon Schlinkert.
+ * Copyright (c) 2015-2018, Jon Schlinkert.
  * Released under the MIT License.
  */
 

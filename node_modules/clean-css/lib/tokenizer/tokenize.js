@@ -28,6 +28,9 @@ var BLOCK_RULES = [
   '@supports'
 ];
 
+var IGNORE_END_COMMENT_PATTERN = /\/\* clean\-css ignore:end \*\/$/;
+var IGNORE_START_COMMENT_PATTERN = /^\/\* clean\-css ignore:start \*\//;
+
 var PAGE_MARGIN_BOXES = [
   '@bottom-center',
   '@bottom-left',
@@ -88,11 +91,13 @@ function intoTokens(source, externalContext, internalContext, isNested) {
   var buffer = [];
   var buffers = [];
   var serializedBuffer;
+  var serializedBufferPart;
   var roundBracketLevel = 0;
   var isQuoted;
   var isSpace;
   var isNewLineNix;
   var isNewLineWin;
+  var isCarriageReturn;
   var isCommentStart;
   var wasCommentStart = false;
   var isCommentEnd;
@@ -100,9 +105,11 @@ function intoTokens(source, externalContext, internalContext, isNested) {
   var isCommentEndMarker;
   var isEscaped;
   var wasEscaped = false;
+  var isRaw = false;
   var seekingValue = false;
   var seekingPropertyBlockClosing = false;
   var position = internalContext.position;
+  var lastCommentStartAt;
 
   for (; position.index < source.length; position.index++) {
     var character = source[position.index];
@@ -110,7 +117,8 @@ function intoTokens(source, externalContext, internalContext, isNested) {
     isQuoted = level == Level.SINGLE_QUOTE || level == Level.DOUBLE_QUOTE;
     isSpace = character == Marker.SPACE || character == Marker.TAB;
     isNewLineNix = character == Marker.NEW_LINE_NIX;
-    isNewLineWin = character == Marker.NEW_LINE_NIX && source[position.index - 1] == Marker.NEW_LINE_WIN;
+    isNewLineWin = character == Marker.NEW_LINE_NIX && source[position.index - 1] == Marker.CARRIAGE_RETURN;
+    isCarriageReturn = character == Marker.CARRIAGE_RETURN && source[position.index + 1] && source[position.index + 1] != Marker.NEW_LINE_NIX;
     isCommentStart = !wasCommentEnd && level != Level.COMMENT && !isQuoted && character == Marker.ASTERISK && source[position.index - 1] == Marker.FORWARD_SLASH;
     isCommentEndMarker = !wasCommentStart && !isQuoted && character == Marker.FORWARD_SLASH && source[position.index - 1] == Marker.ASTERISK;
     isCommentEnd = level == Level.COMMENT && isCommentEndMarker;
@@ -124,6 +132,8 @@ function intoTokens(source, externalContext, internalContext, isNested) {
       // previous character was a backslash
       buffer.push(character);
     } else if (!isCommentEnd && level == Level.COMMENT) {
+      buffer.push(character);
+    } else if (!isCommentStart && !isCommentEnd && isRaw) {
       buffer.push(character);
     } else if (isCommentStart && (level == Level.BLOCK || level == Level.RULE) && buffer.length > 1) {
       // comment start within block preceded by some content, e.g. div/*<--
@@ -141,6 +151,33 @@ function intoTokens(source, externalContext, internalContext, isNested) {
       levels.push(level);
       level = Level.COMMENT;
       buffer.push(character);
+    } else if (isCommentEnd && isIgnoreStartComment(buffer)) {
+      // ignore:start comment end, e.g. /* clean-css ignore:start */<--
+      serializedBuffer = buffer.join('').trim() + character;
+      lastToken = [Token.COMMENT, serializedBuffer, [originalMetadata(metadata, serializedBuffer, externalContext)]];
+      newTokens.push(lastToken);
+
+      isRaw = true;
+      metadata = metadatas.pop() || null;
+      buffer = buffers.pop() || [];
+    } else if (isCommentEnd && isIgnoreEndComment(buffer)) {
+      // ignore:start comment end, e.g. /* clean-css ignore:end */<--
+      serializedBuffer = buffer.join('') + character;
+      lastCommentStartAt = serializedBuffer.lastIndexOf(Marker.FORWARD_SLASH + Marker.ASTERISK);
+
+      serializedBufferPart = serializedBuffer.substring(0, lastCommentStartAt);
+      lastToken = [Token.RAW, serializedBufferPart, [originalMetadata(metadata, serializedBufferPart, externalContext)]];
+      newTokens.push(lastToken);
+
+      serializedBufferPart = serializedBuffer.substring(lastCommentStartAt);
+      metadata = [position.line, position.column - serializedBufferPart.length + 1, position.source];
+      lastToken = [Token.COMMENT, serializedBufferPart, [originalMetadata(metadata, serializedBufferPart, externalContext)]];
+      newTokens.push(lastToken);
+
+      isRaw = false;
+      level = levels.pop();
+      metadata = metadatas.pop() || null;
+      buffer = buffers.pop() || [];
     } else if (isCommentEnd) {
       // comment end, e.g. /* comment */<--
       serializedBuffer = buffer.join('').trim() + character;
@@ -448,7 +485,7 @@ function intoTokens(source, externalContext, internalContext, isNested) {
     } else if (buffer.length == 1 && isNewLineWin) {
       // ignore windows newline which is composed of two characters
       buffer.pop();
-    } else if (buffer.length > 0 || !isSpace && !isNewLineNix && !isNewLineWin) {
+    } else if (buffer.length > 0 || !isSpace && !isNewLineNix && !isNewLineWin && !isCarriageReturn) {
       // any character
       buffer.push(character);
     }
@@ -458,8 +495,8 @@ function intoTokens(source, externalContext, internalContext, isNested) {
     wasCommentStart = isCommentStart;
     wasCommentEnd = isCommentEnd;
 
-    position.line = (isNewLineWin || isNewLineNix) ? position.line + 1 : position.line;
-    position.column = (isNewLineWin || isNewLineNix) ? 0 : position.column + 1;
+    position.line = (isNewLineWin || isNewLineNix || isCarriageReturn) ? position.line + 1 : position.line;
+    position.column = (isNewLineWin || isNewLineNix || isCarriageReturn) ? 0 : position.column + 1;
   }
 
   if (seekingValue) {
@@ -478,6 +515,14 @@ function intoTokens(source, externalContext, internalContext, isNested) {
   }
 
   return allTokens;
+}
+
+function isIgnoreStartComment(buffer) {
+  return IGNORE_START_COMMENT_PATTERN.test(buffer.join('') + Marker.FORWARD_SLASH);
+}
+
+function isIgnoreEndComment(buffer) {
+  return IGNORE_END_COMMENT_PATTERN.test(buffer.join('') + Marker.FORWARD_SLASH);
 }
 
 function originalMetadata(metadata, value, externalContext, selectorFallbacks) {

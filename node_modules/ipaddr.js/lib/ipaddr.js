@@ -451,7 +451,7 @@
   };
 
   ipaddr.IPv4.isValidFourPartDecimal = function(string) {
-    if (ipaddr.IPv4.isValid(string) && string.match(/^\d+(\.\d+){3}$/)) {
+    if (ipaddr.IPv4.isValid(string) && string.match(/^(0|[1-9]\d*)(\.(0|[1-9]\d*)){3}$/)) {
       return true;
     } else {
       return false;
@@ -492,11 +492,17 @@
   };
 
   ipaddr.IPv4.parseCIDR = function(string) {
-    var maskLength, match;
+    var maskLength, match, parsed;
     if (match = string.match(/^(.+)\/(\d+)$/)) {
       maskLength = parseInt(match[2]);
       if (maskLength >= 0 && maskLength <= 32) {
-        return [this.parse(match[1]), maskLength];
+        parsed = [this.parse(match[1]), maskLength];
+        Object.defineProperty(parsed, 'toString', {
+          value: function() {
+            return this.join('/');
+          }
+        });
+        return parsed;
       }
     }
     throw new Error("ipaddr: string is not formatted like an IPv4 CIDR range");
@@ -560,11 +566,17 @@
   };
 
   ipaddr.IPv6.parseCIDR = function(string) {
-    var maskLength, match;
+    var maskLength, match, parsed;
     if (match = string.match(/^(.+)\/(\d+)$/)) {
       maskLength = parseInt(match[2]);
       if (maskLength >= 0 && maskLength <= 128) {
-        return [this.parse(match[1]), maskLength];
+        parsed = [this.parse(match[1]), maskLength];
+        Object.defineProperty(parsed, 'toString', {
+          value: function() {
+            return this.join('/');
+          }
+        });
+        return parsed;
       }
     }
     throw new Error("ipaddr: string is not formatted like an IPv6 CIDR range");

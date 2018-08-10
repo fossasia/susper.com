@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * Wraps a promised {@link Executor}, ensuring no commands are executed until
  * the wrapped executor has been fully resolved.
@@ -11,25 +12,24 @@
  *
  * @implements {Executor}
  */
-var DeferredExecutor = (function () {
+class DeferredExecutor {
     /**
      * @param {!Promise<Executor>} delegate The promised delegate, which
      *     may be provided by any promise-like thenable object.
      */
-    function DeferredExecutor(delegate) {
+    constructor(delegate) {
         /** @override */
         this.execute = function (command) {
-            return delegate.then(function (executor) {
+            return delegate.then((executor) => {
                 return executor.execute(command);
             });
         };
         this.defineCommand = function (name, method, path) {
-            delegate.then(function (executor) {
+            delegate.then((executor) => {
                 executor.defineCommand(name, method, path);
             });
         };
     }
-    return DeferredExecutor;
-}());
+}
 exports.DeferredExecutor = DeferredExecutor;
 //# sourceMappingURL=deferred_executor.js.map

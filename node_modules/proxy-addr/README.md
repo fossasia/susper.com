@@ -120,7 +120,7 @@ returns a function suitable for `proxyaddr(req, trust)`.
 <!-- eslint-disable no-undef, no-unused-vars -->
 
 ```js
-var trust = proxyaddr.compile('localhost')
+var trust = proxyaddr.compile('loopback')
 var addr = proxyaddr(req, trust)
 ```
 

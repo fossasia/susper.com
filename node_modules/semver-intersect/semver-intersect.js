@@ -29,6 +29,11 @@ function createShorthand(range) {
         return min;
     }
 
+    // Stable range with an inclusive max version
+    if (range.includes('<=')) {
+        return `${min} - ${max}`;
+    }
+
     // Special handling for major version 0
     if (semver.major(min) === 0 && semver.major(max) === 0) {
         // ^0.0.5

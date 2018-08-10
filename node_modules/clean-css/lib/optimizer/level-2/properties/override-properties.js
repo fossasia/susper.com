@@ -8,7 +8,6 @@ var sameVendorPrefixesIn = require('./vendor-prefixes').same;
 
 var compactable = require('../compactable');
 var deepClone = require('../clone').deep;
-var deepClone = require('../clone').deep;
 var restoreWithComponents = require('../restore-with-components');
 var shallowClone = require('../clone').shallow;
 
@@ -95,10 +94,11 @@ function turnShorthandValueIntoMultiplex(property, size) {
 }
 
 function turnLonghandValueIntoMultiplex(property, size) {
-  var withRealValue = compactable[property.name].intoMultiplexMode == 'real';
-  var withValue = withRealValue ?
+  var descriptor = compactable[property.name];
+  var withRealValue = descriptor.intoMultiplexMode == 'real';
+  var withValue = descriptor.intoMultiplexMode == 'real' ?
     property.value.slice(0) :
-    compactable[property.name].defaultValue;
+    (descriptor.intoMultiplexMode == 'placeholder' ? descriptor.placeholderValue : descriptor.defaultValue);
   var i = multiplexSize(property);
   var j;
   var m = withValue.length;

@@ -3,20 +3,23 @@ var functionVendorRegexStr = '\\-(\\-|[A-Z]|[0-9])+\\(.*?\\)';
 var variableRegexStr = 'var\\(\\-\\-[^\\)]+\\)';
 var functionAnyRegexStr = '(' + variableRegexStr + '|' + functionNoVendorRegexStr + '|' + functionVendorRegexStr + ')';
 
-var animationTimingFunctionRegex = /^(cubic\-bezier|steps)\([^\)]+\)$/;
 var calcRegex = new RegExp('^(\\-moz\\-|\\-webkit\\-)?calc\\([^\\)]+\\)$', 'i');
 var decimalRegex = /[0-9]/;
 var functionAnyRegex = new RegExp('^' + functionAnyRegexStr + '$', 'i');
 var hslColorRegex = /^hsl\(\s{0,31}[\-\.]?\d+\s{0,31},\s{0,31}\.?\d+%\s{0,31},\s{0,31}\.?\d+%\s{0,31}\)|hsla\(\s{0,31}[\-\.]?\d+\s{0,31},\s{0,31}\.?\d+%\s{0,31},\s{0,31}\.?\d+%\s{0,31},\s{0,31}\.?\d+\s{0,31}\)$/;
 var identifierRegex = /^(\-[a-z0-9_][a-z0-9\-_]*|[a-z][a-z0-9\-_]*)$/i;
-var longHexColorRegex = /^#[0-9a-f]{6}$/i;
 var namedEntityRegex = /^[a-z]+$/i;
 var prefixRegex = /^-([a-z0-9]|-)*$/i;
 var rgbColorRegex = /^rgb\(\s{0,31}[\d]{1,3}\s{0,31},\s{0,31}[\d]{1,3}\s{0,31},\s{0,31}[\d]{1,3}\s{0,31}\)|rgba\(\s{0,31}[\d]{1,3}\s{0,31},\s{0,31}[\d]{1,3}\s{0,31},\s{0,31}[\d]{1,3}\s{0,31},\s{0,31}[\.\d]+\s{0,31}\)$/;
-var shortHexColorRegex = /^#[0-9a-f]{3}$/i;
+var timingFunctionRegex = /^(cubic\-bezier|steps)\([^\)]+\)$/;
 var validTimeUnits = ['ms', 's'];
 var urlRegex = /^url\([\s\S]+\)$/i;
 var variableRegex = new RegExp('^' + variableRegexStr + '$', 'i');
+
+var eightValueColorRegex = /^#[0-9a-f]{8}$/i;
+var fourValueColorRegex = /^#[0-9a-f]{4}$/i;
+var sixValueColorRegex = /^#[0-9a-f]{6}$/i;
+var threeValueColorRegex = /^#[0-9a-f]{3}$/i;
 
 var DECIMAL_DOT = '.';
 var MINUS_SIGN = '-';
@@ -41,6 +44,15 @@ var Keywords = {
     'ridge',
     'solid'
   ],
+  '*-timing-function': [
+    'ease',
+    'ease-in',
+    'ease-in-out',
+    'ease-out',
+    'linear',
+    'step-end',
+    'step-start'
+  ],
   'animation-direction': [
     'alternate',
     'alternate-reverse',
@@ -62,15 +74,6 @@ var Keywords = {
   'animation-play-state': [
     'paused',
     'running'
-  ],
-  'animation-timing-function': [
-    'ease',
-    'ease-in',
-    'ease-in-out',
-    'ease-out',
-    'linear',
-    'step-end',
-    'step-start'
   ],
   'background-attachment': [
     'fixed',
@@ -342,14 +345,6 @@ var Units = [
   'vw'
 ];
 
-function isAnimationTimingFunction() {
-  var isTimingFunctionKeyword = isKeyword('animation-timing-function');
-
-  return function (value) {
-    return isTimingFunctionKeyword(value) || animationTimingFunctionRegex.test(value);
-  };
-}
-
 function isColor(value) {
   return value != 'auto' &&
     (
@@ -373,7 +368,7 @@ function isFunction(value) {
 }
 
 function isHexColor(value) {
-  return shortHexColorRegex.test(value) || longHexColorRegex.test(value);
+  return threeValueColorRegex.test(value) || fourValueColorRegex.test(value) || sixValueColorRegex.test(value) || eightValueColorRegex.test(value);
 }
 
 function isHslColor(value) {
@@ -424,6 +419,14 @@ function isTime(value) {
 
   return numberUpTo == value.length && parseInt(value) === 0 ||
     numberUpTo > -1 && validTimeUnits.indexOf(value.slice(numberUpTo + 1)) > -1;
+}
+
+function isTimingFunction() {
+  var isTimingFunctionKeyword = isKeyword('*-timing-function');
+
+  return function (value) {
+    return isTimingFunctionKeyword(value) || timingFunctionRegex.test(value);
+  };
 }
 
 function isUnit(validUnits, value) {
@@ -484,7 +487,7 @@ function validator(compatibility) {
     isAnimationIterationCountKeyword: isKeyword('animation-iteration-count'),
     isAnimationNameKeyword: isKeyword('animation-name'),
     isAnimationPlayStateKeyword: isKeyword('animation-play-state'),
-    isAnimationTimingFunction: isAnimationTimingFunction(),
+    isTimingFunction: isTimingFunction(),
     isBackgroundAttachmentKeyword: isKeyword('background-attachment'),
     isBackgroundClipKeyword: isKeyword('background-clip'),
     isBackgroundOriginKeyword: isKeyword('background-origin'),

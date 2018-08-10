@@ -1,17 +1,18 @@
 "use strict";
-var webdriver = require("selenium-webdriver");
-var buildPath = require('selenium-webdriver/http').buildPath;
+Object.defineProperty(exports, "__esModule", { value: true });
+const webdriver = require("selenium-webdriver");
+let buildPath = require('selenium-webdriver/lib/http').buildPath;
 function buildMockDriver(sessionId, defineCallback, execCallback) {
-    var paths = {};
-    var methods = {};
-    var mockSession = new webdriver.Session(sessionId, {});
+    let paths = {};
+    let methods = {};
+    let mockSession = new webdriver.Session(sessionId, {});
     return new webdriver.WebDriver(mockSession, {
-        execute: function (command) {
+        execute: (command) => {
             command.setParameter('sessionId', sessionId);
-            var params = command.getParameters();
+            let params = command.getParameters();
             return webdriver.promise.fulfilled(execCallback(buildPath(paths[command.getName()], params), methods[command.getName()], params));
         },
-        defineCommand: function (name, method, path) {
+        defineCommand: (name, method, path) => {
             paths[name] = path;
             methods[name] = method;
             defineCallback(name, method, path);

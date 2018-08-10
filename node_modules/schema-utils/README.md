@@ -8,7 +8,7 @@
 <div align="center">
   <a href="http://json-schema.org">
     <img width="160" height="160"
-      src="https://raw.githubusercontent.com/webpack-contrib/schema-utils/master/logo.png">
+      src="https://raw.githubusercontent.com/webpack-contrib/schema-utils/master/docs/logo.png">
   </a>
   <a href="https://github.com/webpack/webpack">
     <img width="200" height="200"
@@ -109,33 +109,6 @@ class Plugin {
   }
 }
 ```
-
-<h2 align="center">Maintainers</h2>
-
-<table>
-  <tbody>
-    <tr>
-      <td align="center">
-        <img width="150" height="150"
-        src="https://github.com/bebraw.png?v=3&s=150">
-        </br>
-        <a href="https://github.com/bebraw">Juho Vepsäläinen</a>
-      </td>
-      <td align="center">
-        <img width="150" height="150"
-        src="https://github.com/d3viant0ne.png?v=3&s=150">
-        </br>
-        <a href="https://github.com/d3viant0ne">Joshua Wiens</a>
-      </td>
-      <td align="center">
-        <img width="150" height="150"
-        src="https://github.com/michael-ciniawsky.png?v=3&s=150">
-        </br>
-        <a href="https://github.com/michael-ciniawsky">Michael Ciniawsky</a>
-      </td>
-    </tr>
-  <tbody>
-</table>
 
 
 [npm]: https://img.shields.io/npm/v/schema-utils.svg

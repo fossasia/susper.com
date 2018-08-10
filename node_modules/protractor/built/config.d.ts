@@ -162,6 +162,12 @@ export interface Config {
      */
     browserstackKey?: string;
     /**
+     * Proxy server to be used for connecting to BrowserStack APIs
+     * e.g. "http://proxy.example.com:1234".
+     * This should be used when you are behind a proxy server.
+     */
+    browserstackProxy?: string;
+    /**
      * If true, Protractor will connect directly to the browser Drivers
      * at the locations specified by chromeDriver and firefoxPath. Only Chrome
      * and Firefox are supported for direct connect.

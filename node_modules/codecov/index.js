@@ -1,3 +1,3 @@
-var handleInput = require('./lib/codecov');
+var handleInput = require('./lib/codecov')
 
-exports.handleInput = handleInput;
+exports.handleInput = handleInput

@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.7"></a>
+## [0.4.7](https://github.com/webpack-contrib/schema-utils/compare/v0.4.6...v0.4.7) (2018-08-07)
+
+
+### Bug Fixes
+
+* **src:** `node >= v4.0.0` support ([#32](https://github.com/webpack-contrib/schema-utils/issues/32)) ([cb13dd4](https://github.com/webpack-contrib/schema-utils/commit/cb13dd4))
+
+
+
+<a name="0.4.6"></a>
+## [0.4.6](https://github.com/webpack-contrib/schema-utils/compare/v0.4.5...v0.4.6) (2018-08-06)
+
+
+### Bug Fixes
+
+* **package:** remove lockfile ([#28](https://github.com/webpack-contrib/schema-utils/issues/28)) ([69f1a81](https://github.com/webpack-contrib/schema-utils/commit/69f1a81))
+* **package:** remove unnecessary `webpack` dependency ([#26](https://github.com/webpack-contrib/schema-utils/issues/26)) ([532eaa5](https://github.com/webpack-contrib/schema-utils/commit/532eaa5))
+
+
+
 <a name="0.4.5"></a>
 ## [0.4.5](https://github.com/webpack-contrib/schema-utils/compare/v0.4.4...v0.4.5) (2018-02-13)
 

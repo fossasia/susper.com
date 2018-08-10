@@ -219,6 +219,43 @@ At the time of writing, is-my-json-valid is the __fastest validator__ when runni
 
 If you know any other relevant benchmarks open a PR and I'll add them.
 
+## TypeScript support
+
+This library ships with TypeScript typings. They are still early on and not perfect at the moment, but should hopefully handle the most common cases. If you find anything that doesn't work, please open an issue and we'll try to solve it.
+
+The typings are using `unknown` and thus require TypeScript 3.0 or later.
+
+Here is a quick sample of usage together with express:
+
+```typescript
+import createError = require('http-errors')
+import createValidator = require('is-my-json-valid')
+import { Request, Response, NextFunction } from 'express'
+
+const personValidator = createValidator({
+  type: 'object',
+  properties: {
+    name: { type: 'string' },
+    age: { type: 'number' },
+  },
+  required: [
+    'name'
+  ]
+})
+
+export function post (req: Request, res: Response, next: NextFunction) {
+  // Here req.body is typed as: any
+
+  if (!personValidator(req.body)) {
+    throw createError(400, { errors: personValidator.errors })
+  }
+
+  // Here req.body is typed as: { name: string, age: number | undefined }
+}
+```
+
+As you can see, the typings for is-my-json-valid will contruct an interface from the schema passed in. This allows you to work with your incoming json body in a type safe way.
+
 ## License
 
 MIT

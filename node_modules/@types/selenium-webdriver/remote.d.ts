@@ -6,7 +6,7 @@ import * as webdriver from './index';
  *
  * @record
  */
-interface ServiceOptions { }
+export interface ServiceOptions { }
 
 /**
  * Manages the life and death of a native executable WebDriver server.
@@ -64,6 +64,143 @@ export class DriverService {
      *     the server has been stopped.
      */
     stop(): webdriver.promise.Promise<any>;
+}
+
+export namespace DriverService {
+    /**
+     * Creates {@link DriverService} objects that manage a WebDriver server in a
+     * child process.
+     */
+    class Builder {
+        /**
+         * @param {string} exe Path to the executable to use. This executable must
+         *     accept the `--port` flag for defining the port to start the server on.
+         * @throws {Error} If the provided executable path does not exist.
+         */
+        constructor(exe: string);
+
+        /**
+         * Define additional command line arguments to use when starting the server.
+         *
+         * @param {...CommandLineFlag} var_args The arguments to include.
+         * @return {!THIS} A self reference.
+         * @this {THIS}
+         * @template THIS
+         */
+        addArguments(...var_args: string[]): this;
+
+        /**
+         * Sets the host name to access the server on. If specified, the
+         * {@linkplain #setLoopback() loopback} setting will be ignored.
+         *
+         * @param {string} hostname
+         * @return {!DriverService.Builder} A self reference.
+         */
+        setHostname(hostname: string): this;
+
+        /**
+         * Sets whether the service should be accessed at this host's loopback
+         * address.
+         *
+         * @param {boolean} loopback
+         * @return {!DriverService.Builder} A self reference.
+         */
+        setLoopback(loopback: boolean): this;
+
+        /**
+         * Sets the base path for WebDriver REST commands (e.g. "/wd/hub").
+         * By default, the driver will accept commands relative to "/".
+         *
+         * @param {?string} basePath The base path to use, or `null` to use the
+         *     default.
+         * @return {!DriverService.Builder} A self reference.
+         */
+        setPath(basePath: string | null): this;
+
+        /**
+         * Sets the port to start the server on.
+         *
+         * @param {number} port The port to use, or 0 for any free port.
+         * @return {!DriverService.Builder} A self reference.
+         * @throws {Error} If an invalid port is specified.
+         */
+        setPort(port: number): this;
+
+        /**
+         * Defines the environment to start the server under. This setting will be
+         * inherited by every browser session started by the server. By default, the
+         * server will inherit the enviroment of the current process.
+         *
+         * @param {(Map<string, string>|Object<string, string>|null)} env The desired
+         *     environment to use, or `null` if the server should inherit the
+         *     current environment.
+         * @return {!DriverService.Builder} A self reference.
+         */
+        setEnvironment(env: Map<string, string> | {[name: string]: string} | null): this;
+
+        /**
+         * IO configuration for the spawned server process. For more information,
+         * refer to the documentation of `child_process.spawn`.
+         *
+         * @param {StdIoOptions} config The desired IO configuration.
+         * @return {!DriverService.Builder} A self reference.
+         * @see https://nodejs.org/dist/latest-v4.x/docs/api/child_process.html#child_process_options_stdio
+         */
+        setStdio(config: any): this;
+
+        /**
+         * Creates a new DriverService using this instance's current configuration.
+         *
+         * @return {!DriverService} A new driver service.
+         */
+        build(): DriverService;
+    }
+}
+
+/**
+ * Manages the life and death of the
+ * <a href="http://selenium-release.storage.googleapis.com/index.html">
+ * standalone Selenium server</a>.
+ */
+export class SeleniumServer extends DriverService {
+    /**
+     * @param {string} jar Path to the Selenium server jar.
+     * @param {SeleniumServer.Options=} opt_options Configuration options for the
+     *     server.
+     * @throws {Error} If the path to the Selenium jar is not specified or if an
+     *     invalid port is specified.
+     **/
+    constructor(jar: string, opt_options?: SeleniumServer.Options);
+}
+
+export namespace SeleniumServer {
+    /**
+     * Options for the Selenium server
+     */
+    interface Options {
+        /** Whether the server should only be accessed on this host's loopback address.*/
+        loopback?: boolean;
+
+        /** The port to start the server on (must be > 0). If the port is provided
+        as a promise, the service will wait for the promise to resolve before starting. */
+        port?: number|webdriver.promise.IThenable<number>;
+
+        /** The arguments to pass to the service. If a promise is provided, the
+        service will wait for it to resolve before starting. */
+        args?: string[]|webdriver.promise.IThenable<string[]>;
+
+        /** The arguments to pass to the JVM. If a promise is provided, the service
+        will wait for it to resolve before starting. */
+        jvmArgs?: string[]|webdriver.promise.IThenable<string[]>;
+
+        /** The environment variables that should be visible to the server process.
+        Defaults to inheriting the current process's environment.*/
+        env?: {[key: string]: string};
+
+        /** IO configuration for the spawned server process. For more information,
+        refer to the documentation of `child_process.spawn`*/
+        stdio?: string|Array<string|number>;
+    }
 }
 
 /**

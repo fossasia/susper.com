@@ -1,5 +1,6 @@
 import * as webdriver from './index';
 import * as remote from './remote';
+import * as http from './http';
 
 /**
  * Creates a new WebDriver client for Chrome.
@@ -8,18 +9,22 @@ import * as remote from './remote';
  */
 export class Driver extends webdriver.WebDriver {
     /**
-     * @param {(webdriver.Capabilities|Options)=} opt_config The configuration
-     *     options.
-     * @param {remote.DriverService=} opt_service The session to use; will use
-     *     the {@link getDefaultService default service} by default.
-     * @param {webdriver.promise.ControlFlow=} opt_flow The control flow to use, or
-     *     {@code null} to use the currently active flow.
-     * @constructor
+     * Creates a new session with the ChromeDriver.
+     *
+     * @param {(Capabilities|Options)=} opt_config The configuration options.
+     * @param {(remote.DriverService|http.Executor)=} opt_serviceExecutor Either
+     *     a  DriverService to use for the remote end, or a preconfigured executor
+     *     for an externally managed endpoint. If neither is provided, the
+     *     {@linkplain ##getDefaultService default service} will be used by
+     *     default.
+     * @param {promise.ControlFlow=} opt_flow The control flow to use, or `null`
+     *     to use the currently active flow.
+     * @return {!Driver} A new driver instance.
      */
-    constructor(opt_config?: Options | webdriver.Capabilities, opt_service?: remote.DriverService, opt_flow?: webdriver.promise.ControlFlow);
+    static createSession(opt_config?: Options | webdriver.CreateSessionCapabilities, opt_service?: remote.DriverService | http.Executor, opt_flow?: webdriver.promise.ControlFlow): Driver;
 }
 
-interface IOptionsValues {
+export interface IOptionsValues {
     args: string[];
     binary?: string;
     detach: boolean;
@@ -29,7 +34,7 @@ interface IOptionsValues {
     prefs?: any;
 }
 
-interface IPerfLoggingPrefs {
+export interface IPerfLoggingPrefs {
     enableNetwork: boolean;
     enablePage: boolean;
     enableTimeline: boolean;
@@ -54,7 +59,6 @@ export class Options {
      */
     static fromCapabilities(capabilities: webdriver.Capabilities): Options;
 
-
     /**
      * Add additional command line arguments to use when launching the Chrome
      * browser.  Each argument may be specified with or without the '--' prefix
@@ -65,6 +69,16 @@ export class Options {
      */
     addArguments(...var_args: string[]): Options;
 
+    /**
+     * Configures the chromedriver to start Chrome in headless mode.
+     *
+     * > __NOTE:__ Resizing the browser window in headless mode is only supported
+     * > in Chrome 60. Users are encouraged to set an initial window size with
+     * > the {@link #windowSize windowSize({width, height})} option.
+     *
+     * @return {!Options} A self reference.
+     */
+    headless(): Options;
 
     /**
      * List of Chrome command line switches to exclude that ChromeDriver by default
@@ -75,7 +89,6 @@ export class Options {
      */
     excludeSwitches(...var_args: string[]): Options;
 
-
     /**
      * Add additional extensions to install when launching Chrome. Each extension
      * should be specified as the path to the packed CRX file, or a Buffer for an
@@ -85,7 +98,6 @@ export class Options {
      * @return {!Options} A self reference.
      */
     addExtensions(...var_args: any[]): Options;
-
 
     /**
      * Sets the path to the Chrome binary to use. On Mac OS X, this path should
@@ -100,7 +112,6 @@ export class Options {
      */
     setChromeBinaryPath(path: string): Options;
 
-
     /**
      * Sets whether to leave the started Chrome browser running if the controlling
      * ChromeDriver service is killed before {@link webdriver.WebDriver#quit()} is
@@ -111,7 +122,6 @@ export class Options {
      */
     detachDriver(detach: boolean): Options;
 
-
     /**
      * Sets the user preferences for Chrome's user profile. See the 'Preferences'
      * file in Chrome's user data directory for examples.
@@ -119,7 +129,6 @@ export class Options {
      * @return {!Options} A self reference.
      */
     setUserPreferences(prefs: any): Options;
-
 
     /**
      * Sets the logging preferences for the new session.
@@ -154,7 +163,6 @@ export class Options {
      */
     setPerfLoggingPrefs(prefs: IPerfLoggingPrefs): Options;
 
-
     /**
      * Sets preferences for the 'Local State' file in Chrome's user data
      * directory.
@@ -162,7 +170,6 @@ export class Options {
      * @return {!Options} A self reference.
      */
     setLocalState(state: any): Options;
-
 
     /**
      * Sets the name of the activity hosting a Chrome-based Android WebView. This
@@ -174,7 +181,6 @@ export class Options {
      */
     androidActivity(name: string): Options;
 
-
     /**
      * Sets the device serial number to connect to via ADB. If not specified, the
      * ChromeDriver will select an unused device at random. An error will be
@@ -185,7 +191,6 @@ export class Options {
      */
     androidDeviceSerial(serial: string): Options;
 
-
     /**
      * Configures the ChromeDriver to launch Chrome on Android via adb. This
      * function is shorthand for
@@ -193,7 +198,6 @@ export class Options {
      * @return {!Options} A self reference.
      */
     androidChrome(): Options;
-
 
     /**
      * Sets the package name of the Chrome or WebView app.
@@ -203,7 +207,6 @@ export class Options {
      * @return {!Options} A self reference.
      */
     androidPackage(pkg: string): Options;
-
 
     /**
      * Sets the process name of the Activity hosting the WebView (as given by `ps`).
@@ -215,7 +218,6 @@ export class Options {
      */
     androidProcess(processName: string): Options;
 
-
     /**
      * Sets whether to connect to an already-running instead of the specified
      * {@linkplain #androidProcess app} instead of launching the app with a clean
@@ -226,7 +228,6 @@ export class Options {
      */
     androidUseRunningApp(useRunning: boolean): Options;
 
-
     /**
      * Sets the path to Chrome's log file. This path should exist on the machine
      * that will launch Chrome.
@@ -235,7 +236,6 @@ export class Options {
      */
     setChromeLogFile(path: string): Options;
 
-
     /**
          * Sets the directory to store Chrome minidumps in. This option is only
          * supported when ChromeDriver is running on Linux.
@@ -243,7 +243,6 @@ export class Options {
          * @return {!Options} A self reference.
          */
     setChromeMinidumpPath(path: string): Options;
-
 
     /**
      * Configures Chrome to emulate a mobile device. For more information, refer
@@ -290,7 +289,6 @@ export class Options {
      */
     setProxy(proxy: webdriver.ProxyConfig): Options;
 
-
     /**
      * Converts this options instance to a {@link webdriver.Capabilities} object.
      * @param {webdriver.Capabilities=} opt_capabilities The capabilities to merge
@@ -304,7 +302,7 @@ export class Options {
  * Creates {@link remote.DriverService} instances that manage a ChromeDriver
  * server.
  */
-export class ServiceBuilder {
+export class ServiceBuilder extends remote.DriverService.Builder {
     /**
      * @param {string=} opt_exe Path to the server executable to use. If omitted,
      *     the builder will attempt to locate the chromedriver on the current
@@ -316,15 +314,6 @@ export class ServiceBuilder {
     constructor(opt_exe?: string);
 
     /**
-     * Sets the port to start the ChromeDriver on.
-     * @param {number} port The port to use, or 0 for any free port.
-     * @return {!ServiceBuilder} A self reference.
-     * @throws {Error} If the port is invalid.
-     */
-    usingPort(port: number): ServiceBuilder;
-
-
-    /**
      * Sets which port adb is listening to. _The ChromeDriver will connect to adb
      * if an {@linkplain Options#androidPackage Android session} is requested, but
      * adb **must** be started beforehand._
@@ -332,8 +321,7 @@ export class ServiceBuilder {
      * @param {number} port Which port adb is running on.
      * @return {!ServiceBuilder} A self reference.
      */
-    setAdbPort(port: number): ServiceBuilder;
-
+    setAdbPort(port: number): this;
 
     /**
      * Sets the path of the log file the driver should log to. If a log file is
@@ -341,15 +329,13 @@ export class ServiceBuilder {
      * @param {string} path Path of the log file to use.
      * @return {!ServiceBuilder} A self reference.
      */
-    loggingTo(path: string): ServiceBuilder;
-
+    loggingTo(path: string): this;
 
     /**
      * Enables verbose logging.
      * @return {!ServiceBuilder} A self reference.
      */
-    enableVerboseLogging(): ServiceBuilder;
-
+    enableVerboseLogging(): this;
 
     /**
      * Sets the number of threads the driver should use to manage HTTP requests.
@@ -357,45 +343,7 @@ export class ServiceBuilder {
      * @param {number} n The number of threads to use.
      * @return {!ServiceBuilder} A self reference.
      */
-    setNumHttpThreads(n: number): ServiceBuilder;
-
-
-    /**
-     * Sets the base path for WebDriver REST commands (e.g. '/wd/hub').
-     * By default, the driver will accept commands relative to '/'.
-     * @param {string} path The base path to use.
-     * @return {!ServiceBuilder} A self reference.
-     */
-    setUrlBasePath(path: string): ServiceBuilder;
-
-
-    /**
-     * Defines the stdio configuration for the driver service. See
-     * {@code child_process.spawn} for more information.
-     * @param {(string|!Array.<string|number|!Stream|null|undefined>)} config The
-     *     configuration to use.
-     * @return {!ServiceBuilder} A self reference.
-     */
-    setStdio(config: string | Array<string | number | any>): ServiceBuilder;
-
-
-    /**
-     * Defines the environment to start the server under. This settings will be
-     * inherited by every browser session started by the server.
-     * @param {!Object.<string, string>} env The environment to use.
-     * @return {!ServiceBuilder} A self reference.
-     */
-    withEnvironment(env: { [key: string]: string }): ServiceBuilder;
-
-
-    /**
-     * Creates a new DriverService using this instance's current configuration.
-     * @return {remote.DriverService} A new driver service using this instance's
-     *     current configuration.
-     * @throws {Error} If the driver exectuable was not specified and a default
-     *     could not be found on the current PATH.
-     */
-    build(): remote.DriverService;
+    setNumHttpThreads(n: number): this;
 }
 
 /**

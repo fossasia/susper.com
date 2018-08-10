@@ -1,9 +1,10 @@
 "use strict";
-var helpers_1 = require("./helpers");
-var path = require("path");
-describe('table tests', function () {
-    var driverFactory = helpers_1.initMockSeleniumStandaloneServerAndGetDriverFactory(true);
-    var table = {
+Object.defineProperty(exports, "__esModule", { value: true });
+const helpers_1 = require("./helpers");
+const path = require("path");
+describe('table tests', () => {
+    let driverFactory = helpers_1.initMockSeleniumStandaloneServerAndGetDriverFactory(true);
+    let table = {
         getCurrentContext: { result: 'WEBVIEW_1' },
         selectContext: { args: ['WEBVIEW_1'], params: { name: 'WEBVIEW_1' } },
         listContexts: { result: ['WEBVIEW_1'] },
@@ -54,29 +55,29 @@ describe('table tests', function () {
         shakeDevice: {}
     };
     function runTestcase(commandName) {
-        var itName = 'should correctly call "' + commandName + '"';
-        var tableEntry = table[commandName];
+        let itName = 'should correctly call "' + commandName + '"';
+        let tableEntry = table[commandName];
         if (tableEntry == null) {
             return it(itName);
         }
-        var testcases = Array.isArray(tableEntry) ? tableEntry : [tableEntry];
-        testcases.forEach(function (testcase, i) {
-            var caseName = itName + (tableEntry === testcases ? ' (#' + i + ')' : '');
+        let testcases = Array.isArray(tableEntry) ? tableEntry : [tableEntry];
+        testcases.forEach((testcase, i) => {
+            let caseName = itName + (tableEntry === testcases ? ' (#' + i + ')' : '');
             if (testcase.skip) {
                 return it(caseName);
             }
-            it(caseName, function (done) {
-                var driver = driverFactory();
-                driver[commandName].apply(driver, testcase.args || []).then(function (results) {
+            it(caseName, (done) => {
+                let driver = driverFactory();
+                driver[commandName].apply(driver, testcase.args || []).then((results) => {
                     expect(results.result).toEqual(testcase.result == null ? null : testcase.result);
                     if (testcase.session) {
-                        for (var varname in testcase.session) {
+                        for (let varname in testcase.session) {
                             expect(results.session[varname]).
                                 toEqual(testcase.session[varname]);
                         }
                     }
                     if (testcase.params) {
-                        for (var paramName in testcase.params) {
+                        for (let paramName in testcase.params) {
                             expect(results.params[paramName]).toEqual(testcase.params[paramName]);
                         }
                     }
@@ -85,7 +86,7 @@ describe('table tests', function () {
             });
         });
     }
-    for (var commandName in table) {
+    for (let commandName in table) {
         runTestcase(commandName);
     }
 });

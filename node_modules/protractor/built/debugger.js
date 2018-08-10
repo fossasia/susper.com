@@ -222,7 +222,7 @@ class DebugHelper {
             return firstTime;
         }, (err) => {
             console.error(err);
-            process.exit(1);
+            return process.exit(1);
         });
     }
     isAttached() {

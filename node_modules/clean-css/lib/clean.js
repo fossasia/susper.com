@@ -46,6 +46,22 @@ var CleanCSS = module.exports = function CleanCSS(options) {
   };
 };
 
+
+// for compatibility with optimize-css-assets-webpack-plugin
+CleanCSS.process = function (input, opts) {
+  var cleanCss;
+  var optsTo = opts.to;
+
+  delete opts.to;
+  cleanCss = new CleanCSS(Object.assign({ returnPromise: true, rebaseTo: optsTo }, opts));
+
+  return cleanCss.minify(input)
+    .then(function(output) {
+      return { css: output.styles };
+    });
+};
+
+
 CleanCSS.prototype.minify = function (input, maybeSourceMap, maybeCallback) {
   var options = this.options;
 

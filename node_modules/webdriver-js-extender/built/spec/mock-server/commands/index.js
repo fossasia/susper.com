@@ -1,12 +1,13 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * In this file we define all the commands which run against a particular webdriver session, but
  * do not belong in `./appium.ts` or `./storage.ts`.
  */
-var selenium_mock_1 = require("selenium-mock");
-var helpers_1 = require("./helpers");
-var appium_1 = require("./appium");
-var storage_1 = require("./storage");
+const selenium_mock_1 = require("selenium-mock");
+const helpers_1 = require("./helpers");
+const appium_1 = require("./appium");
+const storage_1 = require("./storage");
 exports.session = {
     element: {},
     sessionStorage: storage_1.storageFactory('session'),
@@ -20,30 +21,30 @@ exports.session.uploadFile = helpers_1.noopFactory('file');
 exports.session.getNetworkConnection = helpers_1.getterFactory('network_connection', 'networkConnection');
 exports.session.setNetworkConnection = helpers_1.setterFactory('network_connection', 'networkConnection', 'type');
 exports.session.toggleAirplaneMode =
-    new selenium_mock_1.Command('POST', 'appium/device/toggle_airplane_mode', function (session) {
+    new selenium_mock_1.Command('POST', 'appium/device/toggle_airplane_mode', (session) => {
         session.networkConnection ^= 1;
     });
 exports.session.toggleWiFi =
-    new selenium_mock_1.Command('POST', 'appium/device/toggle_wifi', function (session) {
+    new selenium_mock_1.Command('POST', 'appium/device/toggle_wifi', (session) => {
         session.networkConnection ^= 2;
     });
 exports.session.toggleData =
-    new selenium_mock_1.Command('POST', 'appium/device/toggle_data', function (session) {
+    new selenium_mock_1.Command('POST', 'appium/device/toggle_data', (session) => {
         session.networkConnection ^= 4;
     });
 exports.session.toggleLocationServices =
-    new selenium_mock_1.Command('POST', 'appium/device/toggle_location_services', function (session) {
+    new selenium_mock_1.Command('POST', 'appium/device/toggle_location_services', (session) => {
         session.locationEnabled = !session.locationEnabled;
     });
 exports.session.getGeolocation =
-    new selenium_mock_1.Command('GET', '/location', function (session) {
+    new selenium_mock_1.Command('GET', '/location', (session) => {
         if (!session.locationEnabled) {
             throw 'Location services disabled';
         }
         return session.location;
     });
 exports.session.setGeolocation =
-    new selenium_mock_1.Command('POST', '/location', function (session, params) {
+    new selenium_mock_1.Command('POST', '/location', (session, params) => {
         if (!session.locationEnabled) {
             throw 'Location services disabled';
         }

@@ -1,5 +1,6 @@
 var tape = require('tape')
 var through = require('through2')
+var ndjson = require('ndjson')
 var each = require('./')
 
 tape('each', function (t) {
@@ -119,4 +120,24 @@ tape('huge stack', function (t) {
     t.error(err, 'no error')
     t.end()
   })
+})
+
+tape('cb only once', function (t) {
+  var p = ndjson.parse()
+  var once = true
+  var data = '{"foo":"' + Array(1000).join('x') + '"}\n'
+
+  each(p, ondata, function (err) {
+    t.ok(once, 'only once')
+    t.ok(err, 'had error')
+    once = false
+    t.end()
+  })
+
+  for (var i = 0; i < 1000; i++) p.write(data)
+  p.write('{...}\n')
+
+  function ondata (data, cb) {
+    process.nextTick(cb)
+  }
 })

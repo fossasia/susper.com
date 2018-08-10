@@ -1,7 +1,25 @@
+[4.2.1 / 2018-08-07](https://github.com/jakubpawlowicz/clean-css/compare/v4.2.0...v4.2.1)
+==================
+
+* Fixes giving `breakWith` option via a string.
+
+[4.2.0 / 2018-08-02](https://github.com/jakubpawlowicz/clean-css/compare/4.1...4.2.0)
+==================
+
+* Adds `process` method for compatibility with optimize-css-assets-webpack-plugin.
+* Fixed issue [#861](https://github.com/jakubpawlowicz/clean-css/issues/861) - new `transition` property optimizer.
+* Fixed issue [#895](https://github.com/jakubpawlowicz/clean-css/issues/895) - ignoring specific styles.
+* Fixed issue [#947](https://github.com/jakubpawlowicz/clean-css/issues/947) - selector based filtering.
+* Fixed issue [#964](https://github.com/jakubpawlowicz/clean-css/issues/964) - adds configurable line breaks.
+* Fixed issue [#986](https://github.com/jakubpawlowicz/clean-css/issues/986) - level 2 optimizations and CSS 4 colors.
+* Fixed issue [#1000](https://github.com/jakubpawlowicz/clean-css/issues/1000) - carriage return handling in tokenizer.
+* Fixed issue [#1038](https://github.com/jakubpawlowicz/clean-css/issues/1038) - `font-variation-settings` quoting.
+* Fixes ReDOS vulnerabilities in validator code.
+
 [4.1.11 / 2018-03-06](https://github.com/jakubpawlowicz/clean-css/compare/v4.1.10...v4.1.11)
 ==================
 
-* Fixes ReDOS vulnerabilities in validator code.
+* Backports fixes to ReDOS vulnerabilities in validator code.
 
 [4.1.10 / 2018-03-05](https://github.com/jakubpawlowicz/clean-css/compare/v4.1.9...v4.1.10)
 ==================
@@ -82,6 +100,11 @@
 * Fixed issue [#916](https://github.com/jakubpawlowicz/clean-css/issues/916) - maximum number of merged selectors.
 * Fixed issue [#920](https://github.com/jakubpawlowicz/clean-css/issues/920) - allows skipping certain properties in level 2 optimizations.
 * Fixed issue [#934](https://github.com/jakubpawlowicz/clean-css/issues/934) - smarter longhand into shorthand merging.
+
+[4.0.13 / 2017-05-10](https://github.com/jakubpawlowicz/clean-css/compare/v4.0.12...v4.0.13)
+==================
+
+* Backports [#939](https://github.com/jakubpawlowicz/clean-css/issues/939) - semicolon after `@apply` at rule.
 
 [4.0.12 / 2017-04-12](https://github.com/jakubpawlowicz/clean-css/compare/v4.0.11...v4.0.12)
 ==================
@@ -204,6 +227,11 @@
 * Fixed issue [#856](https://github.com/jakubpawlowicz/clean-css/issues/856) - allows `minify` to return a promise.
 * Fixed issue [#857](https://github.com/jakubpawlowicz/clean-css/issues/857) - normalizes CleanCSS API interface.
 * Fixed issue [#863](https://github.com/jakubpawlowicz/clean-css/issues/863) - adds `transform` callback for custom optimizations.
+
+[3.4.26 / 2017-05-10](https://github.com/jakubpawlowicz/clean-css/compare/v3.4.25...v3.4.26)
+==================
+
+* Backports [#939](https://github.com/jakubpawlowicz/clean-css/issues/939) - semicolon after `@apply` at-rule.
 
 [3.4.25 / 2017-02-22](https://github.com/jakubpawlowicz/clean-css/compare/v3.4.24...v3.4.25)
 ==================

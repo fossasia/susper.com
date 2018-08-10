@@ -1,3 +1,5 @@
+var systemLineBreak = require('os').EOL;
+
 var override = require('../utils/override');
 
 var Breaks = {
@@ -10,6 +12,12 @@ var Breaks = {
   AfterRuleEnds: 'afterRuleEnds',
   BeforeBlockEnds: 'beforeBlockEnds',
   BetweenSelectors: 'betweenSelectors'
+};
+
+var BreakWith = {
+  CarriageReturnLineFeed: '\r\n',
+  LineFeed: '\n',
+  System: systemLineBreak
 };
 
 var IndentWith = {
@@ -25,10 +33,12 @@ var Spaces = {
 
 var DEFAULTS = {
   breaks: breaks(false),
+  breakWith: BreakWith.System,
   indentBy: 0,
   indentWith: IndentWith.Space,
   spaces: spaces(false),
-  wrapAt: false
+  wrapAt: false,
+  semicolonAfterLastProperty: false
 };
 
 var BEAUTIFY_ALIAS = 'beautify';
@@ -73,6 +83,10 @@ function spaces(value) {
 function formatFrom(source) {
   if (source === undefined || source === false) {
     return false;
+  }
+
+  if (typeof source == 'object' && 'breakWith' in source) {
+    source = override(source, { breakWith: mapBreakWith(source.breakWith) });
   }
 
   if (typeof source == 'object' && 'indentBy' in source) {
@@ -133,6 +147,8 @@ function toHash(string) {
         accumulator[name] = parseInt(value);
       } else if (name == 'indentWith') {
         accumulator[name] = mapIndentWith(value);
+      } else if (name == 'breakWith') {
+        accumulator[name] = mapBreakWith(value);
       }
 
       return accumulator;
@@ -164,6 +180,21 @@ function normalizeValue(value) {
       return true;
     default:
       return value;
+  }
+}
+
+function mapBreakWith(value) {
+  switch (value) {
+    case 'windows':
+    case 'crlf':
+    case BreakWith.CarriageReturnLineFeed:
+      return BreakWith.CarriageReturnLineFeed;
+    case 'unix':
+    case 'lf':
+    case BreakWith.LineFeed:
+      return BreakWith.LineFeed;
+    default:
+      return systemLineBreak;
   }
 }
 

@@ -44,6 +44,7 @@ function each (stream, fn, cb) {
       want = false
 
       var data = shift(stream)
+      if (ended) return
       if (data === null) {
         want = true
         return

@@ -12,6 +12,11 @@ function bufferEqual(a, b) {
   if (a.length !== b.length) {
     return false;
   }
+  // `crypto.timingSafeEqual` was introduced in Node v6.6.0
+  // <https://github.com/jshttp/basic-auth/issues/39>
+  if (crypto.timingSafeEqual) {
+    return crypto.timingSafeEqual(a, b);
+  }
   for (var i = 0; i < a.length; i++) {
     if (a[i] !== b[i]) {
       return false;

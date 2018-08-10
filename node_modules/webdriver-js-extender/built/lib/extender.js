@@ -1,7 +1,8 @@
 "use strict";
-var Command = require('selenium-webdriver/lib/command').Command;
-var Extender = (function () {
-    function Extender(driver) {
+Object.defineProperty(exports, "__esModule", { value: true });
+let Command = require('selenium-webdriver/lib/command').Command;
+class Extender {
+    constructor(driver) {
         this.driver_ = driver;
         this.params_ = {};
         this.executor_ =
@@ -21,10 +22,10 @@ var Extender = (function () {
      *     the WebDriver server's command root and of the form
      *     "/path/:variable/segment".
      */
-    Extender.prototype.defineCommand = function (name, params, method, path) {
+    defineCommand(name, params, method, path) {
         this.executor_.defineCommand(name, method, path);
         this.params_[method + ':' + name] = params;
-    };
+    }
     /**
      * Executes a command which was defined by defineCommand()
      *
@@ -33,7 +34,7 @@ var Extender = (function () {
      * @return {webdriver.promise.Promise<*>} A promise that will be resolved with
      *     the command result
      */
-    Extender.prototype.execCommand = function (name, method, params) {
+    execCommand(name, method, params) {
         var paramNames = this.params_[method + ':' + name];
         if (paramNames === undefined) {
             throw new RangeError('The command "' + name + '" has not yet been defined');
@@ -50,7 +51,7 @@ var Extender = (function () {
         }
         return this.driver_.schedule(command, 'Custom Command: ' + name + '(' +
             params
-                .map(function (x) {
+                .map((x) => {
                 if ((typeof x == 'number') || (typeof x == 'boolean') ||
                     (typeof x == 'function')) {
                     return x.toString();
@@ -64,8 +65,7 @@ var Extender = (function () {
             })
                 .join(', ') +
             ')');
-    };
-    return Extender;
-}());
+    }
+}
 exports.Extender = Extender;
 //# sourceMappingURL=extender.js.map

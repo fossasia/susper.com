@@ -1,7 +1,7 @@
 [![npm][npm]][npm-url]
 [![node][node]][node-url]
 [![deps][deps]][deps-url]
-[![tests][tests]][tests-url]
+[![test][test]][test-url]
 [![coverage][cover]][cover-url]
 [![code style][style]][style-url]
 [![chat][chat]][chat-url]
@@ -23,18 +23,20 @@ npm i -D postcss-load-config
 
 <h2 align="center">Usage</h2>
 
-```
+```bash
 npm i -S|-D postcss-plugin
 ```
 
-Install plugins and save them to your ***package.json*** dependencies/devDependencies.
+Install all required postcss plugins and save them to your **package.json** `dependencies`/`devDependencies`
+
+Then create a postcss config file by choosing one of the following formats
 
 ### `package.json`
 
-Create **`postcss`** section in your projects **`package.json`**.
+Create a **`postcss`** section in your projects **`package.json`**
 
 ```
-App
+Project (Root)
   |– client
   |– public
   |
@@ -46,8 +48,6 @@ App
   "postcss": {
     "parser": "sugarss",
     "map": false,
-    "from": "/path/to/src.sss",
-    "to": "/path/to/dest.css",
     "plugins": {
       "postcss-plugin": {}
     }
@@ -57,185 +57,243 @@ App
 
 ### `.postcssrc`
 
-Create a **`.postcssrc`** file in JSON or YAML format.
+Create a **`.postcssrc`** file in JSON or YAML format
 
-It's also allowed to use extensions (**`.postcssrc.json`** or **`.postcssrc.yaml`**). That could help your text editor to properly interpret the file.
+> ℹ️ It's recommended to use an extension (e.g **`.postcssrc.json`** or **`.postcssrc.yml`**) instead of `.postcssrc`
 
 ```
-App
+Project (Root)
   |– client
   |– public
   |
-  |- (.postcssrc|.postcssrc.json|.postcssrc.yaml)
+  |- (.postcssrc|.postcssrc.json|.postcssrc.yml)
   |- package.json
 ```
 
-**`JSON`**
+**`.postcssrc.json`**
 ```json
 {
   "parser": "sugarss",
   "map": false,
-  "from": "/path/to/src.sss",
-  "to": "/path/to/dest.css",
   "plugins": {
     "postcss-plugin": {}
   }
 }
 ```
 
-**`YAML`**
+**`.postcssrc.yml`**
 ```yaml
 parser: sugarss
 map: false
-from: "/path/to/src.sss"
-to: "/path/to/dest.css"
 plugins:
   postcss-plugin: {}
 ```
 
-### `postcss.config.js` or `.postcssrc.js`
+### `.postcssrc.js` or `postcss.config.js`
 
-You may need some JavaScript logic to generate your config. For this case you can use a file named **`postcss.config.js`** or **`.postcssrc.js`**.
+You may need some logic within your config. In this case create JS file named **`.postcssrc.js`** or **`postcss.config.js`**
 
 ```
-App
+Project (Root)
   |– client
   |– public
   |
-  |- (postcss.config.js|.postcssrc.js)
+  |- (.postcssrc.js|postcss.config.js)
   |- package.json
 ```
 
 You can export the config as an `{Object}`
 
+**.postcssrc.js**
 ```js
 module.exports = {
   parser: 'sugarss',
   map: false,
-  from: '/path/to/src.sss',
-  to: '/path/to/dest.css',
   plugins: {
     'postcss-plugin': {}
   }
 }
 ```
 
-Or export a `{Function}` that returns the config (more about the param `ctx` below)
+Or export a `{Function}` that returns the config (more about the `ctx` param below)
 
+**.postcssrc.js**
 ```js
 module.exports = (ctx) => ({
   parser: ctx.parser ? 'sugarss' : false,
   map: ctx.env === 'development' ? ctx.map : false,
-  from: ctx.from,
-  to: ctx.to,
   plugins: {
-    'postcss-plugin': ctx.plugin
+    'postcss-plugin': ctx.options.plugin
   }
 })
 ```
 
-Plugins can be loaded in either using an `{Object}` or an `{Array}`.
+Plugins can be loaded either using an `{Object}` or an `{Array}`
 
-##### `{Object}`
+#### `{Object}`
 
+**.postcssrc.js**
 ```js
-module.exports = (ctx) => ({
+module.exports = ({ env }) => ({
   ...options
   plugins: {
-    'postcss-plugin': ctx.plugin
+    'postcss-plugin': env === 'production' ? {} : false
   }
 })
 ```
 
-##### `{Array}`
+#### `{Array}`
 
+**.postcssrc.js**
 ```js
-module.exports = (ctx) => ({
+module.exports = ({ env }) => ({
   ...options
   plugins: [
-    require('postcss-plugin')(ctx.plugin)
+    env === 'production' ? require('postcss-plugin')() : false
   ]
 })
 ```
-> :warning: When using an Array, make sure to `require()` them.
+> :warning: When using an `{Array}`, make sure to `require()` each plugin
 
 <h2 align="center">Options</h2>
 
-**`parser`**:
+|Name|Type|Default|Description|
+|:--:|:--:|:-----:|:----------|
+|[**`to`**](#to)|`{String}`|`undefined`|Destination File Path|
+|[**`map`**](#map)|`{String\|Object}`|`false`|Enable/Disable Source Maps|
+|[**`from`**](#from)|`{String}`|`undefined`|Source File Path|
+|[**`parser`**](#parser)|`{String\|Function}`|`false`|Custom PostCSS Parser|
+|[**`syntax`**](#syntax)|`{String\|Function}`|`false`|Custom PostCSS Syntax|
+|[**`stringifier`**](#stringifier)|`{String\|Function}`|`false`|Custom PostCSS Stringifier|
 
+### `parser`
+
+**.postcssrc.js**
 ```js
-'parser': 'sugarss'
+module.exports = {
+  parser: 'sugarss'
+}
 ```
 
-**`syntax`**:
+### `syntax`
 
+**.postcssrc.js**
 ```js
-'syntax': 'postcss-scss'
-```
-**`stringifier`**:
-
-```js
-'stringifier': 'midas'
+module.exports = {
+  syntax: 'postcss-scss'
+}
 ```
 
-[**`map`**:](https://github.com/postcss/postcss/blob/master/docs/source-maps.md)
+### `stringifier`
 
+**.postcssrc.js**
 ```js
-'map': 'inline'
+module.exports = {
+  stringifier: 'midas'
+}
 ```
 
-**`from`**:
+### [**`map`**](https://github.com/postcss/postcss/blob/master/docs/source-maps.md)
 
+**.postcssrc.js**
 ```js
-from: 'path/to/src.css'
+module.exports = {
+  map: 'inline'
+}
 ```
 
-**`to`**:
+> :warning: In most cases `options.from` && `options.to` are set by the third-party which integrates this package (CLI, gulp, webpack). It's unlikely one needs to set/use `options.from` && `options.to` within a config file. Unless you're a third-party plugin author using this module and its Node API directly **dont't set `options.from` && `options.to` yourself**
+
+### `to`
 
 ```js
-to: 'path/to/dest.css'
+module.exports = {
+  to: 'path/to/dest.css'
+}
+```
+
+### `from`
+
+```js
+module.exports = {
+  from: 'path/to/src.css'
+}
 ```
 
 <h2 align="center">Plugins</h2>
 
-### Options
+### `{} || null`
 
-**`{} || null`**: Plugin loads with defaults.
+The plugin will be loaded with defaults
 
 ```js
 'postcss-plugin': {} || null
 ```
-> :warning: `{}` must be an **empty** object
 
-**`[Object]`**: Plugin loads with given options.
+**.postcssrc.js**
+```js
+module.exports = {
+  plugins: {
+    'postcss-plugin': {} || null
+  }
+}
+```
+
+> :warning: `{}` must be an **empty** `{Object}` literal
+
+### `{Object}`
+
+The plugin will be loaded with given options
 
 ```js
 'postcss-plugin': { option: '', option: '' }
 ```
 
-**`false`**: Plugin will not be loaded.
+**.postcssrc.js**
+```js
+module.exports = {
+  plugins: {
+    'postcss-plugin': { option: '', option: '' }
+  }
+}
+```
+
+### `false`
+
+The plugin will not be loaded
 
 ```js
 'postcss-plugin': false
 ```
 
-### Order
+**.postcssrc.js**
+```js
+module.exports = {
+  plugins: {
+    'postcss-plugin': false
+  }
+}
+```
 
-Plugin **order** is determined by declaration in the plugins section.
+### `Ordering`
+
+Plugin **execution order** is determined by declaration in the plugins section (**top-down**)
 
 ```js
 {
   plugins: {
-    'postcss-plugin': {}, // plugins[0]
-    'postcss-plugin': {}, // plugins[1]
-    'postcss-plugin': {}  // plugins[2]
+    'postcss-plugin': {}, // [0]
+    'postcss-plugin': {}, // [1]
+    'postcss-plugin': {}  // [2]
   }
 }
 ```
 
 <h2 align="center">Context</h2>
 
-When using a function (`postcss.config.js` or `.postcssrc.js`), it is possible to pass context to `postcss-load-config`, which will be evaluated while loading your config. By default `ctx.env (process.env.NODE_ENV)` and `ctx.cwd (process.cwd())` are available.
+When using a `{Function}` (`postcss.config.js` or `.postcssrc.js`), it's possible to pass context to `postcss-load-config`, which will be evaluated while loading your config. By default `ctx.env (process.env.NODE_ENV)` and `ctx.cwd (process.cwd())` are available on the `ctx` `{Object}`
+
+> ℹ️ Most third-party integrations add additional properties to the `ctx` (e.g `postcss-loader`). Check the specific module's README for more information about what is available on the respective `ctx`
 
 <h2 align="center">Examples</h2>
 
@@ -253,7 +311,9 @@ module.exports = (ctx) => ({
 })
 ```
 
-### <img width="80" height="80" src="https://worldvectorlogo.com/logos/nodejs-icon.svg">
+<div align="center">
+  <img width="80" height="80" src="https://worldvectorlogo.com/logos/nodejs-icon.svg">
+</div>
 
 ```json
 "scripts": {
@@ -279,7 +339,9 @@ postcssrc(ctx).then(({ plugins, options }) => {
 })
 ```
 
-### <img width="80" height="80" src="https://worldvectorlogo.com/logos/gulp.svg">
+<div align="center">
+  <img width="80" height="80" halign="10" src="https://worldvectorlogo.com/logos/gulp.svg">
+</div>
 
 ```json
 "scripts": {
@@ -306,7 +368,9 @@ task('watch', () => {
 task('default', series(css, 'watch'))
 ```
 
-### <img width="80" height="80" src="https://worldvectorlogo.com/logos/webpack.svg">
+<div align="center">
+  <img width="80" height="80" src="https://cdn.rawgit.com/webpack/media/e7485eb2/logo/icon.svg">
+</div>
 
 ```json
 "scripts": {
@@ -315,18 +379,16 @@ task('default', series(css, 'watch'))
 }
 ```
 
+**webpack.config.js**
 ```js
 module.exports = (env) => ({
   module: {
     rules: [
       {
-        test: /\.css$/
+        test: /\.css$/,
         use: [
           'style-loader',
-          {
-            loader: 'css-loader',
-            options: { importLoaders: 1 } }
-          },
+          'css-loader',
           'postcss-loader'
         ]
       }
@@ -341,14 +403,14 @@ module.exports = (env) => ({
   <tbody>
    <tr>
     <td align="center">
-      <img width="150 height="150"
-        src="https://avatars.githubusercontent.com/u/5419992?v=3&s=150">
+      <img width="150" height="150"
+        src="https://github.com/michael-ciniawsky.png?v=3&s=150">
       <br />
       <a href="https://github.com/michael-ciniawsky">Michael Ciniawsky</a>
     </td>
     <td align="center">
-      <img width="150 height="150"
-        src="https://avatars.githubusercontent.com/u/2437969?v=3&s=150">
+      <img width="150" height="150"
+        src="https://github.com/ertrzyiks.png?v=3&s=150">
       <br />
       <a href="https://github.com/ertrzyiks">Mateusz Derks</a>
     </td>
@@ -363,25 +425,26 @@ module.exports = (env) => ({
    <tr>
     <td align="center">
       <img width="150" height="150"
-        src="https://avatars.githubusercontent.com/u/1483538?v=3&s=150">
+        src="https://github.com/sparty02.png?v=3&s=150">
       <br />
       <a href="https://github.com/sparty02">Ryan Dunckel</a>
     </td>
     <td align="center">
       <img width="150" height="150"
-        src="https://avatars.githubusercontent.com/u/6249643?v=3&s=150">
+        src="https://github.com/pcgilday.png?v=3&s=150">
       <br />
       <a href="https://github.com/pcgilday">Patrick Gilday</a>
     </td>
     <td align="center">
       <img width="150" height="150"
-        src="https://avatars.githubusercontent.com/u/5603632?v=3&s=150">
+        src="https://github.com/daltones.png?v=3&s=150">
       <br />
       <a href="https://github.com/daltones">Dalton Santos</a>
     </td>
   </tr>
   <tbody>
 </table>
+
 
 [npm]: https://img.shields.io/npm/v/postcss-load-config.svg
 [npm-url]: https://npmjs.com/package/postcss-load-config
@@ -392,14 +455,14 @@ module.exports = (env) => ({
 [deps]: https://david-dm.org/michael-ciniawsky/postcss-load-config.svg
 [deps-url]: https://david-dm.org/michael-ciniawsky/postcss-load-config
 
-[style]: https://img.shields.io/badge/code%20style-standard-yellow.svg
-[style-url]: http://standardjs.com/
-
-[tests]: http://img.shields.io/travis/michael-ciniawsky/postcss-load-config.svg
-[tests-url]: https://travis-ci.org/michael-ciniawsky/postcss-load-config
+[test]: http://img.shields.io/travis/michael-ciniawsky/postcss-load-config.svg
+[test-url]: https://travis-ci.org/michael-ciniawsky/postcss-load-config
 
 [cover]: https://coveralls.io/repos/github/michael-ciniawsky/postcss-load-config/badge.svg
 [cover-url]: https://coveralls.io/github/michael-ciniawsky/postcss-load-config
+
+[style]: https://img.shields.io/badge/code%20style-standard-yellow.svg
+[style-url]: http://standardjs.com/
 
 [chat]: https://img.shields.io/gitter/room/postcss/postcss.svg
 [chat-url]: https://gitter.im/postcss/postcss

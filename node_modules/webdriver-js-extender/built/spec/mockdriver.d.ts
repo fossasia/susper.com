@@ -1,4 +1,3 @@
-/// <reference types="selenium-webdriver" />
 import * as webdriver from 'selenium-webdriver';
 export interface Data {
     sessionId: string;

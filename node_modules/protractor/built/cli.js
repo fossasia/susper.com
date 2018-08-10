@@ -47,6 +47,7 @@ let allowedNames = [
     'sauceSeleniumAddress',
     'browserstackUser',
     'browserstackKey',
+    'browserstackProxy',
     'kobitonUser',
     'kobitonKey',
     'testobjectUser',

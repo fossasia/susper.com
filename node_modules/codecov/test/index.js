@@ -50,8 +50,8 @@ describe('Codecov', function() {
     var res = codecov.upload({
       options: {
         dump: true,
-        file: 'test' + pathSeparator + 'example.coverage.txt'
-      }
+        file: 'test' + pathSeparator + 'example.coverage.txt',
+      },
     })
     expect(res.files[0].split(pathSeparator).pop()).to.eql(
       'example.coverage.txt'
@@ -144,8 +144,8 @@ describe('Codecov', function() {
         'gcov-root': 'folder/path',
         'gcov-glob': 'ignore/this/folder',
         'gcov-exec': 'llvm-gcov',
-        'gcov-args': '-o'
-      }
+        'gcov-args': '-o',
+      },
     })
     if (!isWindows) {
       expect(res.debug).to.contain(

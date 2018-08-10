@@ -1,5 +1,6 @@
 import * as webdriver from './index';
 import * as remote from './remote';
+import * as http from './http';
 
 /**
  * Manages a Firefox subprocess configured for use with WebDriver.
@@ -19,7 +20,6 @@ export class Binary {
      */
     addArguments(...var_args: string[]): void;
 
-
     /**
      * Launches Firefox and eturns a promise that will be fulfilled when the process
      * terminates.
@@ -28,7 +28,6 @@ export class Binary {
      * @throws {Error} If this instance has already been started.
      */
     launch(profile: string): webdriver.promise.Promise<any>;
-
 
     /**
      * Kills the managed Firefox process.
@@ -58,7 +57,6 @@ export class Profile {
      */
     addExtension(extension: string): void;
 
-
     /**
      * Sets a desired preference for this profile.
      * @param {string} key The preference key.
@@ -68,7 +66,6 @@ export class Profile {
     setPreference(key: string, value: string): void;
     setPreference(key: string, value: number): void;
     setPreference(key: string, value: boolean): void;
-
 
     /**
      * Returns the currently configured value of a profile preference. This does
@@ -80,7 +77,6 @@ export class Profile {
      */
     getPreference(key: string): any;
 
-
     /**
      * @return {number} The port this profile is currently configured to use, or
      *     0 if the port will be selected at random when the profile is written
@@ -88,20 +84,17 @@ export class Profile {
      */
     getPort(): number;
 
-
     /**
      * Sets the port to use for the WebDriver extension loaded by this profile.
      * @param {number} port The desired port, or 0 to use any free port.
      */
     setPort(port: number): void;
 
-
     /**
      * @return {boolean} Whether the FirefoxDriver is configured to automatically
      *     accept untrusted SSL certificates.
      */
     acceptUntrustedCerts(): boolean;
-
 
     /**
      * Sets whether the FirefoxDriver should automatically accept untrusted SSL
@@ -110,13 +103,11 @@ export class Profile {
      */
     setAcceptUntrustedCerts(value: boolean): void;
 
-
     /**
      * Sets whether to assume untrusted certificates come from untrusted issuers.
      * @param {boolean} value .
      */
     setAssumeUntrustedCertIssuer(value: boolean): void;
-
 
     /**
      * @return {boolean} Whether to assume untrusted certs come from untrusted
@@ -124,20 +115,17 @@ export class Profile {
      */
     assumeUntrustedCertIssuer(): boolean;
 
-
     /**
      * Sets whether to use native events with this profile.
      * @param {boolean} enabled .
      */
     setNativeEventsEnabled(enabled: boolean): void;
 
-
     /**
      * Returns whether native events are enabled in this profile.
      * @return {boolean} .
      */
     nativeEventsEnabled(): boolean;
-
 
     /**
      * Writes this profile to disk.
@@ -150,7 +138,6 @@ export class Profile {
      */
     writeToDisk(opt_excludeWebDriverExt?: boolean): webdriver.promise.Promise<string>;
 
-
     /**
      * Encodes this profile as a zipped, base64 encoded directory.
      * @return {!promise.Promise.<string>} A promise for the encoded profile.
@@ -162,6 +149,49 @@ export class Profile {
  * Configuration options for the FirefoxDriver.
  */
 export class Options {
+    /**
+     * Specify additional command line arguments that should be used when starting
+     * the Firefox browser.
+     *
+     * @param {...(string|!Array<string>)} args The arguments to include.
+     * @return {!Options} A self reference.
+     */
+    addArguments(...args: string[]): Options;
+
+    /**
+     * Sets the browser to be in headless mode.
+     *
+     * @return {!Options} A self reference.
+     */
+    headless(): Options;
+
+    /**
+    * Sets the initial window size when running in
+    * {@linkplain #headless headless} mode.
+    *
+    * @param {{width: number, height: number}} size The desired window size.
+    * @return {!Options} A self reference.
+    * @throws {TypeError} if width or height is unspecified, not a number, or
+    *     less than or equal to 0.
+    */
+    windowSize(size: { width: number, height: number }): Options;
+
+    /**
+     * Add extensions that should be installed when starting Firefox.
+     *
+     * @param {...string} paths The paths to the extension XPI files to install.
+     * @return {!Options} A self reference.
+     */
+    addExtensions(...paths: string[]): Options;
+
+    /**
+     * @param {string} key the preference key.
+     * @param {(string|number|boolean)} value the preference value.
+     * @return {!Options} A self reference.
+     * @throws {TypeError} if either the key or value has an invalid type.
+     */
+    setPreference(key: string, value: string | number | boolean): Options;
+
     /**
      * Sets the profile to use. The profile may be specified as a
      * {@link Profile} object or as the path to an existing Firefox profile to use
@@ -197,11 +227,13 @@ export class Options {
     setProxy(proxy: webdriver.ProxyConfig): Options;
 
     /**
-     * Sets whether to use Mozilla's Marionette to drive the browser.
+     * Sets whether to use Mozilla's geckodriver to drive the browser. This option
+     * is enabled by default and required for Firefox 47+.
      *
-     * @see https://developer.mozilla.org/en-US/docs/Mozilla/QA/Marionette/WebDriver
+     * @param {boolean} enable Whether to enable the geckodriver.
+     * @see https://github.com/mozilla/geckodriver
      */
-    useMarionette(marionette: any): Options;
+    useGeckoDriver(enable: boolean): Options;
 
     /**
      * Converts these options to a {@link capabilities.Capabilities} instance.
@@ -235,14 +267,31 @@ export function prepareProfile(profile: string | any, port: number): any;
  */
 export class Driver extends webdriver.WebDriver {
     /**
+     * Creates a new Firefox session.
+     *
      * @param {(Options|capabilities.Capabilities|Object)=} opt_config The
      *    configuration options for this driver, specified as either an
      *    {@link Options} or {@link capabilities.Capabilities}, or as a raw hash
      *    object.
+     * @param {(http.Executor|remote.DriverService)=} opt_executor Either a
+     *   pre-configured command executor to use for communicating with an
+     *   externally managed remote end (which is assumed to already be running),
+     *   or the `DriverService` to use to start the geckodriver in a child
+     *   process.
+     *
+     *   If an executor is provided, care should e taken not to use reuse it with
+     *   other clients as its internal command mappings will be updated to support
+     *   Firefox-specific commands.
+     *
+     *   _This parameter may only be used with Mozilla's GeckoDriver._
+     *
      * @param {promise.ControlFlow=} opt_flow The flow to
      *     schedule commands through. Defaults to the active flow object.
+     * @throws {Error} If a custom command executor is provided and the driver is
+     *     configured to use the legacy FirefoxDriver from the Selenium project.
+     * @return {!Driver} A new driver instance.
      */
-    constructor(opt_config?: Options | webdriver.Capabilities | Object, opt_flow?: webdriver.promise.ControlFlow);
+    static createSession(opt_config?: Options | webdriver.Capabilities, opt_executor?: http.Executor | remote.DriverService, opt_flow?: webdriver.promise.ControlFlow): Driver;
 
     /**
      * This function is a no-op as file detectors are not supported by this
@@ -250,4 +299,37 @@ export class Driver extends webdriver.WebDriver {
      * @override
      */
     setFileDetector(): void;
+}
+
+/**
+ * Creates {@link selenium-webdriver/remote.DriverService} instances that manage
+ * a [geckodriver](https://github.com/mozilla/geckodriver) server in a child
+ * process.
+ */
+export class ServiceBuilder extends remote.DriverService.Builder {
+    /**
+     * @param {string=} opt_exe Path to the server executable to use. If omitted,
+     *     the builder will attempt to locate the geckodriver on the system PATH.
+     */
+    constructor(opt_exe?: string);
+
+    /**
+     * Enables verbose logging.
+     *
+     * @param {boolean=} opt_trace Whether to enable trace-level logging. By
+     *     default, only debug logging is enabled.
+     * @return {!ServiceBuilder} A self reference.
+     */
+    enableVerboseLogging(opt_trace?: boolean): this;
+
+    /**
+     * Sets the path to the executable Firefox binary that the geckodriver should
+     * use. If this method is not called, this builder will attempt to locate
+     * Firefox in the default installation location for the current platform.
+     *
+     * @param {(string|!Binary)} binary Path to the executable Firefox binary to use.
+     * @return {!ServiceBuilder} A self reference.
+     * @see Binary#locate()
+     */
+    setFirefoxBinary(binary: string | Binary): this;
 }
