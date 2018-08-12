@@ -16,9 +16,9 @@ export class DropdownComponent implements OnInit {
   pslabUrl = url.pslab.site;
   fossasiaLabsUrl = url.fossasia.labs;
   fossasia_repo = url.github_repo.fossasia;
+  badgeyayUrl = 'http://' + url.badgeyay.site;
 
   constructor() { }
   ngOnInit() {
   }
-
 }

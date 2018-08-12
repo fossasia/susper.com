@@ -26,6 +26,9 @@ export const url = {
     'pslab': {
             'site': 'pslab.io'
             },
+    'badgeyay': {
+            'site': 'badgeyay.com'
+    },
     'github_repo': {
                     'fossasia': 'github.com/fossasia'
                     }
