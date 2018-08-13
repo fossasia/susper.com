@@ -9,7 +9,6 @@ export class AboutComponent implements OnInit {
   susperUrl = url.susper.site;
   yacyUrl = url.yacy.api_server;
   fossasia_repo = url.github_repo.fossasia;
-  mountainLogo = url.logos.mountain;
   constructor() { }
   ngOnInit() {
   }
