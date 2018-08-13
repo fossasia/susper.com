@@ -35,9 +35,8 @@ p {
 }
 a:hover, a:visited, a:link, a:active {
   text-decoration: none;
-  color: #006621;
 }
-.query_description{
+.query_description {
   color: #777;
   font-family: arial,sans-serif;
   margin-top: -25px;
