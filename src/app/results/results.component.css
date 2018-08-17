@@ -308,7 +308,7 @@ a {
   padding-top: 20px;
   width: 100%;
   margin-top: -24px;
-  margin-left: 200px;
+  margin-left: 100px;
 }
 
 .pagination-property {
@@ -490,7 +490,7 @@ div.autocorrect {
     }
   }
 
-@media screen and (min-width: 425px) and (max-width: 2560px) {
+@media screen and (min-width: 426px) and (max-width: 2560px) {
   .next-page-mobile {
     display: none;
   }
