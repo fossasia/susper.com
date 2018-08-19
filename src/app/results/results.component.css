@@ -77,11 +77,20 @@ a {
 }
 
 .page-item2 span {
-  padding-top: 8px;
+  padding-top: 21px;
   padding-left: 2%;
   padding-right: 2%;
   border: 0;
-  text-align: center;
+  text-align: right;
+  cursor: pointer;
+}
+
+.page-item3 span {
+  padding-top: 21px;
+  padding-left: 2%;
+  padding-right: 2%;
+  border: 0;
+  text-align: left;
   cursor: pointer;
 }
 
@@ -785,6 +794,7 @@ div.autocorrect {
   .arrow {
     font-size: 25px;
     color: #c8c4c3;
+    margin-top: -15px;
   }
 
   .page-number {
@@ -812,6 +822,9 @@ div.autocorrect {
   }
 
   .page-item2 span {
+    margin-top: -13%;
+  }
+  .page-item3 span {
     margin-top: -13%;
   }
 
