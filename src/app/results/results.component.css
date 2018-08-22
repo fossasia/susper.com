@@ -76,11 +76,20 @@ a {
 }
 
 .page-item2 span {
-  padding-top: 2%;
+  padding-top: 21px;
   padding-left: 2%;
   padding-right: 2%;
   border: 0;
-  text-align: center;
+  text-align: right;
+  cursor: pointer;
+}
+
+.page-item3 span {
+  padding-top: 21px;
+  padding-left: 2%;
+  padding-right: 2%;
+  border: 0;
+  text-align: left;
   cursor: pointer;
 }
 
@@ -320,7 +329,7 @@ a {
   padding-top: 20px;
   width: 100%;
   margin-top: -24px;
-  margin-left: 200px;
+  margin-left: 100px;
 }
 
 .pagination>li>span.active_page,.pagination>li>span>div.page-text.active_page{
@@ -831,6 +840,7 @@ div.autocorrect {
   .arrow {
     font-size: 25px;
     color: #c8c4c3;
+    margin-top: -15px;
   }
 
   .page-number {
@@ -858,6 +868,9 @@ div.autocorrect {
   }
 
   .page-item2 span {
+    margin-top: -13%;
+  }
+  .page-item3 span {
     margin-top: -13%;
   }
 

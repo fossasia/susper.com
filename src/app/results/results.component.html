@@ -205,12 +205,13 @@
             <nav aria-label="Page navigation" *ngIf="(items$ | async)?.length!=0">
               <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
                 <ul class="pagination" id="pag-bar">
-                  <li class="page-item2" *ngIf="!getStyle(1)">
+                  <li class="page-item2">
                     <span [style.background-color]='themeService.backgroundColor' class="spl" id="left-arrow" (click)="decPresentPage()">
-                      <div class="arrow" (click)="decreasePage()">
+                      <div class="arrow" (click)="decreasePage()" [hidden]="getStyle(1)">
                           &lt;
                         </div>
-                          <div class="side-text">Previous</div>
+                          <div class="side-text" [hidden]="getStyle(1)">Previous</div>
+                          <div style="width:47px" [hidden]="!getStyle(1)"></div>
                     </span>
                   </li>
                   <li class="page-item">
@@ -237,7 +238,7 @@
                     </span>
                   </li>
                   <div class="next-page-mobile">Page {{count}}</div>
-                  <li class="page-item2" *ngIf="!getStyle(noOfPages)">
+                  <li class="page-item3" *ngIf="!getStyle(noOfPages)">
                     <span [style.background-color]='themeService.backgroundColor' class="spl" (click)="incPresentPage()">
                       <div class="arrow" (click)="increasePage()">&gt;</div>
                       <div class="side-text">Next</div>
