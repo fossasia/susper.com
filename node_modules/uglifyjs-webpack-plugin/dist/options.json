@@ -10,16 +10,20 @@
         { "type": "string" }
       ]
     },
+    "cacheKeys": {
+      "instanceof": "Function"
+    },
     "parallel": {
       "oneOf": [
         { "type": "boolean" },
         { "type": "integer" }
       ]
     },
-    "warningsFilter": {},
-    "extractComments": {},
     "sourceMap": {
       "type": "boolean"
+    },
+    "minify": {
+      "instanceof": "Function"
     },
     "uglifyOptions": {
       "additionalProperties": true,
@@ -61,7 +65,9 @@
           "type": ["object", "null"]
         }
       }
-    }
+    },
+    "extractComments": {},
+    "warningsFilter": {}
   },
   "additionalProperties": false
 }

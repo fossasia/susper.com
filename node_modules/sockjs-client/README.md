@@ -57,10 +57,11 @@ SockJS family:
   * [SockJS-tornado](https://github.com/MrJoes/sockjs-tornado) Python/Tornado server
   * [SockJS-twisted](https://github.com/DesertBus/sockjs-twisted/) Python/Twisted server
   * [SockJS-aiohttp](https://github.com/aio-libs/sockjs/) Python/Aiohttp server
-  * [Spring Framework](https://projects.spring.io/spring-framework) Java [client](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/websocket.html#websocket-fallback-sockjs-client) & server
+  * [Spring Framework](https://projects.spring.io/spring-framework) Java [client](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/web.html#websocket-fallback-sockjs-client) & server
   * [vert.x](https://github.com/vert-x/vert.x) Java/vert.x server
   * [Xitrum](https://xitrum-framework.github.io/) Scala server
   * [Atmosphere Framework](https://github.com/Atmosphere/atmosphere) JavaEE Server, Play Framework, Netty, Vert.x
+  * [Actix SockJS](https://github.com/fafhrd91/actix-sockjs) Rust Server, Actix Framework
 
 Work in progress:
 
@@ -83,7 +84,7 @@ First, you need to load the SockJS JavaScript library. For example, you can
 put that in your HTML head:
 
 ```html
-<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 ```
 
 After the script is loaded you can establish a connection with the
@@ -93,16 +94,18 @@ SockJS server. Here's a simple example:
  var sock = new SockJS('https://mydomain.com/my_prefix');
  sock.onopen = function() {
      console.log('open');
+     sock.send('test');
  };
+
  sock.onmessage = function(e) {
      console.log('message', e.data);
+     sock.close();
  };
+
  sock.onclose = function() {
      console.log('close');
  };
 
- sock.send('test');
- sock.close();
 ```
 
 SockJS-client API
@@ -259,7 +262,7 @@ You should use a version of sockjs-client
 that supports the protocol used by your server. For example:
 
 ```html
-<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 ```
 
 

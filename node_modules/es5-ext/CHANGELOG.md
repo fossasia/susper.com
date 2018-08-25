@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.10.46"></a>
+## [0.10.46](https://github.com/medikoo/es5-ext/compare/v0.10.45...v0.10.46) (2018-08-13)
+
+
+### Bug Fixes
+
+* assign-deep to not modify following arguments ([bf43d57](https://github.com/medikoo/es5-ext/commit/bf43d57))
+
+
+
 <a name="0.10.45"></a>
 ## [0.10.45](https://github.com/medikoo/es5-ext/compare/v0.10.44...v0.10.45) (2018-06-01)
 

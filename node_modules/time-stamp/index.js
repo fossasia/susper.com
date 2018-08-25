@@ -13,10 +13,11 @@
  *
  * @param  {String} `pattern` Date pattern.
  * @param  {Date} `date` Date object.
+ * @param  {Bool} `useUTC` Whether or not to use UTC (local timezone is used otherwise)
  * @return {String}
  */
 
-module.exports = function(pattern, date) {
+function _getTimestamp(pattern, date, useUTC) {
   if (typeof pattern !== 'string') {
     date = pattern;
     pattern = 'YYYY-MM-DD';
@@ -29,7 +30,7 @@ module.exports = function(pattern, date) {
     var match = regex.exec(pattern);
 
     if (match) {
-      var increment = method(match[1]);
+      var increment = method(match[1], useUTC);
       var val = '00' + String(date[increment[0]]() + (increment[2] || 0));
       var res = val.slice(-increment[1]) + (match[2] || '');
       pattern = pattern.replace(match[0], res);
@@ -41,16 +42,24 @@ module.exports = function(pattern, date) {
   return pattern;
 };
 
-function method(key) {
+function method(key, useUTC) {
   return ({
-    YYYY: ['getFullYear', 4],
-    YY: ['getFullYear', 2],
+    YYYY: [useUTC ? 'getUTCFullYear' : 'getFullYear', 4],
+    YY: [useUTC ? 'getUTCFullYear' : 'getFullYear', 2],
     // getMonth is zero-based, thus the extra increment field
-    MM: ['getMonth', 2, 1],
-    DD: ['getDate', 2],
-    HH: ['getHours', 2],
-    mm: ['getMinutes', 2],
-    ss: ['getSeconds', 2],
-    ms: ['getMilliseconds', 3]
+    MM: [useUTC ? 'getUTCMonth' : 'getMonth', 2, 1],
+    DD: [useUTC ? 'getUTCDate' : 'getDate', 2],
+    HH: [useUTC ? 'getUTCHours' : 'getHours', 2],
+    mm: [useUTC ? 'getUTCMinutes' : 'getMinutes', 2],
+    ss: [useUTC ? 'getUTCSeconds' : 'getSeconds', 2],
+    ms: [useUTC ? 'getUTCMilliseconds' : 'getMilliseconds', 3]
   })[key];
 }
+
+module.exports = function(pattern, date) {
+  return _getTimestamp(pattern, date, false);
+};
+
+module.exports.utc = function(pattern, date) {
+  return _getTimestamp(pattern, date, true);
+};

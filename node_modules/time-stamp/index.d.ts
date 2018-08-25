@@ -1,5 +1,5 @@
-
 declare function timestamp(pattern?: string | Date, date?: Date): string
-declare namespace timestamp {}
+declare function timestampUTC(pattern?: string | Date, date?: Date): string
 
-export = timestamp;
+export default timestamp
+export { timestampUTC as utc };

@@ -1,6 +1,6 @@
 {
   "name": "compare-versions",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "Compare semver version strings to find greater, equal or lesser.",
   "main": "index.js",
   "authors": [

@@ -1964,11 +1964,11 @@
   var dir = createLogger('dir');
 
   /**
-   * @version 2.5.1
+   * @version 2.5.2
    * @namespace async
    */
   var index = {
-    VERSION: '2.5.1',
+    VERSION: '2.5.2',
 
     // Collections
     each: each,
@@ -8861,9 +8861,11 @@
       args.push(done);
       fn.apply(null, args);
 
-      function done() {
+      function done(err) {
         var args = createArray(arguments);
-        memo[key] = args;
+        if (!err) {
+          memo[key] = args;
+        }
         var q = queues[key];
         delete queues[key];
 

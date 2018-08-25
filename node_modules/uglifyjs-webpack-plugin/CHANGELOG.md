@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/compare/v1.2.7...v1.3.0) (2018-08-14)
+
+
+### Bug Fixes
+
+* all nodejs globals avaliable inside `minify` function ([#332](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/332)) ([24fe22b](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/24fe22b))
+* **uglify/Runner:** `cpus` length in a chroot environment (`os.cpus()`) ([#341](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/341)) ([6d9c36f](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/6d9c36f))
+
+
+### Features
+
+* `cacheKeys` option ([#320](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/320)) ([249eef3](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/249eef3))
+* support `minify` function option ([#325](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/325)) ([0174605](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/commit/0174605))
+
+
+
 <a name="1.2.7"></a>
 ## [1.2.7](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/compare/v1.2.6...v1.2.7) (2018-06-25)
 

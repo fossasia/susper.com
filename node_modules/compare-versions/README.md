@@ -20,9 +20,19 @@ $ npm install compare-versions
 
 ## Usage
 
-```javascript
-var compareVersions = require('compare-versions');
+### Import
 
+```javascript
+// ES6/TypeScript
+import * as compareVersions from 'compare-versions';
+
+// Node
+var compareVersions = require('compare-versions');
+```
+
+### Compare
+
+```javascript
 compareVersions('10.1.8', '10.0.4'); //  1
 compareVersions('10.0.1', '10.0.1'); //  0
 compareVersions('10.1.1', '10.2.2'); // -1
