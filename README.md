@@ -45,10 +45,7 @@ First, we will need to install angular-cli by using the following command:
 ```sh
 $ npm install -g @angular/cli@latest
 ```
-After installing angular-cli we need to install our required node modules, so we will do that by using the following command:
-```sh
-$ npm install
-```
+
 ## How to deploy?
 
 [![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/fossasia/susper.com) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/fossasia/susper.com)
