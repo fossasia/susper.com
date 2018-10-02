@@ -40,7 +40,7 @@ Search results are displayed using Solr server which is embedded into YaCy. All 
 * node --version >= 6
 * npm --version >= 3
 
-## Installation
+## Angular Installation
 First, we will need to install angular-cli by using the following command:
 ```sh
 $ npm install -g @angular/cli@latest
