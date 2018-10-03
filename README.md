@@ -55,7 +55,7 @@ $ npm install -g @angular/cli@latest
 * **Step 2:** Then cd into that cloned folder
 * **Step 3:** Then execute the command: ```$ npm install```
 * **Step 4:** Deploy locally by running this:```$ ng serve```
-* **Step 5:** Go to localhost:4200 where the application will be running locally.
+* **Step 5:** Go to [localhost:4200](http://localhost:4200) where the application will be running locally.
 
 ### For deploying with [Github Pages](https://pages.github.com/):
 With these very simple steps you can have susper deployed:
