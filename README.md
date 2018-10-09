@@ -43,7 +43,7 @@ Search results are displayed using Solr server which is embedded into YaCy. All 
 ## Angular Installation
 First, we will need to install angular-cli by using the following command:
 ```sh
-$ npm install -g @angular/cli@latest
+npm install -g @angular/cli@latest
 ```
 
 ## How to deploy?
@@ -53,15 +53,15 @@ $ npm install -g @angular/cli@latest
 ### Running on localhost:
 * **Step 1:** Fork susper repository and clone it to your desktop
 * **Step 2:** Then cd into that cloned folder
-* **Step 3:** Then execute the command: ```$ npm install```
-* **Step 4:** Deploy locally by running this:```$ ng serve```
+* **Step 3:** Then execute the command: ```npm install```
+* **Step 4:** Deploy locally by running this:```ng serve```
 * **Step 5:** Go to [localhost:4200](http://localhost:4200) where the application will be running locally.
 
 ### For deploying with [Github Pages](https://pages.github.com/):
 With these very simple steps you can have susper deployed:
 
 * **Step 1:** Fork susper repository and clone it to your desktop.
-* **Step 2:** Then checkout to your master branch `$ git checkout master`
+* **Step 2:** Then checkout to your master branch `git checkout master`
 * **Step 3:** Deploy by running this: ```ng build``` and then ```npm run deploy```
 * **Step 4:** Visit `https://yourusername.github.io/susper` and you should see the Susper search running.
 * **Step 5:** As you search you might see that it can't find anything, to resolve this, on search you will see there is a red shield on the search bar, click on it and allow to load unsafe scripts.
@@ -119,24 +119,24 @@ The project is maintained by
 * Mario Behling ([@mariobehling](https://github.com/mariobehling))
 
 ## Development server
-Run `$ ng serve` for a dev server. Navigate to [localhost:4200](http://localhost:4200). The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to [localhost:4200](http://localhost:4200). The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
-Run `$ ng g component component-name` to generate a new component. You can also use `$ ng g directive/pipe/service/class`.
+Run `ng g component component-name` to generate a new component. You can also use `ng g directive/pipe/service/class`.
 
 ## Build
 
-Run `$ ng build` to build the project. The build artefacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng build` to build the project. The build artefacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
 ## Running unit tests
 
-Run `$ ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests
 
-Run `$ ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `$ ng serve`.
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before running the tests make sure you are serving the app via `ng serve`.
 
 ## Update Angular-CLI
 
@@ -145,17 +145,17 @@ To update Angular-CLI to a new version, you must update both the global package 
 Global package
 
 ```bash
-$ npm uninstall -g @angular/cli
-$ npm cache clean
-$ npm install -g @angular/cli@latest
+npm uninstall -g @angular/cli
+npm cache clean
+npm install -g @angular/cli@latest
 ```
 
 Local package
 
 ```bash
-$ rm -rf node_modules dist # use rmdir /S/Q node_modules dist in Windows Command Prompt; use rm -r -fo node_modules,dist in Windows PowerShell
-$ npm install --save-dev @angular/cli@latest
-$ npm install
+rm -rf node_modules dist # use rmdir /S/Q node_modules dist in Windows Command Prompt; use rm -r -fo node_modules,dist in Windows PowerShell
+npm install --save-dev @angular/cli@latest
+npm install
 ```
 
 ## Extras
