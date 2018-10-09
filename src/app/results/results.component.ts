@@ -76,7 +76,7 @@ export class ResultsComponent implements OnInit {
 
   filterByDate() {
     let urldata = Object.assign({}, this.searchdata);
-    //urldata.query += urldata.query.substr(urldata.query.length - 6, 6) !== " /date" ? " /date" : "";
+    // urldata.query += urldata.query.substr(urldata.query.length - 6, 6) !== " /date" ? " /date" : "";
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
 
