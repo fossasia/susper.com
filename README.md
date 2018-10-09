@@ -62,14 +62,14 @@ With these very simple steps you can have susper deployed:
 
 * **Step 1:** Fork susper repository and clone it to your desktop.
 * **Step 2:** Then checkout to your master branch `$ git checkout master`
-* **Step 3:** Deploy running this: ```$ ng build``` and then ```$ npm run deploy```
+* **Step 3:** Deploy by running this: ```ng build``` and then ```npm run deploy```
 * **Step 4:** Visit `https://yourusername.github.io/susper` and you should see the Susper search running.
 * **Step 5:** As you search you might see that it can't find anything, to resolve this, on search you will see there is a red shield on the search bar, click on it and allow to load unsafe scripts.
 * **Step 6:** Reload and you will have a fully functioning Susper search deployed on GitHub pages.
 
 ### For deploying with [Surge](https://surge.sh/):
 
-Surge will automatically generate the deployment link whenever a pull request passes
+Surge will automatically generate a deployment link whenever a pull request passes
 CI.
 
 Suppose pull request number is 200 and it passes Travis CI. The deployment link can be found here: `https://pr-200-fossasia-susper.surge.sh`
