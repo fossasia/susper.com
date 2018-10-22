@@ -30,7 +30,8 @@
 <div class="image-banner col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
   <img src="../../assets/images/boat.png" class="img-responsive banner">
-  
+  <br>
+
   </div>
 
 <div class="container">
@@ -86,7 +87,7 @@
 
   <div class="form-group">
     <label class="col-md-3 control-label" for="textinput">Your Name<sup>*</sup></label>
-    
+
     <div class="col-md-9">
       <input id="textinput" name="yourName" type="text" placeholder="Your Name" class="form-control input-md" required="">
     </div>
@@ -94,7 +95,7 @@
 
   <div class="form-group">
     <label class="col-md-3 control-label"a for="emailinput">Email<sup>*</sup></label>
-    
+
     <div class="col-md-9">
       <input id="emailinput" name="email-address" type="email" placeholder="Email Address" class="form-control input-md" required="">
     </div>
@@ -102,7 +103,7 @@
 
   <div class="form-group row">
     <label class="col-md-3 control-label" for="countrycode">Mobile Number<sup>*</sup></label>
-    
+
     <div class="col-md-9">
     <select id="countrycode" name="countrycode" class="form-control">
               <option data-countryCode="DZ" value="213">Algeria (+213)</option>
@@ -322,13 +323,13 @@
       </select>
 
     <input id="telephone" name="telephone" type="number" placeholder="Mobile Number"(ngModelChange)="checkValidity()" [(ngModel)]="tpnoInput" class="form-control input-md" required="">
-    
+
     </div>
   </div>
 
   <div class="form-group">
     <label class="col-md-3 control-label" for="message">Message<sup>*</sup></label>
-    
+
     <div class="col-md-9">
       <textarea class="form-control" id="message" name="message" placeholder="Minimum 100 words" required="" (ngModelChange)="checkValidity()" [(ngModel)]="contactMessage"></textarea>
     </div>
@@ -337,7 +338,7 @@
 
   <div class="form-group">
     <label class="col-md-12 control-label" for="submit"></label>
-    
+
     <div class="col-md-12">
       <button id="submit" name="submit" class="btn btn-info sub-btn" type="submit" #submitButton disabled>Submit</button>
     </div>
