@@ -7,7 +7,9 @@ WORKDIR /usr/src/app
 RUN apt-get update && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # install deps
-RUN apt-get install -y --no-install-recommends nodejs=6.9.1 && apt-get clean -y
+RUN apt-get install curl
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
+RUN apt-get install -y --no-install-recommends nodejs && apt-get clean -y
 
 # copy requirements
 COPY package.json /usr/src/app/
@@ -24,4 +26,4 @@ COPY . /usr/src/app
 
 EXPOSE 4200
 
-CMD [ "ng", "serve" ]
+CMD ["ng", "serve"]
