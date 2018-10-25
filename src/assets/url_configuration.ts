@@ -17,6 +17,18 @@ export const url = {
     'loklak': {
                 'site': 'loklak.org'
                 },
+    'meilix': {
+                'site': 'meilix.org'
+              },
+    'phimpme': {
+                'site': 'phimp.me/'
+              },
+    'susimagicmirror': {
+                'site': 'github.com/fossasia/MMM-SUSI-AI'
+              },
+    'yaydoc': {
+                'site': 'yaydoc.org'
+              },
     'susi': {
             'site': 'chat.susi.ai'
             },
