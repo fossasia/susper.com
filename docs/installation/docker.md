@@ -15,6 +15,6 @@
 git clone https://github.com/fossasia/susper.com.git && cd susper.com
 ```
 
-* In the terminal window, run `docker build -t susper:latest` to build susper.com's docker image. This process can take some time.
+* In the terminal window, run `docker build -t susper:latest .` to build susper.com's docker image. This process can take some time.
 
 * After build is done, run `docker run -d -p 4200:4200 susper` to start the server.
