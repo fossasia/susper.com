@@ -8,8 +8,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 export class ContactComponent implements OnInit {
 
     @ViewChild('submitButton') submitButton;
-    @ViewChild('emailInput') emailInput;
-
+    emailInput: string;
     nameInput: string;
     tpnoInput: number;
     contactMessage: string = '';
@@ -32,16 +31,37 @@ export class ContactComponent implements OnInit {
 
     // check whether messsage contains more than 100 words
     checkValidity() {
-        if (this.tpnoInput && this.tpnoInput.toString().length >= 10 && this.tpnoInput > 0) {
+
+        if (this.validateEmail(this.emailInput) && this.validatePhone(this.tpnoInput) && this.validateMessage(this.contactMessage)) {
             this.submitButton.nativeElement.disabled = false;
         } else {
             this.submitButton.nativeElement.disabled = true;
         }
 
-        if (this.contactMessage && this.contactMessage.length >= 100) {
-            this.submitButton.nativeElement.disabled = false;
+    }
+
+    validateMessage(message) {
+        if (message && message.length >= 100) {
+            return true;
         } else {
-            this.submitButton.nativeElement.disabled = true;
+            return false;
+        }
+    }
+
+    validatePhone(phone) {
+        if (phone && phone.toString().length >= 10) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    validateEmail(email) {
+        if (email) {
+            let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        } else {
+            return false;
         }
     }
 }

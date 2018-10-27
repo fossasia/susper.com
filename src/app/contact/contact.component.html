@@ -97,7 +97,7 @@
     <label class="col-md-3 control-label"a for="emailinput">Email<sup>*</sup></label>
 
     <div class="col-md-9">
-      <input id="emailinput" name="email-address" type="email" placeholder="Email Address" class="form-control input-md" required="">
+      <input id="emailinput" name="email-address" type="email" placeholder="Email Address" class="form-control input-md" required="" (ngModelChange)="checkValidity()" [(ngModel)]="emailInput">
     </div>
   </div>
 
