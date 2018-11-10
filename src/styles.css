@@ -1,1 +1,60 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: rgb(223, 217, 217)
+}
+
+.main {
+  padding: 4px 0;
+  width: 300px;
+  height: 250px;
+  background-color: #353535;
+  bottom: 70px;
+  right: -200px;
+  position: fixed;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  transition: 0.5s;
+  -moz-transition: 0.5s;
+  -webkit-transition: 0.5s;
+}
+
+.main:hover {
+  right: -10px;
+}
+
+#clock {
+  padding: 0;
+  position: relative;
+  list-style: none;
+  margin: 0 40px 0 0;
+  height: 234px;
+  width: 234px;
+  display: block;
+  float: right;
+  background: url("http://www.charlesamoss.com/design/images/clock_wid/clockFace.svg") 5% center no-repeat;
+}
+
+#sec,
+#min,
+#hour {
+  position: absolute;
+  width: 24px;
+  height: 234px;
+  top: 0px;
+  left: 102px;
+}
+
+#sec {
+  background: url("http://www.charlesamoss.com/design/images/clock_wid/sec.svg");
+  z-index: 3;
+}
+
+#min {
+  background: url("http://www.charlesamoss.com/design/images/clock_wid/min.svg");
+  z-index: 2;
+}
+
+#hour {
+  background: url("http://www.charlesamoss.com/design/images/clock_wid/hour.svg");
+  z-index: 1;
+}
