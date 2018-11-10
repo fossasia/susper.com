@@ -9,7 +9,13 @@
   align-items: center;
   margin-bottom: 0px;
 }
-
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding-top: 10px !important;
+}
 div a {
   padding: 0px 6px;
   color: #666;
@@ -33,6 +39,7 @@ div a:active {
 @media(max-width: 750px) {
   footer{
     justify-content: center;
+    position: relative;
   }
 
   .left-side {
@@ -50,7 +57,7 @@ div a:active {
   .footer-bar, .left-side , .right-side {
     width: 100%;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 0 ;
   }
 
   #fsett {
