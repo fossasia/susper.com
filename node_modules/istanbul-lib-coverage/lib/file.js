@@ -96,13 +96,6 @@ CoverageSummary.prototype.toJSON = function () {
     return this.data;
 };
 
-/**
- * return true if summary has no lines of code
- */
-CoverageSummary.prototype.isEmpty = function () {
-  return this.lines.total === 0;
-};
-
 // returns a data object that represents empty coverage
 function emptyCoverage(filePath) {
     return {

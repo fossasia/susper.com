@@ -81,6 +81,7 @@ module.exports = function (fork) {
     "TSStringKeyword",
     "TSSymbolKeyword",
     "TSUndefinedKeyword",
+    "TSUnknownKeyword",
     "TSVoidKeyword",
     "TSThisType",
   ].forEach(keywordType => {
@@ -212,6 +213,16 @@ module.exports = function (fork) {
     .bases("TSType")
     .build("elementTypes")
     .field("elementTypes", [def("TSType")]);
+
+  def("TSRestType")
+    .bases("TSType")
+    .build("typeAnnotation")
+    .field("typeAnnotation", def("TSType"));
+
+  def("TSOptionalType")
+    .bases("TSType")
+    .build("typeAnnotation")
+    .field("typeAnnotation", def("TSType"));
 
   def("TSIndexedAccessType")
     .bases("TSType")

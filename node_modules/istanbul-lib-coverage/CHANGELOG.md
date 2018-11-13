@@ -3,13 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-<a name="1.2.0"></a>
-# [1.2.0](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-coverage@1.1.2...istanbul-lib-coverage@1.2.0) (2018-03-04)
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/istanbuljs/istanbuljs/compare/istanbul-lib-coverage@1.1.2...istanbul-lib-coverage@1.2.1) (2018-09-05)
 
 
-### Features
+### Bug Fixes
 
-* add skip-empty option for html & text reports ([#140](https://github.com/istanbuljs/istanbuljs/issues/140)) ([d2a4262](https://github.com/istanbuljs/istanbuljs/commit/d2a4262))
+* Tweak package.json files for republish as latest 1.x. ([#217](https://github.com/istanbuljs/istanbuljs/issues/217)) ([420481d](https://github.com/istanbuljs/istanbuljs/commit/420481d)), closes [#216](https://github.com/istanbuljs/istanbuljs/issues/216)
+
+
+### BREAKING CHANGES
+
+* leaked into 1.x modules but it was thought they were
+never released to latest.  Apparently releasing 2.x to latest makes
+those unwanted versions of 1.x available.
+
+This patch sets all modules to the latest 1.x version (4.x for
+test-exclude).  This will allow a new release to be made to revert
+release of the breaking changes.
+
+Stop upgrading npm to latest for testing as it's not compatible with
+node 4.x.
 
 
 

@@ -8,11 +8,9 @@
 
 [![npm badge][npm-badge-png]][package-url]
 
-[![browser support][testling-svg]][testling-url]
-
-ECMAScript “ToPrimitive” algorithm. Provides ES5 and ES6 versions.
+ECMAScript “ToPrimitive” algorithm. Provides ES5 and ES2015 versions.
 When different versions of the spec conflict, the default export will be the latest version of the abstract operation.
-Alternative versions will also be available under an `es5`/`es6`/`es7` exported property if you require a specific version.
+Alternative versions will also be available under an `es5`/`es2015` exported property if you require a specific version.
 
 ## Example
 

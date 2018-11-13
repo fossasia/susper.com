@@ -1,3 +1,23 @@
+1.18.3 / 2018-05-14
+===================
+
+  * Fix stack trace for strict json parse error
+  * deps: depd@~1.1.2
+    - perf: remove argument reassignment
+  * deps: http-errors@~1.6.3
+    - deps: depd@~1.1.2
+    - deps: setprototypeof@1.1.0
+    - deps: statuses@'>= 1.3.1 < 2'
+  * deps: iconv-lite@0.4.23
+    - Fix loading encoding with year appended
+    - Fix deprecation warnings on Node.js 10+
+  * deps: qs@6.5.2
+  * deps: raw-body@2.3.3
+    - deps: http-errors@1.6.3
+    - deps: iconv-lite@0.4.23
+  * deps: type-is@~1.6.16
+    - deps: mime-types@~2.1.18
+
 1.18.2 / 2017-09-22
 ===================
 

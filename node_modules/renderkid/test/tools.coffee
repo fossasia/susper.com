@@ -15,5 +15,5 @@ describe "tools", ->
       tools.objectToDom({a: 'text'})
 
     it "should have quoted text nodes", ->
-      tools.objectToDom({a: '&<> "'}).should.have.deep
-      .property '[0].children[0].data', '&amp;&lt;&gt;&sp;&quot;'
+      tools.objectToDom({a: '&<> "'})[0].children[0]
+      .data.should.equal '&amp;&lt;&gt;&sp;&quot;'

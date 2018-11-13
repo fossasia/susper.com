@@ -5,7 +5,6 @@
 var path = require('path'),
     fs = require('fs'),
     mkdirp = require('mkdirp'),
-    compareVersions = require('compare-versions'),
     matcherFor = require('./file-matcher').matcherFor,
     libInstrument = require('istanbul-lib-instrument'),
     libCoverage = require('istanbul-lib-coverage'),
@@ -34,8 +33,6 @@ function getCoverFunctions(config, includes, callback) {
         sourceMapStore = libSourceMaps.createSourceMapStore({}),
         instrumenter,
         transformer,
-        runInContextTransformer,
-        runInThisContextTransformer,
         fakeRequire,
         requireTransformer,
         reportInitFn,
@@ -54,26 +51,18 @@ function getCoverFunctions(config, includes, callback) {
         return global[coverageVar];
     };
     instrumenter = libInstrument.createInstrumenter(instOpts);
-    transformer = function (code, options) {
-      var filename = typeof options === 'string' ? options : options.filename;
-      return instrumenter.instrumentSync(code, filename);
+    transformer = function (code, file) {
+        return instrumenter.instrumentSync(code, file);
     };
-    runInContextTransformer = function (code, options) {
-      return transformer(code, options);
-    };
-    runInThisContextTransformer = function (code, options) {
-      return transformer(code, options);
-    };
-    requireTransformer = function (code, options) {
-      var cov,
-        ret = transformer(code, options),
-        filename = typeof options === 'string' ? options : options.filename;
-      if (fakeRequire) {
-        cov = coverageFinderFn();
-        cov[filename] = instrumenter.lastFileCoverage();
-        return 'function x() {}';
-      }
-      return ret;
+    requireTransformer = function (code, file) {
+        var cov,
+            ret = transformer(code, file);
+        if (fakeRequire) {
+            cov = coverageFinderFn();
+            cov[file] = instrumenter.lastFileCoverage();
+            return 'function x() {}';
+        }
+        return ret;
     };
 
     coverageSetterFn = function (cov) {
@@ -113,16 +102,12 @@ function getCoverFunctions(config, includes, callback) {
         reportInitFn();
 
         if (config.hooks.hookRunInContext()) {
-            hook.hookRunInContext(matchFn, runInContextTransformer, hookOpts);
+            hook.hookRunInContext(matchFn, transformer, hookOpts);
         }
         if (config.hooks.hookRunInThisContext()) {
-            hook.hookRunInThisContext(matchFn, runInThisContextTransformer, hookOpts);
-            if(compareVersions(process.versions.node, "6.0.0") === -1) {
-              disabler = hook.hookRequire(matchFn, requireTransformer, hookOpts);
-            }
-        } else {
-            disabler = hook.hookRequire(matchFn, requireTransformer, hookOpts);
+            hook.hookRunInThisContext(matchFn, transformer, hookOpts);
         }
+        disabler = hook.hookRequire(matchFn, requireTransformer, hookOpts);
     };
 
     unhookFn = function (matchFn) {

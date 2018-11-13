@@ -191,8 +191,12 @@ module.exports = function (/*String|Buffer*/input, /*Number*/inputType) {
 				// data header
 				entry.header.offset = dindex;
 				var dataHeader = entry.header.dataHeaderToBinary();
-				var c = entry.entryName + entry.extra.toString();
-				var postHeader = Buffer.alloc(c.length, c);
+				var entryNameLen = entry.rawEntryName.length;
+				var extra = entry.extra.toString();
+				var postHeader = Buffer.alloc(entryNameLen + extra.length);
+				entry.rawEntryName.copy(postHeader, 0);
+				postHeader.fill(extra, entryNameLen);
+
 				var dataLength = dataHeader.length + postHeader.length + compressedData.length;
 
 				dindex += dataLength;
@@ -267,7 +271,12 @@ module.exports = function (/*String|Buffer*/input, /*Number*/inputType) {
 						entry.header.offset = dindex;
 						// data header
 						var dataHeader = entry.header.dataHeaderToBinary();
-						var postHeader = Buffer.alloc(name);
+						var postHeader;
+						try {
+							postHeader = Buffer.alloc(name.length, name);  // using alloc will work on node  5.x+
+						} catch(e){
+							postHeader = new Buffer(name); // use deprecated method if alloc fails...
+						}
 						var dataLength = dataHeader.length + postHeader.length + compressedData.length;
 
 						dindex += dataLength;

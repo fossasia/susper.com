@@ -7,59 +7,37 @@
 
 'use strict';
 
-/**
- * Parse the given pattern and return a formatted
- * timestamp.
- *
- * @param  {String} `pattern` Date pattern.
- * @param  {Date} `date` Date object.
- * @param  {Bool} `useUTC` Whether or not to use UTC (local timezone is used otherwise)
- * @return {String}
- */
+var dateRegex = /(?=(YYYY|YY|MM|DD|HH|mm|ss|ms))\1([:\/]*)/g;
+var timespan = {
+  YYYY: ['getFullYear', 4],
+  YY: ['getFullYear', 2],
+  MM: ['getMonth', 2, 1], // getMonth is zero-based, thus the extra increment field
+  DD: ['getDate', 2],
+  HH: ['getHours', 2],
+  mm: ['getMinutes', 2],
+  ss: ['getSeconds', 2],
+  ms: ['getMilliseconds', 3]
+};
 
-function _getTimestamp(pattern, date, useUTC) {
-  if (typeof pattern !== 'string') {
-    date = pattern;
-    pattern = 'YYYY-MM-DD';
+var timestamp = function(str, date, utc) {
+  if (typeof str !== 'string') {
+    date = str;
+    str = 'YYYY-MM-DD';
   }
 
   if (!date) date = new Date();
-
-  function timestamp() {
-    var regex = /(?=(YYYY|YY|MM|DD|HH|mm|ss|ms))\1([:\/]*)/;
-    var match = regex.exec(pattern);
-
-    if (match) {
-      var increment = method(match[1], useUTC);
-      var val = '00' + String(date[increment[0]]() + (increment[2] || 0));
-      var res = val.slice(-increment[1]) + (match[2] || '');
-      pattern = pattern.replace(match[0], res);
-      timestamp();
-    }
-  }
-
-  timestamp(pattern);
-  return pattern;
+  return str.replace(dateRegex, function(match, key, rest) {
+    var args = timespan[key];
+    var name = args[0];
+    var chars = args[1];
+    if (utc === true) name = 'getUTC' + name.slice(3);
+    var val = '00' + String(date[name]() + (args[2] || 0));
+    return val.slice(-chars) + (rest || '');
+  });
 };
 
-function method(key, useUTC) {
-  return ({
-    YYYY: [useUTC ? 'getUTCFullYear' : 'getFullYear', 4],
-    YY: [useUTC ? 'getUTCFullYear' : 'getFullYear', 2],
-    // getMonth is zero-based, thus the extra increment field
-    MM: [useUTC ? 'getUTCMonth' : 'getMonth', 2, 1],
-    DD: [useUTC ? 'getUTCDate' : 'getDate', 2],
-    HH: [useUTC ? 'getUTCHours' : 'getHours', 2],
-    mm: [useUTC ? 'getUTCMinutes' : 'getMinutes', 2],
-    ss: [useUTC ? 'getUTCSeconds' : 'getSeconds', 2],
-    ms: [useUTC ? 'getUTCMilliseconds' : 'getMilliseconds', 3]
-  })[key];
-}
-
-module.exports = function(pattern, date) {
-  return _getTimestamp(pattern, date, false);
+timestamp.utc = function(str, date) {
+  return timestamp(str, date, true);
 };
 
-module.exports.utc = function(pattern, date) {
-  return _getTimestamp(pattern, date, true);
-};
+module.exports = timestamp;

@@ -16,6 +16,5 @@ window.onload = function () {
 </script>
 {{/if}}
 <script src="{{sorter.js}}"></script>
-<script src="{{blockNavigation.js}}"></script>
 </body>
 </html>

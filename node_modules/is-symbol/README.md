@@ -30,7 +30,7 @@ assert(isSymbol(Object(Symbol('foo'))));
 Simply clone the repo, `npm install`, and run `npm test`
 
 [1]: https://npmjs.org/package/is-symbol
-[2]: http://vb.teelaun.ch/ljharb/is-symbol.svg
+[2]: http://versionbadg.es/ljharb/is-symbol.svg
 [3]: https://travis-ci.org/ljharb/is-symbol.svg
 [4]: https://travis-ci.org/ljharb/is-symbol
 [5]: https://david-dm.org/ljharb/is-symbol.svg

@@ -28,8 +28,7 @@ function defaultConfig() {
             'include-all-sources': false,
             'include-pid': false,
             'es-modules': false,
-            'auto-wrap': false,
-            'ignore-class-methods': []
+            'auto-wrap': false
         },
         reporting: {
             print: 'summary',
@@ -192,7 +191,7 @@ addMethods(InstrumentOptions,
     'extensions', 'defaultExcludes', 'completeCopy',
     'variable', 'compact', 'preserveComments',
     'saveBaseline', 'baselineFile', 'esModules',
-    'includeAllSources', 'includePid', 'autoWrap', 'ignoreClassMethods');
+    'includeAllSources', 'includePid', 'autoWrap');
 
 /**
  * returns the root directory used by istanbul which is typically the root of the
@@ -226,8 +225,7 @@ InstrumentOptions.prototype.getInstrumenterOpts = function () {
         compact: this.compact(),
         preserveComments: this.preserveComments(),
         esModules: this.esModules(),
-        autoWrap: this.autoWrap(),
-        ignoreClassMethods: this.ignoreClassMethods()
+        autoWrap: this.autoWrap()
     };
 };
 

@@ -38,14 +38,14 @@ All examples assume that this library is bootstrapped using:
 ```js
 'use strict';
 
-var URL = require('url-parse');
+var Url = require('url-parse');
 ```
 
 To parse an URL simply call the `URL` method with the URL that needs to be
 transformed into an object.
 
 ```js
-var url = new URL('https://github.com/foo/bar');
+var url = new Url('https://github.com/foo/bar');
 ```
 
 The `new` keyword is optional but it will save you an extra function invocation.
@@ -100,7 +100,7 @@ var parse = require('url-parse');
 parse('hostname', {});
 ```
 
-### URL.set(key, value)
+### Url.set(key, value)
 
 A simple helper function to change parts of the URL and propagating it through
 all properties. When you set a new `host` you want the same value to be applied
@@ -117,7 +117,7 @@ console.log(parsed.href); // http://yahoo.com/parse-things
 It's aware of default ports so you cannot set a port 80 on an URL which has
 `http` as protocol.
 
-### URL.toString()
+### Url.toString()
 
 The returned `url` object comes with a custom `toString` method which will
 generate a full URL again when called. The method accepts an extra function

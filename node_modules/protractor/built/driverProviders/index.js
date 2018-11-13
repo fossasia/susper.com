@@ -13,6 +13,7 @@ __export(require("./mock"));
 __export(require("./sauce"));
 __export(require("./testObject"));
 __export(require("./kobiton"));
+__export(require("./useExistingWebDriver"));
 const attachSession_1 = require("./attachSession");
 const browserStack_1 = require("./browserStack");
 const direct_1 = require("./direct");
@@ -22,6 +23,7 @@ const mock_1 = require("./mock");
 const sauce_1 = require("./sauce");
 const testObject_1 = require("./testObject");
 const kobiton_1 = require("./kobiton");
+const useExistingWebDriver_1 = require("./useExistingWebDriver");
 const logger_1 = require("../logger");
 let logger = new logger_1.Logger('driverProviders');
 exports.buildDriverProvider = (config) => {
@@ -29,6 +31,10 @@ exports.buildDriverProvider = (config) => {
     if (config.directConnect) {
         driverProvider = new direct_1.Direct(config);
         exports.logWarnings('directConnect', config);
+    }
+    else if (config.seleniumWebDriver) {
+        driverProvider = new useExistingWebDriver_1.UseExistingWebDriver(config);
+        exports.logWarnings('useExistingWebDriver', config);
     }
     else if (config.seleniumAddress) {
         if (config.seleniumSessionId) {
@@ -112,6 +118,9 @@ exports.logWarnings = (providerType, config) => {
     }
     if ('mock' !== providerType && config.mockSelenium) {
         warnList.push('mockSelenium');
+    }
+    if ('useExistingWebDriver' !== providerType && config.seleniumWebDriver) {
+        warnList.push('seleniumWebDriver');
     }
     if (warnList.length !== 0) {
         logger.warn(warnInto + warnList.join(', '));

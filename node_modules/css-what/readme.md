@@ -30,12 +30,17 @@ name | attributes | example | output
 `universal`| -   | `*`     | `{ type: 'universal' }`
 `pseudo`| `name`, `data`|`:name(data)`| `{ type: 'pseudo', name: 'name', data: 'data' }`
 `pseudo`| `name`, `data`|`:name`| `{ type: 'pseudo', name: 'name', data: null }`
+`pseudo-element`| `name` |`::name`| `{ type: 'pseudo-element', name: 'name' }`
 `attribute`|`name`, `action`, `value`, `ignoreCase`|`[attr]`|`{ type: 'attribute', name: 'attr', action: 'exists', value: '', ignoreCase: false }`
 `attribute`|`name`, `action`, `value`, `ignoreCase`|`[attr=val]`|`{ type: 'attribute', name: 'attr', action: 'equals', value: 'val', ignoreCase: false }`
 `attribute`|`name`, `action`, `value`, `ignoreCase`|`[attr^=val]`|`{ type: 'attribute', name: 'attr', action: 'start', value: 'val', ignoreCase: false }`
 `attribute`|`name`, `action`, `value`, `ignoreCase`|`[attr$=val]`|`{ type: 'attribute', name: 'attr', action: 'end', value: 'val', ignoreCase: false }`
+`child`| -   | `>`     | `{ type: 'child' }`
+`parent`| -   | `<`     | `{ type: 'parent' }`
+`sibling`| -   | `~`     | `{ type: 'sibling' }`
+`adjacent`| -   | `+`     | `{ type: 'adjacent' }`
+`descendant`| -   |      | `{ type: 'descendant' }`
 
-//TODO complete list
 
 __Options:__
 
@@ -43,4 +48,4 @@ __Options:__
 
 ---
 
-License: BSD-like
+License: BSD-2-Clause

@@ -311,11 +311,14 @@ HTTPParser.prototype.HEADER = function () {
       }
     }
 
-    // See https://github.com/creationix/http-parser-js/pull/53
-    // if both isChunked and hasContentLength, content length wins
-    // because it has been verified to match the body length already
+    // if both isChunked and hasContentLength, isChunked wins
+    // This is required so the body is parsed using the chunked method, and matches
+    // Chrome's behavior.  We could, maybe, ignore them both (would get chunked
+    // encoding into the body), and/or disable shouldKeepAlive to be more
+    // resilient.
     if (this.isChunked && hasContentLength) {
-      this.isChunked = false;
+      hasContentLength = false;
+      this.body_bytes = null;
     }
 
     // Logic from https://github.com/nodejs/http-parser/blob/921d5585515a153fa00e411cf144280c59b41f90/http_parser.c#L1727-L1737

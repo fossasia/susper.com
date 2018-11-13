@@ -67,20 +67,20 @@ tape('pass arguments', function (t) {
   t.plan(6)
 
   var ran = 0
-  var run = thunky(function (cb) {
+  var run = thunky(function (fn) {
     ran++
-    cb({hello: 'world'})
+    fn({ hello: 'world' })
   })
 
   run(function (val) {
     t.same(ran, 1, 'ran once')
-    t.same(val, {hello: 'world'})
+    t.same(val, { hello: 'world' })
     run(function (val) {
       t.same(ran, 1, 'ran once')
-      t.same(val, {hello: 'world'})
+      t.same(val, { hello: 'world' })
       run(function (val) {
         t.same(ran, 1, 'ran once')
-        t.same(val, {hello: 'world'})
+        t.same(val, { hello: 'world' })
       })
     })
   })
@@ -90,15 +90,15 @@ tape('callback is optional', function (t) {
   t.plan(2)
 
   var ran = 0
-  var run = thunky(function (cb) {
+  var run = thunky(function (fn) {
     ran++
-    cb({hello: 'world'})
+    fn({ hello: 'world' })
   })
 
   run()
   run(function (val) {
     t.same(ran, 1, 'ran once')
-    t.same(val, {hello: 'world'})
+    t.same(val, { hello: 'world' })
   })
 })
 

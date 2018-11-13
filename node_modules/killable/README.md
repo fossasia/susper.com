@@ -48,3 +48,8 @@ returns the server object.
 ``server.close()``, to which the ``callback`` is passed on.
 
 Inspired by: http://stackoverflow.com/a/14636625
+
+License
+-------
+
+ISC

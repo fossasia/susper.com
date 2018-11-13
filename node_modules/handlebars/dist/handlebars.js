@@ -1,7 +1,7 @@
 /**!
 
  @license
- handlebars v4.0.11
+ handlebars v4.0.12
 
 Copyright (C) 2011-2017 by Yehuda Katz
 
@@ -275,7 +275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _logger2 = _interopRequireDefault(_logger);
 
-	var VERSION = '4.0.11';
+	var VERSION = '4.0.12';
 	exports.VERSION = VERSION;
 	var COMPILER_REVISION = 7;
 
@@ -1630,7 +1630,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        terminals_: { 2: "error", 5: "EOF", 14: "COMMENT", 15: "CONTENT", 18: "END_RAW_BLOCK", 19: "OPEN_RAW_BLOCK", 23: "CLOSE_RAW_BLOCK", 29: "OPEN_BLOCK", 33: "CLOSE", 34: "OPEN_INVERSE", 39: "OPEN_INVERSE_CHAIN", 44: "INVERSE", 47: "OPEN_ENDBLOCK", 48: "OPEN", 51: "OPEN_UNESCAPED", 54: "CLOSE_UNESCAPED", 55: "OPEN_PARTIAL", 60: "OPEN_PARTIAL_BLOCK", 65: "OPEN_SEXPR", 68: "CLOSE_SEXPR", 72: "ID", 73: "EQUALS", 75: "OPEN_BLOCK_PARAMS", 77: "CLOSE_BLOCK_PARAMS", 80: "STRING", 81: "NUMBER", 82: "BOOLEAN", 83: "UNDEFINED", 84: "NULL", 85: "DATA", 87: "SEP" },
 	        productions_: [0, [3, 2], [4, 1], [7, 1], [7, 1], [7, 1], [7, 1], [7, 1], [7, 1], [7, 1], [13, 1], [10, 3], [16, 5], [9, 4], [9, 4], [24, 6], [27, 6], [38, 6], [43, 2], [45, 3], [45, 1], [26, 3], [8, 5], [8, 5], [11, 5], [12, 3], [59, 5], [63, 1], [63, 1], [64, 5], [69, 1], [71, 3], [74, 3], [20, 1], [20, 1], [20, 1], [20, 1], [20, 1], [20, 1], [20, 1], [56, 1], [56, 1], [79, 2], [78, 1], [86, 3], [86, 1], [6, 0], [6, 2], [17, 1], [17, 2], [21, 0], [21, 2], [22, 0], [22, 1], [25, 0], [25, 1], [28, 0], [28, 1], [30, 0], [30, 2], [31, 0], [31, 1], [32, 0], [32, 1], [35, 0], [35, 2], [36, 0], [36, 1], [37, 0], [37, 1], [40, 0], [40, 2], [41, 0], [41, 1], [42, 0], [42, 1], [46, 0], [46, 1], [49, 0], [49, 2], [50, 0], [50, 1], [52, 0], [52, 2], [53, 0], [53, 1], [57, 0], [57, 2], [58, 0], [58, 1], [61, 0], [61, 2], [62, 0], [62, 1], [66, 0], [66, 2], [67, 0], [67, 1], [70, 1], [70, 2], [76, 1], [76, 2]],
 	        performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate, $$, _$
-	        /**/) {
+	        /*``*/) {
 
 	            var $0 = $$.length - 1;
 	            switch (yystate) {
@@ -2168,7 +2168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            } };
 	        lexer.options = {};
 	        lexer.performAction = function anonymous(yy, yy_, $avoiding_name_collisions, YY_START
-	        /**/) {
+	        /*``*/) {
 
 	            function strip(start, end) {
 	                return yy_.yytext = yy_.yytext.substr(start, yy_.yyleng - end);
@@ -2786,7 +2786,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function stripComment(comment) {
-	  return comment.replace(/^\{\{~?\!-?-?/, '').replace(/-?-?~?\}\}$/, '');
+	  return comment.replace(/^\{\{~?!-?-?/, '').replace(/-?-?~?\}\}$/, '');
 	}
 
 	function preparePath(data, parts, loc) {
@@ -2794,8 +2794,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var original = data ? '@' : '',
 	      dig = [],
-	      depth = 0,
-	      depthString = '';
+	      depth = 0;
 
 	  for (var i = 0, l = parts.length; i < l; i++) {
 	    var part = parts[i].part,
@@ -2810,7 +2809,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        throw new _exception2['default']('Invalid path: ' + original, { loc: loc });
 	      } else if (part === '..') {
 	        depth++;
-	        depthString += '../';
 	      }
 	    } else {
 	      dig.push(part);
@@ -3045,11 +3043,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      'lookup': true
 	    };
 	    if (knownHelpers) {
+	      // the next line should use "Object.keys", but the code has been like this a long time and changing it, might
+	      // cause backwards-compatibility issues... It's an old library...
+	      // eslint-disable-next-line guard-for-in
 	      for (var _name in knownHelpers) {
-	        /* istanbul ignore else */
-	        if (_name in knownHelpers) {
-	          this.options.knownHelpers[_name] = knownHelpers[_name];
-	        }
+	        this.options.knownHelpers[_name] = knownHelpers[_name];
 	      }
 	    }
 

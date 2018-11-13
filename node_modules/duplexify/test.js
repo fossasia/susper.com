@@ -4,6 +4,10 @@ var concat = require('concat-stream')
 var net = require('net')
 var duplexify = require('./')
 
+var HELLO_WORLD = (Buffer.from && Buffer.from !== Uint8Array.from)
+ ? Buffer.from('hello world')
+ : new Buffer('hello world')
+
 tape('passthrough', function(t) {
   t.plan(2)
 
@@ -275,7 +279,7 @@ tape('works with node native streams (net)', function(t) {
     var dup = duplexify(socket, socket)
 
     dup.once('data', function(chunk) {
-      t.same(chunk, Buffer('hello world'))
+      t.same(chunk, HELLO_WORLD)
       server.close()
       socket.end()
       t.end()
@@ -286,6 +290,6 @@ tape('works with node native streams (net)', function(t) {
     var socket = net.connect(server.address().port)
     var dup = duplexify(socket, socket)
 
-    dup.write(Buffer('hello world'))
+    dup.write(HELLO_WORLD)
   })
 })

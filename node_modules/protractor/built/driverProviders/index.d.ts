@@ -8,6 +8,7 @@ export * from './mock';
 export * from './sauce';
 export * from './testObject';
 export * from './kobiton';
+export * from './useExistingWebDriver';
 import { DriverProvider } from './driverProvider';
 import { Config } from '../config';
 export declare let buildDriverProvider: (config: Config) => DriverProvider;

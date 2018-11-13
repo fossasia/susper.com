@@ -67,11 +67,11 @@ Compiler.prototype = {
       'lookup': true
     };
     if (knownHelpers) {
+      // the next line should use "Object.keys", but the code has been like this a long time and changing it, might
+      // cause backwards-compatibility issues... It's an old library...
+      // eslint-disable-next-line guard-for-in
       for (let name in knownHelpers) {
-        /* istanbul ignore else */
-        if (name in knownHelpers) {
           this.options.knownHelpers[name] = knownHelpers[name];
-        }
       }
     }
 

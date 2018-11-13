@@ -117,6 +117,28 @@
     "keyStop": 2,
     "step": 1
   },
+  "bzpopmax": {
+    "arity": -2,
+    "flags": [
+      "write",
+      "noscript",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": -2,
+    "step": 1
+  },
+  "bzpopmin": {
+    "arity": -2,
+    "flags": [
+      "write",
+      "noscript",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": -2,
+    "step": 1
+  },
   "client": {
     "arity": -2,
     "flags": [
@@ -168,7 +190,7 @@
     "step": 0
   },
   "debug": {
-    "arity": -1,
+    "arity": -2,
     "flags": [
       "admin",
       "noscript"
@@ -863,7 +885,7 @@
     ],
     "keyStart": 2,
     "keyStop": 2,
-    "step": 2
+    "step": 1
   },
   "persist": {
     "arity": 2,
@@ -1613,6 +1635,135 @@
     "keyStop": -1,
     "step": 1
   },
+  "xack": {
+    "arity": -3,
+    "flags": [
+      "write",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "xadd": {
+    "arity": -5,
+    "flags": [
+      "write",
+      "denyoom",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "xclaim": {
+    "arity": -5,
+    "flags": [
+      "write",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "xdel": {
+    "arity": -2,
+    "flags": [
+      "write",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "xgroup": {
+    "arity": -2,
+    "flags": [
+      "write",
+      "denyoom"
+    ],
+    "keyStart": 2,
+    "keyStop": 2,
+    "step": 1
+  },
+  "xinfo": {
+    "arity": -2,
+    "flags": [
+      "readonly"
+    ],
+    "keyStart": 2,
+    "keyStop": 2,
+    "step": 1
+  },
+  "xlen": {
+    "arity": 2,
+    "flags": [
+      "readonly",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "xpending": {
+    "arity": -3,
+    "flags": [
+      "readonly"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "xrange": {
+    "arity": -4,
+    "flags": [
+      "readonly"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "xread": {
+    "arity": -3,
+    "flags": [
+      "readonly",
+      "noscript",
+      "movablekeys"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "xreadgroup": {
+    "arity": -3,
+    "flags": [
+      "write",
+      "noscript",
+      "movablekeys"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "xrevrange": {
+    "arity": -4,
+    "flags": [
+      "readonly"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "xtrim": {
+    "arity": -2,
+    "flags": [
+      "write",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
   "zadd": {
     "arity": -4,
     "flags": [
@@ -1674,6 +1825,26 @@
     ],
     "keyStart": 1,
     "keyStop": 1,
+    "step": 1
+  },
+  "zpopmax": {
+    "arity": -2,
+    "flags": [
+      "write",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": -1,
+    "step": 1
+  },
+  "zpopmin": {
+    "arity": -2,
+    "flags": [
+      "write",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": -1,
     "step": 1
   },
   "zrange": {

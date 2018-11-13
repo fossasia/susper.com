@@ -1,24 +1,24 @@
-#nth-check [![Build Status](https://travis-ci.org/fb55/nth-check.png)](https://travis-ci.org/fb55/nth-check)
+# nth-check [![Build Status](https://travis-ci.org/fb55/nth-check.svg)](https://travis-ci.org/fb55/nth-check)
 
 A performant nth-check parser & compiler.
 
-###About
+### About
 
 This module can be used to parse & compile nth-checks, as they are found in CSS 3's `nth-child()` and `nth-last-of-type()`.
 
 `nth-check` focusses on speed, providing optimized functions for different kinds of nth-child formulas, while still following the [spec](http://www.w3.org/TR/css3-selectors/#nth-child-pseudo).
 
-###API
+### API
 
 ```js
 var nthCheck = require("nth-check");
 ```
 
-#####`nthCheck(formula)`
+##### `nthCheck(formula)`
 
 First parses, then compiles the formula.
 
-#####`nthCheck.parse(formula)`
+##### `nthCheck.parse(formula)`
 
 Parses the expression, throws a `SyntaxError` if it fails, otherwise returns an array containing two elements.
 
@@ -28,7 +28,7 @@ __Example:__
 nthCheck.parse("2n+3") //[2, 3]
 ```
 
-#####`nthCheck.compile([a, b])`
+##### `nthCheck.compile([a, b])`
 
 Takes an array with two elements (as returned by `.parse`) and returns a highly optimized function.
 

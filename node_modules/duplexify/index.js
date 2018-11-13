@@ -209,7 +209,6 @@ Duplexify.prototype._write = function(data, enc, cb) {
   else cb()
 }
 
-
 Duplexify.prototype._finish = function(cb) {
   var self = this
   this.emit('preend')

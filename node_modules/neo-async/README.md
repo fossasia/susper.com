@@ -9,6 +9,8 @@
   <a href="https://travis-ci.org/suguru03/neo-async"><img alt="Travis Status" src="https://img.shields.io/travis/suguru03/neo-async.svg"></a>
   <a href="https://codecov.io/gh/suguru03/neo-async"><img alt="Coverage Status" src="https://img.shields.io/codecov/c/github/suguru03/neo-async/master.svg"></a>
   <a href="https://www.npmjs.com/package/neo-async"><img alt="download" src="https://img.shields.io/npm/dm/neo-async.svg"></a>
+  <a href="https://lgtm.com/projects/g/suguru03/neo-async/context:javascript"><img src="https://img.shields.io/lgtm/grade/javascript/g/suguru03/neo-async.svg?logo=lgtm&logoWidth=18" alt="Code Quality: Javascript" height="18"></a>
+  <a href="https://lgtm.com/projects/g/suguru03/neo-async/alerts"><img src="https://img.shields.io/lgtm/alerts/g/suguru03/neo-async.svg?logo=lgtm&logoWidth=18" alt="Total Alerts" height="18"></a>
 </p>
 
 Neo-Async is thought to be used as a drop-in replacement for [Async](https://github.com/caolan/async), it almost fully covers its functionality and runs [faster](#benchmark).

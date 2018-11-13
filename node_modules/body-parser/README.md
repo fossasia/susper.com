@@ -4,12 +4,17 @@
 [![NPM Downloads][downloads-image]][downloads-url]
 [![Build Status][travis-image]][travis-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
-[![Gratipay][gratipay-image]][gratipay-url]
 
 Node.js body parsing middleware.
 
 Parse incoming request bodies in a middleware before your handlers, available
 under the `req.body` property.
+
+**Note** As `req.body`'s shape is based on user-controlled input, all
+properties and values in this object are untrusted and should be validated
+before trusting. For example, `req.body.foo.toString()` may fail in multiple
+ways, for example the `foo` property may not be there or may not be a string,
+and `toString` may not be a function and instead a string or other user input.
 
 [Learn about the anatomy of an HTTP transaction in Node.js](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/).
 
@@ -100,12 +105,13 @@ accept anything `JSON.parse` accepts. Defaults to `true`.
 ##### type
 
 The `type` option is used to determine what media type the middleware will
-parse. This option can be a function or a string. If a string, `type` option
-is passed directly to the [type-is](https://www.npmjs.org/package/type-is#readme)
-library and this can be an extension name (like `json`), a mime type (like
-`application/json`), or a mime type with a wildcard (like `*/*` or `*/json`).
-If a function, the `type` option is called as `fn(req)` and the request is
-parsed if it returns a truthy value. Defaults to `application/json`.
+parse. This option can be a string, array of strings, or a function. If not a
+function, `type` option is passed directly to the
+[type-is](https://www.npmjs.org/package/type-is#readme) library and this can
+be an extension name (like `json`), a mime type (like `application/json`), or
+a mime type with a wildcard (like `*/*` or `*/json`). If a function, the `type`
+option is called as `fn(req)` and the request is parsed if it returns a truthy
+value. Defaults to `application/json`.
 
 ##### verify
 
@@ -143,9 +149,10 @@ to `'100kb'`.
 ##### type
 
 The `type` option is used to determine what media type the middleware will
-parse. This option can be a function or a string. If a string, `type` option
-is passed directly to the [type-is](https://www.npmjs.org/package/type-is#readme)
-library and this can be an extension name (like `bin`), a mime type (like
+parse. This option can be a string, array of strings, or a function.
+If not a function, `type` option is passed directly to the
+[type-is](https://www.npmjs.org/package/type-is#readme) library and this
+can be an extension name (like `bin`), a mime type (like
 `application/octet-stream`), or a mime type with a wildcard (like `*/*` or
 `application/*`). If a function, the `type` option is called as `fn(req)`
 and the request is parsed if it returns a truthy value. Defaults to
@@ -192,12 +199,13 @@ to `'100kb'`.
 ##### type
 
 The `type` option is used to determine what media type the middleware will
-parse. This option can be a function or a string. If a string, `type` option
-is passed directly to the [type-is](https://www.npmjs.org/package/type-is#readme)
-library and this can be an extension name (like `txt`), a mime type (like
-`text/plain`), or a mime type with a wildcard (like `*/*` or `text/*`).
-If a function, the `type` option is called as `fn(req)` and the request is
-parsed if it returns a truthy value. Defaults to `text/plain`.
+parse. This option can be a string, array of strings, or a function. If not
+a function, `type` option is passed directly to the
+[type-is](https://www.npmjs.org/package/type-is#readme) library and this can
+be an extension name (like `txt`), a mime type (like `text/plain`), or a mime
+type with a wildcard (like `*/*` or `text/*`). If a function, the `type`
+option is called as `fn(req)` and the request is parsed if it returns a
+truthy value. Defaults to `text/plain`.
 
 ##### verify
 
@@ -256,9 +264,10 @@ than this value, a 413 will be returned to the client. Defaults to `1000`.
 ##### type
 
 The `type` option is used to determine what media type the middleware will
-parse. This option can be a function or a string. If a string, `type` option
-is passed directly to the [type-is](https://www.npmjs.org/package/type-is#readme)
-library and this can be an extension name (like `urlencoded`), a mime type (like
+parse. This option can be a string, array of strings, or a function. If not
+a function, `type` option is passed directly to the
+[type-is](https://www.npmjs.org/package/type-is#readme) library and this can
+be an extension name (like `urlencoded`), a mime type (like
 `application/x-www-form-urlencoded`), or a mime type with a wildcard (like
 `*/x-www-form-urlencoded`). If a function, the `type` option is called as
 `fn(req)` and the request is parsed if it returns a truthy value. Defaults
@@ -434,5 +443,3 @@ app.use(bodyParser.text({ type: 'text/html' }))
 [coveralls-url]: https://coveralls.io/r/expressjs/body-parser?branch=master
 [downloads-image]: https://img.shields.io/npm/dm/body-parser.svg
 [downloads-url]: https://npmjs.org/package/body-parser
-[gratipay-image]: https://img.shields.io/gratipay/dougwilson.svg
-[gratipay-url]: https://www.gratipay.com/dougwilson/

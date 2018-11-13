@@ -24,8 +24,6 @@ console.log(md5stream.read().toString('hex'))
 // => a1d0c6e83f027327d8461063f4ac58a6
 ```
 
-## LICENSE
-
-MIT
+## LICENSE [MIT](LICENSE)
 
 [1]: http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf
