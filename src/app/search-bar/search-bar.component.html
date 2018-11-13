@@ -19,7 +19,11 @@
     </div>
 
   </div>
-
+<div id="search-button">
+  <button class="btn btn-light" name="query" [(ngModel)]="searchdata.query" *ngIf="!this.resultspage" [style.background-color]="themeService.searchbarbgColor">
+    Susper Search 
+  </button>
+</div>
   <app-auto-complete (hidecomponent)="hidesuggestions($event)" id="auto-box" [hidden]="!ShowAuto()"></app-auto-complete>
 </form>
 

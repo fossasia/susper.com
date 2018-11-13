@@ -50,6 +50,11 @@
   outline: none;
 }
 
+#search-button {
+  padding-top: 70px;
+  text-align: center;
+}
+
 #speech-button {
   border-radius: 0;
   height: 38px;
