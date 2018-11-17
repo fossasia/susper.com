@@ -301,16 +301,14 @@ a {
   text-align: left;
   color: #000000;
   display: block;
-  padding-top: 8px;
-  padding-bottom: 22px;
+  padding: 18px 16px;
 }
 
 #setting-dropdown li {
   text-align: left;
   color: #000000;
   display: block;
-  padding-top: 8px;
-  padding-bottom: 22px;
+  padding: 18px 16px;
 }
 
 #setting-dropdown {
