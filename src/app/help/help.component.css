@@ -83,6 +83,8 @@
 
 .close-btn {
 	float: right;
+	padding: 4px;
+	position: relative;
 }
 
 p {
