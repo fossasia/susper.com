@@ -330,6 +330,7 @@ a {
   width: 100%;
   margin-top: -24px;
   margin-left: 100px;
+  margin-bottom: 100px;
 }
 
 .pagination>li>span.active_page,.pagination>li>span>div.page-text.active_page{
