@@ -7,9 +7,19 @@ li.dropdown-menu-box {
   grid-template-columns: 1fr 1fr 1fr;
   background-color: white;
 }
+
 .menu-row a {
     color: #737373;
     text-decoration: none;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+.dropdown-menu-inner {
+    height:400px;
+    overflow: auto;
 }
 
 .menu-item {
@@ -24,12 +34,14 @@ li.dropdown-menu-box {
 .menu-item:hover {
     border-color: #ddd;
 }
+
 .menu-item .img {
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .menu-item img {
     display: block;
     margin: 0 auto 5px auto;
@@ -38,6 +50,7 @@ li.dropdown-menu-box {
     max-height: 50px;
     max-width: 60px;
 }
+
 .menu-item p {
     height: 28px;
     line-height: 14px;
