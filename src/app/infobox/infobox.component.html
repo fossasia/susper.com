@@ -1,12 +1,32 @@
 <div *ngIf="this.description" class="card" [hidden]="!isVisible" [style.color]="themeService.cardColor">
-    <div>
-      <h2><b [style.color]="themeService.cardColor">{{this.title}}</b></h2><br><p class="query_description">{{this.querydescription}}</p><hr width="50%" align="left" *ngIf="this.image"><hr *ngIf="!this.image"><div class="info-img"><img class="main_image" *ngIf="this.image"  src={{this.image}}></div>
-      <p [style.color]="themeService.descriptionColor">
-      {{this.description}}<a [style.color]="themeService.linkColor" href='https://en.wikipedia.org/wiki/{{this.title}}'><br>More at Wikipedia</a>
-      <br>
-      <a href='https://twitter.com/search?src=typd&q={{this.title}}'><br>{{this.title}} on Twitter</a>
-      <br>
-      <a href='https://www.youtube.com/results?search_query={{this.title}}'><br>{{this.title}} on YouTube</a>   
-      </p>
+  <div>
+    <h2><b [style.color]="themeService.cardColor">{{this.title}}</b><i data-toggle="modal" data-target="#myModal" class="material-icons">share</i></h2><br><p class="query_description">{{this.querydescription}}</p><hr width="50%" align="left" *ngIf="this.image"><hr *ngIf="!this.image"><div class="info-img"><img class="main_image" *ngIf="this.image"  src={{this.image}}></div>
+    <p [style.color]="themeService.descriptionColor">
+    {{this.description}}<a [style.color]="themeService.linkColor" href='https://en.wikipedia.org/wiki/{{this.title}}'><br>More at Wikipedia</a>
+    <br>
+    <a href='https://twitter.com/search?src=typd&q={{this.title}}'><br>{{this.title}} on Twitter</a>
+    <br>
+    <a href='https://www.youtube.com/results?search_query={{this.title}}'><br>{{this.title}} on YouTube</a>   
+    </p>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Share This Info</h4>
+        </div>
+        <div class="modal-body">
+            <p><a href="https://twitter.com/intent/tweet?text=Check%20this%20out%20%23susper%20%40Susper_%20http%3A%2F%2Fsusper.com%2Fsearch%3Fquery%3D{{this.title}}%26start%3D0%26rows%3D10%26mode%3Dtext">Tweet</a></p>
+            <p><a href="https://www.facebook.com/sharer.php?u=http://susper.com/search?query={{this.title}}&start=0&rows=10&mode=text">Share on Facebook</a></p>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
