@@ -1,6 +1,13 @@
 <div *ngIf="this.description" class="card" [hidden]="!isVisible" [style.color]="themeService.cardColor">
+<<<<<<< HEAD
     <div>
       <h2><b [style.color]="themeService.cardColor">{{this.title}}</b><i data-toggle="modal" data-target="#myModal" class="material-icons">share</i></h2><br><p class="query_description">{{this.querydescription}}</p><hr width="50%" align="left" *ngIf="this.image"><hr *ngIf="!this.image"><div class="info-img"><img class="main_image" *ngIf="this.image"  src={{this.image}}></div>
+=======
+
+  <div>
+      <h2><b [style.color]="themeService.cardColor">{{this.title}}</b><i data-toggle="modal" data-target="#myModal" class="material-icons">share</i></h2>
+      <br><p class="query_description">{{this.querydescription}}</p><hr width="50%" align="left" *ngIf="this.image"><hr *ngIf="!this.image"><div class="info-img"><img class="main_image" *ngIf="this.image"  src={{this.image}}></div>
+>>>>>>> cd1113c9eb20f0fe38eb3e2e9010bc5ce57e8c9d
       <p [style.color]="themeService.descriptionColor">
       {{this.description}}<a [style.color]="themeService.linkColor" href='https://en.wikipedia.org/wiki/{{this.title}}'><br>More at Wikipedia</a>
       <br>
@@ -8,8 +15,13 @@
       <br>
       <a href='https://www.youtube.com/results?search_query={{this.title}}'><br>{{this.title}} on YouTube</a>   
       </p>
+<<<<<<< HEAD
    <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
+=======
+  </div>
+  <div id="myModal" class="modal fade" role="dialog">
+>>>>>>> cd1113c9eb20f0fe38eb3e2e9010bc5ce57e8c9d
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
@@ -18,14 +30,24 @@
           <h4 class="modal-title">Share This Info</h4>
         </div>
         <div class="modal-body">
+<<<<<<< HEAD
             <p><a href="https://twitter.com/intent/tweet?text=Check this out. #susper @Susper_ http://susper.com/search?query={{this.title}}&start=0&rows=10&mode=text">Tweet</a></p>
             <p><a href="https://www.facebook.com/sharer.php?u=http://susper.com/search?query={{this.title}}&start=0&rows=10&mode=text">Share on Facebook</a></p>
           </div>
+=======
+          <p><a href="https://twitter.com/intent/tweet?text=Check this out. #susper @Susper_ http://susper.com/search?query={{this.title}}&start=0&rows=10&mode=text">Tweet</a></p>
+          <p><a href="https://www.facebook.com/sharer.php?u=http://susper.com/search?query={{this.title}}&start=0&rows=10&mode=text">Share on Facebook</a></p>
+        </div>
+>>>>>>> cd1113c9eb20f0fe38eb3e2e9010bc5ce57e8c9d
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
+<<<<<<< HEAD
 </div>
 </div>
+=======
+</div>
+>>>>>>> cd1113c9eb20f0fe38eb3e2e9010bc5ce57e8c9d
