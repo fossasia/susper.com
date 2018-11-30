@@ -25,6 +25,7 @@
 .navbar-default {
   background-color: #fafafa;
   border-bottom: none;
+  user-select: none;
 }
 
 .top-nav {
