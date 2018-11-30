@@ -19,7 +19,7 @@ footer {
   padding-top: 10px !important;
   z-index: 1000;
 }
-div a {
+div a p {
   padding: 0px 6px;
   color: #666;
   font-size: small;
@@ -30,7 +30,6 @@ div a {
   padding-right: 0%;
   color: blue;
 }
-
 div a:hover {
   text-decoration: underline;
 }
