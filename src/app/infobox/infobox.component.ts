@@ -19,6 +19,7 @@ export class InfoboxComponent implements OnInit {
   results: object;
   query$: any;
   image: string;
+  showModal: boolean = false;
   isVisible: boolean;
   resultsearch = '/search';
   speechMode: any;
@@ -41,7 +42,7 @@ export class InfoboxComponent implements OnInit {
     this.content_response$.subscribe(res => {
     this.isVisible = false;
     this.results = res;
-      if (res.extract) {
+    if (res.extract) {
         this.title = res.title;
         this.description = res.extract;
         this.description = this.getString(this.description, '.', 4) + '.';
@@ -74,8 +75,26 @@ export class InfoboxComponent implements OnInit {
         window.speechSynthesis.cancel();
         window.speechSynthesis.resume();
         window.speechSynthesis.speak(msg);
-      }
+  }
+
+  Show() {
+    this.showModal = true;
+    let modal = document.getElementById("modo");
+    modal.style.display = "block"
+  }
+  close() {
+    this.showModal = false;
+    let modal = document.getElementById("modo");
+    modal.style.display = "none"
+  }
 
   ngOnInit() {
+    window.onclick = function(event) {
+      let modal = document.getElementById("modo");
+      if (event.target === modal) {
+        modal.style.display = "none"
+      }
+    }
   }
 }
+
