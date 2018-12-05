@@ -159,7 +159,7 @@ a {
 }
 
 .navbar-collapse.navbar-right {
-    padding-top: 15px;
+    padding: 7px 0;
 }
 
 a:hover {
