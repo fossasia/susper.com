@@ -29,6 +29,15 @@
     padding:0px;
 }
 
+.image-banner .img {
+    min-height: 250px;
+    height: 30vw;
+    background-position: bottom left;
+    background-size: cover;
+    background-image: url(../../assets/images/boat.png);
+    margin-bottom: 25px;
+}
+
 .navbar-logo {
     height: 30px;
     padding-left: 20px;
