@@ -192,41 +192,15 @@ a:hover {
 
 }
 
-#wrapper {
-    width: 920px;
-    height: auto;
-    margin: 0 auto;
-}
-#video1 {
-    width: 47.5%;
-    height: 300px;
-    float: left;
-    margin-right: 5%;
-}
-
-#video2 {
-    width: 47.5%;
-    height: 300px;
-	float: left;
-}
 
 .clear {
     clear: both;
 }
 
-@media (max-width:767px) {
-    #wrapper {
-        width: 100%;
-        height: auto;
-    }
-    #video1 {
-        width: 100%;
-        height: auto;
-        float: none;
-    }
-    #video2 {
-        width: 100%;
-        height: auto;
-        float: none;
-    }
+#videos {
+	margin-bottom:100px;
+
+}
+iframe {
+	margin:1%;
 }
