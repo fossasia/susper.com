@@ -17,6 +17,7 @@ footer {
   bottom: 0;
   width: 100%;
   padding-top: 10px !important;
+  z-index: 1000;
 }
 div a {
   padding: 0px 6px;
