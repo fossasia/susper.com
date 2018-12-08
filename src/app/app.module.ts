@@ -47,6 +47,7 @@ import { KnowledgeapiService } from './services/knowledgeapi.service';
 import { KnowledgeEffects } from "./effects/knowledge";
 import { NewsService } from './services/news.service';
 import { GetJsonService } from './services/get-json.service';
+import { HelpComponent } from './help/help.component';
 const appRoutes: Routes = [
   {path: 'search', component: ResultsComponent},
   {path: '', component: IndexComponent},
@@ -58,6 +59,7 @@ const appRoutes: Routes = [
   {path: 'advancedsearch', component: NewadvancedsearchComponent},
   {path: 'crawlstartexpert', component: CrawlstartComponent},
   {path: 'preferences', component: SearchsettingsComponent },
+  {path: 'help', component: HelpComponent},
   {path: '**', redirectTo: '/404'},
 ];
 
@@ -86,6 +88,7 @@ const appRoutes: Routes = [
     AutoCorrectComponent,
     StatsboxComponent,
     InfoboxComponent,
+    HelpComponent,
   ],
 
   imports: [
