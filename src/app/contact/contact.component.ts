@@ -31,11 +31,11 @@ export class ContactComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck() {
-        this.checkValidity(); 
+        this.checkValidity();
     }
 
     checkValidity() {
-        if(this.validateEmail(this.emailInput) && this.validatePhone(this.tpnoInput) && this.validateMessage(this.contactMessage) && this.validateName(this.nameInput)) {
+        if (this.validateEmail(this.emailInput) && this.validatePhone(this.tpnoInput) && this.validateMessage(this.contactMessage) && this.validateName(this.nameInput)) {
             this.submitButton.nativeElement.disabled = false;
         } else {
             this.submitButton.nativeElement.disabled = true;
@@ -68,7 +68,7 @@ export class ContactComponent implements OnInit, DoCheck {
     }
 
     validateName(name) {
-        if(name && (name.length > 0)) {
+        if (name && (name.length > 0)) {
             return true;
         } else {
             return false;
