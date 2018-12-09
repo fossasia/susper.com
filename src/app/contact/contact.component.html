@@ -1,5 +1,6 @@
 <!-- Start ignoring BootLintBear-->
 <!-- Stop ignoring BootLintBear-->
+
 <div id="contact">
 <nav class="navbar navbar-default nav-about">
   <div class="container-fluid">
@@ -81,7 +82,7 @@
     <a (click)="close()" class="close-btn"><i class="fa fa-times" aria-hidden="true" style="font-size: 2em"></i></a>
   </div>
 
-  <form class="form-horizontal" method="POST" action="https://formspree.io/office@fossasia.org">
+  <form class="form-horizontal" >
   <fieldset>
   <legend>Contact Form</legend>
 
@@ -89,15 +90,15 @@
     <label class="col-md-3 control-label" for="textinput">Your Name<sup>*</sup></label>
 
     <div class="col-md-9">
-      <input id="textinput" name="yourName" type="text" placeholder="Your Name" class="form-control input-md" required="">
+      <input id="textinput" (ngModelChange)="checkValidity()" [(ngModel)]="nameInput" name="yourName" type="text" placeholder="Your Name" class="form-control input-md" required="">
     </div>
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 control-label"a for="emailinput">Email<sup>*</sup></label>
+    <label class="col-md-3 control-label" for="emailinput">Email<sup>*</sup></label>
 
     <div class="col-md-9">
-      <input id="emailinput" name="email-address" type="email" placeholder="Email Address" class="form-control input-md" required="">
+      <input id="emailInput" [(ngModel)]="emailInput" (ngModelChange)="checkValidity()" name="email-address" type="email" placeholder="Email Address" class="form-control input-md" required="">
     </div>
   </div>
 
@@ -105,7 +106,7 @@
     <label class="col-md-3 control-label" for="countrycode">Mobile Number<sup>*</sup></label>
 
     <div class="col-md-9 mobile_input">
-    <select id="countrycode" name="countrycode" class="form-control">
+    <select id="countrycode" name="countrycode" class="form-control" [(ngModel)]="countrycode"  (ngModelChange)="checkValidity()">
               <option data-countryCode="DZ" value="213">Algeria (+213)</option>
               <option data-countryCode="AD" value="376">Andorra (+376)</option>
               <option data-countryCode="AO" value="244">Angola (+244)</option>
@@ -328,7 +329,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-md-3 control-label" for="message">Message<sup>*</sup></label>
+    <label class="col-md-3 control-label"  for="message">Message<sup>*</sup></label>
 
     <div class="col-md-9">
       <textarea class="form-control" id="message" name="message" placeholder="Minimum 100 words" required="" (ngModelChange)="checkValidity()" [(ngModel)]="contactMessage"></textarea>
@@ -340,7 +341,7 @@
     <label class="col-md-12 control-label" for="submit"></label>
 
     <div class="col-md-12">
-      <button id="submit" name="submit" class="btn btn-info sub-btn" type="submit" #submitButton disabled>Submit</button>
+      <button id="submit" (click)="mail()" name="submit" class="btn btn-info sub-btn" type="submit" #submitButton disabled>Submit</button>
     </div>
 
   </div>
