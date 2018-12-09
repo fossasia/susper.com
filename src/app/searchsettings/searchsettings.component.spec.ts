@@ -69,7 +69,6 @@ describe('SearchsettingsComponent', () => {
 
     expect(compiled.querySelector('nav.navbar'));
   });
-
   it('should have alt text property as brand', () => {
     let compiled = fixture.debugElement.nativeElement;
 

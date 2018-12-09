@@ -85,5 +85,10 @@ describe('Component: Navbar', () => {
 
     expect(compiled.querySelector('app-dropdown')).toBeTruthy();
   });
+  it('should have an app-search-bar element', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('app-search-bar')).toBeTruthy();
+  });
 
 });

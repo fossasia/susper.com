@@ -73,5 +73,21 @@ describe('IndexComponent', () => {
     let compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('div #set-susper-default')).toBeTruthy();
   });
+  it('should have an app-footer-navbar element', () => {
+    let compiled = fixture.debugElement.nativeElement;
 
+    expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
+  });
+
+  it('should have an app-dropdown element', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('app-dropdown')).toBeTruthy();
+  });
+
+  it('should have an app-search-bar element', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('app-search-bar')).toBeTruthy();
+  });
 });
