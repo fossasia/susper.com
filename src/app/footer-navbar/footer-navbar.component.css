@@ -8,11 +8,9 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0px;
-  position: fixed;
   bottom: 0px;
 }
 footer {
-  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;

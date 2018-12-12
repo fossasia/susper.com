@@ -61,6 +61,8 @@
 
 #right {
 	width:67.7%;
+	padding: 20px;
+	margin-bottom: 60px;
 }
 
 p {
@@ -72,7 +74,7 @@ h2 {
 	line-height: 1.8;
 }
 
-@media only screen and (max-width: 768px) {	
+@media only screen and (max-width: 768px) {
 	#left {
 		width: 100%;
 	}
@@ -82,7 +84,7 @@ h2 {
 	}
 
   .navbar-brand {
-	  margin-left: -77px;	
+	  margin-left: -77px;
 	  margin-top: -9px;
 	}
 }
