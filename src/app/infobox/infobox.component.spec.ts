@@ -55,4 +55,8 @@ describe('Component: InfoboxComponent', () => {
     expect(component.image_response$).toBeTruthy();
   });
 
+  it('should have resultsearch variable equal to "/search"', () => {
+    expect(component.resultsearch).toEqual('/search');
+  });
+
 });
