@@ -42,7 +42,7 @@ export const url = {
                 'site': 'http://dev.yaydoc.org'
         },
         'github_repo': {
-                'fossasia': 'https://github.com/fossasia'
+                'fossasia': 'github.com/fossasia'
         }
 
 }
