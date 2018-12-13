@@ -172,6 +172,18 @@ a:hover {
 	color: #000000;
 }
 
+.accordion-section-title:before {
+	font-family: 'Glyphicons Halflings';
+	content: "\e114";
+	float: right;
+	transition: all 0.5s;
+}
+.accordion-section-title.active:before {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	transform: rotate(180deg);
+} 
+
 .accordion-section-title:hover {
 	background:#f2f2f2;
 	text-decoration:none;
