@@ -44,6 +44,11 @@ dl {
   width:96%;
 }
 
+.text-center {
+  padding-top:20px;
+  font-size:30px !important;
+}
+
 body, table, textarea {
   font-size: 12px;
   overflow-x: hidden;
