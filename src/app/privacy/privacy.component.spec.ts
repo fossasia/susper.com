@@ -41,7 +41,7 @@ describe('Component: Privacy', () => {
   });
 
   it('should have an app-footer-navbar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
   });

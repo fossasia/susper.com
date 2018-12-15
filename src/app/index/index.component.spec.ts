@@ -57,36 +57,36 @@ describe('IndexComponent', () => {
   });
 
   it('should have logo with correct alt text property', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let image: HTMLImageElement = compiled.querySelector('div img');
+    const compiled = fixture.debugElement.nativeElement;
+    const image: HTMLImageElement = compiled.querySelector('div img');
     expect(image).toBeTruthy();
     expect(image.alt).toBe('Susper');
   });
 
   it('should have an element app-search-bar', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-search-bar')).toBeTruthy();
   });
 
   it('should have set-susper-default option', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('div #set-susper-default')).toBeTruthy();
   });
   it('should have an app-footer-navbar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
   });
 
   it('should have an app-dropdown element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-dropdown')).toBeTruthy();
   });
 
   it('should have an app-search-bar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-search-bar')).toBeTruthy();
   });

@@ -36,7 +36,7 @@ describe('Component: FooterNavbar', () => {
     expect(footer).toBeTruthy();
   });
   it('should have an footer element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('footer')).toBeTruthy();
   });
