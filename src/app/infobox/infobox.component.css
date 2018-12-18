@@ -116,7 +116,7 @@ a:active {
 .query_description {
   color: #777;
   font-family: arial, sans-serif;
-  margin-top: -25px;
+  margin-top: 25px;
   font-size: 1em;
   max-width: 200px;
 }
