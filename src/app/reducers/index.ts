@@ -30,7 +30,6 @@ import { storeFreeze } from 'ngrx-store-freeze';
  */
 import { combineReducers } from '@ngrx/store';
 
-
 /**
  * Every reducer module's default export is the reducer function itself. In
  * addition, each module should export a type or interface that describes
@@ -51,7 +50,6 @@ export interface State {
   knowledge: fromKnowledge.State;
 }
 
-
 /**
  * Because metareducers take a reducer function and return a new reducer,
  * we can use our compose helper to chain them together. Here we are
@@ -63,10 +61,13 @@ const reducers = {
   search: fromSearch.reducer,
   query: fromQuery.reducer,
   speech: fromSpeech.reducer,
-  knowledge: fromKnowledge.reducer
+  knowledge: fromKnowledge.reducer,
 };
 
-const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
+const developmentReducer: ActionReducer<State> = compose(
+  storeFreeze,
+  combineReducers
+)(reducers);
 const productionReducer: ActionReducer<State> = combineReducers(reducers);
 
 export function reducer(state: any, action: any) {
@@ -81,14 +82,22 @@ export const getSearchState = (state: State) => state.search;
 export const getQueryState = (state: State) => state.query;
 export const getKnowledgeState = (state: State) => state.knowledge;
 export const getSpeechState = (state: State) => state.speech;
+
 export const getSearchResults = createSelector(getSearchState, fromSearch.getsearchresults);
 export const getItems = createSelector(getSearchState, fromSearch.getItems);
 export const getTotalResults = createSelector(getSearchState, fromSearch.getTotalResults);
 export const getNavigation = createSelector(getSearchState, fromSearch.getNavigation);
 export const getquery = createSelector(getQueryState, fromQuery.getpresentquery);
-export const getKnowledgeContent = createSelector(getKnowledgeState, fromKnowledge.getContentResponse);
+export const getKnowledgeContent = createSelector(
+  getKnowledgeState,
+  fromKnowledge.getContentResponse
+);
 export const getKnowledgeImage = createSelector(getKnowledgeState, fromKnowledge.getImageResponse);
-export const getDescription = createSelector(getKnowledgeState, fromKnowledge.getDescriptionResponse);
+export const getDescription = createSelector(
+  getKnowledgeState,
+  fromKnowledge.getDescriptionResponse
+);
 export const getwholequery = createSelector(getQueryState, fromQuery.getpresentwholequery);
 export const getResponseTime = createSelector(getSearchState, fromSearch.getresponsetime);
 export const getSpeechMode = createSelector(getSpeechState, fromSpeech.getspeechmode);
+export const getSearchStatus = createSelector(getSearchState, fromSearch.getSearchstatus);
