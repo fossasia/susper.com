@@ -4,7 +4,7 @@ export const url = {
                 'newsFile': 'https://github.com/fossasia/susper.com/blob/master/src/assets/newsFile.json'
         },
         'yacy': {
-                'site': 'yacy.net',
+                'site': 'https://yacy.net',
                 'api_server': 'yacy.searchlab.eu',
                 'crawl_start_api': 'yacygrid.com:8300',
                 'websearch_api': 'yacy-websearch.net'
