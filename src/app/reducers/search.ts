@@ -1,10 +1,4 @@
-import { compose } from '@ngrx/core';
-import { combineReducers } from '@ngrx/store';
-import { ActionReducer, Action } from '@ngrx/store';
-import { createSelector } from 'reselect';
 import * as search from '../actions/search';
-
-export const CHANGE = 'CHANGE';
 
 export interface State {
   searchresults: any;
@@ -14,13 +8,8 @@ export interface State {
   responsetime: any;
   loading: boolean;
 }
-/**
- * There is always a need of initial state to be passed onto the store.
- *
- * @prop: query: ''
- * @prop: loading: false
- */
-const initialState: State = {
+
+const defaultState: State = {
   searchresults: {},
   items: [],
   totalResults: 0,
@@ -29,39 +18,37 @@ const initialState: State = {
   loading: false,
 };
 
-export function reducer(state: State = initialState, action: search.Actions): State {
+export function reducer(state: State = defaultState, action: search.Actions): State {
   switch (action.type) {
     case search.ActionTypes.CHANGE: {
-      const changeSearch = action.payload.response;
-      const append = action.payload.append;
-      const loading = action.payload.loading;
-
+      const {response, append, loading} = action.payload;
       if (!loading) {
         if (append) {
-          const newitems = state.items.concat(changeSearch.channels[0].items);
-          return Object.assign({}, state, {
+          const newitems = state.items.concat(response.channels[0].items);
+          return {
+            ...state,
             searchresults: search,
             items: newitems,
-            totalResults: Number(changeSearch.channels[0].totalResults) || 0,
-            navigation: changeSearch.channels[0].navigation,
+            totalResults: Number(response.channels[0].totalResults) || 0,
+            navigation: response.channels[0].navigation,
             responsetime: new Date(),
             loading: loading,
-          });
+          }
         } else {
-          return Object.assign({}, state, {
-            searchresults: changeSearch,
-            items: changeSearch.channels[0].items,
-            totalResults: Number(changeSearch.channels[0].totalResults) || 0,
-            navigation: changeSearch.channels[0].navigation,
+          return {
+            ...state,
+            searchresults: response,
+            items: response.channels[0].items,
+            totalResults: Number(response.channels[0].totalResults) || 0,
+            navigation: response.channels[0].navigation,
             responsetime: new Date(),
             loading: loading,
-          });
+          }
         }
       } else {
-        return Object.assign({}, state, {
-          ...state,
-          loading: true,
-        });
+        return {
+          ...state, loading: true
+        }
       }
     }
     default: {
