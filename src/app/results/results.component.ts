@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ThemeService } from '../services/theme.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -171,12 +172,14 @@ export class ResultsComponent implements OnInit {
     private activatedroute: ActivatedRoute,
     private store: Store<fromRoot.State>,
     private ref: ChangeDetectorRef,
+    private titleService: Title,
     public themeService: ThemeService,
     public getJsonService: GetJsonService,
     public getNewsService: NewsService
   ) {
     this.activatedroute.queryParams.subscribe(query => {
       let urldata = Object.assign({}, this.searchdata);
+      this.setTitle(query['query'] + ' - Susper Search');
 
       if (query['fq']) {
         if (query['fq'].includes('png')) {
@@ -333,6 +336,10 @@ export class ResultsComponent implements OnInit {
     } else {
       this.boxMessage = 'Show';
     }
+  }
+
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   ngOnInit() {}
