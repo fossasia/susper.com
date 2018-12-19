@@ -161,3 +161,14 @@ npm install
 ## Extras
 ### Add Susper as default Search Engine in Google Chrome
 ![](https://media.giphy.com/media/JJW5Aj8LRIGbu/giphy.gif)
+
+## Test coverage for each individual component
+To see the test coverage for each component.  
+  
+```bash
+ng test --code-coverage --reporters=teamcity,coverage-istanbul
+```   
+  
+This will generate comma seperated values for the values on the terminal. 
+To get a more visually appealing output open the file **coverage/index.html** in you browser.  
+![coverage output in browser](./docs/screenshots/html_test_coverage_output.png)

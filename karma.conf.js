@@ -11,7 +11,8 @@ module.exports = function (config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('@angular/cli/plugins/karma'),
-      require('karma-coverage')
+      require('karma-coverage'),
+      require('karma-teamcity-reporter')
     ],
     files: [
       { pattern: './src/test.ts', watched: false },
