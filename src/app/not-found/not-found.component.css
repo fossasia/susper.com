@@ -25,7 +25,9 @@
 
 @media screen and (min-width: 1920px) {
   #search-bar{
-    left: 28%;
+    position: fixed:
+    margin-left: -325px;
+    left: 50px;
   }
 }
 
