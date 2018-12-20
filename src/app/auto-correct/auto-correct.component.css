@@ -3,11 +3,12 @@
   font-weight: 500;
   color: navy;
   padding-top: 13px;
+  padding-bottom: 15px; 
 }
 
 .mean {
   font-size: 18px;
-  color: #dd4b39;
+  color: #000000;
   font-weight: normal;
   margin-bottom: -2px;
 }
