@@ -91,7 +91,7 @@ a:visited {
 }
 
 a:hover {
-  color:#609 !important;
+  color:#609;
   text-decoration:underline;
 }
 
