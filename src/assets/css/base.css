@@ -86,13 +86,13 @@ a:link {
 }
 
 a:visited {
-  color:#609 !important;
-  text-decoration:underline;
+  color: #666;
+  text-decoration: none;
 }
 
 a:hover {
-  color:#609 !important;
-  text-decoration:underline;
+  color: #18294A;
+  text-decoration: none;
 }
 
 /* mark external links */
