@@ -10,7 +10,7 @@ import {
   ViewChild,
   ViewChildren,
   ElementRef,
-  HostListener,
+  HostListener
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -25,7 +25,7 @@ import { ThemeService } from '../services/theme.service';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.css'],
+  styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit, AfterViewInit {
   @ViewChildren('input')
@@ -38,7 +38,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     rows: 10,
     start: 0,
     fq: '',
-    mode: 'text',
+    mode: 'text'
   };
 
   showspeech: boolean = false;
@@ -84,7 +84,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
             start: 0,
             rows: this.searchdata.rows,
             fq: this.searchdata.fq,
-            mode: this.searchdata.mode,
+            mode: this.searchdata.mode
           })
         );
       } else {
@@ -93,7 +93,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
             query: event.target.value,
             start: 0,
             rows: this.searchdata.rows,
-            mode: this.searchdata.mode,
+            mode: this.searchdata.mode
           })
         );
       }
@@ -120,7 +120,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
           start: 0,
           rows: this.searchdata.rows,
           fq: this.searchdata.fq,
-          mode: this.searchdata.mode,
+          mode: this.searchdata.mode
         })
       );
     } else {
@@ -129,7 +129,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
           query: this.searchdata.query,
           start: 0,
           rows: this.searchdata.rows,
-          mode: this.searchdata.mode,
+          mode: this.searchdata.mode
         })
       );
     }
@@ -148,6 +148,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.vc.first.nativeElement.focus();
+  }
+  clearSearch() {
+    this.store.dispatch(
+      new queryactions.QueryServerAction({
+        query: ''
+      })
+    );
   }
 
   submit() {
