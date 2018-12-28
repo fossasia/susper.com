@@ -24,6 +24,11 @@
       "src": "./assets/images/susper.png",
       "type": "image/png",
       "sizes": "512x512"
+    },
+    {
+      "src": "./assets/images/susper.png",
+      "type": "image/png",
+      "sizes": "118x60"
     }
   ],
   "start_url": ".",
