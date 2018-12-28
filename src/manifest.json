@@ -1,30 +1,6 @@
 {
   "icons": [
-    {
-      "src": "./assets/images/susper.png",
-      "type": "image/png",
-      "sizes": "48x48"
-    },
-    {
-      "src": "./assets/images/susper.png",
-      "type": "image/png",
-      "sizes": "96x96"
-    },
-    {
-      "src": "./assets/images/susper.png",
-      "type": "image/png",
-      "sizes": "144x144"
-    },
-    {
-      "src": "./assets/images/susper.png",
-      "type": "image/png",
-      "sizes": "256x256"
-    },
-    {
-      "src": "./assets/images/susper.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    },
+    
     {
       "src": "./assets/images/susper.png",
       "type": "image/png",
