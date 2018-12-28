@@ -31,6 +31,7 @@
     "@ngrx/router-store": "^1.2.6",
     "@ngrx/store": "^2.2.2",
     "@ngrx/store-devtools": "^3.2.4",
+    "bootstrap": "^3.3.0",
     "chart.js": "^2.6.0",
     "codecov.io": "^0.1.6",
     "core-js": "^2.4.1",
