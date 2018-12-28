@@ -4,6 +4,10 @@
 	}
 }
 
+a:hover {
+	cursor: pointer;
+}
+
 .bold {
 	font-weight: 700;
 }
