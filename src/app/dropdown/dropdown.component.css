@@ -3,9 +3,9 @@ li.dropdown-menu-box {
 }
 
 .menu-row{
-  width: 267px;
-  grid-template-columns: 1fr 1fr 1fr;
-  background-color: white;
+    width: 267px;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: white;
 }
 .menu-row a {
     color: #737373;
@@ -49,32 +49,33 @@ li.dropdown-menu-box {
 }
 
 .dropdown-menu {
-  height: auto;
-  width: 327px;
-  padding: 28px;
+    width: 327px;
+    padding: 28px;
+    overflow: auto;
+    height: 33vh;
 }
 
 .dropdown-menu:before {
-  position: absolute;
-  top: -7px;
-  right: 19px;
-  display: inline-block;
-  border-right: 7px solid transparent;
-  border-bottom: 7px solid #ccc;
-  border-left: 7px solid transparent;
-  border-bottom-color: rgba(0, 0, 0, 0.2);
-  content: '';
+    position: absolute;
+    top: -7px;
+    right: 19px;
+    display: inline-block;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #ccc;
+    border-left: 7px solid transparent;
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+    content: '';
 }
 
 .dropdown-menu:after {
-  position: absolute;
-  top: -5px;
-  right: 20px;
-  display: inline-block;
-  border-right: 6px solid transparent;
-  border-bottom: 6px solid #ffffff;
-  border-left: 6px solid transparent;
-  content: '';
+    position: absolute;
+    top: -5px;
+    right: 20px;
+    display: inline-block;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #ffffff;
+    border-left: 6px solid transparent;
+    content: '';
 }
 
 div.block:hover {
@@ -90,9 +91,9 @@ p {
     padding: 10px;
 }
 
-.side-menu{
-  width:0;
-  float: right;
+.side-menu {
+    width:0;
+    float: right;
 }
 
 hr {
@@ -141,20 +142,20 @@ div#labs {
 
 @media screen and (max-width: 767px) {
     #small-drop {
-    position: absolute;
-    background-color: white;
-    border: 1px solid #cccccc;
-    right: -18px;
-    left: auto;
-  }
+        position: absolute;
+        background-color: white;
+        border: 1px solid #cccccc;
+        right: -18px;
+        left: auto;
+    }
 
-  .nav > li > a {
-    padding-left: 11px;
-    padding-right: 28px;
-  }
+    .nav > li > a {
+        padding-left: 11px;
+        padding-right: 28px;
+    }
 
-  .dropdown-menu-box {
-      margin-left: -210%;
-  }
+    .dropdown-menu-box {
+        margin-left: -210%;
+    }
 
 }
