@@ -77,12 +77,6 @@
   width: 25px;
 }
 
-@-moz-document url-prefix() {
-  .microphone {
-    display: none;
-  }
-}
-
 @media screen and (max-width: 811px) and (min-width: 768px) {
   #nav-input{
     width: 60vw;
