@@ -40,9 +40,9 @@ describe('Component: Privacy', () => {
     expect(privacy).toBeTruthy();
   });
 
-  it('should create a FooterNavbar Component', () => {
-    const footerNavbar = new FooterNavbarComponent();
-    expect(footerNavbar).toBeTruthy();
-  });
+  it('should have an app-footer-navbar element', () => {
+    const compiled = fixture.debugElement.nativeElement;
 
+    expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
+  });
 });
