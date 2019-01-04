@@ -8,6 +8,8 @@ import { reducer } from "../reducers/index";
 import { StoreModule } from "@ngrx/store";
 import { MockKnowledgeApi } from "../shared/mocks/knowledge.mock";
 import { SpeechSynthesisService } from '../services/speech-synthesis.service';
+import { By } from '@angular/platform-browser';
+
 describe('Component: InfoboxComponent', () => {
   let component: InfoboxComponent;
   let fixture: ComponentFixture<InfoboxComponent>;
@@ -57,6 +59,12 @@ describe('Component: InfoboxComponent', () => {
 
   it('should have resultsearch variable equal to "/search"', () => {
     expect(component.resultsearch).toEqual('/search');
+  });
+
+  it('should not have card', () => {
+    const compiled = fixture.debugElement.nativeElement;
+
+    expect(fixture.debugElement.query(By.css('div.card'))).toBeNull();
   });
 
 });

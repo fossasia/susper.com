@@ -32,11 +32,16 @@
             </div></a
           >
         </div>
+        <div class="share-link">
+          <label for="share_link" style="color: #999999; margin-left: -6px;">Share link</label>
+          <br/>
+          <input type="text" id="share_link" value="{{ getUrl() }}">
+        </div>
       </div>
     </div>
     <h2>
       <b [style.color]="themeService.cardColor">{{ this.title }}</b
-      ><button class="btn dropdown-toggle" type="button" (click)="ShowModal()">
+      ><button class="btn dropdown-toggle" id="showSearchModal" type="button" (click)="ShowModal()">
         <i class="material-icons">share</i>
       </button>
     </h2>
