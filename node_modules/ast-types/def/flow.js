@@ -1,5 +1,6 @@
 module.exports = function (fork) {
   fork.use(require("./es7"));
+  fork.use(require("./type-annotations"));
 
   var types = fork.use(require("../lib/types"));
   var def = types.Type.def;
@@ -206,12 +207,6 @@ module.exports = function (fork) {
     .build("argument")
     .field("argument", def("FlowType"));
 
-  def("Identifier")
-    .field("typeAnnotation", or(def("TypeAnnotation"), null), defaults["null"]);
-
-  def("ObjectPattern")
-    .field("typeAnnotation", or(def("TypeAnnotation"), null), defaults["null"]);
-
   def("TypeParameterDeclaration")
     .bases("Node")
     .build("params")
@@ -231,32 +226,8 @@ module.exports = function (fork) {
            or(def("TypeAnnotation"), null),
            defaults["null"]);
 
-  def("Function")
-    .field("returnType",
-           or(def("TypeAnnotation"), null),
-           defaults["null"])
-    .field("typeParameters",
-           or(def("TypeParameterDeclaration"), null),
-           defaults["null"]);
-
   def("ClassProperty")
-    .build("key", "value", "typeAnnotation", "static")
-    .field("value", or(def("Expression"), null))
-    .field("typeAnnotation", or(def("TypeAnnotation"), null))
-    .field("static", Boolean, defaults["false"])
     .field("variance", LegacyVariance, defaults["null"]);
-
-  ["ClassDeclaration",
-   "ClassExpression",
-  ].forEach(typeName => {
-    def(typeName)
-      .field("typeParameters",
-             or(def("TypeParameterDeclaration"), null),
-             defaults["null"])
-      .field("superTypeParameters",
-             or([def("GenericTypeAnnotation")], null),
-             defaults["null"]);
-  });
 
   def("ClassImplements")
     .bases("Node")
@@ -266,13 +237,6 @@ module.exports = function (fork) {
     .field("typeParameters",
            or(def("TypeParameterInstantiation"), null),
            defaults["null"]);
-
-  ["ClassDeclaration",
-   "ClassExpression",
-  ].forEach(typeName => {
-    def(typeName)
-      .field("implements", [def("ClassImplements")], defaults.emptyArray);
-  });
 
   def("InterfaceDeclaration")
     .bases("Declaration")

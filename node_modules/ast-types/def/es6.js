@@ -88,6 +88,9 @@ module.exports = function (fork) {
     .field("shorthand", Boolean, defaults["false"])
     .field("computed", Boolean, defaults["false"]);
 
+  def("ObjectProperty")
+    .field("shorthand", Boolean, defaults["false"]);
+
   def("PropertyPattern")
     .bases("Pattern")
     .build("key", "pattern")

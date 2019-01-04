@@ -8,8 +8,8 @@ This package contains type definitions for jquery (https://jquery.com).
 Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/jquery
 
 Additional Details
- * Last updated: Mon, 22 Oct 2018 19:29:31 GMT
- * Dependencies: sizzle
+ * Last updated: Tue, 25 Dec 2018 21:10:47 GMT
+ * Dependencies: @types/sizzle
  * Global values: $, Symbol, jQuery
 
 # Credits

@@ -1,10 +1,11 @@
-// Copyright 2015 Joyent, Inc.
+// Copyright 2018 Joyent, Inc.
 
 module.exports = {
 	read: read,
 	readPkcs8: readPkcs8,
 	write: write,
 	writePkcs8: writePkcs8,
+	pkcs8ToBuffer: pkcs8ToBuffer,
 
 	readECDSACurve: readECDSACurve,
 	writeECDSACurve: writeECDSACurve
@@ -410,6 +411,12 @@ function readPkcs8X25519Private(der) {
 	};
 
 	return (new PrivateKey(key));
+}
+
+function pkcs8ToBuffer(key) {
+	var der = new asn1.BerWriter();
+	writePkcs8(der, key);
+	return (der.buffer);
 }
 
 function writePkcs8(der, key) {

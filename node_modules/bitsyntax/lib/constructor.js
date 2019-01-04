@@ -5,12 +5,12 @@
 'use strict';
 
 var ints = require('buffer-more-ints');
+var Buffer = require('safe-buffer').Buffer;
 
 // Interpret the pattern, writing values into a buffer
 function write(buf, offset, pattern, bindings) {
   for (var i=0, len = pattern.length; i < len; i++) {
     var segment = pattern[i];
-    
     switch (segment.type) {
     case 'string':
       offset += buf.write(segment.value, offset, 'utf8');
@@ -31,7 +31,7 @@ function write(buf, offset, pattern, bindings) {
 
 function build(pattern, bindings) {
   var bufsize = size_of(pattern, bindings);
-  var buf = new Buffer(bufsize);
+  var buf = Buffer.alloc(bufsize);
   write(buf, 0, pattern, bindings);
   return buf;
 }

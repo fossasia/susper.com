@@ -12,7 +12,7 @@
 
 ECMAScript spec abstract operations.
 When different versions of the spec conflict, the default export will be the latest version of the abstract operation.
-All abstract operations will also be available under an `es5`/`es2015`/`es2016` entry point, and exported property, if you require a specific version.
+All abstract operations will also be available under an `es5`/`es2015`/`es2016`/`es2017`/`es2018` entry point, and exported property, if you require a specific version.
 
 ## Example
 

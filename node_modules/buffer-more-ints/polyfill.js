@@ -10,13 +10,13 @@ Buffer.assertContiguousInt = bmi.assertContiguousInt;
         ['BE', 'LE'].forEach(function (endian) {
             var read = 'read' + signed + size + endian;
             var reader = bmi[read];
-            Buffer.prototype[read] = function(offset, noAssert) {
-                return reader(this, offset, noAssert);
+            Buffer.prototype[read] = function(offset) {
+                return reader(this, offset);
             };
             var write = 'write' + signed + size + endian;
             var writer = bmi[write];
-            Buffer.prototype[write] = function(val, offset, noAssert) {
-                writer(this, val, offset, noAssert);
+            Buffer.prototype[write] = function(val, offset) {
+                writer(this, val, offset);
             };
         });
     });
@@ -26,11 +26,11 @@ Buffer.assertContiguousInt = bmi.assertContiguousInt;
 // outside of the buffer, unlike for other widths.  These functions
 // make it consistent with the others.
 var consistent_readX8 = {
-    readUInt8: function (offset, noAssert) {
-        return this.readUInt8(offset, noAssert) || 0;
+    readUInt8: function (offset) {
+        return this.readUInt8(offset) || 0;
     },
-    readInt8: function (offset, noAssert) {
-        return this.readInt8(offset, noAssert) || 0;
+    readInt8: function (offset) {
+        return this.readInt8(offset) || 0;
     }
 };
 
@@ -43,19 +43,19 @@ function make_accessor(read, prefix, suffix) {
     }
 
     if (read) {
-        Buffer.prototype[prefix + suffix] = function (len, offset, noAssert) {
+        Buffer.prototype[prefix + suffix] = function (len, offset) {
             var reader = accessors[len];
             if (reader) {
-                return reader.call(this, offset, noAssert);
+                return reader.call(this, offset);
             } else {
                 throw new Error("Cannot read integer of length " + len);
             }
         };
     } else {
-        Buffer.prototype[prefix + suffix] = function (len, val, offset, noAssert) {
+        Buffer.prototype[prefix + suffix] = function (len, val, offset) {
             var writer = accessors[len];
             if (writer) {
-                return writer.call(this, val, offset, noAssert);
+                return writer.call(this, val, offset);
             } else {
                 throw new Error("Cannot write integer of length " + len);
             }

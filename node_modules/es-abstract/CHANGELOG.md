@@ -1,3 +1,18 @@
+1.13.0 / 2019-01-02
+=================
+  * [New] add ES2018
+  * [New] add ES2015/ES2016: EnumerableOwnNames; ES2017: EnumerableOwnProperties
+  * [New] `ES2015+`: add `thisBooleanValue`, `thisNumberValue`, `thisStringValue`, `thisTimeValue`
+  * [New] `ES2015+`: add `DefinePropertyOrThrow`, `DeletePropertyOrThrow`, `CreateMethodProperty`
+  * [New] add `assertRecord` helper
+  * [Deps] update `is-callable`, `has`, `object-keys`, `es-to-primitive`
+  * [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `tape`, `semver`, `safe-publish-latest`, `replace`
+  * [Tests] use `npm audit` instead of `nsp`
+  * [Tests] remove `jscs`
+  * [Tests] up to `node` `v11.6`, `v10.15`, `v8.15`, `v6.16`
+  * [Tests] move descriptor factories to `values` helper
+  * [Tests] add `getOps` to programmatically fetch abstract operation names
+
 1.12.0 / 2018-05-31
 =================
   * [New] add `GetIntrinsic` entry point

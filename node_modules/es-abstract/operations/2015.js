@@ -64,6 +64,7 @@ module.exports = {
 	CreateIterResultObject: 'https://ecma-international.org/ecma-262/6.0/#sec-createiterresultobject',
 	CreateListIterator: 'https://ecma-international.org/ecma-262/6.0/#sec-createlistiterator',
 	Type: 'https://ecma-international.org/ecma-262/6.0/#sec-ecmascript-language-types',
+	thisBooleanValue: 'https://ecma-international.org/ecma-262/6.0/#sec-properties-of-the-boolean-prototype-object',
 	thisNumberValue: 'https://ecma-international.org/ecma-262/6.0/#sec-properties-of-the-number-prototype-object',
 	thisTimeValue: 'https://ecma-international.org/ecma-262/6.0/#sec-properties-of-the-date-prototype-object',
 	thisStringValue: 'https://ecma-international.org/ecma-262/6.0/#sec-properties-of-the-string-prototype-object',

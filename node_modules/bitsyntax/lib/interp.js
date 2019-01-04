@@ -33,10 +33,8 @@
 
 'use strict';
 
-var ints = require('buffer-more-ints');
-
-var debug = (process.env.DEBUG) ?
-  function(s) { console.log(s); } : function () {};
+var ints    = require('buffer-more-ints'),
+    debug   = require('debug')('bitsyntax-Interpreter');
 
 function parse_int(bin, off, sizeInBytes, bigendian, signed) {
   switch (sizeInBytes) {

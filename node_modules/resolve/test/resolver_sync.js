@@ -294,6 +294,20 @@ test('not a directory', function (t) {
     t.end();
 });
 
+test('non-string "main" field in package.json', function (t) {
+    var dir = path.join(__dirname, 'resolver');
+    try {
+        var result = resolve.sync('./invalid_main', { basedir: dir });
+        t.equal(result, undefined, 'result should not exist');
+        t.fail('should not get here');
+    } catch (err) {
+        t.ok(err, 'errors on non-string main');
+        t.equal(err.message, 'package “invalid main” `main` must be a string');
+        t.equal(err.code, 'INVALID_PACKAGE_MAIN');
+    }
+    t.end();
+});
+
 test('browser field in package.json', function (t) {
     var dir = path.join(__dirname, 'resolver');
     var res = resolve.sync('./browser_field', {

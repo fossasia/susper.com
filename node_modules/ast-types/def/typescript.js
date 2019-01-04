@@ -2,6 +2,7 @@ module.exports = function (fork) {
   // Since TypeScript is parsed by Babylon, include the core Babylon types
   // but omit the Flow-related types.
   fork.use(require("./babel-core"));
+  fork.use(require("./type-annotations"));
 
   var types = fork.use(require("../lib/types"));
   var n = types.namedTypes;
@@ -202,9 +203,9 @@ module.exports = function (fork) {
   def("TSMappedType")
     .bases("TSType")
     .build("typeParameter", "typeAnnotation")
-    .field("readonly", Boolean, defaults["false"])
+    .field("readonly", or(Boolean, "+", "-"), defaults["false"])
     .field("typeParameter", def("TSTypeParameter"))
-    .field("optional", Boolean, defaults["false"])
+    .field("optional", or(Boolean, "+", "-"), defaults["false"])
     .field("typeAnnotation",
            or(def("TSType"), null),
            defaults["null"]);
@@ -300,7 +301,7 @@ module.exports = function (fork) {
   def("TSTypeQuery")
     .bases("TSType")
     .build("exprName")
-    .field("exprName", def("Identifier"));
+    .field("exprName", IdOrQualifiedName);
 
   // Inferred from Babylon's tsParseTypeMember method.
   var TSTypeMember = or(
@@ -318,6 +319,7 @@ module.exports = function (fork) {
 
   def("TSTypeParameter")
     .bases("Identifier")
+    .build("name", "constraint", "default")
     .field("name", String)
     .field("constraint", or(def("TSType"), null), defaults["null"])
     .field("default", or(def("TSType"), null), defaults["null"]);
@@ -422,15 +424,6 @@ module.exports = function (fork) {
            or([def("TSExpressionWithTypeArguments")], null),
            defaults["null"])
     .field("body", def("TSInterfaceBody"));
-
-  ["ClassDeclaration",
-   "ClassExpression",
-  ].forEach(typeName => {
-    def(typeName)
-      .field("implements",
-             [def("TSExpressionWithTypeArguments")],
-             defaults.emptyArray);
-  });
 
   def("TSParameterProperty")
     .bases("Pattern")

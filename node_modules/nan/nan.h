@@ -13,7 +13,7 @@
  *
  * MIT License <https://github.com/nodejs/nan/blob/master/LICENSE.md>
  *
- * Version 2.11.1: current Node 10.11.0, Node 12: 0.12.18, Node 10: 0.10.48, iojs: 3.3.1
+ * Version 2.12.1: current Node 11.4.0, Node 12: 0.12.18, Node 10: 0.10.48, iojs: 3.3.1
  *
  * See https://github.com/nodejs/nan for the latest update to this file
  **********************************************************************************/
@@ -37,6 +37,7 @@
 #define NODE_8_0_MODULE_VERSION  57
 #define NODE_9_0_MODULE_VERSION  59
 #define NODE_10_0_MODULE_VERSION 64
+#define NODE_11_0_MODULE_VERSION 67
 
 #ifdef _MSC_VER
 # define NAN_HAS_CPLUSPLUS_11 (_MSC_VER >= 1800)
@@ -1060,8 +1061,10 @@ class Utf8String {
       length_(0), str_(str_st_) {
     HandleScope scope;
     if (!from.IsEmpty()) {
-#if V8_MAJOR_VERSION >= 7
-      v8::Local<v8::String> string = from->ToString(v8::Isolate::GetCurrent());
+#if NODE_MAJOR_VERSION >= 10
+      v8::Local<v8::Context> context = GetCurrentContext();
+      v8::Local<v8::String> string =
+          from->ToString(context).FromMaybe(v8::Local<v8::String>());
 #else
       v8::Local<v8::String> string = from->ToString();
 #endif
@@ -1074,11 +1077,27 @@ class Utf8String {
         }
         const int flags =
             v8::String::NO_NULL_TERMINATION | imp::kReplaceInvalidUtf8;
-#if V8_MAJOR_VERSION >= 7
+#if NODE_MAJOR_VERSION >= 11
         length_ = string->WriteUtf8(v8::Isolate::GetCurrent(), str_, static_cast<int>(len), 0, flags);
 #else
-        length_ = string->WriteUtf8(str_, static_cast<int>(len), 0, flags);
+        // See https://github.com/nodejs/nan/issues/832.
+        // Disable the warning as there is no way around it.
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4996)
 #endif
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
+        length_ = string->WriteUtf8(str_, static_cast<int>(len), 0, flags);
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+#endif  // NODE_MAJOR_VERSION < 11
         str_[length_] = '\0';
       }
     }
@@ -1658,9 +1677,9 @@ class Callback {
     v8::EscapableHandleScope scope(isolate);
 # if NODE_MODULE_VERSION >= NODE_9_0_MODULE_VERSION
     AsyncResource async("nan:Callback:Call");
-    return Call_(isolate, isolate->GetCurrentContext()->Global(), argc, argv,
-                 &async)
-        .FromMaybe(v8::Local<v8::Value>());
+    return scope.Escape(Call_(isolate, isolate->GetCurrentContext()->Global(),
+                              argc, argv, &async)
+                            .FromMaybe(v8::Local<v8::Value>()));
 # else
     return scope.Escape(
         Call_(isolate, isolate->GetCurrentContext()->Global(), argc, argv));
@@ -1852,36 +1871,41 @@ inline MaybeLocal<v8::Value> Call(
   inline void SaveToPersistent(
       const char *key, const v8::Local<v8::Value> &value) {
     HandleScope scope;
-    New(persistentHandle)->Set(New(key).ToLocalChecked(), value);
+    Set(New(persistentHandle), New(key).ToLocalChecked(), value).FromJust();
   }
 
   inline void SaveToPersistent(
       const v8::Local<v8::String> &key, const v8::Local<v8::Value> &value) {
     HandleScope scope;
-    New(persistentHandle)->Set(key, value);
+    Set(New(persistentHandle), key, value).FromJust();
   }
 
   inline void SaveToPersistent(
       uint32_t index, const v8::Local<v8::Value> &value) {
     HandleScope scope;
-    New(persistentHandle)->Set(index, value);
+    Set(New(persistentHandle), index, value).FromJust();
   }
 
   inline v8::Local<v8::Value> GetFromPersistent(const char *key) const {
     EscapableHandleScope scope;
     return scope.Escape(
-        New(persistentHandle)->Get(New(key).ToLocalChecked()));
+        Get(New(persistentHandle), New(key).ToLocalChecked())
+        .FromMaybe(v8::Local<v8::Value>()));
   }
 
   inline v8::Local<v8::Value>
   GetFromPersistent(const v8::Local<v8::String> &key) const {
     EscapableHandleScope scope;
-    return scope.Escape(New(persistentHandle)->Get(key));
+    return scope.Escape(
+        Get(New(persistentHandle), key)
+        .FromMaybe(v8::Local<v8::Value>()));
   }
 
   inline v8::Local<v8::Value> GetFromPersistent(uint32_t index) const {
     EscapableHandleScope scope;
-    return scope.Escape(New(persistentHandle)->Get(index));
+    return scope.Escape(
+        Get(New(persistentHandle), index)
+        .FromMaybe(v8::Local<v8::Value>()));
   }
 
   virtual void Execute() = 0;
@@ -2375,7 +2399,7 @@ SetMethodAux(T recv,
              v8::Local<v8::String> name,
              v8::Local<v8::FunctionTemplate> tpl,
              ...) {
-  recv->Set(name, GetFunction(tpl).ToLocalChecked());
+  Set(recv, name, GetFunction(tpl).ToLocalChecked());
 }
 
 }  // end of namespace imp

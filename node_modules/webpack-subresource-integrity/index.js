@@ -264,8 +264,11 @@ SubresourceIntegrityPlugin.prototype.processTag =
   function processTag(compilation, tag) {
     var src = this.hwpAssetPath(util.getTagSrc(tag));
     /* eslint-disable no-param-reassign */
-    tag.attributes.integrity = util.getIntegrityChecksumForAsset(compilation.assets, src);
-    tag.attributes.crossorigin = compilation.compiler.options.output.crossOriginLoading || 'anonymous';
+    var integrity = util.getIntegrityChecksumForAsset(compilation.assets, src);
+    if (!Object.prototype.hasOwnProperty.call(tag.attributes, "integrity")) {
+      tag.attributes.integrity = integrity;
+      tag.attributes.crossorigin = compilation.compiler.options.output.crossOriginLoading || 'anonymous';
+    }
     /* eslint-enable no-param-reassign */
   };
 
