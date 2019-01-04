@@ -89,7 +89,7 @@
       <label class="col-md-3 control-label" for="textinput">Your Name<sup>*</sup></label>
   
       <div class="col-md-9">
-        <input id="textinput" name="yourName" type="text" placeholder="Your Name" class="form-control input-md" (ngModelChange)="checkValidity()" [(ngModel)]="nameInput" required="">
+        <input id="textinput" name="yourName" type="text" placeholder="Your Name" class="form-control input-md" (ngModelChange)="checkValidity()" [(ngModel)]="nameInput" >
       </div>
     </div>
   
@@ -97,7 +97,7 @@
       <label class="col-md-3 control-label"a for="emailinput">Email<sup>*</sup></label>
   
       <div class="col-md-9">
-        <input id="emailinput" name="email-address" type="email" placeholder="Email Address" class="form-control input-md" (ngModelChange)="checkValidity()" [(ngModel)]="emailInput" required="">
+        <input id="emailinput" name="email-address" type="email" placeholder="Email Address" class="form-control input-md" (ngModelChange)="checkValidity()" [(ngModel)]="emailInput" >
       </div>
     </div>
   
@@ -322,7 +322,7 @@
                 <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
         </select>
   
-      <input id="telephone" name="telephone" type="number" placeholder="Mobile Number" (ngModelChange)="checkValidity()" [(ngModel)]="tpnoInput" class="form-control input-md" required="">
+      <input id="telephone" name="telephone" type="number" placeholder="Mobile Number" (ngModelChange)="checkValidity()" [(ngModel)]="tpnoInput" class="form-control input-md" >
   
       </div>
     </div>
@@ -331,7 +331,7 @@
       <label class="col-md-3 control-label" for="message">Message<sup>*</sup></label>
   
       <div class="col-md-9">
-        <textarea class="form-control" id="message" name="message" placeholder="Minimum 100 characters required." required="" (ngModelChange)="checkValidity()" [(ngModel)]="contactMessage"></textarea>
+        <textarea class="form-control" id="message" name="message" placeholder="Minimum 100 characters required." (ngModelChange)="checkValidity()" [(ngModel)]="contactMessage"></textarea>
       </div>
   
     </div>
