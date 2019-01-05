@@ -8,13 +8,14 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0px;
+  bottom: 0px;
 }
 footer {
-  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
   padding-top: 10px !important;
+  z-index: 1000;
 }
 div a {
   padding: 0px 6px;

@@ -42,9 +42,7 @@ export class SearchService {
 
     return this.jsonp
       .get(this.searchUrl, {search: params}).map(res =>
-
         res.json()[0]
-
       ).catch(this.handleError);
   }
 

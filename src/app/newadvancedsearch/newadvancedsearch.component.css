@@ -11,7 +11,7 @@
 }
 
 .label-heading {
-  max-width: 23%;
+  padding: 5px;
 }
 
 .label-search {
@@ -23,12 +23,17 @@
 .container {
   padding-left: 3.5%;
   float: left;
-  width: 70%;
+  width: 100%;
 }
 
 .form-control {
-  width: 135%;
+  width: 100%;
   border-radius: 0px;
+}
+
+#help-labels {
+  height: 34px;
+  line-height: 34px;
 }
 
 .navbar-nav > li > a {
@@ -59,6 +64,7 @@
   font-size: 11px;
   text-align: center;
   font-weight: bold;
+  margin-bottom: 50px;
 }
 
 .navbar-right {
@@ -161,8 +167,12 @@ h2 {
 }
 
 div {
-  margin-top: 0.5%;
   font-family: Arial,SansSerif;
+}
+
+select {
+  background-color: rgb(245, 245, 245);
+  text-decoration-color:rgb(68, 68, 68);
 }
 
 @media only screen and (max-width: 500px) {
@@ -192,10 +202,14 @@ div {
   font-size: 20px;
 }
 
-.to-word-alignment {
-  margin-top: 10px;
+.word-alignment {
+  font-size: 11px;
+  color: rgb(102, 102, 102);
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
 }
 
 .label:hover {
-  cursor: default;
+  cursor: pointer;
 }

@@ -108,44 +108,49 @@ describe('ResultsComponent', () => {
   });
 
   it('should have an app-navbar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-navbar')).toBeTruthy();
   });
 
   it('should have an app-advancedsearch element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-advancedsearch')).toBeTruthy();
   });
 
-  it('should have an footer-navbar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+  it('should have an app-footer-navbar element', () => {
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
   });
 
   it('should have an app-theme element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-theme')).toBeTruthy();
   });
 
   it('should have an app-infobox element', () => {
-        let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
-        expect(compiled.querySelector('app-infobox')).toBeTruthy();
-      });
+    expect(compiled.querySelector('app-infobox')).toBeTruthy();
+  });
 
-  it('should have an app-infobox element', () => {
-        let compiled = fixture.debugElement.nativeElement;
+  it('should have an app-auto-correct element', () => {
+    const compiled = fixture.debugElement.nativeElement;
 
-        expect(compiled.querySelector('app-infobox')).toBeTruthy();
-      });
+    expect(compiled.querySelector('app-auto-correct')).toBeTruthy();
+  });
 
+  it('should have an app-statsbox element', () => {
+    const compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('app-statsbox')).toBeTruthy();
+  });
 
   it('should have a search options menu', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('div#search-options-field ul#search-options'));
   });
 
@@ -154,22 +159,22 @@ describe('ResultsComponent', () => {
   });
 
   it('should have a tool drop-down menu', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('ul#tool-dropdown'));
   });
 
-  it('should have a tool drop-down menu', () => {
-    let compiled = fixture.debugElement.nativeElement;
+  it('should have a tool setting-down menu', () => {
+    const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('ul#setting-dropdown'));
   });
 
   it('should have a pagination bar', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('div.pagination-bar'));
   });
 
   it('should have correctly related sub-components', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
     if (component.resultDisplay.toLocaleLowerCase() === 'all') {
       expect(compiled.querySelector('div.text-result div.title'));
       expect(compiled.querySelector('div.text-result div.link'));
@@ -189,7 +194,7 @@ describe('ResultsComponent', () => {
   });
 
   it('should have appropriate message', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
     if (component.totalNumber < 1) {
       expect(compiled.querySelector('div.noResults'));
     } else if  (component.totalNumber > 0) {
