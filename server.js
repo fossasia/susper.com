@@ -13,7 +13,7 @@ res.sendFile(path.join(__dirname+'/dist/index.html'));
 });
 
 // Start the app by listening on the default Heroku port
-port = process.env.PORT || 8080;
+let port = process.env.PORT || 8080;
 app.listen(port, ()=>{
   console.log("Server Started at PORT: "+port);
 });
