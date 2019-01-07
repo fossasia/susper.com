@@ -514,10 +514,22 @@ div.autocorrect {
     min-width: 100px !important;
     margin-left: 0% !important;
   }
+.noResults {
+  margin-left: 172px;
+  margin-top: 4%;
+  font-size: medium;
+  font-weight: normal;
+}
 }
 @media screen and (max-width: 387px) {
   #search-options li {
     padding: 0 2vw 12px !important;
+  }
+  .noResults {
+    margin-left: 172px;
+    margin-top: 6%;
+    font-size: medium;
+    font-weight: normal;
   }
 }
 
@@ -528,6 +540,12 @@ div.autocorrect {
   #tool-dropdown {
     margin-left: -200% !important;
   }
+.noResults {
+  margin-left: 172px;
+  margin-top: 6%;
+  font-size: medium;
+  font-weight: normal;
+}
 }
 @media screen and (max-width: 283px) {
   #search-options li {
