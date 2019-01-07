@@ -154,7 +154,7 @@
           </div>
         </div>
         <div class="autocorrect">
-          <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
+          <app-auto-correct [hidden]="hideAutoCorrect && totalNumber < 1"></app-auto-correct>
         </div>
       </div>
 
