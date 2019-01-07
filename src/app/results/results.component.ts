@@ -245,7 +245,7 @@ export class ResultsComponent implements OnInit {
         }
       });
 
-      if (this.presentPage === 1 && this.totalResults < 0) {
+      if (this.presentPage === 1) {
         this.hideAutoCorrect = 0;
       } else {
         this.hideAutoCorrect = 1;
