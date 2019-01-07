@@ -154,7 +154,7 @@
           </div>
         </div>
         <div class="autocorrect">
-          <app-auto-correct [hidden]="hideAutoCorrect && totalNumber < 1"></app-auto-correct>
+          <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
         </div>
       </div>
 
@@ -178,7 +178,7 @@
           </div>
           <div class="feed">
             <div class="intelligence">
-              <app-intelligence [hidden]="hideAutoCorrect || hideIntelligence"></app-intelligence>
+              <app-intelligence [hidden]="1"></app-intelligence>
             </div>
             <div class="result">
               <div *ngFor="let item of (items$ | async)" class="result">
