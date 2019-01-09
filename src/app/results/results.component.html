@@ -162,7 +162,7 @@
         <div *ngIf="totalNumber < 1" class="container-fluid">
           <div [style.color]="themeService.descriptionColor" class="noResults">
             <p>
-              Your search - <em>{{ searchdata.query }}</em> - did not match any documents.
+              Your search - <em>{{ ::searchdata.query }}</em> - did not match any documents.
             </p>
             <p>Suggestions:</p>
             <ul>
