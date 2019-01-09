@@ -150,7 +150,7 @@ dd {
   background-color: #3079ed;
   background-image: -webkit-linear-gradient(top,#4d90fe,#4787ed);
   box-shadow: none;
-  cursor: default;
+  cursor: pointer;
   border: 1px solid #3079ed;
   border-radius: 2px;
 }
