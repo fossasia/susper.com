@@ -2,11 +2,10 @@
   <div class="container-fluid">
 
     <div class="navbar-header">
-      <button type = "button" class = "navbar-toggle"
-              data-toggle = "collapse" data-target = "#dropmenu">
-        <span class = "icon-bar"></span>
-        <span class = "icon-bar"></span>
-        <span class = "icon-bar"></span>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#dropmenu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand advsearch-navbar" routerLink="/">
         <img alt="brand" class="navbar-logo" src="../../assets/images/susper.svg">
@@ -28,95 +27,186 @@
 <div class="container">
   <h3 class="advanced-search-heading">Advanced Search</h3>
   <hr id="top-line">
-    <h3 class="label-heading">Find pages with...</h3>
-    <form>
-      <div class="row">
-
-        <div class="form-group">
-          <div class="col-md-4"><label class="label-search" for="words">all these words:</label></div>
-          <div class="col-md-6"><input type="text" class="form-control" id="words"></div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-md-4"><label class="label-search" for="exact">this exact word or phrase:</label></div>
-          <div class="col-md-6"><input type="text" class="form-control" id="exact"></div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-md-4"><label class="label-search" for="any">any of these words:</label></div>
-          <div class="col-md-6"><input type="text" class="form-control" id="any"></div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-md-4"><label class="label-search" for="none">none of these words:</label></div>
-          <div class="col-md-6"><input type="text" class="form-control" id="none"></div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-md-4"><label class="label-search" for="number">numbers ranging from:</label></div>
-          <div class="col-md-2"><input type="text" class="form-control" id="number"></div>
-
-          <div class="col-md-2" style="text-align: center">
-            <label for="to" class="to-word-alignment">to</label>
-          </div>
-
-          <div class="col-md-2"><input type="text" class="form-control" id="to"></div>
-        </div>
-
+  <h3 class="label-heading">Find pages with...</h3>
+  <form>
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="words">all these words:</label></div>
+      <div class="col-md-5"><input type="text" class="form-control" id="words"></div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Type the important words: tri-colour rat terrier
+        </span>
       </div>
-    </form>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="exact">this exact word or phrase:</label></div>
+      <div class="col-md-5"><input type="text" class="form-control" id="exact"></div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Put exact words in quotes: "rat terrier"
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="any">any of these words:</label></div>
+      <div class="col-md-5"><input type="text" class="form-control" id="any"></div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Type OR between all the words you want: miniature OR standard
+        </span>
+      </div>
+    </div><br>
+
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="none">none of these words:</label></div>
+      <div class="col-md-5"><input type="text" class="form-control" id="none"></div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Put a minus sign just before words that you don't want: -rodent, -"Jack Russell"
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="number">numbers ranging from:</label></div>
+      <div class="col-md-2"><input type="text" class="form-control" id="number"></div>
+
+      <div class="col-md-1" style="height:34px; line-height:34px; text-align: center;">
+        <label for="to" class="word-alignment" style="font-size: 12px !important; color: black !important;">to</label>
+      </div>
+
+      <div class="col-md-2"><input type="text" class="form-control" id="to"></div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Put two full stops between the numbers and add a unit of measurement: 10..35 kg, £300..£500, 2010..2011
+        </span>
+      </div>
+    </div>
+  </form>
   <hr>
 
-  <h3  class="label-heading">Then narrow your results by...</h3>
-    <form>
-      <div class="row">
-
-      <div class="form-group">
-        <div class="col-md-4"><label class="label-search" for="language">language:</label></div>
-        <div class="col-md-6"><input type="text" class="form-control" id="language" value="English" disabled></div>
+  <h3 class="label-heading">Then narrow your results by...</h3>
+  <form>
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="language">language:</label></div>
+      <div class="col-md-5">
+        <select class="form-control" disabled>
+          <option value="English">English</option>
+        </select>
       </div>
-
-      <div class="form-group">
-        <div class="col-md-4"><label class="label-search" for="region">region:</label></div>
-        <div class="col-md-6"><input type="text" class="form-control" id="region"></div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Find pages in the language that you select.
+        </span>
       </div>
-
-      <div class="form-group">
-        <div class="col-md-4"><label class="label-search" for="last update">last update:</label></div>
-        <div class="col-md-6"><input type="text" class="form-control" id="last update"></div>
-      </div>
-
-      <div class="form-group">
-        <div class="col-md-4"><label class="label-search" for="site">site or domain:</label></div>
-        <div class="col-md-6"><input type="text" class="form-control" id="site"></div>
-      </div>
-
-      <div class="form-group">
-        <div class="col-md-4"><label class="label-search" for="terms appearing">terms appearing:</label></div>
-        <div class="col-md-6"><input type="text" class="form-control" id="terms appearing"></div>
-      </div>
-
-      <div class="form-group">
-        <div class="col-md-4"><label class="label-search" for="safe search">safe search:</label></div>
-        <div class="col-md-6"><input type="text" class="form-control" id="safe search"></div>
-      </div>
-
-      <div class="form-group">
-        <div class="col-md-4"><label class="label-search" for="file type">file type:</label></div>
-        <div class="col-md-6"><input type="text" class="form-control" id="file type"></div>
-      </div>
-
-      <div class="form-group">
-        <div class="col-md-4"><label class="label-search" for="usage rights">usage rights:</label></div>
-        <div class="col-md-6"><input type="text" class="form-control" id="usage rights"></div>
-      </div>
-
     </div>
-    </form>
 
-  <div class="adv-submit">
-    <button class="adv-btn btn"><span class="btn-text">Advanced Search</span></button>
-  </div>
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="region">region:</label></div>
+      <div class="col-md-5">
+        <select class="form-control" disabled>
+          <option value="anyRegion">Any Region</option>
+        </select>
+      </div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Find pages published in a particular region
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="last update">last update:</label></div>
+      <div class="col-md-5">
+        <select class="form-control" disabled>
+          <option value="anyTime">Any Time</option>
+        </select>
+      </div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Find pages updated within the time that you specify
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="site">site or domain:</label></div>
+      <div class="col-md-5"><input type="text" class="form-control" id="site"></div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Search one site (like wikipedia.org ) or limit your results to a domain like .edu, .org or .gov
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="terms appearing">terms appearing:</label></div>
+      <div class="col-md-5">
+        <select class="form-control" disabled>
+          <option value="anywhere">Anywhere in the page</option>
+        </select>
+      </div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Search for terms in the whole page, page title or web address, or links to the page you're looking for.
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="safe search">safe search:</label></div>
+      <div class="col-md-5">
+        <select class="form-control" disabled>
+          <option value="relevant">Show most relevant results</option>
+        </select>
+      </div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Tell SafeSearch whether to filter sexually explicit content
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="file type">file type:</label></div>
+      <div class="col-md-5">
+        <select class="form-control" disabled>
+          <option value="anyFormat">Any format</option>
+        </select>
+      </div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Find pages in the format that you prefer.
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-2"><label class="label-search" for="usage rights">usage rights:</label></div>
+      <div class="col-md-5">
+        <select class="form-control" disabled>
+          <option value="">Not filtered by license</option>
+        </select>
+      </div>
+      <div class="col-md-5" id="help-labels">
+        <span class="word-alignment">
+          Find pages that you are free to use yourself.
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-2"></div>
+      <div class="col-md-5">
+        <div class="adv-submit">
+          <button class="adv-btn btn" style="margin-bottom:50px;"><span class="btn-text">Advanced Search</span></button>
+        </div>
+      </div>
+      <div class="col-md-5"></div>
+    </div>
+  </form>
 </div>
 
 <app-footer-navbar></app-footer-navbar>

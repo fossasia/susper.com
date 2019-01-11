@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ThemeService } from '../services/theme.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -13,10 +14,11 @@ declare var $: any;
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
-  styleUrls: ['./results.component.css']
+  styleUrls: ['./results.component.css'],
 })
 export class ResultsComponent implements OnInit {
   items$: Observable<any>;
+  searchStatus$: Observable<any>;
   totalResults$: Observable<number>;
   responseTime$: Observable<any>;
   resultDisplay: string;
@@ -33,7 +35,7 @@ export class ResultsComponent implements OnInit {
   newsResponse: Array<any>;
   newsResults: object = {
     totalNewsResults: 0,
-    count: 0
+    count: 0,
   };
   searchdata: any = {
     query: '',
@@ -44,6 +46,7 @@ export class ResultsComponent implements OnInit {
   expandedkey: number;
   querylook = {};
   hidefooter = 1;
+  loading = 0;
   hideAutoCorrect = 1;
   totalNumber: number;
   querychange$: Observable<any>;
@@ -65,7 +68,7 @@ export class ResultsComponent implements OnInit {
       result = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     }
     return result;
-  };
+  }
 
   getPresentPage(N) {
     this.presentPage = N;
@@ -76,18 +79,18 @@ export class ResultsComponent implements OnInit {
 
   filterByDate() {
     let urldata = Object.assign({}, this.searchdata);
-    urldata.query += urldata.query.substr(urldata.query.length - 6, 6) !== " /date" ? " /date" : "";
+    urldata.query += urldata.query.substr(urldata.query.length - 6, 6) !== ' /date' ? ' /date' : '';
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
 
   filterByContext() {
     let urldata = Object.assign({}, this.searchdata);
-    urldata.query = urldata.query.replace("/date", "");
+    urldata.query = urldata.query.replace('/date', '');
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
   }
 
   Display(S) {
-    return (this.resultDisplay === S);
+    return this.resultDisplay === S;
   }
 
   expandImage(key) {
@@ -99,7 +102,7 @@ export class ResultsComponent implements OnInit {
     let i = key;
     let previouselementleft = 0;
 
-    while ( $('.image' + i) && $('.image' + i).offset().left > previouselementleft) {
+    while ($('.image' + i) && $('.image' + i).offset().left > previouselementleft) {
       this.expandedrow = i;
       previouselementleft = $('.image' + i).offset().left;
       i = i + 1;
@@ -136,7 +139,7 @@ export class ResultsComponent implements OnInit {
     urldata.rows = 10;
     urldata.resultDisplay = this.resultDisplay;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
-    }
+  }
 
   docClick() {
     let urldata = Object.assign({}, this.searchdata);
@@ -161,7 +164,7 @@ export class ResultsComponent implements OnInit {
   }
 
   getStyle(page) {
-    return ((this.presentPage) === page);
+    return this.presentPage === page;
   }
 
   constructor(
@@ -169,12 +172,14 @@ export class ResultsComponent implements OnInit {
     private activatedroute: ActivatedRoute,
     private store: Store<fromRoot.State>,
     private ref: ChangeDetectorRef,
+    private titleService: Title,
     public themeService: ThemeService,
     public getJsonService: GetJsonService,
     public getNewsService: NewsService
   ) {
     this.activatedroute.queryParams.subscribe(query => {
       let urldata = Object.assign({}, this.searchdata);
+      this.setTitle(query['query'] + ' - Susper Search');
 
       if (query['fq']) {
         if (query['fq'].includes('png')) {
@@ -217,25 +222,28 @@ export class ResultsComponent implements OnInit {
       this.presentPage = Math.abs(query['start'] / urldata.rows) + 1;
       let querydata = Object.assign({}, urldata);
       this.store.dispatch(new queryactions.QueryServerAction(querydata));
-        this.getJsonService.getJSON().subscribe(res => { this.newsResponse = [];
-          for (let i = 0; i < res.newsOrgs.length; i++) {
-          this.getNewsService.getSearchResults(querydata, res.newsOrgs[i].provider).subscribe(
-            response => {
-                if (response.channels[0].items[0] !== undefined) {
+      this.getJsonService.getJSON().subscribe(res => {
+        this.newsResponse = [];
+        for (let i = 0; i < res.newsOrgs.length; i++) {
+          this.getNewsService
+            .getSearchResults(querydata, res.newsOrgs[i].provider)
+            .subscribe(response => {
+              if (response.channels[0].items[0] !== undefined) {
                 this.newsResponse.push(response.channels[0].items[0]);
-                }
-                if (response.channels[0].items[1] !== undefined) {
-                  if (this.newsResults['count'] < 5) {
-                  this.newsResults['totalNewsResults'] += parseInt(response.channels[0].totalResults, 10);
+              }
+              if (response.channels[0].items[1] !== undefined) {
+                if (this.newsResults['count'] < 5) {
+                  this.newsResults['totalNewsResults'] += parseInt(
+                    response.channels[0].totalResults,
+                    10
+                  );
                   this.newsResults['count']++;
-                  }
-                this.newsResponse.push(response.channels[0].items[1]);
                 }
-            }
-          );
+                this.newsResponse.push(response.channels[0].items[1]);
+              }
+            });
         }
-        });
-
+      });
 
       if (this.presentPage === 1) {
         this.hideAutoCorrect = 0;
@@ -258,7 +266,7 @@ export class ResultsComponent implements OnInit {
 
     this.searchresults$ = store.select(fromRoot.getSearchResults);
 
-    this.searchresults$.subscribe( searchresults => {
+    this.searchresults$.subscribe(searchresults => {
       if (searchresults && searchresults.channels && searchresults.channels[0]) {
         this.startindex = parseInt(searchresults.channels[0].startIndex, 10);
       }
@@ -293,20 +301,26 @@ export class ResultsComponent implements OnInit {
       this.start = (this.presentPage - 1) * data.rows;
       this.begin = this.start + 1;
     });
+
+    this.searchStatus$ = store.select(fromRoot.getSearchStatus);
+
+    this.searchStatus$.subscribe(loading => {
+      this.loading = loading ? 1 : 0;
+    });
   }
 
-  onScroll () {
+  onScroll() {
     let urldata = Object.assign({}, this.searchdata);
 
     this.getPresentPage(1);
     this.resultDisplay = 'images';
-    urldata.start = (this.startindex) + urldata.rows;
+    urldata.start = this.startindex + urldata.rows;
     urldata.fq = 'url_file_ext_s:(png+OR+jpeg+OR+jpg+OR+gif)';
     urldata.resultDisplay = this.resultDisplay;
     urldata.append = true;
     urldata.nopagechange = true;
     this.store.dispatch(new queryactions.QueryServerAction(urldata));
-  };
+  }
 
   increasePage() {
     this.count += 1;
@@ -324,7 +338,9 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
+
+  ngOnInit() {}
 }

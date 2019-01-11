@@ -1,0 +1,462 @@
+<nav class="navbar navbar-default nav-terms">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+          <button
+            type = "button"
+            class = "navbar-toggle"
+            data-toggle = "collapse"
+            data-target = "#dropmenu"
+          >
+            <span class = "icon-bar"></span> <span class = "icon-bar"></span>
+            <span class = "icon-bar"></span>
+          </button>
+          <a
+            class="navbar-brand about-navbar"
+            routerLink="/" title="Susper Search Engine"
+          >
+            <img alt="brand" class="navbar-logo" src="../../assets/images/susper.svg">
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="dropmenu">
+            <ul class="nav navbar-nav navbar-collapse navbar-right">
+                <li><a routerLink="/privacy">Privacy</a></li>
+                <li><a routerLink="/terms">Terms</a></li>
+                <li><a routerLink="/about">About</a></li>
+                <li><a routerLink="/contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="appbar">Susper Search Help</div>
+<div class="container help" >
+    <div>
+        <div id="center">
+            <h1 id="center" class="help-heading">
+              How can we help you?
+            </h1>
+            <div id="sub-heading">
+              <p>
+                Thank you for using Susper Search! We are more than happy to help you in your queries.
+              </p>
+            </div>
+        </div>
+
+        <!--Accordion starts-->
+        <div class="accordion">
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-1">
+                  Popular Articles
+                </a>
+                <div id="accordion-1" class="accordion-section-content">
+                    <p><a (click)="open('1')">Make Susper your homepage</a></p>
+                    <p><a (click)="open('2')">Use voice search</a></p>
+                    <p><a (click)="open('3')">Search for images</a></p>
+                    <p><a (click)="open('4')">Block explicit content using Safe Search</a></p>
+                </div>
+            </div>
+        </div>
+        <!--Accordion ends-->
+        <!--Accordion starts-->
+        <div class="accordion">
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-2">
+                  Troubleshoot & request removals
+                </a>
+                <div id="accordion-2" class="accordion-section-content">
+                    <p><a (click)="open('5')">Problems with Susper Search</a></p>
+                    <p><a (click)="open('5')">Report a problem with Susper Search</a></p>
+                </div>
+            </div>
+        </div>
+        <!--Accordion ends-->
+        <!--Accordion starts-->
+        <div class="accordion">
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-3">
+                  Settings
+                </a>
+                <div id="accordion-3" class="accordion-section-content">
+                    <p><a (click)="open('1')">Make Susper your homepage</a></p>
+                    <p><a (click)="open('6')">Make Susper your default search engine</a></p>
+                    <p><a (click)="open('4')">Block explicit content using Safe Search</a></p>
+                    <p><a routerLink="/preferences">More Settings and preferences</a></p>
+                </div>
+            </div>
+        </div>
+        <!--Accordion ends-->
+        <!--Accordion starts-->
+        <div class="accordion">
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-4">
+                  Image Search
+                </a>
+                <div id="accordion-4" class="accordion-section-content">
+                    <p><a (click)="open('3')">Search for images</a></p>
+                    <p><a (click)="open('7')">Images aren't loading</a></p>
+                    <p><a routerLink="/help" (click)="open('4')">Safe image search using Safe Search</a></p>
+                </div>
+            </div>
+        </div>
+        <!--Accordion ends-->
+        <!--Accordion starts-->
+        <div class="accordion">
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-5">
+                  Types of search results
+                </a>
+                <div id="accordion-5" class="accordion-section-content">
+                    <p><a (click)="open('2')">Use voice search</a></p>
+                    <p><a (click)="open('3')">Use image search</a></p>
+                    <p><a routerLink="/about">Make contributions to Susper Search</a></p>
+                </div>
+            </div>
+        </div>
+        <!--Accordion ends-->
+        <!--Accordion starts-->
+        <div class="accordion">
+            <div class="accordion-section">
+                <a class="accordion-section-title" href="#accordion-6">
+                  Filter & refine your results
+                </a>
+                <div id="accordion-6" class="accordion-section-content">
+                    <p><a (click)="open('8')">How to search on Susper</a></p>
+                    <p><a (click)="open('9')">Refine web searches</a></p>
+                    <p><a routerLink="/advancedsearch">Filter your search results</a></p>
+                    <p><a routerLink="/advancedsearch">Advanced search</a></p>
+                </div>
+            </div>
+        </div>
+        <!--Accordion ends-->
+        <br>
+        <br>
+    </div>
+    <br>
+
+    <div class="videos-slider">
+        <div id="center">
+            <h1 id="center" class="help-heading">
+              Videos to help with Susper Search
+            </h1>
+        </div>
+        <div class="swiper-container videos-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 video-left">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/DoYvE2vWLNk"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                            <div class="col-md-4 video-middle">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/Uw9HBw9zl3s"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                            <div class="col-md-4 video-right">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/XNMywaYI2p0"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 video-left">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/-H6cROLyblA"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                            <div class="col-md-4 video-middle">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/NkkJHwQlaWw"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                            <div class="col-md-4 video-right">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/q1Zy-APxvs4"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 video-left">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/G3TdTBUo13w"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                            <div class="col-md-4 video-middle">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/3aFDJ6EDhF4"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                            <div class="col-md-4 video-right">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/-8l1NUYXFhU"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 video-left">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/rPbolbcexuI"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                            <div class="col-md-4 video-middle">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/AZTb4nITO9I"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                            <div class="col-md-4 video-right">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/8rco8lcgins"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 video-left">
+                                <img class="ratio" src="../../assets/images/16x9.png" />
+                                <iframe
+                                  src="https://www.youtube.com/embed/YqvryPQXL_g"
+                                  allowfullscreen
+                                ></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="swiper-pagination"></div>
+        
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+     <app-footer-navbar></app-footer-navbar>
+</footer>
+
+<modal #Homepage>
+    <div>
+      <a (click)="close('1')" class="close-btn">1
+        <i class="fa fa-times" aria-hidden="true" style="font-size: 2em"></i>
+      </a>
+    </div>
+    <div class="queries">
+        <h3>How to make Susper my homepage?</h3>
+        <p>
+          You can quickly get to Susper every time you open your browser by making Susper your homepage.
+        </p>
+        <p>
+          Choose a browser below, then follow the steps on your computer. If you don't see your browser below,
+           go to the "Help" section of your browser and look for information on how to change your browser’s homepage.
+        </p>
+        <p>
+          <a href="https://support.mozilla.org/en-US/kb/how-to-set-the-home-page">Firefox</a>
+        </p>
+        <p>
+          <a href="https://support.google.com/chrome/answer/95314?hl=en">Chrome</a>
+        </p>
+        <p>
+          <a href="https://support.apple.com/en-in/guide/safari/change-your-homepage-ibrw1020/mac">Safari</a>
+        </p>
+        <p>
+          <a href="https://support.microsoft.com/en-in/help/4027577/microsoft-edge-change-your-home-page">Microsoft Edge</a>
+        </p>
+    </div>
+</modal>
+
+<modal #VoiceSearch>
+    <div>
+      <a (click)="close('2')" class="close-btn">
+        <i class="fa fa-times" aria-hidden="true" style="font-size: 2em"></i>
+      </a>
+    </div>
+    <div class="queries">
+        <h3>How to use voice search?</h3>
+        <p>
+          You can use your voice to do searches by simply tapping on the 
+          microphone on the search bar and speaking your query.
+        </p>
+    </div>
+
+</modal>
+
+<modal #Image>
+    <div>
+      <a (click)="close('3')" class="close-btn">
+        <i class="fa fa-times" aria-hidden="true" style="font-size: 2em"></i>
+      </a>
+    </div>
+    <div class="queries">
+        <h3>How to search images on Susper?</h3>
+        <p>
+          You can search Susper for images, just like you can search for websites. For example, you can 
+          check out pictures of potential vacation destinations, or find an image to use in an upcoming presentation.
+        </p>
+        <ol>
+            <li>Go to <a href="https://susper.com">susper.com</a></li>
+            <li>Search your query</li>
+            <li>Then select the Image tab, located below the search bar</li>
+        </ol>
+    </div>
+</modal>
+
+<modal #SafeSearch>
+    <div>
+      <a (click)="close('4')" class="close-btn">
+        <i class="fa fa-times" aria-hidden="true" style="font-size: 2em"></i>
+      </a>
+    </div>
+    <div class="queries">
+        <h3>How to block explicit content on Susper?</h3>
+        <p>
+          You can filter explicit search results on Susper, like pornography, with the SafeSearch setting. SafeSearch isn’t 
+          100% accurate. But it can help you avoid explicit and inappropriate search results on your phone, tablet, or computer.
+        </p>
+        <ol>
+            <li>Go to <a routerLink="/preferences">Search Settings</a></li>
+            <li>Under "SafeSearch filters," check or uncheck the box next to "Turn on SafeSearch."</li>
+            <li>At the bottom of the page, select Save.</li>
+        </ol>
+    </div>
+</modal>
+
+<modal #Problem>
+    <div>
+      <a (click)="close('5')" class="close-btn">
+        <i class="fa fa-times" aria-hidden="true" style="font-size: 2em"></i>
+      </a>
+    </div>
+    <div class="queries">
+        <h3>How to report a problem with Susper?</h3>
+        <p>
+          If you're having a problem with Susper Search, or want to tell us your 
+          thoughts about how it's working, you can send a feedback report to Susper.
+        </p>
+        <ol>
+            <li>Open our <a routerLink="/contact">Contact page.</a></li>
+            <li>Scroll down to the bottom of the page</li>
+            <li>Click on Contact Form</li>
+            <li>Fill out the information</li>
+            <li>Click Send</li>
+        </ol>
+    </div>
+</modal>
+
+<modal #DefaultSearch>
+    <div>
+      <a (click)="close('6')" class="close-btn">
+        <i class="fa fa-times" aria-hidden="true" style="font-size: 2em"></i>
+      </a>
+    </div>
+    <div class="queries">
+        <h3>How to make Susper my default search engine?</h3>
+        <p>
+          To get results from Susper each time you search, you can make Susper your default search engine. 
+          If your browser isn’t listed below, check its help resources for info about changing search settings..
+        </p>
+        <p>
+          <a href="https://support.mozilla.org/en-US/kb/change-your-default-search-settings-firefox">Firefox</a>
+        </p>
+        <p>
+          <a href="https://support.google.com/chrome/answer/95426?co=GENIE.Platform%3DDesktop&hl=en">Chrome</a>
+        </p>
+        <p>
+          <a href="https://discussions.apple.com/thread/5408586">Safari</a>
+        </p>
+        <p>
+          <a href="https://support.microsoft.com/en-in/help/4028574/microsoft-edge-change-the-default-search-engine">Microsoft Edge</a>
+        </p>
+    </div>
+</modal>
+
+<modal #ImageNotLoading>
+    <div>
+      <a (click)="close('7')" class="close-btn">
+        <i class="fa fa-times" aria-hidden="true" style="font-size: 2em"></i>
+      </a>
+    </div>
+    <div class="queries">
+        <h3>Images aren't loading</h3>
+        <p>If images aren't loading, please try one of the follow</p>
+        <ol>
+            <li>Try private browsing</li>
+            <li>Check the speed of your internet connection</li>
+            <li>Clear your cache and cookies</li>
+            <li>Turn off any toolbars and extensions</li>
+            <li>Turn on JavaScript</li>
+        </ol>
+    </div>
+</modal>
+
+<modal #HowToSearch>
+    <div>
+      <a (click)="close('8')" class="close-btn">
+        <i class="fa fa-times" aria-hidden="true" style="font-size: 2em"></i>
+      </a>
+    </div>
+    <div class="queries">
+        <h3>How to search on Susper?</h3>
+        <p>Using Susper is pretty easy. Let's start with some basics</p>
+        <ol>
+            <li>On the main page of Susper, enter your queries. Susper will process them and the result will be displayed on the screen</li>
+            <li>You can also use voice search by clicking on the mic in the search bar.</li>
+            <li>When the search result has been displayed, click on Images to search for images</li>
+        </ol>
+    </div>
+</modal>
+
+<modal #RefineSearch>
+    <div>
+      <a (click)="close('9')" class="close-btn">
+        <i class="fa fa-times" aria-hidden="true" style="font-size: 2em"></i>
+      </a>
+    </div>
+    <div class="queries">
+        <h3>Refine Search</h3>
+        <p>You can use symbols or words in your search to make your results more precise.</p>
+    </div>
+</modal>

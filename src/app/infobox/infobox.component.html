@@ -1,6 +1,68 @@
-<div *ngIf="this.description" class="card" [hidden]="!isVisible" [style.color]="themeService.cardColor">
-    <div>
-      <h2><b [style.color]="themeService.cardColor">{{this.title}}</b></h2><br><p class="query_description">{{this.querydescription}}</p><hr width="50%" align="left" *ngIf="this.image"><hr *ngIf="!this.image"><div class="info-img"><img class="main_image" *ngIf="this.image"  src={{this.image}}></div>
-      <p [style.color]="themeService.descriptionColor">{{this.description}}<a [style.color]="themeService.linkColor" href='https://en.wikipedia.org/wiki/{{this.title}}'><br>More at Wikipedia</a></p>
+<div
+  *ngIf="this.description"
+  class="card"
+  [hidden]="!isVisible"
+  [style.color]="themeService.cardColor"
+>
+  <div>
+    <div *ngIf="this.isModalOpen">
+      <!-- Modal content -->
+      <div class="modal-background" (click)="closeModal()"></div>
+
+      <div class="modal-container">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2 style="margin-left: 24px;">Share</h2>
+        <div class="icon-container">
+          <a
+            href="https://twitter.com/intent/tweet?text=Check%20this%20out%20%23susper%20%40Susper_%20http%3A%2F%2Fsusper.com%2Fsearch%3Fquery%3D{{this.title}}%26start%3D0%26rows%3D10%26mode%3Dtext"
+            target="_blank"
+          >
+            <div class="icon-wrapper">
+              <i class="fa fa-twitter-square" style="color:#38A1F3;"></i>
+              <div class="icon-text">Twitter</div>
+            </div></a
+          >
+          <a
+            href="https://www.facebook.com/sharer.php?u=http://susper.com/search?query={{this.title}}&start=0&rows=10&mode=text"
+            target="_blank"
+          >
+            <div class="icon-wrapper">
+              <i class="fa fa-facebook-square" style="color:#3b5998;"></i>
+              <div class="icon-text">Facebook</div>
+            </div></a
+          >
+        </div>
+        <div class="share-link">
+          <label for="share_link" style="color: #999999; margin-left: -6px;">Share link</label>
+          <br/>
+          <input type="text" id="share_link" value="{{ getUrl() }}">
+        </div>
+      </div>
     </div>
+    <h2>
+      <b [style.color]="themeService.cardColor">{{ this.title }}</b
+      ><button class="btn dropdown-toggle" id="showSearchModal" type="button" (click)="ShowModal()">
+        <i class="material-icons">share</i>
+      </button>
+    </h2>
+    <br />
+    <p class="query_description">{{ this.querydescription }}</p>
+    <hr width="50%" align="left" *ngIf="this.image" />
+    <hr *ngIf="!this.image" />
+    <div class="info-img"><img class="main_image" *ngIf="this.image" src="{{this.image}}" /></div>
+    <p [style.color]="themeService.descriptionColor">
+      {{ this.description }}
+      <a [style.color]="themeService.linkColor" href="https://en.wikipedia.org/wiki/{{this.title}}">
+        <br />More at Wikipedia</a
+      >
+      <br />
+      <a href="https://twitter.com/search?src=typd&q={{this.title}}">
+        <br />{{ this.title }} on Twitter</a
+      >
+      <br />
+      <a href="https://www.youtube.com/results?search_query={{this.title}}">
+        <br />{{ this.title }} on YouTube</a
+      >
+    </p>
+  </div>
 </div>

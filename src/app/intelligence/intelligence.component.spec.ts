@@ -45,4 +45,12 @@ describe('IntelligenceComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have wholequery$ observables', () => {
+    expect(component.wholequery$).toBeTruthy();
+  });
+
+  it('should have resultscomponentchange$ observables', () => {
+    expect(component.resultscomponentchange$).toBeTruthy();
+  });
 });
