@@ -29,6 +29,7 @@ export class ResultsComponent implements OnInit {
   end: number;
   begin: number;
   message: string;
+  searchedquery: string;
   query: any;
   count: number = 1;
   boxMessage = 'Show';
@@ -180,7 +181,7 @@ export class ResultsComponent implements OnInit {
     this.activatedroute.queryParams.subscribe(query => {
       let urldata = Object.assign({}, this.searchdata);
       this.setTitle(query['query'] + ' - Susper Search');
-
+      this.searchedquery = query['query'] ;
       if (query['fq']) {
         if (query['fq'].includes('png')) {
           this.resultDisplay = 'images';
