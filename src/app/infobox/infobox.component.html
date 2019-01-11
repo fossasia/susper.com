@@ -51,9 +51,7 @@
     <hr *ngIf="!this.image" />
     <div class="info-img"><img class="main_image" *ngIf="this.image" src="{{this.image}}" /></div>
     <p [style.color]="themeService.descriptionColor">
-      {{ this.description }}
-      <br />
-      More at 
+      {{ this.description }} <br /> More at 
       <a [style.color]="themeService.linkColor" href="https://en.wikipedia.org/wiki/{{this.title}}">
         <br />Wikipedia</a
       >
