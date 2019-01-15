@@ -127,6 +127,11 @@
   .align-navsearch-btn {
     margin-right: 3% !important;
   }
+
+  .top-nav {
+    position: inherit;
+    top: 0px;
+  }
 }
 
 @media screen and (max-width:379px) {
