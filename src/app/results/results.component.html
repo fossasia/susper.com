@@ -153,9 +153,6 @@
             or change this list, please check <a href="{{ newsFileUrl }}">here</a>
           </div>
         </div>
-        <div class="autocorrect">
-          <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
-        </div>
       </div>
 
       <div class="text-result" *ngIf="Display('all')">
@@ -173,6 +170,9 @@
           </div>
         </div>
         <div class="container-fluid">
+          <div class="autocorrect">
+            <app-auto-correct [hidden]="hideAutoCorrect"></app-auto-correct>
+          </div>
           <div class="combo-box">
             <div class="small-info"><app-infobox></app-infobox></div>
           </div>
