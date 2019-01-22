@@ -9,6 +9,7 @@ import { ResultsComponent } from './results/results.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AdvancedsearchComponent } from './advancedsearch/advancedsearch.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SearchBarResultsComponent } from './search-bar-results/search-bar-results.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -55,6 +56,7 @@ describe('AppComponent', () => {
         NotFoundComponent,
         AdvancedsearchComponent,
         SearchBarComponent,
+        SearchBarResultsComponent,
         FooterNavbarComponent,
         AboutComponent,
         ContactComponent,

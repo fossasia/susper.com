@@ -3,7 +3,7 @@ import { Component, Input, Output } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { NavbarComponent } from './navbar.component';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { SearchBarResultsComponent } from 'app/search-bar-results/search-bar-results.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { AutocompleteService } from '../services/autocomplete.service';
@@ -41,7 +41,7 @@ describe('Component: Navbar', () => {
       ],
       declarations: [
         NavbarComponent,
-        SearchBarComponent,
+        SearchBarResultsComponent,
         AutoCompleteComponent,
         DropdownComponent
       ],
@@ -66,10 +66,10 @@ describe('Component: Navbar', () => {
    * router : Router, route: ActivatedRoute
    */
 
-  it('should have an app-search-bar element', () => {
+  it('should have an app-search-bar-results element', () => {
     const compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-search-bar')).toBeTruthy();
+    expect(compiled.querySelector('app-search-bar-results')).toBeTruthy();
   });
 
   it('should have alt text property as brand', () => {
@@ -85,10 +85,11 @@ describe('Component: Navbar', () => {
 
     expect(compiled.querySelector('app-dropdown')).toBeTruthy();
   });
-  it('should have an app-search-bar element', () => {
+
+  it('should have an app-search-bar-results element', () => {
     const compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('app-search-bar')).toBeTruthy();
+    expect(compiled.querySelector('app-search-bar-results')).toBeTruthy();
   });
 
 });

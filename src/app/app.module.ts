@@ -20,6 +20,7 @@ import { ResultsComponent } from './results/results.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AdvancedsearchComponent } from './advancedsearch/advancedsearch.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SearchBarResultsComponent } from './search-bar-results/search-bar-results.component';
 import { AboutComponent } from './about/about.component';
 import { FooterNavbarComponent } from './footer-navbar/footer-navbar.component';
 import { ContactComponent } from './contact/contact.component';
@@ -97,6 +98,7 @@ const appRoutes: Routes = [
     StatsboxComponent,
     InfoboxComponent,
     HelpComponent,
+    SearchBarResultsComponent,
   ],
 
   imports: [

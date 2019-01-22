@@ -1,0 +1,35 @@
+<!-- Start ignoring BootLintBear -->
+<form class="navbar-form navbar-left">
+  <!-- Stop ignoring BootLintBear -->
+    <div class="input-group" id="nav-group" [style.background-color]="themeService.searchbarbgColor">
+  
+      <div class="input-text">
+        <input #input type="text" name="query" class="form-control" id="nav-input"
+             [(ngModel)]="searchdata.query" autocomplete="off" (keypress)="onEnter($event)" [style.width]="navbarWidth" 
+             [style.background-color]="themeService.searchbarbgColor" [style.color]="themeService.searchbarColor">
+      </div>
+  
+      <div class="input-group-btn">
+        <button class="btn btn-default" id="speech-button" type="submit" [style.background-color]="themeService.searchbarbgColor">
+          <img src="../../assets/images/microphone.png" class="microphone" (click)="speechRecognition()"/>
+        </button>
+        <button class="btn btn-default" id="nav-button" type="submit" (click)="onClick()" *ngIf="this.resultspage" [style.background-color]="themeService.searchbarbgColor">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </div>
+  
+    </div>
+  
+    <app-auto-complete (hidecomponent)="hidesuggestions($event)" id="auto-box" [hidden]="!ShowAuto()"></app-auto-complete>
+  </form>
+  
+  <script>
+    $(document).ready(function() {
+      var isFirefox = typeof InstallTrigger !== 'undefined';
+  
+      if(isFirefox === false){
+        $(".input-group-btn").addClass("align-search-btn");
+      }
+    })
+  </script>
+  

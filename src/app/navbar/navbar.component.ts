@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
-import { SearchBarComponent } from 'app/search-bar/search-bar.component';
+import { SearchBarResultsComponent } from 'app/search-bar-results/search-bar-results.component';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +9,7 @@ import { SearchBarComponent } from 'app/search-bar/search-bar.component';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  @ViewChild(SearchBarComponent) searchComponent: SearchBarComponent;
+  @ViewChild(SearchBarResultsComponent) searchComponent: SearchBarResultsComponent;
   searchdata = {
     query: '',
     verify: false,

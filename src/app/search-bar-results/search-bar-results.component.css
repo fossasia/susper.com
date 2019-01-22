@@ -1,0 +1,145 @@
+#nav-group {
+    background-color: white;
+    width: 632px;
+    color: black;
+    height: 44px;
+    border-radius: 3rem;
+    border: none;
+    border-style: solid;
+    border-color:rgba(0, 0, 0, 0);
+    border-width: 0px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+    float: left;
+  }
+  #nav-group:hover{
+    outline: none;
+    box-shadow: 0px 2px 5px #b9b9b9;
+    /*border:1px solid #5AB0DB;*/
+  }
+  
+  #nav-input {
+    font-size: 16px;
+    font-weight: 400;
+    top: 4px;
+    color: black;
+    width: 536px;
+    height: 34px ;
+    line-height: 34px ;
+    border-radius: 3rem;
+    border: none;
+    box-shadow: none;
+    position: relative;
+    font-family: Arial, sans-serif;
+    padding: 3px 0px 0px 20px;
+  }
+  
+#input-text{
+  padding-left: 20px;
+}
+
+  #nav-button {
+    border-radius: 0;
+    height: 38px;
+    background-color: white;
+    color: #0066ff;
+    box-shadow: none;
+    border: none;
+    position: initial;
+  }
+  
+  #nav-button:focus {
+    outline: none;
+  }
+  
+  #speech-button {
+    border-radius: 0;
+    height: 38px;
+    background-color: white;
+    color: #0066ff;
+    box-shadow: none;
+    border: none;
+    position: initial;
+  }
+  
+  #speech-button:focus {
+    outline: none;
+  }
+  
+  #nav-group {
+    top:3px;
+  }
+  
+  .navbar-form {
+    border-color: transparent ;
+  }
+  
+  .microphone {
+    height: 25px;
+    width: 25px;
+  }
+  
+  .input-group-btn{
+    padding-right : 1rem;
+  }
+  @-moz-document url-prefix() {
+    .microphone {
+      display: none;
+    }
+  }
+  
+  @media screen and (max-width: 811px) and (min-width: 768px) {
+    #nav-input{
+      width: 60vw;
+    }
+    #nav-group{
+      width: 60vw;
+    }
+  }
+  
+  
+  @media screen and (max-width: 823px) and (min-width: 768px) {
+    .navbar-form {
+      width: 100px;
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
+    #nav-group {
+      width: 95vw;
+    }
+  
+    .align-search-btn{
+      left: -1%;
+    }
+  
+    #nav-input {
+      width: 83vw;
+    }
+  }
+  
+  @media screen and (max-width: 573px){
+    .align-search-btn{
+      left: -5%;
+    }
+  
+    #nav-input {
+      width: 73vw;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .align-search-btn{
+      left: -1%;
+    }
+  }
+  
+  @media screen and (max-width: 360px) {
+    .align-search-btn{
+      left: -1%;
+    }
+  
+    #nav-input {
+      width: 63vw;
+    }
+  }
+  
