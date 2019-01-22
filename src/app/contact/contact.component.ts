@@ -1,15 +1,15 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, DoCheck } from '@angular/core';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 @Component({
     selector: 'app-contact',
     templateUrl: './contact.component.html',
     styleUrls: ['./contact.component.css']
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, DoCheck {
 
     @ViewChild('submitButton') submitButton;
-    @ViewChild('emailInput') emailInput;
 
+    emailInput: string;
     nameInput: string;
     tpnoInput: number;
     contactMessage: string = '';
@@ -30,18 +30,49 @@ export class ContactComponent implements OnInit {
         this.modal.open();
     }
 
-    // check whether messsage contains more than 100 words
-    checkValidity() {
-        if (this.tpnoInput && this.tpnoInput.toString().length >= 10 && this.tpnoInput > 0) {
-            this.submitButton.nativeElement.disabled = false;
-        } else {
-            this.submitButton.nativeElement.disabled = true;
-        }
+    ngDoCheck() {
+        this.checkValidity();
+    }
 
-        if (this.contactMessage && this.contactMessage.length >= 100) {
+    checkValidity() {
+        if (this.validateEmail(this.emailInput) && this.validatePhone(this.tpnoInput) && this.validateMessage(this.contactMessage) && this.validateName(this.nameInput)) {
             this.submitButton.nativeElement.disabled = false;
         } else {
             this.submitButton.nativeElement.disabled = true;
         }
     }
+
+    validateMessage(message) {
+        if (message && (message.length >= 100)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    validatePhone(phone) {
+        if (phone && (phone.toString().length >= 10)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    validateEmail(email) {
+        if (email) {
+            let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        } else {
+            return false;
+        }
+    }
+
+    validateName(name) {
+        if (name && (name.length > 0)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

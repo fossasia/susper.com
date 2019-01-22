@@ -1,4 +1,4 @@
-# susper.com
+![susper.com](src/assets/images/susper.svg)
 
 master: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=master)](https://travis-ci.org/fossasia/susper.com)
 development: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=development)](https://travis-ci.org/fossasia/susper.com)

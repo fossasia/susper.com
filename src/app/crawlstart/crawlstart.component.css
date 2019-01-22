@@ -1,5 +1,5 @@
 @media screen and (max-width:990px) {
-  
+
   .navbar-collapse.navbar-right {
     text-align: right;
   }
@@ -32,11 +32,11 @@
   margin: -57px 0 0 0;
 }
 
-#label-inline{
+#label-inline {
   display: inline;
 }
 
-#language{
+#language {
   display: inline;
 }
 
@@ -65,70 +65,70 @@
   margin-left: 80px;
 }
 
-.label-bold{
+.label-bold {
   font-weight: bold;
 }
 
-label{
-    font-weight: bold;
-    display: inline;
-} 
+label {
+  font-weight: bold;
+  display: inline;
+}
 
-#fieldset-1 input[type=text], textarea{
+#fieldset-1 input[type=text], textarea {
   margin-left: 80px;
 }
 
-#fieldset-1 dt{
+#fieldset-1 dt {
   width: 35%;
 }
 
-#fieldset-1 dd{
+#fieldset-1 dd {
   width: 60%;
 }
 
-span{
+span {
   margin-left: 10px;
 }
 
-#country-code-span{
+#country-code-span {
   margin-left: 7px;
 }
 
-.span-right{
+.span-right {
   margin-left: 0px;
   margin-right: 10px;
 }
 
-.span-both{
-  margin: 0px 10px; 
+.span-both {
+  margin: 0px 10px;
 }
 
-.top-margin-div{
+.top-margin-div {
   margin-top: 15px;
 }
 
-#fieldset-2 .label-bold{
+#fieldset-2 .label-bold {
   font-weight: bold;
 }
 
-
-#checkbox-desc-1{
+#checkbox-desc-1 {
   margin-left: 5px;
 }
 
-#checkbox-desc-2{
+#checkbox-desc-2 {
   margin-left: 25px;
 }
 
-#directDocByURLID{
+#directDocByURLID {
   margin-left: 25px;
 }
-dl{
-    width: 75%;
-    margin-left: 20px;
+
+dl {
+  width: 75%;
+  margin-left: 20px;
 }
 
-dt{
+dt {
   text-align: left;
   float: left; margin-top: 20px;
   clear: left;
@@ -136,7 +136,7 @@ dt{
   position: relative;
 }
 
-dd{
+dd {
   float: left; margin-top: 20px;
   display: block;
 }
@@ -150,7 +150,7 @@ dd{
   background-color: #3079ed;
   background-image: -webkit-linear-gradient(top,#4d90fe,#4787ed);
   box-shadow: none;
-  cursor: default;
+  cursor: pointer;
   border: 1px solid #3079ed;
   border-radius: 2px;
 }
@@ -194,7 +194,7 @@ dd{
   text-align: center;
 }
 
-legend{
+legend {
     border-radius: 5px;
     text-align: left;
     color: red;
@@ -228,17 +228,17 @@ h2 {
   line-height: 1.8;
 }
 
-fieldset{
+fieldset {
   color: #18294A;
   border: 0px solid #eeeeee;
   border-radius: 5px;
 }
 
-#language{
+#language {
   width: 20%;
 }
 
-.dd-class{
+.dd-class {
   width: 100%;
 }
 
@@ -261,4 +261,8 @@ div {
   .navbar-logo{
     margin-left: -77px;
   }
+}
+
+a {
+  padding-right: 0px;
 }

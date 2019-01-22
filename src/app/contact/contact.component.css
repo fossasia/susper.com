@@ -187,3 +187,13 @@ a {
      height:auto;   
     }
 }
+
+.mobile_input {
+    display: flex;
+}
+
+.mobile_input select {
+    width: 35%;
+    margin-right: 6px;
+    min-width: 137px;
+}
