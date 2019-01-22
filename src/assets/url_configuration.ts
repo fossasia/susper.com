@@ -42,7 +42,10 @@ export const url = {
                 'site': 'http://dev.yaydoc.org'
         },
         'github_repo': {
-                'fossasia': 'github.com/fossasia'
+                'fossasia': 'https://github.com/fossasia'
+        },
+        'badgemagic': {
+                'repo' : 'https://github.com/fossasia/badge-magic-android'
         }
 
 }
