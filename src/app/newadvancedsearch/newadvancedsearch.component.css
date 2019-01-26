@@ -78,7 +78,7 @@
 .nav-terms {
   padding: 0px;
   clear: both;
-  margin: -57px 0 0 0
+  margin: -57px 0 0 0;
 }
 
 .advsearch-navbar{
@@ -92,7 +92,7 @@
 
 .nav-about {
   clear: both;
-  margin: -57px 0 0 0
+  margin: -57px 0 0 0;
 }
 
 .navbar-logo {
@@ -167,7 +167,7 @@ h2 {
 }
 
 div {
-  font-family: Arial,SansSerif;
+  font-family: Arial, Sans-Serif;
 }
 
 select {

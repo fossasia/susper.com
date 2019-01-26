@@ -18,8 +18,6 @@
   position: relative;
 }
 
-
-
 .navbar-right {
   border-top:none;
 }
@@ -31,7 +29,7 @@
 .nav-terms {
   padding: 0px;
   clear: both;
-  margin: -57px 0 0 0
+  margin: -57px 0 0 0;
 }
 
 .advsearch-navbar {
@@ -41,7 +39,7 @@
 
 .nav-about {
   clear: both;
-  margin: -57px 0 0 0
+  margin: -57px 0 0 0;
 }
 
 .navbar-logo {
@@ -208,5 +206,5 @@ ul li{
 }
 
 .active {
-  color:#dd4b39
+  color:#dd4b39;
 }
