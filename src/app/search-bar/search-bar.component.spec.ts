@@ -3,7 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchBarComponent } from './search-bar.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from '../reducers/index';
 import { AutocompleteService } from "../services/autocomplete.service";
@@ -21,8 +22,8 @@ describe('Component: SearchBarComponent', () => {
       imports: [
         RouterTestingModule,
         FormsModule,
-        HttpModule,
-        JsonpModule,
+        HttpClientModule,
+        HttpClientJsonpModule,
         StoreModule.provideStore(reducer),
       ],
       declarations: [

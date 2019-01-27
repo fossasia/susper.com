@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {URLSearchParams, Http, Jsonp} from "@angular/http";
+import {URLSearchParams, Jsonp} from "@angular/http";
+import { HttpClient } from '@angular/common/http';
 import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
 import {Observable} from "rxjs";
@@ -12,7 +13,7 @@ export class IntelligenceService {
   private timezoneOffset = new Date().getTimezoneOffset().toString();
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private jsonp: Jsonp,
     private store: Store<fromRoot.State>
   ) {}

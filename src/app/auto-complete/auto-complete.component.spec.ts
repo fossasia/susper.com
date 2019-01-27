@@ -4,7 +4,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AutoCompleteComponent } from './auto-complete.component';
 import { AutocompleteService } from '../services/autocomplete.service';
-import { HttpModule, JsonpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule } from '@angular/common/http';
 import { reducer } from '../reducers/index';
 import { StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from "@angular/router/testing";
@@ -17,8 +18,8 @@ describe('AutoCompleteComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        HttpModule,
-        JsonpModule,
+        HttpClientModule,
+        HttpClientJsonpModule,
         StoreModule.provideStore(reducer)
       ],
       declarations: [

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Jsonp, Response, Headers, RequestOptions } from '@angular/http';
+import { URLSearchParams, Jsonp, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { Store } from '@ngrx/store';
@@ -16,7 +17,7 @@ export class KnowledgeapiService {
   homepage = 'http://' + url.susper.site;
   logo = '../images/susper.svg';
   imgUrl = 'https://api.duckduckgo.com/?';
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
               private jsonp: Jsonp,
               private store: Store<fromRoot.State>) {
   }
@@ -36,9 +37,7 @@ export class KnowledgeapiService {
     const headers = new Headers({ 'Accept': 'application/json' });
     const options = new RequestOptions({ headers: headers, search: params });
     return this.http
-      .get(this.searchURL, options).map(res =>
-          res.json()
-      ).catch(this.handleError);
+      .get(this.searchURL, options).catch(this.handleError);
   }
 
   getImage(searchquery) {
@@ -51,9 +50,7 @@ export class KnowledgeapiService {
     const headers = new Headers({ 'Accept': 'application/json' });
     const options = new RequestOptions({ headers: headers, search: params });
 
-    return this.http.get(this.imgUrl, options).map(res =>
-      res.json()
-      ).catch(this.handleError);
+    return this.http.get(this.imgUrl, options).catch(this.handleError);
     }
   getQueryDescription(searchquery) {
     const params = new URLSearchParams();
@@ -66,9 +63,7 @@ export class KnowledgeapiService {
     const headers = new Headers({ 'Accept': 'application/json' });
     const options = new RequestOptions({ headers: headers, search: params });
 
-    return this.http.get(this.descriptionURL, options).map(res =>
-      res.json()
-      ).catch(this.handleError);
+    return this.http.get(this.descriptionURL, options).catch(this.handleError);
   }
 
   private handleError (error: any) {

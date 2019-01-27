@@ -2,10 +2,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -104,8 +105,8 @@ const appRoutes: Routes = [
     InfiniteScrollModule,
     CommonModule,
     FormsModule,
-    HttpModule,
-    JsonpModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
     RouterModule.forRoot(appRoutes),
     StoreModule.provideStore(reducer),
     EffectsModule.run(ApiSearchEffects),

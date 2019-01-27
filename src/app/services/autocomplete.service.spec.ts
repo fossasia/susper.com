@@ -2,7 +2,8 @@
 
 import { TestBed, inject } from '@angular/core/testing';
 import { AutocompleteService } from './autocomplete.service';
-import {HttpModule, JsonpModule} from "@angular/http";
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule } from '@angular/common/http';
 import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {reducer} from "../reducers/index";
@@ -11,8 +12,8 @@ describe('AutocompleteService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpModule,
-        JsonpModule,
+        HttpClientModule,
+        HttpClientJsonpModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
       ],

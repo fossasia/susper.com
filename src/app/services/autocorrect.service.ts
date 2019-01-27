@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Http, URLSearchParams, Headers, RequestOptions } from '@angular/http';
+import { RequestOptions } from '@angular/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/retry';
 
 @Injectable()
@@ -9,24 +10,22 @@ export class AutocorrectService {
   searchURL = this.server + '/check/';
 
   constructor(
-    private http: Http
+    private http: HttpClient
   ) { }
 
   getsearchresults(searchquery) {
-    let params = new URLSearchParams();
+    let params = new HttpParams();
 
     params.set('text', searchquery);
 
-    let headers = new Headers();
+    let headers = new HttpHeaders();
 
     headers.set('Accept', 'application/json');
     headers.set('X-Mashape-Key', 'MNy1dDOsyMmshBCz70BwQ51vfeuzp19LReMjsnKtccAQkuB9WM');
 
     let options = new RequestOptions({ headers: headers, search: params });
     return this.http
-      .get(this.searchURL, options).map(res =>
-        res.json()
-      ).retry(2)
+      .get(this.searchURL, options).retry(2)
       .catch(this.handleError);
   }
 

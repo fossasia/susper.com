@@ -2,7 +2,9 @@
 
 import { TestBed, inject } from '@angular/core/testing';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { Http, BaseRequestOptions, RequestMethod, Response, ResponseOptions, HttpModule, JsonpModule } from '@angular/http';
+import {  BaseRequestOptions, RequestMethod, Response, ResponseOptions, JsonpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from '../reducers/index';
 import { url } from '../../assets/url_configuration';
@@ -10,10 +12,10 @@ import { SearchService } from './search.service';
 import { MockSearchApi } from '../shared/mocks/search.mock';
 
 const mockHttp_provider = {
-  provide: Http,
+  provide: HttpClient,
   deps: [MockBackend, BaseRequestOptions],
   useFactory: (backend: MockBackend, options: BaseRequestOptions) => {
-    return new Http(backend, options);
+    return new HttpClient(backend, options);
   }
 };
 
@@ -24,7 +26,7 @@ describe('Service: Search', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpModule,
+        HttpClientModule,
         JsonpModule,
         StoreModule.provideStore(reducer)
       ],

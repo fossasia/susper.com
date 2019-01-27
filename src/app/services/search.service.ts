@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Jsonp, Response } from '@angular/http';
+import { Jsonp, Response } from '@angular/http';
+import { HttpClient, HttpParams, } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { Store } from '@ngrx/store';
@@ -17,13 +18,13 @@ export class SearchService {
   queryplaceholder: string;
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private jsonp: Jsonp,
     private store: Store<fromRoot.State>
   ) {}
 
   getsearchresults(searchquery) {
-    let params = new URLSearchParams();
+    let params = new HttpParams();
 
     for (let key in searchquery) {
       if (searchquery.hasOwnProperty(key)) {

@@ -11,8 +11,9 @@ import { AdvancedsearchComponent } from './advancedsearch/advancedsearch.compone
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
+import { HttpClientJsonpModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducer } from './reducers/index';
@@ -41,8 +42,8 @@ describe('AppComponent', () => {
         BrowserModule,
         CommonModule,
         FormsModule,
-        HttpModule,
-        JsonpModule,
+        HttpClientModule,
+        HttpClientJsonpModule,
         ChartsModule,
         StoreModule.provideStore(reducer),
         StoreDevtoolsModule.instrumentOnlyWithExtension()

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import {HttpModule, JsonpModule} from "@angular/http";
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule } from '@angular/common/http';
 import {StoreModule} from "@ngrx/store";
 
 import { AutoCorrectComponent } from './auto-correct.component';
@@ -24,8 +25,8 @@ describe('AutoCorrectComponent', () => {
               BrowserModule,
               CommonModule,
               FormsModule,
-              HttpModule,
-              JsonpModule,
+              HttpClientModule,
+              HttpClientJsonpModule,
               StoreModule.provideStore(reducer),
               StoreDevtoolsModule.instrumentOnlyWithExtension(),
             ],

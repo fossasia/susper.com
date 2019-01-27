@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class GetJsonService {
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     }
 
   public getJSON(): Observable<any> {
       return this.http.get("../assets/newsFile.json")
-                .map((res: any) => res.json()).catch(this.handleError);
+                .catch(this.handleError);
 }
 
 private handleError (error: any) {
