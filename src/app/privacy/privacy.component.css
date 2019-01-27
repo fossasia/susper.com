@@ -32,8 +32,9 @@ nav.navbar {
 }
 
 
-.navbar-logo {
+#navbar-logo-fix {
     height: 30px;
+    width: 150px;
     margin-top: 4px;
     padding-left: 20px;
 }
