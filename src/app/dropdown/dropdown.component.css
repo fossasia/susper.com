@@ -90,6 +90,10 @@ li.dropdown-menu-box {
   content: '';
 }
 
+.dropdown-menu-inner {
+	overflow-x: hidden;
+}
+
 div.block:hover {
     border: 1px solid rgba(150,150,150,0.3);
 }
