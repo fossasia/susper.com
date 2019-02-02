@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from '../reducers/index';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { SpeechService } from '../services/speech.service';
@@ -29,7 +28,6 @@ describe('NotFoundComponent', () => {
       ],
       declarations: [
         NotFoundComponent,
-        SearchBarComponent,
         AutoCompleteComponent
       ],
       providers: [
