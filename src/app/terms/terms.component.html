@@ -14,10 +14,10 @@
 
         <div class="collapse navbar-collapse" id="dropmenu">
             <ul class="nav navbar-nav navbar-collapse navbar-right">
-                <li><a routerLink="/privacy">Privacy</a></li>
-                <li><a routerLink="/terms">Terms</a></li>
-                <li><a routerLink="/about">About</a></li>
-                <li><a routerLink="/contact">Contact</a></li>
+              <li><a routerLink="/privacy">Privacy</a></li>
+              <li><a routerLink="/terms">Terms</a></li>
+              <li><a routerLink="/about">About</a></li>
+              <li><a routerLink="/contact">Contact</a></li>
             </ul>
         </div>
 
@@ -27,69 +27,70 @@
 <div class="row">
 
     <div id="left" class="col-lg-4 col-md-3 col-sm-12">
-        <div class="wrapper">
+        <div class="wrapper container">
             <h3 class="link">Terms of Service</h3>
             <ul class="sidebar-list">
-                <li class="element1 active">
-                    <a (click)="scrollTo('element1')">
-                        Welcome to susper!
-                    </a>
-                </li><br>
-                <li class="element2">
-                    <a (click)="scrollTo('element2')">
-                        Using our Services
-                    </a>
-                </li><br>
-                <li class="element3">
-                    <a (click)="scrollTo('element3')">
-                        Your susper Account
-                    </a>
-                </li><br>
-                <li class="element4">
-                    <a (click)="scrollTo('element4')">
-                        Privacy and Copyright Protection
-                    </a>
-                </li><br>
-                <li class="element5">
-                    <a (click)="scrollTo('element5')">
-                        Your Content in our Services
-                    </a>
-                </li><br>
-                <li class="element6">
-                    <a (click)="scrollTo('element6')">
-                        About Software in our Services
-                    </a>
-                </li><br>
-                <li class="element7">
-                    <a (click)="scrollTo('element7')">
-                        Modifying and Terminating our Services
-                    </a>
-                </li><br>
-                <li class="element8">
-                    <a (click)="scrollTo('element8')">
-                        Our Warranties and Disclaimers
-                    </a>
-                </li><br>
-                <li class="element9">
-                    <a (click)="scrollTo('element9')">
+              <li class="element1 active">
+                <a (click)="scrollTo('element1')">
+                    Welcome to susper!
+                </a>
+              </li><br>
+              <li class="element2">
+                <a (click)="scrollTo('element2')">
+                    Using our Services
+                </a>
+              </li><br>
+              <li class="element3">
+                <a (click)="scrollTo('element3')">
+                    Your susper Account
+                </a>
+              </li><br>
+              <li class="element4">
+                <a (click)="scrollTo('element4')">
+                    Privacy and Copyright Protection
+                </a>
+              </li><br>
+              <li class="element5">
+                <a (click)="scrollTo('element5')">
+                    Your Content in our Services
+                </a>
+              </li><br>
+              <li class="element6">
+                <a (click)="scrollTo('element6')">
+                    About Software in our Services
+                </a>
+              </li><br>
+              <li class="element7">
+                <a (click)="scrollTo('element7')">
+                    Modifying and Terminating our Services
+                </a>
+              </li><br>
+              <li class="element8">
+                <a (click)="scrollTo('element8')">
+                    Our Warranties and Disclaimers
+                </a>
+              </li><br>
+              <li class="element9">
+                <a (click)="scrollTo('element9')">
                         Liability for our Services
-                    </a>
-                </li><br>
-                <li class="element10">
-                    <a (click)="scrollTo('element10')">
+                </a>
+              </li><br>
+              <li class="element10">
+                <a (click)="scrollTo('element10')">
                         Business uses of our Services
-                    </a>
-                </li><br>
-                <li class="element11">
-                    <a (click)="scrollTo('element11')">
+                </a>
+              </li><br>
+              <li class="element11">
+                <a (click)="scrollTo('element11')">
                         About these Terms
-                    </a>
-                </li>
+                </a>
+              </li>
             </ul>
         </div>
     </div>
 
     <div id="right" class="col-lg-8 col-md-9 col-sm-12">
+      <div class="container">
         <br><br>
         <div id="element1">
             <h2>Welcome to susper!</h2>
@@ -167,6 +168,7 @@
         </div>
         <div id="element4">
             <h2>Privacy and Copyright Protection</h2>
+
             <p>susper’s privacy policies ensures that your personal data is safe and protected. By using our
                 Services,
                 you agree
@@ -329,7 +331,8 @@
         </div>
         <div id="element11">
             <h2>About these Terms</h2>
-            <p>We may modify these terms or any additional terms that apply to a Service to, for example, reflect
+            <p>We may modify these terms or any additional terms that apply to a Service to, for 
+                example, reflect
                 changes to
                 the law or changes to our Services. You should look at the terms regularly. We’ll post notice of
                 modifications
@@ -367,11 +370,14 @@
                 in those courts.
                 <br><br>
                 <div style="margin-bottom:50px;"> For information about how to contact susper, please visit our <a
-                        class="page-link" routerLink="/contact">contact page</a>.</div>
+                        class="page-link" routerLink="/contact">contact page</a>.
+                </div>
                 <br><br>
+            </p>
         </div>
     </div>
+</div>
 
-    <footer>
-        <app-footer-navbar></app-footer-navbar>
-    </footer>
+<footer>
+    <app-footer-navbar></app-footer-navbar>
+</footer>
