@@ -8,7 +8,6 @@ import { StoreModule } from '@ngrx/store';
 import { reducer } from '../reducers/index';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
-import { SpeechService } from '../services/speech.service';
 import { AutocompleteService } from '../services/autocomplete.service';
 import { ThemeService } from '../services/theme.service';
 
@@ -31,7 +30,6 @@ describe('NotFoundComponent', () => {
         AutoCompleteComponent
       ],
       providers: [
-        SpeechService,
         AutocompleteService,
         ThemeService
       ]
@@ -55,11 +53,4 @@ describe('NotFoundComponent', () => {
     expect(image).toBeTruthy();
     expect(image.alt).toBe('YaCy');
   });
-
-  it('should have an app-search-bar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
-
-    expect(compiled.querySelector('app-search-bar')).toBeTruthy();
-  });
-
 });
