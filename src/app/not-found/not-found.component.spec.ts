@@ -7,8 +7,6 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from '../reducers/index';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
-import { AutocompleteService } from '../services/autocomplete.service';
 import { ThemeService } from '../services/theme.service';
 
 describe('NotFoundComponent', () => {
@@ -26,11 +24,9 @@ describe('NotFoundComponent', () => {
         StoreModule.provideStore(reducer),
       ],
       declarations: [
-        NotFoundComponent,
-        AutoCompleteComponent
+        NotFoundComponent
       ],
       providers: [
-        AutocompleteService,
         ThemeService
       ]
     })
