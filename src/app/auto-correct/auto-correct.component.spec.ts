@@ -27,7 +27,7 @@ describe('AutoCorrectComponent', () => {
               FormsModule,
               HttpModule,
               JsonpModule,
-              StoreModule.provideStore(reducer),
+              StoreModule.forFeature(reducer),
               !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
             ],
             declarations: [
