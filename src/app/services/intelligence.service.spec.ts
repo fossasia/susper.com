@@ -4,7 +4,7 @@ import {HttpModule, JsonpModule} from "@angular/http";
 import {StoreModule} from "@ngrx/store";
 import {reducer} from "../reducers/index";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 describe('IntelligenceService', () => {
   beforeEach(() => {
