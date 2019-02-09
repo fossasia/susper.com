@@ -109,8 +109,7 @@ const appRoutes: Routes = [
     JsonpModule,
     RouterModule.forRoot(appRoutes),
     StoreModule.forRoot(reducer),
-    EffectsModule.run(ApiSearchEffects),
-    EffectsModule.run(KnowledgeEffects),
+    EffectsModule.forRoot([ApiSearchEffects, KnowledgeEffects]),
     !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
     Ng2Bs3ModalModule,
     ChartsModule
