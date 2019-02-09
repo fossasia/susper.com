@@ -4,6 +4,7 @@ import {HttpModule, JsonpModule} from "@angular/http";
 import {StoreModule} from "@ngrx/store";
 import {reducer} from "../reducers/index";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import { environment } from '../environments/environment';
 
 describe('IntelligenceService', () => {
   beforeEach(() => {
@@ -12,7 +13,7 @@ describe('IntelligenceService', () => {
         HttpModule,
         JsonpModule,
         StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
+        !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
       ],
       providers: [IntelligenceService]
     });
