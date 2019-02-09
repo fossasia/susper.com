@@ -27,7 +27,7 @@ describe('IndexComponent', () => {
         RouterTestingModule,
         HttpModule,
         JsonpModule,
-        StoreModule.provideStore(reducer)
+        StoreModule.forFeature(reducer)
       ],
       declarations: [
         IndexComponent,
