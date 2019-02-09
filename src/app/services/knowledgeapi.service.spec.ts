@@ -32,7 +32,7 @@ describe('Service: KnowledgeapiService', () => {
       imports: [
         HttpModule,
         JsonpModule,
-        StoreModule.provideStore(reducer)
+        StoreModule.forRoot(reducer)
       ]
     });
   });
