@@ -25,7 +25,7 @@ describe('AdvancedsearchComponent', () => {
         FormsModule,
         HttpModule,
         JsonpModule,
-        StoreModule.forFeature(reducer)
+        StoreModule.forRoot(reducer)
       ],
       declarations: [
         AdvancedsearchComponent
