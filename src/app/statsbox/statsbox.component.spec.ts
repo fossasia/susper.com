@@ -17,7 +17,7 @@ describe('StatsboxComponent', () => {
         HttpModule,
         JsonpModule,
         ChartsModule,
-        StoreModule.provideStore(reducer),
+        StoreModule.forRoot(reducer),
       ],
       declarations: [
         StatsboxComponent,
