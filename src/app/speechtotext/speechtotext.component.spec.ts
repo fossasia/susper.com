@@ -14,7 +14,7 @@ describe('SpeechtotextComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        StoreModule.provideStore(reducer),
+        StoreModule.forRoot(reducer),
       ],
       declarations: [ SpeechtotextComponent ],
       providers: [SpeechService]
