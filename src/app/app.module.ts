@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
@@ -110,7 +111,7 @@ const appRoutes: Routes = [
     StoreModule.provideStore(reducer),
     EffectsModule.run(ApiSearchEffects),
     EffectsModule.run(KnowledgeEffects),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
     Ng2Bs3ModalModule,
     ChartsModule
   ],
