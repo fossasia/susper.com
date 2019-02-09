@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 import { reducer } from '../reducers/index';
 import { AppComponent } from '../app.component';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -57,7 +58,7 @@ describe('ResultsComponent', () => {
         JsonpModule,
         ChartsModule,
         StoreModule.provideStore(reducer),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
+        !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
       ],
       declarations: [
         AppComponent,
