@@ -5,7 +5,7 @@ import { AutocompleteService } from './autocomplete.service';
 import {HttpModule, JsonpModule} from "@angular/http";
 import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import {reducer} from "../reducers/index";
 
 describe('AutocompleteService', () => {
