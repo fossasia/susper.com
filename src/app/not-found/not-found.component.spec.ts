@@ -25,7 +25,7 @@ describe('NotFoundComponent', () => {
         FormsModule,
         HttpModule,
         JsonpModule,
-        StoreModule.provideStore(reducer),
+        StoreModule.forFeature(reducer),
       ],
       declarations: [
         NotFoundComponent,
