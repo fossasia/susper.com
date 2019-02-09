@@ -108,7 +108,7 @@ const appRoutes: Routes = [
     HttpModule,
     JsonpModule,
     RouterModule.forRoot(appRoutes),
-    StoreModule.provideStore(reducer),
+    StoreModule.forRoot(reducer),
     EffectsModule.run(ApiSearchEffects),
     EffectsModule.run(KnowledgeEffects),
     !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
