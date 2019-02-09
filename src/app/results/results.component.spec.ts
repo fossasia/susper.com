@@ -57,7 +57,7 @@ describe('ResultsComponent', () => {
         InfiniteScrollModule,
         JsonpModule,
         ChartsModule,
-        StoreModule.provideStore(reducer),
+        StoreModule.forRoot(reducer),
         !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
       ],
       declarations: [
