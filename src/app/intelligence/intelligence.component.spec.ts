@@ -23,7 +23,7 @@ describe('IntelligenceComponent', () => {
         FormsModule,
         HttpModule,
         JsonpModule,
-        StoreModule.provideStore(reducer),
+        StoreModule.forFeature(reducer),
       ],
       declarations: [
         IntelligenceComponent
