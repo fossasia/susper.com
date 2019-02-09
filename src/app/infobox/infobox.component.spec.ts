@@ -20,7 +20,7 @@ describe('Component: InfoboxComponent', () => {
         RouterTestingModule,
         HttpModule,
         JsonpModule,
-        StoreModule.provideStore(reducer)
+        StoreModule.forRoot(reducer)
       ],
       declarations: [
         InfoboxComponent
