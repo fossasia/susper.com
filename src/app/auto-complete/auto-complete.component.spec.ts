@@ -19,7 +19,7 @@ describe('AutoCompleteComponent', () => {
         RouterTestingModule,
         HttpModule,
         JsonpModule,
-        StoreModule.provideStore(reducer)
+        StoreModule.forFeature(reducer)
       ],
       declarations: [
         AutoCompleteComponent,
