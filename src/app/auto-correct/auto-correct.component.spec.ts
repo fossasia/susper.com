@@ -5,7 +5,7 @@ import {StoreModule} from "@ngrx/store";
 
 import { AutoCorrectComponent } from './auto-correct.component';
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {BrowserModule} from "@angular/platform-browser";
