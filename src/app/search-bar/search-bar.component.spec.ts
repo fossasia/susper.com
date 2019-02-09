@@ -23,7 +23,7 @@ describe('Component: SearchBarComponent', () => {
         FormsModule,
         HttpModule,
         JsonpModule,
-        StoreModule.provideStore(reducer),
+        StoreModule.forRoot(reducer),
       ],
       declarations: [
         SearchBarComponent,
