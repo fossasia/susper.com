@@ -30,7 +30,7 @@
     "@ngrx/effects": "^2.0.3",
     "@ngrx/router-store": "^1.2.6",
     "@ngrx/store": "^2.2.2",
-    "@ngrx/store-devtools": "^3.2.4",
+    "@ngrx/store-devtools": "^4.0.0",
     "bootstrap": "^3.3.0",
     "chart.js": "^2.6.0",
     "codecov.io": "^0.1.6",
