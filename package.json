@@ -29,7 +29,7 @@
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^2.0.3",
     "@ngrx/router-store": "^1.2.6",
-    "@ngrx/store": "^2.2.2",
+    "@ngrx/store": "^4.0.0",
     "@ngrx/store-devtools": "^4.0.0",
     "bootstrap": "^3.3.0",
     "chart.js": "^2.6.0",
