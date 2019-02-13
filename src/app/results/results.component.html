@@ -133,7 +133,7 @@
 
     <!-- Loading animation -->
     <div class="loading-container" *ngIf="loading">
-      <img class="loading-image" src="../../assets/images/loading.gif" />
+      <img class="loading-image" src="../../assets/images/loading.webp" onerror="this.onerror=null; this.src='../../assets/images/loading.gif'" />
     </div>
 
     <div [hidden]="hidefooter">
@@ -220,7 +220,7 @@
                 }}&mode=text&callback=__ng_jsonp__.__req3.finished&facet=true&facet.mincount=1&facet.field=host_s&facet.field=url_protocol_s&facet.field=author_sxt&facet.field=collection_sxt"
                 target="_blank"
               >
-                <img src="assets/images/RssOrange.jpg" /> <span><b>RSS</b></span>
+                <img src="assets/images/RssOrange.webp" onerror="this.onerror=null; this.src='assets/images/RssOrange.jpg'" /> <span><b>RSS</b></span>
               </a>
               <a
                 class="json"
@@ -231,7 +231,7 @@
                 }}&mode=text&wt=yjson&callback=__ng_jsonp__.__req3.finished&facet=true&facet.mincount=1&facet.field=host_s&facet.field=url_protocol_s&facet.field=author_sxt&facet.field=collection_sxt"
                 target="_blank"
               >
-                <img src="assets/images/JsonGreen.jpg" /> <span><b>JSON</b></span>
+                <img src="assets/images/JsonGreen.webp" onerror="this.onerror=null; this.src='assets/images/JsonGreen.jpg'" /> <span><b>JSON</b></span>
               </a>
             </div>
           </div>
@@ -493,7 +493,7 @@
       }}&mode=text&callback=__ng_jsonp__.__req3.finished&facet=true&facet.mincount=1&facet.field=host_s&facet.field=url_protocol_s&facet.field=author_sxt&facet.field=collection_sxt"
       target="_blank"
     >
-      <img src="assets/images/RssOrange.jpg" /> <b>RSS</b>
+      <img src="assets/images/RssOrange.webp" onerror="this.onerror=null; this.src='assets/images/RssOrange.jpg'" /> <b>RSS</b>
     </a>
 
     <a
@@ -505,7 +505,7 @@
       }}&mode=text&wt=yjson&callback=__ng_jsonp__.__req3.finished&facet=true&facet.mincount=1&facet.field=host_s&facet.field=url_protocol_s&facet.field=author_sxt&facet.field=collection_sxt"
       target="_blank"
     >
-      <img src="assets/images/JsonGreen.jpg" /> <b>JSON</b>
+      <img src="assets/images/JsonGreen.webp" onerror="this.onerror=null; this.src='assets/images/JsonGreen.jpg'" /> <b>JSON</b>
     </a>
   </div>
   <app-footer-navbar [hidden]="hidefooter"></app-footer-navbar>
