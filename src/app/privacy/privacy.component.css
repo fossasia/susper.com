@@ -31,11 +31,8 @@ nav.navbar {
     margin: -57px 0 0 0
 }
 
-
 .navbar-logo {
-    height: 30px;
-    margin-top: 4px;
-    padding-left: 20px;
+  height: 30px;
 }
 
 .navbar-text {
@@ -159,6 +156,9 @@ a:hover {
 	text-decoration: none;
 }
 
-.navbar-brand {
-	padding-left: 100px;
+#link-logo {
+  margin-left: 95px;
+  margin-top: 18x;
+  padding: 0px;
+  height: 30px;
 }
