@@ -58,7 +58,7 @@ describe('ResultsComponent', () => {
         JsonpModule,
         ChartsModule,
         StoreModule.forRoot(reducer),
-        !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
+        !environment.production ? StoreDevtoolsModule.instrument() : [],
       ],
       declarations: [
         AppComponent,
