@@ -13,7 +13,7 @@ describe('AutocorrectService', () => {
         HttpModule,
         JsonpModule,
         StoreModule.forRoot(reducer),
-        !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
+        !environment.production ? StoreDevtoolsModule.instrument() : [],
       ],
       providers: [AutocorrectService]
     });
