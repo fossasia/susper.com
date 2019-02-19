@@ -31,7 +31,8 @@
 
 .navbar-logo {
     height: 30px;
-    padding-left: 20px;
+    padding: 0px;
+    margin: 0px;
 }
 
 .bold {
@@ -152,7 +153,12 @@ a {
 }
 
 .navbar-brand {
-    padding-left: 100px;
+    padding: 0px;
+}
+
+#logo-link {
+    margin-left: 90%;
+	margin-top: 17%;
 }
 
 @media only screen and (max-width: 768px) {
