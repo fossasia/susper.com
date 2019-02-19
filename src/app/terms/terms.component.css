@@ -34,8 +34,8 @@ nav.navbar {
 
 .navbar-logo {
     height: 30px;
-    margin-top: 4px;
-    padding-left: 20px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .navbar-text {
@@ -140,7 +140,7 @@ h2 {
 
 @media only screen and (max-width: 923px)and (min-width: 768px) {
 	.navbar-brand {
-    margin-left: -27%!important;
+    margin-left: -27%;
 	}
 }
 
@@ -160,5 +160,10 @@ a:hover {
 }
 
 .navbar-brand {
-	padding-left: 100px;
+	padding: 0px;
+}
+
+#logo-link {
+	margin-left: 90%;
+	margin-top: 17%;
 }
