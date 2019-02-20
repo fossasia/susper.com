@@ -8,9 +8,10 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { ContactComponent } from '../contact/contact.component';
+import { ContactComponent } from './contact.component';
 import { FooterNavbarComponent } from '../footer-navbar/footer-navbar.component';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { validateMessage, validatePhone, validateEmail, validateName } from '../utils';
 
 describe('Component: Contact', () => {
   let component: ContactComponent;
@@ -18,18 +19,9 @@ describe('Component: Contact', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpModule,
-        RouterTestingModule,
-        FormsModule
-      ],
-      declarations: [
-        FooterNavbarComponent,
-        ContactComponent,
-        ModalComponent,
-      ]
-    })
-      .compileComponents();
+      imports: [HttpModule, RouterTestingModule, FormsModule],
+      declarations: [FooterNavbarComponent, ContactComponent, ModalComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -44,9 +36,9 @@ describe('Component: Contact', () => {
   });
 
   it('should have alt text property as brand', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
-    let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
+    const image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
     expect(image).toBeTruthy();
     expect(image.alt).toBe('brand');
   });
@@ -56,10 +48,39 @@ describe('Component: Contact', () => {
     expect(footerNavbar).toBeTruthy();
   });
 
+  it('should have a footer element', () => {
+    const compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('footer')).toBeTruthy();
+  });
+
   it('should have an element app-footer-navbar', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
   });
 
+  it('validates messages correctly', () => {
+    expect(validateMessage('abc')).toBe(false);
+    expect(
+      validateMessage(
+        'fdasfdasfsdaffffffffffffffffffffffffffffffasdfsafasdfadfdasfdasfsdaffffffffffffffffffffffffffffffasdfsafasdfad'
+      )
+    ).toBe(true);
+  });
+
+  it('validates phone number correctly', () => {
+    expect(validatePhone('1234567890')).toBe(true);
+    expect(validatePhone('123450')).toBe(false);
+  });
+
+  it('validates name correctly', () => {
+    expect(validateName('susper')).toBe(true);
+    expect(validateName('')).toBe(false);
+  });
+
+  it('validates email correctly', () => {
+    expect(validateEmail('susper@gmail.com')).toBe(true);
+    expect(validateEmail('fdasfdasf')).toBe(false);
+  });
 });

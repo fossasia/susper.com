@@ -14,6 +14,8 @@ export class StatsboxComponent implements OnInit {
   navigation$: Observable<any>;
   selectedelements: Array<any> = [];
   selectedelement: number = -1;
+  currentelement: number = -1;
+  showMoreAnalytics: boolean = false;
   querychange$: Observable<any>;
   searchresults$: Observable<any>;
   analyticsStatus: string = 'Show Chart';
@@ -54,10 +56,25 @@ export class StatsboxComponent implements OnInit {
 
   selectelement(element) {
     this.selectedelement = element;
+    this.currentelement = element;
   }
 
   deselectelement(element) {
     this.selectedelement = -1;
+    this.currentelement = -1;
+  }
+
+  showMore() {
+    this.selectedelement = -1;
+    if (!this.showMoreAnalytics) {
+    this.showMoreAnalytics = true;
+      document.getElementById('light_analytics').style.display = 'block';
+      document.getElementById('fade_analytics').style.display = 'block';
+    } else {
+      this.showMoreAnalytics = false;
+      document.getElementById('light_analytics').style.display = 'none';
+      document.getElementById('fade_analytics').style.display = 'none';
+    }
   }
 
   changequerylook(modifier, element) {

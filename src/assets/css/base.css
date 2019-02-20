@@ -44,6 +44,11 @@ dl {
   width:96%;
 }
 
+.text-center {
+  padding-top:20px;
+  font-size:30px !important;
+}
+
 body, table, textarea {
   font-size: 12px;
   overflow-x: hidden;
@@ -81,12 +86,12 @@ a:link {
 }
 
 a:visited {
-  color:#18294A;
+  color:#609 !important;
   text-decoration:underline;
 }
 
 a:hover {
-  color:#18294A;
+  color:#609;
   text-decoration:underline;
 }
 

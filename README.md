@@ -1,7 +1,7 @@
-# susper.com
+![susper.com](src/assets/images/susper.svg)
 
-master: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=master)](https://travis-ci.org/fossasia/susper.com) 
-development: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=development)](https://travis-ci.org/fossasia/susper.com) 
+master: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=master)](https://travis-ci.org/fossasia/susper.com)
+development: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=development)](https://travis-ci.org/fossasia/susper.com)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ba119419e7444b3b505bb37b4525deb)](https://www.codacy.com/app/shiven15094/susper-com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fossasia/susper.com&amp;utm_campaign=Badge_Grade)
 [![Code Climate](https://codeclimate.com/github/fossasia/susper.com/badges/gpa.svg?branch=gh-pages)](https://codeclimate.com/github/fossasia/susper.com)
 [![codecov](https://codecov.io/gh/fossasia/susper.com/branch/master/graph/badge.svg)](https://codecov.io/gh/fossasia/susper.com)
@@ -13,9 +13,9 @@ development: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?bran
 Susper is a decentralized Search Engine that uses the peer to peer system yacy and Apache Solr to crawl and index search results.
 
 You can test the branches of susper here:
-* Development branch: http://susper-dev.herokuapp.com
+* Development branch: https://susper-dev.herokuapp.com
 * Master branch: https://susper.com
- 
+
 ## Communication
 
 Our chat channel is on gitter: https://gitter.im/fossasia/susper.com
@@ -40,15 +40,12 @@ Search results are displayed using Solr server which is embedded into YaCy. All 
 * node --version >= 6
 * npm --version >= 3
 
-## Installation
+## Angular Installation
 First, we will need to install angular-cli by using the following command:
 ```sh
-$ npm install -g @angular/cli@latest
+npm install -g @angular/cli@latest
 ```
-After installing angular-cli we need to install our required node modules, so we will do that by using the following command:
-```sh
-$ npm install
-```
+
 ## How to deploy?
 
 [![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/?repo=https://github.com/fossasia/susper.com) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/fossasia/susper.com)
@@ -56,23 +53,24 @@ $ npm install
 ### Running on localhost:
 * **Step 1:** Fork susper repository and clone it to your desktop
 * **Step 2:** Then cd into that cloned folder
-* **Step 3:** Deploy locally by running this:```$ ng serve```
-* **Step 4:** Go to localhost:4200 where the application will be running locally.
+* **Step 3:** Then execute the command: ```npm install```
+* **Step 4:** Deploy locally by running this:```ng serve```
+* **Step 5:** Go to [localhost:4200](http://localhost:4200) where the application will be running locally.
 
 ### For deploying with [Github Pages](https://pages.github.com/):
 With these very simple steps you can have susper deployed:
 
 * **Step 1:** Fork susper repository and clone it to your desktop.
-* **Step 2:** Then checkout to your master branch `$ git checkout master`
-* **Step 3:** Deploy running this: ```ng build``` and then ```npm run deploy```
+* **Step 2:** Then checkout to your master branch `git checkout master`
+* **Step 3:** Deploy by running this: ```ng build``` and then ```npm run deploy```
 * **Step 4:** Visit `https://yourusername.github.io/susper` and you should see the Susper search running.
-* **Step 5:** As you search you might see that it cant find anything, to resolve this, on search you will see there is a red shield on the search bar, click on it and allow to load unsafe scripts.
+* **Step 5:** As you search you might see that it can't find anything, to resolve this, on search you will see there is a red shield on the search bar, click on it and allow to load unsafe scripts.
 * **Step 6:** Reload and you will have a fully functioning Susper search deployed on GitHub pages.
 
 ### For deploying with [Surge](https://surge.sh/):
 
-Surge will automatically generate deployment link whenever a pull request passes 
-CI. 
+Surge will automatically generate a deployment link whenever a pull request passes
+CI.
 
 Suppose pull request number is 200 and it passes Travis CI. The deployment link can be found here: `https://pr-200-fossasia-susper.surge.sh`
 
@@ -92,7 +90,7 @@ This is an Open Source project and we would be happy to see contributors who rep
 * When you file a feature request or when you are submitting a bug report to the [issue tracker](https://github.com/fossasia/susper.com/issues), make sure you add steps to reproduce it. Especially if that bug is some weird/rare one.
 
 **Join the development**
-* Before you join development, please set up the project on your local machine, run it and go through the application completely. Press any button you can find and see where it leads to. Explore. (Don't worry ... Nothing will happen to the app or to you due to the exploring :wink Only thing that will happen is, you'll be more familiar with what is where and might even get some cool ideas on how to improve various aspects of the app.)
+* Before you join development, please set up the project on your local machine, run it and go through the application completely. Press any button you can find and see where it leads to. Explore. (Don't worry ... Nothing will happen to the app or to you due to the exploring :wink:. Only thing that will happen is, you'll be more familiar with what is where and might even get some cool ideas on how to improve various aspects of the app.)
 * If you would like to work on an issue, drop in a comment at the issue. If it is already assigned to someone, but there is no sign of any work being done, please free to drop in a comment so that the issue can be assigned to you if the previous assignee has dropped it entirely.
 
 Do read the [Open Source Developer Guide and Best Practices at FOSSASIA](https://blog.fossasia.org/open-source-developer-guide-and-best-practices-at-fossasia).
@@ -106,7 +104,7 @@ We have the following branches:
  * **development**
    All development goes on in the development branch. If you're making a contribution, please make a pull request to _development_. PRs to the branch must pass a build check and a unit-test check on Travis.
  * **master**
-    This branch contains shipped code. After significant features/bug-fixes are accumulated on development, development branch is merged into master branch.
+    This branch contains shipped code. After significant features/bug-fixes are accumulated on development, the development branch is merged into the master branch.
  * **gh-pages**
     This branch contains the auto-generated build artifacts of the master branch that is generated by Travis. The build artifacts on this branch are used to build the site on susper.com .
 
@@ -121,7 +119,7 @@ The project is maintained by
 * Mario Behling ([@mariobehling](https://github.com/mariobehling))
 
 ## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to [localhost:4200](http://localhost:4200). The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 

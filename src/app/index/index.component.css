@@ -40,7 +40,7 @@
   }
 
   div#susper-logo-fix {
-    margin-left: -40%;
+    margin-left: 33.5%;
   }
 }
 
@@ -119,9 +119,13 @@
   z-index: -1;
 }
 
+#susper-logo-fix {
+  width: 150px;
+  margin-left: 35%;
+}
+
 #biglogo {
   display: block;
-  margin-left: 35%;
 }
 
 .navbar-brand {
@@ -144,8 +148,13 @@ footer {
 }
 
 @media screen and (max-width: 823px) {
+<<<<<<< HEAD
   img#biglogo{
     margin-left: 87%;
+=======
+  #susper-logo-fix {
+    margin-left: 78%;
+>>>>>>> upstream/development
   }
 }
 
@@ -154,7 +163,7 @@ footer {
     margin-left: -48%;
   }
 
-  img#biglogo{
+  #susper-logo-fix {
     margin-left: 37%;
   }
 
@@ -170,7 +179,7 @@ footer {
 }
 
 @media screen and (max-width: 479px) {
-  img#biglogo{
+  #susper-logo-fix {
     margin-left: 52%;
   }
 }

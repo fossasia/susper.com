@@ -16,6 +16,7 @@ export class DropdownComponent implements OnInit {
   pslabUrl = url.pslab.site;
   fossasiaLabsUrl = url.fossasia.labs;
   fossasia_repo = url.github_repo.fossasia;
+<<<<<<< HEAD
   blogLogo = url.logos.blog;
   codeLogo = url.logos.code;
   bugLogo = url.logos.bug;
@@ -26,9 +27,15 @@ export class DropdownComponent implements OnInit {
   susiLogo = url.logos.susi;
   pslabLogo = url.logos.pslab;
   eventyayLogo = url.logos.eventyay;
+=======
+  badgeyayUrl = url.badgeyay.site;
+  meilixUrl =  url.meilix.site;
+  phimpmeUrl = url.phimpme.site;
+  susimagicmirrorUrl =  url.susimagicmirror.site;
+  yaydocUrl =  url.yaydoc.site;
+>>>>>>> upstream/development
 
   constructor() { }
   ngOnInit() {
   }
-
 }

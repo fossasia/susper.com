@@ -1,8 +1,8 @@
 .navbar-brand {
-    width: 140px;
-    height: auto;
-    padding: 15px 15px 0px 15px;
-    margin-right: 26px;
+  width: 140px;
+  height: auto;
+  padding: 15px 15px 0px 15px;
+  margin-right: 26px;
 }
 
 #navbar-header {
@@ -29,6 +29,8 @@
 
 .top-nav {
   margin-bottom: 0px;
+  position: sticky;
+  top: -10px;
 }
 
 #navcontainer {
@@ -55,8 +57,8 @@
 
 @media screen and (max-width:1079px) {
   .navbar-brand{
-      margin-top: 2px;
-      width: 120px;
+    margin-top: 2px;
+    width: 120px;
   }
 
   #navbar-search{
@@ -72,8 +74,8 @@
 
 @media screen and (max-width:767px) {
   .navbar-brand{
-      margin-left: 38%;
-      height: auto;
+    margin-left: 38%;
+    height: auto;
   }
 
   #navbar-search {
@@ -115,7 +117,7 @@
 
 @media screen and (max-width:479px) {
   .navbar-brand{
-      margin-left: 33%;
+    margin-left: 33%;
   }
 
   #navbar-search {
@@ -124,6 +126,11 @@
 
   .align-navsearch-btn {
     margin-right: 3% !important;
+  }
+
+  .top-nav {
+    position: inherit;
+    top: 0px;
   }
 }
 

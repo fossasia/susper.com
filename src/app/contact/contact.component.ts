@@ -1,12 +1,18 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+<<<<<<< HEAD
 import { url } from 'assets/url_configuration';
+=======
+import { validatePhone, validateEmail, validateMessage, validateName, countryCodeList } from '../utils';
+
+>>>>>>> upstream/development
 @Component({
-    selector: 'app-contact',
-    templateUrl: './contact.component.html',
-    styleUrls: ['./contact.component.css']
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent implements OnInit {
+<<<<<<< HEAD
 
     boatImage = url.logos.boat_image;
 
@@ -46,5 +52,44 @@ export class ContactComponent implements OnInit {
         } else {
             this.submitButton.nativeElement.disabled = true;
         }
+=======
+  @ViewChild('submitButton') submitButton;
+
+  emailInput: string;
+  nameInput: string;
+  phoneNumberInput: number;
+  contactMessage: string;
+  countryCodeList: any;
+
+  @ViewChild('ContactUsModal')
+  modal: ModalComponent;
+
+  constructor() {}
+
+  ngOnInit() {
+    this.contactMessage = '';
+    this.countryCodeList = countryCodeList;
+  }
+
+  closeModal() {
+    this.modal.close();
+  }
+
+  openModal() {
+    this.modal.open();
+  }
+
+  checkValidity() {
+    if (
+      validateEmail(this.emailInput) &&
+      validatePhone(this.phoneNumberInput) &&
+      validateMessage(this.contactMessage) &&
+      validateName(this.nameInput)
+    ) {
+      this.submitButton.nativeElement.disabled = false;
+    } else {
+      this.submitButton.nativeElement.disabled = true;
+>>>>>>> upstream/development
     }
+  }
 }

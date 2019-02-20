@@ -155,11 +155,11 @@
 }
 
 ._wPb {
-  height: 87px;
-  left: 43px;
+  height: 86.5px;
+  left: 46.5px;
   pointer-events: none;
   position: absolute;
-  top: 47px;
+  top: 44.5px;
   width: 42px;
   transform: scale(1);
 }
@@ -168,7 +168,7 @@
   background-color: #999;
   border-radius: 30px;
   height: 46px;
-  left: 25px;
+  left: 23.5px;
   pointer-events: none;
   position: absolute;
   width: 24px;
@@ -177,7 +177,7 @@
 ._Fjd {
   bottom: 0;
   height: 53px;
-  left: 18px;
+  left: 16.5px;
   overflow: hidden;
   pointer-events: none;
   position: absolute;
@@ -188,7 +188,7 @@
   background-color: #999;
   bottom: 14px;
   height: 14px;
-  left: 16px;
+  left: 15px;
   pointer-events: none;
   position: absolute;
   width: 9px;
@@ -202,7 +202,7 @@
   height: 57px;
   pointer-events: none;
   position: absolute;
-  width: 38px;
+  width: 37.5px;
   z-index: 0;
 }
 
