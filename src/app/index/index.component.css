@@ -148,13 +148,8 @@ footer {
 }
 
 @media screen and (max-width: 823px) {
-<<<<<<< HEAD
-  img#biglogo{
-    margin-left: 87%;
-=======
   #susper-logo-fix {
     margin-left: 78%;
->>>>>>> upstream/development
   }
 }
 

@@ -77,6 +77,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   onEnter(event: any) {
+    
+    
     if (event.which === 13) {
       if (this.searchdata.fq !== '') {
         this.store.dispatch(
@@ -105,6 +107,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.submit();
     }
   }
+  submitb(){
+    this.submit();
+  }
 
   @HostListener('document:click', ['$event'])
   sugClose(event: Event) {
@@ -114,6 +119,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   onClick() {
+    
     if (this.searchdata.fq !== '') {
       this.store.dispatch(
         new queryactions.QueryServerAction({

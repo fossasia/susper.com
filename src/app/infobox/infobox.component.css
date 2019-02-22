@@ -1,32 +1,15 @@
-<<<<<<< HEAD
-.main_image{
-=======
 .main_image {
->>>>>>> upstream/development
   width: 100%;
   height: 100%;
   max-height: 200px;
   max-width: 165px;
 }
-<<<<<<< HEAD
-.info-img{
-=======
 .info-img {
->>>>>>> upstream/development
   float: right;
   margin-right: 10px;
   margin-top: -110px;
   margin-left: 3px;
 }
-<<<<<<< HEAD
-.wiki_logo{
-  display: inline-block;
-  position: relative;
-  margin: 0 6px 0 0;
-  width: 20px;
-  height: 20px;
-}
-=======
 
 /* Modal styles */
 
@@ -114,7 +97,6 @@ input#share_link:focus {
   cursor: pointer;
 }
 
->>>>>>> upstream/development
 .card {
   /* Add shadows to create the "card" effect */
   border: 1px solid rgba(150, 150, 150, 0.3);
@@ -155,15 +137,6 @@ hr {
   margin-top: 0px;
 }
 /**Browser Specific CSS**/
-<<<<<<< HEAD
-@-moz-document url-prefix(){
-    .query_description{
-      margin-top: -8px!important;
-    }
-    h2{
-      font-size: 2.3em!important;
-    }
-=======
 @-moz-document url-prefix() {
   .query_description {
     margin-top: -8px !important;
@@ -171,7 +144,6 @@ hr {
   h2 {
     font-size: 2.3em !important;
   }
->>>>>>> upstream/development
 }
 /** Screen Responsiveness **/
 @media screen and (max-width: 1307px) {
@@ -192,20 +164,7 @@ hr {
   }
   @-moz-document url-prefix() {
     h2 {
-<<<<<<< HEAD
-      font-size: 2em;
-    }
-    .query_description{
-      font-size: 0.8em;
-      max-width: 180px;
-    }
-   .main_image{
-      margin-top: 15px;
-      margin-left: 10px;
-      margin-right: -25px;
-=======
       font-size: 1.6em !important;
->>>>>>> upstream/development
     }
     .query_description {
       font-size: 0.7em !important;
@@ -221,11 +180,7 @@ hr {
   h2 {
     font-size: 1.9em;
   }
-<<<<<<< HEAD
-  .main_image{
-=======
   .main_image {
->>>>>>> upstream/development
     margin-top: 15px;
     margin-left: 10px;
     max-width: 150px;
@@ -238,11 +193,7 @@ hr {
     width: 95vw;
     margin-left: 4vw;
   }
-<<<<<<< HEAD
-  .main_image{
-=======
   .main_image {
->>>>>>> upstream/development
     margin-right: 0;
   }
 }

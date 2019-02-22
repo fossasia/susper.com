@@ -21,11 +21,7 @@
     
 
   </div>
-  <!-- <button class="btn btn-default" id="nav-button" type="button" value="Search" type="submit" (click)="onClick()"> search</button> -->
-  <!-- <button class="btn btn-default" id="nav-button" type="submit" (click)="onClick()" *ngIf="!(this.resultspage)"  [style.background-color]="themeService.searchbarbgColor">
-   search
-  </button> -->
-
+  
   <app-auto-complete (hidecomponent)="hidesuggestions($event)" id="auto-box" [hidden]="!ShowAuto()"></app-auto-complete>
 </form>
 
