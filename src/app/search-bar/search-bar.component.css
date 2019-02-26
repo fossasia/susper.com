@@ -23,7 +23,7 @@
   top: 4px;
   color: black;
   width: 536px;
-  height: 34px !important;
+  height: 44px !important;
   line-height: 34px ;
   border-radius: 25px;
   border: 2px;
@@ -31,7 +31,7 @@
   padding-left: 16px;
   font-family: Arial, sans-serif;
   position: initial;
-  padding-top: 8px;
+  padding-top: 2px;
   padding-bottom: 0px;
   padding-right: 9px;
 }
