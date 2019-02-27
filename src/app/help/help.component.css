@@ -23,9 +23,7 @@ a:hover {
 	color: blue;
 }
 
-.close-btn {
-	cursor: pointer;
-}
+.close-btn { cursor: pointer; }
 
 .navbar-right {
 	border-top:none;
