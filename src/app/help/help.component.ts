@@ -2,6 +2,8 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+declare const Swiper: any;
+
 @Component({
   selector: 'app-help',
   templateUrl: './help.component.html',
@@ -53,6 +55,21 @@ export class HelpComponent implements OnInit {
         }
         e.preventDefault();
       });
+
+      const mySwiper = new Swiper('.swiper-container', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+        allowTouchMove: false,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        }
+      })
     });
   }
 

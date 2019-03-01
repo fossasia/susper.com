@@ -10,7 +10,7 @@ declare var SpeechSynthesisUtterance: any;
 @Component({
   selector: 'app-infobox',
   templateUrl: './infobox.component.html',
-  styleUrls: ['./infobox.component.css']
+  styleUrls: ['./infobox.component.css'],
 })
 export class InfoboxComponent implements OnInit {
   title: string = '';
@@ -19,6 +19,7 @@ export class InfoboxComponent implements OnInit {
   results: object;
   query$: any;
   image: string;
+  isModalOpen: boolean = false;
   isVisible: boolean;
   resultsearch = '/search';
   speechMode: any;
@@ -27,11 +28,12 @@ export class InfoboxComponent implements OnInit {
   description_response$: Observable<any>;
   getString(string, subString, index) {
     return string.split(subString, index).join(subString);
- }
-  constructor(private store: Store<fromRoot.State>,
-              private synthesis: SpeechSynthesisService,
-              public themeService: ThemeService
-            ) {
+  }
+  constructor(
+    private store: Store<fromRoot.State>,
+    private synthesis: SpeechSynthesisService,
+    public themeService: ThemeService
+  ) {
     this.query$ = store.select(fromRoot.getwholequery);
     this.query$.subscribe(query => {
       this.speechMode = query.mode;
@@ -39,8 +41,8 @@ export class InfoboxComponent implements OnInit {
 
     this.content_response$ = store.select(fromRoot.getKnowledgeContent);
     this.content_response$.subscribe(res => {
-    this.isVisible = false;
-    this.results = res;
+      this.isVisible = false;
+      this.results = res;
       if (res.extract) {
         this.title = res.title;
         this.description = res.extract;
@@ -66,16 +68,24 @@ export class InfoboxComponent implements OnInit {
           this.querydescription = res['search'][0]['description'];
         }
       }
-    }
-    );
+    });
   }
   startSpeaking(description) {
-        let msg = new SpeechSynthesisUtterance(description);
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.resume();
-        window.speechSynthesis.speak(msg);
-      }
-
-  ngOnInit() {
+    let msg = new SpeechSynthesisUtterance(description);
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.resume();
+    window.speechSynthesis.speak(msg);
   }
+
+  ShowModal() {
+    this.isModalOpen = true;
+  }
+  closeModal() {
+    this.isModalOpen = false;
+  }
+  getUrl() {
+    (<HTMLInputElement>document.getElementById('share_link')).value = document.URL;
+  }
+
+  ngOnInit() {}
 }

@@ -1,6 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { Component, Input, Output } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
 
 /**
  * import 'FormsModule' to avoid
@@ -40,9 +41,56 @@ describe('Component: Privacy', () => {
     expect(privacy).toBeTruthy();
   });
 
+  it('should have alt text property as brand', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
+    expect(image).toBeTruthy();
+    expect(image.alt).toBe('brand');
+  });
+
+  it('should have a div with id left', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('div#left'));
+  });
+
+  it('should have a div with id right', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('div#right'));
+  });
+
+  it('should have a sidebar menu', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('ul.sidebar-list'));
+  });
+
+  it('should have an active list on sidebar menu', () => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('ul.sidebar-list li.active'));
+  });
+
   it('should create a FooterNavbar Component', () => {
     const footerNavbar = new FooterNavbarComponent();
     expect(footerNavbar).toBeTruthy();
   });
+
+  it('should have an app-footer-navbar element', () => {
+    let compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
+  });
+
+  it('should scroll', async(() => {
+    let compiled = fixture.debugElement.nativeElement;
+    const element = compiled.querySelector('li.element4 a');
+
+    element.click();
+    fixture.whenStable().then(() => {
+      expect(compiled.querySelector('li.element4.active')).toBeTruthy();
+    });
+  }));
 
 });

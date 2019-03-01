@@ -34,9 +34,9 @@ describe('Component: About', () => {
   });
 
   it('should have alt text property as brand', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
-    let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
+    const image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
     expect(image).toBeTruthy();
     expect(image.alt).toBe('brand');
   });
@@ -46,8 +46,14 @@ describe('Component: About', () => {
     expect(footerNavbar).toBeTruthy();
   });
 
+  it('should have a footer element', () => {
+    const compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('footer')).toBeTruthy();
+  });
+
   it('should have an app-footer-navbar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
   });
 
