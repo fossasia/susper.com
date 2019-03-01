@@ -22,4 +22,8 @@ describe('DropdownComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have susperUrl variable', () => {
+    expect(component.susperUrl).toBeTruthy();
+  });
 });

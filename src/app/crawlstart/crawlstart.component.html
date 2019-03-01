@@ -27,32 +27,32 @@
 
 <div class="container">
   <h3 style="color: #dd4b39;font-family: Arial,SansSerif">Expert Crawl Start</h3>
-  
+
   <p>
     You can define URLs as start points for Web page crawling and start crawling here.
     "Crawling" implies that YaCy will download the given website, extract all links in it and then download the content behind these links.
     This is repeated as long as specified under "Crawling Depth".
     A crawl can also be started using wget and the <a href="http://www.{{yacyWebSearchUrl}}/wiki/index.php/Dev:APICrawler" target="_blank">post arguments</a> for this web page.
   </p>
-  
+
   <hr>
-  <fieldset>  
+  <fieldset>
     <legend>Crawl Job</legend>
     <p>A Crawl Job consist of one or more start points, crawl limitations and document freshness rules.</p><br/>
-    <fieldset id="fieldset-1">  
+    <fieldset id="fieldset-1">
       <legend>Start Point</legend>
       <dl>
         <form>
           <div class="row">
             <div class="form-group">
               <dt>
-                <input [(ngModel)]="crawlvalues.crawlingMode" name="crawlingMode" 
+                <input [(ngModel)]="crawlvalues.crawlingMode" name="crawlingMode"
                     value="url" type="radio">
                 <label for="words" class="label-inline">One Start URL or a list of URLs:<br>
                   (must start with http:// https:// ftp:// smb:// file://):</label>
               </dt>
               <dd>
-                  <textarea [(ngModel)]="crawlvalues.crawlingURL" type="text" 
+                  <textarea [(ngModel)]="crawlvalues.crawlingURL" type="text"
                     name="crawlingURL" class="form-control" id="words" cols="64" rows="3" size="41" >
                   </textarea>
               </dd>
@@ -70,7 +70,7 @@
                 <label for="any" class="label-inline">From Sitemap</label>
               </dt>
               <dd>
-                <input type="text" class="form-control" id="any" 
+                <input type="text" class="form-control" id="any"
                   [(ngModel)]="crawlvalues.sitemapURL" maxlength="256" name="sitemapURL">
               </dd>
             </div>
@@ -80,7 +80,7 @@
                 <label for="none" class="label-inline">From File (enter a path <br/> within your local file system)</label>
               </dt>
               <dd>
-                <input type="text" class="form-control" id="none" 
+                <input type="text" class="form-control" id="none"
                   [(ngModel)]="crawlvalues.crawlingFile" size="71" maxlength="256" name="crawlingFile">
               </dd>
             </div>
@@ -112,7 +112,7 @@
             <div class="col-md-4"><label for="last update">Maximum Pages per Domain</label></div>
             <div class="col-md-6">
               <input type="checkbox" name="DomMaxCheck" [(ngModel)]="crawlvalues.crawlingDomMaxCheck"><span>Use Page Count:</span>
-              <input type="text" class="form-control" id="last update" name="DomMaxPages" [(ngModel)]="crawlvalues.crawlingDomMaxPages" size="6" maxlength="6">
+              <input type="number" class="form-control" id="last update" name="DomMaxPages" [(ngModel)]="crawlvalues.crawlingDomMaxPages" size="6" maxlength="6">
             </div>
           </div>
 
@@ -145,7 +145,7 @@
           </div>
 
           <div class="form-group">
-            <div class="col-md-4"><label for="terms appearing">Load Filter on IPs</label></div> 
+            <div class="col-md-4"><label for="terms appearing">Load Filter on IPs</label></div>
             <div class="col-md-6">
               <img src="https://{{yacySearchlabUrl}}/env/grafics/plus.gif">
               <span>must-match</span>
@@ -279,25 +279,25 @@
             </div>
 
             <div class="col-md-6">
-              <input name="storeHT" [(ngModel)]="crawlvalues.storeHTCache" type="checkbox">
+              <input name="storeHT" [(ngModel)]="crawlvalues.storeHTCache" type="checkbox"><span class="span-both">Yes</span><br>
             </div>
           </div>
 
           <div class="form-group">
             <div class="col-md-4"><label>Policy for usage of Web Cache</label></div>
-            
+
             <div class="col-md-6">
-              <input name="cache" [(ngModel)]="crawlvalues.cachePolicy" type="radio" value="nocache"><span class="span-both">no cache</span><br/>
-              <input name="cachepolicy" type="radio" [(ngModel)]="crawlvalues.cachePolicy" value="iffresh"><span class="span-both">if fresh</span><br/>
-              <input name="cachepolicy" type="radio" [(ngModel)]="crawlvalues.cachePolicy" value="ifexist"><span class="span-both">if exist</span><br/>
-              <input name="cachepolicy" type="radio" [(ngModel)]="crawlvalues.cachePolicy" value="cacheonly"><span class="span-both">cache only</span><br/>
+              <input name="cache" [(ngModel)]="crawlvalues.cachePolicy" type="radio" value="nocache"><span class="span-both">No cache</span><br/>
+              <input name="cachepolicy" type="radio" [(ngModel)]="crawlvalues.cachePolicy" value="iffresh"><span class="span-both">If fresh</span><br/>
+              <input name="cachepolicy" type="radio" [(ngModel)]="crawlvalues.cachePolicy" value="ifexist"><span class="span-both">If exist</span><br/>
+              <input name="cachepolicy" type="radio" [(ngModel)]="crawlvalues.cachePolicy" value="cacheonly"><span class="span-both">Cache only</span><br/>
             </div>
 
           </div>
         </div>
-      </form>  
+      </form>
     </fieldset>
-    
+
     <hr>
     <fieldset>
       <legend>Snapshot Creation</legend>
@@ -306,7 +306,7 @@
           <div class="form-group">
             <div class="col-md-4"><label>Max Depth for Snapshots</label></div>
             <div class="col-md-6">
-              <input type="text" name="snapshotsmaxdepth" class="form-control" [(ngModel)]="crawlvalues.snapshotsMaxDepth" size="2" maxlength="2" value="-1">
+              <input type="number" name="snapshotsmaxdepth" class="form-control" [(ngModel)]="crawlvalues.snapshotsMaxDepth" size="2" maxlength="2" value="-1">
             </div>
           </div>
 
@@ -339,8 +339,8 @@
           <div class="form-group">
             <div class="col-md-4 top-margin-div"><label>Indexing</label></div>
             <div class="col-md-6">
-              <input name="indextext" type="checkbox" [(ngModel)]="crawlvalues.indexText"><span>index text</span><br/>
-              <input name="indexmedia" type="checkbox" [(ngModel)]="crawlvalues.indexMedia"><span>index media</span>
+              <input name="indextext" type="checkbox" [(ngModel)]="crawlvalues.indexText"><span>Index text</span><br/>
+              <input name="indexmedia" type="checkbox" [(ngModel)]="crawlvalues.indexMedia"><span>Index media</span>
             </div>
           </div>
 
@@ -360,7 +360,7 @@
         </div>
       </form>
     </fieldset>
-    
+
 
     <div class="adv-submit" id="crawlStartBtn">
       <button class="adv-btn btn" (click)="startCrawlJob()"><span class="btn-text">Start New Crawl Job</span></button>

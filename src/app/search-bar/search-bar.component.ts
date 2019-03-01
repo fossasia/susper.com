@@ -1,6 +1,15 @@
 import {
-  Component, OnInit, Input, Output, AfterContentInit, ContentChild,
-  AfterViewChecked, AfterViewInit, ViewChild, ViewChildren, ElementRef,
+  Component,
+  OnInit,
+  Input,
+  Output,
+  AfterContentInit,
+  ContentChild,
+  AfterViewChecked,
+  AfterViewInit,
+  ViewChild,
+  ViewChildren,
+  ElementRef,
   HostListener
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,7 +28,8 @@ import { ThemeService } from '../services/theme.service';
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit, AfterViewInit {
-  @ViewChildren('input') vc;
+  @ViewChildren('input')
+  vc;
 
   query$: Observable<any>;
   displayStatus: any;
@@ -51,7 +61,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     });
 
     this.resultspage = this.router.url.toString().includes('/search');
-  };
+  }
 
   speechRecognition() {
     this.store.dispatch(new speechactions.SearchAction(true));
@@ -68,14 +78,24 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   onEnter(event: any) {
     if (event.which === 13) {
       if (this.searchdata.fq !== '') {
-        this.store.dispatch(new queryactions.QueryServerAction({'query': event.target.value, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq, mode: this.searchdata.mode}));
+        this.store.dispatch(
+          new queryactions.QueryServerAction({
+            query: event.target.value,
+            start: 0,
+            rows: this.searchdata.rows,
+            fq: this.searchdata.fq,
+            mode: this.searchdata.mode
+          })
+        );
       } else {
-        this.store.dispatch(new queryactions.QueryServerAction({
-          'query': event.target.value,
-          start: 0,
-          rows: this.searchdata.rows,
-          mode: this.searchdata.mode
-        }));
+        this.store.dispatch(
+          new queryactions.QueryServerAction({
+            query: event.target.value,
+            start: 0,
+            rows: this.searchdata.rows,
+            mode: this.searchdata.mode
+          })
+        );
       }
 
       this.displayStatus = 'hidebox';
@@ -94,14 +114,24 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   onClick() {
     if (this.searchdata.fq !== '') {
-      this.store.dispatch(new queryactions.QueryServerAction({'query': this.searchdata.query, start: 0, rows: this.searchdata.rows, fq: this.searchdata.fq, mode: this.searchdata.mode}));
+      this.store.dispatch(
+        new queryactions.QueryServerAction({
+          query: this.searchdata.query,
+          start: 0,
+          rows: this.searchdata.rows,
+          fq: this.searchdata.fq,
+          mode: this.searchdata.mode
+        })
+      );
     } else {
-      this.store.dispatch(new queryactions.QueryServerAction({
-        'query': this.searchdata.query,
-        start: 0,
-        rows: this.searchdata.rows,
-        mode: this.searchdata.mode
-      }));
+      this.store.dispatch(
+        new queryactions.QueryServerAction({
+          query: this.searchdata.query,
+          start: 0,
+          rows: this.searchdata.rows,
+          mode: this.searchdata.mode
+        })
+      );
     }
 
     this.displayStatus = 'hidebox';
@@ -109,7 +139,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   ShowAuto() {
-    return (this.displayStatus === 'showbox');
+    return this.displayStatus === 'showbox';
   }
 
   ngOnInit() {
@@ -119,12 +149,20 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.vc.first.nativeElement.focus();
   }
+  clearSearch() {
+    this.store.dispatch(
+      new queryactions.QueryServerAction({
+        query: ''
+      })
+    );
+  }
 
   submit() {
     if (this.searchdata.query.toString().length !== 0) {
-      if (!this.resultspage) {
-        this.router.navigate(['/search'], {queryParams: this.searchdata});
-      }
+      // if (!this.resultspage) {
+      //   this.router.navigate(['/search'], {queryParams: this.searchdata});
+      // }
+      this.router.navigate(['/search'], { queryParams: this.searchdata });
     }
   }
 }

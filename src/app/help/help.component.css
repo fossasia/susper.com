@@ -4,6 +4,10 @@
 	}
 }
 
+a:hover {
+	cursor: pointer;
+}
+
 .bold {
 	font-weight: 700;
 }
@@ -42,6 +46,7 @@
 
 .help-heading{
 	color: #0f3dbd;
+	margin-bottom: 25px;
 }
 
 .navbar-logo {
@@ -171,6 +176,18 @@ a:hover {
 	color: #000000;
 }
 
+.accordion-section-title:before {
+	font-family: 'Glyphicons Halflings';
+	content: "\e114";
+	float: right;
+	transition: all 0.5s;
+}
+.accordion-section-title.active:before {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	transform: rotate(180deg);
+} 
+
 .accordion-section-title:hover {
 	background:#f2f2f2;
 	text-decoration:none;
@@ -189,44 +206,75 @@ a:hover {
 .queries {
 	padding-left: 2%;
 	padding-right: 2%;
-
 }
 
-#wrapper {
-    width: 920px;
-    height: auto;
-    margin: 0 auto;
-}
-#video1 {
-    width: 47.5%;
-    height: 300px;
-    float: left;
-    margin-right: 5%;
+.videos-slider {
+	margin-bottom: 150px;
 }
 
-#video2 {
-    width: 47.5%;
-    height: 300px;
-	float: left;
+@media screen and (max-width: 1000px) {
+	.videos-slider {
+		display: none;
+	}
 }
 
-.clear {
-    clear: both;
+.videos-container {
+	width: 100%;
+	height: auto;
+	overflow: visible;
+	left: 0.2%;
 }
 
-@media (max-width:767px) {
-    #wrapper {
-        width: 100%;
-        height: auto;
-    }
-    #video1 {
-        width: 100%;
-        height: auto;
-        float: none;
-    }
-    #video2 {
-        width: 100%;
-        height: auto;
-        float: none;
-    }
+.swiper-pagination {
+	bottom: -30px;
 }
+
+.swiper-slide-next {
+	visibility: hidden;
+}
+
+.swiper-slide-prev {
+	visibility: hidden;
+}
+
+.swiper-button-next {
+	right: -2.8%;
+}
+
+.swiper-button-prev {
+	left: -3.1%;
+}
+
+.ratio {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.video-left iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 90%;
+	height: 100%;
+}
+
+.video-middle iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 90%;
+	height: 100%;
+}
+
+.video-right iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 90%;
+	height: 100%;
+}
+.help {
+	margin-bottom: 50px;
+}
+

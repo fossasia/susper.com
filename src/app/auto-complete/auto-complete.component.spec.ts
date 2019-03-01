@@ -37,7 +37,15 @@ describe('AutoCompleteComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create autocomplete component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have query$ variable', () => {
+    expect(component.query$).toBeTruthy();
+  });
+
+  it('should have resultsearch variable equal to "/search"', () => {
+    expect(component.resultsearch).toEqual('/search');
   });
 });
