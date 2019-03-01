@@ -175,11 +175,6 @@ select {
   text-decoration-color:rgb(68, 68, 68);
 }
 
-select {
-  background-color: rgb(245, 245, 245);
-  text-decoration-color:rgb(68, 68, 68);
-}
-
 @media only screen and (max-width: 500px) {
   #left{
     width: 100%;
