@@ -19,4 +19,12 @@ describe('CrawlstartComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should create', () => {
+    expect(component).toBeTruthy() ;
+  })
+
+  it('should have susper url', () => {
+    expect(component.susperUrl).toBe("susper.com")
+  })
+
 });
