@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CrawlstartComponent } from './crawlstart.component';
+import { FormsModule } from '@angular/forms';
+import { FooterNavbarComponent } from 'app/footer-navbar/footer-navbar.component';
+import { CrawlstartService } from 'app/services/crawlstart.service';
+import { url } from '../../assets/url_configuration';
 
 describe('CrawlstartComponent', () => {
   let component: CrawlstartComponent;
@@ -8,7 +11,11 @@ describe('CrawlstartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CrawlstartComponent ]
+      imports: [
+        FormsModule
+      ],
+      declarations: [ CrawlstartComponent, FooterNavbarComponent ],
+      providers: [CrawlstartService]
     })
     .compileComponents();
   }));
