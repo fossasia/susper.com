@@ -5,9 +5,6 @@ import { StoreModule, Store } from "@ngrx/store";
 import { reducer } from "../reducers/index";
 import * as fromRoot from '../reducers';
 import { RouterTestingModule } from "@angular/router/testing";
-import { Router } from '@angular/router';
-import * as queryactions from '../actions/query';
-import * as speechactions from '../actions/speech';
 
 describe('SpeechtotextComponent', () => {
   let component: SpeechtotextComponent;
