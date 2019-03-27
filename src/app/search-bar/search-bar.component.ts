@@ -1,13 +1,7 @@
 import {
   Component,
   OnInit,
-  Input,
-  Output,
-  AfterContentInit,
-  ContentChild,
-  AfterViewChecked,
   AfterViewInit,
-  ViewChild,
   ViewChildren,
   ElementRef,
   HostListener

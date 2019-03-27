@@ -1,7 +1,5 @@
 import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
-import { Component, Input, Output } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { By } from '@angular/platform-browser';
 
 /**
  * import 'FormsModule' to avoid

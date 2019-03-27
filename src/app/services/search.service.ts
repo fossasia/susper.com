@@ -4,7 +4,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../reducers';
-import * as search from '../actions/search';
 import {Observable} from 'rxjs';
 import { url } from '../../assets/url_configuration';
 @Injectable()
