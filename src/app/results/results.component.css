@@ -216,7 +216,7 @@ a {
 /** END **/
 
 #search-options-field {
-  background-color: #fafafa;
+  background-color: rgb(255, 255, 255);
   padding-bottom: 3px;
 }
 
@@ -224,6 +224,10 @@ a {
   display: inline-block;
   height: 100%;
   vertical-align: middle;
+}
+
+hr {
+  margin-top: 0px;
 }
 
 #search-options {
