@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
+import { Theme } from '../types/theme';
 
 @Component({
   selector: 'app-theme',
@@ -20,22 +21,22 @@ export class ThemeComponent implements OnInit {
 
   applyTheme(theme: string) {
     switch (theme) {
-      case "darkTheme": {
+      case Theme.DarkTheme: {
         return this.darkTheme();
       }
-      case "basicTheme": {
+      case Theme.BasicTheme: {
         return this.basicTheme();
       }
-      case "contrastTheme": {
+      case Theme.ContrastTheme: {
         return this.contrastTheme();
       }
-      case "terminalTheme": {
+      case Theme.TerminalTheme: {
         return this.terminalTheme();
       }
-      case "nightTheme": {
+      case Theme.NightTheme: {
         return this.nightTheme();
       }
-      case "defaultTheme": {
+      case Theme.DefaultTheme: {
         return this.defaultTheme();
       }
       default: {
