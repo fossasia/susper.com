@@ -11,7 +11,7 @@
 
     <div class="input-group-btn">
       <button class="btn btn-default" id="speech-button" type="submit" [style.background-color]="themeService.searchbarbgColor">
-        <img src="../../assets/images/microphone.png" class="microphone" (click)="speechRecognition()"/>
+        <img src="../../assets/images/microphone.webp" onerror="this.onerror=null; this.src='../../assets/images/microphone.png'" class="microphone" (click)="speechRecognition()"/>
       </button>
       <button class="btn btn-default" id="nav-button" type="submit" (click)="onClick()" *ngIf="this.resultspage" [style.background-color]="themeService.searchbarbgColor">
         <i class="glyphicon glyphicon-search"></i>
