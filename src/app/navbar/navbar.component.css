@@ -43,6 +43,13 @@
   padding: 0;
   list-style-type: none;
 }
+.fixed {
+  position: fixed !important;
+  z-index: 1 !important;
+  top: 0px !important;
+  background-color: #fafafa !important;
+  margin-top: 0px !important;
+}
 
 @media screen and (min-width:1920px) {
   .navbar-brand{
