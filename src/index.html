@@ -82,6 +82,22 @@
         $("#set-susper-default").remove();
     });
 });
+  window.onscroll = function() {Scroll()};
+  var search = document.getElementsByClassName('navbar-header');
+
+  function Scroll () {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      for (var i = 0; i < search.length; ++i) {
+        search[i].classList.add('fixed');
+      }
+    }
+    else {
+      for (var i = 0; i < search.length; ++i) {
+        search[i].classList.remove('fixed');
+      }
+    }
+  }
+
 </script>
 <script>
   (function(){
