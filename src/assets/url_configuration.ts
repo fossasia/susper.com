@@ -39,7 +39,7 @@ export const url = {
                 'site': 'https://github.com/fossasia/MMM-SUSI-AI'
         },
         'yaydoc': {
-                'site': 'http://dev.yaydoc.org'
+                'site': 'http://yaydoc.org'
         },
         'github_repo': {
                 'fossasia': 'github.com/fossasia'
