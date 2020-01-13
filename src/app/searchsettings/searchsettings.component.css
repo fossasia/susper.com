@@ -208,3 +208,7 @@ ul li{
 .active {
   color:#dd4b39;
 }
+
+footer {
+  position: fixed;
+}
