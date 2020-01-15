@@ -9,6 +9,10 @@
   margin-top: 20px;
 }
 
+.intelligence .card {
+  width: -webkit-fill-available;
+}
+
 @media screen and (max-width: 450px) {
   div.card {
     width: 92vw;
