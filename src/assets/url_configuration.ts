@@ -39,10 +39,10 @@ export const url = {
                 'site': 'https://github.com/fossasia/MMM-SUSI-AI'
         },
         'yaydoc': {
-                'site': 'http://dev.yaydoc.org'
+                'site': 'http://yaydoc.org'
         },
         'github_repo': {
-                'fossasia': 'https://github.com/fossasia'
+                'fossasia': 'github.com/fossasia'
         },
         'badgemagic': {
                 'repo' : 'https://github.com/fossasia/badge-magic-android'
