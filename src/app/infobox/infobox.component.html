@@ -32,11 +32,16 @@
             </div></a
           >
         </div>
+        <div class="share-link">
+          <label for="share_link" style="color: #999999; margin-left: -6px;">Share link</label>
+          <br/>
+          <input type="text" id="share_link" value="{{ getUrl() }}">
+        </div>
       </div>
     </div>
     <h2>
       <b [style.color]="themeService.cardColor">{{ this.title }}</b
-      ><button class="btn dropdown-toggle" type="button" (click)="ShowModal()">
+      ><button class="btn dropdown-toggle" id="showSearchModal" type="button" (click)="ShowModal()">
         <i class="material-icons">share</i>
       </button>
     </h2>
@@ -47,8 +52,10 @@
     <div class="info-img"><img class="main_image" *ngIf="this.image" src="{{this.image}}" /></div>
     <p [style.color]="themeService.descriptionColor">
       {{ this.description }}
+      <br />
+      More at 
       <a [style.color]="themeService.linkColor" href="https://en.wikipedia.org/wiki/{{this.title}}">
-        <br />More at Wikipedia</a
+        <br />Wikipedia</a
       >
       <br />
       <a href="https://twitter.com/search?src=typd&q={{this.title}}">

@@ -3,8 +3,8 @@
   width: 632px;
   color: black;
   height: 44px;
-  border-radius: 0;
-  border: none;
+  border-radius: 25px;
+  border: 2px solid #609;
   border-style: solid;
   border-color:rgba(0, 0, 0, 0);
   border-width: 0px;
@@ -23,26 +23,26 @@
   top: 4px;
   color: black;
   width: 536px;
-  height: 34px !important;
+  height: 44px !important;
   line-height: 34px ;
-  border-radius: 0;
-  border: none;
+  border-radius: 25px;
+  border: 2px;
   box-shadow: none;
   padding-left: 16px;
   font-family: Arial, sans-serif;
   position: initial;
-  padding-top: 8px;
+  padding-top: 2px;
   padding-bottom: 0px;
   padding-right: 9px;
 }
 
 #nav-button {
-  border-radius: 0;
+  border-radius: 25px;
   height: 38px;
   background-color: white;
   color: #0066ff;
   box-shadow: none;
-  border: none;
+  border: 2px;
   position: initial;
 }
 
@@ -51,12 +51,12 @@
 }
 
 #speech-button {
-  border-radius: 0;
+  border-radius: 25px;
   height: 38px;
   background-color: white;
   color: #0066ff;
   box-shadow: none;
-  border: none;
+  border: 2px;
   position: initial;
 }
 
@@ -102,6 +102,7 @@
 @media screen and (max-width: 767px) {
   #nav-group {
     width: 95vw!important;
+    top: -10px;
   }
 
   .align-search-btn{

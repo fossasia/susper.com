@@ -8,9 +8,9 @@ describe('DropdownComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DropdownComponent ]
+      declarations: [DropdownComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +21,20 @@ describe('DropdownComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have dropdown-menu', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('div .side-menu')).toBeTruthy();
+  });
+
+  it('should have dropdown-menu', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('div .dropdown-menu')).toBeTruthy();
+  });
+
+  it('should have menu-row items', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('div .menu-row')).toBeTruthy();
   });
 });

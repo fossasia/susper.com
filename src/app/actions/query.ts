@@ -8,13 +8,11 @@ export const ActionTypes = {
 
 export class QueryAction implements Action {
   type = ActionTypes.QUERYCHANGE;
-
   constructor(public payload: any) {}
 }
 
 export class QueryServerAction implements Action {
   type = ActionTypes.QUERYSERVER;
-
   constructor(public payload: any) {}
 }
 

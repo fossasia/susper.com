@@ -12,8 +12,8 @@ import 'rxjs/add/operator/takeUntil';
 import * as query from '../actions/query';
 export const CHANGE = 'CHANGE';
 import * as fromRoot from '../reducers';
-import * as search from '../actions/search';
-import {SearchService} from '../services/search.service';
+import * as searchactions from '../actions/search';
+import { SearchService } from '../services/search.service';
 
 export interface State {
   query: string;
@@ -35,10 +35,8 @@ export interface State {
 
 @Injectable()
 export class ApiSearchEffects {
-
   @Effect()
-  search$: Observable<any>
-    = this.actions$
+  search$: Observable<any> = this.actions$
     .ofType(query.ActionTypes.QUERYSERVER)
     .debounceTime(300)
     .map((action: query.QueryServerAction) => action.payload)
@@ -50,14 +48,26 @@ export class ApiSearchEffects {
       const nextSearch$ = this.actions$.ofType(query.ActionTypes.QUERYSERVER).skip(1);
 
       if (querypay.search !== false) {
-        this.searchService.getsearchresults(querypay)
+        // mark as loading
+        this.store.dispatch(
+          new searchactions.SearchAction({
+            loading: true,
+          })
+        );
+
+        this.searchService
+          .getsearchresults(querypay)
           .takeUntil(nextSearch$)
-          .subscribe((response) => {
+          .subscribe(response => {
             if (querypay.append) {
-              this.store.dispatch(new search.SearchAction({response: response, append: true}));
+              this.store.dispatch(
+                new searchactions.SearchAction({ response: response, append: true, loading: false })
+              );
               return empty();
             } else {
-              this.store.dispatch(new search.SearchAction({response: response}));
+              this.store.dispatch(
+                new searchactions.SearchAction({ response: response, loading: false })
+              );
               return empty();
             }
           });
@@ -71,6 +81,5 @@ export class ApiSearchEffects {
     private actions$: Actions,
     private searchService: SearchService,
     private store: Store<fromRoot.State>
-  ) { }
-
+  ) {}
 }

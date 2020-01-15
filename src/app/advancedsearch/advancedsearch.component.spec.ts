@@ -40,7 +40,16 @@ describe('AdvancedsearchComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create an instance', () => {
+  it('should create an advanced search instance', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have advance search modal', () => {
+    const compiled = fixture.debugElement.nativeElement;
+
+    const button = compiled.querySelector('button');
+    button.click();
+    const modalBody: HTMLInputElement = compiled.querySelector('div.modal-body');
+    expect(modalBody).toBeTruthy();
   });
 });

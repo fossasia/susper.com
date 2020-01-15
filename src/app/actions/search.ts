@@ -10,25 +10,21 @@ export const ActionTypes = {
 
 export class SearchAction implements Action {
   type = ActionTypes.CHANGE;
-
   constructor(public payload: any) {}
 }
 
 export class ItemsAction implements Action {
   type = ActionTypes.ITEMS;
-
   constructor(public payload: any) {}
 }
 
 export class TotalResultsAction implements Action {
   type = ActionTypes.TOTALRESULTS;
-
   constructor(public payload: any) {}
 }
 
 export class NavigationAction implements Action {
   type = ActionTypes.NAVIGATION;
-
   constructor(public payload: any) {}
 }
 

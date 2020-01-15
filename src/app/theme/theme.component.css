@@ -2,3 +2,8 @@
   font-weight: 600px;
   padding: 5% 5% 3% 0%;
 }
+
+button.theme-link.active {
+  background-color: rgb(38, 84, 124);;
+  color: white;
+}

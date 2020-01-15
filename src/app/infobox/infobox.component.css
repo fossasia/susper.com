@@ -35,12 +35,10 @@
   top: 50%;
   z-index: 1002;
   background-color: #fefefe;
-  padding: 2em;
   font-size: 1.1em;
-  border-radius: 4px;
-  border: 1px solid #888;
-  width: 324px;
-  height: 300px;
+  border-radius: 8px;
+  width: 268px;
+  height: auto;
 }
 
 .modal-container h1 {
@@ -53,7 +51,7 @@
   flex-direction: column;
 }
 .icon-container > * + * {
-  margin-top: 24px;
+  margin-top: 20px;
 }
 .icon-wrapper {
   height: 38px;
@@ -66,6 +64,20 @@
   vertical-align: middle;
   margin: 0px 0px 0px 16px;
 }
+div.share-link {
+  margin: 24px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+input#share_link {
+  width: 100%;
+  outline: 0;
+  border-width: 0 0 1px;
+  border-color: #999999;
+}
+input#share_link:focus {
+  border-bottom: 1px solid rgb(38, 84, 124);
+}
 
 .btn {
   background: none;
@@ -76,7 +88,7 @@
   float: right;
   font-size: 28px;
   font-weight: bold;
-  margin: 24px 8px 24px 0px;
+  margin: 20px 24px 24px 0px;
 }
 .close:hover,
 .close:focus {

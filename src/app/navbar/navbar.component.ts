@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
+import { SearchBarComponent } from 'app/search-bar/search-bar.component';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,7 @@ import { ThemeService } from '../services/theme.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  @ViewChild(SearchBarComponent) searchComponent: SearchBarComponent;
   searchdata = {
     query: '',
     verify: false,
@@ -26,14 +27,16 @@ export class NavbarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public themeService: ThemeService
-    ) { }
+  ) {}
 
   ngOnInit() {
     this.searchdata.timezoneOffset = new Date().getTimezoneOffset();
   }
 
-  submit() {
-    this.router.navigate(['/search'], {queryParams: this.searchdata});
+  clearSearch() {
+    this.searchComponent.clearSearch();
   }
-
+  submit() {
+    this.router.navigate(['/search'], { queryParams: this.searchdata });
+  }
 }

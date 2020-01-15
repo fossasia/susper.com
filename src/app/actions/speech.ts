@@ -7,7 +7,6 @@ export const ActionTypes = {
 
 export class SearchAction implements Action {
   type = ActionTypes.CHANGE;
-
   constructor(public payload: any) {}
 }
 

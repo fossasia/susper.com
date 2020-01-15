@@ -35,5 +35,9 @@ describe('Component: FooterNavbar', () => {
     const footer = new FooterNavbarComponent();
     expect(footer).toBeTruthy();
   });
+  it('should have an footer element', () => {
+    const compiled = fixture.debugElement.nativeElement;
 
+    expect(compiled.querySelector('footer')).toBeTruthy();
+  });
 });

@@ -1,19 +1,16 @@
-<nav class="top-nav navbar navbar-static-top navbar-default" [style.background-color]="themeService.navbarbgColor">
-    <div class="container-fluid">
-        <div class="navbar-header" id="navcontainer">
-            <a routerLink="/">
-                <img class="navbar-brand" src="assets/images/susper.svg" alt="brand">
-            </a>
-
-            <div id="navbar-search">
-                <div id="search-bar">
-                    <app-search-bar></app-search-bar>
-                </div>
-            </div>
-
-            <div id="navbar-dropdown-box">
-                <app-dropdown></app-dropdown>
-            </div>
-        </div>
+<nav
+  class="top-nav navbar navbar-static-top navbar-default"
+  [style.background-color]="themeService.navbarbgColor"
+>
+  <div class="container-fluid">
+    <div class="navbar-header" id="navcontainer">
+      <a routerLink="/" (click)="clearSearch()">
+        <img class="navbar-brand" src="assets/images/susper.svg" alt="brand" />
+      </a>
+      <div id="navbar-search">
+        <div id="search-bar"><app-search-bar></app-search-bar></div>
+      </div>
+      <div id="navbar-dropdown-box"><app-dropdown></app-dropdown></div>
     </div>
+  </div>
 </nav>

@@ -15,7 +15,8 @@ module.exports = function (config) {
     ],
     files: [
       { pattern: './src/test.ts', watched: false },
-      'https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'
+      'https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.min.js'
     ],
     preprocessors: {
       './src/test.ts': ['@angular/cli'],

@@ -4,6 +4,10 @@
 	}
 }
 
+a:hover {
+	cursor: pointer;
+}
+
 .bold {
 	font-weight: 700;
 }
@@ -18,6 +22,8 @@
 	padding-right: 0%;
 	color: blue;
 }
+
+.close-btn { cursor: pointer; }
 
 .navbar-right {
 	border-top:none;
@@ -172,6 +178,18 @@ a:hover {
 	color: #000000;
 }
 
+.accordion-section-title:before {
+	font-family: 'Glyphicons Halflings';
+	content: "\e114";
+	float: right;
+	transition: all 0.5s;
+}
+.accordion-section-title.active:before {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	transform: rotate(180deg);
+} 
+
 .accordion-section-title:hover {
 	background:#f2f2f2;
 	text-decoration:none;
@@ -258,3 +276,7 @@ a:hover {
 	width: 90%;
 	height: 100%;
 }
+.help {
+	margin-bottom: 50px;
+}
+

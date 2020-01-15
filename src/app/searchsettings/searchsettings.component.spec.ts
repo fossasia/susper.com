@@ -48,32 +48,31 @@ describe('SearchsettingsComponent', () => {
   });
 
   it('should have an app-advancedsearch element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('app-footer-navbar')).toBeTruthy();
   });
 
   it('should have a save button', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('button.savbtn'));
   });
 
   it('should have a cancel button', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('button.cancbtn'));
   });
 
   it('should have a navbar', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('nav.navbar'));
   });
-
   it('should have alt text property as brand', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
-    let image: HTMLImageElement = compiled.querySelector('a.navbar-brand img');
+    const image: HTMLImageElement = compiled.querySelector('a.navbar-brand img');
     expect(image).toBeTruthy();
     expect(image.alt).toBe('brand');
   });

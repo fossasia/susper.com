@@ -1,4 +1,3 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Injectable } from '@angular/core';
 import {Http, URLSearchParams, Jsonp, Response, Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -6,8 +5,6 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/retry';
 import {Store} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Subject } from 'rxjs/Rx';
-import * as search from '../actions/search';
 import * as fromRoot from '../reducers';
 import { url } from '../../assets/url_configuration';
 

@@ -34,17 +34,6 @@
     padding-left: 20px;
 }
 
-.navbar-text {
-    padding-right: 30px;
-    font-size: 20px;
-    margin-top: 6px;
-}
-
-.text-center {
-    text-align: center;
-    font-family: "Quicksand", sans-serif;
-}
-
 .bold {
     font-weight: 700;
 }
@@ -66,12 +55,6 @@ footer{
         top: 0;
         height: 300px;
     }
-}
-
-
-.about-navbar {
-    position: relative;
-    top: -5px;
 }
 
 .navbar {
@@ -129,10 +112,6 @@ footer{
     padding: 5px 10px;
     font-weight: 500;
     font-size: 24px;
-}
-
-.navbar-fixed-bottom, .navbar-fixed-top{
-    position: relative !important;
 }
 
 .contact-title{
