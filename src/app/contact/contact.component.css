@@ -19,7 +19,7 @@ img.img {
   background-size: cover;
   background-image: url(../../assets/images/boat.png);
   margin-bottom: 25px;
-  width: 100% !important;
+  width: 100%;
 }
 
 .banner {
