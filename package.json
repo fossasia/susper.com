@@ -54,7 +54,7 @@
     "@types/jquery": "^3.3.20",
     "@types/node": "^7.0.23",
     "angular-cli-ghpages": "^0.5.1",
-    "codecov": "^3.0.2",
+    "codecov": "^3.7.1",
     "codelyzer": "~3.0.1",
     "enhanced-resolve": "^3.3.0",
     "jasmine-core": "2.6.2",
