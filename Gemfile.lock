@@ -261,7 +261,7 @@ GEM
       i18n
     ruby2_keywords (0.0.4)
     ruby_dep (1.5.0)
-    rubyzip (1.2.2)
+    rubyzip (2.3.2)
     safe_yaml (1.0.4)
     sass (3.6.0)
       sass-listen (~> 4.0.0)
