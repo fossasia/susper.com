@@ -1,4 +1,4 @@
-# susper.com
+![susper.com](src/assets/images/susper.svg)
 
 master: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=master)](https://travis-ci.org/fossasia/susper.com)
 development: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?branch=development)](https://travis-ci.org/fossasia/susper.com)
@@ -10,7 +10,7 @@ development: [![Build Status](https://travis-ci.org/fossasia/susper.com.svg?bran
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/fossasia/susper.com.svg)](http://isitmaintained.com/project/fossasia/susper.com "Percentage of issues still open")
 
 
-Susper is a decentralized Search Engine that uses the peer to peer system yacy and Apache Solr to crawl and index search results.
+Susper is a decentralized Search Engine that uses the peer to peer system YaCy and Apache Solr to crawl and index search results.
 
 You can test the branches of susper here:
 * Development branch: https://susper-dev.herokuapp.com
@@ -22,7 +22,7 @@ Our chat channel is on gitter: https://gitter.im/fossasia/susper.com
 
 ## Components and Technology
 
-This is a front-end for Susper running on Yacy server. The retrieval of search results is done using YaCy search API.
+This is a front-end for Susper running on YaCy server. The retrieval of search results is done using YaCy search API.
 
 * Solr and Javascript(JSON)
 
@@ -30,7 +30,7 @@ Search results are displayed using Solr server which is embedded into YaCy. All 
 
 ## Technology Stack
 * HTML - Structure of the web page generated.
-* Bootstrap-3.3.7 - Used for responsive design
+* Bootstrap-3.3.7 - Used for responsive design.
 * CSS - Styling options and details of the web page.
 * Javascript(JSON) - Used to store information for deploying the application such as dependencies.
 * Angular-4 - Structure for deployment of the web page.
@@ -55,17 +55,17 @@ npm install -g @angular/cli@latest
 * **Step 2:** Then cd into that cloned folder
 * **Step 3:** Then execute the command: ```npm install```
 * **Step 4:** Deploy locally by running this:```ng serve```
-* **Step 5:** Go to [localhost:4200](http://localhost:4200) where the application will be running locally.
+* **Step 5:** Go to [localhost:4200](http://localhost:4200) where the application will be running locally
 
 ### For deploying with [Github Pages](https://pages.github.com/):
 With these very simple steps you can have susper deployed:
 
-* **Step 1:** Fork susper repository and clone it to your desktop.
+* **Step 1:** Fork susper repository and clone it to your desktop
 * **Step 2:** Then checkout to your master branch `git checkout master`
 * **Step 3:** Deploy by running this: ```ng build``` and then ```npm run deploy```
-* **Step 4:** Visit `https://yourusername.github.io/susper` and you should see the Susper search running.
-* **Step 5:** As you search you might see that it can't find anything, to resolve this, on search you will see there is a red shield on the search bar, click on it and allow to load unsafe scripts.
-* **Step 6:** Reload and you will have a fully functioning Susper search deployed on GitHub pages.
+* **Step 4:** Visit `https://yourusername.github.io/susper` and you should see the Susper search running
+* **Step 5:** As you search you might see that it can't find anything, to resolve this, on search you will see there is a red shield on the search bar, click on it and allow to load unsafe scripts
+* **Step 6:** Reload and you will have a fully functioning Susper search deployed on GitHub pages
 
 ### For deploying with [Surge](https://surge.sh/):
 
@@ -87,7 +87,8 @@ This is an Open Source project and we would be happy to see contributors who rep
 * When you're submitting a PR for a UI-related issue, it would be really awesome if you add a screenshot of your change or a link to a deployment where it can be tested out along with your PR. It makes it very easy for the reviewers and you'll also get reviews quicker.
 
 **Feature Requests and Bug Reports**
-* When you file a feature request or when you are submitting a bug report to the [issue tracker](https://github.com/fossasia/susper.com/issues), make sure you add steps to reproduce it. Especially if that bug is some weird/rare one.
+* When you file a feature request or when you are submitting a bug, report to the [issue tracker] (https://github.com/fossasia/susper.com/issues)
+* Make sure you add steps to reproduce it, especially if that bug is some weird/rare one.
 
 **Join the development**
 * Before you join development, please set up the project on your local machine, run it and go through the application completely. Press any button you can find and see where it leads to. Explore. (Don't worry ... Nothing will happen to the app or to you due to the exploring :wink:. Only thing that will happen is, you'll be more familiar with what is where and might even get some cool ideas on how to improve various aspects of the app.)
@@ -98,7 +99,7 @@ Do read the [Open Source Developer Guide and Best Practices at FOSSASIA](https:/
 
 ## Issue and Branch Policy
 
-Before making a pull request, please file an issue. So, other developers have the chance to give feedback or discuss details. Match every pull request with an issue please and add the issue number in description e.g. like "Fixes #123".
+Before making a pull request, please file an issue so that other developers have the chance to give feedback or discuss details. Please match every pull request with an issue and add the issue number in description e.g. like "Fixes #123".
 
 We have the following branches:
  * **development**

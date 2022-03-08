@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Input, Output } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { NavbarComponent } from './navbar.component';
@@ -67,23 +66,28 @@ describe('Component: Navbar', () => {
    */
 
   it('should have an app-search-bar element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-search-bar')).toBeTruthy();
   });
 
   it('should have alt text property as brand', () => {
-    let compiled = fixture.debugElement.nativeElement;
-    let image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
+    const compiled = fixture.debugElement.nativeElement;
+    const image: HTMLImageElement = compiled.querySelector('div.navbar-header img');
 
     expect(image).toBeTruthy();
     expect(image.alt).toBe('brand');
   });
 
   it('should have an app-dropdown element', () => {
-    let compiled = fixture.debugElement.nativeElement;
+    const compiled = fixture.debugElement.nativeElement;
 
     expect(compiled.querySelector('app-dropdown')).toBeTruthy();
+  });
+  it('should have an app-search-bar element', () => {
+    const compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('app-search-bar')).toBeTruthy();
   });
 
 });

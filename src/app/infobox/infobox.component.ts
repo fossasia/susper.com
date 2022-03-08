@@ -83,6 +83,9 @@ export class InfoboxComponent implements OnInit {
   closeModal() {
     this.isModalOpen = false;
   }
+  getUrl() {
+    (<HTMLInputElement>document.getElementById('share_link')).value = document.URL;
+  }
 
   ngOnInit() {}
 }

@@ -59,6 +59,7 @@ export class ThemeComponent implements OnInit {
     this.themeService.searchbarColor = '#000000';
     this.themeService.searchbarbgColor = '#ffffff';
     setFooter();
+    setBtnActive('dark');
   }
 
   defaultTheme() {
@@ -71,6 +72,7 @@ export class ThemeComponent implements OnInit {
     this.themeService.searchbarColor = '#000000';
     this.themeService.searchbarbgColor = '#ffffff';
     setFooter();
+    setBtnActive('default');
   }
 
   basicTheme() {
@@ -83,6 +85,7 @@ export class ThemeComponent implements OnInit {
     this.themeService.searchbarColor = '#000000';
     this.themeService.searchbarbgColor = '#ffffff';
     setFooter();
+    setBtnActive('basic');
   }
 
   contrastTheme() {
@@ -95,6 +98,7 @@ export class ThemeComponent implements OnInit {
     this.themeService.searchbarColor = '#000000';
     this.themeService.searchbarbgColor = '#ffffff';
     setFooter();
+    setBtnActive('contrast');
   }
 
   terminalTheme() {
@@ -107,6 +111,7 @@ export class ThemeComponent implements OnInit {
     this.themeService.searchbarColor = '#000000';
     this.themeService.searchbarbgColor = '#ffffff';
     setFooter();
+    setBtnActive('terminal');
   }
 
   nightTheme() {
@@ -118,12 +123,24 @@ export class ThemeComponent implements OnInit {
     this.themeService.navbarbgColor = '#373737';
     this.themeService.searchbarColor = '#ffffff';
     this.themeService.searchbarbgColor = '#323232';
-    (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.background = '#373737';
-    (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.borderTop = '#222222';
+    if (typeof(document.getElementsByClassName("footer-bar")[0] as HTMLElement) !== 'undefined') {
+      (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.background = '#373737';
+      (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.borderTop = '#222222';
+    }
+    setBtnActive('night');
   }
 }
 
 function setFooter() {
-  (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.background = '#f2f2f2';
-  (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.borderTop = '#e4e4e4';
+  if (typeof(document.getElementsByClassName("footer-bar")[0] as HTMLElement) !== 'undefined') {
+    (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.background = '#f2f2f2';
+    (document.getElementsByClassName("footer-bar")[0] as HTMLElement).style.borderTop = '#e4e4e4';
+  }
+}
+
+function setBtnActive(btnID) {
+  if (document.getElementsByClassName('active').length > 0) {
+    document.getElementsByClassName('active')[0].classList.remove('active');
+  }
+  document.getElementById(btnID).classList.add('active');
 }
