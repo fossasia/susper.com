@@ -20,7 +20,7 @@ li.dropdown-menu-box {
 
 .dropdown-menu-inner {
   height: 500px;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .menu-item {
